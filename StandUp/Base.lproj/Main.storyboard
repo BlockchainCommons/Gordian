@@ -798,7 +798,7 @@
                                     <action selector="goToSettings:" target="XfG-lQ-9wD" id="HjH-Er-zmU"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fq1-aw-HaJ">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fq1-aw-HaJ">
                                 <rect key="frame" x="438" y="141" width="178" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="166" id="TYB-oJ-WgC"/>
@@ -811,7 +811,7 @@
                                     <action selector="configureBitcoinAction:" target="XfG-lQ-9wD" id="40Q-Uw-i0W"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yrb-JG-EZW">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yrb-JG-EZW">
                                 <rect key="frame" x="438" y="171" width="178" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="166" id="lZT-XK-5TB"/>
@@ -824,7 +824,7 @@
                                     <action selector="installBitcoinAction:" target="XfG-lQ-9wD" id="PhQ-bK-sbT"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tEr-FY-Oy4">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tEr-FY-Oy4">
                                 <rect key="frame" x="438" y="201" width="178" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="166" id="6Ou-Ff-oSj"/>
@@ -837,7 +837,7 @@
                                     <action selector="configureTorAction:" target="XfG-lQ-9wD" id="Vue-aL-bKn"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w4M-Pe-mtd">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w4M-Pe-mtd">
                                 <rect key="frame" x="438" y="231" width="178" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="166" id="4a0-db-jcy"/>
@@ -865,8 +865,8 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Fk-4I-h7q">
-                                <rect key="frame" x="18" y="210" width="277" height="16"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Fk-4I-h7q">
+                                <rect key="frame" x="18" y="211" width="277" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="GTZ-K0-t6M"/>
                                     <constraint firstAttribute="width" constant="273" id="x1d-sN-IkS"/>
@@ -877,8 +877,8 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8iX-4Q-Ggk">
-                                <rect key="frame" x="18" y="240" width="277" height="16"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8iX-4Q-Ggk">
+                                <rect key="frame" x="18" y="241" width="277" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="ZiN-df-IH2"/>
                                     <constraint firstAttribute="width" constant="273" id="aiU-0l-3xZ"/>
@@ -889,8 +889,8 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8vD-Aq-02i">
-                                <rect key="frame" x="18" y="180" width="277" height="16"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8vD-Aq-02i">
+                                <rect key="frame" x="18" y="181" width="277" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="Qyp-o6-lcV"/>
                                     <constraint firstAttribute="width" constant="273" id="wvK-B5-5ZB"/>
@@ -901,8 +901,8 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tf2-ZI-mJF">
-                                <rect key="frame" x="18" y="150" width="277" height="16"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tf2-ZI-mJF">
+                                <rect key="frame" x="18" y="151" width="277" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="273" id="NO6-wi-25e"/>
                                     <constraint firstAttribute="height" constant="16" id="e2k-96-gED"/>
@@ -945,6 +945,7 @@
                             <constraint firstItem="1Mv-9m-mvv" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="25" id="Pr4-Qt-7zm"/>
                             <constraint firstItem="K4o-Sf-dSl" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="SJ9-vB-W8w"/>
                             <constraint firstAttribute="trailing" secondItem="tEr-FY-Oy4" secondAttribute="trailing" constant="20" id="Wpn-IH-S5r"/>
+                            <constraint firstItem="w4M-Pe-mtd" firstAttribute="top" secondItem="1Mv-9m-mvv" secondAttribute="bottom" constant="64" id="Y4i-mq-wZh"/>
                             <constraint firstItem="0Fk-4I-h7q" firstAttribute="top" secondItem="8iX-4Q-Ggk" secondAttribute="bottom" constant="14" id="bVl-Hd-w2r"/>
                             <constraint firstItem="tf2-ZI-mJF" firstAttribute="leading" secondItem="8iX-4Q-Ggk" secondAttribute="leading" id="c18-Xm-gBQ"/>
                             <constraint firstItem="tEr-FY-Oy4" firstAttribute="centerY" secondItem="0Fk-4I-h7q" secondAttribute="centerY" id="eZW-iX-BeQ"/>

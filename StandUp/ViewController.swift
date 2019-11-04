@@ -12,31 +12,25 @@ class ViewController: NSViewController {
     
     @IBOutlet var taskDescription: NSTextField!
     @IBOutlet var spinner: NSProgressIndicator!
-    
     @IBOutlet var torStatusLabel: NSTextField!
     @IBOutlet var bitcoinCoreStatusLabel: NSTextField!
     @IBOutlet var torConfLabel: NSTextField!
     @IBOutlet var bitcoinConfLabel: NSTextField!
-    
     @IBOutlet var installTorOutlet: NSButton!
     @IBOutlet var configureTorOutlet: NSButton!
     @IBOutlet var installBitcoindOutlet: NSButton!
     @IBOutlet var configureBitcoindOutlet: NSButton!
-    
     @IBOutlet var seeLogOutlet: NSButton!
     @IBOutlet var settingsOutlet: NSButton!
-    
     @IBOutlet var showQuickConnectOutlet: NSButton!
     
     var rpcpassword = ""
     var rpcuser = ""
     var torHostname = ""
     var rpcport = ""
-    
     var isInstallingBitcoin = Bool()
     var isInstallingTor = Bool()
     var isInstallingBrew = Bool()
-    
     var bitcoinInstalled = Bool()
     var torInstalled = Bool()
     var brewInstalled = Bool()
@@ -46,7 +40,6 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         setScene()
-        //checkBitcoindVersion()
         checkForBrew()
         
     }
@@ -627,14 +620,10 @@ class ViewController: NSViewController {
                 
                 vc.isInstallingBitcoin = isInstallingBitcoin
                 vc.isInstallingTor = isInstallingTor
-                //vc.isInstallingGPG = isInstallingGPG
-                vc.isInstallingBrew = isInstallingBrew
-                
                 vc.bitcoinInstalled = bitcoinInstalled
                 vc.torInstalled = torInstalled
                 vc.brewInstalled = brewInstalled
                 vc.wgetInstalled = wgetInstalled
-                //vc.gpgInstalled = gpgInstalled
                 
             }
             
