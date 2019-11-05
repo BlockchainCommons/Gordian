@@ -30,6 +30,6 @@ bash bin/strap.sh
 - Install [Xcode](https://itunes.apple.com/id/app/xcode/id497799835?mt=12)
 - You will need a free Apple developer account [create one here](https://developer.apple.com/programs/enroll/)
 - In XCode, click "XCode" -> "preferences" -> "Accounts" -> add your github account
-- Go to [Fully Noded in GitHub](https://github.com/Fonta1n3/FullyNoded) click "Clone and Download" -> "Open in XCode"
+- On the github repo click "Clone and Download" > "Open in XCode", when XCode launches just press the "play" button in the top left
 
 
