@@ -38,29 +38,19 @@ class Installer: NSViewController {
     
     func filterAction() {
         
-        // Checks which button was pressed and starts installation process depending on whether dependencies are insatalled or not, when one task finishes it will trigger the next in func centralStation()
-        
         spinner.startAnimation(self)
         var desc = ""
         
-        if wgetInstalled, brewInstalled {
-
-            if isInstallingBitcoin {
-
-                desc = "Getting signatures for Bitcoin Core..."
-                runScript(script: .getPGPKeys)
-
-            } else if isInstallingTor {
-
-                desc = "Intsalling Tor..."
-                runScript(script: .getTor)
-            }
-
-        } else if !brewInstalled {
-
-            desc = "Installing brew..."
-            runScript(script: .getBrew)
-
+        if isInstallingBitcoin {
+            
+            desc = "Getting Bitcoin Core..."
+            runScript(script: .getPGPKeys)
+            
+        } else if isInstallingTor {
+            
+            desc = "Installing Tor..."
+            runScript(script: .getTor)
+            
         }
         
         DispatchQueue.main.async {
@@ -73,36 +63,27 @@ class Installer: NSViewController {
     
     @IBAction func backAction(_ sender: Any) {
         
-        if let presenter = presentingViewController as? ViewController {
+        goBack()
+        
+    }
+    
+    func goBack() {
+        
+        DispatchQueue.main.async {
             
-            presenter.bitcoinInstalled = bitcoinInstalled
-            presenter.wgetInstalled = wgetInstalled
-            presenter.brewInstalled = brewInstalled
-            presenter.torInstalled = torInstalled
+            self.hideSpinner()
             
-            DispatchQueue.main.async {
+            if let presenter = self.presentingViewController as? ViewController {
                 
-                if self.bitcoinInstalled {
-                    
-                    presenter.installBitcoindOutlet.isEnabled = false
-                    presenter.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core installed"
-                    
-                }
-                
-                if self.torInstalled {
-                    
-                    presenter.installTorOutlet.isEnabled = false
-                    presenter.torStatusLabel.stringValue = "✅ Tor installed"
-                    
-                }
+                presenter.checkBitcoindVersion()
                 
             }
             
-        }
-        
-        DispatchQueue.main.async {
-        
-            self.dismiss(self)
+            DispatchQueue.main.async {
+            
+                self.dismiss(self)
+                
+            }
             
         }
         
@@ -186,16 +167,14 @@ class Installer: NSViewController {
             }
             
         }
-        
+                        
         var terminationObserver : NSObjectProtocol!
         terminationObserver = NotificationCenter.default.addObserver(forName: Process.didTerminateNotification, object: task, queue: nil) {
             
             notification -> Void in
             
             // Process was terminated. Hence, progress should be 100%
-            //This never gets called becasue i never manually terminate the task
-            
-            print("finished with task")
+            print("task terminated")
             
             NotificationCenter.default.removeObserver(terminationObserver as Any)
             
@@ -215,14 +194,6 @@ class Installer: NSViewController {
             
             torInstallComplete()
             
-        case .getBrew:
-            
-            brewInstallComplete()
-            
-        case .getWget:
-            
-            wgetInstallComplete()
-            
         case .getPGPKeys:
             
             pgpKeysBitcoinCoreComplete()
@@ -235,74 +206,26 @@ class Installer: NSViewController {
         
     }
     
-    func  bitcoinCoreInstallComplete() {
+    func bitcoinCoreInstallComplete() {
         
         self.bitcoinInstalled = true
-        
-        DispatchQueue.main.async {
-            
-            self.hideSpinner()
-            self.dismiss(self)
-            
-        }
+        goBack()
         
     }
     
     func torInstallComplete() {
         
         self.torInstalled = true
-        self.hideSpinner()
-        
-    }
-    
-    func brewInstallComplete() {
-        
-        self.brewInstalled = true
-        runScript(script: .getWget)
-        
-    }
-    
-    func wgetInstallComplete() {
-        
-        self.wgetInstalled = true
-        
-        if isInstallingBitcoin {
-            
-            DispatchQueue.main.async {
-                
-                self.spinnerDescription.stringValue = "Getting Bitcoin Core signatures and SHA..."
-                
-            }
-            
-            runScript(script: .getPGPKeys)
-            
-        } else if isInstallingTor {
-            
-            DispatchQueue.main.async {
-                
-                self.spinnerDescription.stringValue = "Getting Tor..."
-                
-            }
-            
-            runScript(script: .getTor)
-            
-        }
+        goBack()
         
     }
     
     func pgpKeysBitcoinCoreComplete() {
         
-        if isInstallingBitcoin {
-
-            DispatchQueue.main.async {
-
-                self.spinnerDescription.stringValue = "Downloading Bitcoin Core..."
-
-            }
-
-            runScript(script: .getBitcoinCore)
-
-        }
+        buildTask.terminate()
+        isRunning = false
+        bitcoinInstalled = true
+        goBack()
         
     }
     

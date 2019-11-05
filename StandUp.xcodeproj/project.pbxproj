@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D01471A12371354700F64329 /* LaunchBitcoin.command in Resources */ = {isa = PBXBuildFile; fileRef = D01471A02371354700F64329 /* LaunchBitcoin.command */; };
+		D01471A523713DC300F64329 /* ConfigureBitcoin.command in Resources */ = {isa = PBXBuildFile; fileRef = D01471A423713DC300F64329 /* ConfigureBitcoin.command */; };
 		D06E3937236BE46E0072924A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06E3935236BE46D0072924A /* Settings.swift */; };
 		D06E3938236BE46E0072924A /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06E3936236BE46E0072924A /* Settings.xib */; };
 		D0971D90237008D8001C3636 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D0971D8F237008D8001C3636 /* LICENSE */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D01471A02371354700F64329 /* LaunchBitcoin.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = LaunchBitcoin.command; sourceTree = "<group>"; };
+		D01471A423713DC300F64329 /* ConfigureBitcoin.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ConfigureBitcoin.command; sourceTree = "<group>"; };
 		D06E3935236BE46D0072924A /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		D06E3936236BE46E0072924A /* Settings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Settings.xib; sourceTree = "<group>"; };
 		D0971D8F237008D8001C3636 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -144,6 +148,8 @@
 				D0D4312E236EAE4E00630724 /* GetTor.command */,
 				D0D43130236EB5D500630724 /* GetBrew.command */,
 				D0D43132236EB64800630724 /* GetWget.command */,
+				D01471A02371354700F64329 /* LaunchBitcoin.command */,
+				D01471A423713DC300F64329 /* ConfigureBitcoin.command */,
 			);
 			path = StandUp;
 			sourceTree = "<group>";
@@ -280,8 +286,10 @@
 				D0BCB33A236A6D27000D8FDE /* Main.storyboard in Resources */,
 				D0D4312F236EAE4E00630724 /* GetTor.command in Resources */,
 				D0D43131236EB5D500630724 /* GetBrew.command in Resources */,
+				D01471A12371354700F64329 /* LaunchBitcoin.command in Resources */,
 				D0D4312B236DC66D00630724 /* GetBitcoinCore.command in Resources */,
 				D06E3938236BE46E0072924A /* Settings.xib in Resources */,
+				D01471A523713DC300F64329 /* ConfigureBitcoin.command in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

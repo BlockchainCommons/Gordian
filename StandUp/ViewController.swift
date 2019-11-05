@@ -36,11 +36,15 @@ class ViewController: NSViewController {
     var brewInstalled = Bool()
     var wgetInstalled = Bool()
     
+    dynamic var isRunning = false
+    var outputPipe:Pipe!
+    var buildTask:Process!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setScene()
-        checkForBrew()
+        checkBitcoindVersion()
         
     }
     
@@ -103,11 +107,19 @@ class ViewController: NSViewController {
         
         print("install bitcoin core")
         isInstallingBitcoin = true
-        
-        DispatchQueue.main.async {
-            
-            self.performSegue(withIdentifier: "goInstall", sender: self)
-            
+
+        if !bitcoinInstalled {
+
+            DispatchQueue.main.async {
+
+                self.performSegue(withIdentifier: "goInstall", sender: self)
+
+            }
+
+        } else {
+
+            runLaunchScript(script: .startBitcoin)
+
         }
         
     }
@@ -115,51 +127,19 @@ class ViewController: NSViewController {
     @IBAction func configureBitcoinAction(_ sender: Any) {
         
         print("configure bitcoin")
+        runLaunchScript(script: .configureBitcoin)
         
     }
     
     
-    //MARK: Script Methods
-    
-    func checkForBrew() {
-        
-        DispatchQueue.main.async {
-
-            self.taskDescription.stringValue = "checking dependencies..."
-            self.runScript(script: .checkForBrew)
-
-        }
-        
-    }
-    
-    func checkForWget() {
-        
-        DispatchQueue.main.async {
-
-            self.taskDescription.stringValue = "checking dependencies..."
-            self.runScript(script: .checkForWget)
-
-        }
-        
-    }
-    
-    func checkForGPG() {
-        
-        DispatchQueue.main.async {
-
-            self.taskDescription.stringValue = "checking dependencies..."
-            self.runScript(script: .checkForGPG)
-
-        }
-        
-    }
+    // MARK: Script Methods
     
     func checkBitcoindVersion() {
         
         DispatchQueue.main.async {
             
             self.taskDescription.stringValue = "checking if Bitcoin Core is installed..."
-            self.runScript(script: .checkForBitcoind)
+            self.runScript(script: .checkForBitcoin)
             
         }
         
@@ -226,7 +206,6 @@ class ViewController: NSViewController {
     
     func runScript(script: SCRIPT) {
         
-        print(script.rawValue)
         let appleScript = NSAppleScript(source: script.rawValue)!
         var errorDict:NSDictionary?
         let result = appleScript.executeAndReturnError(&errorDict).stringValue
@@ -251,17 +230,11 @@ class ViewController: NSViewController {
         
         switch script {
             
-        case .checkForWget:
+        case .configureBitcoin:
             
-            wgetInstalled = true
-            parseWgetResult(result: result)
+            bitcoinConfigured()
             
-        case .checkForBrew:
-            
-            brewInstalled = true
-            parseBrewResult(result: result)
-            
-        case .checkForBitcoind:
+        case .checkForBitcoin:
             
             bitcoinInstalled = true
             parseBitcoindResponse(result: result)
@@ -301,18 +274,7 @@ class ViewController: NSViewController {
         
         switch script {
             
-        case .checkForWget:
-            
-            wgetInstalled = false
-            checkBitcoindVersion()
-            //hideSpinner()
-            
-        case .checkForBrew:
-            
-            brewInstalled = false
-            checkForWget()
-            
-        case .checkForBitcoind:
+        case .checkForBitcoin:
             
             DispatchQueue.main.async {
                 
@@ -351,14 +313,8 @@ class ViewController: NSViewController {
                 self.bitcoinConfLabel.stringValue = "⛔️ Bitcoin Core not configured"
                 
             }
-            //
-            //            case .getTorHostname:
-            //
-            //                self.parseHostname(response: self.outputString)
-            //
-            //            case .editTorrc:
-            //
-            //                self.checkIfTorIsConfigured(response: self.outputString)
+            
+            getTorrcFile()
             
         default:
             
@@ -370,24 +326,19 @@ class ViewController: NSViewController {
     
     //MARK: Script Result Parsers
     
-    func parseWgetResult(result: String) {
+    func bitcoinConfigured() {
         
-        print("result = \(result)")
-        checkBitcoindVersion()
-        
+        print("bitcoin configured")
     }
     
-    func parseBrewResult(result: String) {
+    func startBitcoin() {
+        print("start bitcoin")
         
-        print("result = \(result)")
-        checkForWget()
-        
-    }
-    
-    func parseGPGResult(result: String) {
-        
-        print("result = \(result)")
-        checkForBrew()
+        DispatchQueue.main.async {
+            
+            self.installBitcoindOutlet.isEnabled = false
+            
+        }
         
     }
     
@@ -463,6 +414,7 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 
                 self.bitcoinConfLabel.stringValue = "✅ Bitcoin Core configured"
+                self.configureBitcoindOutlet.isEnabled = false
                 
             }
             
@@ -473,6 +425,12 @@ class ViewController: NSViewController {
                 
                 self.bitcoinConfLabel.stringValue = "⛔️ Bitcoin Core not configured"
                 self.configureBitcoindOutlet.isEnabled = true
+                
+                if !self.bitcoinInstalled {
+                    
+                    self.configureBitcoindOutlet.isEnabled = false
+                    
+                }
                 
             }
             
@@ -511,23 +469,25 @@ class ViewController: NSViewController {
             
         }
         
-        checkForGPG()
+        //checkForGPG()
         
     }
     
     func parseBitcoindResponse(result: String) {
         print("parseBitcoindResponse")
         
-        if result.contains("Bitcoin Core Daemon version") {
+        if result.contains("Bitcoin Core version") {
             
             print("bitcoind installed")
             
             let arr = result.components(separatedBy: "Copyright (C)")
-            let version = (arr[0]).replacingOccurrences(of: "Bitcoin Core Daemon version ", with: "")
+            let version = (arr[0]).replacingOccurrences(of: "Bitcoin Core version ", with: "")
             
             DispatchQueue.main.async {
                 
+                self.installBitcoindOutlet.isEnabled = true
                 self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(version)"
+                self.installBitcoindOutlet.title = "Start Bitcoin QT"
                 self.checkTorVersion()
                 
             }
@@ -554,9 +514,13 @@ class ViewController: NSViewController {
         
         torHostname = response
         
-        DispatchQueue.main.async {
+        if rpcuser != "", rpcpassword != "", rpcport != "", torHostname != "" {
             
-            self.showQuickConnectOutlet.isEnabled = true
+            DispatchQueue.main.async {
+                
+                self.showQuickConnectOutlet.isEnabled = true
+                
+            }
             
         }
         
@@ -597,7 +561,94 @@ class ViewController: NSViewController {
         
     }
     
-    //MARK: Segue Prep
+    // MARK: For launching bitcoinqt
+    
+    func runLaunchScript(script: SCRIPT) {
+
+        isRunning = true
+        let taskQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+        let resource = script.rawValue
+
+        taskQueue.async {
+
+            guard let path = Bundle.main.path(forResource: resource, ofType: "command") else {
+                print("Unable to locate \(resource).command")
+                return
+            }
+
+            self.buildTask = Process()
+            self.buildTask.launchPath = path
+
+            self.buildTask.terminationHandler = {
+
+                task in
+                self.isRunning = false
+
+            }
+
+            self.captureStandardOutputAndRouteToTextView(task: self.buildTask, script: script)
+            self.buildTask.launch()
+            self.buildTask.waitUntilExit()
+
+        }
+
+    }
+    
+    func captureStandardOutputAndRouteToTextView(task:Process, script: SCRIPT) {
+        
+        outputPipe = Pipe()
+        task.standardOutput = outputPipe
+        let outHandle = outputPipe.fileHandleForReading
+        outHandle.waitForDataInBackgroundAndNotify()
+        
+        var progressObserver : NSObjectProtocol!
+        progressObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outHandle, queue: nil) {
+            notification in
+            
+            let data = outHandle.availableData
+            
+            if data.count > 0 {
+                
+                outHandle.waitForDataInBackgroundAndNotify()
+                
+            } else {
+                
+                // That means we've reached the end of the input.
+                print("done with task")
+                
+                DispatchQueue.main.async {
+                    
+                    if script == .configureBitcoin {
+                        
+                        self.checkBitcoinConfForRPCCredentials()
+                        
+                    }
+                    
+                }
+                
+                NotificationCenter.default.removeObserver(progressObserver as Any)
+                
+            }
+            
+        }
+                        
+        var terminationObserver : NSObjectProtocol!
+        terminationObserver = NotificationCenter.default.addObserver(forName: Process.didTerminateNotification, object: task, queue: nil) {
+            
+            notification -> Void in
+            
+            // Process was terminated. Hence, progress should be 100%
+            //This never gets called becasue i never manually terminate the task
+            
+            print("task terminated")
+            
+            NotificationCenter.default.removeObserver(terminationObserver as Any)
+            
+        }
+                
+    }
+    
+    // MARK: Segue Prep
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         
