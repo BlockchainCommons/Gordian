@@ -8,7 +8,7 @@ Bitcoin-Standup-macos is an open sourced app which will install, configure and l
 
 The app is under active development and as it stands will install and configure Bitcoin Core.
 
-Once the app has completed its install scripts and ocnfigurations it will display a QR code to the user which can be scanned by Fully Noded to connect to the node remotely over Tor.
+Once the app has completed its install scripts and configurations it will display a Quick Connect QR code to the user which can be scanned by Fully Noded to connect to the node remotely over Tor.
 
 The app relies on [Strap.sh](https://github.com/MikeMcQuaid/strap/blob/master/bin/strap.sh)
 
