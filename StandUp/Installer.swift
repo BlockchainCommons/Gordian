@@ -1,6 +1,6 @@
 //
 //  Installer.swift
-//  FullyNoded
+//  StandUp
 //
 //  Created by Peter on 07/10/19.
 //  Copyright © 2019 Peter. All rights reserved.
@@ -14,15 +14,12 @@ class Installer: NSViewController {
     @IBOutlet var spinnerDescription: NSTextField!
     @IBOutlet var backButtonOutlet: NSButton!
     @IBOutlet var consoleOutput: NSTextView!
-    
     var isInstallingBitcoin = Bool()
     var isInstallingTor = Bool()
-    
     dynamic var isRunning = false
     var outputPipe:Pipe!
     var buildTask:Process!
     var outputString = ""
-    
     var bitcoinInstalled = Bool()
     var torInstalled = Bool()
     var brewInstalled = Bool()
@@ -38,13 +35,13 @@ class Installer: NSViewController {
     
     func filterAction() {
         
-        spinner.startAnimation(self)
         var desc = ""
+        spinner.startAnimation(self)
         
         if isInstallingBitcoin {
             
             desc = "Getting Bitcoin Core..."
-            runScript(script: .getPGPKeys)
+            runScript(script: .getBitcoin)
             
         } else if isInstallingTor {
             
@@ -74,6 +71,16 @@ class Installer: NSViewController {
             self.hideSpinner()
             
             if let presenter = self.presentingViewController as? ViewController {
+                
+                if self.isInstallingBitcoin && self.bitcoinInstalled {
+                    
+                    presenter.bitcoinStarted()
+                    
+                } else if self.isInstallingTor && self.torInstalled {
+                    
+                    presenter.torStarted()
+                    
+                }
                 
                 presenter.checkBitcoindVersion()
                 
@@ -185,29 +192,17 @@ class Installer: NSViewController {
     func centralStation(script: SCRIPT) {
         
         switch script {
-            
-        case .getBitcoinCore:
-            
-            bitcoinCoreInstallComplete()
-            
-        case .getTor:
-            
-            torInstallComplete()
-            
-        case .getPGPKeys:
-            
-            pgpKeysBitcoinCoreComplete()
-            
-        default:
-            
-            self.hideSpinner()
-            
+        case .getTor: torInstallComplete()
+        case .getBitcoin: bitcoinCoreInstallComplete()
+        default: hideSpinner()
         }
         
     }
     
     func bitcoinCoreInstallComplete() {
         
+        buildTask.terminate()
+        isRunning = false
         self.bitcoinInstalled = true
         goBack()
         
@@ -215,16 +210,9 @@ class Installer: NSViewController {
     
     func torInstallComplete() {
         
-        self.torInstalled = true
-        goBack()
-        
-    }
-    
-    func pgpKeysBitcoinCoreComplete() {
-        
         buildTask.terminate()
         isRunning = false
-        bitcoinInstalled = true
+        self.torInstalled = true
         goBack()
         
     }

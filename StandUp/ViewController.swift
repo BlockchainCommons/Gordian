@@ -23,7 +23,6 @@ class ViewController: NSViewController {
     @IBOutlet var seeLogOutlet: NSButton!
     @IBOutlet var settingsOutlet: NSButton!
     @IBOutlet var showQuickConnectOutlet: NSButton!
-    
     var rpcpassword = ""
     var rpcuser = ""
     var torHostname = ""
@@ -35,7 +34,6 @@ class ViewController: NSViewController {
     var torInstalled = Bool()
     var brewInstalled = Bool()
     var wgetInstalled = Bool()
-    
     dynamic var isRunning = false
     var outputPipe:Pipe!
     var buildTask:Process!
@@ -80,33 +78,47 @@ class ViewController: NSViewController {
         
     }
     
-    //MARK: User Action Installers and Configurators
+    //MARK: User Action Installers, Starters and Configurators
+    
+    @IBAction func refreshView(_ sender: Any) {
+        
+        checkBitcoindVersion()
+        
+    }
+    
     
     @IBAction func installTorAction(_ sender: Any) {
         
-        print("install tor")
-        isInstallingTor = true
-        
-        DispatchQueue.main.async {
+        if !torInstalled {
             
-            self.performSegue(withIdentifier: "goInstall", sender: self)
+            isInstallingTor = true
+            isInstallingBitcoin = false
+            
+            DispatchQueue.main.async {
+                
+                self.performSegue(withIdentifier: "goInstall", sender: self)
+                
+            }
+            
+        } else {
+            
+            self.torStarted()
+            runLaunchScript(script: .startTor)
             
         }
-        
+                
     }
     
     @IBAction func configureTorAction(_ sender: Any) {
         
-        print("configure tor")
-        //TO DO: add hidden service to torrc, right now it only enables control port
-        //editTorrc()
+        runLaunchScript(script: .configureTor)
         
     }
     
     @IBAction func installBitcoinAction(_ sender: Any) {
         
-        print("install bitcoin core")
         isInstallingBitcoin = true
+        isInstallingTor = false
 
         if !bitcoinInstalled {
 
@@ -118,7 +130,7 @@ class ViewController: NSViewController {
 
         } else {
 
-            runLaunchScript(script: .startBitcoin)
+            runScript(script: .isBitcoinOn)
 
         }
         
@@ -126,7 +138,6 @@ class ViewController: NSViewController {
     
     @IBAction func configureBitcoinAction(_ sender: Any) {
         
-        print("configure bitcoin")
         runLaunchScript(script: .configureBitcoin)
         
     }
@@ -168,17 +179,6 @@ class ViewController: NSViewController {
         
     }
     
-    func editTorrc() {
-        
-        DispatchQueue.main.async {
-            
-            self.taskDescription.stringValue = "configuring hidden service"
-            self.runScript(script: .editTorrc)
-            
-        }
-        
-    }
-    
     func checkBitcoinConfForRPCCredentials() {
         print("checkBitcoinConfForRPCCredentials")
         
@@ -202,7 +202,7 @@ class ViewController: NSViewController {
         
     }
     
-    //MARK: Run Script
+    //MARK: Run Apple Script
     
     func runScript(script: SCRIPT) {
         
@@ -217,7 +217,6 @@ class ViewController: NSViewController {
             
         } else {
             
-            print("result = \(String(describing: result!))")
             parseScriptResult(script: script, result: result!)
             
         }
@@ -229,50 +228,25 @@ class ViewController: NSViewController {
     func parseScriptResult(script: SCRIPT, result: String) {
         
         switch script {
-            
-        case .configureBitcoin:
-            
-            bitcoinConfigured()
-            
-        case .checkForBitcoin:
-            
-            bitcoinInstalled = true
-            parseBitcoindResponse(result: result)
-            
-        case .checkForTor:
-            
-            torInstalled = true
-            parseTorVersion(result: result)
-            
-        case .getTorrc:
-            
-            checkIfTorIsConfigured(response: result)
-            
-        case .getRPCCredentials:
-            
-            checkForRPCCredentials(response: result)
-            
-        case .getTorHostname:
-            
-            parseHostname(response: result)
-            
-        case .editTorrc:
-            
-            checkIfTorIsConfigured(response: result)
-            
-        default:
-
-            break
-            
+        case .isBitcoinOn: bitcoinStarted()
+        case .configureBitcoin, .configureTor: checkBitcoindVersion()
+        case .checkForBitcoin: bitcoinInstalled = true; parseBitcoindResponse(result: result)
+        case .checkForTor: torInstalled = true; parseTorVersion(result: result)
+        case .getTorrc: checkIfTorIsConfigured(response: result)
+        case .getRPCCredentials: checkForRPCCredentials(response: result)
+        case .getTorHostname: parseHostname(response: result)
+        default: break
         }
         
     }
     
     func parseError(script: SCRIPT, error: NSDictionary) {
         
-        print("error with script \(script) = \(error)")
-        
         switch script {
+            
+        case .isBitcoinOn:
+            
+            runLaunchScript(script: .startBitcoinqt)
             
         case .checkForBitcoin:
             
@@ -294,7 +268,7 @@ class ViewController: NSViewController {
                 self.torConfLabel.stringValue = "⛔️ Tor not configured"
                 self.torStatusLabel.stringValue = "⛔️ Tor not installed"
                 self.installTorOutlet.isEnabled = true
-                self.hideSpinner()
+                self.checkBitcoinConfForRPCCredentials()
                 
             }
             
@@ -303,6 +277,7 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 
                 self.torConfLabel.stringValue = "⛔️ Tor not configured"
+                self.hideSpinner()
                 
             }
             
@@ -326,13 +301,38 @@ class ViewController: NSViewController {
     
     //MARK: Script Result Parsers
     
+    func bitcoinStarted() {
+        
+        DispatchQueue.main.async {
+            
+            self.installBitcoindOutlet.isEnabled = false
+            
+        }
+        
+    }
+    
+    func torStarted() {
+        
+        DispatchQueue.main.async {
+            
+            self.installTorOutlet.isEnabled = false
+            
+            
+        }
+        
+    }
+    
     func bitcoinConfigured() {
         
-        print("bitcoin configured")
+        DispatchQueue.main.async {
+            
+            self.configureBitcoindOutlet.isEnabled = false
+            
+        }
+        
     }
     
     func startBitcoin() {
-        print("start bitcoin")
         
         DispatchQueue.main.async {
             
@@ -343,8 +343,6 @@ class ViewController: NSViewController {
     }
     
     func parseTorVersion(result: String) {
-        
-        print("result = \(result)")
         
         if result.contains("Tor version") {
             
@@ -360,7 +358,8 @@ class ViewController: NSViewController {
                 
                 self.torStatusLabel.stringValue = "✅ Tor v\(version)"
                 self.checkBitcoinConfForRPCCredentials()
-                //self.getTorrcFile()
+                self.installTorOutlet.title = "Start Tor"
+                self.installTorOutlet.isEnabled = true
                 
             }
             
@@ -377,12 +376,8 @@ class ViewController: NSViewController {
     }
     
     func checkForRPCCredentials(response: String) {
-        print("checkForRPCCredentials")
-        
-        print("bitcoin.conf = \(response)")
         
         let bitcoinConf = response.components(separatedBy: "\r")
-        print("bitcoinConf = \(bitcoinConf)")
         
         for item in bitcoinConf {
             
@@ -441,11 +436,8 @@ class ViewController: NSViewController {
     }
     
     func checkIfTorIsConfigured(response: String) {
-        print("checkIfTorIsConfigured")
         
-        print("torrc = \(response)")
-        
-        if response.contains("HiddenServiceDir /usr/local/var/lib/tor/bitcoinV3/") {
+        if response.contains("HiddenServiceDir /usr/local/var/lib/tor/standup/") {
             
             // hidden service exists already
             DispatchQueue.main.async {
@@ -458,7 +450,6 @@ class ViewController: NSViewController {
             
         } else {
             
-            //create hidden service
             DispatchQueue.main.async {
                 
                 self.torConfLabel.stringValue = "⛔️ Tor not configured"
@@ -468,17 +459,12 @@ class ViewController: NSViewController {
             }
             
         }
-        
-        //checkForGPG()
-        
+                
     }
     
     func parseBitcoindResponse(result: String) {
-        print("parseBitcoindResponse")
         
         if result.contains("Bitcoin Core version") {
-            
-            print("bitcoind installed")
             
             let arr = result.components(separatedBy: "Copyright (C)")
             let version = (arr[0]).replacingOccurrences(of: "Bitcoin Core version ", with: "")
@@ -487,15 +473,12 @@ class ViewController: NSViewController {
                 
                 self.installBitcoindOutlet.isEnabled = true
                 self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(version)"
-                self.installBitcoindOutlet.title = "Start Bitcoin QT"
+                self.installBitcoindOutlet.title = "Start Bitcoin-qt"
                 self.checkTorVersion()
                 
             }
             
         } else {
-            
-            //bitcoin not installed
-            print("bitcoind not installed")
             
             DispatchQueue.main.async {
                 
@@ -510,7 +493,6 @@ class ViewController: NSViewController {
     }
     
     func parseHostname(response: String) {
-        print("parseHostname")
         
         torHostname = response
         
@@ -549,19 +531,17 @@ class ViewController: NSViewController {
         bitcoinCoreStatusLabel.stringValue = ""
         torConfLabel.stringValue = ""
         bitcoinConfLabel.stringValue = ""
-        
         showQuickConnectOutlet.isEnabled = false
         installTorOutlet.isEnabled = false
         installBitcoindOutlet.isEnabled = false
         configureTorOutlet.isEnabled = false
         configureBitcoindOutlet.isEnabled = false
-        
         taskDescription.stringValue = "checking system..."
         spinner.startAnimation(self)
         
     }
     
-    // MARK: For launching bitcoinqt
+    // MARK: For launching bitcoinqt etc...
     
     func runLaunchScript(script: SCRIPT) {
 
@@ -621,6 +601,18 @@ class ViewController: NSViewController {
                     if script == .configureBitcoin {
                         
                         self.checkBitcoinConfForRPCCredentials()
+                        
+                    }
+                    
+                    if script == .startBitcoinqt {
+                        
+                        self.bitcoinStarted()
+                        
+                    }
+                    
+                    if script == .startTor {
+                        
+                        self.torStarted()
                         
                     }
                     
