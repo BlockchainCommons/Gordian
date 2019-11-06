@@ -1,6 +1,6 @@
 //
 //  QRDisplayer.swift
-//  FullyNoded
+//  StandUp
 //
 //  Created by Peter on 07/10/19.
 //  Copyright © 2019 Peter. All rights reserved.
