@@ -29,13 +29,15 @@ The app currently relies on initial installation of [Strap.sh](https://github.co
 
 ### Instructions
 
+WARNING: Be careful about using GitHub bash scripts on existing systems as they can compromise your system. Use on new systems only. We also suggest you view the [script](https://github.com/MikeMcQuaid/strap/blob/master/bin/strap.sh) in advance, and only execute it if you trust the source. [@MikeMcQuaid](https://github.com/MikeMcQuaid) is the open source [Homebrew](https://brew.sh) Project's lead maintainer and also a senior member of the GitHub staff.
+
 1. The first step is to "strap" your mac. Either:
    - Execute *Strap* directly from your Mac's CLI (command line interface)
-     1. Execute this command via the *Terminal* app's command line interface (to start *Terminal* type command + space + "terminal"):
+     1. Execute these commands via the *Terminal* app's command line interface (to start *Terminal* type command + space + "terminal"):
      ```bash
-     curl -L https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh | bash
+     curl -L https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh > ~/Downloads/strap.sh
+     bash ~/Downloads/strap.sh
      ```
-    **WARNING:** Be careful about using `curl` piped | to `bash` or any other shell as it can compromise your system. [View the script first](https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh | bash), and only execute if you trust the source.
    - OR Clone the repo to your mac and execute the script.
      1. Execute this command via the *Terminal* app's command line interface (to start *Terminal* type command + space + "terminal"):
      ```bash
