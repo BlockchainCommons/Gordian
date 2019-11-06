@@ -2,7 +2,7 @@
 
 *Bitcoin-Standup* is a open source tool to help users install a [Bitcoin-Core](https://bitcoin.org/) full-node on a fresh computer or VPS, add important privacy tools like onion services, and eventually optional Bitcoin-related tools like [C-Lightning](https://github.com/ElementsProject/lightning), [Esplora](https://github.com/Blockstream/esplora), [BTCPay Server](https://github.com/btcpayserver/btcpayserver), and emerging technologies like Bitcoin-Based Decentralized Identifiers.
 
-This tool also will harden and secure your OS to current best-practices, as well as adding sufficient system tools to support basic Bitcoin development. After setup, *Bitcoin-Standup* will present a QR code or special URI that can be used to securely link your full-node to other devices, such as your mobile phone or desktop. 
+This tool also will harden and secure your OS to current best-practices, as well as adding sufficient system tools to support basic Bitcoin development. After setup, *Bitcoin-Standup* will present a QR code or special URI that can be used to securely link your full-node to other devices, such as your mobile phone or desktop.
 
 Once installed and fully synced, a *Bitcoin-Standup* full node can also be used with developer education courses like [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line).
 
@@ -20,7 +20,7 @@ The application *Bitcoin Standup.app* currently installs, configures and launche
 
 Once the app has completely installed and launched Bitcoin it will display a *Quick Connect QR code* to the user which can be scanned by the iOS application [Fully Noded](https://github.com/FontaineDenton/FullyNoded) to connect to the node remotely over Tor.
 
-The app currently relies on initial installation of [Strap.sh](https://github.com/MikeMcQuaid/strap/blob/master/bin/strap.sh) to install basic development tools before installing tor and bitcoin-qt. This tool also does some basic hardening of your Macintosh including turning on FileVault, the full-disk encryption services offered in macOS. Future versions of *Bitcoin Standup* will integrate *Strap.sh* to offer additional macOS hardening configuration options.
+The app currently relies on initial installation of [Strap.sh](https://github.com/MikeMcQuaid/strap/) to install basic development tools before installing tor and bitcoin-qt. This tool also does some basic hardening of your Macintosh including turning on FileVault, the full-disk encryption services offered in macOS. Future versions of *Bitcoin Standup* will integrate *Strap.sh* to offer additional macOS hardening configuration options.
 
 ### Dependencies
 
@@ -33,9 +33,9 @@ The app currently relies on initial installation of [Strap.sh](https://github.co
    - Execute *Strap* directly from your Mac's CLI (command line interface)
      1. Execute this command via the *Terminal* app's command line interface (to start *Terminal* type command + space + "terminal"):
      ```bash
-     curl -L https://raw.githubusercontent.com/BlockchainCommons/Bitcoin-Standup/master/bin/strap.sh | bash
+     curl -L https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh | bash
      ```
-    **WARNING:** Be careful about using `curl` piped | to `bash` or any other shell as it can compromise your system. [View the script first](curl -L https://raw.githubusercontent.com/BlockchainCommons/Bitcoin-Standup/master/bin/strap.sh | bash), and only execute if you trust the source.
+    **WARNING:** Be careful about using `curl` piped | to `bash` or any other shell as it can compromise your system. [View the script first](https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh | bash), and only execute if you trust the source.
    - OR Clone the repo to your mac and execute the script.
      1. Execute this command via the *Terminal* app's command line interface (to start *Terminal* type command + space + "terminal"):
      ```bash
@@ -92,4 +92,3 @@ btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332
 ```
 
 This allows node hardware manufacturers the option of hard coding a label for the node. There ideally would be a two factor authentication where user inputs the V2 or V3 auth cookie into the client app manually so that if the URL leaks somehow it would not give an attacker access to the node.
-
