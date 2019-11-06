@@ -84,7 +84,7 @@ btcstandup://:@:?label=&v2password=
 Example with label and v2password:
 
 ```
-btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332?label=Node%20Name&v2password=uenfieufnuf4
+btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332?label=nodeName&v2password=uenfieufnuf4
 ```
 
 Example without label and v2password:
@@ -93,6 +93,4 @@ Example without label and v2password:
 btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332
 ```
 
-This allows node hardware manufacturers the option of hard coding a label for the node. Ideally there would be a two factor authentication where user inputs a V2 or V3 auth cookie into the client app manually so that if the URL leaks somehow it would not give an attacker access to the node.
-
-
+This allows node hardware manufacturers the option of hard coding a label for the node. There ideally would be a two factor authentication where user inputs the V2 or V3 auth cookie into the client app manually so that if the URL leaks somehow it would not give an attacker access to the node.
