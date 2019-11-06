@@ -29,7 +29,7 @@ The app currently relies on initial installation of [Strap.sh](https://github.co
 
 ### Instructions
 
-WARNING: Be careful about using GitHub bash scripts on existing systems as they can compromise your system. Use on new systems only. We also suggest you view the [script](https://github.com/MikeMcQuaid/strap/blob/master/bin/strap.sh) in advance, and only execute it if you trust the source. [@MikeMcQuaid](https://github.com/MikeMcQuaid) is the open source [Homebrew](https://brew.sh) Project's lead maintainer and also a senior member of the GitHub staff.
+*WARNING:* Be careful about using GitHub bash scripts on existing systems as they can compromise your system. Use on new systems only. We also suggest you view the [script](https://github.com/MikeMcQuaid/strap/blob/master/bin/strap.sh) in advance, and only execute it if you trust the source. [@MikeMcQuaid](https://github.com/MikeMcQuaid) is the open source [Homebrew](https://brew.sh) Project's lead maintainer and also a senior member of the GitHub staff.
 
 1. The first step is to "strap" your mac. Either:
    - Execute *Strap* directly from your Mac's CLI (command line interface)
