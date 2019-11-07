@@ -22,8 +22,7 @@ class Installer: NSViewController {
     var outputString = ""
     var bitcoinInstalled = Bool()
     var torInstalled = Bool()
-    var brewInstalled = Bool()
-    var wgetInstalled = Bool()
+    var standingUp = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +47,11 @@ class Installer: NSViewController {
             desc = "Installing Tor..."
             runScript(script: .getTor)
             
+        } else if standingUp {
+            
+            desc = "Standing Up (this can take awhile)..."
+            runScript(script: .standUp)
+            
         }
         
         DispatchQueue.main.async {
@@ -71,16 +75,6 @@ class Installer: NSViewController {
             self.hideSpinner()
             
             if let presenter = self.presentingViewController as? ViewController {
-                
-                if self.isInstallingBitcoin && self.bitcoinInstalled {
-                    
-                    presenter.bitcoinStarted()
-                    
-                } else if self.isInstallingTor && self.torInstalled {
-                    
-                    presenter.torStarted()
-                    
-                }
                 
                 presenter.checkBitcoindVersion()
                 
@@ -150,6 +144,7 @@ class Installer: NSViewController {
                     
                     DispatchQueue.main.async {
                         self.consoleOutput.string = self.outputString
+                        self.consoleOutput.scrollToEndOfDocument(self)
                     }
                     
                 }
@@ -192,6 +187,7 @@ class Installer: NSViewController {
     func centralStation(script: SCRIPT) {
         
         switch script {
+        case .standUp: bitcoinInstalled = true; torInstalled = true; goBack()
         case .getTor: torInstallComplete()
         case .getBitcoin: bitcoinCoreInstallComplete()
         default: hideSpinner()

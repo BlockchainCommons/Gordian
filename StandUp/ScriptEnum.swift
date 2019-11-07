@@ -16,8 +16,8 @@ public enum SCRIPT: String {
     case getTorrc = "(do shell script \"cat /usr/local/etc/tor/torrc\")"
     case getRPCCredentials = "(do shell script \"cat ~/Library/Application*Support/Bitcoin/bitcoin.conf\")"
     case getTorHostname = "(do shell script \"cat /usr/local/var/lib/tor/standup/hostname\")"
-    case startBitcoinqt = "(do shell script \"~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3/bin/bitcoin-qt\")"
     case isBitcoinOn = "(do shell script \"~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3/bin/bitcoin-cli getblockchaininfo\")"
+    case stopBitcoin = "(do shell script \"~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3/bin/bitcoin-cli stop\")"
     
     // Run asynchronous tasks like downloading binaries with Process() on Installer.swift
     case getBitcoin = "GetPGPKeys"
@@ -25,5 +25,9 @@ public enum SCRIPT: String {
     case configureBitcoin = "ConfigureBitcoin"
     case configureTor = "ConfigureTor"
     case startTor = "StartTor"
+    case startBitcoinqt = "LaunchBitcoin"
+    case standUp = "StandUp"
+    case stopTor = "StopTor"
+    case verifySigs = "Verify"
     
 }
