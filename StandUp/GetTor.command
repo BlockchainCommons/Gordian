@@ -5,7 +5,7 @@
 #
 #  Created by Peter on 03/11/19.
 #  Copyright © 2019 Peter. All rights reserved.
-echo "Downloading, installing, configuring and starting Tor..."
+echo "Setting up Tor..."
 /usr/local/bin/brew install tor
 cp /usr/local/etc/tor/torrc.sample /usr/local/etc/tor/torrc
 sed -i -e 's/#ControlPort 9051/ControlPort 9051/g' /usr/local/etc/tor/torrc
