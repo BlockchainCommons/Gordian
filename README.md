@@ -185,4 +185,3 @@ PRs are accepted. See CONTRIBUTING.md
 ## License
 
 MIT © 2019 Blockchain Commons, LLC
-
