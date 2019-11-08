@@ -22,6 +22,7 @@ class ViewController: NSViewController {
     @IBOutlet var settingsOutlet: NSButton!
     @IBOutlet var showQuickConnectOutlet: NSButton!
     @IBOutlet var standUpOutlet: NSButton!
+    @IBOutlet var verifyOutlet: NSButton!
     var rpcpassword = ""
     var rpcuser = ""
     var torHostname = ""
@@ -82,6 +83,13 @@ class ViewController: NSViewController {
     }
     
     //MARK: User Action Installers, Starters and Configurators
+    
+    @IBAction func verifyAction(_ sender: Any) {
+        
+        checkSigs()
+        
+    }
+    
     
     @IBAction func standUp(_ sender: Any) {
         print("standup")
@@ -400,12 +408,7 @@ class ViewController: NSViewController {
             
             self.installBitcoindOutlet.title = "Stop Bitcoin-qt"
             self.installBitcoindOutlet.isEnabled = true
-            
-            if self.bitcoinInstalled {
-                
-                self.checkSigs()
-                
-            }
+            self.hideSpinner()
             
         }
         
@@ -441,7 +444,7 @@ class ViewController: NSViewController {
             
         }
         
-        isBitcoinOn()
+        //isBitcoinOn()
         
     }
     
@@ -585,6 +588,7 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 
                 self.installBitcoindOutlet.isEnabled = true
+                self.verifyOutlet.isEnabled = true
                 self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(version)"
                 self.installBitcoindOutlet.title = "Start Bitcoin-qt"
                 self.checkTorVersion()
@@ -696,6 +700,8 @@ class ViewController: NSViewController {
         installTorOutlet.isEnabled = false
         installBitcoindOutlet.isEnabled = false
         standUpOutlet.isEnabled = false
+        verifyOutlet.isEnabled = false
+        
         taskDescription.stringValue = "checking system..."
         spinner.startAnimation(self)
         

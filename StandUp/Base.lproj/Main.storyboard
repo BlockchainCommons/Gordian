@@ -821,7 +821,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K4o-Sf-dSl">
                                 <rect key="frame" x="299" y="342" width="33" height="14"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="em4-Ia-ulc">
-                                    <font key="font" metaFont="label" size="11"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -929,15 +929,30 @@
                                     <action selector="installBitcoinAction:" target="XfG-lQ-9wD" id="PhQ-bK-sbT"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="y6q-T1-byM">
+                                <rect key="frame" x="241" y="172" width="148" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="136" id="dVB-ll-PfP"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Verify" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LQc-xM-S6Q">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="verifyAction:" target="XfG-lQ-9wD" id="3c7-iT-xBT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="8vD-Aq-02i" firstAttribute="top" secondItem="0Fk-4I-h7q" secondAttribute="bottom" constant="14" id="5AG-OU-sII"/>
                             <constraint firstItem="8vD-Aq-02i" firstAttribute="leading" secondItem="8iX-4Q-Ggk" secondAttribute="leading" id="6px-mb-4oW"/>
+                            <constraint firstItem="y6q-T1-byM" firstAttribute="top" secondItem="Yrb-JG-EZW" secondAttribute="bottom" constant="9" id="7Pj-8I-sdX"/>
                             <constraint firstItem="w4M-Pe-mtd" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="BYL-nC-W9w"/>
                             <constraint firstItem="tf2-ZI-mJF" firstAttribute="top" secondItem="8vD-Aq-02i" secondAttribute="bottom" constant="14" id="MHS-yy-GrG"/>
                             <constraint firstItem="LCJ-cy-WyO" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="OsP-QR-VfO"/>
                             <constraint firstItem="1Mv-9m-mvv" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="25" id="Pr4-Qt-7zm"/>
                             <constraint firstItem="K4o-Sf-dSl" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="SJ9-vB-W8w"/>
+                            <constraint firstItem="y6q-T1-byM" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="WB2-Xn-6yT"/>
                             <constraint firstItem="Yrb-JG-EZW" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="Ysv-zt-rj1"/>
                             <constraint firstItem="0Fk-4I-h7q" firstAttribute="top" secondItem="8iX-4Q-Ggk" secondAttribute="bottom" constant="14" id="bVl-Hd-w2r"/>
                             <constraint firstItem="tf2-ZI-mJF" firstAttribute="leading" secondItem="8iX-4Q-Ggk" secondAttribute="leading" id="c18-Xm-gBQ"/>
@@ -969,6 +984,7 @@
                         <outlet property="taskDescription" destination="K4o-Sf-dSl" id="Xb9-TC-9s2"/>
                         <outlet property="torConfLabel" destination="0Fk-4I-h7q" id="hoP-rI-iTs"/>
                         <outlet property="torStatusLabel" destination="8iX-4Q-Ggk" id="O4b-d0-gwO"/>
+                        <outlet property="verifyOutlet" destination="y6q-T1-byM" id="I3N-1T-qsP"/>
                         <segue destination="eC6-Cf-Cnx" kind="sheet" identifier="showPairingCode" id="Yl0-9Y-9DR"/>
                         <segue destination="mY6-pf-cJ7" kind="sheet" identifier="goToSettings" id="qCM-WY-hFq"/>
                         <segue destination="lGs-ue-8Wa" kind="sheet" identifier="goInstall" id="cqP-Ve-rOY"/>

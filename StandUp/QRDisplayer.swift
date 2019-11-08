@@ -20,7 +20,7 @@ class QRDisplayer: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = "btcrpc://\(rpcuser):\(rpcpassword)@\(torHostname):\(rpcport)/?label=Stand%20Up%20Node"
+        let url = "btcstandup://\(rpcuser):\(rpcpassword)@\(torHostname):\(rpcport)/?label=Stand%20Up%20Node"
         imageView.image = getQRCode(textInput: url)
         
     }

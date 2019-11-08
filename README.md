@@ -78,19 +78,19 @@ The iOS application [Fully Noded](https://github.com/FontaineDenton/FullyNoded) 
 An example URL following the current format is:
 
 ```
-btcstandup://:@:?label=&v2password=
+btcstandup://rpcuser:rpcpassword@torHostname.onion:rpcport/?label=Stand%20Up%20Node
 ```
 
 Example with label and v2password:
 
 ```
-btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332?label=nodeName&v2password=uenfieufnuf4
+btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332/?label=nodeName&v2password=uenfieufnuf4
 ```
 
 Example without label and v2password:
 
 ```
-btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332
+btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332/?
 ```
 
 This allows node hardware manufacturers the option of hard coding a label for the node. There ideally would be a two factor authentication where user inputs the V2 or V3 auth cookie into the client app manually so that if the URL leaks somehow it would not give an attacker access to the node.

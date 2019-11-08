@@ -147,6 +147,14 @@ class Installer: NSViewController {
                         self.consoleOutput.scrollToEndOfDocument(self)
                     }
                     
+                    if str.contains("==> Successfully started `tor`") {
+                        
+                        DispatchQueue.main.async {
+                            self.goBack()
+                        }
+                        
+                    }
+                    
                 }
                 
                 outHandle.waitForDataInBackgroundAndNotify()
