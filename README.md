@@ -127,26 +127,26 @@ This is currently a work in progress (there is no Quick Connect URI at the end o
 
 This section defines the spec for a deep link URI and a scannable QR Code. These ideally would have the same format among a number of different software projects and hardware products to ensure universal compatibility.
 
-The iOS application [Fully Noded](https://github.com/FontaineDenton/FullyNoded) is a proof of concept of such a light client. The only server side node manufacturer supporting this protocol is [Nodl](https://www.nodl.it/) (release is imminent).
+The iOS application [Fully Noded](https://github.com/FontaineDenton/FullyNoded) is a proof of concept of such a light client. Server side node manufacturers supporting this protocol are currently [Nodl](https://www.nodl.it/), [myNode](https://www.mynodebtc.com) and [BTCPayServer](https://btcpayserver.org).
 
 #### Current Format
 
-This example URL follows the current format:
+The example URL follows the current format:
 
 ```
-btcstandup://:@:?label=&v2password=
+btcstandup://rpcuser:rpcpassword@torhostname.onion:8332/?label=&v2password=
 ```
 
 Example with `label` and `v2password`:
 
 ```
-btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332?label=Node%20Name&v2password=uenfieufnuf4
+btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332/?label=Node%20Name&v2password=uenfieufnuf4
 ```
 
 Example without `label` and `v2password`:
 
 ```
-btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332
+btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332/?
 ```
 
 This allows node hardware manufacturers the option of hard coding a label for the node. Ideally, there would be a two-factor authentication where user inputs a V2 or V3 auth cookie into the client app manually, so that if the URL leaks somehow it would not give an attacker access to the node.
