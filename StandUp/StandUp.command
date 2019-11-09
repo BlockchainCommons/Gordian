@@ -16,7 +16,7 @@ cd ~/StandUp/BitcoinCore0.19.0
 curl https://bitcoin.org/bin/bitcoin-core-0.19.0/test.rc3/bitcoin-0.19.0rc3-osx64.tar.gz -o ~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3-osx64.tar.gz
 tar -zxvf bitcoin-0.19.0rc3-osx64.tar.gz
 mkdir ~/Library/Application\ Support/Bitcoin
-password=openssl rand -hex 16
+password=njfonecnwendbwd6te6373kakjd9
 cat <<EOF >~/Library/Application\ Support/Bitcoin/bitcoin.conf
 rpcuser=user
 rpcpassword=888YVC49JMDK9361Khg0kHFDSCccef55553284960
@@ -44,6 +44,5 @@ mkdir /usr/local/var/lib/tor
 mkdir /usr/local/var/lib/tor/standup
 chmod 700 /usr/local/var/lib/tor/standup
 /usr/local/bin/brew services start tor
-~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3/bin/bitcoin-qt
-echo "Congratulations you are now Stood Up! tap the done button"
+echo "Congratulations you are now StoodUp!"
 exit
