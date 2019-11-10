@@ -23,12 +23,36 @@ class Installer: NSViewController {
     var bitcoinInstalled = Bool()
     var torInstalled = Bool()
     var standingUp = Bool()
+    var args = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setScene()
+        getSettings()
         filterAction()
+        
+    }
+    
+    func getSettings() {
+        
+        let ud = UserDefaults.standard
+        let rpcpassword = randomString(length: 32)
+        let rpcuser = randomString(length: 10)
+        let prune = ud.object(forKey: "pruned") as? Int ?? 0
+        let txIndex = ud.object(forKey: "txIndex") as? Int ?? 1
+        let dataDir = ud.object(forKey: "dataDir") as? String ?? ""
+        let testnet = ud.object(forKey: "testnet") as? Int ?? 1
+        let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
+        let regtest = ud.object(forKey: "regtest") as? Int ?? 0
+        args.append(rpcpassword)
+        args.append(rpcuser)
+        args.append(dataDir)
+        args.append("\(prune)")
+        args.append("\(mainnet)")
+        args.append("\(testnet)")
+        args.append("\(regtest)")
+        args.append("\(txIndex)")
         
     }
     
@@ -36,23 +60,8 @@ class Installer: NSViewController {
         
         var desc = ""
         spinner.startAnimation(self)
-        
-        if isInstallingBitcoin {
-            
-            desc = "Getting Bitcoin Core..."
-            runScript(script: .getBitcoin)
-            
-        } else if isInstallingTor {
-            
-            desc = "Installing Tor..."
-            runScript(script: .getTor)
-            
-        } else if standingUp {
-            
-            desc = "Standing Up (this can take awhile)..."
-            runScript(script: .standUp)
-            
-        }
+        desc = "Standing Up (this can take awhile)..."
+        runScript(script: .standUp)
         
         DispatchQueue.main.async {
             
@@ -105,6 +114,7 @@ class Installer: NSViewController {
 
             self.buildTask = Process()
             self.buildTask.launchPath = path
+            self.buildTask.arguments = self.args
 
             self.buildTask.terminationHandler = {
 
@@ -161,32 +171,11 @@ class Installer: NSViewController {
                 
             } else {
                 
-                // That means we've reached the end of the input.
                 print("done with task")
-                
-                DispatchQueue.main.async {
-                    
-                    // On my PC this runs fine, on VMWare is does not trigger.. Why?
-                    // Try terminating the task and creating a new one instead...
-                    self.centralStation(script: script)
-                    
-                }
-                
+                self.centralStation(script: script)
                 NotificationCenter.default.removeObserver(progressObserver as Any)
                 
             }
-            
-        }
-                        
-        var terminationObserver : NSObjectProtocol!
-        terminationObserver = NotificationCenter.default.addObserver(forName: Process.didTerminateNotification, object: task, queue: nil) {
-            
-            notification -> Void in
-            
-            // Process was terminated. Hence, progress should be 100%
-            print("task terminated")
-            
-            NotificationCenter.default.removeObserver(terminationObserver as Any)
             
         }
                 
@@ -196,8 +185,6 @@ class Installer: NSViewController {
         
         switch script {
         case .standUp: bitcoinInstalled = true; torInstalled = true; goBack()
-        case .getTor: torInstallComplete()
-        case .getBitcoin: bitcoinCoreInstallComplete()
         default: hideSpinner()
         }
         
@@ -241,5 +228,7 @@ class Installer: NSViewController {
         spinnerDescription.stringValue = ""
         
     }
+    
+    
     
 }

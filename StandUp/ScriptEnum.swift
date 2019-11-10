@@ -10,7 +10,6 @@ import Foundation
 
 public enum SCRIPT: String {
     
-    // Run simple tasks like checking for existing files with NSAppleScript on ViewController.swift
     case checkForBitcoin = "(do shell script \"~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3/bin/bitcoind --version\")"
     case checkForTor = "(do shell script \"/usr/local/bin/tor --version\")"
     case getTorrc = "(do shell script \"cat /usr/local/etc/tor/torrc\")"
@@ -19,15 +18,11 @@ public enum SCRIPT: String {
     case isBitcoinOn = "(do shell script \"~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3/bin/bitcoin-cli getblockchaininfo\")"
     case stopBitcoin = "(do shell script \"~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3/bin/bitcoin-cli stop\")"
     
-    // Run asynchronous tasks like downloading binaries with Process() on Installer.swift
-    case getBitcoin = "GetPGPKeys"
-    case getTor = "GetTor"
-    case configureBitcoin = "ConfigureBitcoin"
-    case configureTor = "ConfigureTor"
-    case startTor = "StartTor"
-    case startBitcoinqt = "LaunchBitcoin"
     case standUp = "StandUp"
+    case startTor = "StartTor"
     case stopTor = "StopTor"
+    case startBitcoinqt = "LaunchBitcoin"
     case verifySigs = "Verify"
+    case authenticate = "Authenticate"
     
 }

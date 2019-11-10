@@ -8,13 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		D01471A12371354700F64329 /* LaunchBitcoin.command in Resources */ = {isa = PBXBuildFile; fileRef = D01471A02371354700F64329 /* LaunchBitcoin.command */; };
-		D01471A523713DC300F64329 /* ConfigureBitcoin.command in Resources */ = {isa = PBXBuildFile; fileRef = D01471A423713DC300F64329 /* ConfigureBitcoin.command */; };
 		D06E3937236BE46E0072924A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06E3935236BE46D0072924A /* Settings.swift */; };
 		D06E3938236BE46E0072924A /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06E3936236BE46E0072924A /* Settings.xib */; };
 		D0971D90237008D8001C3636 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D0971D8F237008D8001C3636 /* LICENSE */; };
 		D0971D92237008F6001C3636 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D0971D91237008F6001C3636 /* README.md */; };
 		D0A3B6F123739FCF00253635 /* StandUp.command in Resources */ = {isa = PBXBuildFile; fileRef = D0A3B6F023739FCF00253635 /* StandUp.command */; };
-		D0AE0DF92372687C004369E2 /* ConfigureTor.command in Resources */ = {isa = PBXBuildFile; fileRef = D0AE0DF82372687C004369E2 /* ConfigureTor.command */; };
 		D0AE0DFB237297BE004369E2 /* StartTor.command in Resources */ = {isa = PBXBuildFile; fileRef = D0AE0DFA237297BE004369E2 /* StartTor.command */; };
 		D0B36C432373BBA5004B2D63 /* StopTor.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B36C422373BBA5004B2D63 /* StopTor.command */; };
 		D0B36C452373E521004B2D63 /* Verify.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B36C442373E521004B2D63 /* Verify.command */; };
@@ -24,13 +22,13 @@
 		D0BCB33A236A6D27000D8FDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BCB338236A6D27000D8FDE /* Main.storyboard */; };
 		D0BCB346236A6D28000D8FDE /* StandUpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCB345236A6D28000D8FDE /* StandUpTests.swift */; };
 		D0BCB351236A6D28000D8FDE /* StandUpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCB350236A6D28000D8FDE /* StandUpUITests.swift */; };
-		D0D43129236DB49100630724 /* GetPGPKeys.command in Resources */ = {isa = PBXBuildFile; fileRef = D0D43128236DB49100630724 /* GetPGPKeys.command */; };
-		D0D4312F236EAE4E00630724 /* GetTor.command in Resources */ = {isa = PBXBuildFile; fileRef = D0D4312E236EAE4E00630724 /* GetTor.command */; };
 		D0DCD8E6236ACC9E00F2D15A /* ScriptEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCD8E5236ACC9E00F2D15A /* ScriptEnum.swift */; };
 		D0DCD8E9236ACD5300F2D15A /* QRDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCD8E7236ACD5300F2D15A /* QRDisplayer.swift */; };
 		D0DCD8EA236ACD5300F2D15A /* QRDisplayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0DCD8E8236ACD5300F2D15A /* QRDisplayer.xib */; };
 		D0DCD8ED236ACD6300F2D15A /* Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCD8EB236ACD6300F2D15A /* Installer.swift */; };
 		D0DCD8EE236ACD6300F2D15A /* Installer.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0DCD8EC236ACD6300F2D15A /* Installer.xib */; };
+		D0EBC02F2376834D008302D2 /* Authenticate.command in Resources */ = {isa = PBXBuildFile; fileRef = D0EBC02E2376834D008302D2 /* Authenticate.command */; };
+		D0EBC0312377EE65008302D2 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EBC0302377EE65008302D2 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,13 +50,11 @@
 
 /* Begin PBXFileReference section */
 		D01471A02371354700F64329 /* LaunchBitcoin.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = LaunchBitcoin.command; sourceTree = "<group>"; };
-		D01471A423713DC300F64329 /* ConfigureBitcoin.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ConfigureBitcoin.command; sourceTree = "<group>"; };
 		D06E3935236BE46D0072924A /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		D06E3936236BE46E0072924A /* Settings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Settings.xib; sourceTree = "<group>"; };
 		D0971D8F237008D8001C3636 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D0971D91237008F6001C3636 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D0A3B6F023739FCF00253635 /* StandUp.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StandUp.command; sourceTree = "<group>"; };
-		D0AE0DF82372687C004369E2 /* ConfigureTor.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ConfigureTor.command; sourceTree = "<group>"; };
 		D0AE0DFA237297BE004369E2 /* StartTor.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StartTor.command; sourceTree = "<group>"; };
 		D0B36C422373BBA5004B2D63 /* StopTor.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StopTor.command; sourceTree = "<group>"; };
 		D0B36C442373E521004B2D63 /* Verify.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Verify.command; sourceTree = "<group>"; };
@@ -75,13 +71,13 @@
 		D0BCB34C236A6D28000D8FDE /* StandUpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StandUpUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0BCB350236A6D28000D8FDE /* StandUpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandUpUITests.swift; sourceTree = "<group>"; };
 		D0BCB352236A6D28000D8FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D0D43128236DB49100630724 /* GetPGPKeys.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = GetPGPKeys.command; sourceTree = "<group>"; };
-		D0D4312E236EAE4E00630724 /* GetTor.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = GetTor.command; sourceTree = "<group>"; };
 		D0DCD8E5236ACC9E00F2D15A /* ScriptEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptEnum.swift; sourceTree = "<group>"; };
 		D0DCD8E7236ACD5300F2D15A /* QRDisplayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRDisplayer.swift; sourceTree = "<group>"; };
 		D0DCD8E8236ACD5300F2D15A /* QRDisplayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRDisplayer.xib; sourceTree = "<group>"; };
 		D0DCD8EB236ACD6300F2D15A /* Installer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Installer.swift; sourceTree = "<group>"; };
 		D0DCD8EC236ACD6300F2D15A /* Installer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Installer.xib; sourceTree = "<group>"; };
+		D0EBC02E2376834D008302D2 /* Authenticate.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Authenticate.command; sourceTree = "<group>"; };
+		D0EBC0302377EE65008302D2 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +105,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D099F3352375847700AC0EF6 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D0BCB334236A6D22000D8FDE /* ViewController.swift */,
+				D0DCD8E7236ACD5300F2D15A /* QRDisplayer.swift */,
+				D0DCD8E8236ACD5300F2D15A /* QRDisplayer.xib */,
+				D0DCD8EB236ACD6300F2D15A /* Installer.swift */,
+				D0DCD8EC236ACD6300F2D15A /* Installer.xib */,
+				D06E3935236BE46D0072924A /* Settings.swift */,
+				D06E3936236BE46E0072924A /* Settings.xib */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		D099F3362375914300AC0EF6 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				D01471A02371354700F64329 /* LaunchBitcoin.command */,
+				D0AE0DFA237297BE004369E2 /* StartTor.command */,
+				D0B36C422373BBA5004B2D63 /* StopTor.command */,
+				D0A3B6F023739FCF00253635 /* StandUp.command */,
+				D0B36C442373E521004B2D63 /* Verify.command */,
+				D0EBC02E2376834D008302D2 /* Authenticate.command */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
 		D0BCB326236A6D22000D8FDE = {
 			isa = PBXGroup;
 			children = (
@@ -135,27 +158,14 @@
 			isa = PBXGroup;
 			children = (
 				D0BCB332236A6D22000D8FDE /* AppDelegate.swift */,
-				D0BCB334236A6D22000D8FDE /* ViewController.swift */,
+				D099F3352375847700AC0EF6 /* View Controllers */,
 				D0BCB336236A6D27000D8FDE /* Assets.xcassets */,
 				D0BCB338236A6D27000D8FDE /* Main.storyboard */,
-				D0DCD8E7236ACD5300F2D15A /* QRDisplayer.swift */,
-				D0DCD8E8236ACD5300F2D15A /* QRDisplayer.xib */,
 				D0BCB33B236A6D27000D8FDE /* Info.plist */,
 				D0BCB33C236A6D27000D8FDE /* StandUp.entitlements */,
 				D0DCD8E5236ACC9E00F2D15A /* ScriptEnum.swift */,
-				D0DCD8EB236ACD6300F2D15A /* Installer.swift */,
-				D0DCD8EC236ACD6300F2D15A /* Installer.xib */,
-				D06E3935236BE46D0072924A /* Settings.swift */,
-				D06E3936236BE46E0072924A /* Settings.xib */,
-				D0D43128236DB49100630724 /* GetPGPKeys.command */,
-				D0D4312E236EAE4E00630724 /* GetTor.command */,
-				D01471A02371354700F64329 /* LaunchBitcoin.command */,
-				D01471A423713DC300F64329 /* ConfigureBitcoin.command */,
-				D0AE0DF82372687C004369E2 /* ConfigureTor.command */,
-				D0AE0DFA237297BE004369E2 /* StartTor.command */,
-				D0A3B6F023739FCF00253635 /* StandUp.command */,
-				D0B36C422373BBA5004B2D63 /* StopTor.command */,
-				D0B36C442373E521004B2D63 /* Verify.command */,
+				D099F3362375914300AC0EF6 /* Scripts */,
+				D0EBC0302377EE65008302D2 /* Utilities.swift */,
 			);
 			path = StandUp;
 			sourceTree = "<group>";
@@ -283,21 +293,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0B36C452373E521004B2D63 /* Verify.command in Resources */,
-				D0D43129236DB49100630724 /* GetPGPKeys.command in Resources */,
 				D0A3B6F123739FCF00253635 /* StandUp.command in Resources */,
 				D0DCD8EE236ACD6300F2D15A /* Installer.xib in Resources */,
 				D0BCB337236A6D27000D8FDE /* Assets.xcassets in Resources */,
 				D0DCD8EA236ACD5300F2D15A /* QRDisplayer.xib in Resources */,
 				D0971D90237008D8001C3636 /* LICENSE in Resources */,
+				D0EBC02F2376834D008302D2 /* Authenticate.command in Resources */,
 				D0B36C432373BBA5004B2D63 /* StopTor.command in Resources */,
 				D0971D92237008F6001C3636 /* README.md in Resources */,
 				D0BCB33A236A6D27000D8FDE /* Main.storyboard in Resources */,
-				D0D4312F236EAE4E00630724 /* GetTor.command in Resources */,
-				D0AE0DF92372687C004369E2 /* ConfigureTor.command in Resources */,
 				D01471A12371354700F64329 /* LaunchBitcoin.command in Resources */,
 				D0AE0DFB237297BE004369E2 /* StartTor.command in Resources */,
 				D06E3938236BE46E0072924A /* Settings.xib in Resources */,
-				D01471A523713DC300F64329 /* ConfigureBitcoin.command in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +331,7 @@
 			files = (
 				D06E3937236BE46E0072924A /* Settings.swift in Sources */,
 				D0DCD8E9236ACD5300F2D15A /* QRDisplayer.swift in Sources */,
+				D0EBC0312377EE65008302D2 /* Utilities.swift in Sources */,
 				D0DCD8ED236ACD6300F2D15A /* Installer.swift in Sources */,
 				D0BCB335236A6D22000D8FDE /* ViewController.swift in Sources */,
 				D0DCD8E6236ACC9E00F2D15A /* ScriptEnum.swift in Sources */,
