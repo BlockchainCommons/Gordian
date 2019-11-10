@@ -5,6 +5,14 @@
 #
 #  Created by Peter on 07/11/19.
 #  Copyright © 2019 Peter. All rights reserved.
+RPCPASSWORD="$1"
+RPCUSER="$2"
+DATADIR="$3"
+PRUNE="$4"
+MAINNET="$5"
+TESTNET="$6"
+REGTEST="$7"
+TXINDEX="$8"
 echo "Downloading Bitcoin Core release keys..."
 mkdir ~/StandUp
 mkdir ~/StandUp/BitcoinCore0.19.0
@@ -16,16 +24,26 @@ cd ~/StandUp/BitcoinCore0.19.0
 curl https://bitcoin.org/bin/bitcoin-core-0.19.0/test.rc3/bitcoin-0.19.0rc3-osx64.tar.gz -o ~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3-osx64.tar.gz
 tar -zxvf bitcoin-0.19.0rc3-osx64.tar.gz
 mkdir ~/Library/Application\ Support/Bitcoin
-password=njfonecnwendbwd6te6373kakjd9
 cat <<EOF >~/Library/Application\ Support/Bitcoin/bitcoin.conf
-rpcuser=user
-rpcpassword=888YVC49JMDK9361Khg0kHFDSCccef55553284960
+datadir=$DATADIR
+rpcuser=$RPCUSER
+rpcpassword=$RPCPASSWORD
 server=1
-prune=0
-txindex=1
-testnet=1
+prune=$PRUNE
+txindex=$TXINDEX
+rpcallowip=127.0.0.1
+bindaddress=127.0.0.1
+proxy=127.0.0.1:9050
+listen=1
+debug=tor
+testnet=$TESTNET
+regtest=$REGTEST
+[main]
+rpcport=8332
 [test]
 rpcport=18332
+[regtest]
+rpcport=18443
 EOF
 echo "Setting up Tor..."
 /usr/local/bin/brew install tor
