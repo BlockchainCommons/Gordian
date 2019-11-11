@@ -24,6 +24,7 @@ class Installer: NSViewController {
     var torInstalled = Bool()
     var standingUp = Bool()
     var args = [String]()
+    var dismissing = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +42,10 @@ class Installer: NSViewController {
         let rpcuser = randomString(length: 10)
         let prune = ud.object(forKey: "pruned") as? Int ?? 0
         let txIndex = ud.object(forKey: "txIndex") as? Int ?? 1
-        let dataDir = ud.object(forKey: "dataDir") as? String ?? ""
+        var dataDir = ud.object(forKey: "dataDir") as? String ?? ""
+        if dataDir == "~/Library/Application Support/Bitcoin" {
+            dataDir = ""
+        }
         let testnet = ud.object(forKey: "testnet") as? Int ?? 1
         let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
         let regtest = ud.object(forKey: "regtest") as? Int ?? 0
@@ -79,19 +83,24 @@ class Installer: NSViewController {
     
     func goBack() {
         
-        DispatchQueue.main.async {
-            
-            self.hideSpinner()
-            
-            if let presenter = self.presentingViewController as? ViewController {
-                
-                presenter.checkBitcoindVersion()
-                
-            }
+        if !dismissing {
             
             DispatchQueue.main.async {
-            
-                self.dismiss(self)
+                
+                self.hideSpinner()
+                
+                if let presenter = self.presentingViewController as? ViewController {
+                    
+                    presenter.checkBitcoindVersion()
+                    
+                }
+                
+                DispatchQueue.main.async {
+                    
+                    self.dismissing = true
+                    self.dismiss(self)
+                    
+                }
                 
             }
             
@@ -133,78 +142,57 @@ class Installer: NSViewController {
     
     func captureStandardOutputAndRouteToTextView(task:Process, script: SCRIPT) {
         
-        outputPipe = Pipe()
-        task.standardOutput = outputPipe
-        let outHandle = outputPipe.fileHandleForReading
-        outHandle.waitForDataInBackgroundAndNotify()
+        let stdOut = Pipe()
+        let stdErr = Pipe()
+        task.standardOutput = stdOut
+        task.standardError = stdErr
         
-        var progressObserver : NSObjectProtocol!
-        progressObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outHandle, queue: nil) {
-            notification in
+        let handler =  { (file: FileHandle!) -> Void in
             
-            self.outputString = ""
-            let data = outHandle.availableData
+            let data = file.availableData
             
-            if data.count > 0 {
+            if self.isRunning {
                 
-                if let str = String(data: data, encoding: String.Encoding.utf8) {
-                    
-                    let prevOutput = self.outputString
-                    self.outputString = prevOutput + "\n" + str
-                    
-                    DispatchQueue.main.async {
-                        self.consoleOutput.string = self.outputString
-                        self.consoleOutput.scrollToEndOfDocument(self)
-                    }
-                    
-                    if str.contains("==> Successfully started `tor`") {
-                        
-                        DispatchQueue.main.async {
-                            self.goBack()
-                        }
-                        
-                    }
-                    
+                guard let output = NSString(data: data, encoding: String.Encoding.utf8.rawValue) else {
+                    return
                 }
                 
-                outHandle.waitForDataInBackgroundAndNotify()
-                
-            } else {
-                
-                print("done with task")
-                self.centralStation(script: script)
-                NotificationCenter.default.removeObserver(progressObserver as Any)
+                DispatchQueue.main.async {
+                    
+                    let prevOutput = self.consoleOutput.string
+                    let nextOutput = prevOutput + "\n" + (output as String)
+                    self.consoleOutput.string = nextOutput
+                    self.consoleOutput.scrollToEndOfDocument(self)
+                    
+                    if (output as String).contains("Successfully started `tor`") || (output as String).contains("Service `tor` already started") {
+                        
+                        print("stop")
+                        self.isRunning = false
+                        task.terminate()
+                        self.goBack()
+                        
+                    }
+                    
+                    print("scroll down")
+                    
+                }
                 
             }
             
         }
-                
+        
+        stdErr.fileHandleForReading.readabilityHandler = handler
+        stdOut.fileHandleForReading.readabilityHandler = handler
+        
     }
     
     func centralStation(script: SCRIPT) {
+        print("central station")
         
         switch script {
         case .standUp: bitcoinInstalled = true; torInstalled = true; goBack()
         default: hideSpinner()
         }
-        
-    }
-    
-    func bitcoinCoreInstallComplete() {
-        
-        buildTask.terminate()
-        isRunning = false
-        self.bitcoinInstalled = true
-        goBack()
-        
-    }
-    
-    func torInstallComplete() {
-        
-        buildTask.terminate()
-        isRunning = false
-        self.torInstalled = true
-        goBack()
         
     }
     

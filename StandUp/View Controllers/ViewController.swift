@@ -43,8 +43,53 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         setScene()
+        setDefaults()
         isBitcoinOn()
         
+    }
+    
+    //MARK: Set default settings
+    
+    func setDefaults() {
+        
+        let ud = UserDefaults.standard
+        
+        if ud.object(forKey: "pruned") == nil {
+            
+            ud.set(0, forKey: "pruned")
+            
+        }
+        
+        if ud.object(forKey: "txIndex") == nil {
+            
+            ud.set(1, forKey: "txIndex")
+            
+        }
+        
+        if ud.object(forKey: "dataDir") == nil {
+            
+            ud.set("~/Library/Application Support/Bitcoin", forKey: "dataDir")
+            
+        }
+        
+        if ud.object(forKey: "testnet") == nil {
+            
+            ud.set(1, forKey: "testnet")
+            
+        }
+        
+        if ud.object(forKey: "mainnet") == nil {
+            
+            ud.set(0, forKey: "mainnet")
+            
+        }
+        
+        if ud.object(forKey: "regtest") == nil {
+            
+            ud.set(0, forKey: "regtest")
+            
+        }
+    
     }
     
     //MARK: User Action Segues
@@ -94,12 +139,7 @@ class ViewController: NSViewController {
     @IBAction func standUp(_ sender: Any) {
         print("standup")
         
-        DispatchQueue.main.async {
-            
-            self.standingUp = true
-            self.performSegue(withIdentifier: "goInstall", sender: self)
-            
-        }
+        showstandUpAlert(message: "Ready to StandUp?", info: "StandUp installs and configures a fully indexed Bitcoin Core v0.19.0rc3 testnet node and Tor v0.4.1.6\n\n~25gb of space needed for testnet and ~270gb for mainnet\n\nGo to \"Settings\" for pruning, network, data directory and tor related bitcoin.conf options")
         
     }
     
@@ -313,7 +353,6 @@ class ViewController: NSViewController {
                     bitcoinRunning = true
                     bitcoinStarted()
                     runLaunchScript(script: .startBitcoinqt)
-                    //bitcoinStarted()
                     
                 } else {
                     
@@ -608,6 +647,10 @@ class ViewController: NSViewController {
                 
             }
             
+        } else {
+            
+            showstandUpAlert(message: "Ready to StandUp?", info: "Installs a fully indexed Bitcoin Core v0.19.0rc3 testnet node. ~25gb of space needed for testnet and ~270gb for mainnet. You can set custmizable options in \"Settings\" for pruning, network, data directory and tor related bitcoin.conf options.")
+            
         }
                 
     }
@@ -617,7 +660,7 @@ class ViewController: NSViewController {
         if result.contains("bitcoin-0.19.0rc3-osx64.tar.gz: OK") {
             
             print("results verified")
-            showAlertMessage(message: "PGP Signatures are valid", info: "")
+            showAlertMessage(message: "PGP Signatures for bitcoin-0.19.0rc3-osx64.tar.gz are valid", info: "")
             
         } else {
             
@@ -685,6 +728,36 @@ class ViewController: NSViewController {
         verifyOutlet.isEnabled = false
         taskDescription.stringValue = "checking system..."
         spinner.startAnimation(self)
+        
+    }
+    
+    func showstandUpAlert(message: String, info: String) {
+        
+        DispatchQueue.main.async {
+            
+            let a = NSAlert()
+            a.messageText = message
+            a.informativeText = info
+            a.addButton(withTitle: "StandUp")
+            a.addButton(withTitle: "Cancel")
+            let response = a.runModal()
+            
+            if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+                
+                DispatchQueue.main.async {
+                    
+                    self.standingUp = true
+                    self.performSegue(withIdentifier: "goInstall", sender: self)
+                    
+                }
+                
+            } else {
+                
+                print("tapped no")
+                
+            }
+            
+        }
         
     }
     
