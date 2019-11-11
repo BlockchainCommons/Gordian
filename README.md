@@ -134,19 +134,19 @@ The iOS application [Fully Noded](https://github.com/FontaineDenton/FullyNoded) 
 This example URL follows the current format:
 
 ```
-btcstandup://:@:?label=&v2password=
+btcstandup://<your rpcuser>:<your rpcpassword>@<your tor hostname>.onion:<your hidden service port>/?label=<optional node label>
 ```
 
-Example with `label` and `v2password`:
+Example with `label` :
 
 ```
-btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332?label=Node%20Name&v2password=uenfieufnuf4
+btcstandup://rpcuser:rpcpassword@kshcahsaihslalsichs78yb2ud8d.onion:8332/?label=Your%20Nodes%20Name
 ```
 
-Example without `label` and `v2password`:
+Example without `label` :
 
 ```
-btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332
+btcstandup://rpcuser:rpcpassword@kshcahsaihslalsichs78yb2ud8d.onion:8332/?
 ```
 
 This allows node hardware manufacturers the option of hard coding a label for the node. Ideally, there would be a two-factor authentication where user inputs a V2 or V3 auth cookie into the client app manually, so that if the URL leaks somehow it would not give an attacker access to the node.
@@ -189,3 +189,4 @@ PRs are accepted. See CONTRIBUTING.md
 ## License
 
 MIT © 2019 Blockchain Commons, LLC
+

@@ -35,19 +35,37 @@ class Settings: NSViewController {
     
     func getSettings() {
         
-        if ud.object(forKey: "pruned") == nil {
+        getSetting(key: "pruned", button: pruneOutlet, def: 0)
+        getSetting(key: "txIndex", button: txIndexOutlet, def: 1)
+        getSetting(key: "mainnet", button: mainnetOutlet, def: 0)
+        getSetting(key: "testnet", button: testnetOutlet, def: 1)
+        getSetting(key: "regtest", button: regtestOutlet, def: 0)
+        
+        if ud.object(forKey: "dataDir") != nil {
             
-            ud.set(0, forKey: "pruned")
+            DispatchQueue.main.async {
+                self.directoryLabel.stringValue = "\(self.ud.object(forKey: "dataDir") ?? "~/Library/Application Support/Bitcoin")"
+            }
+            
+        }
+        
+    }
+    
+    func getSetting(key: String, button: NSButton, def: Int) {
+        
+        if ud.object(forKey: key) == nil {
+            
+            ud.set(def, forKey: key)
             
         } else {
             
-            let raw = ud.integer(forKey: "pruned")
+            let raw = ud.integer(forKey: key)
             
             if raw == 0 {
                 
                 DispatchQueue.main.async {
                     
-                    self.pruneOutlet.state = NSControl.StateValue.off
+                    button.state = NSControl.StateValue.off
                     
                 }
                 
@@ -55,119 +73,7 @@ class Settings: NSViewController {
                
                 DispatchQueue.main.async {
                     
-                    self.pruneOutlet.state = NSControl.StateValue.on
-                    
-                }
-                
-            }
-            
-        }
-        
-        if ud.object(forKey: "txIndex") == nil {
-            
-            ud.set(1, forKey: "txIndex")
-            
-        } else {
-            
-            let raw = ud.integer(forKey: "txIndex")
-            
-            if raw == 0 {
-                
-                DispatchQueue.main.async {
-                    
-                    self.txIndexOutlet.state = NSControl.StateValue.off
-                    
-                }
-                
-            } else {
-                
-                DispatchQueue.main.async {
-                    
-                    self.txIndexOutlet.state = NSControl.StateValue.on
-                    
-                }
-                
-            }
-            
-        }
-        
-        if ud.object(forKey: "mainnet") == nil {
-            
-            ud.set(0, forKey: "mainnet")
-            
-        } else {
-            
-            let raw = ud.integer(forKey: "mainnet")
-            
-            if raw == 0 {
-                
-                DispatchQueue.main.async {
-                    
-                    self.mainnetOutlet.state = NSControl.StateValue.off
-                    
-                }
-                
-            } else {
-                
-                DispatchQueue.main.async {
-                    
-                    self.mainnetOutlet.state = NSControl.StateValue.on
-                    
-                }
-                
-            }
-            
-        }
-        
-        if ud.object(forKey: "testnet") == nil {
-            
-            ud.set(1, forKey: "testnet")
-            
-        } else {
-            
-            let raw = ud.integer(forKey: "testnet")
-            
-            if raw == 0 {
-                
-                DispatchQueue.main.async {
-                    
-                    self.testnetOutlet.state = NSControl.StateValue.off
-                    
-                }
-                
-            } else {
-                
-                DispatchQueue.main.async {
-                    
-                    self.testnetOutlet.state = NSControl.StateValue.on
-                    
-                }
-                
-            }
-            
-        }
-        
-        if ud.object(forKey: "regtest") ==  nil {
-            
-            ud.set(0, forKey: "regtest")
-            
-        } else {
-            
-            let raw = ud.integer(forKey: "regtest")
-            
-            if raw == 0 {
-                
-                DispatchQueue.main.async {
-                    
-                    self.regtestOutlet.state = NSControl.StateValue.off
-                    
-                }
-                
-            } else {
-                
-                DispatchQueue.main.async {
-                    
-                    self.regtestOutlet.state = NSControl.StateValue.on
+                    button.state = NSControl.StateValue.on
                     
                 }
                 
@@ -189,37 +95,15 @@ class Settings: NSViewController {
     
     @IBAction func didSetPrune(_ sender: Any) {
         
-        let b = pruneOutlet.state.rawValue
-        ud.set(b, forKey: "pruned")
+        setOutlet(outlet: pruneOutlet, keyOn: "pruned", keyOff: ["txIndex"])
         updateBlockchainOutlets(activeOutlet: pruneOutlet)
-        
-        if b == 0 {
-            
-            ud.set(1, forKey: "txIndex")
-            
-        } else {
-            
-            ud.set(0, forKey: "txIndex")
-            
-        }
         
     }
     
     @IBAction func didSetTxIndex(_ sender: Any) {
         
-        let b = txIndexOutlet.state.rawValue
-        ud.set(b, forKey: "txIndex")
+        setOutlet(outlet: txIndexOutlet, keyOn: "txIndex", keyOff: ["pruned"])
         updateBlockchainOutlets(activeOutlet: txIndexOutlet)
-        
-        if b == 0 {
-            
-            ud.set(1, forKey: "pruned")
-            
-        } else {
-            
-            ud.set(0, forKey: "pruned")
-            
-        }
         
     }
     
@@ -254,56 +138,46 @@ class Settings: NSViewController {
     
     @IBAction func didSetMainnet(_ sender: Any) {
         
-        let b = mainnetOutlet.state.rawValue
-        ud.set(b, forKey: "mainnet")
-        updateNetworkOutlets(activeOutlet: mainnetOutlet)
-        
-        if b == 0 {
-            
-            ud.set(1, forKey: "txIndex")
-            
-        } else {
-            
-            ud.set(0, forKey: "testnet")
-            ud.set(0, forKey: "regtest")
-            
-        }
+        setOutlet(outlet: mainnetOutlet, keyOn: "mainnet", keyOff: ["testnet", "regtest"])
         
     }
     
     @IBAction func didSetTestnet(_ sender: Any) {
         
-        let b = testnetOutlet.state.rawValue
-        ud.set(b, forKey: "testnet")
+        setOutlet(outlet: testnetOutlet, keyOn: "testnet", keyOff: ["mainnet", "regtest"])
         updateNetworkOutlets(activeOutlet: testnetOutlet)
-        
-        if b == 0 {
-            
-            ud.set(1, forKey: "testnet")
-            
-        } else {
-            
-            ud.set(0, forKey: "mainnet")
-            ud.set(0, forKey: "regtest")
-            
-        }
         
     }
     
     @IBAction func didSetRegtest(_ sender: Any) {
         
-        let b = regtestOutlet.state.rawValue
-        ud.set(b, forKey: "regtest")
+        setOutlet(outlet: regtestOutlet, keyOn: "regtest", keyOff: ["mainnet", "testnet"])
         updateNetworkOutlets(activeOutlet: regtestOutlet)
+        
+    }
+    
+    func setOutlet(outlet: NSButton, keyOn: String, keyOff: [String]) {
+        
+        let b = outlet.state.rawValue
+        ud.set(b, forKey: keyOn)
+        updateNetworkOutlets(activeOutlet: outlet)
         
         if b == 0 {
             
-            ud.set(1, forKey: "regtest")
+            ud.set(1, forKey: keyOn)
             
         } else {
             
-            ud.set(0, forKey: "testnet")
-            ud.set(0, forKey: "mainnet")
+            if keyOff.count == 2 {
+                
+                ud.set(0, forKey: keyOff[0])
+                ud.set(0, forKey: keyOff[1])
+                
+            } else {
+                
+                ud.set(0, forKey: keyOff[0])
+                
+            }
             
         }
         
@@ -335,13 +209,6 @@ class Settings: NSViewController {
             
         }
         
-        let regtest = regtestOutlet.state.rawValue
-        ud.set(regtest, forKey: "regtest")
-        let testnet = testnetOutlet.state.rawValue
-        ud.set(testnet, forKey: "testnet")
-        let mainnet = mainnetOutlet.state.rawValue
-        ud.set(mainnet, forKey: "mainnet")
-        
     }
     
     
@@ -357,7 +224,7 @@ class Settings: NSViewController {
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
                 self.selectedFolder = panel.urls[0]
                 DispatchQueue.main.async {
-                    self.directoryLabel.stringValue = self.selectedFolder?.path ?? "/Library/Application Support/Bitcoin/"
+                    self.directoryLabel.stringValue = self.selectedFolder?.path ?? "~/Library/Application Support/Bitcoin/"
                     self.ud.set(panel.urls[0], forKey: "dataDir")
                 }
             }

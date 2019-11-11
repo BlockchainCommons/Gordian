@@ -20,7 +20,30 @@ class QRDisplayer: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let ud = UserDefaults.standard
+        
+        if ud.object(forKey: "mainnet") != nil {
+            if ud.object(forKey: "mainnet") as! Int == 1 {
+                rpcport = "8332"
+            }
+        }
+        
+        if ud.object(forKey: "testnet") != nil {
+            if ud.object(forKey: "testnet") as! Int == 1 {
+                rpcport = "18332"
+            }
+        }
+        
+        if ud.object(forKey: "regtest") != nil {
+            if ud.object(forKey: "regtest") as! Int == 1 {
+                rpcport = "18443"
+            }
+        }
+        
+        
+        
         let url = "btcstandup://\(rpcuser):\(rpcpassword)@\(torHostname):\(rpcport)/?label=Stand%20Up%20Node"
+        imageView.frame = CGRect(x: 30, y: 30, width: 100, height: 100)
         imageView.image = getQRCode(textInput: url)
         
     }
@@ -42,11 +65,10 @@ class QRDisplayer: NSViewController {
         filter!.setValue(data, forKey: "inputMessage")
         let transform = CGAffineTransform(scaleX: 10, y: 10)
         let output = filter?.outputImage?.transformed(by: transform)
-        let grey = #colorLiteral(red: 0.07804081589, green: 0.09001789242, blue: 0.1025182381, alpha: 1)
         
         let colorParameters = [
-            "inputColor0": CIColor(color: NSColor.green), // Foreground
-            "inputColor1": CIColor(color: grey) // Background
+            "inputColor0": CIColor(color: NSColor.black), // Foreground
+            "inputColor1": CIColor(color: NSColor.white) // Background
         ]
         
         let colored = (output!.applyingFilter("CIFalseColor", parameters: colorParameters as [String : Any]))
