@@ -151,6 +151,10 @@ btcstandup://rpcuser:rpcpassword@kjhfefe.onion:8332
 
 This allows node hardware manufacturers the option of hard coding a label for the node. Ideally, there would be a two-factor authentication where user inputs a V2 or V3 auth cookie into the client app manually, so that if the URL leaks somehow it would not give an attacker access to the node.
 
+#### Questions for the Developer Community
+
+We'd love to have more discussion with other developers about any additional requirements for this initial connection between a full node and a remote device. This could include a possible TOFU two-round auth so that the node can know that the specific remote device is the same one that requested it originally.
+
 ## Security
 
 ### Warning
