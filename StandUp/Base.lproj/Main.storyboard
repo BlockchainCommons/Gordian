@@ -707,14 +707,14 @@
             <objects>
                 <viewController id="lGs-ue-8Wa" customClass="Installer" customModule="StandUp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="DRV-Un-Dox">
-                        <rect key="frame" x="0.0" y="0.0" width="678" height="455"/>
+                        <rect key="frame" x="0.0" y="0.0" width="630" height="369"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <progressIndicator wantsLayer="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="45m-n7-hT3">
-                                <rect key="frame" x="642" y="419" width="16" height="16"/>
+                                <rect key="frame" x="594" y="333" width="16" height="16"/>
                             </progressIndicator>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nXI-VP-ngn">
-                                <rect key="frame" x="325" y="421" width="29" height="12"/>
+                                <rect key="frame" x="301" y="335" width="29" height="12"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="jeb-s9-3my">
                                     <font key="font" size="10" name="HelveticaNeue"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -722,17 +722,17 @@
                                 </textFieldCell>
                             </textField>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNz-4D-azF">
-                                <rect key="frame" x="20" y="61" width="638" height="353"/>
+                                <rect key="frame" x="20" y="61" width="590" height="267"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="nzI-tT-yPL">
-                                    <rect key="frame" x="0.0" y="0.0" width="638" height="353"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="590" height="267"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="UEh-pS-LId">
-                                            <rect key="frame" x="0.0" y="0.0" width="638" height="353"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="590" height="267"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="638" height="353"/>
+                                            <size key="minSize" width="590" height="267"/>
                                             <size key="maxSize" width="799" height="10000000"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
@@ -743,12 +743,12 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="mxG-bN-jUe">
-                                    <rect key="frame" x="622" y="0.0" width="16" height="353"/>
+                                    <rect key="frame" x="574" y="0.0" width="16" height="267"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aEF-pD-lnP">
-                                <rect key="frame" x="594" y="13" width="70" height="32"/>
+                                <rect key="frame" x="546" y="13" width="70" height="32"/>
                                 <buttonCell key="cell" type="push" title="Back" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VFt-u6-6a9">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1016,11 +1016,11 @@
             <objects>
                 <viewController id="mY6-pf-cJ7" customClass="Settings" customModule="StandUp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="NdO-VV-y8O">
-                        <rect key="frame" x="0.0" y="0.0" width="355" height="425"/>
+                        <rect key="frame" x="0.0" y="0.0" width="630" height="369"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PB5-TH-9kb">
-                                <rect key="frame" x="18" y="316" width="55" height="16"/>
+                                <rect key="frame" x="18" y="260" width="55" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Network" id="eAp-PE-nvJ">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1028,7 +1028,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ykr-KC-RUG">
-                                <rect key="frame" x="18" y="389" width="70" height="16"/>
+                                <rect key="frame" x="18" y="333" width="70" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Blockchain" id="d7T-4T-2xw">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1036,7 +1036,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K8M-AP-QRh">
-                                <rect key="frame" x="18" y="219" width="92" height="16"/>
+                                <rect key="frame" x="18" y="163" width="92" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Data Directory" id="LQn-7c-6Mm">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1044,7 +1044,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z2M-DU-Gxm">
-                                <rect key="frame" x="18" y="133" width="202" height="16"/>
+                                <rect key="frame" x="18" y="77" width="202" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Authenticate with Tor V3 Pubkey" id="7FV-M7-ZH7">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1052,7 +1052,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VOb-1B-nKz">
-                                <rect key="frame" x="18" y="298" width="71" height="18"/>
+                                <rect key="frame" x="18" y="242" width="71" height="18"/>
                                 <buttonCell key="cell" type="check" title="mainnet" bezelStyle="regularSquare" imagePosition="left" inset="2" id="EHL-aK-STG">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1062,7 +1062,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4ej-es-0TD">
-                                <rect key="frame" x="18" y="370" width="58" height="18"/>
+                                <rect key="frame" x="18" y="314" width="58" height="18"/>
                                 <buttonCell key="cell" type="check" title="Prune" bezelStyle="regularSquare" imagePosition="left" inset="2" id="GNm-Ca-tHc">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1072,7 +1072,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P6i-rw-a6U">
-                                <rect key="frame" x="18" y="278" width="65" height="18"/>
+                                <rect key="frame" x="18" y="222" width="65" height="18"/>
                                 <buttonCell key="cell" type="check" title="testnet" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="lhk-9Y-r9S">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1082,7 +1082,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V2w-nv-WNd">
-                                <rect key="frame" x="18" y="258" width="66" height="18"/>
+                                <rect key="frame" x="18" y="202" width="66" height="18"/>
                                 <buttonCell key="cell" type="check" title="regtest" bezelStyle="regularSquare" imagePosition="left" inset="2" id="ef3-TV-Lg3">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1092,7 +1092,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AAY-7j-bRW">
-                                <rect key="frame" x="271" y="377" width="70" height="32"/>
+                                <rect key="frame" x="546" y="321" width="70" height="32"/>
                                 <buttonCell key="cell" type="push" title="Back" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PID-gJ-4jv">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1102,7 +1102,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rlJ-Bf-ZZN">
-                                <rect key="frame" x="271" y="90" width="70" height="32"/>
+                                <rect key="frame" x="546" y="34" width="70" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="58" id="86F-b9-j6V"/>
                                 </constraints>
@@ -1115,7 +1115,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BZ9-GZ-pgd">
-                                <rect key="frame" x="20" y="97" width="249" height="21"/>
+                                <rect key="frame" x="20" y="41" width="524" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="descriptor:x25519:PHK2DFSCNNJ75U3GUA3SHCVEGPEJMZAPEKQGL5YLVM2GV6NORB6Q" drawsBackground="YES" id="bLn-WF-OOM">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1123,7 +1123,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dYe-oO-Sjr">
-                                <rect key="frame" x="18" y="123" width="217" height="10"/>
+                                <rect key="frame" x="18" y="67" width="217" height="10"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="add up to ~300 pubkeys for two factor authentication" id="NXu-mI-6Et">
                                     <font key="font" metaFont="system" size="8"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -1131,7 +1131,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="S1V-El-KRh">
-                                <rect key="frame" x="14" y="168" width="108" height="32"/>
+                                <rect key="frame" x="14" y="112" width="108" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="96" id="UEu-ni-U5N"/>
                                 </constraints>
@@ -1144,7 +1144,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0cQ-HR-WIM">
-                                <rect key="frame" x="18" y="201" width="319" height="16"/>
+                                <rect key="frame" x="18" y="145" width="594" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="~/Library/Application Support/Bitcoin/" id="Kmd-GB-DqL">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -1152,8 +1152,8 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uMK-KT-7YU">
-                                <rect key="frame" x="18" y="351" width="76" height="18"/>
-                                <buttonCell key="cell" type="check" title="TX Index" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yWX-Mi-W1P">
+                                <rect key="frame" x="18" y="295" width="152" height="18"/>
+                                <buttonCell key="cell" type="check" title="Full transaction index" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yWX-Mi-W1P">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1215,11 +1215,11 @@
             <objects>
                 <viewController id="eC6-Cf-Cnx" customClass="QRDisplayer" customModule="StandUp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="TXs-2Y-7lq">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="630" height="369"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kgL-s8-LFU">
-                                <rect key="frame" x="361" y="0.0" width="70" height="32"/>
+                                <rect key="frame" x="541" y="0.0" width="70" height="32"/>
                                 <buttonCell key="cell" type="push" title="Back" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="F80-NF-MVD">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1229,7 +1229,7 @@
                                 </connections>
                             </button>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N7B-O2-k1D">
-                                <rect key="frame" x="115" y="40" width="220" height="220"/>
+                                <rect key="frame" x="205" y="75" width="220" height="220"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="220" id="4kF-Vv-zTN"/>
                                     <constraint firstAttribute="width" constant="220" id="jMN-wX-f8E"/>

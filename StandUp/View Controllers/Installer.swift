@@ -170,7 +170,7 @@ class Installer: NSViewController {
         task.standardOutput = stdOut
         task.standardError = stdErr
         
-        let handler =  { (file: FileHandle!) -> Void in
+        let handler = { (file: FileHandle!) -> Void in
             
             let data = file.availableData
             
@@ -191,7 +191,22 @@ class Installer: NSViewController {
                         
                         self.isRunning = false
                         self.buildTask.terminate()
-                        self.buildTask.suspend()
+                        
+                        do {
+                            
+                            if #available(OSX 10.15, *) {
+                                try file.close()
+                                print("file closed")
+                            } else {
+                                // Fallback on earlier versions
+                            }
+                            
+                            
+                        } catch {
+                            
+                            print("failed closing file")
+                            
+                        }
                         
                     } else {
                         
