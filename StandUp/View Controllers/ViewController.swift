@@ -35,6 +35,7 @@ class ViewController: NSViewController {
     var torInstalled = Bool()
     var torIsOn = Bool()
     var bitcoinRunning = Bool()
+    var seeLog = Bool()
     dynamic var isRunning = false
     var outputPipe:Pipe!
     var buildTask:Process!
@@ -105,11 +106,11 @@ class ViewController: NSViewController {
         
     }
     
-    @IBAction func seeLogAction(_ sender: Any) {
-        print("seeLogAction")
+    @IBAction func seeLog(_ sender: Any) {
         
         DispatchQueue.main.async {
             
+            self.seeLog = true
             self.performSegue(withIdentifier: "goInstall", sender: self)
             
         }
@@ -660,7 +661,7 @@ class ViewController: NSViewController {
         if result.contains("bitcoin-0.19.0rc3-osx64.tar.gz: OK") {
             
             print("results verified")
-            showAlertMessage(message: "PGP Signatures for bitcoin-0.19.0rc3-osx64.tar.gz are valid", info: "")
+            showAlertMessage(message: "PGP signatures for bitcoin-0.19.0rc3-osx64.tar.gz and Laanjw SHA256SUMS.asc match", info: "")
             
         } else {
             
@@ -858,6 +859,7 @@ class ViewController: NSViewController {
             
             if let vc = segue.destinationController as? Installer {
                 
+                vc.seeLog = seeLog
                 vc.standingUp = standingUp
                 vc.isInstallingBitcoin = isInstallingBitcoin
                 vc.isInstallingTor = isInstallingTor

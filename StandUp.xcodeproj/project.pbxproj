@@ -163,9 +163,9 @@
 				D0BCB338236A6D27000D8FDE /* Main.storyboard */,
 				D0BCB33B236A6D27000D8FDE /* Info.plist */,
 				D0BCB33C236A6D27000D8FDE /* StandUp.entitlements */,
-				D0DCD8E5236ACC9E00F2D15A /* ScriptEnum.swift */,
+				D0EBC03223791DEA008302D2 /* Enums */,
 				D099F3362375914300AC0EF6 /* Scripts */,
-				D0EBC0302377EE65008302D2 /* Utilities.swift */,
+				D0EBC03323791DFF008302D2 /* Helpers */,
 			);
 			path = StandUp;
 			sourceTree = "<group>";
@@ -186,6 +186,22 @@
 				D0BCB352236A6D28000D8FDE /* Info.plist */,
 			);
 			path = StandUpUITests;
+			sourceTree = "<group>";
+		};
+		D0EBC03223791DEA008302D2 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				D0DCD8E5236ACC9E00F2D15A /* ScriptEnum.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		D0EBC03323791DFF008302D2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D0EBC0302377EE65008302D2 /* Utilities.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

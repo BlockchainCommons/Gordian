@@ -19,7 +19,7 @@ class Installer: NSViewController {
     dynamic var isRunning = false
     var outputPipe:Pipe!
     var buildTask:Process!
-    var outputString = ""
+    var seeLog = Bool()
     var bitcoinInstalled = Bool()
     var torInstalled = Bool()
     var standingUp = Bool()
@@ -63,9 +63,21 @@ class Installer: NSViewController {
     func filterAction() {
         
         var desc = ""
-        spinner.startAnimation(self)
-        desc = "Standing Up (this can take awhile)..."
-        runScript(script: .standUp)
+        
+        if seeLog {
+            
+            spinner.alphaValue = 0
+            seeLog = false
+            showLog()
+            
+        } else if standingUp {
+            
+            standingUp = false
+            spinner.startAnimation(self)
+            desc = "Standing Up (this can take awhile)..."
+            runScript(script: .standUp)
+            
+        }
         
         DispatchQueue.main.async {
             
@@ -82,6 +94,7 @@ class Installer: NSViewController {
     }
     
     func goBack() {
+        print("go back")
         
         if !dismissing {
             
@@ -91,7 +104,10 @@ class Installer: NSViewController {
                 
                 if let presenter = self.presentingViewController as? ViewController {
                     
+                    presenter.seeLog = false
+                    presenter.standingUp = false
                     presenter.checkBitcoindVersion()
+                    print("checkBitcoindVersion")
                     
                 }
                 
@@ -128,7 +144,14 @@ class Installer: NSViewController {
             self.buildTask.terminationHandler = {
 
                 task in
-                self.isRunning = false
+                
+                print("task did terminate")
+                
+                DispatchQueue.main.async {
+                    self.isRunning = false
+                    self.setLog()
+                    self.goBack()
+                }
 
             }
 
@@ -160,16 +183,23 @@ class Installer: NSViewController {
                 DispatchQueue.main.async {
                     
                     let prevOutput = self.consoleOutput.string
-                    let nextOutput = prevOutput + "\n" + (output as String)
+                    let nextOutput = prevOutput + (output as String)
                     self.consoleOutput.string = nextOutput
-                    self.consoleOutput.scrollToEndOfDocument(self)
                     
-                    if (output as String).contains("Successfully started `tor`") || (output as String).contains("Service `tor` already started") {
+                    
+                    if (output as String).contains("Successfully started `tor`") || (output as String).contains("Service `tor` already started") || (output as String).contains("Signatures do not match! Terminating...") {
                         
-                        print("stop")
                         self.isRunning = false
-                        task.terminate()
-                        self.goBack()
+                        self.buildTask.terminate()
+                        self.buildTask.suspend()
+                        
+                    } else {
+                        
+                        if self.isRunning {
+                            
+                            self.consoleOutput.scrollToEndOfDocument(self)
+                            
+                        }
                         
                     }
                     
@@ -186,16 +216,6 @@ class Installer: NSViewController {
         
     }
     
-    func centralStation(script: SCRIPT) {
-        print("central station")
-        
-        switch script {
-        case .standUp: bitcoinInstalled = true; torInstalled = true; goBack()
-        default: hideSpinner()
-        }
-        
-    }
-    
     func hideSpinner() {
         
         DispatchQueue.main.async {
@@ -209,7 +229,6 @@ class Installer: NSViewController {
     
     func setScene() {
         
-        spinner.startAnimation(self)
         consoleOutput.textColor = NSColor.green
         consoleOutput.isEditable = false
         consoleOutput.isSelectable = false
@@ -217,6 +236,59 @@ class Installer: NSViewController {
         
     }
     
+    func setLog() {
+        
+        let file = "log.txt"
+        let text = self.consoleOutput.string
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            
+            let fileURL = dir.appendingPathComponent(file)
+            
+            do {
+                
+                try text.write(to: fileURL, atomically: false, encoding: .utf8)
+                
+            } catch {
+                
+                print("error setting log")
+                
+            }
+            
+        }
+        
+    }
     
+    func showLog() {
+        
+        seeLog = false
+        
+        let file = "log.txt"
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            
+            let fileURL = dir.appendingPathComponent(file)
+            
+            do {
+                
+                let text2 = try String(contentsOf: fileURL, encoding: .utf8)
+                
+                DispatchQueue.main.async {
+                    self.consoleOutput.string = text2
+                }
+                
+            } catch {
+                
+                DispatchQueue.main.async {
+                    
+                    self.consoleOutput.string = "Error getting log, possibly does not exist yet..."
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
     
 }
