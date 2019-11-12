@@ -24,6 +24,14 @@ echo "Done"
 echo "Downloading Bitcoin Core 0.19.0..."
 cd ~/StandUp/BitcoinCore0.19.0
 curl https://bitcoin.org/bin/bitcoin-core-0.19.0/test.rc3/bitcoin-0.19.0rc3-osx64.tar.gz -o ~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3-osx64.tar.gz --progress-bar
+ACTUAL_SHA=$(shasum -a 256 bitcoin-0.19.0rc3-osx64.tar.gz | awk '{print $1}')
+EXPECTED_SHA=$(grep osx64 SHA256SUMS.asc | awk '{print $1}')
+echo "See two signatures (they should match):"
+echo $ACTUAL_SHA
+echo $EXPECTED_SHA
+if [ "$ACTUAL_SHA" == "$EXPECTED_SHA" ];
+then
+echo "Signatures match... continuing"
 tar -zxvf bitcoin-0.19.0rc3-osx64.tar.gz
 mkdir ~/Library/Application\ Support/Bitcoin
 cat <<EOF >~/Library/Application\ Support/Bitcoin/bitcoin.conf
@@ -49,7 +57,7 @@ rpcport=18443
 EOF
 echo "Done"
 echo "Setting up Tor..."
-/usr/local/bin/brew install tor
+/usr/local/bin/brew install tor --verbose
 cp /usr/local/etc/tor/torrc.sample /usr/local/etc/tor/torrc
 sed -i -e 's/#ControlPort 9051/ControlPort 9051/g' /usr/local/etc/tor/torrc
 sed -i -e 's/#CookieAuthentication 1/CookieAuthentication 1/g' /usr/local/etc/tor/torrc
@@ -64,7 +72,11 @@ mkdir /usr/local/var/lib
 mkdir /usr/local/var/lib/tor
 mkdir /usr/local/var/lib/tor/standup
 chmod 700 /usr/local/var/lib/tor/standup
-echo "Congratulations you are now StoodUp!"
+echo "Congratulations you are now StoodUp! Click the back button if it does not happen automatically"
 echo "Starting Tor.."
 /usr/local/bin/brew services start tor
+exit
+else
+echo "Signatures do not match! Terminating..."
+fi
 exit
