@@ -19,7 +19,11 @@ class Settings: NSViewController {
     var selectedFolder:URL!
     var selectedItem:URL!
     let ud = UserDefaults.standard
+    var seeLog = Bool()
+    var standingDown = Bool()
     
+    @IBOutlet var nodeLabelField: NSTextField!
+    @IBOutlet var walletDisabled: NSButton!
     @IBOutlet var pruneOutlet: NSButton!
     @IBOutlet var mainnetOutlet: NSButton!
     @IBOutlet var testnetOutlet: NSButton!
@@ -33,6 +37,18 @@ class Settings: NSViewController {
         getSettings()
     }
     
+    @IBAction func seeStandUpLog(_ sender: Any) {
+        
+        DispatchQueue.main.async {
+            
+            self.seeLog = true
+            self.performSegue(withIdentifier: "seeLog", sender: self)
+            
+        }
+        
+    }
+    
+    
     func getSettings() {
         
         getSetting(key: "pruned", button: pruneOutlet, def: 0)
@@ -40,11 +56,20 @@ class Settings: NSViewController {
         getSetting(key: "mainnet", button: mainnetOutlet, def: 0)
         getSetting(key: "testnet", button: testnetOutlet, def: 1)
         getSetting(key: "regtest", button: regtestOutlet, def: 0)
+        getSetting(key: "walletDisabled", button: walletDisabled, def: 0)
         
         if ud.object(forKey: "dataDir") != nil {
             
             DispatchQueue.main.async {
                 self.directoryLabel.stringValue = "\(self.ud.object(forKey: "dataDir") ?? "~/Library/Application Support/Bitcoin")"
+            }
+            
+        }
+        
+        if ud.object(forKey: "nodeLabel") != nil {
+            
+            DispatchQueue.main.async {
+                self.nodeLabelField.stringValue = self.ud.object(forKey: "nodeLabel") as! String
             }
             
         }
@@ -92,6 +117,116 @@ class Settings: NSViewController {
         }
         
     }
+    
+    @IBAction func removeStandUp(_ sender: Any) {
+        
+        DispatchQueue.main.async {
+            
+            let a = NSAlert()
+            a.messageText = "Danger!"
+            a.informativeText = "This will remove the StandUp directory, remove tor config, tor hidden services and uninstall tor.\n\nAre you aure you want to do this?"
+            a.addButton(withTitle: "Yes")
+            a.addButton(withTitle: "No")
+            let response = a.runModal()
+            
+            if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+                
+                self.seeLog = false
+                self.standingDown = true
+                self.performSegue(withIdentifier: "seeLog", sender: self)
+                
+            } else {
+                
+                print("tapped no")
+                
+            }
+            
+        }
+        
+    }
+    
+    @IBAction func removeBitcoinCore(_ sender: Any) {
+        
+        DispatchQueue.main.async {
+            
+            let a = NSAlert()
+            a.messageText = "Danger!"
+            a.informativeText = "This will remove the Bitcoin directory! All Bitcoin Core data including your wallets will be deleted!\n\nAre you sure you want to continue?"
+            a.addButton(withTitle: "Yes")
+            a.addButton(withTitle: "No")
+            let response = a.runModal()
+            
+            if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+                
+                let run = RunAppleScript()
+                
+                func completed() {
+                    
+                    if !run.errorBool {
+                        
+                        DispatchQueue.main.async {
+                            
+                            let a = NSAlert()
+                            a.messageText = "Bitcoin directory and its contents were deleted"
+                            a.addButton(withTitle: "OK")
+                            a.runModal()
+                            
+                        }
+                        
+                    } else {
+                        
+                        DispatchQueue.main.async {
+                            
+                            let a = NSAlert()
+                            a.messageText = "Error"
+                            a.addButton(withTitle: run.errorDescription)
+                            a.runModal()
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                run.runScript(script: .removeBitcoin, completion: completed)
+                
+            } else {
+                
+                print("tapped no")
+                
+            }
+            
+        }
+        
+    }
+    
+    @IBAction func saveNodeLabel(_ sender: Any) {
+        
+        if nodeLabelField.stringValue != "" {
+            
+            ud.set(nodeLabelField.stringValue, forKey: "nodeLabel")
+            
+            DispatchQueue.main.async {
+                
+                let a = NSAlert()
+                a.messageText = "Node label updated"
+                a.addButton(withTitle: "OK")
+                a.runModal()
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    @IBAction func didSetWalletDisabled(_ sender: Any) {
+        
+        let value = walletDisabled.state.rawValue
+        ud.set(value, forKey: "walletDisabled")
+        
+    }
+    
     
     @IBAction func didSetPrune(_ sender: Any) {
         
@@ -360,6 +495,26 @@ class Settings: NSViewController {
     
     func contentsOf(folder: URL) -> [URL] {
       return []
+    }
+    
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        
+        switch segue.identifier {
+            
+        case "seeLog":
+            
+            if let vc = segue.destinationController as? Installer {
+                
+                vc.seeLog = seeLog
+                vc.standingDown = standingDown
+            }
+            
+        default:
+            
+            break
+            
+        }
+        
     }
     
 }

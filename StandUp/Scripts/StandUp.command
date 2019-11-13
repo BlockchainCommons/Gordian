@@ -14,6 +14,7 @@ MAINNET="$5"
 TESTNET="$6"
 REGTEST="$7"
 TXINDEX="$8"
+WALLET_DISABLED="$9"
 mkdir ~/StandUp
 mkdir ~/StandUp/BitcoinCore0.19.0
 echo "Downloading https://bitcoin.org/bin/bitcoin-core-0.19.0/test.rc3/SHA256SUMS.asc"
@@ -37,10 +38,11 @@ echo "Signatures match"
 echo "Unpacking bitcoin-0.19.0rc3-osx64.tar.gz"
 tar -zxvf bitcoin-0.19.0rc3-osx64.tar.gz
 echo "Creating bitcoin.conf at: ~/Library/Application Support/Bitcoin/bitcoin.conf"
-echo "datadir="$DATADIR"\nrpcuser="$RPCUSER"\nrpcpassword=******\nserver=1\nprune="$PRUNE"\ntxindex="$TXINDEX"\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\ntestnet="$TESTNET"\nregtest="$REGTEST"\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
+echo "datadir="$DATADIR"\nwalletdisabled="$WALLET_DISABLED"\nrpcuser="$RPCUSER"\nrpcpassword=******\nserver=1\nprune="$PRUNE"\ntxindex="$TXINDEX"\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\ntestnet="$TESTNET"\nregtest="$REGTEST"\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
 mkdir ~/Library/Application\ Support/Bitcoin
 cat <<EOF >~/Library/Application\ Support/Bitcoin/bitcoin.conf
 datadir=$DATADIR
+walletdisabled=$WALLET_DISABLED
 rpcuser=$RPCUSER
 rpcpassword=$RPCPASSWORD
 server=1

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D01471A12371354700F64329 /* LaunchBitcoin.command in Resources */ = {isa = PBXBuildFile; fileRef = D01471A02371354700F64329 /* LaunchBitcoin.command */; };
+		D049E89A237BBE1700294E70 /* RunAppleScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D049E899237BBE1700294E70 /* RunAppleScript.swift */; };
+		D049E89C237BBFE600294E70 /* RunBuildTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D049E89B237BBFE600294E70 /* RunBuildTask.swift */; };
+		D049E89E237BD09200294E70 /* StandDown.command in Resources */ = {isa = PBXBuildFile; fileRef = D049E89D237BD09200294E70 /* StandDown.command */; };
 		D06E3937236BE46E0072924A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06E3935236BE46D0072924A /* Settings.swift */; };
 		D06E3938236BE46E0072924A /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06E3936236BE46E0072924A /* Settings.xib */; };
 		D0971D90237008D8001C3636 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D0971D8F237008D8001C3636 /* LICENSE */; };
@@ -50,6 +53,9 @@
 
 /* Begin PBXFileReference section */
 		D01471A02371354700F64329 /* LaunchBitcoin.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = LaunchBitcoin.command; sourceTree = "<group>"; };
+		D049E899237BBE1700294E70 /* RunAppleScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunAppleScript.swift; sourceTree = "<group>"; };
+		D049E89B237BBFE600294E70 /* RunBuildTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunBuildTask.swift; sourceTree = "<group>"; };
+		D049E89D237BD09200294E70 /* StandDown.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StandDown.command; sourceTree = "<group>"; };
 		D06E3935236BE46D0072924A /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		D06E3936236BE46E0072924A /* Settings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Settings.xib; sourceTree = "<group>"; };
 		D0971D8F237008D8001C3636 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -128,6 +134,7 @@
 				D0A3B6F023739FCF00253635 /* StandUp.command */,
 				D0B36C442373E521004B2D63 /* Verify.command */,
 				D0EBC02E2376834D008302D2 /* Authenticate.command */,
+				D049E89D237BD09200294E70 /* StandDown.command */,
 			);
 			path = Scripts;
 			sourceTree = "<group>";
@@ -200,6 +207,8 @@
 			isa = PBXGroup;
 			children = (
 				D0EBC0302377EE65008302D2 /* Utilities.swift */,
+				D049E899237BBE1700294E70 /* RunAppleScript.swift */,
+				D049E89B237BBFE600294E70 /* RunBuildTask.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -316,6 +325,7 @@
 				D0971D90237008D8001C3636 /* LICENSE in Resources */,
 				D0EBC02F2376834D008302D2 /* Authenticate.command in Resources */,
 				D0B36C432373BBA5004B2D63 /* StopTor.command in Resources */,
+				D049E89E237BD09200294E70 /* StandDown.command in Resources */,
 				D0971D92237008F6001C3636 /* README.md in Resources */,
 				D0BCB33A236A6D27000D8FDE /* Main.storyboard in Resources */,
 				D01471A12371354700F64329 /* LaunchBitcoin.command in Resources */,
@@ -345,9 +355,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D049E89C237BBFE600294E70 /* RunBuildTask.swift in Sources */,
 				D06E3937236BE46E0072924A /* Settings.swift in Sources */,
 				D0DCD8E9236ACD5300F2D15A /* QRDisplayer.swift in Sources */,
 				D0EBC0312377EE65008302D2 /* Utilities.swift in Sources */,
+				D049E89A237BBE1700294E70 /* RunAppleScript.swift in Sources */,
 				D0DCD8ED236ACD6300F2D15A /* Installer.swift in Sources */,
 				D0BCB335236A6D22000D8FDE /* ViewController.swift in Sources */,
 				D0DCD8E6236ACC9E00F2D15A /* ScriptEnum.swift in Sources */,
@@ -518,6 +530,7 @@
 				CODE_SIGN_ENTITLEMENTS = StandUp/StandUp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 69FR345CDA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = StandUp/Info.plist;
@@ -525,6 +538,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fontaine.StandUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -538,6 +552,7 @@
 				CODE_SIGN_ENTITLEMENTS = StandUp/StandUp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 69FR345CDA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = StandUp/Info.plist;
@@ -545,6 +560,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fontaine.StandUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
