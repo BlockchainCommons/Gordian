@@ -16,15 +16,10 @@ class Installer: NSViewController {
     @IBOutlet var consoleOutput: NSTextView!
     var isInstallingBitcoin = Bool()
     var isInstallingTor = Bool()
-    dynamic var isRunning = false
-    var outputPipe:Pipe!
-    var buildTask:Process!
     var seeLog = Bool()
-    var bitcoinInstalled = Bool()
-    var torInstalled = Bool()
     var standingUp = Bool()
     var args = [String]()
-    var dismissing = Bool()
+    var standingDown = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +44,7 @@ class Installer: NSViewController {
         let testnet = ud.object(forKey: "testnet") as? Int ?? 1
         let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
         let regtest = ud.object(forKey: "regtest") as? Int ?? 0
+        let walletDisabled = ud.object(forKey: "walletDisabled") as? Int ?? 0
         args.append(rpcpassword)
         args.append(rpcuser)
         args.append(dataDir)
@@ -57,6 +53,7 @@ class Installer: NSViewController {
         args.append("\(testnet)")
         args.append("\(regtest)")
         args.append("\(txIndex)")
+        args.append("\(walletDisabled)")
         
     }
     
@@ -75,7 +72,14 @@ class Installer: NSViewController {
             standingUp = false
             spinner.startAnimation(self)
             desc = "Standing Up (this can take awhile)..."
-            runScript(script: .standUp)
+            standUp()
+            
+        } else if standingDown {
+            
+            standingDown = false
+            spinner.startAnimation(self)
+            desc = "Standing Down..."
+            standDown()
             
         }
         
@@ -96,27 +100,21 @@ class Installer: NSViewController {
     func goBack() {
         print("go back")
         
-        if !dismissing {
+        DispatchQueue.main.async {
+            
+            self.hideSpinner()
+            
+            if let presenter = self.presentingViewController as? ViewController {
+                
+                presenter.standingUp = false
+                presenter.checkBitcoindVersion()
+                print("checkBitcoindVersion")
+                
+            }
             
             DispatchQueue.main.async {
                 
-                self.hideSpinner()
-                
-                if let presenter = self.presentingViewController as? ViewController {
-                    
-                    presenter.seeLog = false
-                    presenter.standingUp = false
-                    presenter.checkBitcoindVersion()
-                    print("checkBitcoindVersion")
-                    
-                }
-                
-                DispatchQueue.main.async {
-                    
-                    self.dismissing = true
-                    self.dismiss(self)
-                    
-                }
+                self.dismiss(self)
                 
             }
             
@@ -124,86 +122,74 @@ class Installer: NSViewController {
         
     }
     
-    func runScript(script: SCRIPT) {
-
-        isRunning = true
-        let taskQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-        let resource = script.rawValue
-
-        taskQueue.async {
-
-            guard let path = Bundle.main.path(forResource: resource, ofType: "command") else {
-                print("Unable to locate \(resource).command")
-                return
-            }
-
-            self.buildTask = Process()
-            self.buildTask.launchPath = path
-            self.buildTask.arguments = self.args
-
-            self.buildTask.terminationHandler = {
-
-                task in
-                
-                print("task did terminate")
+    func standDown() {
+        
+        let runBuildTask = RunBuildTask.sharedInstance
+        runBuildTask.args = []
+        runBuildTask.textView = consoleOutput
+        runBuildTask.exitStrings = ["Finished"]
+        
+        func completed() {
+            
+            if !runBuildTask.errorBool {
                 
                 DispatchQueue.main.async {
-                    self.isRunning = false
+                    
+                    self.spinner.stopAnimation(self)
+                    self.spinner.alphaValue = 0
+                    self.spinnerDescription.stringValue = ""
+                    self.setLog()
+                    let a = NSAlert()
+                    a.messageText = "Success"
+                    a.informativeText = "You have StoodDown"
+                    a.addButton(withTitle: "OK")
+                    a.runModal()
+                    
+                }
+                
+            } else {
+                
+                DispatchQueue.main.async {
+                    
+                    let a = NSAlert()
+                    a.messageText = "Error"
+                    a.addButton(withTitle: runBuildTask.errorDescription)
+                    a.runModal()
+                    
+                }
+                
+            }
+            
+        }
+        
+        runBuildTask.runScript(script: .standDown, completion: completed)
+        
+    }
+    
+    func standUp() {
+        
+        let runBuildTask = RunBuildTask.sharedInstance
+        runBuildTask.args = args
+        runBuildTask.textView = consoleOutput
+        runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
+        
+        func completed() {
+            
+            if !runBuildTask.errorBool {
+                
+                DispatchQueue.main.async {
                     self.setLog()
                     self.goBack()
                 }
-
-            }
-
-            self.captureStandardOutputAndRouteToTextView(task: self.buildTask, script: script)
-            self.buildTask.launch()
-            self.buildTask.waitUntilExit()
-
-        }
-
-    }
-    
-    func captureStandardOutputAndRouteToTextView(task:Process, script: SCRIPT) {
-        
-        let stdOut = Pipe()
-        let stdErr = Pipe()
-        task.standardOutput = stdOut
-        task.standardError = stdErr
-        
-        let handler =  { (file: FileHandle!) -> Void in
-            
-            let data = file.availableData
-            
-            if self.isRunning {
                 
-                guard let output = NSString(data: data, encoding: String.Encoding.utf8.rawValue) else {
-                    return
-                }
+            } else {
                 
                 DispatchQueue.main.async {
                     
-                    let prevOutput = self.consoleOutput.string
-                    let nextOutput = prevOutput + (output as String)
-                    self.consoleOutput.string = nextOutput
-                    
-                    
-                    if (output as String).contains("Successfully started `tor`") || (output as String).contains("Service `tor` already started") || (output as String).contains("Signatures do not match! Terminating...") {
-                        
-                        self.isRunning = false
-                        self.buildTask.terminate()
-                        self.buildTask.suspend()
-                        
-                    } else {
-                        
-                        if self.isRunning {
-                            
-                            self.consoleOutput.scrollToEndOfDocument(self)
-                            
-                        }
-                        
-                    }
-                    
-                    print("scroll down")
+                    let a = NSAlert()
+                    a.messageText = "Error"
+                    a.addButton(withTitle: runBuildTask.errorDescription)
+                    a.runModal()
                     
                 }
                 
@@ -211,8 +197,7 @@ class Installer: NSViewController {
             
         }
         
-        stdErr.fileHandleForReading.readabilityHandler = handler
-        stdOut.fileHandleForReading.readabilityHandler = handler
+        runBuildTask.runScript(script: .standUp, completion: completed)
         
     }
     
@@ -262,7 +247,6 @@ class Installer: NSViewController {
     func showLog() {
         
         seeLog = false
-        
         let file = "log.txt"
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -280,9 +264,7 @@ class Installer: NSViewController {
             } catch {
                 
                 DispatchQueue.main.async {
-                    
                     self.consoleOutput.string = "Error getting log, possibly does not exist yet..."
-                    
                 }
                 
             }

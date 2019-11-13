@@ -35,7 +35,6 @@ class ViewController: NSViewController {
     var torInstalled = Bool()
     var torIsOn = Bool()
     var bitcoinRunning = Bool()
-    var seeLog = Bool()
     dynamic var isRunning = false
     var outputPipe:Pipe!
     var buildTask:Process!
@@ -90,6 +89,18 @@ class ViewController: NSViewController {
             ud.set(0, forKey: "regtest")
             
         }
+        
+        if ud.object(forKey: "walletDisabled") == nil {
+            
+            ud.set(0, forKey: "walletDisabled")
+            
+        }
+        
+        if ud.object(forKey: "nodeLabel") == nil {
+            
+            ud.set("StandUp Node", forKey: "nodeLabel")
+            
+        }
     
     }
     
@@ -101,17 +112,6 @@ class ViewController: NSViewController {
         DispatchQueue.main.async {
             
             self.performSegue(withIdentifier: "showPairingCode", sender: self)
-            
-        }
-        
-    }
-    
-    @IBAction func seeLog(_ sender: Any) {
-        
-        DispatchQueue.main.async {
-            
-            self.seeLog = true
-            self.performSegue(withIdentifier: "goInstall", sender: self)
             
         }
         
@@ -140,7 +140,7 @@ class ViewController: NSViewController {
     @IBAction func standUp(_ sender: Any) {
         print("standup")
         
-        showstandUpAlert(message: "Ready to StandUp?", info: "StandUp installs and configures a fully indexed Bitcoin Core v0.19.0rc3 testnet node and Tor v0.4.1.6\n\n~25gb of space needed for testnet and ~270gb for mainnet\n\nGo to \"Settings\" for pruning, network, data directory and tor related bitcoin.conf options")
+        showstandUpAlert(message: "Ready to StandUp?", info: "StandUp installs and configures a fully indexed Bitcoin Core v0.19.0rc3 testnet node and Tor v0.4.1.6\n\n~30gb of space needed for testnet and ~300gb for mainnet\n\nGo to \"Settings\" for pruning, network, data directory and tor related bitcoin.conf options")
         
     }
     
@@ -859,12 +859,7 @@ class ViewController: NSViewController {
             
             if let vc = segue.destinationController as? Installer {
                 
-                vc.seeLog = seeLog
                 vc.standingUp = standingUp
-                vc.isInstallingBitcoin = isInstallingBitcoin
-                vc.isInstallingTor = isInstallingTor
-                vc.bitcoinInstalled = bitcoinInstalled
-                vc.torInstalled = torInstalled
                 
             }
             

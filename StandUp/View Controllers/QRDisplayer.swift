@@ -40,9 +40,15 @@ class QRDisplayer: NSViewController {
             }
         }
         
+        var nodeLabel = ud.object(forKey: "nodeLabel") as? String ?? "StandUp%20Node"
         
+        if nodeLabel.contains(" ") {
+            
+            nodeLabel = nodeLabel.replacingOccurrences(of: " ", with: "%20")
+            
+        }
         
-        let url = "btcstandup://\(rpcuser):\(rpcpassword)@\(torHostname):\(rpcport)/?label=Stand%20Up%20Node"
+        let url = "btcstandup://\(rpcuser):\(rpcpassword)@\(torHostname):\(rpcport)/?label=\(nodeLabel)"
         imageView.frame = CGRect(x: 30, y: 30, width: 100, height: 100)
         imageView.image = getQRCode(textInput: url)
         

@@ -17,6 +17,7 @@ public enum SCRIPT: String {
     case getTorHostname = "(do shell script \"cat /usr/local/var/lib/tor/standup/hostname\")"
     case isBitcoinOn = "(do shell script \"~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3/bin/bitcoin-cli getblockchaininfo\")"
     case stopBitcoin = "(do shell script \"~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3/bin/bitcoin-cli stop\")"
+    case removeBitcoin = "(do shell script \"rm -R ~/Library/Application*Support/Bitcoin\")"
     
     case standUp = "StandUp"
     case startTor = "StartTor"
@@ -24,5 +25,6 @@ public enum SCRIPT: String {
     case startBitcoinqt = "LaunchBitcoin"
     case verifySigs = "Verify"
     case authenticate = "Authenticate"
+    case standDown = "StandDown"
     
 }
