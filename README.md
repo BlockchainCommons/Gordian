@@ -36,7 +36,7 @@ This project is an early **Work-In-Progress**, so that we can prototype, discove
 
 ## Background
 
-The most important reason to operate a Bitcoin full node is validation. With a full node, Bitcoin users can check whether transactions are valid according to all of Bitcoin's rules. Users can verify that any bitcoins they receive are legitimately mined, correctly signed, and more. This is what makes Bitcoin a trustless solution. 
+The most important reason to operate a Bitcoin full node is validation. With a full node, Bitcoin users can check whether transactions are valid according to all of Bitcoin's rules. Users can verify that any bitcoins they receive are legitimately mined, correctly signed, and more. This is what makes Bitcoin a trustless solution.
 
 (TODO: Rewrite this paragraph, add other basic reasons why having your own full node rather than relying on others is powerful.)
 
@@ -101,7 +101,7 @@ Start by installing *Strap*, a script hosted on Github for bootstrapping a minim
      ```bash
      rm ~/Downloads/strap.sh
      ```
-2. After running the *Strap* script, download and run the *Bitcoin Standup.app* 
+2. After running the *Strap* script, download and run the *Bitcoin Standup.app*
 
 (COMING SOON - for now use the [Build From Source](#build-from-source) instructions.
 
@@ -190,3 +190,6 @@ PRs are accepted. See CONTRIBUTING.md
 
 MIT © 2019 Blockchain Commons, LLC
 
+## GitHub Codeowners
+
+@ChristopherA
