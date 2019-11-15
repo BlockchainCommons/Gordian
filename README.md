@@ -161,6 +161,51 @@ We'd love to have more discussion with other developers about any additional req
 
 Don’t configure a VPS with the Bitcoin wallet feature turned on with any significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . A higher level of safety is required for significant funds. A VPS-based install can be a useful as a wallet-less full node connected remotely to a more secure wallet that signs the keys elsewhere.
 
+### Tor V3 Cookie Authentication
+Think of your StandUp node as a server, and FullyNoded or your iPhone as a client. Tor V3 hidden services have new and improved built in functionality for authenticating client connections to servers, whereby the client stores a private key that is kept secret to everyone only ever existing on the client and the public key is stored in a special directory called `authorized_clients` on your StandUp server which (in StandUp) lives in your `HiddenServiceDir`  > `/usr/local/var/lib/tor/standup/authorized_clients`.
+
+#### The problem:
+The QuickConnect QR code that StandUp produces for you contains very sensitive information. If you had a malicious maid in your house or a hacker was remotely recording your computer screen then they would have access to your node and your bitcoin as soon as they got an image of the QuickConnect QR code. If the `authorized_clients` directory is empty then anyone with the QR code has full access to your node.
+
+#### The solution:
+Prevent the existence of any single point of failure or "honey pot" (e.g. the QR code).
+
+#### How?
+For a detailed guide see [this link](https://github.com/AnarchoTechNYC/meta/wiki/Connecting-to-an-authenticated-Onion-service#connecting-to-authenticated-version-3-onion-services).
+Two factor authentication whereby a trusted separate isolated device (e.g. the client) produces the private key and public key, which requires the owner of the server to physically add in the public key to the `authorized_clients` directory. In this way there is no "honey pot" which contains all the information necessary to obtain access to your node. Of course if someone has access to your node they can produce their own key pair and add the public key into the hidden service but then again they already have access to your node and hidden service so this attack vector is somewhat irrelevant. What we are trying to accomplish is a method to guarantee that your device (e.g. the client) is the *only* device in the world that is able to remotely access your node. It is highly recommended as an additional layer of security to also encrypt your nodes wallet so that even if someone somehow stole your phone they would still need to brute force your wallet.dat encryption.
+
+For now the only mobile app which deals with Bitcoin Core RPC communications that we know of is FullyNoded. Assume you have downloaded FullyNoded, have a StandUp node running and want to add native Tor authentication. All you would need to do is open FullyNoded > "Settings" > "Node Manager" > select your node > "Next" > "Next" > "generate key pair" and most importantly tap the blue "Update" button at the bottom to save the private key!
+
+![generate V3 auth key pair](https://github.com/Fonta1n3/StandUp/blob/Images/fullynoded_generate.png)
+
+If you do not press "Update" you will lose the key pair and need to start again. This will produce a x25519 private and public key pair.
+
+![Update the node](https://github.com/Fonta1n3/StandUp/blob/Images/fullynoded_tap_pubkey.png)
+
+In FullyNoded the private key is stored encrypted locally on the device to AES256CBC standards, the user can not access it and the encryption key for the encrypted private key is stored on your keychain. Whenever you connect to your node the key is decrypted and stored in your temporary torrc file which is integrated into FullyNoded's Tor thread. In FullyNoded each time you connect to a node the credentials refresh so there is nothing being stored in clear text on your device persistently.
+
+Tap the green text which would look like `descriptor:x25519:JNEF892349FH24HF872H4FU2H387H3R982NFN238HF928`, that is your public key which needs to be passed to your StandUp node.
+
+![export the public key](https://github.com/Fonta1n3/StandUp/blob/Images/qr.png)
+
+This public key is not sensitive as it only works in conjunction with the private key. FullyNoded will display the public key in QR code format so you can easily scan it with your laptop, you can also send it via airdrop or email just by tapping the text or QR image.
+
+![share the public key](https://github.com/Fonta1n3/StandUp/blob/Images/share.png)
+
+In this way you can also share access to your node with trusted family and friends. Tor V3 hidden services support up to ~330 different public keys stored in the `authorized_clients` directory (link to source). If you were doing this manually, you would go on your laptop which has StandUp installed and find your `HiddenServiceDir` which is `/usr/local/var/lib/tor/standup/authorized_clients`. You would then open the `authorized_clients` directory and add a file which contains only the public key exactly as FullyNoded exports it. The filename must have a `.auth` extension.
+
+But of course you are using StandUp so the process is as easy as a click. In StandUp go to "Settings" and paste in the public key just as FullyNoded exported it, then tap "Add".
+
+![paste the public key](https://github.com/Fonta1n3/StandUp/blob/Images/paste.png)
+
+![tap yes](https://github.com/Fonta1n3/StandUp/blob/Images/yes.png)
+
+![tap ok to add it](https://github.com/Fonta1n3/StandUp/blob/Images/ok.png)
+
+StandUp then simply creates a random filename with a `.auth` extension, writes the public key to it, and saves it to `/usr/local/var/lib/tor/standup/authorized_clients/`. 
+
+Once again you can add around 330 of these `authorized_clients` in this manner. You can also delete them at will, and refresh them. FullyNoded is capable of creating an ~infinite number of the key pairs on demand.  If you would like to create your own you can easily do so with a [simple python script](https://github.com/Fonta1n3/FullyNoded/blob/master/Readme.md#v3-auth-keypair-generation-optional)
+
 ### Supported Versions
 
 None yet.
