@@ -176,7 +176,7 @@ Two factor authentication whereby a trusted separate isolated device (e.g. the c
 
 For now the only mobile app which deals with Bitcoin Core RPC communications that we know of is FullyNoded. Assume you have downloaded FullyNoded, have a StandUp node running and want to add native Tor authentication. All you would need to do is open FullyNoded > "Settings" > "Node Manager" > select your node > "Next" > "Next" > "generate key pair" and most importantly tap the blue "Update" button at the bottom to save the private key!
 
-![generate V3 auth key pair](https://github.com/Fonta1n3/Bitcoin-Standup/blob/master/StandUp/Images/fullynoded_generate.png)
+<img src="https://github.com/Fonta1n3/Bitcoin-Standup/blob/master/StandUp/Images/fullynoded_generate.png" alt="generate V3 auth key pair" width="250"/>
 
 If you do not press "Update" you will lose the key pair and need to start again. This will produce a x25519 private and public key pair.
 
@@ -204,7 +204,7 @@ But of course you are using StandUp so the process is as easy as a click. In Sta
 
 StandUp then simply creates a random filename with a `.auth` extension, writes the public key to it, and saves it to `/usr/local/var/lib/tor/standup/authorized_clients/`. 
 
-Once again you can add around 330 of these `authorized_clients` in this manner. You can also delete them at will, and refresh them. FullyNoded is capable of creating an ~infinite number of the key pairs on demand.  If you would like to create your own you can easily do so with a [simple python script](https://github.com/Fonta1n3/FullyNoded/blob/master/Readme.md#v3-auth-keypair-generation-optional)
+Once again you can add around 330 of these `authorized_clients` in this manner. You can also delete them at will, and refresh them. FullyNoded is capable of creating an ~infinite number of the key pairs on demand.  If you would like to create your own you can easily do so with a [simple python script](https://github.com/Fonta1n3/FullyNoded/blob/master/Readme.md#v3-auth-keypair-generation-optional).
 
 ### Supported Versions
 
