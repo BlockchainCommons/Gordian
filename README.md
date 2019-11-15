@@ -186,7 +186,7 @@ In FullyNoded the private key is stored encrypted locally on the device to AES25
 
 Tap the green text which would look like `descriptor:x25519:JNEF892349FH24HF872H4FU2H387H3R982NFN238HF928`, that is your public key which needs to be passed to your StandUp node.
 
-<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/qr.png" alt="export the public key" width="600"/>
+<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/fullynoded_qr.png" alt="export the public key" width="250"/>
 
 This public key is not sensitive as it only works in conjunction with the private key. FullyNoded will display the public key in QR code format so you can easily scan it with your laptop, you can also send it via airdrop or email just by tapping the text or QR image.
 
