@@ -22,6 +22,7 @@
 - [API](#api)
   - [Quick Connect URL using btcstandup](#quick-connect-url-using-btcstandup)
 - [Security](#security)
+  - [Tor V3 Authentication using StandUp and FullyNoded](#tor-v3-authentication-using-standup-and-fullynoded)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
 - [License](#license)
@@ -161,7 +162,7 @@ We'd love to have more discussion with other developers about any additional req
 
 Don’t configure a VPS with the Bitcoin wallet feature turned on with any significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . A higher level of safety is required for significant funds. A VPS-based install can be a useful as a wallet-less full node connected remotely to a more secure wallet that signs the keys elsewhere.
 
-### Tor V3 Cookie Authentication
+### Tor V3 Authentication using StandUp and FullyNoded
 Think of your StandUp node as a server, and FullyNoded or your iPhone as a client. Tor V3 hidden services have new and improved built in functionality for authenticating client connections to servers, whereby the client stores a private key that is kept secret to everyone only ever existing on the client and the public key is stored in a special directory called `authorized_clients` on your StandUp server which (in StandUp) lives in your `HiddenServiceDir`  > `/usr/local/var/lib/tor/standup/authorized_clients`.
 
 #### The problem:
@@ -171,8 +172,7 @@ The QuickConnect QR code that StandUp produces for you contains very sensitive i
 Prevent the existence of any single point of failure or "honey pot" (e.g. the QR code).
 
 #### How?
-For a detailed guide see [this link](https://github.com/AnarchoTechNYC/meta/wiki/Connecting-to-an-authenticated-Onion-service#connecting-to-authenticated-version-3-onion-services).
-Two factor authentication whereby a trusted separate isolated device (e.g. the client) produces the private key and public key, which requires the owner of the server to physically add in the public key to the `authorized_clients` directory. In this way there is no "honey pot" which contains all the information necessary to obtain access to your node. Of course if someone has access to your node they can produce their own key pair and add the public key into the hidden service but then again they already have access to your node and hidden service so this attack vector is somewhat irrelevant. What we are trying to accomplish is a method to guarantee that your device (e.g. the client) is the *only* device in the world that is able to remotely access your node. It is highly recommended as an additional layer of security to also encrypt your nodes wallet so that even if someone somehow stole your phone they would still need to brute force your wallet.dat encryption.
+For a detailed guide see [this link](https://github.com/AnarchoTechNYC/meta/wiki/Connecting-to-an-authenticated-Onion-service#connecting-to-authenticated-version-3-onion-services), for a video tutorial see [this link](https://youtu.be/fwWqVPuw1u4). Two factor authentication whereby a trusted separate isolated device (e.g. the client) produces the private key and public key, which requires the owner of the server to physically add in the public key to the `authorized_clients` directory. In this way there is no "honey pot" which contains all the information necessary to obtain access to your node. Of course if someone has access to your node they can produce their own key pair and add the public key into the hidden service but then again they already have access to your node and hidden service so this attack vector is somewhat irrelevant. What we are trying to accomplish is a method to guarantee that your device (e.g. the client) is the *only* device in the world that is able to remotely access your node. It is highly recommended as an additional layer of security to also encrypt your nodes wallet so that even if someone somehow stole your phone they would still need to brute force your wallet.dat encryption.
 
 For now the only mobile app which deals with Bitcoin Core RPC communications that we know of is FullyNoded. Assume you have downloaded FullyNoded, have a StandUp node running and want to add native Tor authentication. All you would need to do is open FullyNoded > "Settings" > "Node Manager" > select your node > "Next" > "Next" > "generate key pair" and most importantly tap the blue "Save" or "Update" button at the bottom to save the private key!
 
