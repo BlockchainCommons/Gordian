@@ -190,17 +190,17 @@ Tap the green text which would look like `descriptor:x25519:JNEF892349FH24HF872H
 
 This public key is not sensitive as it only works in conjunction with the private key. FullyNoded will display the public key in QR code format so you can easily scan it with your laptop, you can also send it via airdrop or email just by tapping the text or QR image.
 
-![share the public key](https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/share.png)
+<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/fullynoded_share.png" alt="share the public key" width="250"/>
 
 In this way you can also share access to your node with trusted family and friends. Tor V3 hidden services support up to ~330 different public keys stored in the `authorized_clients` directory (link to source). If you were doing this manually, you would go on your laptop which has StandUp installed and find your `HiddenServiceDir` which is `/usr/local/var/lib/tor/standup/authorized_clients`. You would then open the `authorized_clients` directory and add a file which contains only the public key exactly as FullyNoded exports it. The filename must have a `.auth` extension.
 
 But of course you are using StandUp so the process is as easy as a click. In StandUp go to "Settings" and paste in the public key just as FullyNoded exported it, then tap "Add".
 
-![paste the public key](https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/paste.png)
+<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/paste.png" alt="paste the public key" width="750"/>
 
-![tap yes](https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/yes.png)
+<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/yes.png" alt="tap yes" width="750"/>
 
-![tap ok to add it](https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/ok.png)
+<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/ok.png" alt="tap yes" width="750"/>
 
 StandUp then simply creates a random filename with a `.auth` extension, writes the public key to it, and saves it to `/usr/local/var/lib/tor/standup/authorized_clients/`. 
 
