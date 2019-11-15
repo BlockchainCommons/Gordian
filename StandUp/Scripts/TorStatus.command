@@ -1,10 +1,10 @@
 #!/bin/sh
 
-#  StopTor.command
+#  TorStatus.command
 #  StandUp
 #
-#  Created by Peter on 07/11/19.
+#  Created by Peter on 15/11/19.
 #  Copyright © 2019 Peter. All rights reserved.
-/usr/local/bin/brew services stop tor
+/usr/local/bin/brew services list
 echo "Done"
 exit

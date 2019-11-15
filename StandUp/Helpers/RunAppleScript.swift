@@ -15,21 +15,29 @@ class RunAppleScript {
     var stringToReturn = ""
     
     func runScript(script: SCRIPT, completion: @escaping () -> Void) {
-        print("run script")
         
         let appleScript = NSAppleScript(source: script.rawValue)!
         var errorDict:NSDictionary?
-        let result = appleScript.executeAndReturnError(&errorDict).stringValue
         
-        if errorDict != nil {
+        if let result = appleScript.executeAndReturnError(&errorDict).stringValue {
             
-            errorBool = true
-            errorDescription = errorDict!["NSAppleScriptErrorBriefMessage"] as? String ?? "unknown error"
-            completion()
+            if errorDict != nil {
+                
+                errorBool = true
+                errorDescription = errorDict!["NSAppleScriptErrorBriefMessage"] as? String ?? "unknown error"
+                completion()
+                
+            } else {
+                
+                stringToReturn = result
+                completion()
+                
+            }
             
         } else {
             
-            stringToReturn = result!
+            errorBool = true
+            errorDescription = "unable to parse script result"
             completion()
             
         }

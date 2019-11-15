@@ -128,7 +128,8 @@ class ViewController: NSViewController {
     
     @IBAction func verifyAction(_ sender: Any) {
         
-        checkSigs()
+        //checkSigs()
+        runScript(script: .verifyBitcoin)
         
     }
     
@@ -291,10 +292,20 @@ class ViewController: NSViewController {
         
     }
     
+    func isTorOn() {
+        print("isTorOn")
+        
+        DispatchQueue.main.async {
+            self.taskDescription.stringValue = "Checking Tor status..."
+            self.runScript(script: .torStatus)
+        }
+        
+    }
+    
     //MARK: Run Apple Script
     
     func runScript(script: SCRIPT) {
-        print("run script")
+        print("run script: \(script.rawValue)")
         
         let runAppleScript = RunAppleScript()
         runAppleScript.runScript(script: script) {
@@ -302,6 +313,7 @@ class ViewController: NSViewController {
             if !runAppleScript.errorBool {
 
                 self.parseScriptResult(script: script, result: runAppleScript.stringToReturn)
+                print(runAppleScript.stringToReturn)
 
             } else {
 
@@ -326,6 +338,8 @@ class ViewController: NSViewController {
         case .getTorrc: checkIfTorIsConfigured(response: result)
         case .getRPCCredentials: checkForRPCCredentials(response: result)
         case .getTorHostname: parseHostname(response: result)
+        case .torStatus: parseTorStatus(result: result)
+        case .verifyBitcoin: parseVerifyResult(result: result)
         default: break
         }
         
@@ -336,24 +350,27 @@ class ViewController: NSViewController {
         
         switch script {
             
+        case .verifyBitcoin:
+            
+            parseVerifyResult(result: "error")
+            
+        case .torStatus:
+            
+            DispatchQueue.main.async {
+                self.installTorOutlet.title = "Start Tor"
+                self.installTorOutlet.isEnabled = false
+                self.hideSpinner()
+            }
+            
         case .stopBitcoin:
             
             bitcoinStopped()
             
         case .isBitcoinOn:
             
-            if error.contains("Could not connect to the server") {
-                
-                bitcoinRunning = true
-                bitcoinStarted()
-                runLaunchScript(script: .startBitcoinqt)
-                
-            } else {
-                
-                bitcoinRunning = false
-                checkBitcoindVersion()
-                
-            }
+            bitcoinRunning = false
+            bitcoinStopped()
+            checkBitcoindVersion()
             
         case .checkForBitcoin:
             
@@ -383,7 +400,7 @@ class ViewController: NSViewController {
                 
                 self.torConfLabel.stringValue = "⛔️ Tor not configured"
                 self.standUpOutlet.isEnabled = true
-                self.hideSpinner()
+               // self.hideSpinner()
                 
             }
             
@@ -407,6 +424,38 @@ class ViewController: NSViewController {
     
     //MARK: Script Result Parsers
     
+    func parseTorStatus(result: String) {
+        
+        if result.contains("tor  started") {
+            
+            DispatchQueue.main.async {
+                self.torIsOn = true
+                self.installTorOutlet.title = "Stop Tor"
+                self.installTorOutlet.isEnabled = true
+            }
+            
+        } else if result.contains("tor  stopped") {
+            
+            DispatchQueue.main.async {
+                self.torIsOn = false
+                self.installTorOutlet.title = "Start Tor"
+                self.installTorOutlet.isEnabled = true
+            }
+            
+        } else {
+            
+            DispatchQueue.main.async {
+                self.torIsOn = false
+                self.installTorOutlet.title = "Start Tor"
+                self.installTorOutlet.isEnabled = false
+            }
+            
+        }
+        
+        self.hideSpinner()
+        
+    }
+    
     func bitcoinStopped() {
         print("bitcoin stopped")
         
@@ -414,7 +463,6 @@ class ViewController: NSViewController {
             
             self.installBitcoindOutlet.title = "Start Bitcoin"
             self.installBitcoindOutlet.isEnabled = true
-            self.hideSpinner()
             
         }
         
@@ -630,8 +678,7 @@ class ViewController: NSViewController {
                 
                 self.showQuickConnectOutlet.isEnabled = true
                 self.standUpOutlet.isEnabled = false
-                self.taskDescription.stringValue = "Starting Tor..."
-                self.runLaunchScript(script: .startTor)
+                self.isTorOn()
                 
             }
             
@@ -644,6 +691,7 @@ class ViewController: NSViewController {
     }
     
     func parseVerifyResult(result: String) {
+        print("parseVerifyResult: \(result)")
         
         if result.contains("bitcoin-0.19.0rc3-osx64.tar.gz: OK") {
             
@@ -741,11 +789,12 @@ class ViewController: NSViewController {
     // MARK: For launching bitcoinqt etc...
     
     func runLaunchScript(script: SCRIPT) {
-        print("runlaunchscript")
+        print("runlaunchscript: \(script.rawValue)")
         
         let runBuildTask = RunBuildTask()
         runBuildTask.args = []
-        runBuildTask.exitStrings = []
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.showLog = false
         runBuildTask.runScript(script: script) {
             
             if !runBuildTask.errorBool {
