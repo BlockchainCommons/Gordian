@@ -26,5 +26,18 @@ public enum SCRIPT: String {
     case verifySigs = "Verify"
     case authenticate = "Authenticate"
     case standDown = "StandDown"
+    case updateBTCConf = "UpdateBTCConf"
+    
+}
+
+public enum BTCCONF: String {
+    
+    case pruned = "pruned"
+    case txIndex = "txIndex"
+    case mainnet = "mainnet"
+    case testnet = "testnet"
+    case regtest = "regtest"
+    case walletdisabled = "walletdisabled"
+    case datadir = "datadir"
     
 }

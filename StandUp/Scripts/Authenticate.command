@@ -8,4 +8,5 @@
 PUBKEY="$1"
 FILENAME="$2"
 echo $PUBKEY > /usr/local/var/lib/tor/standup/authorized_clients/"$FILENAME".auth
+echo "Done"
 exit

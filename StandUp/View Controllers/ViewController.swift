@@ -110,9 +110,7 @@ class ViewController: NSViewController {
         print("getPairingCode")
         
         DispatchQueue.main.async {
-            
             self.performSegue(withIdentifier: "showPairingCode", sender: self)
-            
         }
         
     }
@@ -121,9 +119,7 @@ class ViewController: NSViewController {
         print("gotosettings")
         
         DispatchQueue.main.async {
-            
             self.performSegue(withIdentifier: "goToSettings", sender: self)
-            
         }
         
     }
@@ -135,7 +131,6 @@ class ViewController: NSViewController {
         checkSigs()
         
     }
-    
     
     @IBAction func standUp(_ sender: Any) {
         print("standup")
@@ -301,18 +296,18 @@ class ViewController: NSViewController {
     func runScript(script: SCRIPT) {
         print("run script")
         
-        let appleScript = NSAppleScript(source: script.rawValue)!
-        var errorDict:NSDictionary?
-        let result = appleScript.executeAndReturnError(&errorDict).stringValue
-        
-        if errorDict != nil {
+        let runAppleScript = RunAppleScript()
+        runAppleScript.runScript(script: script) {
             
-            print(errorDict!)
-            parseError(script: script, error: errorDict!)
-            
-        } else {
-            
-            parseScriptResult(script: script, result: result!)
+            if !runAppleScript.errorBool {
+
+                self.parseScriptResult(script: script, result: runAppleScript.stringToReturn)
+
+            } else {
+
+                self.parseError(script: script, error: runAppleScript.errorDescription)
+                
+            }
             
         }
         
@@ -336,7 +331,7 @@ class ViewController: NSViewController {
         
     }
     
-    func parseError(script: SCRIPT, error: NSDictionary) {
+    func parseError(script: SCRIPT, error: String) {
         print("parseerror")
         
         switch script {
@@ -347,19 +342,11 @@ class ViewController: NSViewController {
             
         case .isBitcoinOn:
             
-            if let errorDescription = error["NSAppleScriptErrorBriefMessage"] as? String {
+            if error.contains("Could not connect to the server") {
                 
-                if errorDescription.contains("Could not connect to the server") {
-                    
-                    bitcoinRunning = true
-                    bitcoinStarted()
-                    runLaunchScript(script: .startBitcoinqt)
-                    
-                } else {
-                    
-                    bitcoinRunning = false
-                    checkBitcoindVersion()
-                }
+                bitcoinRunning = true
+                bitcoinStarted()
+                runLaunchScript(script: .startBitcoinqt)
                 
             } else {
                 
@@ -675,15 +662,7 @@ class ViewController: NSViewController {
     
     func showAlertMessage(message: String, info: String) {
         
-        DispatchQueue.main.async {
-            
-            let a = NSAlert()
-            a.messageText = message
-            a.informativeText = info
-            a.addButton(withTitle: "OK")
-            a.runModal()
-            
-        }
+        setSimpleAlert(message: message, info: info, buttonLabel: "OK")
         
     }
     
@@ -736,25 +715,22 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            let a = NSAlert()
-            a.messageText = message
-            a.informativeText = info
-            a.addButton(withTitle: "StandUp")
-            a.addButton(withTitle: "Cancel")
-            let response = a.runModal()
-            
-            if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+            actionAlert(message: message, info: info) { (response) in
                 
-                DispatchQueue.main.async {
+                if response {
                     
-                    self.standingUp = true
-                    self.performSegue(withIdentifier: "goInstall", sender: self)
+                    DispatchQueue.main.async {
+                        
+                        self.standingUp = true
+                        self.performSegue(withIdentifier: "goInstall", sender: self)
+                        
+                    }
+                    
+                } else {
+                    
+                    print("tapped no")
                     
                 }
-                
-            } else {
-                
-                print("tapped no")
                 
             }
             
@@ -766,75 +742,30 @@ class ViewController: NSViewController {
     
     func runLaunchScript(script: SCRIPT) {
         print("runlaunchscript")
-
-        isRunning = true
-        let taskQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-        let resource = script.rawValue
-
-        taskQueue.async {
-            
-            guard let path = Bundle.main.path(forResource: resource, ofType: "command") else {
-                print("Unable to locate \(resource).command")
-                return
-            }
-
-            self.buildTask = Process()
-            self.buildTask.launchPath = path
-            self.buildTask.terminationHandler = {
-
-                task in
-                self.isRunning = false
-
-            }
-
-            self.captureStandardOutputAndRouteToTextView(task: self.buildTask, script: script)
-            self.buildTask.launch()
-            self.buildTask.waitUntilExit()
-
-        }
-
-    }
-    
-    func captureStandardOutputAndRouteToTextView(task:Process, script: SCRIPT) {
-        print("captureStandardOutputAndRouteToTextView")
         
-        outputPipe = Pipe()
-        task.standardOutput = outputPipe
-        let outHandle = outputPipe.fileHandleForReading
-        outHandle.waitForDataInBackgroundAndNotify()
-        
-        var progressObserver : NSObjectProtocol!
-        progressObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outHandle, queue: nil) {
-            notification in
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = []
+        runBuildTask.exitStrings = []
+        runBuildTask.runScript(script: script) {
             
-            let data = outHandle.availableData
-            
-            if data.count > 0 {
+            if !runBuildTask.errorBool {
                 
-                if let str = String(data: data, encoding: String.Encoding.utf8) {
-                    
-                    print("output = \(str)")
-                    switch script {
-                    case .verifySigs: self.parseVerifyResult(result: str)
-                    case .startBitcoinqt: self.bitcoinStarted()
-                    case .startTor, .stopTor: self.torStarted(result: str)
-                    default: break
-                    }
-                    
+                let str = runBuildTask.stringToReturn
+                switch script {
+                case .verifySigs: self.parseVerifyResult(result: str)
+                case .startBitcoinqt: self.bitcoinStarted()
+                case .startTor, .stopTor: self.torStarted(result: str)
+                default: break
                 }
-                
-                outHandle.waitForDataInBackgroundAndNotify()
                 
             } else {
                 
-                // That means we've reached the end of the input.
-                print("done with task")
-                NotificationCenter.default.removeObserver(progressObserver as Any)
+                setSimpleAlert(message: "Error running script", info: "script: \(script.rawValue)", buttonLabel: "OK")
                 
             }
             
         }
-                
+
     }
     
     // MARK: Segue Prep

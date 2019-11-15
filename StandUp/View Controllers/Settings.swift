@@ -10,10 +10,6 @@ import Cocoa
 
 class Settings: NSViewController {
     
-    var outputPipe:Pipe!
-    var buildTask:Process!
-    @IBOutlet var directoryLabel: NSTextField!
-    @IBOutlet var textInput: NSTextField!
     var filesList: [URL] = []
     var showInvisibles = false
     var selectedFolder:URL!
@@ -21,7 +17,10 @@ class Settings: NSViewController {
     let ud = UserDefaults.standard
     var seeLog = Bool()
     var standingDown = Bool()
+    var args = [String]()
     
+    @IBOutlet var directoryLabel: NSTextField!
+    @IBOutlet var textInput: NSTextField!
     @IBOutlet var nodeLabelField: NSTextField!
     @IBOutlet var walletDisabled: NSButton!
     @IBOutlet var pruneOutlet: NSButton!
@@ -29,11 +28,9 @@ class Settings: NSViewController {
     @IBOutlet var testnetOutlet: NSButton!
     @IBOutlet var regtestOutlet: NSButton!
     @IBOutlet var txIndexOutlet: NSButton!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
         getSettings()
     }
     
@@ -42,21 +39,21 @@ class Settings: NSViewController {
         DispatchQueue.main.async {
             
             self.seeLog = true
+            self.standingDown = false
             self.performSegue(withIdentifier: "seeLog", sender: self)
             
         }
         
     }
     
-    
     func getSettings() {
         
-        getSetting(key: "pruned", button: pruneOutlet, def: 0)
-        getSetting(key: "txIndex", button: txIndexOutlet, def: 1)
-        getSetting(key: "mainnet", button: mainnetOutlet, def: 0)
-        getSetting(key: "testnet", button: testnetOutlet, def: 1)
-        getSetting(key: "regtest", button: regtestOutlet, def: 0)
-        getSetting(key: "walletDisabled", button: walletDisabled, def: 0)
+        getSetting(key: .pruned, button: pruneOutlet, def: 0)
+        getSetting(key: .txIndex, button: txIndexOutlet, def: 1)
+        getSetting(key: .mainnet, button: mainnetOutlet, def: 0)
+        getSetting(key: .testnet, button: testnetOutlet, def: 1)
+        getSetting(key: .regtest, button: regtestOutlet, def: 0)
+        getSetting(key: .walletdisabled, button: walletDisabled, def: 0)
         
         if ud.object(forKey: "dataDir") != nil {
             
@@ -76,34 +73,21 @@ class Settings: NSViewController {
         
     }
     
-    func getSetting(key: String, button: NSButton, def: Int) {
+    func getSetting(key: BTCCONF, button: NSButton, def: Int) {
         
-        if ud.object(forKey: key) == nil {
-            
-            ud.set(def, forKey: key)
-            
+        if ud.object(forKey: key.rawValue) == nil {
+            ud.set(def, forKey: key.rawValue)
         } else {
-            
-            let raw = ud.integer(forKey: key)
-            
+            let raw = ud.integer(forKey: key.rawValue)
             if raw == 0 {
-                
                 DispatchQueue.main.async {
-                    
-                    button.state = NSControl.StateValue.off
-                    
+                    button.state = .off
                 }
-                
             } else {
-               
                 DispatchQueue.main.async {
-                    
-                    button.state = NSControl.StateValue.on
-                    
+                    button.state = .on
                 }
-                
             }
-            
         }
         
     }
@@ -111,9 +95,7 @@ class Settings: NSViewController {
     @IBAction func backAction(_ sender: Any) {
         
         DispatchQueue.main.async {
-            
             self.dismiss(self)
-            
         }
         
     }
@@ -122,22 +104,19 @@ class Settings: NSViewController {
         
         DispatchQueue.main.async {
             
-            let a = NSAlert()
-            a.messageText = "Danger!"
-            a.informativeText = "This will remove the StandUp directory, remove tor config, tor hidden services and uninstall tor.\n\nAre you aure you want to do this?"
-            a.addButton(withTitle: "Yes")
-            a.addButton(withTitle: "No")
-            let response = a.runModal()
-            
-            if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+            actionAlert(message: "Danger!", info: "This will remove the StandUp directory, remove tor config, tor hidden services and uninstall tor.\n\nAre you aure you want to do this?") { (response) in
                 
-                self.seeLog = false
-                self.standingDown = true
-                self.performSegue(withIdentifier: "seeLog", sender: self)
-                
-            } else {
-                
-                print("tapped no")
+                if response {
+                    
+                    self.seeLog = false
+                    self.standingDown = true
+                    self.performSegue(withIdentifier: "seeLog", sender: self)
+                    
+                } else {
+                    
+                    print("tapped no")
+                    
+                }
                 
             }
             
@@ -149,50 +128,34 @@ class Settings: NSViewController {
         
         DispatchQueue.main.async {
             
-            let a = NSAlert()
-            a.messageText = "Danger!"
-            a.informativeText = "This will remove the Bitcoin directory! All Bitcoin Core data including your wallets will be deleted!\n\nAre you sure you want to continue?"
-            a.addButton(withTitle: "Yes")
-            a.addButton(withTitle: "No")
-            let response = a.runModal()
-            
-            if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+            actionAlert(message: "Danger!", info: "This will remove the Bitcoin directory! All Bitcoin Core data including your wallets will be deleted!\n\nAre you sure you want to continue?") { (response) in
                 
-                let run = RunAppleScript()
-                
-                func completed() {
+                if response {
                     
-                    if !run.errorBool {
+                    let run = RunAppleScript()
+                    
+                    func completed() {
                         
-                        DispatchQueue.main.async {
+                        if !run.errorBool {
+                                
+                          setSimpleAlert(message: "Bitcoin directory and its contents were deleted", info: "", buttonLabel: "OK")
+                                
                             
-                            let a = NSAlert()
-                            a.messageText = "Bitcoin directory and its contents were deleted"
-                            a.addButton(withTitle: "OK")
-                            a.runModal()
-                            
-                        }
-                        
-                    } else {
-                        
-                        DispatchQueue.main.async {
-                            
-                            let a = NSAlert()
-                            a.messageText = "Error"
-                            a.addButton(withTitle: run.errorDescription)
-                            a.runModal()
+                        } else {
+                                
+                            setSimpleAlert(message: "Error", info: run.errorDescription, buttonLabel: "OK")
                             
                         }
                         
                     }
                     
+                    run.runScript(script: .removeBitcoin, completion: completed)
+                    
+                } else {
+                    
+                    print("tapped no")
+                    
                 }
-                
-                run.runScript(script: .removeBitcoin, completion: completed)
-                
-            } else {
-                
-                print("tapped no")
                 
             }
             
@@ -206,60 +169,33 @@ class Settings: NSViewController {
             
             ud.set(nodeLabelField.stringValue, forKey: "nodeLabel")
             
-            DispatchQueue.main.async {
-                
-                let a = NSAlert()
-                a.messageText = "Node label updated"
-                a.addButton(withTitle: "OK")
-                a.runModal()
-                
-            }
-            
+            setSimpleAlert(message: "Node label updated", info: "", buttonLabel: "OK")
         }
         
     }
     
-    
-    @IBAction func didSetWalletDisabled(_ sender: Any) {
-        
-        let value = walletDisabled.state.rawValue
-        ud.set(value, forKey: "walletDisabled")
-        
-    }
-    
-    
-    @IBAction func didSetPrune(_ sender: Any) {
-        
-        setOutlet(outlet: pruneOutlet, keyOn: "pruned", keyOff: ["txIndex"])
-        updateBlockchainOutlets(activeOutlet: pruneOutlet)
-        
-    }
-    
-    @IBAction func didSetTxIndex(_ sender: Any) {
-        
-        setOutlet(outlet: txIndexOutlet, keyOn: "txIndex", keyOff: ["pruned"])
-        updateBlockchainOutlets(activeOutlet: txIndexOutlet)
-        
-    }
-    
-    func updateBlockchainOutlets(activeOutlet: NSButton) {
-        
-        let outlets = [pruneOutlet, txIndexOutlet]
+    func updateBitcoinConf(keyToUpdate: BTCCONF, newValue: Int, outlet: NSButton) {
         
         DispatchQueue.main.async {
             
-            for o in outlets {
+            actionAlert(message: "Update bitcoin.conf?", info: "Do you want to update your bitcoin.conf with \(keyToUpdate.rawValue)=\(newValue)?\n\nThis will be updated in real time, in order for the changes to take effect you need to restart your node.\n\nPlease keep in mind this refreshes your bitcoin.conf to match the settings you have here, if you have customized your bitcoin.conf then you are better off making the changes manually.") { (response) in
                 
-                if o != activeOutlet {
+                if response {
                     
-                    let b = o?.state
+                    self.updateBitcoinConfNow(outlet: outlet, keyOn: keyToUpdate)
                     
-                    if b == NSControl.StateValue.on {
-                        
-                        DispatchQueue.main.async {
-                            o?.state = NSControl.StateValue.off
-                        }
-                        
+                } else {
+                    
+                    print("tapped no")
+                    DispatchQueue.main.async {
+                        switch keyToUpdate {
+                        case .walletdisabled: self.walletDisabled.setNextState()
+                        case .pruned: self.pruneOutlet.setNextState()
+                        case .mainnet: self.mainnetOutlet.setNextState()
+                        case .testnet: self.testnetOutlet.setNextState()
+                        case .regtest: self.regtestOutlet.setNextState()
+                        case .txIndex: self.txIndexOutlet.setNextState()
+                        default: break}
                     }
                     
                 }
@@ -270,50 +206,176 @@ class Settings: NSViewController {
         
     }
     
+    func updateBitcoinConfNow(outlet: NSButton, keyOn: BTCCONF) {
+        
+        getBitcoinConfSettings()
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = args
+        runBuildTask.showLog = false
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.runScript(script: .updateBTCConf) {
+            
+            if !runBuildTask.errorBool {
+                
+                DispatchQueue.main.async {
+                    self.setOutlet(outlet: outlet, keyOn: keyOn)
+                    setSimpleAlert(message: "Success", info: "bitcoin.conf updated", buttonLabel: "OK")
+                }
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
+                
+            }
+            
+        }
+        
+    }
+    
+    func getBitcoinConfSettings() {
+        
+        let ud = UserDefaults.standard
+        var rpcpassword = getExisistingRPCCreds().rpcpassword
+        var rpcuser = getExisistingRPCCreds().rpcuser
+        if rpcpassword == "" { rpcpassword = randomString(length: 32) }
+        if rpcuser == "" { rpcuser = randomString(length: 10) }
+        let prune = ud.object(forKey: "pruned") as? Int ?? 0
+        let txIndex = ud.object(forKey: "txIndex") as? Int ?? 1
+        var dataDir = ud.object(forKey: "dataDir") as? String ?? ""
+        if dataDir == "~/Library/Application Support/Bitcoin" {
+            dataDir = ""
+        }
+        let testnet = ud.object(forKey: "testnet") as? Int ?? 1
+        let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
+        let regtest = ud.object(forKey: "regtest") as? Int ?? 0
+        let walletDisabled = ud.object(forKey: "walletDisabled") as? Int ?? 0
+        args.append(rpcpassword)
+        args.append(rpcuser)
+        args.append(dataDir)
+        args.append("\(prune)")
+        args.append("\(mainnet)")
+        args.append("\(testnet)")
+        args.append("\(regtest)")
+        args.append("\(txIndex)")
+        args.append("\(walletDisabled)")
+        
+    }
+    
+    @IBAction func didSetWalletDisabled(_ sender: Any) {
+        
+        let value = walletDisabled.state.rawValue
+        updateBitcoinConf(keyToUpdate: .walletdisabled, newValue: value, outlet: walletDisabled)
+        
+    }
+    
+    @IBAction func didSetPrune(_ sender: Any) {
+        
+        let value = pruneOutlet.state.rawValue
+        updateBitcoinConf(keyToUpdate: .pruned, newValue: value, outlet: pruneOutlet)
+        
+    }
+    
+    @IBAction func didSetTxIndex(_ sender: Any) {
+        
+        let value = txIndexOutlet.state.rawValue
+        updateBitcoinConf(keyToUpdate: .txIndex, newValue: value, outlet: txIndexOutlet)
+        
+    }
     
     @IBAction func didSetMainnet(_ sender: Any) {
         
-        setOutlet(outlet: mainnetOutlet, keyOn: "mainnet", keyOff: ["testnet", "regtest"])
-        
+        let value = mainnetOutlet.state.rawValue
+        updateBitcoinConf(keyToUpdate: .mainnet, newValue: value, outlet: mainnetOutlet)
     }
     
     @IBAction func didSetTestnet(_ sender: Any) {
         
-        setOutlet(outlet: testnetOutlet, keyOn: "testnet", keyOff: ["mainnet", "regtest"])
-        updateNetworkOutlets(activeOutlet: testnetOutlet)
+        let value = testnetOutlet.state.rawValue
+        updateBitcoinConf(keyToUpdate: .testnet, newValue: value, outlet: testnetOutlet)
         
     }
     
     @IBAction func didSetRegtest(_ sender: Any) {
         
-        setOutlet(outlet: regtestOutlet, keyOn: "regtest", keyOff: ["mainnet", "testnet"])
-        updateNetworkOutlets(activeOutlet: regtestOutlet)
+        let value = regtestOutlet.state.rawValue
+        updateBitcoinConf(keyToUpdate: .regtest, newValue: value, outlet: regtestOutlet)
         
     }
     
-    func setOutlet(outlet: NSButton, keyOn: String, keyOff: [String]) {
+    func setOutlet(outlet: NSButton, keyOn: BTCCONF) {
         
         let b = outlet.state.rawValue
-        ud.set(b, forKey: keyOn)
-        updateNetworkOutlets(activeOutlet: outlet)
+        let key = keyOn.rawValue
+        ud.set(b, forKey: key)
+        let networkKeys = ["mainnet","testnet","regtest"]
+        let blockchainKeys = ["txIndex","pruned"]
+        var isNetwork = false
+        var isWallet = false
+        
+        switch keyOn {
+        case .mainnet, .testnet, .regtest: isNetwork = true
+        case .txIndex, .pruned: isNetwork = false
+        default: isWallet = true
+        }
         
         if b == 0 {
             
-            ud.set(1, forKey: keyOn)
+            ud.set(1, forKey: key)
             
         } else {
             
-            if keyOff.count == 2 {
+            if !isWallet {
                 
-                ud.set(0, forKey: keyOff[0])
-                ud.set(0, forKey: keyOff[1])
-                
-            } else {
-                
-                ud.set(0, forKey: keyOff[0])
+                if isNetwork {
+                    
+                    for k in networkKeys {
+                        
+                        if k != key {
+                            
+                            ud.set(0, forKey: k)
+                            
+                        }
+                        
+                    }
+                    
+                    updateNetworkOutlets(activeOutlet: outlet)
+                    
+                } else {
+                    
+                    for k in blockchainKeys {
+                        
+                        if k != key {
+                            
+                            ud.set(0, forKey: k)
+                            
+                        }
+                        
+                    }
+                    
+                    updateBlockchainOutlets(activeOutlet: outlet)
+                    
+                }
                 
             }
             
+        }
+        
+    }
+    
+    func updateBlockchainOutlets(activeOutlet: NSButton) {
+        
+        let outlets = [pruneOutlet, txIndexOutlet]
+        DispatchQueue.main.async {
+            for o in outlets {
+                if o != activeOutlet {
+                    let b = o?.state
+                    if b == NSControl.StateValue.on {
+                        DispatchQueue.main.async {
+                            o?.state = NSControl.StateValue.off
+                        }
+                    }
+                }
+            }
         }
         
     }
@@ -321,27 +383,17 @@ class Settings: NSViewController {
     func updateNetworkOutlets(activeOutlet: NSButton) {
         
         let outlets = [regtestOutlet, testnetOutlet, mainnetOutlet]
-        
         DispatchQueue.main.async {
-            
             for o in outlets {
-                
                 if o != activeOutlet {
-                    
                     let b = activeOutlet.state
-                    
                     if b == NSControl.StateValue.on {
-                        
                         DispatchQueue.main.async {
                             o?.state = NSControl.StateValue.off
                         }
-                        
                     }
-                    
                 }
-                
             }
-            
         }
         
     }
@@ -354,7 +406,6 @@ class Settings: NSViewController {
         panel.canChooseFiles = false
         panel.canChooseDirectories = true
         panel.allowsMultipleSelection = false
-        
         panel.beginSheetModal(for: window) { (result) in
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
                 self.selectedFolder = panel.urls[0]
@@ -372,31 +423,23 @@ class Settings: NSViewController {
         
         if textInput.stringValue != "" {
             
-            let str = textInput.stringValue
-            showAlertMessage(message: "Set V3 authorized_client pubkey?", info: str)
+            let info = textInput.stringValue
             
-        }
-        
-    }
-    
-    func showAlertMessage(message: String, info: String) {
-        
-        DispatchQueue.main.async {
-            
-            let a = NSAlert()
-            a.messageText = message
-            a.informativeText = info
-            a.addButton(withTitle: "Yes")
-            a.addButton(withTitle: "No")
-            let response = a.runModal()
-            
-            if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+            DispatchQueue.main.async {
                 
-                self.runLaunchScript(script: .authenticate)
-                
-            } else {
-                
-                print("tapped no")
+                actionAlert(message: "Set V3 authorized_client pubkey?", info: info) { (response) in
+                    
+                    if response {
+                        
+                        self.authenticate()
+                        
+                    } else {
+                        
+                        print("tapped no")
+                        
+                    }
+                    
+                }
                 
             }
             
@@ -404,89 +447,75 @@ class Settings: NSViewController {
         
     }
     
-    func success(pk: String) {
+    func authenticate() {
         
-        DispatchQueue.main.async {
-            
-            let a = NSAlert()
-            a.messageText = "Succesfully added \(pk)"
-            a.addButton(withTitle: "OK")
-            a.runModal()
-            
-        }
-        
-    }
-    
-    func runLaunchScript(script: SCRIPT) {
-        print("runlaunchscript")
-        
-        var pubkey = ""
         let filename = randomString(length: 10)
-        
-        DispatchQueue.main.async {
+        let pubkey = self.textInput.stringValue
+        let runBuildScript = RunBuildTask()
+        runBuildScript.args = [pubkey,filename]
+        runBuildScript.exitStrings = ["Done"]
+        runBuildScript.showLog = false
+        runBuildScript.runScript(script: .authenticate) {
             
-            pubkey = self.textInput.stringValue
-            let resource = script.rawValue
-                
-                guard let path = Bundle.main.path(forResource: resource, ofType: "command") else {
-                    print("Unable to locate \(resource).command")
-                    return
-                }
-
-                self.buildTask = Process()
-                self.buildTask.launchPath = path
-                self.buildTask.arguments = [pubkey,filename]
-
-                self.buildTask.terminationHandler = {
-
-                    task in
-
-                }
-
-                self.captureStandardOutputAndRouteToTextView(task: self.buildTask, script: script)
-                self.buildTask.launch()
-                self.buildTask.waitUntilExit()
-
-        }
-
-    }
-    
-    func captureStandardOutputAndRouteToTextView(task:Process, script: SCRIPT) {
-        print("captureStandardOutputAndRouteToTextView")
-        
-        outputPipe = Pipe()
-        task.standardOutput = outputPipe
-        let outHandle = outputPipe.fileHandleForReading
-        outHandle.waitForDataInBackgroundAndNotify()
-        
-        var progressObserver : NSObjectProtocol!
-        progressObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outHandle, queue: nil) {
-            notification in
-            
-            let data = outHandle.availableData
-            
-            if data.count > 0 {
-                
-                outHandle.waitForDataInBackgroundAndNotify()
-                
-            } else {
-                
-                // That means we've reached the end of the input.
-                print("done with task")
+            if !runBuildScript.errorBool {
                 
                 DispatchQueue.main.async {
-                    let pk = self.textInput.stringValue
-                    self.success(pk: pk)
+                    setSimpleAlert(message: "Success", info: "Added pubkey: \(pubkey)", buttonLabel: "OK")
                     self.textInput.stringValue = ""
                     self.textInput.resignFirstResponder()
                 }
                 
-                NotificationCenter.default.removeObserver(progressObserver as Any)
+            } else {
+                
+               setSimpleAlert(message: "Error", info: "error authenticating", buttonLabel: "OK")
                 
             }
             
         }
+        
+    }
+    
+    func getExisistingRPCCreds() -> (rpcuser: String, rpcpassword: String) {
+        
+        let runAppleScript = RunAppleScript()
+        var user = ""
+        var password = ""
+        
+        runAppleScript.runScript(script: .getRPCCredentials) {
+            
+            if !runAppleScript.errorBool {
                 
+                let conf = (runAppleScript.stringToReturn).components(separatedBy: "\r")
+                
+                for item in conf {
+                    
+                    if item.contains("rpcuser") {
+                        
+                        let arr = item.components(separatedBy: "rpcuser=")
+                        user = arr[1]
+                        
+                    }
+                    
+                    if item.contains("rpcpassword") {
+                        
+                        let arr = item.components(separatedBy: "rpcpassword=")
+                        password = arr[1]
+                        
+                    }
+                    
+                }
+                
+                
+            } else {
+                
+                print("no existing rpc creds")
+                
+            }
+            
+        }
+        
+        return (user, password)
+        
     }
     
     func infoAbout(url: URL) -> String {
@@ -507,6 +536,7 @@ class Settings: NSViewController {
                 
                 vc.seeLog = seeLog
                 vc.standingDown = standingDown
+                
             }
             
         default:
