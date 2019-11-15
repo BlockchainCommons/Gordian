@@ -176,31 +176,31 @@ Two factor authentication whereby a trusted separate isolated device (e.g. the c
 
 For now the only mobile app which deals with Bitcoin Core RPC communications that we know of is FullyNoded. Assume you have downloaded FullyNoded, have a StandUp node running and want to add native Tor authentication. All you would need to do is open FullyNoded > "Settings" > "Node Manager" > select your node > "Next" > "Next" > "generate key pair" and most importantly tap the blue "Update" button at the bottom to save the private key!
 
-![generate V3 auth key pair](https://github.com/Fonta1n3/StandUp/blob/Images/fullynoded_generate.png)
+![generate V3 auth key pair](https://github.com/Fonta1n3/StandUp/blob/master/Images/fullynoded_generate.png)
 
 If you do not press "Update" you will lose the key pair and need to start again. This will produce a x25519 private and public key pair.
 
-![Update the node](https://github.com/Fonta1n3/StandUp/blob/Images/fullynoded_tap_pubkey.png)
+![Update the node](https://github.com/Fonta1n3/StandUp/blob/master/Images/fullynoded_tap_pubkey.png)
 
 In FullyNoded the private key is stored encrypted locally on the device to AES256CBC standards, the user can not access it and the encryption key for the encrypted private key is stored on your keychain. Whenever you connect to your node the key is decrypted and stored in your temporary torrc file which is integrated into FullyNoded's Tor thread. In FullyNoded each time you connect to a node the credentials refresh so there is nothing being stored in clear text on your device persistently.
 
 Tap the green text which would look like `descriptor:x25519:JNEF892349FH24HF872H4FU2H387H3R982NFN238HF928`, that is your public key which needs to be passed to your StandUp node.
 
-![export the public key](https://github.com/Fonta1n3/StandUp/blob/Images/qr.png)
+![export the public key](https://github.com/Fonta1n3/StandUp/blob/master/Images/qr.png)
 
 This public key is not sensitive as it only works in conjunction with the private key. FullyNoded will display the public key in QR code format so you can easily scan it with your laptop, you can also send it via airdrop or email just by tapping the text or QR image.
 
-![share the public key](https://github.com/Fonta1n3/StandUp/blob/Images/share.png)
+![share the public key](https://github.com/Fonta1n3/StandUp/blob/master/Images/share.png)
 
 In this way you can also share access to your node with trusted family and friends. Tor V3 hidden services support up to ~330 different public keys stored in the `authorized_clients` directory (link to source). If you were doing this manually, you would go on your laptop which has StandUp installed and find your `HiddenServiceDir` which is `/usr/local/var/lib/tor/standup/authorized_clients`. You would then open the `authorized_clients` directory and add a file which contains only the public key exactly as FullyNoded exports it. The filename must have a `.auth` extension.
 
 But of course you are using StandUp so the process is as easy as a click. In StandUp go to "Settings" and paste in the public key just as FullyNoded exported it, then tap "Add".
 
-![paste the public key](https://github.com/Fonta1n3/StandUp/blob/Images/paste.png)
+![paste the public key](https://github.com/Fonta1n3/StandUp/blob/master/Images/paste.png)
 
-![tap yes](https://github.com/Fonta1n3/StandUp/blob/Images/yes.png)
+![tap yes](https://github.com/Fonta1n3/StandUp/blob/master/Images/yes.png)
 
-![tap ok to add it](https://github.com/Fonta1n3/StandUp/blob/Images/ok.png)
+![tap ok to add it](https://github.com/Fonta1n3/StandUp/blob/master/Images/ok.png)
 
 StandUp then simply creates a random filename with a `.auth` extension, writes the public key to it, and saves it to `/usr/local/var/lib/tor/standup/authorized_clients/`. 
 
