@@ -30,7 +30,6 @@ public enum SCRIPT: String {
     case standDown = "StandDown"
     case updateBTCConf = "UpdateBTCConf"
     
-    
 }
 
 public enum BTCCONF: String {

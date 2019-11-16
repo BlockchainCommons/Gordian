@@ -28,16 +28,10 @@ class ViewController: NSViewController {
     var torHostname = ""
     var rpcport = ""
     var standingUp = Bool()
-    var isInstallingBitcoin = Bool()
-    var isInstallingTor = Bool()
-    var isInstallingBrew = Bool()
     var bitcoinInstalled = Bool()
     var torInstalled = Bool()
     var torIsOn = Bool()
     var bitcoinRunning = Bool()
-    dynamic var isRunning = false
-    var outputPipe:Pipe!
-    var buildTask:Process!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -684,7 +678,7 @@ class ViewController: NSViewController {
             
         } else {
             
-            showstandUpAlert(message: "Ready to StandUp?", info: "Installs a fully indexed Bitcoin Core v0.19.0rc3 testnet node. ~25gb of space needed for testnet and ~270gb for mainnet. You can set custmizable options in \"Settings\" for pruning, network, data directory and tor related bitcoin.conf options.")
+            showstandUpAlert(message: "Ready to StandUp?", info: "Installs a fully indexed Bitcoin Core v0.19.0rc3 testnet node. ~30gb of space needed for testnet and ~300gb for mainnet. You can set custmizable options in \"Settings\" for pruning, network, data directory and tor related bitcoin.conf options.")
             
         }
                 
@@ -696,7 +690,7 @@ class ViewController: NSViewController {
         if result.contains("bitcoin-0.19.0rc3-osx64.tar.gz: OK") {
             
             print("results verified")
-            showAlertMessage(message: "PGP signatures for bitcoin-0.19.0rc3-osx64.tar.gz and Laanjw SHA256SUMS.asc match", info: "")
+            showAlertMessage(message: "Success", info: "Signatures for bitcoin-0.19.0rc3-osx64.tar.gz and Laanjw SHA256SUMS.asc match")
             
         } else {
             
