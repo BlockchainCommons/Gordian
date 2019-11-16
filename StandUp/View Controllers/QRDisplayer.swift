@@ -14,11 +14,37 @@ class QRDisplayer: NSViewController {
     var rpcuser = ""
     var rpcport = ""
     var torHostname = ""
+    var nodeLabel = ""
     
     @IBOutlet var imageView: NSImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getValues()
+        setQR()
+        
+    }
+    
+    @IBAction func backAction(_ sender: Any) {
+        
+        DispatchQueue.main.async {
+            
+            self.dismiss(self)
+            
+        }
+        
+    }
+    
+    func setQR() {
+        
+        let url = "btcstandup://\(rpcuser):\(rpcpassword)@\(torHostname):\(rpcport)/?label=\(nodeLabel)"
+        imageView.frame = CGRect(x: 30, y: 30, width: 100, height: 100)
+        imageView.image = getQRCode(textInput: url)
+        
+    }
+    
+    func getValues() {
         
         let ud = UserDefaults.standard
         
@@ -40,25 +66,11 @@ class QRDisplayer: NSViewController {
             }
         }
         
-        var nodeLabel = ud.object(forKey: "nodeLabel") as? String ?? "StandUp%20Node"
+        nodeLabel = ud.object(forKey: "nodeLabel") as? String ?? "StandUp%20Node"
         
         if nodeLabel.contains(" ") {
             
             nodeLabel = nodeLabel.replacingOccurrences(of: " ", with: "%20")
-            
-        }
-        
-        let url = "btcstandup://\(rpcuser):\(rpcpassword)@\(torHostname):\(rpcport)/?label=\(nodeLabel)"
-        imageView.frame = CGRect(x: 30, y: 30, width: 100, height: 100)
-        imageView.image = getQRCode(textInput: url)
-        
-    }
-    
-    @IBAction func backAction(_ sender: Any) {
-        
-        DispatchQueue.main.async {
-            
-            self.dismiss(self)
             
         }
         

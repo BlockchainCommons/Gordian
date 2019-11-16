@@ -101,6 +101,7 @@ class RunBuildTask {
                         if (output as String).contains(str) {
                             
                             exitNow = true
+                            print("exitnow")
                             
                         }
                         
@@ -110,6 +111,7 @@ class RunBuildTask {
                         
                         self.isRunning = false
                         self.buildTask.terminate()
+                        print("terminate")
                         
                         do {
                             

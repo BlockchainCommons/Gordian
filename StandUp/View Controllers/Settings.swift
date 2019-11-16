@@ -31,8 +31,12 @@ class Settings: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         getSettings()
+        
     }
+    
+    // MARK: User Actions
     
     @IBAction func seeStandUpLog(_ sender: Any) {
         
@@ -42,52 +46,6 @@ class Settings: NSViewController {
             self.standingDown = false
             self.performSegue(withIdentifier: "seeLog", sender: self)
             
-        }
-        
-    }
-    
-    func getSettings() {
-        
-        getSetting(key: .pruned, button: pruneOutlet, def: 0)
-        getSetting(key: .txIndex, button: txIndexOutlet, def: 1)
-        getSetting(key: .mainnet, button: mainnetOutlet, def: 0)
-        getSetting(key: .testnet, button: testnetOutlet, def: 1)
-        getSetting(key: .regtest, button: regtestOutlet, def: 0)
-        getSetting(key: .walletdisabled, button: walletDisabled, def: 0)
-        
-        if ud.object(forKey: "dataDir") != nil {
-            
-            DispatchQueue.main.async {
-                self.directoryLabel.stringValue = "\(self.ud.object(forKey: "dataDir") ?? "~/Library/Application Support/Bitcoin")"
-            }
-            
-        }
-        
-        if ud.object(forKey: "nodeLabel") != nil {
-            
-            DispatchQueue.main.async {
-                self.nodeLabelField.stringValue = self.ud.object(forKey: "nodeLabel") as! String
-            }
-            
-        }
-        
-    }
-    
-    func getSetting(key: BTCCONF, button: NSButton, def: Int) {
-        
-        if ud.object(forKey: key.rawValue) == nil {
-            ud.set(def, forKey: key.rawValue)
-        } else {
-            let raw = ud.integer(forKey: key.rawValue)
-            if raw == 0 {
-                DispatchQueue.main.async {
-                    button.state = .off
-                }
-            } else {
-                DispatchQueue.main.async {
-                    button.state = .on
-                }
-            }
         }
         
     }
@@ -169,95 +127,8 @@ class Settings: NSViewController {
             
             ud.set(nodeLabelField.stringValue, forKey: "nodeLabel")
             
-            setSimpleAlert(message: "Node label updated", info: "", buttonLabel: "OK")
+            setSimpleAlert(message: "Success", info: "Node label updated to: \(nodeLabelField.stringValue)", buttonLabel: "OK")
         }
-        
-    }
-    
-    func updateBitcoinConf(keyToUpdate: BTCCONF, newValue: Int, outlet: NSButton) {
-        
-        DispatchQueue.main.async {
-            
-            actionAlert(message: "Update bitcoin.conf?", info: "Do you want to update your bitcoin.conf with \(keyToUpdate.rawValue)=\(newValue)?\n\nThis will be updated in real time, in order for the changes to take effect you need to restart your node.\n\nPlease keep in mind this refreshes your bitcoin.conf to match the settings you have here, if you have customized your bitcoin.conf then you are better off making the changes manually.") { (response) in
-                
-                if response {
-                    
-                    self.updateBitcoinConfNow(outlet: outlet, keyOn: keyToUpdate)
-                    
-                } else {
-                    
-                    print("tapped no")
-                    DispatchQueue.main.async {
-                        switch keyToUpdate {
-                        case .walletdisabled: self.walletDisabled.setNextState()
-                        case .pruned: self.pruneOutlet.setNextState()
-                        case .mainnet: self.mainnetOutlet.setNextState()
-                        case .testnet: self.testnetOutlet.setNextState()
-                        case .regtest: self.regtestOutlet.setNextState()
-                        case .txIndex: self.txIndexOutlet.setNextState()
-                        default: break}
-                    }
-                    
-                }
-                
-            }
-            
-        }
-        
-    }
-    
-    func updateBitcoinConfNow(outlet: NSButton, keyOn: BTCCONF) {
-        
-        getBitcoinConfSettings()
-        let runBuildTask = RunBuildTask()
-        runBuildTask.args = args
-        runBuildTask.showLog = false
-        runBuildTask.exitStrings = ["Done"]
-        runBuildTask.runScript(script: .updateBTCConf) {
-            
-            if !runBuildTask.errorBool {
-                
-                DispatchQueue.main.async {
-                    self.setOutlet(outlet: outlet, keyOn: keyOn)
-                    setSimpleAlert(message: "Success", info: "bitcoin.conf updated", buttonLabel: "OK")
-                }
-                
-            } else {
-                
-                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
-                
-            }
-            
-        }
-        
-    }
-    
-    func getBitcoinConfSettings() {
-        
-        let ud = UserDefaults.standard
-        var rpcpassword = getExisistingRPCCreds().rpcpassword
-        var rpcuser = getExisistingRPCCreds().rpcuser
-        if rpcpassword == "" { rpcpassword = randomString(length: 32) }
-        if rpcuser == "" { rpcuser = randomString(length: 10) }
-        let prune = ud.object(forKey: "pruned") as? Int ?? 0
-        let txIndex = ud.object(forKey: "txIndex") as? Int ?? 1
-        var dataDir = ud.object(forKey: "dataDir") as? String ?? ""
-        if dataDir == "~/Library/Application Support/Bitcoin" {
-            dataDir = ""
-        }
-        let testnet = ud.object(forKey: "testnet") as? Int ?? 1
-        let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
-        let regtest = ud.object(forKey: "regtest") as? Int ?? 0
-        let walletDisabled = ud.object(forKey: "walletDisabled") as? Int ?? 0
-        args.append(rpcpassword)
-        args.append(rpcuser)
-        args.append(dataDir)
-        args.append("\(prune)")
-        args.append("\(mainnet)")
-        args.append("\(testnet)")
-        args.append("\(regtest)")
-        args.append("\(txIndex)")
-        args.append("\(walletDisabled)")
         
     }
     
@@ -302,103 +173,6 @@ class Settings: NSViewController {
         
     }
     
-    func setOutlet(outlet: NSButton, keyOn: BTCCONF) {
-        
-        let b = outlet.state.rawValue
-        let key = keyOn.rawValue
-        ud.set(b, forKey: key)
-        let networkKeys = ["mainnet","testnet","regtest"]
-        let blockchainKeys = ["txIndex","pruned"]
-        var isNetwork = false
-        var isWallet = false
-        
-        switch keyOn {
-        case .mainnet, .testnet, .regtest: isNetwork = true
-        case .txIndex, .pruned: isNetwork = false
-        default: isWallet = true
-        }
-        
-        if b == 0 {
-            
-            ud.set(1, forKey: key)
-            
-        } else {
-            
-            if !isWallet {
-                
-                if isNetwork {
-                    
-                    for k in networkKeys {
-                        
-                        if k != key {
-                            
-                            ud.set(0, forKey: k)
-                            
-                        }
-                        
-                    }
-                    
-                    updateNetworkOutlets(activeOutlet: outlet)
-                    
-                } else {
-                    
-                    for k in blockchainKeys {
-                        
-                        if k != key {
-                            
-                            ud.set(0, forKey: k)
-                            
-                        }
-                        
-                    }
-                    
-                    updateBlockchainOutlets(activeOutlet: outlet)
-                    
-                }
-                
-            }
-            
-        }
-        
-    }
-    
-    func updateBlockchainOutlets(activeOutlet: NSButton) {
-        
-        let outlets = [pruneOutlet, txIndexOutlet]
-        DispatchQueue.main.async {
-            for o in outlets {
-                if o != activeOutlet {
-                    let b = o?.state
-                    if b == NSControl.StateValue.on {
-                        DispatchQueue.main.async {
-                            o?.state = NSControl.StateValue.off
-                        }
-                    }
-                }
-            }
-        }
-        
-    }
-    
-    func updateNetworkOutlets(activeOutlet: NSButton) {
-        
-        let outlets = [regtestOutlet, testnetOutlet, mainnetOutlet]
-        DispatchQueue.main.async {
-            for o in outlets {
-                if o != activeOutlet {
-                    let b = activeOutlet.state
-                    if b == NSControl.StateValue.on {
-                        DispatchQueue.main.async {
-                            o?.state = NSControl.StateValue.off
-                        }
-                    }
-                }
-            }
-        }
-        
-    }
-    
-    
     @IBAction func chooseDirectory(_ sender: Any) {
         
         guard let window = view.window else { return }
@@ -417,7 +191,6 @@ class Settings: NSViewController {
         }
         
     }
-    
     
     @IBAction func addPubkey(_ sender: Any) {
         
@@ -440,6 +213,68 @@ class Settings: NSViewController {
                     }
                     
                 }
+                
+            }
+            
+        }
+        
+    }
+    
+    // MARK: Action Logic
+    
+    func updateBitcoinConf(keyToUpdate: BTCCONF, newValue: Int, outlet: NSButton) {
+        print("updateBitcoinConf key:\(keyToUpdate.rawValue) value: \(newValue)")
+        
+        DispatchQueue.main.async {
+            
+            actionAlert(message: "Update bitcoin.conf?", info: "Do you want to update your bitcoin.conf with \(keyToUpdate.rawValue)=\(newValue)?\n\nThis will be updated in real time, in order for the changes to take effect you need to restart your node.\n\nPlease keep in mind this refreshes your bitcoin.conf to match the settings you have here, if you have customized your bitcoin.conf then you are better off making the changes manually.") { (response) in
+                
+                if response {
+                    
+                    self.updateBitcoinConfNow(outlet: outlet, keyOn: keyToUpdate)
+                    
+                } else {
+                    
+                    print("tapped no")
+                    DispatchQueue.main.async {
+                        switch keyToUpdate {
+                        case .walletdisabled: self.walletDisabled.setNextState()
+                        case .pruned: self.pruneOutlet.setNextState()
+                        case .mainnet: self.mainnetOutlet.setNextState()
+                        case .testnet: self.testnetOutlet.setNextState()
+                        case .regtest: self.regtestOutlet.setNextState()
+                        case .txIndex: self.txIndexOutlet.setNextState()
+                        default: break}
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    func updateBitcoinConfNow(outlet: NSButton, keyOn: BTCCONF) {
+        print("updateBitcoinConfNow key:\(keyOn.rawValue)")
+        
+        setOutlet(outlet: outlet, keyOn: keyOn)
+        getBitcoinConfSettings()
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = args
+        runBuildTask.showLog = false
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.runScript(script: .updateBTCConf) {
+            
+            if !runBuildTask.errorBool {
+                
+                DispatchQueue.main.async {
+                    setSimpleAlert(message: "Success", info: "bitcoin.conf updated", buttonLabel: "OK")
+                }
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
                 
             }
             
@@ -475,7 +310,42 @@ class Settings: NSViewController {
         
     }
     
+    // MARK: Get bitcoin.conf and assign environment variables for script
+    
+    func getBitcoinConfSettings() {
+        print("getBitcoinConfSettings")
+        
+        args.removeAll()
+        let ud = UserDefaults.standard
+        var rpcpassword = getExisistingRPCCreds().rpcpassword
+        var rpcuser = getExisistingRPCCreds().rpcuser
+        if rpcpassword == "" { rpcpassword = randomString(length: 32) }
+        if rpcuser == "" { rpcuser = randomString(length: 10) }
+        let prune = ud.object(forKey: "pruned") as? Int ?? 0
+        let txIndex = ud.object(forKey: "txIndex") as? Int ?? 1
+        var dataDir = ud.object(forKey: "dataDir") as? String ?? ""
+        if dataDir == "~/Library/Application Support/Bitcoin" {
+            dataDir = ""
+        }
+        let testnet = ud.object(forKey: "testnet") as? Int ?? 1
+        let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
+        let regtest = ud.object(forKey: "regtest") as? Int ?? 0
+        let walletDisabled = ud.object(forKey: "walletdisabled") as? Int ?? 0
+        args.append(rpcpassword)
+        args.append(rpcuser)
+        args.append(dataDir)
+        args.append("\(prune)")
+        args.append("\(mainnet)")
+        args.append("\(testnet)")
+        args.append("\(regtest)")
+        args.append("\(txIndex)")
+        args.append("\(walletDisabled)")
+        print("args = \(args)")
+        
+    }
+    
     func getExisistingRPCCreds() -> (rpcuser: String, rpcpassword: String) {
+        print("getExisistingRPCCreds")
         
         let runAppleScript = RunAppleScript()
         var user = ""
@@ -493,6 +363,7 @@ class Settings: NSViewController {
                         
                         let arr = item.components(separatedBy: "rpcuser=")
                         user = arr[1]
+                        print("user = \(user)")
                         
                     }
                     
@@ -500,6 +371,7 @@ class Settings: NSViewController {
                         
                         let arr = item.components(separatedBy: "rpcpassword=")
                         password = arr[1]
+                        print("password = \(password)")
                         
                     }
                     
@@ -517,6 +389,153 @@ class Settings: NSViewController {
         return (user, password)
         
     }
+    
+    // MARK: Update User Interface
+    
+    func getSettings() {
+        print("getSettings")
+        
+        getSetting(key: .pruned, button: pruneOutlet, def: 0)
+        getSetting(key: .txIndex, button: txIndexOutlet, def: 1)
+        getSetting(key: .mainnet, button: mainnetOutlet, def: 0)
+        getSetting(key: .testnet, button: testnetOutlet, def: 1)
+        getSetting(key: .regtest, button: regtestOutlet, def: 0)
+        getSetting(key: .walletdisabled, button: walletDisabled, def: 0)
+        
+        if ud.object(forKey: "dataDir") != nil {
+            
+            DispatchQueue.main.async {
+                self.directoryLabel.stringValue = "\(self.ud.object(forKey: "dataDir") ?? "~/Library/Application Support/Bitcoin")"
+            }
+            
+        }
+        
+        if ud.object(forKey: "nodeLabel") != nil {
+            
+            DispatchQueue.main.async {
+                self.nodeLabelField.stringValue = self.ud.object(forKey: "nodeLabel") as! String
+            }
+            
+        }
+        
+    }
+    
+    func getSetting(key: BTCCONF, button: NSButton, def: Int) {
+        print("getsetting")
+        
+        if ud.object(forKey: key.rawValue) == nil {
+            ud.set(def, forKey: key.rawValue)
+        } else {
+            let raw = ud.integer(forKey: key.rawValue)
+            if raw == 0 {
+                DispatchQueue.main.async {
+                    button.state = .off
+                }
+            } else {
+                DispatchQueue.main.async {
+                    button.state = .on
+                }
+            }
+        }
+        
+    }
+    
+    func setOutlet(outlet: NSButton, keyOn: BTCCONF) {
+        print("setoutlet")
+        
+        let b = outlet.state.rawValue
+        let key = keyOn.rawValue
+        ud.set(b, forKey: key)
+        print("set key: \(key) to \(b)")
+        let networkKeys = ["mainnet","testnet","regtest"]
+        let blockchainKeys = ["txIndex","pruned"]
+        var isNetwork = false
+        var isWallet = false
+        
+        switch keyOn {
+        case .mainnet, .testnet, .regtest: isNetwork = true
+        case .txIndex, .pruned: isNetwork = false
+        default: isWallet = true
+        }
+        
+        if !isWallet {
+            
+            if b == 0 {
+                
+                ud.set(1, forKey: key)
+                print("set key: \(key) to 1")
+                
+            } else {
+                
+                var isBlockchain = false
+                
+                if isNetwork {
+                    
+                    for k in networkKeys {
+                        
+                        if k != key {
+                            
+                            ud.set(0, forKey: k)
+                            print("set key: \(k) to 0")
+                            
+                        }
+                        
+                    }
+                                        
+                } else {
+                    
+                    isBlockchain = true
+                    
+                    for k in blockchainKeys {
+                        
+                        if k != key {
+                            
+                            ud.set(0, forKey: k)
+                            print("set key: \(k) to 0")
+                            
+                        }
+                        
+                    }
+                                        
+                }
+                
+                updateOutlets(activeOutlet: outlet, isBlockchain: isBlockchain)
+                
+            }
+            
+        }
+        
+    }
+    
+    func updateOutlets(activeOutlet: NSButton, isBlockchain: Bool) {
+        
+        var outlets:[NSButton]!
+        
+        if isBlockchain {
+            
+            outlets = [pruneOutlet, txIndexOutlet]
+            
+        } else {
+            
+            outlets = [regtestOutlet, testnetOutlet, mainnetOutlet]
+            
+        }
+        
+        DispatchQueue.main.async {
+            for o in outlets {
+                if o != activeOutlet {
+                    let b = o.state
+                    if b == .on {
+                        DispatchQueue.main.async {
+                            o.state = .off
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: Miscellaneous
     
     func infoAbout(url: URL) -> String {
       return "No information available for \(url.path)"

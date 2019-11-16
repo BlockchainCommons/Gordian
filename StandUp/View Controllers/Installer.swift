@@ -108,7 +108,6 @@ class Installer: NSViewController {
                 
                 presenter.standingUp = false
                 presenter.checkBitcoindVersion()
-                print("checkBitcoindVersion")
                 
             }
             
@@ -129,8 +128,7 @@ class Installer: NSViewController {
         runBuildTask.args = []
         runBuildTask.textView = consoleOutput
         runBuildTask.exitStrings = ["Finished"]
-        
-        func completed() {
+        runBuildTask.runScript(script: .standDown) {
             
             if !runBuildTask.errorBool {
                 
@@ -152,8 +150,6 @@ class Installer: NSViewController {
             
         }
         
-        runBuildTask.runScript(script: .standDown, completion: completed)
-        
     }
     
     func standUp() {
@@ -163,8 +159,7 @@ class Installer: NSViewController {
         runBuildTask.textView = consoleOutput
         runBuildTask.showLog = true
         runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
-        
-        func completed() {
+        runBuildTask.runScript(script: .standUp) {
             
             if !runBuildTask.errorBool {
                 
@@ -180,8 +175,6 @@ class Installer: NSViewController {
             }
             
         }
-        
-        runBuildTask.runScript(script: .standUp, completion: completed)
         
     }
     
