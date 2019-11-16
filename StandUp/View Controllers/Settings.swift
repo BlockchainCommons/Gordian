@@ -111,7 +111,7 @@ class Settings: NSViewController {
                     
                 } else {
                     
-                    print("tapped no")
+                    print("tappedno")
                     
                 }
                 
