@@ -20,7 +20,8 @@ class RunBuildTask {
     var errorDescription = ""
     var exitStrings = [String]()
     var textView = NSTextView()
-    static let sharedInstance = RunBuildTask()
+    var showLog = Bool()
+    //static let sharedInstance = RunBuildTask()
     
     func runScript(script: SCRIPT, completion: @escaping () -> Void) {
         
@@ -85,9 +86,13 @@ class RunBuildTask {
                 
                 DispatchQueue.main.async {
                     
-                    let prevOutput = self.textView.string
-                    let nextOutput = prevOutput + (output as String)
-                    self.textView.string = nextOutput
+                    if self.showLog {
+                        
+                        let prevOutput = self.textView.string
+                        let nextOutput = prevOutput + (output as String)
+                        self.textView.string = nextOutput
+                        
+                    }
                     
                     var exitNow = false
                     
@@ -96,6 +101,7 @@ class RunBuildTask {
                         if (output as String).contains(str) {
                             
                             exitNow = true
+                            print("exitnow")
                             
                         }
                         
@@ -105,6 +111,7 @@ class RunBuildTask {
                         
                         self.isRunning = false
                         self.buildTask.terminate()
+                        print("terminate")
                         
                         do {
                             

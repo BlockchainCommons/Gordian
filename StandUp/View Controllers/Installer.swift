@@ -14,8 +14,6 @@ class Installer: NSViewController {
     @IBOutlet var spinnerDescription: NSTextField!
     @IBOutlet var backButtonOutlet: NSButton!
     @IBOutlet var consoleOutput: NSTextView!
-    var isInstallingBitcoin = Bool()
-    var isInstallingTor = Bool()
     var seeLog = Bool()
     var standingUp = Bool()
     var args = [String]()
@@ -33,8 +31,10 @@ class Installer: NSViewController {
     func getSettings() {
         
         let ud = UserDefaults.standard
-        let rpcpassword = randomString(length: 32)
-        let rpcuser = randomString(length: 10)
+        var rpcpassword = getExisistingRPCCreds().rpcpassword
+        var rpcuser = getExisistingRPCCreds().rpcuser
+        if rpcpassword == "" { rpcpassword = randomString(length: 32) }
+        if rpcuser == "" { rpcuser = randomString(length: 10) }
         let prune = ud.object(forKey: "pruned") as? Int ?? 0
         let txIndex = ud.object(forKey: "txIndex") as? Int ?? 1
         var dataDir = ud.object(forKey: "dataDir") as? String ?? ""
@@ -108,7 +108,6 @@ class Installer: NSViewController {
                 
                 presenter.standingUp = false
                 presenter.checkBitcoindVersion()
-                print("checkBitcoindVersion")
                 
             }
             
@@ -124,12 +123,12 @@ class Installer: NSViewController {
     
     func standDown() {
         
-        let runBuildTask = RunBuildTask.sharedInstance
+        let runBuildTask = RunBuildTask()
+        runBuildTask.showLog = true
         runBuildTask.args = []
         runBuildTask.textView = consoleOutput
         runBuildTask.exitStrings = ["Finished"]
-        
-        func completed() {
+        runBuildTask.runScript(script: .standDown) {
             
             if !runBuildTask.errorBool {
                 
@@ -139,41 +138,28 @@ class Installer: NSViewController {
                     self.spinner.alphaValue = 0
                     self.spinnerDescription.stringValue = ""
                     self.setLog()
-                    let a = NSAlert()
-                    a.messageText = "Success"
-                    a.informativeText = "You have StoodDown"
-                    a.addButton(withTitle: "OK")
-                    a.runModal()
+                    setSimpleAlert(message: "Success", info: "You have StoodDown", buttonLabel: "OK")
                     
                 }
                 
             } else {
                 
-                DispatchQueue.main.async {
-                    
-                    let a = NSAlert()
-                    a.messageText = "Error"
-                    a.addButton(withTitle: runBuildTask.errorDescription)
-                    a.runModal()
-                    
-                }
+                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
                 
             }
             
         }
         
-        runBuildTask.runScript(script: .standDown, completion: completed)
-        
     }
     
     func standUp() {
         
-        let runBuildTask = RunBuildTask.sharedInstance
+        let runBuildTask = RunBuildTask()
         runBuildTask.args = args
         runBuildTask.textView = consoleOutput
+        runBuildTask.showLog = true
         runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
-        
-        func completed() {
+        runBuildTask.runScript(script: .standUp) {
             
             if !runBuildTask.errorBool {
                 
@@ -184,20 +170,11 @@ class Installer: NSViewController {
                 
             } else {
                 
-                DispatchQueue.main.async {
-                    
-                    let a = NSAlert()
-                    a.messageText = "Error"
-                    a.addButton(withTitle: runBuildTask.errorDescription)
-                    a.runModal()
-                    
-                }
+               setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
                 
             }
             
         }
-        
-        runBuildTask.runScript(script: .standUp, completion: completed)
         
     }
     
@@ -270,6 +247,49 @@ class Installer: NSViewController {
             }
             
         }
+        
+    }
+    
+    func getExisistingRPCCreds() -> (rpcuser: String, rpcpassword: String) {
+        
+        let runAppleScript = RunAppleScript()
+        var user = ""
+        var password = ""
+        
+        runAppleScript.runScript(script: .getRPCCredentials) {
+            
+            if !runAppleScript.errorBool {
+                
+                let conf = (runAppleScript.stringToReturn).components(separatedBy: "\r")
+                
+                for item in conf {
+                    
+                    if item.contains("rpcuser") {
+                        
+                        let arr = item.components(separatedBy: "rpcuser=")
+                        user = arr[1]
+                        
+                    }
+                    
+                    if item.contains("rpcpassword") {
+                        
+                        let arr = item.components(separatedBy: "rpcpassword=")
+                        password = arr[1]
+                        
+                    }
+                    
+                }
+                
+                
+            } else {
+                
+                print("no existing rpc creds")
+                
+            }
+            
+        }
+        
+        return (user, password)
         
     }
     
