@@ -12,7 +12,7 @@ class MakeRequest {
         
     func getRequest(completion: @escaping ((version:String?, error:String?)) -> Void) {
         
-        let url_base = "https://api.github.com/repos/Fonta1n3/Bitcoin-Standup/contents/StandUp/SupportedVersion"
+        let url_base = "https://api.github.com/repos/Fonta1n3/Bitcoin-Standup/contents/StandUp/SupportedVersion.json"
         guard let destination = URL(string: url_base) else { return }
         let request = URLRequest(url: destination)
         let session = URLSession.shared
