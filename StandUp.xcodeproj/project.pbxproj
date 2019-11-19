@@ -27,7 +27,7 @@
 		D0B36C452373E521004B2D63 /* Verify.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B36C442373E521004B2D63 /* Verify.command */; };
 		D0B9277123837AB400956651 /* UrlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9277023837AB400956651 /* UrlRequest.swift */; };
 		D0B9277323838C5E00956651 /* SUPPORTED_VERSIONS.md in Resources */ = {isa = PBXBuildFile; fileRef = D0B9277223838C5E00956651 /* SUPPORTED_VERSIONS.md */; };
-		D0B9277523839F7B00956651 /* SupportedVersion in Resources */ = {isa = PBXBuildFile; fileRef = D0B9277423839F7B00956651 /* SupportedVersion */; };
+		D0B9277523839F7B00956651 /* SupportedVersion.json in Resources */ = {isa = PBXBuildFile; fileRef = D0B9277423839F7B00956651 /* SupportedVersion.json */; };
 		D0BCB333236A6D22000D8FDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCB332236A6D22000D8FDE /* AppDelegate.swift */; };
 		D0BCB335236A6D22000D8FDE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCB334236A6D22000D8FDE /* ViewController.swift */; };
 		D0BCB337236A6D27000D8FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0BCB336236A6D27000D8FDE /* Assets.xcassets */; };
@@ -84,7 +84,7 @@
 		D0B36C442373E521004B2D63 /* Verify.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Verify.command; sourceTree = "<group>"; };
 		D0B9277023837AB400956651 /* UrlRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRequest.swift; sourceTree = "<group>"; };
 		D0B9277223838C5E00956651 /* SUPPORTED_VERSIONS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SUPPORTED_VERSIONS.md; sourceTree = "<group>"; };
-		D0B9277423839F7B00956651 /* SupportedVersion */ = {isa = PBXFileReference; lastKnownFileType = text; path = SupportedVersion; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
+		D0B9277423839F7B00956651 /* SupportedVersion.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SupportedVersion.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		D0BCB32F236A6D22000D8FDE /* StandUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0BCB332236A6D22000D8FDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0BCB334236A6D22000D8FDE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -215,7 +215,7 @@
 				D0EBC03223791DEA008302D2 /* Enums */,
 				D099F3362375914300AC0EF6 /* Scripts */,
 				D0EBC03323791DFF008302D2 /* Helpers */,
-				D0B9277423839F7B00956651 /* SupportedVersion */,
+				D0B9277423839F7B00956651 /* SupportedVersion.json */,
 			);
 			path = StandUp;
 			sourceTree = "<group>";
@@ -381,7 +381,7 @@
 				D0534CC8237E4CE70093DE67 /* paste.png in Resources */,
 				D0EB5318237E4E9F002212F8 /* fullynoded_share.png in Resources */,
 				D0BCB33A236A6D27000D8FDE /* Main.storyboard in Resources */,
-				D0B9277523839F7B00956651 /* SupportedVersion in Resources */,
+				D0B9277523839F7B00956651 /* SupportedVersion.json in Resources */,
 				D01471A12371354700F64329 /* LaunchBitcoin.command in Resources */,
 				D0AE0DFB237297BE004369E2 /* StartTor.command in Resources */,
 				D06E3938236BE46E0072924A /* Settings.xib in Resources */,
