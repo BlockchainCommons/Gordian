@@ -25,6 +25,8 @@
 		D0AE0DFB237297BE004369E2 /* StartTor.command in Resources */ = {isa = PBXBuildFile; fileRef = D0AE0DFA237297BE004369E2 /* StartTor.command */; };
 		D0B36C432373BBA5004B2D63 /* StopTor.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B36C422373BBA5004B2D63 /* StopTor.command */; };
 		D0B36C452373E521004B2D63 /* Verify.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B36C442373E521004B2D63 /* Verify.command */; };
+		D0B9277123837AB400956651 /* UrlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9277023837AB400956651 /* UrlRequest.swift */; };
+		D0B9277323838C5E00956651 /* SUPPORTED_VERSIONS.md in Resources */ = {isa = PBXBuildFile; fileRef = D0B9277223838C5E00956651 /* SUPPORTED_VERSIONS.md */; };
 		D0BCB333236A6D22000D8FDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCB332236A6D22000D8FDE /* AppDelegate.swift */; };
 		D0BCB335236A6D22000D8FDE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCB334236A6D22000D8FDE /* ViewController.swift */; };
 		D0BCB337236A6D27000D8FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0BCB336236A6D27000D8FDE /* Assets.xcassets */; };
@@ -79,6 +81,8 @@
 		D0AE0DFA237297BE004369E2 /* StartTor.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StartTor.command; sourceTree = "<group>"; };
 		D0B36C422373BBA5004B2D63 /* StopTor.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StopTor.command; sourceTree = "<group>"; };
 		D0B36C442373E521004B2D63 /* Verify.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Verify.command; sourceTree = "<group>"; };
+		D0B9277023837AB400956651 /* UrlRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRequest.swift; sourceTree = "<group>"; };
+		D0B9277223838C5E00956651 /* SUPPORTED_VERSIONS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SUPPORTED_VERSIONS.md; sourceTree = "<group>"; };
 		D0BCB32F236A6D22000D8FDE /* StandUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0BCB332236A6D22000D8FDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0BCB334236A6D22000D8FDE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 		D0BCB326236A6D22000D8FDE = {
 			isa = PBXGroup;
 			children = (
+				D0B9277223838C5E00956651 /* SUPPORTED_VERSIONS.md */,
 				D0971D91237008F6001C3636 /* README.md */,
 				D0971D8F237008D8001C3636 /* LICENSE */,
 				D0BCB331236A6D22000D8FDE /* StandUp */,
@@ -244,6 +249,7 @@
 				D0EBC0302377EE65008302D2 /* Utilities.swift */,
 				D049E899237BBE1700294E70 /* RunAppleScript.swift */,
 				D049E89B237BBFE600294E70 /* RunBuildTask.swift */,
+				D0B9277023837AB400956651 /* UrlRequest.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -354,6 +360,7 @@
 			files = (
 				D0B36C452373E521004B2D63 /* Verify.command in Resources */,
 				D0A3B6F123739FCF00253635 /* StandUp.command in Resources */,
+				D0B9277323838C5E00956651 /* SUPPORTED_VERSIONS.md in Resources */,
 				D0EB531A237E4E9F002212F8 /* fullynoded_tap_pubkey.png in Resources */,
 				D0EB5319237E4E9F002212F8 /* fullynoded_generate.png in Resources */,
 				D0DCD8EE236ACD6300F2D15A /* Installer.xib in Resources */,
@@ -408,6 +415,7 @@
 				D0BCB335236A6D22000D8FDE /* ViewController.swift in Sources */,
 				D0DCD8E6236ACC9E00F2D15A /* ScriptEnum.swift in Sources */,
 				D0BCB333236A6D22000D8FDE /* AppDelegate.swift in Sources */,
+				D0B9277123837AB400956651 /* UrlRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

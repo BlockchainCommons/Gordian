@@ -186,6 +186,7 @@ class Settings: NSViewController {
                 DispatchQueue.main.async {
                     self.directoryLabel.stringValue = self.selectedFolder?.path ?? "~/Library/Application Support/Bitcoin/"
                     self.ud.set(panel.urls[0], forKey: "dataDir")
+                    self.updateDataDir()
                 }
             }
         }
@@ -222,7 +223,7 @@ class Settings: NSViewController {
     
     // MARK: Action Logic
     
-    func updateBitcoinConf(keyToUpdate: BTCCONF, newValue: Int, outlet: NSButton) {
+    func updateBitcoinConf(keyToUpdate: BTCCONF, newValue: Any, outlet: NSButton) {
         print("updateBitcoinConf key:\(keyToUpdate.rawValue) value: \(newValue)")
         
         DispatchQueue.main.async {
@@ -248,6 +249,31 @@ class Settings: NSViewController {
                     }
                     
                 }
+                
+            }
+            
+        }
+        
+    }
+    
+    func updateDataDir() {
+        
+        getBitcoinConfSettings()
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = args
+        runBuildTask.showLog = false
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.runScript(script: .updateBTCConf) {
+            
+            if !runBuildTask.errorBool {
+                
+                DispatchQueue.main.async {
+                    setSimpleAlert(message: "Success", info: "bitcoin.conf updated", buttonLabel: "OK")
+                }
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
                 
             }
             

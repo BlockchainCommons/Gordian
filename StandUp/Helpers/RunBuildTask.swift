@@ -107,28 +107,31 @@ class RunBuildTask {
                         
                     }
                     
-                    if exitNow {
+                    if exitNow && self.isRunning {
                         
-                        self.isRunning = false
-                        self.buildTask.terminate()
-                        print("terminate")
-                        
-                        do {
+                        if self.buildTask.isRunning {
                             
-                            if #available(OSX 10.15, *) {
+                            self.buildTask.terminate()
+                            print("terminate")
+                            
+                            do {
                                 
-                                try file.close()
-                                print("file closed")
+                                if #available(OSX 10.15, *) {
+                                    
+                                    try file.close()
+                                    print("file closed")
+                                    
+                                } else {
+                                    
+                                    //handle older version here
+                                    
+                                }
                                 
-                            } else {
+                            } catch {
                                 
-                                //handle older version here
+                                print("failed closing file")
                                 
                             }
-                            
-                        } catch {
-                            
-                            print("failed closing file")
                             
                         }
                         

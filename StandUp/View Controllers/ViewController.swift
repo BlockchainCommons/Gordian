@@ -40,6 +40,11 @@ class ViewController: NSViewController {
         setDefaults()
         isBitcoinOn()
         
+        let req = MakeRequest()
+        req.getRequest {
+            print("result: \(req.dictToReturn)")
+        }
+        
     }
     
     //MARK: Set default settings
@@ -64,6 +69,9 @@ class ViewController: NSViewController {
             
             ud.set("~/Library/Application Support/Bitcoin", forKey: "dataDir")
             
+        } else {
+            
+            print("datadir=\(ud.object(forKey: "dataDir") as! String)")
         }
         
         if ud.object(forKey: "testnet") == nil {
@@ -340,7 +348,7 @@ class ViewController: NSViewController {
     }
     
     func parseError(script: SCRIPT, error: String) {
-        print("parseerror")
+        print("parseerror script: \(script) and error: \(error)")
         
         switch script {
             
