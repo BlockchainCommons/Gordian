@@ -16,6 +16,8 @@ class ViewController: NSViewController {
     @IBOutlet var bitcoinCoreStatusLabel: NSTextField!
     @IBOutlet var torConfLabel: NSTextField!
     @IBOutlet var bitcoinConfLabel: NSTextField!
+    @IBOutlet var updateBitcoinlabel: NSTextField!
+    
     @IBOutlet var installTorOutlet: NSButton!
     @IBOutlet var installBitcoindOutlet: NSButton!
     @IBOutlet var seeLogOutlet: NSButton!
@@ -23,28 +25,36 @@ class ViewController: NSViewController {
     @IBOutlet var showQuickConnectOutlet: NSButton!
     @IBOutlet var standUpOutlet: NSButton!
     @IBOutlet var verifyOutlet: NSButton!
+    @IBOutlet var updateOutlet: NSButton!
+    
     var rpcpassword = ""
     var rpcuser = ""
     var torHostname = ""
     var rpcport = ""
+    
     var standingUp = Bool()
     var bitcoinInstalled = Bool()
     var torInstalled = Bool()
     var torIsOn = Bool()
     var bitcoinRunning = Bool()
+    var upgrading = Bool()
+    
+    var env = [String:String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setScene()
         setDefaults()
-        isBitcoinOn()
+        setEnv { self.isBitcoinOn() }
         
     }
     
     //MARK: Set default settings
     
     func setDefaults() {
+        
+        // TO DO: Ideally should fetch the actual bitcoin.conf first and if they exist set them in the app just incase user edits manually, otherwise the settings in the app will be out of sync
         
         let ud = UserDefaults.standard
         
@@ -64,6 +74,9 @@ class ViewController: NSViewController {
             
             ud.set("~/Library/Application Support/Bitcoin", forKey: "dataDir")
             
+        } else {
+            
+            print("datadir=\(ud.object(forKey: "dataDir") as! String)")
         }
         
         if ud.object(forKey: "testnet") == nil {
@@ -84,9 +97,9 @@ class ViewController: NSViewController {
             
         }
         
-        if ud.object(forKey: "walletDisabled") == nil {
+        if ud.object(forKey: "walletdisabled") == nil {
             
-            ud.set(0, forKey: "walletDisabled")
+            ud.set(0, forKey: "walletdisabled")
             
         }
         
@@ -118,11 +131,45 @@ class ViewController: NSViewController {
         
     }
     
+    @IBAction func updateBitcoin(_ sender: Any) {
+        print("update bitcoin core")
+        
+        DispatchQueue.main.async {
+            
+            let request = FetchJSON()
+            request.getRequest { (dict, err) in
+                
+                if err != "" {
+                    
+                    setSimpleAlert(message: "Error", info: "Error fetching json values: \(err ?? "unknown error")", buttonLabel: "OK")
+                    
+                } else {
+                    
+                    let version = dict!["version"] as! String
+                    actionAlert(message: "Upgrade?", info: "Would you like to upgrade to Bitcoin Core version \(version)?") { (response) in
+                        
+                        if response {
+                            
+                            DispatchQueue.main.async {
+                                self.upgrading = true
+                                self.performSegue(withIdentifier: "goInstall", sender: self)
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
     //MARK: User Action Installers, Starters and Configurators
     
     @IBAction func verifyAction(_ sender: Any) {
         
-        //checkSigs()
         runScript(script: .verifyBitcoin)
         
     }
@@ -130,7 +177,28 @@ class ViewController: NSViewController {
     @IBAction func standUp(_ sender: Any) {
         print("standup")
         
-        showstandUpAlert(message: "Ready to StandUp?", info: "StandUp installs and configures a fully indexed Bitcoin Core v0.19.0rc3 testnet node and Tor v0.4.1.6\n\n~30gb of space needed for testnet and ~300gb for mainnet\n\nGo to \"Settings\" for pruning, network, data directory and tor related bitcoin.conf options")
+        self.startSpinner(description: "Fetching latest Bitcoin Core version...")
+        
+        let request = FetchJSON()
+        request.getRequest { (dict, error) in
+            
+            if error != "" {
+                
+                self.hideSpinner()
+                print("error = \(String(describing: error))")
+                setSimpleAlert(message: "Error", info: "We had an error fetching the latest version of Bitcoin Core, please check your internet connection and try again", buttonLabel: "OK")
+                
+            } else {
+                
+                let version = dict!["version"] as! String
+                
+                self.hideSpinner()
+                
+                self.showstandUpAlert(message: "Ready to StandUp?", info: "StandUp installs and configures a fully indexed Bitcoin Core v\(version) testnet node and Tor v0.4.1.6\n\n~30gb of space needed for testnet and ~300gb for mainnet\n\nIf you would like to install a different node go to \"Settings\" for pruning, network, data directory and tor related options, you can always adjust the settings and restart your node for the chagnes to take effect.")
+                
+            }
+            
+        }
         
     }
     
@@ -219,7 +287,7 @@ class ViewController: NSViewController {
         DispatchQueue.main.async {
             
             self.taskDescription.stringValue = "verifying PGP signatures..."
-            self.runLaunchScript(script: .verifySigs)
+            self.runLaunchScript(script: .verifyBitcoin)
             self.hideSpinner()
             
         }
@@ -232,7 +300,7 @@ class ViewController: NSViewController {
         DispatchQueue.main.async {
             
             self.taskDescription.stringValue = "checking if Bitcoin Core is installed..."
-            self.runScript(script: .checkForBitcoin)
+            self.runLaunchScript(script: .checkForBitcoin)
             
         }
         
@@ -296,7 +364,32 @@ class ViewController: NSViewController {
         
     }
     
-    //MARK: Run Apple Script
+    //MARK: Run Scripts
+    
+    func runLaunchScript(script: SCRIPT) {
+        print("runlaunchscript: \(script.rawValue)")
+        
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = []
+        runBuildTask.env = self.env
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.showLog = false
+        runBuildTask.runScript(script: script) {
+            
+            if !runBuildTask.errorBool {
+                
+                let str = runBuildTask.stringToReturn
+                self.parseScriptResult(script: script, result: str)
+                
+            } else {
+                
+                setSimpleAlert(message: "Error running script", info: "script: \(script.rawValue)", buttonLabel: "OK")
+                
+            }
+            
+        }
+
+    }
     
     func runScript(script: SCRIPT) {
         print("run script: \(script.rawValue)")
@@ -325,6 +418,9 @@ class ViewController: NSViewController {
         print("parsescriptresult")
         
         switch script {
+        case .verifyBitcoin: self.parseVerifyResult(result: result)
+        case .startBitcoinqt: self.bitcoinStarted()
+        case .startTor, .stopTor: self.torStarted(result: result)
         case .stopBitcoin: bitcoinRunning = false; bitcoinStopped()
         case .isBitcoinOn: bitcoinRunning = true; bitcoinStarted()
         case .checkForBitcoin: bitcoinInstalled = true; parseBitcoindResponse(result: result)
@@ -333,14 +429,13 @@ class ViewController: NSViewController {
         case .getRPCCredentials: checkForRPCCredentials(response: result)
         case .getTorHostname: parseHostname(response: result)
         case .torStatus: parseTorStatus(result: result)
-        case .verifyBitcoin: parseVerifyResult(result: result)
         default: break
         }
         
     }
     
     func parseError(script: SCRIPT, error: String) {
-        print("parseerror")
+        print("parseerror script: \(script) and error: \(error)")
         
         switch script {
             
@@ -373,6 +468,7 @@ class ViewController: NSViewController {
                 self.bitcoinInstalled = false
                 self.bitcoinCoreStatusLabel.stringValue = "⛔️ Bitcoin Core not installed"
                 self.bitcoinConfLabel.stringValue = "⛔️ Bitcoin Core not configured"
+                self.installBitcoindOutlet.isEnabled = false
                 self.checkTorVersion()
                 
             }
@@ -394,7 +490,7 @@ class ViewController: NSViewController {
                 
                 self.torConfLabel.stringValue = "⛔️ Tor not configured"
                 self.standUpOutlet.isEnabled = true
-               // self.hideSpinner()
+                self.hideSpinner()
                 
             }
             
@@ -636,13 +732,53 @@ class ViewController: NSViewController {
         if result.contains("Bitcoin Core version") {
             
             let arr = result.components(separatedBy: "Copyright (C)")
-            let version = (arr[0]).replacingOccurrences(of: "Bitcoin Core version ", with: "")
+            let currentVersion = (arr[0]).replacingOccurrences(of: "Bitcoin Core version ", with: "")
             
             DispatchQueue.main.async {
                 
                 self.installBitcoindOutlet.isEnabled = true
                 self.verifyOutlet.isEnabled = true
-                self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(version)"
+                self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(currentVersion)"
+                
+                let req = FetchJSON()
+                req.getRequest { (dict, error) in
+                    
+                    if error != "" {
+                        
+                        print("error getting supported version")
+                        DispatchQueue.main.async {
+                            self.updateBitcoinlabel.stringValue = "⛔️ Error getting latest version"
+                        }
+                        
+                    } else {
+                        
+                        let version = dict!["version"] as! String
+                        let binaryName = dict!["binaryName"] as! String
+                        let prefix = dict!["binaryPrefix"] as! String
+                        self.env = ["BINARY_NAME":binaryName,"VERSION":version,"PREFIX":prefix]
+                        let latestVersion = "v" + version.replacingOccurrences(of: "\n", with: "")
+                        if currentVersion.contains(latestVersion) {
+                            
+                            print("up to date")
+                            
+                            DispatchQueue.main.async {
+                                self.updateBitcoinlabel.stringValue = "✅ Bitcoin Core Up to Date"
+                            }
+                            
+                        } else {
+                            
+                            print("not up to date")
+                            DispatchQueue.main.async {
+                                self.updateBitcoinlabel.stringValue = "⛔️ Bitcoin Core Out of Date"
+                                self.updateOutlet.isEnabled = true
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
                 self.checkTorVersion()
                 
             }
@@ -678,7 +814,8 @@ class ViewController: NSViewController {
             
         } else {
             
-            showstandUpAlert(message: "Ready to StandUp?", info: "Installs a fully indexed Bitcoin Core v0.19.0rc3 testnet node. ~30gb of space needed for testnet and ~300gb for mainnet. You can set custmizable options in \"Settings\" for pruning, network, data directory and tor related bitcoin.conf options.")
+            //showstandUpAlert(message: "Ready to StandUp?", info: "Installs a fully indexed Bitcoin Core v0.19.0rc3 testnet node. ~30gb of space needed for testnet and ~300gb for mainnet. You can set custmizable options in \"Settings\" for pruning, network, data directory and tor related bitcoin.conf options.")
+            self.hideSpinner()
             
         }
                 
@@ -701,6 +838,32 @@ class ViewController: NSViewController {
     }
     
     //MARK: User Inteface
+    
+    func setEnv(completion: @escaping () -> Void) {
+        
+        let req = FetchJSON()
+        req.getRequest { (dict, error) in
+            
+            if error != "" {
+                
+                print("error getting supported version")
+                self.hideSpinner()
+                setSimpleAlert(message: "Error", info: "We could not get a response from github... error: \(error ?? "unknown")", buttonLabel: "OK")
+                completion()
+                
+            } else {
+                
+                let version = dict!["version"] as! String
+                let binaryName = dict!["macosBinary"] as! String
+                let prefix = dict!["binaryPrefix"] as! String
+                self.env = ["BINARY_NAME":binaryName,"VERSION":version,"PREFIX":prefix]
+                completion()
+                
+            }
+            
+        }
+        
+    }
     
     func showAlertMessage(message: String, info: String) {
         
@@ -739,6 +902,8 @@ class ViewController: NSViewController {
     func setScene() {
         print("setscene")
         
+        updateOutlet.isEnabled = false
+        updateBitcoinlabel.stringValue = ""
         torStatusLabel.stringValue = ""
         bitcoinCoreStatusLabel.stringValue = ""
         torConfLabel.stringValue = ""
@@ -780,37 +945,6 @@ class ViewController: NSViewController {
         
     }
     
-    // MARK: For launching bitcoinqt etc...
-    
-    func runLaunchScript(script: SCRIPT) {
-        print("runlaunchscript: \(script.rawValue)")
-        
-        let runBuildTask = RunBuildTask()
-        runBuildTask.args = []
-        runBuildTask.exitStrings = ["Done"]
-        runBuildTask.showLog = false
-        runBuildTask.runScript(script: script) {
-            
-            if !runBuildTask.errorBool {
-                
-                let str = runBuildTask.stringToReturn
-                switch script {
-                case .verifySigs: self.parseVerifyResult(result: str)
-                case .startBitcoinqt: self.bitcoinStarted()
-                case .startTor, .stopTor: self.torStarted(result: str)
-                default: break
-                }
-                
-            } else {
-                
-                setSimpleAlert(message: "Error running script", info: "script: \(script.rawValue)", buttonLabel: "OK")
-                
-            }
-            
-        }
-
-    }
-    
     // MARK: Segue Prep
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
@@ -834,6 +968,7 @@ class ViewController: NSViewController {
             if let vc = segue.destinationController as? Installer {
                 
                 vc.standingUp = standingUp
+                vc.upgrading = upgrading
                 
             }
             

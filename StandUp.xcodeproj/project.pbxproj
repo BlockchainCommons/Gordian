@@ -25,6 +25,12 @@
 		D0AE0DFB237297BE004369E2 /* StartTor.command in Resources */ = {isa = PBXBuildFile; fileRef = D0AE0DFA237297BE004369E2 /* StartTor.command */; };
 		D0B36C432373BBA5004B2D63 /* StopTor.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B36C422373BBA5004B2D63 /* StopTor.command */; };
 		D0B36C452373E521004B2D63 /* Verify.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B36C442373E521004B2D63 /* Verify.command */; };
+		D0B9277123837AB400956651 /* UrlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9277023837AB400956651 /* UrlRequest.swift */; };
+		D0B9277523839F7B00956651 /* SupportedVersion.json in Resources */ = {isa = PBXBuildFile; fileRef = D0B9277423839F7B00956651 /* SupportedVersion.json */; };
+		D0B927782383E59700956651 /* UpgradeBitcoin.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B927772383E59700956651 /* UpgradeBitcoin.command */; };
+		D0B9277A2383F8D400956651 /* CheckForBitcoinCore.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B927792383F8D400956651 /* CheckForBitcoinCore.command */; };
+		D0B9277C2383FAC300956651 /* IsBitcoinOn.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B9277B2383FAC300956651 /* IsBitcoinOn.command */; };
+		D0B9277E2383FCD000956651 /* StopBitcoin.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B9277D2383FCD000956651 /* StopBitcoin.command */; };
 		D0BCB333236A6D22000D8FDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCB332236A6D22000D8FDE /* AppDelegate.swift */; };
 		D0BCB335236A6D22000D8FDE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCB334236A6D22000D8FDE /* ViewController.swift */; };
 		D0BCB337236A6D27000D8FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0BCB336236A6D27000D8FDE /* Assets.xcassets */; };
@@ -79,6 +85,12 @@
 		D0AE0DFA237297BE004369E2 /* StartTor.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StartTor.command; sourceTree = "<group>"; };
 		D0B36C422373BBA5004B2D63 /* StopTor.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StopTor.command; sourceTree = "<group>"; };
 		D0B36C442373E521004B2D63 /* Verify.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Verify.command; sourceTree = "<group>"; };
+		D0B9277023837AB400956651 /* UrlRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRequest.swift; sourceTree = "<group>"; };
+		D0B9277423839F7B00956651 /* SupportedVersion.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SupportedVersion.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
+		D0B927772383E59700956651 /* UpgradeBitcoin.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = UpgradeBitcoin.command; sourceTree = "<group>"; };
+		D0B927792383F8D400956651 /* CheckForBitcoinCore.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = CheckForBitcoinCore.command; sourceTree = "<group>"; };
+		D0B9277B2383FAC300956651 /* IsBitcoinOn.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = IsBitcoinOn.command; sourceTree = "<group>"; };
+		D0B9277D2383FCD000956651 /* StopBitcoin.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StopBitcoin.command; sourceTree = "<group>"; };
 		D0BCB32F236A6D22000D8FDE /* StandUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0BCB332236A6D22000D8FDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0BCB334236A6D22000D8FDE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +167,10 @@
 				D049E89D237BD09200294E70 /* StandDown.command */,
 				D049E89F237BFF9E00294E70 /* UpdateBTCConf.command */,
 				D0A871CB237E3C57006033C9 /* TorStatus.command */,
+				D0B927772383E59700956651 /* UpgradeBitcoin.command */,
+				D0B927792383F8D400956651 /* CheckForBitcoinCore.command */,
+				D0B9277B2383FAC300956651 /* IsBitcoinOn.command */,
+				D0B9277D2383FCD000956651 /* StopBitcoin.command */,
 			);
 			path = Scripts;
 			sourceTree = "<group>";
@@ -171,6 +187,14 @@
 				D0EB5317237E4E9F002212F8 /* fullynoded_tap_pubkey.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		D0B927762383AE4900956651 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				D0B9277423839F7B00956651 /* SupportedVersion.json */,
+			);
+			path = JSON;
 			sourceTree = "<group>";
 		};
 		D0BCB326236A6D22000D8FDE = {
@@ -208,6 +232,7 @@
 				D0EBC03223791DEA008302D2 /* Enums */,
 				D099F3362375914300AC0EF6 /* Scripts */,
 				D0EBC03323791DFF008302D2 /* Helpers */,
+				D0B927762383AE4900956651 /* JSON */,
 			);
 			path = StandUp;
 			sourceTree = "<group>";
@@ -244,6 +269,7 @@
 				D0EBC0302377EE65008302D2 /* Utilities.swift */,
 				D049E899237BBE1700294E70 /* RunAppleScript.swift */,
 				D049E89B237BBFE600294E70 /* RunBuildTask.swift */,
+				D0B9277023837AB400956651 /* UrlRequest.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -356,21 +382,26 @@
 				D0A3B6F123739FCF00253635 /* StandUp.command in Resources */,
 				D0EB531A237E4E9F002212F8 /* fullynoded_tap_pubkey.png in Resources */,
 				D0EB5319237E4E9F002212F8 /* fullynoded_generate.png in Resources */,
+				D0B9277A2383F8D400956651 /* CheckForBitcoinCore.command in Resources */,
 				D0DCD8EE236ACD6300F2D15A /* Installer.xib in Resources */,
 				D0BCB337236A6D27000D8FDE /* Assets.xcassets in Resources */,
 				D0534CCA237E4DF00093DE67 /* fullynoded_qr.png in Resources */,
 				D0DCD8EA236ACD5300F2D15A /* QRDisplayer.xib in Resources */,
 				D0534CC6237E4CC20093DE67 /* ok.png in Resources */,
 				D0971D90237008D8001C3636 /* LICENSE in Resources */,
+				D0B9277C2383FAC300956651 /* IsBitcoinOn.command in Resources */,
+				D0B927782383E59700956651 /* UpgradeBitcoin.command in Resources */,
 				D0EBC02F2376834D008302D2 /* Authenticate.command in Resources */,
 				D0A871CC237E3C57006033C9 /* TorStatus.command in Resources */,
 				D049E8A0237BFF9E00294E70 /* UpdateBTCConf.command in Resources */,
 				D0B36C432373BBA5004B2D63 /* StopTor.command in Resources */,
 				D049E89E237BD09200294E70 /* StandDown.command in Resources */,
+				D0B9277E2383FCD000956651 /* StopBitcoin.command in Resources */,
 				D0971D92237008F6001C3636 /* README.md in Resources */,
 				D0534CC8237E4CE70093DE67 /* paste.png in Resources */,
 				D0EB5318237E4E9F002212F8 /* fullynoded_share.png in Resources */,
 				D0BCB33A236A6D27000D8FDE /* Main.storyboard in Resources */,
+				D0B9277523839F7B00956651 /* SupportedVersion.json in Resources */,
 				D01471A12371354700F64329 /* LaunchBitcoin.command in Resources */,
 				D0AE0DFB237297BE004369E2 /* StartTor.command in Resources */,
 				D06E3938236BE46E0072924A /* Settings.xib in Resources */,
@@ -408,6 +439,7 @@
 				D0BCB335236A6D22000D8FDE /* ViewController.swift in Sources */,
 				D0DCD8E6236ACC9E00F2D15A /* ScriptEnum.swift in Sources */,
 				D0BCB333236A6D22000D8FDE /* AppDelegate.swift in Sources */,
+				D0B9277123837AB400956651 /* UrlRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

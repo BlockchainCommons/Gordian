@@ -18,17 +18,63 @@ class Installer: NSViewController {
     var standingUp = Bool()
     var args = [String]()
     var standingDown = Bool()
+    var upgrading = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setScene()
-        getSettings()
         filterAction()
         
     }
     
-    func getSettings() {
+    func showSpinner(description: String) {
+        
+        DispatchQueue.main.async {
+            self.spinner.alphaValue = 1
+            self.spinnerDescription.stringValue = description
+            self.spinner.startAnimation(self)
+            self.spinnerDescription.alphaValue = 1
+        }
+        
+    }
+    
+    func getURLs() {
+        
+        showSpinner(description: "Fetching latest Bitcoin Core version and URL's...")
+        let request = FetchJSON()
+        request.getRequest { (dict, error) in
+            
+            if error != "" {
+                
+                self.hideSpinner()
+                setSimpleAlert(message: "Error", info: "There was an error fetching the latest Bitcoin Core version number and related URL's, please check your internet connection and try again", buttonLabel: "OK")
+                
+            } else {
+                
+                let binaryName = dict!["macosBinary"] as! String
+                let macosURL = dict!["macosURL"] as! String
+                let shaURL = dict!["shaURL"] as! String
+                let version = dict!["version"] as! String
+                self.showSpinner(description: "Setting Up...")
+                
+                if self.upgrading {
+                    
+                    self.upgradeBitcoinCore(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
+                    
+                } else {
+                    
+                    self.getSettings(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    func getSettings(binaryName: String, macosURL: String, shaURL: String, version: String) {
         
         let ud = UserDefaults.standard
         var rpcpassword = getExisistingRPCCreds().rpcpassword
@@ -45,6 +91,7 @@ class Installer: NSViewController {
         let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
         let regtest = ud.object(forKey: "regtest") as? Int ?? 0
         let walletDisabled = ud.object(forKey: "walletDisabled") as? Int ?? 0
+        args.removeAll()
         args.append(rpcpassword)
         args.append(rpcuser)
         args.append(dataDir)
@@ -54,6 +101,8 @@ class Installer: NSViewController {
         args.append("\(regtest)")
         args.append("\(txIndex)")
         args.append("\(walletDisabled)")
+        showSpinner(description: "Standing Up (this can take awhile)...")
+        standUp(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
         
     }
     
@@ -70,9 +119,7 @@ class Installer: NSViewController {
         } else if standingUp {
             
             standingUp = false
-            spinner.startAnimation(self)
-            desc = "Standing Up (this can take awhile)..."
-            standUp()
+            getURLs()
             
         } else if standingDown {
             
@@ -80,6 +127,10 @@ class Installer: NSViewController {
             spinner.startAnimation(self)
             desc = "Standing Down..."
             standDown()
+            
+        } else if upgrading {
+            print("upgrading")
+            getURLs()
             
         }
         
@@ -152,25 +203,63 @@ class Installer: NSViewController {
         
     }
     
-    func standUp() {
+    func standUp(binaryName: String, macosURL: String, shaURL: String, version: String) {
         
-        let runBuildTask = RunBuildTask()
-        runBuildTask.args = args
-        runBuildTask.textView = consoleOutput
-        runBuildTask.showLog = true
-        runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
-        runBuildTask.runScript(script: .standUp) {
+        DispatchQueue.main.async {
             
-            if !runBuildTask.errorBool {
+            let runBuildTask = RunBuildTask()
+            runBuildTask.args = self.args
+            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version]
+            runBuildTask.textView = self.consoleOutput
+            runBuildTask.showLog = true
+            runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
+            runBuildTask.runScript(script: .standUp) {
                 
-                DispatchQueue.main.async {
-                    self.setLog()
-                    self.goBack()
+                if !runBuildTask.errorBool {
+                    
+                    DispatchQueue.main.async {
+                        self.setLog()
+                        self.goBack()
+                    }
+                    
+                } else {
+                    
+                   setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
+                    
                 }
                 
-            } else {
+            }
+            
+        }
+        
+    }
+    
+    func upgradeBitcoinCore(binaryName: String, macosURL: String, shaURL: String, version: String) {
+        
+        upgrading = false
+        
+        DispatchQueue.main.async {
+            
+            let runBuildTask = RunBuildTask()
+            runBuildTask.args = []
+            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version]
+            runBuildTask.textView = self.consoleOutput
+            runBuildTask.showLog = true
+            runBuildTask.exitStrings = ["You have upgraded to Bitcoin Core", "Signatures do not match! Terminating..."]
+            runBuildTask.runScript(script: .upgradeBitcoin) {
                 
-               setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
+                if !runBuildTask.errorBool {
+                    
+                    DispatchQueue.main.async {
+                        self.setLog()
+                        self.goBack()
+                    }
+                    
+                } else {
+                    
+                   setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
+                    
+                }
                 
             }
             
