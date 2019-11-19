@@ -27,7 +27,6 @@ class ViewController: NSViewController {
     @IBOutlet var verifyOutlet: NSButton!
     @IBOutlet var updateOutlet: NSButton!
     
-    
     var rpcpassword = ""
     var rpcuser = ""
     var torHostname = ""
@@ -50,6 +49,8 @@ class ViewController: NSViewController {
     //MARK: Set default settings
     
     func setDefaults() {
+        
+        // TO DO: Ideally should fetch the actual bitcoin.conf first and if they exist set them in the app just incase user edits manually, otherwise the settings in the app will be out of sync
         
         let ud = UserDefaults.standard
         
@@ -92,9 +93,9 @@ class ViewController: NSViewController {
             
         }
         
-        if ud.object(forKey: "walletDisabled") == nil {
+        if ud.object(forKey: "walletdisabled") == nil {
             
-            ud.set(0, forKey: "walletDisabled")
+            ud.set(0, forKey: "walletdisabled")
             
         }
         
@@ -130,7 +131,6 @@ class ViewController: NSViewController {
     
     @IBAction func verifyAction(_ sender: Any) {
         
-        //checkSigs()
         runScript(script: .verifyBitcoin)
         
     }
@@ -138,7 +138,28 @@ class ViewController: NSViewController {
     @IBAction func standUp(_ sender: Any) {
         print("standup")
         
-        showstandUpAlert(message: "Ready to StandUp?", info: "StandUp installs and configures a fully indexed Bitcoin Core v0.19.0rc3 testnet node and Tor v0.4.1.6\n\n~30gb of space needed for testnet and ~300gb for mainnet\n\nGo to \"Settings\" for pruning, network, data directory and tor related bitcoin.conf options")
+        self.startSpinner(description: "Fetching latest Bitcoin Core version...")
+        
+        let request = FetchJSON()
+        request.getRequest { (dict, error) in
+            
+            if error != "" {
+                
+                self.hideSpinner()
+                print("error = \(String(describing: error))")
+                setSimpleAlert(message: "Error", info: "We had an error fetching the latest version of Bitcoin Core, please check your internet connection and try again", buttonLabel: "OK")
+                
+            } else {
+                
+                let version = dict!["version"] as! String
+                
+                self.hideSpinner()
+                
+                self.showstandUpAlert(message: "Ready to StandUp?", info: "StandUp installs and configures a fully indexed Bitcoin Core v\(version) testnet node and Tor v0.4.1.6\n\n~30gb of space needed for testnet and ~300gb for mainnet\n\nGo to \"Settings\" for pruning, network, data directory and tor related options")
+                
+            }
+            
+        }
         
     }
     
@@ -402,7 +423,7 @@ class ViewController: NSViewController {
                 
                 self.torConfLabel.stringValue = "⛔️ Tor not configured"
                 self.standUpOutlet.isEnabled = true
-               // self.hideSpinner()
+                self.hideSpinner()
                 
             }
             
@@ -653,8 +674,8 @@ class ViewController: NSViewController {
                 self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(currentVersion)"
                 self.checkTorVersion()
                 
-                let req = MakeRequest()
-                req.getRequest { (version, error) in
+                let req = FetchJSON()
+                req.getRequest { (dict, error) in
                     
                     if error != "" {
                         
@@ -665,7 +686,8 @@ class ViewController: NSViewController {
                         
                     } else {
                         
-                        let latestVersion = "v" + version!.replacingOccurrences(of: "\n", with: "")
+                        let version = dict?["version"] as! String
+                        let latestVersion = "v" + version.replacingOccurrences(of: "\n", with: "")
                         if currentVersion.contains(latestVersion) {
                             
                             print("up to date")

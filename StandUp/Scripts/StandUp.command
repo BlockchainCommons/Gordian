@@ -5,7 +5,7 @@
 #
 #  Created by Peter on 07/11/19.
 #  Copyright © 2019 Peter. All rights reserved.
-echo "Creating ~/StandUp/BitcoinCore0.19.0/..."
+echo "Creating ~/StandUp/BitcoinCore/..."
 RPCPASSWORD="$1"
 RPCUSER="$2"
 DATADIR="$3"
@@ -15,19 +15,23 @@ TESTNET="$6"
 REGTEST="$7"
 TXINDEX="$8"
 WALLET_DISABLED="$9"
+BINARY_NAME="$10"
+MACOS_URL="$11"
+SHA_URL="$12"
+VERSION="$13"
 mkdir ~/StandUp
-mkdir ~/StandUp/BitcoinCore0.19.0
-echo "Downloading https://bitcoin.org/bin/bitcoin-core-0.19.0/test.rc3/SHA256SUMS.asc"
-curl https://bitcoin.org/bin/bitcoin-core-0.19.0/test.rc3/SHA256SUMS.asc -o ~/StandUp/BitcoinCore0.19.0/SHA256SUMS.asc -s
-echo "Saved to ~/StandUp/BitcoinCore0.19.0/SHA256SUMS.asc"
+mkdir ~/StandUp/BitcoinCore
+echo "Downloading "$SHA_URL""
+curl "$SHA_URL" -o ~/StandUp/BitcoinCore/SHA256SUMS.asc -s
+echo "Saved to ~/StandUp/BitcoinCore/SHA256SUMS.asc"
 echo "Downloading Laanwj PGP signature..."
-curl https://bitcoin.org/laanwj-releases.asc -o ~/StandUp/BitcoinCore0.19.0/laanwj-releases.asc -s
-echo "Saved to ~/StandUp/BitcoinCore0.19.0/laanwj-releases.asc"
-echo "Downloading Bitcoin Core 0.19.0 from https://bitcoin.org/bin/bitcoin-core-0.19.0/test.rc3/bitcoin-0.19.0rc3-osx64.tar.gz"
-cd ~/StandUp/BitcoinCore0.19.0
-curl https://bitcoin.org/bin/bitcoin-core-0.19.0/test.rc3/bitcoin-0.19.0rc3-osx64.tar.gz -o ~/StandUp/BitcoinCore0.19.0/bitcoin-0.19.0rc3-osx64.tar.gz --progress-bar
-echo "Checking sha256 checksums bitcoin-0.19.0rc3-osx64.tar.gz against SHA256SUMS.asc"
-ACTUAL_SHA=$(shasum -a 256 bitcoin-0.19.0rc3-osx64.tar.gz | awk '{print $1}')
+curl https://bitcoin.org/laanwj-releases.asc -o ~/StandUp/BitcoinCore/laanwj-releases.asc -s
+echo "Saved to ~/StandUp/BitcoinCore/laanwj-releases.asc"
+echo "Downloading Bitcoin Core "$VERSION" from "$MACOS_URL""
+cd ~/StandUp/BitcoinCore
+curl "$MACOS_URL" -o ~/StandUp/BitcoinCore/$BINARY_NAME --progress-bar
+echo "Checking sha256 checksums $BINARY_NAME against SHA256SUMS.asc"
+ACTUAL_SHA=$(shasum -a 256 "$BINARY_NAME" | awk '{print $1}')
 EXPECTED_SHA=$(grep osx64 SHA256SUMS.asc | awk '{print $1}')
 echo "See two signatures (they should match):"
 echo $ACTUAL_SHA
@@ -35,8 +39,8 @@ echo $EXPECTED_SHA
 if [ "$ACTUAL_SHA" == "$EXPECTED_SHA" ];
 then
 echo "Signatures match"
-echo "Unpacking bitcoin-0.19.0rc3-osx64.tar.gz"
-tar -zxvf bitcoin-0.19.0rc3-osx64.tar.gz
+echo "Unpacking "$BINARY_NAME""
+tar -zxvf "$BINARY_NAME"
 echo "Creating bitcoin.conf at: ~/Library/Application Support/Bitcoin/bitcoin.conf"
 echo "datadir="$DATADIR"\nwalletdisabled="$WALLET_DISABLED"\nrpcuser="$RPCUSER"\nrpcpassword=******\nserver=1\nprune="$PRUNE"\ntxindex="$TXINDEX"\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\ntestnet="$TESTNET"\nregtest="$REGTEST"\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
 mkdir ~/Library/Application\ Support/Bitcoin

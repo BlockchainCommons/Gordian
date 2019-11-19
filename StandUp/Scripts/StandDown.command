@@ -15,7 +15,7 @@ echo "Stopping Tor..."
 /usr/local/bin/brew services stop tor
 echo "Uninstalling Tor..."
 /usr/local/bin/brew uninstall tor
-echo "Removing Tor..."
-/usr/local/bin/brew remove tor
+#echo "Removing Tor..."
+#/usr/local/bin/brew remove tor
 echo "Finished"
 exit

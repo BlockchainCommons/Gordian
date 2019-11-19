@@ -26,7 +26,6 @@
 		D0B36C432373BBA5004B2D63 /* StopTor.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B36C422373BBA5004B2D63 /* StopTor.command */; };
 		D0B36C452373E521004B2D63 /* Verify.command in Resources */ = {isa = PBXBuildFile; fileRef = D0B36C442373E521004B2D63 /* Verify.command */; };
 		D0B9277123837AB400956651 /* UrlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9277023837AB400956651 /* UrlRequest.swift */; };
-		D0B9277323838C5E00956651 /* SUPPORTED_VERSIONS.md in Resources */ = {isa = PBXBuildFile; fileRef = D0B9277223838C5E00956651 /* SUPPORTED_VERSIONS.md */; };
 		D0B9277523839F7B00956651 /* SupportedVersion.json in Resources */ = {isa = PBXBuildFile; fileRef = D0B9277423839F7B00956651 /* SupportedVersion.json */; };
 		D0BCB333236A6D22000D8FDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCB332236A6D22000D8FDE /* AppDelegate.swift */; };
 		D0BCB335236A6D22000D8FDE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCB334236A6D22000D8FDE /* ViewController.swift */; };
@@ -83,7 +82,6 @@
 		D0B36C422373BBA5004B2D63 /* StopTor.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StopTor.command; sourceTree = "<group>"; };
 		D0B36C442373E521004B2D63 /* Verify.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Verify.command; sourceTree = "<group>"; };
 		D0B9277023837AB400956651 /* UrlRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRequest.swift; sourceTree = "<group>"; };
-		D0B9277223838C5E00956651 /* SUPPORTED_VERSIONS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SUPPORTED_VERSIONS.md; sourceTree = "<group>"; };
 		D0B9277423839F7B00956651 /* SupportedVersion.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SupportedVersion.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		D0BCB32F236A6D22000D8FDE /* StandUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0BCB332236A6D22000D8FDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -179,10 +177,17 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		D0B927762383AE4900956651 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				D0B9277423839F7B00956651 /* SupportedVersion.json */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
 		D0BCB326236A6D22000D8FDE = {
 			isa = PBXGroup;
 			children = (
-				D0B9277223838C5E00956651 /* SUPPORTED_VERSIONS.md */,
 				D0971D91237008F6001C3636 /* README.md */,
 				D0971D8F237008D8001C3636 /* LICENSE */,
 				D0BCB331236A6D22000D8FDE /* StandUp */,
@@ -215,7 +220,7 @@
 				D0EBC03223791DEA008302D2 /* Enums */,
 				D099F3362375914300AC0EF6 /* Scripts */,
 				D0EBC03323791DFF008302D2 /* Helpers */,
-				D0B9277423839F7B00956651 /* SupportedVersion.json */,
+				D0B927762383AE4900956651 /* JSON */,
 			);
 			path = StandUp;
 			sourceTree = "<group>";
@@ -363,7 +368,6 @@
 			files = (
 				D0B36C452373E521004B2D63 /* Verify.command in Resources */,
 				D0A3B6F123739FCF00253635 /* StandUp.command in Resources */,
-				D0B9277323838C5E00956651 /* SUPPORTED_VERSIONS.md in Resources */,
 				D0EB531A237E4E9F002212F8 /* fullynoded_tap_pubkey.png in Resources */,
 				D0EB5319237E4E9F002212F8 /* fullynoded_generate.png in Resources */,
 				D0DCD8EE236ACD6300F2D15A /* Installer.xib in Resources */,

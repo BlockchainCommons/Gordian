@@ -23,12 +23,48 @@ class Installer: NSViewController {
         super.viewDidLoad()
         
         setScene()
-        getSettings()
         filterAction()
         
     }
     
-    func getSettings() {
+    func showSpinner(description: String) {
+        
+        DispatchQueue.main.async {
+            self.spinner.alphaValue = 1
+            self.spinnerDescription.stringValue = description
+            self.spinner.startAnimation(self)
+            self.spinnerDescription.alphaValue = 1
+        }
+        
+    }
+    
+    func getURLs() {
+        
+        showSpinner(description: "Fetching latest Bitcoin Core version and URL's...")
+        let request = FetchJSON()
+        request.getRequest { (dict, error) in
+            
+            if error != "" {
+                
+                self.hideSpinner()
+                setSimpleAlert(message: "Error", info: "There was an error fetching the latest Bitcoin Core version number and related URL's, please check your internet connection and try again", buttonLabel: "OK")
+                
+            } else {
+                
+                let binaryName = dict!["macosBinary"] as! String
+                let macosURL = dict!["macosURL"] as! String
+                let shaURL = dict!["shaURL"] as! String
+                let version = dict!["version"] as! String
+                self.showSpinner(description: "Setting Up...")
+                self.getSettings(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
+                
+            }
+            
+        }
+        
+    }
+    
+    func getSettings(binaryName: String, macosURL: String, shaURL: String, version: String) {
         
         let ud = UserDefaults.standard
         var rpcpassword = getExisistingRPCCreds().rpcpassword
@@ -54,6 +90,12 @@ class Installer: NSViewController {
         args.append("\(regtest)")
         args.append("\(txIndex)")
         args.append("\(walletDisabled)")
+        args.append(binaryName)
+        args.append(macosURL)
+        args.append(shaURL)
+        args.append(version)
+        showSpinner(description: "Standing Up (this can take awhile)...")
+        standUp()
         
     }
     
@@ -70,9 +112,8 @@ class Installer: NSViewController {
         } else if standingUp {
             
             standingUp = false
-            spinner.startAnimation(self)
-            desc = "Standing Up (this can take awhile)..."
-            standUp()
+            //standUp()
+            getURLs()
             
         } else if standingDown {
             
