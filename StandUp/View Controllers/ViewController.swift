@@ -36,6 +36,7 @@ class ViewController: NSViewController {
     var torInstalled = Bool()
     var torIsOn = Bool()
     var bitcoinRunning = Bool()
+    var upgrading = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,6 +128,42 @@ class ViewController: NSViewController {
         
     }
     
+    @IBAction func updateBitcoin(_ sender: Any) {
+        print("update bitcoin core")
+        
+        DispatchQueue.main.async {
+            self.upgrading = true
+            
+            let request = FetchJSON()
+            request.getRequest { (dict, err) in
+                
+                if err != "" {
+                    
+                    setSimpleAlert(message: "Error", info: "Error fetching json values: \(err ?? "unknown error")", buttonLabel: "OK")
+                    
+                } else {
+                    
+                    let version = dict!["version"] as! String
+                    
+                    actionAlert(message: "Upgrade?", info: "Would you like to upgrade to Bitcoin Core version \(version)?") { (response) in
+                        
+                        if response {
+                            
+                            DispatchQueue.main.async {
+                                self.performSegue(withIdentifier: "goInstall", sender: self)
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
     //MARK: User Action Installers, Starters and Configurators
     
     @IBAction func verifyAction(_ sender: Any) {
@@ -901,6 +938,7 @@ class ViewController: NSViewController {
             if let vc = segue.destinationController as? Installer {
                 
                 vc.standingUp = standingUp
+                vc.upgrading = upgrading
                 
             }
             

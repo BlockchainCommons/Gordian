@@ -18,6 +18,7 @@ class Installer: NSViewController {
     var standingUp = Bool()
     var args = [String]()
     var standingDown = Bool()
+    var upgrading = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,13 +52,21 @@ class Installer: NSViewController {
                 
             } else {
                 
-                print("dict = \(dict)")
                 let binaryName = dict!["macosBinary"] as! String
                 let macosURL = dict!["macosURL"] as! String
                 let shaURL = dict!["shaURL"] as! String
                 let version = dict!["version"] as! String
                 self.showSpinner(description: "Setting Up...")
-                self.getSettings(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
+                
+                if self.upgrading {
+                    
+                    self.upgradeBitcoinCore(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
+                    
+                } else {
+                    
+                    self.getSettings(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
+                    
+                }
                 
             }
             
@@ -92,11 +101,6 @@ class Installer: NSViewController {
         args.append("\(regtest)")
         args.append("\(txIndex)")
         args.append("\(walletDisabled)")
-//        args.append(binaryName)
-//        args.append(macosURL)
-//        args.append(shaURL)
-//        args.append(version)
-        print("args = \(args)")
         showSpinner(description: "Standing Up (this can take awhile)...")
         standUp(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
         
@@ -115,7 +119,6 @@ class Installer: NSViewController {
         } else if standingUp {
             
             standingUp = false
-            //standUp()
             getURLs()
             
         } else if standingDown {
@@ -124,6 +127,10 @@ class Installer: NSViewController {
             spinner.startAnimation(self)
             desc = "Standing Down..."
             standDown()
+            
+        } else if upgrading {
+            
+            getURLs()
             
         }
         
@@ -206,6 +213,39 @@ class Installer: NSViewController {
             runBuildTask.textView = self.consoleOutput
             runBuildTask.showLog = true
             runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
+            runBuildTask.runScript(script: .standUp) {
+                
+                if !runBuildTask.errorBool {
+                    
+                    DispatchQueue.main.async {
+                        self.setLog()
+                        self.goBack()
+                    }
+                    
+                } else {
+                    
+                   setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    func upgradeBitcoinCore(binaryName: String, macosURL: String, shaURL: String, version: String) {
+        
+        upgrading = false
+        
+        DispatchQueue.main.async {
+            
+            let runBuildTask = RunBuildTask()
+            runBuildTask.args = []
+            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version]
+            runBuildTask.textView = self.consoleOutput
+            runBuildTask.showLog = true
+            runBuildTask.exitStrings = ["You have upgraded to Bitcoin Core", "Signatures do not match! Terminating..."]
             runBuildTask.runScript(script: .standUp) {
                 
                 if !runBuildTask.errorBool {
