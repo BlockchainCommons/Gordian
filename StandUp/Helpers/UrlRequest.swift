@@ -26,6 +26,8 @@ class MakeRequest {
                     
                     let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                     
+                    print("json = \(json)")
+                    
                     if error != nil {
                         
                         completion((version:"", error:"\(error as Any)"))
@@ -38,16 +40,23 @@ class MakeRequest {
                             
                             if let decodedData = Data(base64Encoded: processedContent) {
                                 
-                                if let decodedString = String(data: decodedData, encoding: .utf8) {
-                                    
-                                    let version = decodedString.replacingOccurrences(of: "### Bitcoin Core\n", with: "")
-                                    completion((version:version, error:""))
-                                    
-                                } else {
-                                    
-                                    completion((version:"", error:"error decoding string"))
-                                    
-                                }
+                                let json2 = try JSONSerialization.jsonObject(with: decodedData, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+                                
+                                print("json2 = \(json2)")
+                                
+                                
+//                                if let decodedString = String(data: decodedData, encoding: .utf8) {
+//
+//                                    print("decoded string = \(decodedString)")
+//
+//                                    let version = decodedString.replacingOccurrences(of: "### Bitcoin Core\n", with: "")
+//                                    completion((version:version, error:""))
+//
+//                                } else {
+//
+//                                    completion((version:"", error:"error decoding string"))
+//
+//                                }
                                 
                             } else {
                                 
