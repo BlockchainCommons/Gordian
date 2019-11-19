@@ -74,9 +74,9 @@ sed -i -e 's/## address y:z./## address y:z.\
 \
 HiddenServiceDir \/usr\/local\/var\/lib\/tor\/standup\/\
 HiddenServiceVersion 3\
-HiddenServicePort 18332 127.0.0.1:18332\
-HiddenServicePort 18443 127.0.0.1:18443\
-HiddenServicePort 8332 127.0.0.1:8332/g' /usr/local/etc/tor/torrc
+HiddenServicePort 1309 127.0.0.1:18332\
+HiddenServicePort 1309 127.0.0.1:18443\
+HiddenServicePort 1309 127.0.0.1:8332/g' /usr/local/etc/tor/torrc
 echo "Creating hidden service directory at /usr/local/var/lib/tor/standup"
 mkdir /usr/local/var/lib
 mkdir /usr/local/var/lib/tor

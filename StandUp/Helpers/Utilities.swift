@@ -32,22 +32,25 @@ public func setSimpleAlert(message: String, info: String, buttonLabel: String) {
 
 public func actionAlert(message: String, info: String, result: @escaping (Bool) -> Void) {
     
-    let a = NSAlert()
-    a.messageText = message
-    a.informativeText = info
-    a.addButton(withTitle: "Yes")
-    a.addButton(withTitle: "No")
-    let response = a.runModal()
-    
-    if response == .alertFirstButtonReturn {
+    DispatchQueue.main.async {
         
-        result((true))
+        let a = NSAlert()
+        a.messageText = message
+        a.informativeText = info
+        a.addButton(withTitle: "Yes")
+        a.addButton(withTitle: "No")
+        let response = a.runModal()
         
-    } else {
-        
-        result((false))
+        if response == .alertFirstButtonReturn {
+            
+            result((true))
+            
+        } else {
+            
+            result((false))
+            
+        }
         
     }
-    
     
 }

@@ -129,7 +129,7 @@ class Installer: NSViewController {
             standDown()
             
         } else if upgrading {
-            
+            print("upgrading")
             getURLs()
             
         }
@@ -246,7 +246,7 @@ class Installer: NSViewController {
             runBuildTask.textView = self.consoleOutput
             runBuildTask.showLog = true
             runBuildTask.exitStrings = ["You have upgraded to Bitcoin Core", "Signatures do not match! Terminating..."]
-            runBuildTask.runScript(script: .standUp) {
+            runBuildTask.runScript(script: .upgradeBitcoin) {
                 
                 if !runBuildTask.errorBool {
                     
