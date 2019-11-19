@@ -16,6 +16,8 @@ class ViewController: NSViewController {
     @IBOutlet var bitcoinCoreStatusLabel: NSTextField!
     @IBOutlet var torConfLabel: NSTextField!
     @IBOutlet var bitcoinConfLabel: NSTextField!
+    @IBOutlet var updateBitcoinlabel: NSTextField!
+    
     @IBOutlet var installTorOutlet: NSButton!
     @IBOutlet var installBitcoindOutlet: NSButton!
     @IBOutlet var seeLogOutlet: NSButton!
@@ -23,6 +25,9 @@ class ViewController: NSViewController {
     @IBOutlet var showQuickConnectOutlet: NSButton!
     @IBOutlet var standUpOutlet: NSButton!
     @IBOutlet var verifyOutlet: NSButton!
+    @IBOutlet var updateOutlet: NSButton!
+    
+    
     var rpcpassword = ""
     var rpcuser = ""
     var torHostname = ""
@@ -39,11 +44,6 @@ class ViewController: NSViewController {
         setScene()
         setDefaults()
         isBitcoinOn()
-        
-        let req = MakeRequest()
-        req.getRequest {
-            print("result: \(req.dictToReturn)")
-        }
         
     }
     
@@ -644,14 +644,49 @@ class ViewController: NSViewController {
         if result.contains("Bitcoin Core version") {
             
             let arr = result.components(separatedBy: "Copyright (C)")
-            let version = (arr[0]).replacingOccurrences(of: "Bitcoin Core version ", with: "")
+            let currentVersion = (arr[0]).replacingOccurrences(of: "Bitcoin Core version ", with: "")
             
             DispatchQueue.main.async {
                 
                 self.installBitcoindOutlet.isEnabled = true
                 self.verifyOutlet.isEnabled = true
-                self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(version)"
+                self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(currentVersion)"
                 self.checkTorVersion()
+                
+                let req = MakeRequest()
+                req.getRequest { (version, error) in
+                    
+                    if error != "" {
+                        
+                        print("error getting supported version")
+                        DispatchQueue.main.async {
+                            self.updateBitcoinlabel.stringValue = "⛔️ Error getting latest version"
+                        }
+                        
+                    } else {
+                        
+                        let latestVersion = "v" + version!.replacingOccurrences(of: "\n", with: "")
+                        if currentVersion.contains(latestVersion) {
+                            
+                            print("up to date")
+                            
+                            DispatchQueue.main.async {
+                                self.updateBitcoinlabel.stringValue = "✅ Bitcoin Core Up to Date"
+                            }
+                            
+                        } else {
+                            
+                            print("not up to date")
+                            DispatchQueue.main.async {
+                                self.updateBitcoinlabel.stringValue = "⛔️ Bitcoin Core Out of Date"
+                                self.updateOutlet.isEnabled = true
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
                 
             }
             
@@ -747,6 +782,8 @@ class ViewController: NSViewController {
     func setScene() {
         print("setscene")
         
+        updateOutlet.isEnabled = false
+        updateBitcoinlabel.stringValue = ""
         torStatusLabel.stringValue = ""
         bitcoinCoreStatusLabel.stringValue = ""
         torConfLabel.stringValue = ""

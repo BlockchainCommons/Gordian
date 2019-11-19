@@ -823,7 +823,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K4o-Sf-dSl">
                                 <rect key="frame" x="299" y="342" width="33" height="14"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="em4-Ia-ulc">
-                                    <font key="font" metaFont="message" size="11"/>
+                                    <font key="font" metaFont="menu" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -944,6 +944,28 @@
                                     <action selector="verifyAction:" target="XfG-lQ-9wD" id="3c7-iT-xBT"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tMm-82-jtg">
+                                <rect key="frame" x="468" y="114" width="148" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="136" id="55D-HC-lar"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Update Bitcoin Core" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="M6q-cd-v0w">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qhb-g5-W9f">
+                                <rect key="frame" x="18" y="123" width="208" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="204" id="18L-Hs-hpl"/>
+                                    <constraint firstAttribute="height" constant="16" id="6JM-Ka-2gu"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="YMw-hG-lzX">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="8iX-4Q-Ggk" firstAttribute="top" secondItem="dR3-Ep-Dic" secondAttribute="bottom" constant="65" id="2uj-tj-yK4"/>
@@ -951,6 +973,7 @@
                             <constraint firstItem="w4M-Pe-mtd" firstAttribute="trailing" secondItem="eeZ-As-8fa" secondAttribute="trailing" id="630-fM-9j2"/>
                             <constraint firstItem="8vD-Aq-02i" firstAttribute="leading" secondItem="8iX-4Q-Ggk" secondAttribute="leading" id="6px-mb-4oW"/>
                             <constraint firstItem="y6q-T1-byM" firstAttribute="centerY" secondItem="0Fk-4I-h7q" secondAttribute="centerY" id="9tB-6O-Tef"/>
+                            <constraint firstItem="qhb-g5-W9f" firstAttribute="leading" secondItem="tf2-ZI-mJF" secondAttribute="leading" id="FRa-yw-cZk"/>
                             <constraint firstItem="tf2-ZI-mJF" firstAttribute="top" secondItem="8vD-Aq-02i" secondAttribute="bottom" constant="14" id="MHS-yy-GrG"/>
                             <constraint firstItem="Yrb-JG-EZW" firstAttribute="trailing" secondItem="eeZ-As-8fa" secondAttribute="trailing" id="MOX-bH-FDl"/>
                             <constraint firstItem="LCJ-cy-WyO" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="OsP-QR-VfO"/>
@@ -958,16 +981,19 @@
                             <constraint firstItem="w4M-Pe-mtd" firstAttribute="centerY" secondItem="8vD-Aq-02i" secondAttribute="centerY" id="RhU-zD-9MZ"/>
                             <constraint firstItem="K4o-Sf-dSl" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="SJ9-vB-W8w"/>
                             <constraint firstItem="y6q-T1-byM" firstAttribute="trailing" secondItem="eeZ-As-8fa" secondAttribute="trailing" id="V6y-xY-t2E"/>
+                            <constraint firstItem="qhb-g5-W9f" firstAttribute="top" secondItem="tf2-ZI-mJF" secondAttribute="bottom" constant="13" id="VuW-ml-IYN"/>
                             <constraint firstItem="0Fk-4I-h7q" firstAttribute="top" secondItem="8iX-4Q-Ggk" secondAttribute="bottom" constant="14" id="bVl-Hd-w2r"/>
                             <constraint firstItem="tf2-ZI-mJF" firstAttribute="leading" secondItem="8iX-4Q-Ggk" secondAttribute="leading" id="c18-Xm-gBQ"/>
                             <constraint firstItem="eeZ-As-8fa" firstAttribute="centerY" secondItem="8iX-4Q-Ggk" secondAttribute="centerY" id="e7g-kZ-OVp"/>
                             <constraint firstItem="Yrb-JG-EZW" firstAttribute="centerY" secondItem="tf2-ZI-mJF" secondAttribute="centerY" id="eKB-SV-rD4"/>
                             <constraint firstItem="K4o-Sf-dSl" firstAttribute="leading" secondItem="kdQ-HU-D0l" secondAttribute="trailing" constant="8" id="fsE-3v-par"/>
                             <constraint firstItem="0Fk-4I-h7q" firstAttribute="leading" secondItem="8iX-4Q-Ggk" secondAttribute="leading" id="j8q-hj-zjs"/>
+                            <constraint firstItem="tMm-82-jtg" firstAttribute="centerY" secondItem="qhb-g5-W9f" secondAttribute="centerY" id="m5A-43-OMT"/>
                             <constraint firstAttribute="bottom" secondItem="LCJ-cy-WyO" secondAttribute="bottom" constant="20" id="mV6-zq-zQe"/>
                             <constraint firstAttribute="trailing" secondItem="1Mv-9m-mvv" secondAttribute="trailing" constant="20" id="mmy-Pf-OyY"/>
                             <constraint firstItem="K4o-Sf-dSl" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="13" id="pqF-ZK-NJ0"/>
                             <constraint firstItem="8iX-4Q-Ggk" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="q6E-dI-bMK"/>
+                            <constraint firstItem="tMm-82-jtg" firstAttribute="trailing" secondItem="Yrb-JG-EZW" secondAttribute="trailing" id="tP2-qt-LVb"/>
                             <constraint firstItem="1Mv-9m-mvv" firstAttribute="trailing" secondItem="eeZ-As-8fa" secondAttribute="trailing" id="w9f-U9-Cqi"/>
                             <constraint firstItem="K4o-Sf-dSl" firstAttribute="centerY" secondItem="kdQ-HU-D0l" secondAttribute="centerY" id="wAA-ul-fhl"/>
                             <constraint firstItem="dR3-Ep-Dic" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="x0g-IP-DBm"/>
@@ -986,6 +1012,8 @@
                         <outlet property="taskDescription" destination="K4o-Sf-dSl" id="Xb9-TC-9s2"/>
                         <outlet property="torConfLabel" destination="0Fk-4I-h7q" id="hoP-rI-iTs"/>
                         <outlet property="torStatusLabel" destination="8iX-4Q-Ggk" id="O4b-d0-gwO"/>
+                        <outlet property="updateBitcoinlabel" destination="qhb-g5-W9f" id="PgE-M4-Jxt"/>
+                        <outlet property="updateOutlet" destination="tMm-82-jtg" id="b1B-LH-TKx"/>
                         <outlet property="verifyOutlet" destination="y6q-T1-byM" id="I3N-1T-qsP"/>
                         <segue destination="eC6-Cf-Cnx" kind="sheet" identifier="showPairingCode" id="Yl0-9Y-9DR"/>
                         <segue destination="mY6-pf-cJ7" kind="sheet" identifier="goToSettings" id="qCM-WY-hFq"/>
@@ -1368,6 +1396,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Yel-Hw-wBk"/>
+        <segue reference="cqP-Ve-rOY"/>
     </inferredMetricsTieBreakers>
 </document>
