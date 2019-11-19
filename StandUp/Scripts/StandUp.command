@@ -15,23 +15,19 @@ TESTNET="$6"
 REGTEST="$7"
 TXINDEX="$8"
 WALLET_DISABLED="$9"
-BINARY_NAME="$10"
-MACOS_URL="$11"
-SHA_URL="$12"
-VERSION="$13"
 mkdir ~/StandUp
 mkdir ~/StandUp/BitcoinCore
-echo "Downloading "$SHA_URL""
-curl "$SHA_URL" -o ~/StandUp/BitcoinCore/SHA256SUMS.asc -s
+echo "Downloading $SHA_URL"
+curl $SHA_URL -o ~/StandUp/BitcoinCore/SHA256SUMS.asc -s
 echo "Saved to ~/StandUp/BitcoinCore/SHA256SUMS.asc"
 echo "Downloading Laanwj PGP signature..."
 curl https://bitcoin.org/laanwj-releases.asc -o ~/StandUp/BitcoinCore/laanwj-releases.asc -s
 echo "Saved to ~/StandUp/BitcoinCore/laanwj-releases.asc"
-echo "Downloading Bitcoin Core "$VERSION" from "$MACOS_URL""
+echo "Downloading Bitcoin Core $VERSION from $MACOS_URL"
 cd ~/StandUp/BitcoinCore
-curl "$MACOS_URL" -o ~/StandUp/BitcoinCore/$BINARY_NAME --progress-bar
+curl $MACOS_URL -o ~/StandUp/BitcoinCore/$BINARY_NAME --progress-bar
 echo "Checking sha256 checksums $BINARY_NAME against SHA256SUMS.asc"
-ACTUAL_SHA=$(shasum -a 256 "$BINARY_NAME" | awk '{print $1}')
+ACTUAL_SHA=$(shasum -a 256 $BINARY_NAME | awk '{print $1}')
 EXPECTED_SHA=$(grep osx64 SHA256SUMS.asc | awk '{print $1}')
 echo "See two signatures (they should match):"
 echo $ACTUAL_SHA
@@ -39,8 +35,8 @@ echo $EXPECTED_SHA
 if [ "$ACTUAL_SHA" == "$EXPECTED_SHA" ];
 then
 echo "Signatures match"
-echo "Unpacking "$BINARY_NAME""
-tar -zxvf "$BINARY_NAME"
+echo "Unpacking $BINARY_NAME"
+tar -zxvf $BINARY_NAME
 echo "Creating bitcoin.conf at: ~/Library/Application Support/Bitcoin/bitcoin.conf"
 echo "datadir="$DATADIR"\nwalletdisabled="$WALLET_DISABLED"\nrpcuser="$RPCUSER"\nrpcpassword=******\nserver=1\nprune="$PRUNE"\ntxindex="$TXINDEX"\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\ntestnet="$TESTNET"\nregtest="$REGTEST"\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
 mkdir ~/Library/Application\ Support/Bitcoin

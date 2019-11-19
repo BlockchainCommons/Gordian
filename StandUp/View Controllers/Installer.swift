@@ -51,6 +51,7 @@ class Installer: NSViewController {
                 
             } else {
                 
+                print("dict = \(dict)")
                 let binaryName = dict!["macosBinary"] as! String
                 let macosURL = dict!["macosURL"] as! String
                 let shaURL = dict!["shaURL"] as! String
@@ -81,6 +82,7 @@ class Installer: NSViewController {
         let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
         let regtest = ud.object(forKey: "regtest") as? Int ?? 0
         let walletDisabled = ud.object(forKey: "walletDisabled") as? Int ?? 0
+        args.removeAll()
         args.append(rpcpassword)
         args.append(rpcuser)
         args.append(dataDir)
@@ -90,12 +92,13 @@ class Installer: NSViewController {
         args.append("\(regtest)")
         args.append("\(txIndex)")
         args.append("\(walletDisabled)")
-        args.append(binaryName)
-        args.append(macosURL)
-        args.append(shaURL)
-        args.append(version)
+//        args.append(binaryName)
+//        args.append(macosURL)
+//        args.append(shaURL)
+//        args.append(version)
+        print("args = \(args)")
         showSpinner(description: "Standing Up (this can take awhile)...")
-        standUp()
+        standUp(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
         
     }
     
@@ -193,25 +196,30 @@ class Installer: NSViewController {
         
     }
     
-    func standUp() {
+    func standUp(binaryName: String, macosURL: String, shaURL: String, version: String) {
         
-        let runBuildTask = RunBuildTask()
-        runBuildTask.args = args
-        runBuildTask.textView = consoleOutput
-        runBuildTask.showLog = true
-        runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
-        runBuildTask.runScript(script: .standUp) {
+        DispatchQueue.main.async {
             
-            if !runBuildTask.errorBool {
+            let runBuildTask = RunBuildTask()
+            runBuildTask.args = self.args
+            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version]
+            runBuildTask.textView = self.consoleOutput
+            runBuildTask.showLog = true
+            runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
+            runBuildTask.runScript(script: .standUp) {
                 
-                DispatchQueue.main.async {
-                    self.setLog()
-                    self.goBack()
+                if !runBuildTask.errorBool {
+                    
+                    DispatchQueue.main.async {
+                        self.setLog()
+                        self.goBack()
+                    }
+                    
+                } else {
+                    
+                   setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
+                    
                 }
-                
-            } else {
-                
-               setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
                 
             }
             

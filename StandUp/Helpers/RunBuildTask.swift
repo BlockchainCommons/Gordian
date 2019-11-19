@@ -14,6 +14,7 @@ class RunBuildTask {
     var isRunning = false
     var buildTask:Process!
     var args = [String]()
+    var env = [String:String]()
     var stringToReturn = ""
     var terminate = Bool()
     var errorBool = Bool()
@@ -21,7 +22,6 @@ class RunBuildTask {
     var exitStrings = [String]()
     var textView = NSTextView()
     var showLog = Bool()
-    //static let sharedInstance = RunBuildTask()
     
     func runScript(script: SCRIPT, completion: @escaping () -> Void) {
         
@@ -39,6 +39,7 @@ class RunBuildTask {
             self.buildTask = Process()
             self.buildTask.launchPath = path
             self.buildTask.arguments = self.args
+            self.buildTask.environment = self.env
             
             self.buildTask.terminationHandler = {
                 
