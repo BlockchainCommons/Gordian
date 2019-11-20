@@ -88,11 +88,14 @@ class Settings: NSViewController {
             
             actionAlert(message: "Danger!", info: "This will remove the Bitcoin directory! All Bitcoin Core data including your wallets will be deleted!\n\nAre you sure you want to continue?") { (response) in
                 
+                let datadir = self.ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/Library/Application Support/Bitcoin"
+                
                 if response {
                     
                     let runBuildTask = RunBuildTask()
                     runBuildTask.args = []
                     runBuildTask.showLog = false
+                    runBuildTask.env = ["DATADIR":datadir]
                     runBuildTask.exitStrings = ["Done"]
                     runBuildTask.runScript(script: .removeBitcoin) {
                         

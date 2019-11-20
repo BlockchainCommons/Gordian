@@ -286,6 +286,7 @@ class Installer: NSViewController {
         
         DispatchQueue.main.async {
             
+            self.spinner.alphaValue = 0
             self.backButtonOutlet.isEnabled = true
             self.spinnerDescription.stringValue = ""
             self.spinner.stopAnimation(self)

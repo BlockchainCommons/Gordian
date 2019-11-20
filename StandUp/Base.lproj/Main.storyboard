@@ -1067,7 +1067,7 @@
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4ej-es-0TD">
                                 <rect key="frame" x="18" y="314" width="58" height="18"/>
-                                <buttonCell key="cell" type="check" title="Prune" bezelStyle="regularSquare" imagePosition="left" inset="2" id="GNm-Ca-tHc">
+                                <buttonCell key="cell" type="check" title="prune" bezelStyle="regularSquare" imagePosition="left" inset="2" id="GNm-Ca-tHc">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1151,8 +1151,8 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uMK-KT-7YU">
-                                <rect key="frame" x="18" y="295" width="152" height="18"/>
-                                <buttonCell key="cell" type="check" title="Full transaction index" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yWX-Mi-W1P">
+                                <rect key="frame" x="18" y="295" width="149" height="18"/>
+                                <buttonCell key="cell" type="check" title="full transaction index" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yWX-Mi-W1P">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1187,8 +1187,8 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H4u-my-R0l">
-                                <rect key="frame" x="18" y="160" width="75" height="18"/>
-                                <buttonCell key="cell" type="check" title="Disabled" bezelStyle="regularSquare" imagePosition="left" inset="2" id="fm4-Sp-NJA">
+                                <rect key="frame" x="18" y="160" width="74" height="18"/>
+                                <buttonCell key="cell" type="check" title="disabled" bezelStyle="regularSquare" imagePosition="left" inset="2" id="fm4-Sp-NJA">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1387,6 +1387,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="cqP-Ve-rOY"/>
+        <segue reference="Yel-Hw-wBk"/>
     </inferredMetricsTieBreakers>
 </document>

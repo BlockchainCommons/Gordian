@@ -17,7 +17,7 @@ class Log {
         getLog {
             
             let file = "log.txt"
-            self.logText += content
+            self.logText += "\(NSDate())\n\n" + content
             
             if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
                 

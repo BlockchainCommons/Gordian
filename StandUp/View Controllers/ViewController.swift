@@ -260,6 +260,7 @@ class ViewController: NSViewController {
             
             DispatchQueue.main.async {
                 
+                
                 self.startSpinner(description: "stopping Bitcoin Core...")
                 self.installBitcoindOutlet.isEnabled = false
                 
@@ -387,7 +388,7 @@ class ViewController: NSViewController {
             
         case .isBitcoinOn, .checkForBitcoin:
             
-            self.env["PREFIX"] = ud.object(forKey: "binaryPrefix") as! String
+            self.env["PREFIX"] = ud.object(forKey: "binaryPrefix") as? String ?? "bitcoin-0.19.0rc3"
             
         default:
             
@@ -430,105 +431,123 @@ class ViewController: NSViewController {
         print("parsescriptresult")
         
         switch script {
-        case .verifyBitcoin: parseVerifyResult(result: result)
-        case .startBitcoinqt: bitcoinStarted()
-        case .startTor, .stopTor: torStarted(result: result)
-        case .stopBitcoin: parseBitcoinStoppedResponse(result: result)
+            
         case .isBitcoinOn: parseIsBitcoinOnResponse(result: result)
+            
         case .checkForBitcoin: parseBitcoindResponse(result: result)
+            
         case .checkForTor: parseTorResult(result: result)
-        case .getTorrc: checkIfTorIsConfigured(response: result)
+            
         case .getRPCCredentials: checkForRPCCredentials(response: result)
+            
+        case .getTorrc: checkIfTorIsConfigured(response: result)
+            
         case .getTorHostname: parseHostname(response: result)
+            
         case .torStatus: parseTorStatus(result: result)
+            
+        case .verifyBitcoin: parseVerifyResult(result: result)
+            
+        case .startBitcoinqt: parseStartBitcoinResponse(result: result)
+            
+        case .startTor, .stopTor: torStarted(result: result)
+            
+        case .stopBitcoin: parseBitcoinStoppedResponse(result: result)
+            
         default: break
+            
         }
         
     }
     
-    func parseError(script: SCRIPT, error: String) {
-        print("parseerror script: \(script) and error: \(error)")
-        
-        switch script {
-            
-        case .verifyBitcoin:
-            
-            parseVerifyResult(result: "error")
-            
-        case .torStatus:
-            
-            DispatchQueue.main.async {
-                self.installTorOutlet.title = "Start Tor"
-                self.installTorOutlet.isEnabled = false
-                self.hideSpinner()
-            }
-            
-        case .stopBitcoin:
-            
-            bitcoinStopped()
-            
-        case .isBitcoinOn:
-            
-            bitcoinRunning = false
-            bitcoinStopped()
-            checkBitcoindVersion()
-            
-        case .checkForBitcoin:
-            
-            DispatchQueue.main.async {
-                
-                self.bitcoinInstalled = false
-                self.bitcoinCoreStatusLabel.stringValue = "⛔️ Bitcoin Core not installed"
-                self.bitcoinConfLabel.stringValue = "⛔️ Bitcoin Core not configured"
-                self.installBitcoindOutlet.isEnabled = false
-                self.checkTorVersion()
-                
-            }
-            
-        case .checkForTor:
-            
-            DispatchQueue.main.async {
-                
-                self.torInstalled = false
-                self.torConfLabel.stringValue = "⛔️ Tor not configured"
-                self.torStatusLabel.stringValue = "⛔️ Tor not installed"
-                self.checkBitcoinConfForRPCCredentials()
-                
-            }
-            
-        case .getTorrc:
-            
-            DispatchQueue.main.async {
-                
-                self.torConfLabel.stringValue = "⛔️ Tor not configured"
-                self.hideSpinner()
-                
-            }
-            
-        case .getRPCCredentials:
-            
-            DispatchQueue.main.async {
-                
-                self.bitcoinConfLabel.stringValue = "⛔️ Bitcoin Core not configured"
-                
-            }
-            
-            getTorrcFile()
-            
-        default:
-            
-            break
-            
-        }
-        
-    }
+//    func parseError(script: SCRIPT, error: String) {
+//        print("parseerror script: \(script) and error: \(error)")
+//
+//        switch script {
+//
+//        case .verifyBitcoin:
+//
+//            parseVerifyResult(result: "error")
+//
+//        case .torStatus:
+//
+//            DispatchQueue.main.async {
+//                self.installTorOutlet.title = "Start Tor"
+//                self.installTorOutlet.isEnabled = false
+//                self.hideSpinner()
+//            }
+//
+//        case .stopBitcoin:
+//
+//            bitcoinStopped()
+//
+//        case .isBitcoinOn:
+//
+//            bitcoinRunning = false
+//            bitcoinStopped()
+//            checkBitcoindVersion()
+//
+//        case .checkForBitcoin:
+//
+//            DispatchQueue.main.async {
+//
+//                self.bitcoinInstalled = false
+//                self.bitcoinCoreStatusLabel.stringValue = "⛔️ Bitcoin Core not installed"
+//                self.bitcoinConfLabel.stringValue = "⛔️ Bitcoin Core not configured"
+//                self.installBitcoindOutlet.isEnabled = false
+//                self.checkTorVersion()
+//
+//            }
+//
+//        case .checkForTor:
+//
+//            DispatchQueue.main.async {
+//
+//                self.torInstalled = false
+//                self.torConfLabel.stringValue = "⛔️ Tor not configured"
+//                self.torStatusLabel.stringValue = "⛔️ Tor not installed"
+//                self.checkBitcoinConfForRPCCredentials()
+//
+//            }
+//
+//        case .getTorrc:
+//
+//            DispatchQueue.main.async {
+//
+//                self.torConfLabel.stringValue = "⛔️ Tor not configured"
+//                self.hideSpinner()
+//
+//            }
+//
+//        case .getRPCCredentials:
+//
+//            DispatchQueue.main.async {
+//
+//                self.bitcoinConfLabel.stringValue = "⛔️ Bitcoin Core not configured"
+//
+//            }
+//
+//            getTorrcFile()
+//
+//        default:
+//
+//            break
+//
+//        }
+//
+//    }
     
     //MARK: Script Result Parsers
+    
+    func parseStartBitcoinResponse(result: String) {
+        
+        
+    }
     
     func parseBitcoinStoppedResponse(result: String) {
         print("parseBitcoinStoppedResponse")
         
-        if result.contains("Bitcoin server stopping") {
+        if result.contains("Bitcoin server stopping") || result.contains("Bitcoin Core stopping") {
             
             bitcoinStopped()
             hideSpinner()
