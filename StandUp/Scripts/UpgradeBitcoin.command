@@ -8,6 +8,8 @@
 echo "Updating to $VERSION"
 echo "Removing ~/StandUp"
 rm -R ~/StandUp
+mkdir ~/StandUp
+mkdir ~/StandUp/BitcoinCore
 echo "Downloading $SHA_URL"
 curl $SHA_URL -o ~/StandUp/BitcoinCore/SHA256SUMS.asc -s
 echo "Saved to ~/StandUp/BitcoinCore/SHA256SUMS.asc"

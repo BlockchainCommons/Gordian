@@ -43,8 +43,10 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let ud = UserDefaults.standard
-        ud.removeObject(forKey: "dataDir")
+//        let ud = UserDefaults.standard
+//        ud.removeObject(forKey: "dataDir")
+//        ud.set("bitcoin-0.19.0rc3", forKey: "binaryPrefix")
+//        ud.set("0.19.0rc3", forKey: "version")
         isLoading = true
         setScene()
         setDefaults()
@@ -149,7 +151,7 @@ class ViewController: NSViewController {
                 } else {
                     
                     let version = dict!["version"] as! String
-                    actionAlert(message: "Upgrade to Bitcoin Core \(version)?", info: "Upgrading removes the ~/StandUp directory and completley writes over it!\n\nAre you sure you would like to upgrade to Bitcoin Core version \(version)?") { (response) in
+                    actionAlert(message: "Upgrade to Bitcoin Core \(version)?", info: "Upgrading removes the ~/StandUp directory completely and writes over it!\n\nAre you sure you would like to upgrade to Bitcoin Core version \(version)?") { (response) in
                         
                         if response {
                             
@@ -371,17 +373,21 @@ class ViewController: NSViewController {
     func runLaunchScript(script: SCRIPT) {
         print("runlaunchscript: \(script.rawValue)")
         
+        let ud = UserDefaults.standard
+        
         switch script {
             
         case .startBitcoinqt:
             
-            let ud = UserDefaults.standard
             self.env["DATADIR"] = "-datadir=" + "\(ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/Library/Application Support/Bitcoin")"
             
         case .getRPCCredentials:
             
-            let ud = UserDefaults.standard
             self.env["DATADIR"] = "\(ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/Library/Application Support/Bitcoin")"
+            
+        case .isBitcoinOn, .checkForBitcoin:
+            
+            self.env["PREFIX"] = ud.object(forKey: "binaryPrefix") as! String
             
         default:
             
@@ -429,7 +435,7 @@ class ViewController: NSViewController {
         case .startTor, .stopTor: torStarted(result: result)
         case .stopBitcoin: parseBitcoinStoppedResponse(result: result)
         case .isBitcoinOn: parseIsBitcoinOnResponse(result: result)
-        case .checkForBitcoin: bitcoinInstalled = true; parseBitcoindResponse(result: result)
+        case .checkForBitcoin: parseBitcoindResponse(result: result)
         case .checkForTor: parseTorResult(result: result)
         case .getTorrc: checkIfTorIsConfigured(response: result)
         case .getRPCCredentials: checkForRPCCredentials(response: result)
@@ -772,6 +778,60 @@ class ViewController: NSViewController {
                 self.installBitcoindOutlet.isEnabled = true
                 self.verifyOutlet.isEnabled = true
                 self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(currentVersion)"
+                self.bitcoinInstalled = true
+                
+                let req = FetchJSON()
+                req.getRequest { (dict, error) in
+                    
+                    if error != "" {
+                        
+                        print("error getting supported version")
+                        DispatchQueue.main.async {
+                            self.updateBitcoinlabel.stringValue = "⛔️ Error getting latest version"
+                        }
+                        
+                    } else {
+                        
+                        let version = dict!["version"] as! String
+                        let binaryName = dict!["macosBinary"] as! String
+                        let prefix = dict!["binaryPrefix"] as! String
+                        self.env = ["BINARY_NAME":binaryName,"VERSION":version,"PREFIX":prefix]
+                        let latestVersion = "v" + version.replacingOccurrences(of: "\n", with: "")
+                        if currentVersion.contains(latestVersion) {
+                            
+                            print("up to date")
+                            
+                            DispatchQueue.main.async {
+                                self.updateBitcoinlabel.stringValue = "✅ Bitcoin Core Up to Date"
+                            }
+                            
+                        } else {
+                            
+                            print("not up to date")
+                            DispatchQueue.main.async {
+                                self.updateBitcoinlabel.stringValue = "⛔️ Bitcoin Core Out of Date"
+                                self.updateOutlet.isEnabled = true
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
+                                
+            }
+            
+        } else if result.contains("Bitcoin Core version") {
+            
+            let arr = result.components(separatedBy: "Copyright (C)")
+            let currentVersion = (arr[0]).replacingOccurrences(of: "Bitcoin Core version ", with: "")
+            
+            DispatchQueue.main.async {
+                
+                self.installBitcoindOutlet.isEnabled = true
+                self.verifyOutlet.isEnabled = true
+                self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(currentVersion)"
+                self.bitcoinInstalled = true
                 
                 let req = FetchJSON()
                 req.getRequest { (dict, error) in
@@ -819,6 +879,7 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 self.bitcoinCoreStatusLabel.stringValue = "⛔️ Bitcoin Core not installed"
                 self.installBitcoindOutlet.isEnabled = false
+                self.bitcoinInstalled = false
             }
             
         }

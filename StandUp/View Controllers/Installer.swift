@@ -61,15 +61,13 @@ class Installer: NSViewController {
                 
                 if self.upgrading {
 
-                    self.upgradeBitcoinCore(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
+                    self.upgradeBitcoinCore(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version, prefix: prefix)
 
                 } else {
 
-                    self.getSettings(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
+                    self.getSettings(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version, prefix: prefix)
 
                 }
-                
-                //self.checkBitcoin(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version, prefix: prefix)
                 
             }
             
@@ -77,7 +75,7 @@ class Installer: NSViewController {
         
     }
     
-    func getSettings(binaryName: String, macosURL: String, shaURL: String, version: String) {
+    func getSettings(binaryName: String, macosURL: String, shaURL: String, version: String, prefix: String) {
         
         let ud = UserDefaults.standard
         var rpcpassword = getExisistingRPCCreds().rpcpassword
@@ -86,10 +84,7 @@ class Installer: NSViewController {
         if rpcuser == "" { rpcuser = randomString(length: 10) }
         let prune = ud.object(forKey: "pruned") as? Int ?? 0
         let txIndex = ud.object(forKey: "txIndex") as? Int ?? 1
-        var dataDir = ud.object(forKey: "dataDir") as? String ?? "/Users/$(whoami)/Library/Application\\ Support/Bitcoin"
-        if dataDir == "~/Library/Application Support/Bitcoin" {
-            dataDir = ""
-        }
+        let dataDir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/Library/Application Support/Bitcoin"
         let testnet = ud.object(forKey: "testnet") as? Int ?? 1
         let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
         let regtest = ud.object(forKey: "regtest") as? Int ?? 0
@@ -105,7 +100,7 @@ class Installer: NSViewController {
         args.append("\(txIndex)")
         args.append("\(walletDisabled)")
         showSpinner(description: "Standing Up (this can take awhile)...")
-        standUp(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
+        standUp(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version, prefix: prefix)
         
     }
     
@@ -122,6 +117,10 @@ class Installer: NSViewController {
                 DispatchQueue.main.async {
                     self.consoleOutput.string = log
                 }
+            }
+            
+            DispatchQueue.main.async {
+                self.backButtonOutlet.isEnabled = true
             }
 
         } else if standingUp {
@@ -193,6 +192,10 @@ class Installer: NSViewController {
                 
                 DispatchQueue.main.async {
                     
+                    let ud = UserDefaults.standard
+                    let domain = Bundle.main.bundleIdentifier!
+                    ud.removePersistentDomain(forName: domain)
+                    ud.synchronize()
                     self.hideSpinner()
                     self.setLog(content: self.consoleOutput.string)
                     setSimpleAlert(message: "Success", info: "You have StoodDown", buttonLabel: "OK")
@@ -209,7 +212,7 @@ class Installer: NSViewController {
         
     }
     
-    func standUp(binaryName: String, macosURL: String, shaURL: String, version: String) {
+    func standUp(binaryName: String, macosURL: String, shaURL: String, version: String, prefix: String) {
         
         DispatchQueue.main.async {
             
@@ -224,6 +227,9 @@ class Installer: NSViewController {
                 if !runBuildTask.errorBool {
                     
                     DispatchQueue.main.async {
+                        let ud = UserDefaults.standard
+                        ud.set(prefix, forKey: "binaryPrefix")
+                        ud.set(version, forKey: "version")
                         self.setLog(content: self.consoleOutput.string)
                         self.goBack()
                     }
@@ -240,7 +246,7 @@ class Installer: NSViewController {
         
     }
     
-    func upgradeBitcoinCore(binaryName: String, macosURL: String, shaURL: String, version: String) {
+    func upgradeBitcoinCore(binaryName: String, macosURL: String, shaURL: String, version: String, prefix: String) {
         
         upgrading = false
         
@@ -257,6 +263,9 @@ class Installer: NSViewController {
                 if !runBuildTask.errorBool {
                     
                     DispatchQueue.main.async {
+                        let ud = UserDefaults.standard
+                        ud.set(prefix, forKey: "binaryPrefix")
+                        ud.set(version, forKey: "version")
                         self.setLog(content: self.consoleOutput.string)
                         self.goBack()
                     }
