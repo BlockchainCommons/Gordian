@@ -166,7 +166,7 @@ class Installer: NSViewController {
             if let presenter = self.presentingViewController as? ViewController {
                 
                 presenter.standingUp = false
-                presenter.checkBitcoindVersion()
+                presenter.isBitcoinOn()
                 
             }
             
@@ -193,9 +193,7 @@ class Installer: NSViewController {
                 
                 DispatchQueue.main.async {
                     
-                    self.spinner.stopAnimation(self)
-                    self.spinner.alphaValue = 0
-                    self.spinnerDescription.stringValue = ""
+                    self.hideSpinner()
                     self.setLog(content: self.consoleOutput.string)
                     setSimpleAlert(message: "Success", info: "You have StoodDown", buttonLabel: "OK")
                     
@@ -278,7 +276,8 @@ class Installer: NSViewController {
     func hideSpinner() {
         
         DispatchQueue.main.async {
-        
+            
+            self.backButtonOutlet.isEnabled = true
             self.spinnerDescription.stringValue = ""
             self.spinner.stopAnimation(self)
             
@@ -288,6 +287,7 @@ class Installer: NSViewController {
     
     func setScene() {
         
+        backButtonOutlet.isEnabled = false
         consoleOutput.textColor = NSColor.green
         consoleOutput.isEditable = false
         consoleOutput.isSelectable = false

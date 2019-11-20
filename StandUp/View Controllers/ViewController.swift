@@ -149,7 +149,7 @@ class ViewController: NSViewController {
                 } else {
                     
                     let version = dict!["version"] as! String
-                    actionAlert(message: "Upgrade?", info: "Would you like to upgrade to Bitcoin Core version \(version)?") { (response) in
+                    actionAlert(message: "Upgrade to Bitcoin Core \(version)?", info: "Upgrading removes the ~/StandUp directory and completley writes over it!\n\nAre you sure you would like to upgrade to Bitcoin Core version \(version)?") { (response) in
                         
                         if response {
                             
@@ -424,9 +424,9 @@ class ViewController: NSViewController {
         print("parsescriptresult")
         
         switch script {
-        case .verifyBitcoin: self.parseVerifyResult(result: result)
-        case .startBitcoinqt: self.bitcoinStarted()
-        case .startTor, .stopTor: self.torStarted(result: result)
+        case .verifyBitcoin: parseVerifyResult(result: result)
+        case .startBitcoinqt: bitcoinStarted()
+        case .startTor, .stopTor: torStarted(result: result)
         case .stopBitcoin: parseBitcoinStoppedResponse(result: result)
         case .isBitcoinOn: parseIsBitcoinOnResponse(result: result)
         case .checkForBitcoin: bitcoinInstalled = true; parseBitcoindResponse(result: result)
@@ -495,7 +495,6 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 
                 self.torConfLabel.stringValue = "⛔️ Tor not configured"
-                self.standUpOutlet.isEnabled = true
                 self.hideSpinner()
                 
             }
@@ -743,7 +742,6 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 
                 self.torConfLabel.stringValue = "✅ Tor configured"
-                self.getTorHostName()
                 
             }
             
@@ -752,11 +750,12 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 
                 self.torConfLabel.stringValue = "⛔️ Tor not configured"
-                self.hideSpinner()
                 
             }
             
         }
+        
+        getTorHostName()
                 
     }
     
@@ -834,7 +833,7 @@ class ViewController: NSViewController {
         torHostname = response.components(separatedBy: "\n")[0]
         print("hostname = \(torHostname)")
         
-        if rpcuser != "", rpcpassword != "", torHostname != "" {
+        if rpcuser != "" && rpcpassword != "" && torHostname != "" && !torHostname.contains("cat: /usr/local/var/lib/tor/standup/hostname: No such file or directory") {
             
             DispatchQueue.main.async {
                 self.showQuickConnectOutlet.isEnabled = true

@@ -89,7 +89,7 @@ mkdir /usr/local/var/lib/tor/standup
 chmod 700 /usr/local/var/lib/tor/standup
 echo "Congratulations you are now StoodUp!\nClick the back button if this screen does not dismiss automatically"
 echo "Starting Tor as a service (it will automatically start every time you turn on your computer).."
-/usr/local/bin/brew services start tor
+sudo -u $(whoami) /usr/local/bin/brew services start tor
 exit
 else
 echo "Signatures do not match! Terminating..."
