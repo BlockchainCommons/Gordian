@@ -30,7 +30,6 @@ class ViewController: NSViewController {
     var rpcpassword = ""
     var rpcuser = ""
     var torHostname = ""
-    var rpcport = ""
     
     var standingUp = Bool()
     var bitcoinInstalled = Bool()
@@ -38,12 +37,15 @@ class ViewController: NSViewController {
     var torIsOn = Bool()
     var bitcoinRunning = Bool()
     var upgrading = Bool()
+    var isLoading = Bool()
     
     var env = [String:String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let ud = UserDefaults.standard
+        ud.removeObject(forKey: "dataDir")
+        isLoading = true
         setScene()
         setDefaults()
         setEnv { self.isBitcoinOn() }
@@ -53,9 +55,10 @@ class ViewController: NSViewController {
     //MARK: Set default settings
     
     func setDefaults() {
+        print("setDefaults")
         
         // TO DO: Ideally should fetch the actual bitcoin.conf first and if they exist set them in the app just incase user edits manually, otherwise the settings in the app will be out of sync
-        
+                
         let ud = UserDefaults.standard
         
         if ud.object(forKey: "pruned") == nil {
@@ -72,7 +75,7 @@ class ViewController: NSViewController {
         
         if ud.object(forKey: "dataDir") == nil {
             
-            ud.set("~/Library/Application Support/Bitcoin", forKey: "dataDir")
+            ud.set("/Users/\(NSUserName())/Library/Application Support/Bitcoin", forKey: "dataDir")
             
         } else {
             
@@ -169,8 +172,9 @@ class ViewController: NSViewController {
     //MARK: User Action Installers, Starters and Configurators
     
     @IBAction func verifyAction(_ sender: Any) {
+        print("verifyAction")
         
-        runScript(script: .verifyBitcoin)
+        runLaunchScript(script: .verifyBitcoin)
         
     }
     
@@ -199,13 +203,6 @@ class ViewController: NSViewController {
             }
             
         }
-        
-    }
-    
-    @IBAction func refreshView(_ sender: Any) {
-        print("refreshview")
-        
-        isBitcoinOn()
         
     }
     
@@ -240,6 +237,9 @@ class ViewController: NSViewController {
     
     @IBAction func installBitcoinAction(_ sender: Any) {
         print("installBitcoin")
+        print("bitcoinRunning = \(bitcoinRunning)")
+        
+        isLoading = false
         
         if !bitcoinRunning {
             
@@ -263,7 +263,7 @@ class ViewController: NSViewController {
                 
             }
             
-            runScript(script: .stopBitcoin)
+            runLaunchScript(script: .stopBitcoin)
             
         }
         
@@ -272,17 +272,19 @@ class ViewController: NSViewController {
     // MARK: Script Methods
     
     func isBitcoinOn() {
+        print("isBitcoinOn")
         
         DispatchQueue.main.async {
             
             self.taskDescription.stringValue = "checking if Bitcoin Core is running..."
-            self.runScript(script: .isBitcoinOn)
+            self.runLaunchScript(script: .isBitcoinOn)
             
         }
         
     }
     
     func checkSigs() {
+        print("checkSigs")
         
         DispatchQueue.main.async {
             
@@ -312,7 +314,7 @@ class ViewController: NSViewController {
         DispatchQueue.main.async {
             
             self.taskDescription.stringValue = "checking if Tor is installed..."
-            self.runScript(script: .checkForTor)
+            self.runLaunchScript(script: .checkForTor)
             
         }
         
@@ -324,7 +326,7 @@ class ViewController: NSViewController {
         DispatchQueue.main.async {
             
             self.taskDescription.stringValue = "fetching torrc file..."
-            self.runScript(script: .getTorrc)
+            self.runLaunchScript(script: .getTorrc)
             
         }
         
@@ -336,7 +338,7 @@ class ViewController: NSViewController {
         DispatchQueue.main.async {
             
             self.taskDescription.stringValue = "getting RPC credentials..."
-            self.runScript(script: .getRPCCredentials)
+            self.runLaunchScript(script: .getRPCCredentials)
             
         }
         
@@ -348,7 +350,7 @@ class ViewController: NSViewController {
         DispatchQueue.main.async {
             
             self.taskDescription.stringValue = "getting Tor hostname..."
-            self.runScript(script: .getTorHostname)
+            self.runLaunchScript(script: .getTorHostname)
             
         }
         
@@ -359,7 +361,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             self.taskDescription.stringValue = "Checking Tor status..."
-            self.runScript(script: .torStatus)
+            self.runLaunchScript(script: .torStatus)
         }
         
     }
@@ -369,7 +371,30 @@ class ViewController: NSViewController {
     func runLaunchScript(script: SCRIPT) {
         print("runlaunchscript: \(script.rawValue)")
         
+        switch script {
+            
+        case .startBitcoinqt:
+            
+            let ud = UserDefaults.standard
+            self.env["DATADIR"] = "-datadir=" + "\(ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/Library/Application Support/Bitcoin")"
+            
+        case .getRPCCredentials:
+            
+            let ud = UserDefaults.standard
+            self.env["DATADIR"] = "\(ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/Library/Application Support/Bitcoin")"
+            
+        default:
+            
+            break
+            
+        }
+        
         let runBuildTask = RunBuildTask()
+        runBuildTask.stringToReturn = ""
+        runBuildTask.terminate = false
+        runBuildTask.errorBool = false
+        runBuildTask.errorDescription = ""
+        runBuildTask.isRunning = false
         runBuildTask.args = []
         runBuildTask.env = self.env
         runBuildTask.exitStrings = ["Done"]
@@ -379,6 +404,8 @@ class ViewController: NSViewController {
             if !runBuildTask.errorBool {
                 
                 let str = runBuildTask.stringToReturn
+                print("str = \(str)")
+                self.setLog(content: str)
                 self.parseScriptResult(script: script, result: str)
                 
             } else {
@@ -391,27 +418,6 @@ class ViewController: NSViewController {
 
     }
     
-    func runScript(script: SCRIPT) {
-        print("run script: \(script.rawValue)")
-        
-        let runAppleScript = RunAppleScript()
-        runAppleScript.runScript(script: script) {
-            
-            if !runAppleScript.errorBool {
-
-                self.parseScriptResult(script: script, result: runAppleScript.stringToReturn)
-                print(runAppleScript.stringToReturn)
-
-            } else {
-
-                self.parseError(script: script, error: runAppleScript.errorDescription)
-                
-            }
-            
-        }
-        
-    }
-    
     //MARK: Script Result Filters
     
     func parseScriptResult(script: SCRIPT, result: String) {
@@ -421,10 +427,10 @@ class ViewController: NSViewController {
         case .verifyBitcoin: self.parseVerifyResult(result: result)
         case .startBitcoinqt: self.bitcoinStarted()
         case .startTor, .stopTor: self.torStarted(result: result)
-        case .stopBitcoin: bitcoinRunning = false; bitcoinStopped()
-        case .isBitcoinOn: bitcoinRunning = true; bitcoinStarted()
+        case .stopBitcoin: parseBitcoinStoppedResponse(result: result)
+        case .isBitcoinOn: parseIsBitcoinOnResponse(result: result)
         case .checkForBitcoin: bitcoinInstalled = true; parseBitcoindResponse(result: result)
-        case .checkForTor: torInstalled = true; parseTorVersion(result: result)
+        case .checkForTor: parseTorResult(result: result)
         case .getTorrc: checkIfTorIsConfigured(response: result)
         case .getRPCCredentials: checkForRPCCredentials(response: result)
         case .getTorHostname: parseHostname(response: result)
@@ -514,7 +520,44 @@ class ViewController: NSViewController {
     
     //MARK: Script Result Parsers
     
+    func parseBitcoinStoppedResponse(result: String) {
+        print("parseBitcoinStoppedResponse")
+        
+        if result.contains("Bitcoin server stopping") {
+            
+            bitcoinStopped()
+            hideSpinner()
+            
+        } else {
+            
+            
+        }
+        
+    }
+    
+    func parseIsBitcoinOnResponse(result: String) {
+        print("parseIsBitcoinOnResponse")
+        
+        if result.contains("Could not connect to the server 127.0.0.1") {
+            
+            bitcoinStopped()
+            
+        } else if result.contains("chain") {
+            
+            bitcoinStarted()
+            
+        }
+        
+        if isLoading {
+            
+            checkBitcoindVersion()
+            
+        }
+        
+    }
+    
     func parseTorStatus(result: String) {
+        print("parseTorStatus")
         
         if result.contains("tor  started") {
             
@@ -551,6 +594,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
+            self.bitcoinRunning = false
             self.installBitcoindOutlet.title = "Start Bitcoin"
             self.installBitcoindOutlet.isEnabled = true
             
@@ -563,9 +607,9 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
+            self.bitcoinRunning = true
             self.installBitcoindOutlet.title = "Stop Bitcoin"
             self.installBitcoindOutlet.isEnabled = true
-            self.checkBitcoindVersion()
             
         }
         
@@ -614,8 +658,8 @@ class ViewController: NSViewController {
         
     }
     
-    func parseTorVersion(result: String) {
-        print("parsetorversion")
+    func parseTorResult(result: String) {
+        print("parseTorResult")
         
         if result.contains("Tor version") {
             
@@ -628,29 +672,26 @@ class ViewController: NSViewController {
             }
             
             DispatchQueue.main.async {
-                
                 self.torStatusLabel.stringValue = "✅ Tor v\(version)"
-                self.checkBitcoinConfForRPCCredentials()
                 self.installTorOutlet.title = "Start Tor"
-                
             }
             
         } else {
             
             DispatchQueue.main.async {
-                
                 self.torStatusLabel.stringValue = "⛔️ Tor not installed"
-                
             }
             
         }
+        
+        self.checkBitcoinConfForRPCCredentials()
         
     }
     
     func checkForRPCCredentials(response: String) {
         print("checkforrpccreds")
         
-        let bitcoinConf = response.components(separatedBy: "\r")
+        let bitcoinConf = response.components(separatedBy: "\n")
         
         for item in bitcoinConf {
             
@@ -668,16 +709,9 @@ class ViewController: NSViewController {
                 
             }
             
-            if item.contains("rpcport") {
-                
-                let arr = item.components(separatedBy: "rpcport=")
-                rpcport = arr[1]
-                
-            }
-            
         }
         
-        if rpcport != "" && rpcpassword != "" && rpcuser != "" {
+        if rpcpassword != "" && rpcuser != "" {
             
             DispatchQueue.main.async {
                 
@@ -729,10 +763,10 @@ class ViewController: NSViewController {
     func parseBitcoindResponse(result: String) {
         print("parsebitcoindresponse")
         
-        if result.contains("Bitcoin Core version") {
+        if result.contains("Bitcoin Core Daemon version") {
             
             let arr = result.components(separatedBy: "Copyright (C)")
-            let currentVersion = (arr[0]).replacingOccurrences(of: "Bitcoin Core version ", with: "")
+            let currentVersion = (arr[0]).replacingOccurrences(of: "Bitcoin Core Daemon version ", with: "")
             
             DispatchQueue.main.async {
                 
@@ -753,7 +787,7 @@ class ViewController: NSViewController {
                     } else {
                         
                         let version = dict!["version"] as! String
-                        let binaryName = dict!["binaryName"] as! String
+                        let binaryName = dict!["macosBinary"] as! String
                         let prefix = dict!["binaryPrefix"] as! String
                         self.env = ["BINARY_NAME":binaryName,"VERSION":version,"PREFIX":prefix]
                         let latestVersion = "v" + version.replacingOccurrences(of: "\n", with: "")
@@ -778,44 +812,42 @@ class ViewController: NSViewController {
                     }
                     
                 }
-                
-                self.checkTorVersion()
-                
+                                
             }
             
         } else {
             
             DispatchQueue.main.async {
-                
                 self.bitcoinCoreStatusLabel.stringValue = "⛔️ Bitcoin Core not installed"
-                self.installBitcoindOutlet.isEnabled = true
-                self.checkTorVersion()
-                
+                self.installBitcoindOutlet.isEnabled = false
             }
             
         }
+        
+        checkTorVersion()
         
     }
     
     func parseHostname(response: String) {
         print("parsehostname")
         
-        torHostname = response
+        torHostname = response.components(separatedBy: "\n")[0]
+        print("hostname = \(torHostname)")
         
-        if rpcuser != "", rpcpassword != "", rpcport != "", torHostname != "" {
+        if rpcuser != "", rpcpassword != "", torHostname != "" {
             
             DispatchQueue.main.async {
-                
                 self.showQuickConnectOutlet.isEnabled = true
                 self.standUpOutlet.isEnabled = false
                 self.isTorOn()
-                
             }
             
         } else {
             
-            //showstandUpAlert(message: "Ready to StandUp?", info: "Installs a fully indexed Bitcoin Core v0.19.0rc3 testnet node. ~30gb of space needed for testnet and ~300gb for mainnet. You can set custmizable options in \"Settings\" for pruning, network, data directory and tor related bitcoin.conf options.")
             self.hideSpinner()
+            DispatchQueue.main.async {
+                self.standUpOutlet.isEnabled = true
+            }
             
         }
                 
@@ -824,10 +856,12 @@ class ViewController: NSViewController {
     func parseVerifyResult(result: String) {
         print("parseVerifyResult: \(result)")
         
-        if result.contains("bitcoin-0.19.0rc3-osx64.tar.gz: OK") {
+        let binaryName = self.env["BINARY_NAME"] ?? ""
+        
+        if result.contains("\(binaryName): OK") {
             
             print("results verified")
-            showAlertMessage(message: "Success", info: "Signatures for bitcoin-0.19.0rc3-osx64.tar.gz and Laanjw SHA256SUMS.asc match")
+            showAlertMessage(message: "Success", info: "Signatures for \(binaryName) and Laanjw SHA256SUMS.asc match")
             
         } else {
             
@@ -840,6 +874,7 @@ class ViewController: NSViewController {
     //MARK: User Inteface
     
     func setEnv(completion: @escaping () -> Void) {
+        print("setenv")
         
         let req = FetchJSON()
         req.getRequest { (dict, error) in
@@ -866,6 +901,7 @@ class ViewController: NSViewController {
     }
     
     func showAlertMessage(message: String, info: String) {
+        print("showAlertMessage")
         
         setSimpleAlert(message: message, info: info, buttonLabel: "OK")
         
@@ -919,6 +955,7 @@ class ViewController: NSViewController {
     }
     
     func showstandUpAlert(message: String, info: String) {
+        print("showstandUpAlert")
         
         DispatchQueue.main.async {
             
@@ -945,6 +982,13 @@ class ViewController: NSViewController {
         
     }
     
+    func setLog(content: String) {
+        
+        let lg = Log()
+        lg.writeToLog(content: content)
+        
+    }
+    
     // MARK: Segue Prep
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
@@ -956,7 +1000,7 @@ class ViewController: NSViewController {
             
             if let vc = segue.destinationController as? QRDisplayer {
                 
-                vc.rpcport = rpcport
+                //vc.rpcport = rpcport
                 vc.rpcpassword = rpcpassword
                 vc.rpcuser = rpcuser
                 vc.torHostname = torHostname

@@ -823,7 +823,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K4o-Sf-dSl">
                                 <rect key="frame" x="299" y="342" width="33" height="14"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="em4-Ia-ulc">
-                                    <font key="font" metaFont="controlContent" size="11"/>
+                                    <font key="font" metaFont="menu" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -895,16 +895,6 @@
                                     <action selector="getPairingCode:" target="XfG-lQ-9wD" id="n3r-XS-8Gn"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dR3-Ep-Dic">
-                                <rect key="frame" x="14" y="316" width="87" height="32"/>
-                                <buttonCell key="cell" type="push" title="Refresh" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vA2-ja-qJu">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="refreshView:" target="XfG-lQ-9wD" id="Vhn-r6-kuG"/>
-                                </connections>
-                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yrb-JG-EZW">
                                 <rect key="frame" x="468" y="143" width="148" height="32"/>
                                 <constraints>
@@ -971,12 +961,12 @@
                             </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="8iX-4Q-Ggk" firstAttribute="top" secondItem="dR3-Ep-Dic" secondAttribute="bottom" constant="65" id="2uj-tj-yK4"/>
                             <constraint firstItem="8vD-Aq-02i" firstAttribute="top" secondItem="0Fk-4I-h7q" secondAttribute="bottom" constant="14" id="5AG-OU-sII"/>
                             <constraint firstItem="w4M-Pe-mtd" firstAttribute="trailing" secondItem="eeZ-As-8fa" secondAttribute="trailing" id="630-fM-9j2"/>
                             <constraint firstItem="8vD-Aq-02i" firstAttribute="leading" secondItem="8iX-4Q-Ggk" secondAttribute="leading" id="6px-mb-4oW"/>
                             <constraint firstItem="y6q-T1-byM" firstAttribute="centerY" secondItem="0Fk-4I-h7q" secondAttribute="centerY" id="9tB-6O-Tef"/>
                             <constraint firstItem="qhb-g5-W9f" firstAttribute="leading" secondItem="tf2-ZI-mJF" secondAttribute="leading" id="FRa-yw-cZk"/>
+                            <constraint firstItem="8iX-4Q-Ggk" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="111" id="JbM-i1-9zW"/>
                             <constraint firstItem="tf2-ZI-mJF" firstAttribute="top" secondItem="8vD-Aq-02i" secondAttribute="bottom" constant="14" id="MHS-yy-GrG"/>
                             <constraint firstItem="Yrb-JG-EZW" firstAttribute="trailing" secondItem="eeZ-As-8fa" secondAttribute="trailing" id="MOX-bH-FDl"/>
                             <constraint firstItem="LCJ-cy-WyO" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="OsP-QR-VfO"/>
@@ -999,8 +989,6 @@
                             <constraint firstItem="tMm-82-jtg" firstAttribute="trailing" secondItem="Yrb-JG-EZW" secondAttribute="trailing" id="tP2-qt-LVb"/>
                             <constraint firstItem="1Mv-9m-mvv" firstAttribute="trailing" secondItem="eeZ-As-8fa" secondAttribute="trailing" id="w9f-U9-Cqi"/>
                             <constraint firstItem="K4o-Sf-dSl" firstAttribute="centerY" secondItem="kdQ-HU-D0l" secondAttribute="centerY" id="wAA-ul-fhl"/>
-                            <constraint firstItem="dR3-Ep-Dic" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="x0g-IP-DBm"/>
-                            <constraint firstItem="dR3-Ep-Dic" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="25" id="xOz-oC-vnT"/>
                         </constraints>
                     </view>
                     <connections>

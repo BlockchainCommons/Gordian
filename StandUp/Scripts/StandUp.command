@@ -20,7 +20,7 @@ mkdir ~/StandUp/BitcoinCore
 echo "Downloading $SHA_URL"
 curl $SHA_URL -o ~/StandUp/BitcoinCore/SHA256SUMS.asc -s
 echo "Saved to ~/StandUp/BitcoinCore/SHA256SUMS.asc"
-echo "Downloading Laanwj PGP signature..."
+echo "Downloading Laanwj PGP signature from https://bitcoin.org/laanwj-releases.asc..."
 curl https://bitcoin.org/laanwj-releases.asc -o ~/StandUp/BitcoinCore/laanwj-releases.asc -s
 echo "Saved to ~/StandUp/BitcoinCore/laanwj-releases.asc"
 echo "Downloading Bitcoin Core $VERSION from $MACOS_URL"
@@ -38,10 +38,15 @@ echo "Signatures match"
 echo "Unpacking $BINARY_NAME"
 tar -zxvf $BINARY_NAME
 echo "Creating bitcoin.conf at: ~/Library/Application Support/Bitcoin/bitcoin.conf"
-echo "datadir="$DATADIR"\nwalletdisabled="$WALLET_DISABLED"\nrpcuser="$RPCUSER"\nrpcpassword=******\nserver=1\nprune="$PRUNE"\ntxindex="$TXINDEX"\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\ntestnet="$TESTNET"\nregtest="$REGTEST"\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
-mkdir ~/Library/Application\ Support/Bitcoin
-cat <<EOF >~/Library/Application\ Support/Bitcoin/bitcoin.conf
-datadir=$DATADIR
+echo "walletdisabled="$WALLET_DISABLED"\nrpcuser="$RPCUSER"\nrpcpassword=******\nserver=1\nprune="$PRUNE"\ntxindex="$TXINDEX"\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\ntestnet="$TESTNET"\nregtest="$REGTEST"\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
+if [ -d "$DATADIR" ]
+then
+cd "$DATADIR"
+else
+mkdir "$DATADIR"
+cd "$DATADIR"
+fi
+cat <<EOF >bitcoin.conf
 walletdisabled=$WALLET_DISABLED
 rpcuser=$RPCUSER
 rpcpassword=$RPCPASSWORD
@@ -64,7 +69,7 @@ rpcport=18443
 EOF
 echo "Done"
 echo "Installing tor..."
-/usr/local/bin/brew install tor
+sudo -u $(whoami) /usr/local/bin/brew install tor
 echo "Creating torrc file"
 cp /usr/local/etc/tor/torrc.sample /usr/local/etc/tor/torrc
 echo "Configuring tor for V3 hidden service"

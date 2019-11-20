@@ -25,9 +25,9 @@ TESTNET="$6"
 REGTEST="$7"
 TXINDEX="$8"
 WALLET_DISABLED="$9"
-mkdir ~/Library/Application\ Support/Bitcoin
-cat <<EOF >~/Library/Application\ Support/Bitcoin/bitcoin.conf
-datadir=$DATADIR
+#mkdir ~/Library/Application\ Support/Bitcoin
+cd $DATADIR
+cat <<EOF >bitcoin.conf
 walletdisabled=$WALLET_DISABLED
 rpcuser=$RPCUSER
 rpcpassword=$RPCPASSWORD
@@ -48,6 +48,6 @@ rpcport=18332
 [regtest]
 rpcport=18443
 EOF
-echo "datadir="$DATADIR"\nwalletdisabled="$WALLET_DISABLED"\nrpcuser="$RPCUSER"\nrpcpassword=******\nserver=1\nprune="$PRUNE"\ntxindex="$TXINDEX"\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\ntestnet="$TESTNET"\nregtest="$REGTEST"\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
+echo "walletdisabled="$WALLET_DISABLED"\nrpcuser="$RPCUSER"\nrpcpassword=******\nserver=1\nprune="$PRUNE"\ntxindex="$TXINDEX"\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\ntestnet="$TESTNET"\nregtest="$REGTEST"\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
 echo "Done"
 exit

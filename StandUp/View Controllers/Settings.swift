@@ -90,24 +90,23 @@ class Settings: NSViewController {
                 
                 if response {
                     
-                    let run = RunAppleScript()
-                    
-                    func completed() {
+                    let runBuildTask = RunBuildTask()
+                    runBuildTask.args = []
+                    runBuildTask.showLog = false
+                    runBuildTask.exitStrings = ["Done"]
+                    runBuildTask.runScript(script: .removeBitcoin) {
                         
-                        if !run.errorBool {
-                                
-                          setSimpleAlert(message: "Bitcoin directory and its contents were deleted", info: "", buttonLabel: "OK")
-                                
+                        if !runBuildTask.errorBool {
+                            
+                            setSimpleAlert(message: "Bitcoin directory and its contents were deleted", info: "", buttonLabel: "OK")
                             
                         } else {
-                                
-                            setSimpleAlert(message: "Error", info: run.errorDescription, buttonLabel: "OK")
+                            
+                            setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
                             
                         }
                         
                     }
-                    
-                    run.runScript(script: .removeBitcoin, completion: completed)
                     
                 } else {
                     
@@ -184,9 +183,9 @@ class Settings: NSViewController {
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
                 self.selectedFolder = panel.urls[0]
                 DispatchQueue.main.async {
-                    self.directoryLabel.stringValue = self.selectedFolder?.path ?? "~/Library/Application Support/Bitcoin/"
+                    self.directoryLabel.stringValue = self.selectedFolder?.path ?? "/Users/\(NSUserName())/Library/Application Support/Bitcoin"
                     self.ud.set(panel.urls[0], forKey: "dataDir")
-                    self.updateDataDir()
+                    //self.updateDataDir()
                 }
             }
         }
@@ -256,31 +255,6 @@ class Settings: NSViewController {
         
     }
     
-    func updateDataDir() {
-        
-        getBitcoinConfSettings()
-        let runBuildTask = RunBuildTask()
-        runBuildTask.args = args
-        runBuildTask.showLog = false
-        runBuildTask.exitStrings = ["Done"]
-        runBuildTask.runScript(script: .updateBTCConf) {
-            
-            if !runBuildTask.errorBool {
-                
-                DispatchQueue.main.async {
-                    setSimpleAlert(message: "Success", info: "bitcoin.conf updated", buttonLabel: "OK")
-                }
-                
-            } else {
-                
-                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
-                
-            }
-            
-        }
-        
-    }
-    
     func updateBitcoinConfNow(outlet: NSButton, keyOn: BTCCONF) {
         print("updateBitcoinConfNow key:\(keyOn.rawValue)")
         
@@ -342,46 +316,50 @@ class Settings: NSViewController {
         print("getBitcoinConfSettings")
         
         args.removeAll()
-        let ud = UserDefaults.standard
-        var rpcpassword = getExisistingRPCCreds().rpcpassword
-        var rpcuser = getExisistingRPCCreds().rpcuser
-        if rpcpassword == "" { rpcpassword = randomString(length: 32) }
-        if rpcuser == "" { rpcuser = randomString(length: 10) }
-        let prune = ud.object(forKey: "pruned") as? Int ?? 0
-        let txIndex = ud.object(forKey: "txIndex") as? Int ?? 1
-        var dataDir = ud.object(forKey: "dataDir") as? String ?? ""
-        if dataDir == "~/Library/Application Support/Bitcoin" {
-            dataDir = ""
+        
+        getExisistingRPCCreds { (user, password) in
+            
+            let ud = UserDefaults.standard
+            var rpcpassword = password
+            var rpcuser = user
+            if rpcpassword == "" { rpcpassword = randomString(length: 32) }
+            if rpcuser == "" { rpcuser = randomString(length: 10) }
+            let prune = ud.object(forKey: "pruned") as? Int ?? 0
+            let txIndex = ud.object(forKey: "txIndex") as? Int ?? 1
+            let dataDir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/Library/Application Support/Bitcoin"
+            let testnet = ud.object(forKey: "testnet") as? Int ?? 1
+            let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
+            let regtest = ud.object(forKey: "regtest") as? Int ?? 0
+            let walletDisabled = ud.object(forKey: "walletdisabled") as? Int ?? 0
+            self.args.append(rpcpassword)
+            self.args.append(rpcuser)
+            self.args.append(dataDir)
+            self.args.append("\(prune)")
+            self.args.append("\(mainnet)")
+            self.args.append("\(testnet)")
+            self.args.append("\(regtest)")
+            self.args.append("\(txIndex)")
+            self.args.append("\(walletDisabled)")
+            print("args = \(self.args)")
+            
         }
-        let testnet = ud.object(forKey: "testnet") as? Int ?? 1
-        let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
-        let regtest = ud.object(forKey: "regtest") as? Int ?? 0
-        let walletDisabled = ud.object(forKey: "walletdisabled") as? Int ?? 0
-        args.append(rpcpassword)
-        args.append(rpcuser)
-        args.append(dataDir)
-        args.append("\(prune)")
-        args.append("\(mainnet)")
-        args.append("\(testnet)")
-        args.append("\(regtest)")
-        args.append("\(txIndex)")
-        args.append("\(walletDisabled)")
-        print("args = \(args)")
         
     }
     
-    func getExisistingRPCCreds() -> (rpcuser: String, rpcpassword: String) {
+    func getExisistingRPCCreds(completion: @escaping ((user: String, password: String)) -> Void) {
         print("getExisistingRPCCreds")
         
-        let runAppleScript = RunAppleScript()
         var user = ""
         var password = ""
-        
-        runAppleScript.runScript(script: .getRPCCredentials) {
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = []
+        runBuildTask.showLog = false
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.runScript(script: .getRPCCredentials) {
             
-            if !runAppleScript.errorBool {
+            if !runBuildTask.errorBool {
                 
-                let conf = (runAppleScript.stringToReturn).components(separatedBy: "\r")
+                let conf = (runBuildTask.stringToReturn).components(separatedBy: "\n")
                 
                 for item in conf {
                     
@@ -389,7 +367,6 @@ class Settings: NSViewController {
                         
                         let arr = item.components(separatedBy: "rpcuser=")
                         user = arr[1]
-                        print("user = \(user)")
                         
                     }
                     
@@ -397,22 +374,21 @@ class Settings: NSViewController {
                         
                         let arr = item.components(separatedBy: "rpcpassword=")
                         password = arr[1]
-                        print("password = \(password)")
                         
                     }
                     
+                    completion((user: user, password: password))
+                    
                 }
-                
                 
             } else {
                 
-                print("no existing rpc creds")
+                completion((user: "", password: ""))
+                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
                 
             }
             
         }
-        
-        return (user, password)
         
     }
     
@@ -430,8 +406,10 @@ class Settings: NSViewController {
         
         if ud.object(forKey: "dataDir") != nil {
             
+            let dd = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/Library/Application Support/Bitcoin"
+            
             DispatchQueue.main.async {
-                self.directoryLabel.stringValue = "\(self.ud.object(forKey: "dataDir") ?? "~/Library/Application Support/Bitcoin")"
+                self.directoryLabel.stringValue = dd
             }
             
         }

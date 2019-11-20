@@ -56,17 +56,20 @@ class Installer: NSViewController {
                 let macosURL = dict!["macosURL"] as! String
                 let shaURL = dict!["shaURL"] as! String
                 let version = dict!["version"] as! String
+                let prefix = dict!["binaryPrefix"] as! String
                 self.showSpinner(description: "Setting Up...")
                 
                 if self.upgrading {
-                    
+
                     self.upgradeBitcoinCore(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
-                    
+
                 } else {
-                    
+
                     self.getSettings(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
-                    
+
                 }
+                
+                //self.checkBitcoin(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version, prefix: prefix)
                 
             }
             
@@ -83,7 +86,7 @@ class Installer: NSViewController {
         if rpcuser == "" { rpcuser = randomString(length: 10) }
         let prune = ud.object(forKey: "pruned") as? Int ?? 0
         let txIndex = ud.object(forKey: "txIndex") as? Int ?? 1
-        var dataDir = ud.object(forKey: "dataDir") as? String ?? ""
+        var dataDir = ud.object(forKey: "dataDir") as? String ?? "/Users/$(whoami)/Library/Application\\ Support/Bitcoin"
         if dataDir == "~/Library/Application Support/Bitcoin" {
             dataDir = ""
         }
@@ -109,29 +112,34 @@ class Installer: NSViewController {
     func filterAction() {
         
         var desc = ""
+        //getURLs()
         
         if seeLog {
-            
+
             spinner.alphaValue = 0
             seeLog = false
-            showLog()
-            
+            getLog { (log) in
+                DispatchQueue.main.async {
+                    self.consoleOutput.string = log
+                }
+            }
+
         } else if standingUp {
-            
+
             standingUp = false
             getURLs()
-            
+
         } else if standingDown {
-            
+
             standingDown = false
             spinner.startAnimation(self)
             desc = "Standing Down..."
             standDown()
-            
+
         } else if upgrading {
             print("upgrading")
             getURLs()
-            
+
         }
         
         DispatchQueue.main.async {
@@ -188,7 +196,7 @@ class Installer: NSViewController {
                     self.spinner.stopAnimation(self)
                     self.spinner.alphaValue = 0
                     self.spinnerDescription.stringValue = ""
-                    self.setLog()
+                    self.setLog(content: self.consoleOutput.string)
                     setSimpleAlert(message: "Success", info: "You have StoodDown", buttonLabel: "OK")
                     
                 }
@@ -218,7 +226,7 @@ class Installer: NSViewController {
                 if !runBuildTask.errorBool {
                     
                     DispatchQueue.main.async {
-                        self.setLog()
+                        self.setLog(content: self.consoleOutput.string)
                         self.goBack()
                     }
                     
@@ -251,7 +259,7 @@ class Installer: NSViewController {
                 if !runBuildTask.errorBool {
                     
                     DispatchQueue.main.async {
-                        self.setLog()
+                        self.setLog(content: self.consoleOutput.string)
                         self.goBack()
                     }
                     
@@ -287,56 +295,19 @@ class Installer: NSViewController {
         
     }
     
-    func setLog() {
+    func setLog(content: String) {
         
-        let file = "log.txt"
-        let text = self.consoleOutput.string
-        
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            let fileURL = dir.appendingPathComponent(file)
-            
-            do {
-                
-                try text.write(to: fileURL, atomically: false, encoding: .utf8)
-                
-            } catch {
-                
-                print("error setting log")
-                
-            }
-            
-        }
+        let lg = Log()
+        lg.writeToLog(content: content)
         
     }
     
-    func showLog() {
+    func getLog(completion: @escaping (String) -> Void) {
         
-        seeLog = false
-        let file = "log.txt"
-        
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            let fileURL = dir.appendingPathComponent(file)
-            
-            do {
-                
-                let text2 = try String(contentsOf: fileURL, encoding: .utf8)
-                
-                DispatchQueue.main.async {
-                    self.consoleOutput.string = text2
-                }
-                
-            } catch {
-                
-                DispatchQueue.main.async {
-                    self.consoleOutput.string = "Error getting log, possibly does not exist yet..."
-                }
-                
-            }
-            
+        let lg = Log()
+        lg.getLog {
+            completion((lg.logText))
         }
-        
     }
     
     func getExisistingRPCCreds() -> (rpcuser: String, rpcpassword: String) {

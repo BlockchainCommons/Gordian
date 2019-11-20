@@ -38,7 +38,7 @@ class QRDisplayer: NSViewController {
     
     func setQR() {
         
-        let url = "btcstandup://\(rpcuser):\(rpcpassword)@\(torHostname):\(rpcport)/?label=\(nodeLabel)"
+        let url = "btcstandup://\(rpcuser):\(rpcpassword)@\(torHostname):1309/?label=\(nodeLabel)"
         imageView.frame = CGRect(x: 30, y: 30, width: 100, height: 100)
         imageView.image = getQRCode(textInput: url)
         

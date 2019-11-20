@@ -5,6 +5,6 @@
 #
 #  Created by Peter on 19/11/19.
 #  Copyright © 2019 Peter. All rights reserved.
-~/StandUp/BitcoinCore/$PREFIX/bin/bitcoin-cli stop
+sudo -u $(whoami) ~/StandUp/BitcoinCore/$PREFIX/bin/bitcoin-cli stop
 echo "Done"
 exit
