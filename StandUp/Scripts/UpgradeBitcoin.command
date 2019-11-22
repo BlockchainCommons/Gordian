@@ -8,10 +8,12 @@
 echo "Updating to $VERSION"
 echo "Removing ~/StandUp"
 rm -R ~/StandUp
+mkdir ~/StandUp
+mkdir ~/StandUp/BitcoinCore
 echo "Downloading $SHA_URL"
 curl $SHA_URL -o ~/StandUp/BitcoinCore/SHA256SUMS.asc -s
 echo "Saved to ~/StandUp/BitcoinCore/SHA256SUMS.asc"
-echo "Downloading Laanwj PGP signature..."
+echo "Downloading Laanwj PGP signature from https://bitcoin.org/laanwj-releases.asc..."
 curl https://bitcoin.org/laanwj-releases.asc -o ~/StandUp/BitcoinCore/laanwj-releases.asc -s
 echo "Saved to ~/StandUp/BitcoinCore/laanwj-releases.asc"
 echo "Downloading Bitcoin Core $VERSION from $MACOS_URL"

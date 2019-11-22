@@ -14,11 +14,13 @@ class Installer: NSViewController {
     @IBOutlet var spinnerDescription: NSTextField!
     @IBOutlet var backButtonOutlet: NSButton!
     @IBOutlet var consoleOutput: NSTextView!
+    let ud = UserDefaults.standard
     var seeLog = Bool()
     var standingUp = Bool()
     var args = [String]()
     var standingDown = Bool()
     var upgrading = Bool()
+    var standUpConf = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,16 +58,17 @@ class Installer: NSViewController {
                 let macosURL = dict!["macosURL"] as! String
                 let shaURL = dict!["shaURL"] as! String
                 let version = dict!["version"] as! String
+                let prefix = dict!["binaryPrefix"] as! String
                 self.showSpinner(description: "Setting Up...")
                 
                 if self.upgrading {
-                    
-                    self.upgradeBitcoinCore(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
-                    
+
+                    self.upgradeBitcoinCore(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version, prefix: prefix)
+
                 } else {
-                    
-                    self.getSettings(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
-                    
+
+                    self.standUp(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version, prefix: prefix)
+
                 }
                 
             }
@@ -74,64 +77,40 @@ class Installer: NSViewController {
         
     }
     
-    func getSettings(binaryName: String, macosURL: String, shaURL: String, version: String) {
-        
-        let ud = UserDefaults.standard
-        var rpcpassword = getExisistingRPCCreds().rpcpassword
-        var rpcuser = getExisistingRPCCreds().rpcuser
-        if rpcpassword == "" { rpcpassword = randomString(length: 32) }
-        if rpcuser == "" { rpcuser = randomString(length: 10) }
-        let prune = ud.object(forKey: "pruned") as? Int ?? 0
-        let txIndex = ud.object(forKey: "txIndex") as? Int ?? 1
-        var dataDir = ud.object(forKey: "dataDir") as? String ?? ""
-        if dataDir == "~/Library/Application Support/Bitcoin" {
-            dataDir = ""
-        }
-        let testnet = ud.object(forKey: "testnet") as? Int ?? 1
-        let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
-        let regtest = ud.object(forKey: "regtest") as? Int ?? 0
-        let walletDisabled = ud.object(forKey: "walletDisabled") as? Int ?? 0
-        args.removeAll()
-        args.append(rpcpassword)
-        args.append(rpcuser)
-        args.append(dataDir)
-        args.append("\(prune)")
-        args.append("\(mainnet)")
-        args.append("\(testnet)")
-        args.append("\(regtest)")
-        args.append("\(txIndex)")
-        args.append("\(walletDisabled)")
-        showSpinner(description: "Standing Up (this can take awhile)...")
-        standUp(binaryName: binaryName, macosURL: macosURL, shaURL: shaURL, version: version)
-        
-    }
-    
     func filterAction() {
         
         var desc = ""
         
         if seeLog {
-            
+
             spinner.alphaValue = 0
             seeLog = false
-            showLog()
+            getLog { (log) in
+                DispatchQueue.main.async {
+                    self.consoleOutput.string = log
+                }
+            }
             
+            DispatchQueue.main.async {
+                self.backButtonOutlet.isEnabled = true
+            }
+
         } else if standingUp {
-            
+
             standingUp = false
-            getURLs()
-            
+            checkExistingConf()
+
         } else if standingDown {
-            
+
             standingDown = false
             spinner.startAnimation(self)
             desc = "Standing Down..."
             standDown()
-            
+
         } else if upgrading {
-            print("upgrading")
-            getURLs()
             
+            getURLs()
+
         }
         
         DispatchQueue.main.async {
@@ -158,13 +137,99 @@ class Installer: NSViewController {
             if let presenter = self.presentingViewController as? ViewController {
                 
                 presenter.standingUp = false
-                presenter.checkBitcoindVersion()
+                presenter.isBitcoinOn()
                 
             }
             
             DispatchQueue.main.async {
                 
                 self.dismiss(self)
+                
+            }
+            
+        }
+        
+    }
+    
+    func checkExistingConf() {
+        
+        var userExists = false
+        var passwordExists = false
+        
+        getBitcoinConf { (conf, error) in
+            
+            print("exisiting conf = \(conf)")
+            
+            if !error {
+                
+                if conf.count > 0 {
+                    
+                    for setting in conf {
+                        
+                        if setting.contains("=") {
+                            
+                            let arr = setting.components(separatedBy: "=")
+                            let k = arr[0]
+                            let existingValue = arr[1]
+                            
+                            if k == "rpcuser" {
+                                
+                                if existingValue != "" {
+                                    
+                                    userExists = true
+                                }
+                                
+                            }
+                            
+                            if k == "rpcpassword" {
+                                
+                                if existingValue != "" {
+                                    
+                                    passwordExists = true
+                                    
+                                }
+                                                                
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                    if userExists && passwordExists {
+                        
+                        // just use exisiting conf as is
+                        self.standUpConf = conf.joined(separator: "\n")
+                        
+                    } else if userExists && !passwordExists {
+                        
+                        self.standUpConf = "rpcpassword=\(randomString(length: 32))\n" + conf.joined(separator: "\n")
+                        
+                    } else if passwordExists && !userExists {
+                        
+                        self.standUpConf = "rpcuser=\(randomString(length: 10))\n" + conf.joined(separator: "\n")
+                        
+                    } else {
+                        
+                        // add rpcuser and rpcpassword
+                        self.standUpConf = "rpcuser=\(randomString(length: 10))\nrpcpassword=\(randomString(length: 32))\n" + conf.joined(separator: "\n")
+                        
+                    }
+                    
+                    self.getURLs()
+                    
+                } else {
+                    
+                    //no exisiting settings - use default
+                    
+                    let prune = self.ud.object(forKey: "pruned") as? Int ?? 0
+                    let txindex = self.ud.object(forKey: "txindex") as? Int ?? 1
+                    let walletDisabled = self.ud.object(forKey: "walletDisabled") as? Int ?? 0
+                    
+                    self.standUpConf = "walletdisabled=\(walletDisabled)\nrpcuser=\(randomString(length: 10))\nrpcpassword=\(randomString(length: 32))\nserver=1\nprune=\(prune)\ntxindex=\(txindex)\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
+                    
+                    self.getURLs()
+                    
+                }
                 
             }
             
@@ -185,11 +250,14 @@ class Installer: NSViewController {
                 
                 DispatchQueue.main.async {
                     
-                    self.spinner.stopAnimation(self)
-                    self.spinner.alphaValue = 0
-                    self.spinnerDescription.stringValue = ""
-                    self.setLog()
+                    let ud = UserDefaults.standard
+                    let domain = Bundle.main.bundleIdentifier!
+                    ud.removePersistentDomain(forName: domain)
+                    ud.synchronize()
+                    self.hideSpinner()
+                    self.setLog(content: self.consoleOutput.string)
                     setSimpleAlert(message: "Success", info: "You have StoodDown", buttonLabel: "OK")
+                    self.goBack()
                     
                 }
                 
@@ -203,13 +271,14 @@ class Installer: NSViewController {
         
     }
     
-    func standUp(binaryName: String, macosURL: String, shaURL: String, version: String) {
+    func standUp(binaryName: String, macosURL: String, shaURL: String, version: String, prefix: String) {
         
         DispatchQueue.main.async {
             
             let runBuildTask = RunBuildTask()
-            runBuildTask.args = self.args
-            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version]
+            runBuildTask.args = []
+            let datadir = self.ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
+            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version, "CONF":self.standUpConf, "DATADIR":datadir]
             runBuildTask.textView = self.consoleOutput
             runBuildTask.showLog = true
             runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
@@ -218,7 +287,10 @@ class Installer: NSViewController {
                 if !runBuildTask.errorBool {
                     
                     DispatchQueue.main.async {
-                        self.setLog()
+                        let ud = UserDefaults.standard
+                        ud.set(prefix, forKey: "binaryPrefix")
+                        ud.set(version, forKey: "version")
+                        self.setLog(content: self.consoleOutput.string)
                         self.goBack()
                     }
                     
@@ -234,7 +306,7 @@ class Installer: NSViewController {
         
     }
     
-    func upgradeBitcoinCore(binaryName: String, macosURL: String, shaURL: String, version: String) {
+    func upgradeBitcoinCore(binaryName: String, macosURL: String, shaURL: String, version: String, prefix: String) {
         
         upgrading = false
         
@@ -251,7 +323,10 @@ class Installer: NSViewController {
                 if !runBuildTask.errorBool {
                     
                     DispatchQueue.main.async {
-                        self.setLog()
+                        let ud = UserDefaults.standard
+                        ud.set(prefix, forKey: "binaryPrefix")
+                        ud.set(version, forKey: "version")
+                        self.setLog(content: self.consoleOutput.string)
                         self.goBack()
                     }
                     
@@ -270,7 +345,9 @@ class Installer: NSViewController {
     func hideSpinner() {
         
         DispatchQueue.main.async {
-        
+            
+            self.spinner.alphaValue = 0
+            self.backButtonOutlet.isEnabled = true
             self.spinnerDescription.stringValue = ""
             self.spinner.stopAnimation(self)
             
@@ -280,6 +357,7 @@ class Installer: NSViewController {
     
     func setScene() {
         
+        backButtonOutlet.isEnabled = false
         consoleOutput.textColor = NSColor.green
         consoleOutput.isEditable = false
         consoleOutput.isSelectable = false
@@ -287,69 +365,36 @@ class Installer: NSViewController {
         
     }
     
-    func setLog() {
+    func setLog(content: String) {
         
-        let file = "log.txt"
-        let text = self.consoleOutput.string
-        
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            let fileURL = dir.appendingPathComponent(file)
-            
-            do {
-                
-                try text.write(to: fileURL, atomically: false, encoding: .utf8)
-                
-            } catch {
-                
-                print("error setting log")
-                
-            }
-            
-        }
+        let lg = Log()
+        lg.writeToLog(content: content)
         
     }
     
-    func showLog() {
+    func getLog(completion: @escaping (String) -> Void) {
         
-        seeLog = false
-        let file = "log.txt"
-        
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            let fileURL = dir.appendingPathComponent(file)
-            
-            do {
-                
-                let text2 = try String(contentsOf: fileURL, encoding: .utf8)
-                
-                DispatchQueue.main.async {
-                    self.consoleOutput.string = text2
-                }
-                
-            } catch {
-                
-                DispatchQueue.main.async {
-                    self.consoleOutput.string = "Error getting log, possibly does not exist yet..."
-                }
-                
-            }
-            
+        let lg = Log()
+        lg.getLog {
+            completion((lg.logText))
         }
-        
     }
     
-    func getExisistingRPCCreds() -> (rpcuser: String, rpcpassword: String) {
+    func getExisistingRPCCreds(completion: @escaping ((user: String, password: String)) -> Void) {
+        print("getExisistingRPCCreds")
         
-        let runAppleScript = RunAppleScript()
         var user = ""
         var password = ""
-        
-        runAppleScript.runScript(script: .getRPCCredentials) {
+        let datadir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = []
+        runBuildTask.env = ["DATADIR":datadir]
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.runScript(script: .getRPCCredentials) {
             
-            if !runAppleScript.errorBool {
+            if !runBuildTask.errorBool {
                 
-                let conf = (runAppleScript.stringToReturn).components(separatedBy: "\r")
+                let conf = (runBuildTask.stringToReturn).components(separatedBy: "\n")
                 
                 for item in conf {
                     
@@ -367,18 +412,54 @@ class Installer: NSViewController {
                         
                     }
                     
+                    completion((user: user, password: password))
+                    
                 }
-                
                 
             } else {
                 
-                print("no existing rpc creds")
+                completion((user: "", password: ""))
                 
             }
             
         }
         
-        return (user, password)
+    }
+    
+    func getBitcoinConf(completion: @escaping ((conf: [String], error: Bool)) -> Void) {
+        
+        let datadir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = []
+        runBuildTask.env = ["DATADIR":datadir]
+        runBuildTask.showLog = false
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.runScript(script: .getRPCCredentials) {
+            
+            if !runBuildTask.errorBool {
+                
+                var conf = (runBuildTask.stringToReturn).components(separatedBy: "\n")
+                
+                for c in conf {
+                    
+                    if c.contains("No such file or directory") {
+                        
+                        conf = []
+                        
+                    }
+                    
+                }
+                
+                completion((conf, false))
+                
+            } else {
+                
+                completion(([""], true))
+                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
+                
+            }
+            
+        }
         
     }
     

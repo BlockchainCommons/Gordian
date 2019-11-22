@@ -22,6 +22,8 @@ class RunBuildTask {
     var exitStrings = [String]()
     var textView = NSTextView()
     var showLog = Bool()
+    let stdOut = Pipe()
+    let stdErr = Pipe()
     
     func runScript(script: SCRIPT, completion: @escaping () -> Void) {
         
@@ -50,6 +52,8 @@ class RunBuildTask {
                 DispatchQueue.main.async {
                     self.isRunning = false
                     self.errorBool = false
+                    self.stdErr.fileHandleForReading.closeFile()
+                    self.stdOut.fileHandleForReading.closeFile()
                     completion()
                 }
                 
@@ -65,8 +69,6 @@ class RunBuildTask {
     
     func captureStandardOutputAndRouteToTextView(task: Process, script: SCRIPT, textView: NSTextView, completion: @escaping () -> Void) {
         
-        let stdOut = Pipe()
-        let stdErr = Pipe()
         task.standardOutput = stdOut
         task.standardError = stdErr
         
@@ -83,7 +85,7 @@ class RunBuildTask {
                     return
                 }
                 
-                self.stringToReturn = output as String
+                self.stringToReturn += output as String
                 
                 DispatchQueue.main.async {
                     

@@ -12,10 +12,8 @@ rm -R /usr/local/etc/tor
 echo "Removing /usr/local/var/lib/tor"
 rm -R /usr/local/var/lib/tor
 echo "Stopping Tor..."
-/usr/local/bin/brew services stop tor
+sudo -u $(whoami) /usr/local/bin/brew services stop tor
 echo "Uninstalling Tor..."
-/usr/local/bin/brew uninstall tor
-#echo "Removing Tor..."
-#/usr/local/bin/brew remove tor
+sudo -u $(whoami) /usr/local/bin/brew uninstall tor
 echo "Finished"
 exit
