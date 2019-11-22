@@ -5,18 +5,10 @@
 #
 #  Created by Peter on 07/11/19.
 #  Copyright © 2019 Peter. All rights reserved.
-echo "Creating ~/StandUp/BitcoinCore/..."
-RPCPASSWORD="$1"
-RPCUSER="$2"
-DATADIR="$3"
-PRUNE="$4"
-MAINNET="$5"
-TESTNET="$6"
-REGTEST="$7"
-TXINDEX="$8"
-WALLET_DISABLED="$9"
+echo "Creating ~/StandUp/BitcoinCore..."
 mkdir ~/StandUp
 mkdir ~/StandUp/BitcoinCore
+mkdir ~/StandUp/BitcoinCore/Data
 echo "Downloading $SHA_URL"
 curl $SHA_URL -o ~/StandUp/BitcoinCore/SHA256SUMS.asc -s
 echo "Saved to ~/StandUp/BitcoinCore/SHA256SUMS.asc"
@@ -37,8 +29,8 @@ then
 echo "Signatures match"
 echo "Unpacking $BINARY_NAME"
 tar -zxvf $BINARY_NAME
-echo "Creating bitcoin.conf at: ~/Library/Application Support/Bitcoin/bitcoin.conf"
-echo "walletdisabled="$WALLET_DISABLED"\nrpcuser="$RPCUSER"\nrpcpassword=******\nserver=1\nprune="$PRUNE"\ntxindex="$TXINDEX"\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\ntestnet="$TESTNET"\nregtest="$REGTEST"\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
+echo "Creating the following bitcoin.conf at: "$DATADIR"/bitcoin.conf:"
+echo "$CONF"
 if [ -d "$DATADIR" ]
 then
 cd "$DATADIR"
@@ -46,27 +38,7 @@ else
 mkdir "$DATADIR"
 cd "$DATADIR"
 fi
-cat <<EOF >bitcoin.conf
-walletdisabled=$WALLET_DISABLED
-rpcuser=$RPCUSER
-rpcpassword=$RPCPASSWORD
-server=1
-prune=$PRUNE
-txindex=$TXINDEX
-rpcallowip=127.0.0.1
-bindaddress=127.0.0.1
-proxy=127.0.0.1:9050
-listen=1
-debug=tor
-testnet=$TESTNET
-regtest=$REGTEST
-[main]
-rpcport=8332
-[test]
-rpcport=18332
-[regtest]
-rpcport=18443
-EOF
+echo "$CONF" > bitcoin.conf
 echo "Done"
 echo "Installing tor..."
 sudo -u $(whoami) /usr/local/bin/brew install tor

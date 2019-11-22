@@ -43,8 +43,8 @@ public enum SCRIPT: String {
 
 public enum BTCCONF: String {
     
-    case pruned = "pruned"
-    case txIndex = "txIndex"
+    case prune = "prune"
+    case txindex = "txindex"
     case mainnet = "mainnet"
     case testnet = "testnet"
     case regtest = "regtest"
