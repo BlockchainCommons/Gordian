@@ -8,7 +8,6 @@
 echo "Creating ~/StandUp/BitcoinCore..."
 mkdir ~/StandUp
 mkdir ~/StandUp/BitcoinCore
-mkdir ~/StandUp/BitcoinCore/Data
 echo "Downloading $SHA_URL"
 curl $SHA_URL -o ~/StandUp/BitcoinCore/SHA256SUMS.asc -s
 echo "Saved to ~/StandUp/BitcoinCore/SHA256SUMS.asc"

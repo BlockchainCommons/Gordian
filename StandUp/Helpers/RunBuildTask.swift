@@ -85,6 +85,7 @@ class RunBuildTask {
                     return
                 }
                 
+
                 self.stringToReturn += output as String
                 
                 DispatchQueue.main.async {

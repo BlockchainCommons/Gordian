@@ -823,7 +823,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K4o-Sf-dSl">
                                 <rect key="frame" x="299" y="342" width="33" height="14"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="em4-Ia-ulc">
-                                    <font key="font" metaFont="menu" size="11"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -1077,7 +1077,7 @@
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P6i-rw-a6U">
                                 <rect key="frame" x="18" y="227" width="65" height="18"/>
-                                <buttonCell key="cell" type="check" title="testnet" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="lhk-9Y-r9S">
+                                <buttonCell key="cell" type="check" title="testnet" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lhk-9Y-r9S">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1152,7 +1152,7 @@
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uMK-KT-7YU">
                                 <rect key="frame" x="18" y="295" width="149" height="18"/>
-                                <buttonCell key="cell" type="check" title="full transaction index" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yWX-Mi-W1P">
+                                <buttonCell key="cell" type="check" title="full transaction index" bezelStyle="regularSquare" imagePosition="left" inset="2" id="yWX-Mi-W1P">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>

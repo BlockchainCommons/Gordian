@@ -46,71 +46,12 @@ class ViewController: NSViewController {
         
         isLoading = true
         setScene()
-        setDefaults()
-        setEnv { self.isBitcoinOn() }
-        
-    }
-    
-    //MARK: Set default settings
-    
-    func setDefaults() {
-        print("setDefaults")
-        
-        // TO DO: Ideally should fetch the actual bitcoin.conf first and if they exist set them in the app just incase user edits manually, otherwise the settings in the app will be out of sync
-                
-        let ud = UserDefaults.standard
-        
-        if ud.object(forKey: "pruned") == nil {
+        Defaults().setDefaults {
             
-            ud.set(0, forKey: "pruned")
+            self.setEnv { self.isBitcoinOn() }
             
         }
         
-        if ud.object(forKey: "txindex") == nil {
-            
-            ud.set(1, forKey: "txindex")
-            
-        }
-        
-        if ud.object(forKey: "dataDir") == nil {
-            
-            ud.set("/Users/\(NSUserName())/StandUp/BitcoinCore/Data", forKey: "dataDir")
-            
-        } else {
-            
-            print("datadir=\(ud.object(forKey: "dataDir") as! String)")
-        }
-        
-        if ud.object(forKey: "testnet") == nil {
-            
-            ud.set(1, forKey: "testnet")
-            
-        }
-        
-        if ud.object(forKey: "mainnet") == nil {
-            
-            ud.set(0, forKey: "mainnet")
-            
-        }
-        
-        if ud.object(forKey: "regtest") == nil {
-            
-            ud.set(0, forKey: "regtest")
-            
-        }
-        
-        if ud.object(forKey: "walletdisabled") == nil {
-            
-            ud.set(0, forKey: "walletdisabled")
-            
-        }
-        
-        if ud.object(forKey: "nodeLabel") == nil {
-            
-            ud.set("StandUp Node", forKey: "nodeLabel")
-            
-        }
-    
     }
     
     //MARK: User Action Segues
@@ -197,7 +138,7 @@ class ViewController: NSViewController {
                 
                 self.hideSpinner()
                 
-                self.showstandUpAlert(message: "Ready to StandUp?", info: "StandUp installs and configures a fully indexed Bitcoin Core v\(version) testnet node and Tor v0.4.1.6\n\n~30gb of space needed for testnet and ~300gb for mainnet\n\nIf you would like to install a different node go to \"Settings\" for pruning, network, data directory and tor related options, you can always adjust the settings and restart your node for the changes to take effect.\n\nStandUp will create the following directory: /Users/\(NSUserName())/StandUp\n\nBy default it will create a bitcoin.conf in /Users/\(NSUserName())/StandUp/BitcoinCore/Data, you can also specify a custom data directory in settings, if you do this it will check for an exisiting bitcoin.conf and add a rpcuser and rpcpassword if they do not already exist.")
+                self.showstandUpAlert(message: "Ready to StandUp?", info: "StandUp installs and configures a fully indexed Bitcoin Core v\(version) testnet node and Tor v0.4.1.6\n\n~30gb of space needed for testnet and ~300gb for mainnet\n\nIf you would like to install a different node go to \"Settings\" for pruning, mainnet, data directory and tor related options, you can always adjust the settings and restart your node for the changes to take effect.\n\nStandUp will create the following directory: /Users/\(NSUserName())/StandUp\n\nBy default it will create or if one exists add any missing rpc credentials to the bitcoin.conf in \(Defaults().dataDir()).")
                 
             }
             
@@ -376,27 +317,10 @@ class ViewController: NSViewController {
         switch script {
             
         case .isBitcoinOn, .checkForBitcoin, .startBitcoinqt, .stopBitcoin, .getRPCCredentials:
-            
-            var chain = ""
-            let testnet = ud.object(forKey: "testnet") as! Int
-            let mainnet = ud.object(forKey: "mainnet") as! Int
-            let regtest = ud.object(forKey: "regtest") as! Int
-            
-            if mainnet == 1 {
-                chain = "main"
-            }
-            
-            if testnet == 1 {
-                chain = "test"
-            }
-            
-            if regtest == 1 {
-                chain = "regtest"
-            }
-            
-            self.env["CHAIN"] = chain
+                        
+            self.env["CHAIN"] = Defaults().chain()
             self.env["PREFIX"] = ud.object(forKey: "binaryPrefix") as? String ?? "bitcoin-0.19.0rc3"
-            self.env["DATADIR"] = "\(ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data")"
+            self.env["DATADIR"] = Defaults().dataDir()
             
         default:
             
@@ -486,7 +410,7 @@ class ViewController: NSViewController {
         } else if result.contains("Could not connect to the server") {
             
             hideSpinner()
-            setSimpleAlert(message: "Error", info: result, buttonLabel: "OK")
+            setSimpleAlert(message: "Error", info: "Looks like Bitcoin Core is not running.\n\nOr if you just made changes in settings you will need to restart your node", buttonLabel: "OK")
             
         } else {
             
@@ -503,9 +427,7 @@ class ViewController: NSViewController {
             
             bitcoinStopped()
             
-            DispatchQueue.main.async {
-                setSimpleAlert(message: "Error", info: result, buttonLabel: "OK")
-            }
+            setSimpleAlert(message: "Error", info: "Looks like Bitcoin Core is not running.\n\nOr if you just made changes in settings you will need to restart your node", buttonLabel: "OK")
             
         } else if result.contains("chain") {
             

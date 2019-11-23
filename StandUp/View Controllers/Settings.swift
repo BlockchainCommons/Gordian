@@ -32,7 +32,11 @@ class Settings: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setScene()
+        Defaults().setDefaults() {
+            
+            self.getSettings()
+            
+        }
         
     }
     
@@ -85,15 +89,13 @@ class Settings: NSViewController {
         DispatchQueue.main.async {
             
             actionAlert(message: "Danger!", info: "This will remove the Bitcoin directory! All Bitcoin Core data including your wallets will be deleted!\n\nAre you sure you want to continue?") { (response) in
-                
-                let datadir = self.ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
-                
+                                
                 if response {
                     
                     let runBuildTask = RunBuildTask()
                     runBuildTask.args = []
                     runBuildTask.showLog = false
-                    runBuildTask.env = ["DATADIR":datadir]
+                    runBuildTask.env = ["DATADIR":Defaults().dataDir()]
                     runBuildTask.exitStrings = ["Done"]
                     runBuildTask.runScript(script: .removeBitcoin) {
                         
@@ -176,15 +178,72 @@ class Settings: NSViewController {
     
     @IBAction func didSetMainnet(_ sender: Any) {
         
+        let d = Defaults()
         setOutlet(outlet: mainnetOutlet, keyOn: .mainnet)
+        
+        let value = mainnetOutlet.state.rawValue
+        
+        if value == 1 {
+            
+            if d.dataDir() == "/Users/\(NSUserName())/Library/Application Support/Bitcoin/testnet3" {
+                
+                d.setDataDir(value: "/Users/\(NSUserName())/Library/Application Support/Bitcoin")
+                
+                DispatchQueue.main.async {
+                    self.directoryLabel.stringValue = d.dataDir()
+                }
+                
+            }
+            
+        } else if value == 0 {
+            
+            if d.dataDir() == "/Users/\(NSUserName())/Library/Application Support/Bitcoin" {
+                
+                d.setDataDir(value: "/Users/\(NSUserName())/Library/Application Support/Bitcoin/testnet3")
+                
+                DispatchQueue.main.async {
+                    self.directoryLabel.stringValue = d.dataDir()
+                }
+                
+            }
+            
+        }
+        
         setSimpleAlert(message: "Updated", info: "In order for these changes to take effect you need to restart Bitcoin Core", buttonLabel: "OK")
+        
+        d.setDefaults() {
+            self.getSettings()
+        }
         
     }
     
     @IBAction func didSetTestnet(_ sender: Any) {
         
+        let d = Defaults()
+        
         setOutlet(outlet: testnetOutlet, keyOn: .testnet)
+        
+        let value = mainnetOutlet.state.rawValue
+        
+        if value == 1 {
+            
+            if d.dataDir() == "/Users/\(NSUserName())/Library/Application Support/Bitcoin" {
+                
+                d.setDataDir(value: "/Users/\(NSUserName())/Library/Application Support/Bitcoin/testnet3")
+                
+                DispatchQueue.main.async {
+                    self.directoryLabel.stringValue = d.dataDir()
+                }
+                
+            }
+            
+        }
+        
         setSimpleAlert(message: "Updated", info: "In order for these changes to take effect you need to restart Bitcoin Core", buttonLabel: "OK")
+        
+        d.setDefaults() {
+            self.getSettings()
+        }
         
     }
     
@@ -206,9 +265,9 @@ class Settings: NSViewController {
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
                 self.selectedFolder = panel.urls[0]
                 DispatchQueue.main.async {
-                    self.directoryLabel.stringValue = self.selectedFolder?.path ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
+                    self.directoryLabel.stringValue = self.selectedFolder?.path ?? Defaults().dataDir()
                     self.ud.set(self.directoryLabel.stringValue, forKey: "dataDir")
-                    self.setScene()
+                    self.getSettings()
                 }
             }
         }
@@ -244,10 +303,9 @@ class Settings: NSViewController {
     func setBitcoinConf(conf: String, activeOutlet: NSButton, newValue: Int, key: String) {
         print("setBitcoinConf")
         
-        let dataDir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
         let runBuildTask = RunBuildTask()
         runBuildTask.args = args
-        runBuildTask.env = ["CONF":conf,"DATADIR":dataDir]
+        runBuildTask.env = ["CONF":conf,"DATADIR":Defaults().dataDir()]
         runBuildTask.showLog = false
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .updateBTCConf) {
@@ -531,7 +589,7 @@ class Settings: NSViewController {
             
         }
         
-        if !isUpdatingCorrectNetwork {
+        if !isUpdatingCorrectNetwork && section != "" {
             
             alertSettingNotForCurrentNetwork()
             revert()
@@ -569,177 +627,18 @@ class Settings: NSViewController {
         
     }
     
-    // MARK: Get bitcoin.conf and assign environment variables for script
-    
-    func getBitcoinConfSettings() {
-        print("getBitcoinConfSettings")
-        
-        args.removeAll()
-        
-        getExisistingRPCCreds { (user, password) in
-            
-            let ud = UserDefaults.standard
-            var rpcpassword = password
-            var rpcuser = user
-            if rpcpassword == "" { rpcpassword = randomString(length: 32) }
-            if rpcuser == "" { rpcuser = randomString(length: 10) }
-            let prune = ud.object(forKey: "prune") as? Int ?? 0
-            let txindex = ud.object(forKey: "txindex") as? Int ?? 1
-            let dataDir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
-            let testnet = ud.object(forKey: "testnet") as? Int ?? 1
-            let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
-            let regtest = ud.object(forKey: "regtest") as? Int ?? 0
-            let walletDisabled = ud.object(forKey: "walletdisabled") as? Int ?? 0
-            self.args.append(rpcpassword)
-            self.args.append(rpcuser)
-            self.args.append(dataDir)
-            self.args.append("\(prune)")
-            self.args.append("\(mainnet)")
-            self.args.append("\(testnet)")
-            self.args.append("\(regtest)")
-            self.args.append("\(txindex)")
-            self.args.append("\(walletDisabled)")
-            print("args = \(self.args)")
-            
-        }
-        
-    }
-    
-    func setScene() {
-        print("setscene")
-        
-        let compatibleSettings:[BTCCONF] = [.txindex,.prune,.walletdisabled]
-        let incompatibleSettings:[BTCCONF] = [.mainnet,.testnet,.regtest,.datadir]
-                
-        getBitcoinConf { (conf, error) in
-            
-            if !error {
-                
-                if conf.count > 0 {
-                    
-                    for setting in conf {
-                        
-                        if setting.contains("=") {
-                            
-                            let arr = setting.components(separatedBy: "=")
-                            let key = arr[0]
-                            let value = arr[1]
-                            
-                            for c in compatibleSettings {
-                                
-                                if key == c.rawValue {
-                                    
-                                    //set the scene and the default
-                                    print("set \(c.rawValue) outlet to \(value)")
-                                    
-                                    if key == "prune" {
-                                        
-                                        if value == "1" {
-                                            DispatchQueue.main.async {
-                                                self.pruneOutlet.state = .on
-                                                self.ud.set(1, forKey: "prune")
-                                            }
-                                        } else {
-                                            DispatchQueue.main.async {
-                                                self.pruneOutlet.state = .off
-                                                self.ud.set(0, forKey: "prune")
-                                            }
-                                        }
-                                        
-                                    }
-                                    
-                                    if key == "walletdisabled" {
-                                        
-                                        if value == "1" {
-                                            DispatchQueue.main.async {
-                                                self.walletDisabled.state = .on
-                                                self.ud.set(1, forKey: "walletdisabled")
-                                            }
-                                        } else {
-                                            DispatchQueue.main.async {
-                                                self.walletDisabled.state = .off
-                                                self.ud.set(0, forKey: "walletdisabled")
-                                            }
-                                        }
-                                        
-                                    }
-                                    
-                                    if key == "txindex" {
-                                        
-                                        if value == "1" {
-                                            DispatchQueue.main.async {
-                                                self.txIndexOutlet.state = .on
-                                                self.ud.set(1, forKey: "txindex")
-                                            }
-                                        } else {
-                                            DispatchQueue.main.async {
-                                                self.txIndexOutlet.state = .off
-                                                self.ud.set(0, forKey: "txindex")
-                                            }
-                                        }
-                                        
-                                    }
-                                                                        
-                                }
-                                
-                            }
-                            
-                            for x in incompatibleSettings {
-                                
-                                if key == x.rawValue {
-                                    
-                                    // warn user this setting is not compatible with their exisiting bitcoin.conf, from what I can tell you can not specify a datdir when launching bitcoind and also specify a datadir in your bitcoin.conf, same goes for networks
-                                    
-                                    print("incompatible setting warning \(key)")
-                                    
-                                    setSimpleAlert(message: "Warning!", info: "Your bitcoin.conf has settings in it which are not compatible with StandUp, you can not specifiy a network or a datadir in your bitcoin.conf if you want to use it with StandUp.\n\nTo fix it you need to delete either the datadir, testnet or regtest setting from your bitcoin.conf and instead select the datadir or network here in StandUp\n\nIf you do not do this you will get errors when trying to use StandUp.", buttonLabel: "OK")
-                                    
-                                }
-                                
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                    self.getSettings()
-                    
-                } else {
-                    
-                    self.getSettings()
-                    
-                }
-                
-            } else {
-                
-               setSimpleAlert(message: "Error", info: "We had an error fetching the bitcoin.conf file", buttonLabel: "OK")
-                
-            }
-            
-        }
-        
-    }
-    
     func getBitcoinConf(completion: @escaping ((conf: [String], error: Bool)) -> Void) {
         
-        let datadir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
         let runBuildTask = RunBuildTask()
         runBuildTask.args = []
-        runBuildTask.env = ["DATADIR":datadir]
+        runBuildTask.env = ["DATADIR":Defaults().dataDir()]
         runBuildTask.showLog = false
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .getRPCCredentials) {
             
             if !runBuildTask.errorBool {
                 
-                var conf = (runBuildTask.stringToReturn).components(separatedBy: "\n")
-                print("conf = \(conf)")
-//                for (i, c) in conf.enumerated() {
-//                    if c == "" {
-//                        conf.remove(at: i)
-//                    }
-//                }
-                
+                let conf = (runBuildTask.stringToReturn).components(separatedBy: "\n")
                 completion((conf, false))
                 
             } else {
@@ -758,10 +657,9 @@ class Settings: NSViewController {
         
         var user = ""
         var password = ""
-        let datadir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
         let runBuildTask = RunBuildTask()
         runBuildTask.args = []
-        runBuildTask.env = ["DATADIR":datadir]
+        runBuildTask.env = ["DATADIR":Defaults().dataDir()]
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .getRPCCredentials) {
             
@@ -822,22 +720,41 @@ class Settings: NSViewController {
         
     }
     
+    func setState(int: Int, outlet: NSButton) {
+        
+        print("int = \(int) outlet = \(outlet)")
+        
+        if int == 1 {
+            
+            DispatchQueue.main.async {
+                outlet.state = .on
+            }
+                        
+        } else if int == 0 {
+            
+            DispatchQueue.main.async {
+                outlet.state = .off
+            }
+        }
+        
+    }
+    
     func getSettings() {
         print("getSettings")
         
-        getSetting(key: .prune, button: pruneOutlet, def: 0)
-        getSetting(key: .txindex, button: txIndexOutlet, def: 1)
         getSetting(key: .mainnet, button: mainnetOutlet, def: 0)
         getSetting(key: .testnet, button: testnetOutlet, def: 1)
         getSetting(key: .regtest, button: regtestOutlet, def: 0)
-        getSetting(key: .walletdisabled, button: walletDisabled, def: 0)
+        
+        let d = Defaults()
+        setState(int: d.prune(), outlet: pruneOutlet)
+        setState(int: d.txindex(), outlet: txIndexOutlet)
+        setState(int: d.walletdisabled(), outlet: walletDisabled)
         
         if ud.object(forKey: "dataDir") != nil {
-            
-            let dd = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
-            
+                        
             DispatchQueue.main.async {
-                self.directoryLabel.stringValue = dd
+                self.directoryLabel.stringValue = Defaults().dataDir()
             }
             
         }

@@ -250,10 +250,6 @@ class Installer: NSViewController {
                 
                 DispatchQueue.main.async {
                     
-                    let ud = UserDefaults.standard
-                    let domain = Bundle.main.bundleIdentifier!
-                    ud.removePersistentDomain(forName: domain)
-                    ud.synchronize()
                     self.hideSpinner()
                     self.setLog(content: self.consoleOutput.string)
                     setSimpleAlert(message: "Success", info: "You have StoodDown", buttonLabel: "OK")
@@ -277,8 +273,7 @@ class Installer: NSViewController {
             
             let runBuildTask = RunBuildTask()
             runBuildTask.args = []
-            let datadir = self.ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
-            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version, "CONF":self.standUpConf, "DATADIR":datadir]
+            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version, "CONF":self.standUpConf, "DATADIR":Defaults().dataDir()]
             runBuildTask.textView = self.consoleOutput
             runBuildTask.showLog = true
             runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
@@ -385,10 +380,9 @@ class Installer: NSViewController {
         
         var user = ""
         var password = ""
-        let datadir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
         let runBuildTask = RunBuildTask()
         runBuildTask.args = []
-        runBuildTask.env = ["DATADIR":datadir]
+        runBuildTask.env = ["DATADIR":Defaults().dataDir()]
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .getRPCCredentials) {
             
@@ -428,10 +422,9 @@ class Installer: NSViewController {
     
     func getBitcoinConf(completion: @escaping ((conf: [String], error: Bool)) -> Void) {
         
-        let datadir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
         let runBuildTask = RunBuildTask()
         runBuildTask.args = []
-        runBuildTask.env = ["DATADIR":datadir]
+        runBuildTask.env = ["DATADIR":Defaults().dataDir()]
         runBuildTask.showLog = false
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .getRPCCredentials) {
