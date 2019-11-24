@@ -18,6 +18,9 @@
 		D06E3937236BE46E0072924A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06E3935236BE46D0072924A /* Settings.swift */; };
 		D06E3938236BE46E0072924A /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06E3936236BE46E0072924A /* Settings.xib */; };
 		D08210372389058B00E21EDC /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08210362389058B00E21EDC /* Defaults.swift */; };
+		D0821040238AA76000E21EDC /* tor_logo_redesign copy.png in Resources */ = {isa = PBXBuildFile; fileRef = D082103E238AA76000E21EDC /* tor_logo_redesign copy.png */; };
+		D0821041238AA76000E21EDC /* btccore copy.png in Resources */ = {isa = PBXBuildFile; fileRef = D082103F238AA76000E21EDC /* btccore copy.png */; };
+		D0821043238AA78900E21EDC /* blockchaincommons.png in Resources */ = {isa = PBXBuildFile; fileRef = D0821042238AA78800E21EDC /* blockchaincommons.png */; };
 		D0971D90237008D8001C3636 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D0971D8F237008D8001C3636 /* LICENSE */; };
 		D0971D92237008F6001C3636 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D0971D91237008F6001C3636 /* README.md */; };
 		D0A3B6F123739FCF00253635 /* StandUp.command in Resources */ = {isa = PBXBuildFile; fileRef = D0A3B6F023739FCF00253635 /* StandUp.command */; };
@@ -85,6 +88,9 @@
 		D06E3935236BE46D0072924A /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		D06E3936236BE46E0072924A /* Settings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Settings.xib; sourceTree = "<group>"; };
 		D08210362389058B00E21EDC /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		D082103E238AA76000E21EDC /* tor_logo_redesign copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tor_logo_redesign copy.png"; sourceTree = "<group>"; };
+		D082103F238AA76000E21EDC /* btccore copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btccore copy.png"; sourceTree = "<group>"; };
+		D0821042238AA78800E21EDC /* blockchaincommons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blockchaincommons.png; sourceTree = "<group>"; };
 		D0971D8F237008D8001C3636 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D0971D91237008F6001C3636 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D0A3B6F023739FCF00253635 /* StandUp.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StandUp.command; sourceTree = "<group>"; };
@@ -197,6 +203,9 @@
 		D0A871CD237E4B81006033C9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D082103F238AA76000E21EDC /* btccore copy.png */,
+				D0821042238AA78800E21EDC /* blockchaincommons.png */,
+				D082103E238AA76000E21EDC /* tor_logo_redesign copy.png */,
 				D0A871CE237E4B9D006033C9 /* yes.png */,
 				D0534CC7237E4CE70093DE67 /* paste.png */,
 				D0534CC5237E4CC20093DE67 /* ok.png */,
@@ -414,7 +423,9 @@
 				D0B927782383E59700956651 /* UpgradeBitcoin.command in Resources */,
 				D0B927822384DD7100956651 /* CheckForTor.command in Resources */,
 				D0EBC02F2376834D008302D2 /* Authenticate.command in Resources */,
+				D0821040238AA76000E21EDC /* tor_logo_redesign copy.png in Resources */,
 				D0A871CC237E3C57006033C9 /* TorStatus.command in Resources */,
+				D0821041238AA76000E21EDC /* btccore copy.png in Resources */,
 				D049E8A0237BFF9E00294E70 /* UpdateBTCConf.command in Resources */,
 				D0B36C432373BBA5004B2D63 /* StopTor.command in Resources */,
 				D049E89E237BD09200294E70 /* StandDown.command in Resources */,
@@ -423,6 +434,7 @@
 				D0534CC8237E4CE70093DE67 /* paste.png in Resources */,
 				D0EB5318237E4E9F002212F8 /* fullynoded_share.png in Resources */,
 				D0BCB33A236A6D27000D8FDE /* Main.storyboard in Resources */,
+				D0821043238AA78900E21EDC /* blockchaincommons.png in Resources */,
 				D0B9277523839F7B00956651 /* SupportedVersion.json in Resources */,
 				D01471A12371354700F64329 /* LaunchBitcoin.command in Resources */,
 				D0B927862384E18500956651 /* GetBitcoinConf.command in Resources */,

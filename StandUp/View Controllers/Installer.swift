@@ -153,8 +153,10 @@ class Installer: NSViewController {
     
     func checkExistingConf() {
         
+        let d = Defaults()
         var userExists = false
         var passwordExists = false
+        var testnetExists = false
         
         getBitcoinConf { (conf, error) in
             
@@ -191,6 +193,16 @@ class Installer: NSViewController {
                                                                 
                             }
                             
+                            if k == "testnet" {
+                                
+                                if existingValue != "" {
+                                    
+                                    testnetExists = true
+                                    
+                                }
+                                
+                            }
+                            
                         }
                         
                     }
@@ -215,6 +227,12 @@ class Installer: NSViewController {
                         
                     }
                     
+                    if !testnetExists {
+                        
+                        self.standUpConf += "\ntestnet=\(d.testnet())"
+                        
+                    }
+                    
                     self.getURLs()
                     
                 } else {
@@ -225,7 +243,7 @@ class Installer: NSViewController {
                     let txindex = self.ud.object(forKey: "txindex") as? Int ?? 1
                     let walletDisabled = self.ud.object(forKey: "walletDisabled") as? Int ?? 0
                     
-                    self.standUpConf = "walletdisabled=\(walletDisabled)\nrpcuser=\(randomString(length: 10))\nrpcpassword=\(randomString(length: 32))\nserver=1\nprune=\(prune)\ntxindex=\(txindex)\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
+                    self.standUpConf = "testnet=\(d.testnet())\nwalletdisabled=\(walletDisabled)\nrpcuser=\(randomString(length: 10))\nrpcpassword=\(randomString(length: 32))\nserver=1\nprune=\(prune)\ntxindex=\(txindex)\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
                     
                     self.getURLs()
                     
@@ -271,9 +289,10 @@ class Installer: NSViewController {
         
         DispatchQueue.main.async {
             
+            let d = Defaults()
             let runBuildTask = RunBuildTask()
             runBuildTask.args = []
-            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version, "CONF":self.standUpConf, "DATADIR":Defaults().dataDir()]
+            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version, "CONF":self.standUpConf, "DATADIR":d.dataDir()]
             runBuildTask.textView = self.consoleOutput
             runBuildTask.showLog = true
             runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
@@ -380,9 +399,10 @@ class Installer: NSViewController {
         
         var user = ""
         var password = ""
+        let d = Defaults()
         let runBuildTask = RunBuildTask()
         runBuildTask.args = []
-        runBuildTask.env = ["DATADIR":Defaults().dataDir()]
+        runBuildTask.env = ["DATADIR":d.dataDir()]
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .getRPCCredentials) {
             
@@ -422,9 +442,10 @@ class Installer: NSViewController {
     
     func getBitcoinConf(completion: @escaping ((conf: [String], error: Bool)) -> Void) {
         
+        let d = Defaults()
         let runBuildTask = RunBuildTask()
         runBuildTask.args = []
-        runBuildTask.env = ["DATADIR":Defaults().dataDir()]
+        runBuildTask.env = ["DATADIR":d.dataDir()]
         runBuildTask.showLog = false
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .getRPCCredentials) {

@@ -26,6 +26,7 @@ class ViewController: NSViewController {
     @IBOutlet var standUpOutlet: NSButton!
     @IBOutlet var verifyOutlet: NSButton!
     @IBOutlet var updateOutlet: NSButton!
+    @IBOutlet var icon: NSImageView!
     
     var rpcpassword = ""
     var rpcuser = ""
@@ -44,9 +45,13 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        icon.wantsLayer = true
+        icon.layer?.cornerRadius = icon.frame.width / 2
+        icon.layer?.masksToBounds = true
         isLoading = true
         setScene()
-        Defaults().setDefaults {
+        let d = Defaults()
+        d.setDefaults {
             
             self.setEnv { self.isBitcoinOn() }
             
@@ -313,14 +318,15 @@ class ViewController: NSViewController {
         print("runlaunchscript: \(script.rawValue)")
         
         let ud = UserDefaults.standard
+        let d = Defaults()
         
         switch script {
             
         case .isBitcoinOn, .checkForBitcoin, .startBitcoinqt, .stopBitcoin, .getRPCCredentials:
                         
-            self.env["CHAIN"] = Defaults().chain()
+            self.env["CHAIN"] = d.chain()
             self.env["PREFIX"] = ud.object(forKey: "binaryPrefix") as? String ?? "bitcoin-0.19.0rc3"
-            self.env["DATADIR"] = Defaults().dataDir()
+            self.env["DATADIR"] = d.dataDir()
             
         default:
             
@@ -834,6 +840,7 @@ class ViewController: NSViewController {
                 let binaryName = dict!["macosBinary"] as! String
                 let prefix = dict!["binaryPrefix"] as! String
                 self.env = ["BINARY_NAME":binaryName,"VERSION":version,"PREFIX":prefix]
+                print("env = \(self.env)")
                 completion()
                 
             }

@@ -12,10 +12,10 @@ class Defaults {
     
     private func getBitcoinConf(completion: @escaping ((conf: [String], error: Bool)) -> Void) {
         print("getbitcoinconf")
+        
         let runBuildTask = RunBuildTask()
         runBuildTask.args = []
         runBuildTask.env = ["DATADIR":dataDir()]
-        print("datadir = \(dataDir())")
         runBuildTask.showLog = false
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .getRPCCredentials) {
@@ -38,7 +38,7 @@ class Defaults {
     
     let ud = UserDefaults.standard
     
-    public func setDefaults(completion: @escaping () -> Void) {
+    func setDefaults(completion: @escaping () -> Void) {
         
         if ud.object(forKey: "testnet") == nil {
             
@@ -60,18 +60,7 @@ class Defaults {
         
         if ud.object(forKey: "dataDir") == nil {
             
-            if chain() == "main" {
-                
-                ud.set("/Users/\(NSUserName())/Library/Application Support/Bitcoin", forKey: "dataDir")
-                
-            } else if chain() == "test" {
-                
-                ud.set("/Users/\(NSUserName())/Library/Application Support/Bitcoin/testnet3", forKey: "dataDir")
-            }
-            
-        } else {
-            
-            print("datadir=\(ud.object(forKey: "dataDir") as! String)")
+            ud.set("/Users/\(NSUserName())/Library/Application Support/Bitcoin", forKey: "dataDir")
             
         }
         
@@ -80,14 +69,12 @@ class Defaults {
             print("setlocals")
             
             if ud.object(forKey: "pruned") == nil {
-                print("prune == nil")
                 
                 ud.set(0, forKey: "pruned")
                 
             }
             
             if ud.object(forKey: "txindex") == nil {
-                print("txindex == nil")
                 
                 ud.set(0, forKey: "txindex")
                 
@@ -117,25 +104,36 @@ class Defaults {
                             
                             let arr = setting.components(separatedBy: "=")
                             let k = arr[0]
-                            let existingValue = arr[1]
+                            let existingValue = Int(arr[1])
                             
                             switch k {
+                            
+                            case "testnet":
                                 
-                            case "prune": self.ud.set(Int(existingValue)!, forKey: "prune")
-                                print("updated prune to \(Int(existingValue)!)")
+                                self.ud.set(existingValue, forKey: "testnet")
                                 
-                                if Int(existingValue) == 1 {
+                            case "prune":
+                                
+                                self.ud.set(existingValue, forKey: "prune")
+                                
+                                if existingValue == 1 {
                                 
                                     self.ud.set(0, forKey: "txindex")
                                 
                                 }
                                 
-                            case "walletdisabled": self.ud.set(Int(existingValue)!, forKey: "walletdisabled")
-                                print("updated walletdisabled to \(Int(existingValue)!)")
-                            case "txindex": self.ud.set(Int(existingValue)!, forKey: "txindex")
-                                print("updated txindex to \(Int(existingValue)!)")
+                            case "walletdisabled":
+                                
+                                self.ud.set(existingValue, forKey: "walletdisabled")
+                                
+                            case "txindex":
+                                
+                                self.ud.set(existingValue, forKey: "txindex")
+                                
                             default:
+                                
                                 break
+                                
                             }
                             
                         }
@@ -163,7 +161,7 @@ class Defaults {
         
     }
     
-    public func chain() -> String {
+    func chain() -> String {
         
         var chain = ""
         let testnet = ud.object(forKey: "testnet") as! Int
@@ -186,53 +184,49 @@ class Defaults {
         
     }
     
-    public func dataDir() -> String {
+    func dataDir() -> String {
         
-        return ud.object(forKey:"dataDir") as! String
+        return ud.object(forKey:"dataDir") as? String ?? "/Users/\(NSUserName())/Application Support/Bitcoin"
         
     }
     
-    public func prune() -> Int {
-        
-        //print("prune = \(ud.object(forKey:"prune") as! Int)")
+    func prune() -> Int {
         
         return ud.object(forKey:"prune") as? Int ?? 0
         
     }
     
-    public func txindex() -> Int {
-        
-        //print("txindex = \(ud.object(forKey:"txindex") as! Int)")
+    func txindex() -> Int {
         
         return ud.object(forKey: "txindex") as? Int ?? 0
         
     }
     
-    public func walletdisabled() -> Int {
+    func walletdisabled() -> Int {
         
-        return ud.object(forKey: "walletdisabled") as! Int
-        
-    }
-    
-    public func mainnet() -> Int {
-        
-        return ud.object(forKey: "mainnet") as! Int
+        return ud.object(forKey: "walletdisabled") as? Int ?? 0
         
     }
     
-    public func testnet() -> Int {
+    func mainnet() -> Int {
         
-        return ud.object(forKey: "testnet") as! Int
-        
-    }
-    
-    public func regtest() -> Int {
-        
-        return ud.object(forKey: "regtest") as! Int
+        return ud.object(forKey: "mainnet") as? Int ?? 0
         
     }
     
-    public func setDataDir(value: String) {
+    func testnet() -> Int {
+        
+        return ud.object(forKey: "testnet") as? Int ?? 1
+        
+    }
+    
+    func regtest() -> Int {
+        
+        return ud.object(forKey: "regtest") as? Int ?? 0
+        
+    }
+    
+    func setDataDir(value: String) {
         
         ud.set(value, forKey: "dataDir")
         

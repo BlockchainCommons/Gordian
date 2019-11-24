@@ -26,13 +26,13 @@ class Settings: NSViewController {
     @IBOutlet var pruneOutlet: NSButton!
     @IBOutlet var mainnetOutlet: NSButton!
     @IBOutlet var testnetOutlet: NSButton!
-    @IBOutlet var regtestOutlet: NSButton!
     @IBOutlet var txIndexOutlet: NSButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Defaults().setDefaults() {
+        let d = Defaults()
+        d.setDefaults() {
             
             self.getSettings()
             
@@ -64,7 +64,7 @@ class Settings: NSViewController {
         
         DispatchQueue.main.async {
             
-            actionAlert(message: "Danger!", info: "This will remove the StandUp directory including all its contents!\n\nIt may hold Bitcoin wallets and blockchain data!\n\nThis will remove tor config, tor hidden services and uninstall tor.\n\nAre you aure you want to do this?") { (response) in
+            actionAlert(message: "Danger!", info: "This will remove the StandUp directory including all its contents!\n\nThis will remove tor config, tor hidden services and uninstall tor.\n\nAre you aure you want to do this?") { (response) in
                 
                 if response {
                     
@@ -93,9 +93,10 @@ class Settings: NSViewController {
                 if response {
                     
                     let runBuildTask = RunBuildTask()
+                    let d = Defaults()
                     runBuildTask.args = []
                     runBuildTask.showLog = false
-                    runBuildTask.env = ["DATADIR":Defaults().dataDir()]
+                    runBuildTask.env = ["DATADIR":d.dataDir()]
                     runBuildTask.exitStrings = ["Done"]
                     runBuildTask.runScript(script: .removeBitcoin) {
                         
@@ -178,79 +179,38 @@ class Settings: NSViewController {
     
     @IBAction func didSetMainnet(_ sender: Any) {
         
-        let d = Defaults()
         setOutlet(outlet: mainnetOutlet, keyOn: .mainnet)
-        
         let value = mainnetOutlet.state.rawValue
-        
         if value == 1 {
             
-            if d.dataDir() == "/Users/\(NSUserName())/Library/Application Support/Bitcoin/testnet3" {
+            // change testnet in bitcoin.conf
+            getBitcoinConf { (conf, error) in
                 
-                d.setDataDir(value: "/Users/\(NSUserName())/Library/Application Support/Bitcoin")
-                
-                DispatchQueue.main.async {
-                    self.directoryLabel.stringValue = d.dataDir()
+                if !error {
+                    
+                    self.parseBitcoinConf(conf: conf, keyToUpdate: .testnet, outlet: self.testnetOutlet, newValue: 0)
+                    
                 }
                 
             }
             
-        } else if value == 0 {
-            
-            if d.dataDir() == "/Users/\(NSUserName())/Library/Application Support/Bitcoin" {
-                
-                d.setDataDir(value: "/Users/\(NSUserName())/Library/Application Support/Bitcoin/testnet3")
-                
-                DispatchQueue.main.async {
-                    self.directoryLabel.stringValue = d.dataDir()
-                }
-                
-            }
-            
-        }
-        
-        setSimpleAlert(message: "Updated", info: "In order for these changes to take effect you need to restart Bitcoin Core", buttonLabel: "OK")
-        
-        d.setDefaults() {
-            self.getSettings()
         }
         
     }
     
     @IBAction func didSetTestnet(_ sender: Any) {
         
-        let d = Defaults()
-        
         setOutlet(outlet: testnetOutlet, keyOn: .testnet)
-        
-        let value = mainnetOutlet.state.rawValue
-        
-        if value == 1 {
+        let value = testnetOutlet.state.rawValue
+        getBitcoinConf { (conf, error) in
             
-            if d.dataDir() == "/Users/\(NSUserName())/Library/Application Support/Bitcoin" {
+            if !error {
                 
-                d.setDataDir(value: "/Users/\(NSUserName())/Library/Application Support/Bitcoin/testnet3")
-                
-                DispatchQueue.main.async {
-                    self.directoryLabel.stringValue = d.dataDir()
-                }
+                self.parseBitcoinConf(conf: conf, keyToUpdate: .testnet, outlet: self.testnetOutlet, newValue: value)
                 
             }
             
         }
-        
-        setSimpleAlert(message: "Updated", info: "In order for these changes to take effect you need to restart Bitcoin Core", buttonLabel: "OK")
-        
-        d.setDefaults() {
-            self.getSettings()
-        }
-        
-    }
-    
-    @IBAction func didSetRegtest(_ sender: Any) {
-        
-        setOutlet(outlet: regtestOutlet, keyOn: .regtest)
-        setSimpleAlert(message: "Updated", info: "In order for these changes to take effect you need to restart Bitcoin Core", buttonLabel: "OK")
         
     }
     
@@ -304,8 +264,9 @@ class Settings: NSViewController {
         print("setBitcoinConf")
         
         let runBuildTask = RunBuildTask()
+        let d = Defaults()
         runBuildTask.args = args
-        runBuildTask.env = ["CONF":conf,"DATADIR":Defaults().dataDir()]
+        runBuildTask.env = ["CONF":conf,"DATADIR":d.dataDir()]
         runBuildTask.showLog = false
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .updateBTCConf) {
@@ -340,16 +301,12 @@ class Settings: NSViewController {
         var network = ""
         let mainnet = ud.object(forKey: "mainnet") as! Int
         let testnet = ud.object(forKey: "testnet") as! Int
-        let regtest = ud.object(forKey: "regtest") as! Int
         
         if mainnet == 1 {
             network = "mainnet"
         }
         if testnet == 1 {
             network = "testnet"
-        }
-        if regtest == 1 {
-            network = "regtest"
         }
         
         func alertSettingNotForCurrentNetwork() {
@@ -630,8 +587,9 @@ class Settings: NSViewController {
     func getBitcoinConf(completion: @escaping ((conf: [String], error: Bool)) -> Void) {
         
         let runBuildTask = RunBuildTask()
+        let d = Defaults()
         runBuildTask.args = []
-        runBuildTask.env = ["DATADIR":Defaults().dataDir()]
+        runBuildTask.env = ["DATADIR":d.dataDir()]
         runBuildTask.showLog = false
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .getRPCCredentials) {
@@ -651,53 +609,7 @@ class Settings: NSViewController {
         }
         
     }
-    
-    func getExisistingRPCCreds(completion: @escaping ((user: String, password: String)) -> Void) {
-        print("getExisistingRPCCreds")
         
-        var user = ""
-        var password = ""
-        let runBuildTask = RunBuildTask()
-        runBuildTask.args = []
-        runBuildTask.env = ["DATADIR":Defaults().dataDir()]
-        runBuildTask.exitStrings = ["Done"]
-        runBuildTask.runScript(script: .getRPCCredentials) {
-            
-            if !runBuildTask.errorBool {
-                
-                let conf = (runBuildTask.stringToReturn).components(separatedBy: "\n")
-                
-                for item in conf {
-                    
-                    if item.contains("rpcuser") {
-                        
-                        let arr = item.components(separatedBy: "rpcuser=")
-                        user = arr[1]
-                        
-                    }
-                    
-                    if item.contains("rpcpassword") {
-                        
-                        let arr = item.components(separatedBy: "rpcpassword=")
-                        password = arr[1]
-                        
-                    }
-                    
-                    completion((user: user, password: password))
-                    
-                }
-                
-            } else {
-                
-                completion((user: "", password: ""))
-                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
-                
-            }
-            
-        }
-        
-    }
-    
     // MARK: Update User Interface
     
     func goBackAndRefresh() {
@@ -744,7 +656,6 @@ class Settings: NSViewController {
         
         getSetting(key: .mainnet, button: mainnetOutlet, def: 0)
         getSetting(key: .testnet, button: testnetOutlet, def: 1)
-        getSetting(key: .regtest, button: regtestOutlet, def: 0)
         
         let d = Defaults()
         setState(int: d.prune(), outlet: pruneOutlet)
@@ -754,7 +665,7 @@ class Settings: NSViewController {
         if ud.object(forKey: "dataDir") != nil {
                         
             DispatchQueue.main.async {
-                self.directoryLabel.stringValue = Defaults().dataDir()
+                self.directoryLabel.stringValue = d.dataDir()
             }
             
         }
@@ -796,7 +707,7 @@ class Settings: NSViewController {
         let key = keyOn.rawValue
         ud.set(b, forKey: key)
         print("set key: \(key) to \(b)")
-        let networkKeys = ["mainnet","testnet","regtest"]
+        let networkKeys = ["mainnet","testnet"]
         
         if b == 0 {
             
@@ -824,7 +735,7 @@ class Settings: NSViewController {
     
     func updateOutlets(activeOutlet: NSButton) {
 
-        let outlets = [regtestOutlet, testnetOutlet, mainnetOutlet]
+        let outlets = [testnetOutlet, mainnetOutlet]
         DispatchQueue.main.async {
             for o in outlets {
                 if o != activeOutlet {
