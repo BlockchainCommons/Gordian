@@ -71,9 +71,10 @@ class Settings: NSViewController {
     @IBAction func seeBtcLog(_ sender: Any) {
         
         let runBuildTask = RunBuildTask()
+        let d = Defaults()
         runBuildTask.args = []
         runBuildTask.showLog = false
-        runBuildTask.env = ["":""]
+        runBuildTask.env = ["DATADIR":d.dataDir()]
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .showBitcoinLog) {
             

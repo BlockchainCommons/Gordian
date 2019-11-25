@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D01471A12371354700F64329 /* LaunchBitcoin.command in Resources */ = {isa = PBXBuildFile; fileRef = D01471A02371354700F64329 /* LaunchBitcoin.command */; };
-		D049E89A237BBE1700294E70 /* RunAppleScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D049E899237BBE1700294E70 /* RunAppleScript.swift */; };
 		D049E89C237BBFE600294E70 /* RunBuildTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D049E89B237BBFE600294E70 /* RunBuildTask.swift */; };
 		D049E89E237BD09200294E70 /* StandDown.command in Resources */ = {isa = PBXBuildFile; fileRef = D049E89D237BD09200294E70 /* StandDown.command */; };
 		D049E8A0237BFF9E00294E70 /* UpdateBTCConf.command in Resources */ = {isa = PBXBuildFile; fileRef = D049E89F237BFF9E00294E70 /* UpdateBTCConf.command */; };
@@ -81,7 +80,6 @@
 
 /* Begin PBXFileReference section */
 		D01471A02371354700F64329 /* LaunchBitcoin.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = LaunchBitcoin.command; sourceTree = "<group>"; };
-		D049E899237BBE1700294E70 /* RunAppleScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunAppleScript.swift; sourceTree = "<group>"; };
 		D049E89B237BBFE600294E70 /* RunBuildTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunBuildTask.swift; sourceTree = "<group>"; };
 		D049E89D237BD09200294E70 /* StandDown.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StandDown.command; sourceTree = "<group>"; };
 		D049E89F237BFF9E00294E70 /* UpdateBTCConf.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = UpdateBTCConf.command; sourceTree = "<group>"; };
@@ -304,7 +302,6 @@
 			isa = PBXGroup;
 			children = (
 				D0EBC0302377EE65008302D2 /* Utilities.swift */,
-				D049E899237BBE1700294E70 /* RunAppleScript.swift */,
 				D049E89B237BBFE600294E70 /* RunBuildTask.swift */,
 				D0B9277023837AB400956651 /* UrlRequest.swift */,
 				D0B9278B2385045400956651 /* Log.swift */,
@@ -486,7 +483,6 @@
 				D0B9278C2385045400956651 /* Log.swift in Sources */,
 				D0DCD8E9236ACD5300F2D15A /* QRDisplayer.swift in Sources */,
 				D0EBC0312377EE65008302D2 /* Utilities.swift in Sources */,
-				D049E89A237BBE1700294E70 /* RunAppleScript.swift in Sources */,
 				D0DCD8ED236ACD6300F2D15A /* Installer.swift in Sources */,
 				D0BCB335236A6D22000D8FDE /* ViewController.swift in Sources */,
 				D0DCD8E6236ACC9E00F2D15A /* ScriptEnum.swift in Sources */,
