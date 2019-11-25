@@ -178,6 +178,10 @@ class Defaults {
                         
                         self.ud.set(1, forKey: "isPrivate")
                         
+                    } else {
+                        
+                        self.ud.set(0, forKey: "isPrivate")
+                        
                     }
                     
                     setLocals()
