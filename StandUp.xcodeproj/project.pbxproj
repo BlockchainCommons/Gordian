@@ -21,6 +21,9 @@
 		D0821040238AA76000E21EDC /* tor_logo_redesign copy.png in Resources */ = {isa = PBXBuildFile; fileRef = D082103E238AA76000E21EDC /* tor_logo_redesign copy.png */; };
 		D0821041238AA76000E21EDC /* btccore copy.png in Resources */ = {isa = PBXBuildFile; fileRef = D082103F238AA76000E21EDC /* btccore copy.png */; };
 		D0821043238AA78900E21EDC /* blockchaincommons.png in Resources */ = {isa = PBXBuildFile; fileRef = D0821042238AA78800E21EDC /* blockchaincommons.png */; };
+		D0821045238AC9CC00E21EDC /* RefreshHS.command in Resources */ = {isa = PBXBuildFile; fileRef = D0821044238AC9CC00E21EDC /* RefreshHS.command */; };
+		D0821047238B66F300E21EDC /* ShowBitcoinCoreLog.command in Resources */ = {isa = PBXBuildFile; fileRef = D0821046238B66F300E21EDC /* ShowBitcoinCoreLog.command */; };
+		D0821049238B702100E21EDC /* ShowTorLog.command in Resources */ = {isa = PBXBuildFile; fileRef = D0821048238B702100E21EDC /* ShowTorLog.command */; };
 		D0971D90237008D8001C3636 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D0971D8F237008D8001C3636 /* LICENSE */; };
 		D0971D92237008F6001C3636 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D0971D91237008F6001C3636 /* README.md */; };
 		D0A3B6F123739FCF00253635 /* StandUp.command in Resources */ = {isa = PBXBuildFile; fileRef = D0A3B6F023739FCF00253635 /* StandUp.command */; };
@@ -91,6 +94,9 @@
 		D082103E238AA76000E21EDC /* tor_logo_redesign copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tor_logo_redesign copy.png"; sourceTree = "<group>"; };
 		D082103F238AA76000E21EDC /* btccore copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btccore copy.png"; sourceTree = "<group>"; };
 		D0821042238AA78800E21EDC /* blockchaincommons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blockchaincommons.png; sourceTree = "<group>"; };
+		D0821044238AC9CC00E21EDC /* RefreshHS.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = RefreshHS.command; sourceTree = "<group>"; };
+		D0821046238B66F300E21EDC /* ShowBitcoinCoreLog.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ShowBitcoinCoreLog.command; sourceTree = "<group>"; };
+		D0821048238B702100E21EDC /* ShowTorLog.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ShowTorLog.command; sourceTree = "<group>"; };
 		D0971D8F237008D8001C3636 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D0971D91237008F6001C3636 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D0A3B6F023739FCF00253635 /* StandUp.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = StandUp.command; sourceTree = "<group>"; };
@@ -196,6 +202,9 @@
 				D0B927852384E18500956651 /* GetBitcoinConf.command */,
 				D0B927872384E2D400956651 /* GetHostname.command */,
 				D0B927892384E54900956651 /* RemoveBitcoin.command */,
+				D0821044238AC9CC00E21EDC /* RefreshHS.command */,
+				D0821046238B66F300E21EDC /* ShowBitcoinCoreLog.command */,
+				D0821048238B702100E21EDC /* ShowTorLog.command */,
 			);
 			path = Scripts;
 			sourceTree = "<group>";
@@ -427,6 +436,8 @@
 				D0A871CC237E3C57006033C9 /* TorStatus.command in Resources */,
 				D0821041238AA76000E21EDC /* btccore copy.png in Resources */,
 				D049E8A0237BFF9E00294E70 /* UpdateBTCConf.command in Resources */,
+				D0821047238B66F300E21EDC /* ShowBitcoinCoreLog.command in Resources */,
+				D0821045238AC9CC00E21EDC /* RefreshHS.command in Resources */,
 				D0B36C432373BBA5004B2D63 /* StopTor.command in Resources */,
 				D049E89E237BD09200294E70 /* StandDown.command in Resources */,
 				D0B9277E2383FCD000956651 /* StopBitcoin.command in Resources */,
@@ -437,6 +448,7 @@
 				D0821043238AA78900E21EDC /* blockchaincommons.png in Resources */,
 				D0B9277523839F7B00956651 /* SupportedVersion.json in Resources */,
 				D01471A12371354700F64329 /* LaunchBitcoin.command in Resources */,
+				D0821049238B702100E21EDC /* ShowTorLog.command in Resources */,
 				D0B927862384E18500956651 /* GetBitcoinConf.command in Resources */,
 				D0AE0DFB237297BE004369E2 /* StartTor.command in Resources */,
 				D0B9278023840D3C00956651 /* IsBitcoinOn.command in Resources */,

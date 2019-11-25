@@ -18,6 +18,7 @@ class Settings: NSViewController {
     var seeLog = Bool()
     var standingDown = Bool()
     var args = [String]()
+    var refreshing = Bool()
     
     @IBOutlet var directoryLabel: NSTextField!
     @IBOutlet var textInput: NSTextField!
@@ -27,7 +28,8 @@ class Settings: NSViewController {
     @IBOutlet var mainnetOutlet: NSButton!
     @IBOutlet var testnetOutlet: NSButton!
     @IBOutlet var txIndexOutlet: NSButton!
-
+    @IBOutlet var goPrivateOutlet: NSButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +43,269 @@ class Settings: NSViewController {
     }
     
     // MARK: User Actions
+    
+    @IBAction func seeTorLog(_ sender: Any) {
+        
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = []
+        runBuildTask.showLog = false
+        runBuildTask.env = ["":""]
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.runScript(script: .showTorLog) {
+            
+            if !runBuildTask.errorBool {
+                
+                
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    @IBAction func seeBtcLog(_ sender: Any) {
+        
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = []
+        runBuildTask.showLog = false
+        runBuildTask.env = ["":""]
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.runScript(script: .showBitcoinLog) {
+            
+            if !runBuildTask.errorBool {
+                
+                
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    
+    @IBAction func refreshHS(_ sender: Any) {
+        
+        actionAlert(message: "Refresh Hidden Service?", info: "This will remove your current Tor hidden service and start a new one, you will need to scan a new QuickConnect QR code to access your node remotely, all existing remote connections will fail.") { (response) in
+            
+            if response {
+                
+                DispatchQueue.main.async {
+                    self.refreshing = true
+                    self.performSegue(withIdentifier: "seeLog", sender: self)
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    @IBAction func goPrivate(_ sender: Any) {
+        
+        let value = goPrivateOutlet.state
+        
+        if value == .on {
+            
+            privateOn()
+            
+        } else {
+            
+            privateOff()
+            
+        }
+        
+    }
+    
+    func privateOn() {
+        
+        var proxyExists = false
+        var debugExists = false
+        var bindExists = false
+        var listenExists = false
+        
+        getBitcoinConf { (conf, error) in
+            
+            if !error {
+                
+                var stringConf = conf.joined(separator: "\n")
+            
+                for c in conf {
+                    
+                    if c.contains("=") {
+                    
+                        let arr = c.components(separatedBy: "=")
+                        let k = arr[0]
+                        let existingValue = arr[1]
+                        
+                        switch k {
+                            
+                        case "#debug", "debug":
+                            
+                            debugExists = true
+                            
+                            if existingValue != "tor" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "debug=tor")
+                                
+                            }
+                            
+                        case "#proxy", "proxy":
+                            
+                            proxyExists = true
+                            
+                            if existingValue != "127.0.0.1:9050" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "proxy=127.0.0.1:9050")
+                                
+                            }
+                            
+                        case "#listen", "listen":
+                            
+                            listenExists = true
+                            
+                            if existingValue != "1" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "listen=1")
+                                
+                            }
+                            
+                        case "#bindaddress", "bindaddress":
+                            
+                            bindExists = true
+                            
+                            if existingValue != "127.0.0.1" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "bindaddress=127.0.0.1")
+                                
+                            }
+                            
+                        default:
+                            
+                            break
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                if !debugExists {
+                    
+                    stringConf = "debug=tor\n" + stringConf + "\n"
+                }
+                
+                if !proxyExists {
+                    
+                    stringConf = "proxy=127.0.0.1:9050\n" + stringConf + "\n"
+                    
+                }
+                
+                if !listenExists {
+                    
+                    stringConf = "listen=1\n" + stringConf + "\n"
+                    
+                }
+                
+                if !bindExists {
+                    
+                    stringConf = "bindaddress=127.0.0.1\n" + stringConf + "\n"
+                    
+                }
+                
+                self.setBitcoinConf(conf: stringConf, activeOutlet: self.goPrivateOutlet, newValue: 3, key: "")
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: "We had a problem getting your bitcoin.conf, please try again", buttonLabel: "OK")
+                
+            }
+            
+        }
+        
+    }
+    
+    func privateOff() {
+        
+        getBitcoinConf { (conf, error) in
+            
+            if !error {
+                
+                var stringConf = conf.joined(separator: "\n")
+            
+                for c in conf {
+                    
+                    if c.contains("=") {
+                    
+                        let arr = c.components(separatedBy: "=")
+                        let k = arr[0]
+                        let existingValue = arr[1]
+                        
+                        switch k {
+                            
+                        case "debug":
+                            
+                            if existingValue != "tor" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#debug=\(existingValue)")
+                                
+                            }
+                            
+                        case "proxy":
+                            
+                            if existingValue != "127.0.0.1:9050" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#proxy=\(existingValue)")
+                                
+                            }
+                            
+                        case "listen":
+                            
+                            if existingValue != "1" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#listen=\(existingValue)")
+                                
+                            }
+                            
+                        case "bindaddress":
+                            
+                            if existingValue != "127.0.0.1" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#bindaddress=\(existingValue)")
+                                
+                            }
+                            
+                        default:
+                            break
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                self.setBitcoinConf(conf: stringConf, activeOutlet: self.goPrivateOutlet, newValue: 3, key: "")
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: "We had a problem getting your bitcoin.conf, please try again", buttonLabel: "OK")
+                
+            }
+            
+        }
+        
+    }
+    
     
     @IBAction func seeStandUpLog(_ sender: Any) {
         
@@ -273,7 +538,10 @@ class Settings: NSViewController {
             
             if !runBuildTask.errorBool {
                 
-                self.ud.set(newValue, forKey: key)
+                if newValue < 2 {
+                    self.ud.set(newValue, forKey: key)
+                }
+                
                 self.setLog(content: runBuildTask.stringToReturn)
                 setSimpleAlert(message: "Success", info: "bitcoin.conf updated", buttonLabel: "OK")
                 
@@ -319,45 +587,6 @@ class Settings: NSViewController {
             
             DispatchQueue.main.async {
                 outlet.setNextState()
-            }
-            
-        }
-        
-        func updateGlobalConfArray(conf: [String], oldValue: Int, newValue: Int, key: String) {
-            print("updateGlobalConfArray")
-            
-            // assuming there will only ever be one global instance of any given setting in bitcoin.conf outside of sections
-            
-            for c in conf {
-                
-                if c.contains("=") {
-                    
-                    let arr = c.components(separatedBy: "=")
-                    let k = arr[0]
-                    let existingValue = arr[1]
-                    print("k = \(k)")
-                    print("key = \(key)")
-                    
-                    if k.contains(key) {
-                        
-                        print("same")
-                        
-                        if let ev = Int(existingValue) {
-                            
-                            if oldValue == ev {
-                                
-                                var stringConf = conf.joined(separator: "\n")
-                                stringConf = stringConf.replacingOccurrences(of: "\(key + "=" + existingValue)", with: "\(key + "=")\(newValue)")
-                                setBitcoinConf(conf: stringConf, activeOutlet: outlet, newValue: newValue, key: key)
-                                
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                }
-                
             }
             
         }
@@ -514,7 +743,7 @@ class Settings: NSViewController {
                                 
                                 if let i = Int(value) {
                                     
-                                    updateGlobalConfArray(conf: conf, oldValue: i, newValue: newValue, key: key)
+                                    self.updateGlobalConfArray(conf: conf, oldValue: i, newValue: newValue, key: key, outlet: outlet)
                                     
                                 } else {
                                     
@@ -550,6 +779,45 @@ class Settings: NSViewController {
             
             alertSettingNotForCurrentNetwork()
             revert()
+            
+        }
+        
+    }
+    
+    func updateGlobalConfArray(conf: [String], oldValue: Int, newValue: Int, key: String, outlet: NSButton) {
+        print("updateGlobalConfArray")
+        
+        // assuming there will only ever be one global instance of any given setting in bitcoin.conf outside of sections
+        
+        for c in conf {
+            
+            if c.contains("=") {
+                
+                let arr = c.components(separatedBy: "=")
+                let k = arr[0]
+                let existingValue = arr[1]
+                print("k = \(k)")
+                print("key = \(key)")
+                
+                if k.contains(key) {
+                    
+                    print("same")
+                    
+                    if let ev = Int(existingValue) {
+                        
+                        if oldValue == ev {
+                            
+                            var stringConf = conf.joined(separator: "\n")
+                            stringConf = stringConf.replacingOccurrences(of: "\(key + "=" + existingValue)", with: "\(key + "=")\(newValue)")
+                            setBitcoinConf(conf: stringConf, activeOutlet: outlet, newValue: newValue, key: key)
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
             
         }
         
@@ -661,6 +929,7 @@ class Settings: NSViewController {
         setState(int: d.prune(), outlet: pruneOutlet)
         setState(int: d.txindex(), outlet: txIndexOutlet)
         setState(int: d.walletdisabled(), outlet: walletDisabled)
+        setState(int: d.isPrivate(), outlet: goPrivateOutlet)
         
         if ud.object(forKey: "dataDir") != nil {
                         
@@ -769,6 +1038,7 @@ class Settings: NSViewController {
             
             if let vc = segue.destinationController as? Installer {
                 
+                vc.refreshing = refreshing
                 vc.seeLog = seeLog
                 vc.standingDown = standingDown
                 

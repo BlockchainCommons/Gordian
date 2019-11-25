@@ -94,7 +94,7 @@ class ViewController: NSViewController {
                 } else {
                     
                     let version = dict!["version"] as! String
-                    actionAlert(message: "Upgrade to Bitcoin Core \(version)?", info: "Upgrading removes the ~/StandUp directory completely and writes over it!\n\nAre you sure you would like to upgrade to Bitcoin Core version \(version)?") { (response) in
+                    actionAlert(message: "Upgrade to Bitcoin Core \(version)?", info: "Upgrading writes over the ~/StandUp directory completely.\n\nAre you sure you would like to upgrade to Bitcoin Core version \(version)?") { (response) in
                         
                         if response {
                             
@@ -350,7 +350,7 @@ class ViewController: NSViewController {
                 
                 let str = runBuildTask.stringToReturn
                 print("str = \(str)")
-                self.setLog(content: str)
+                //self.setLog(content: str)
                 self.parseScriptResult(script: script, result: str)
                 
             } else {
@@ -416,7 +416,7 @@ class ViewController: NSViewController {
         } else if result.contains("Could not connect to the server") {
             
             hideSpinner()
-            setSimpleAlert(message: "Error", info: "Looks like Bitcoin Core is not running.\n\nOr if you just made changes in settings you will need to restart your node", buttonLabel: "OK")
+            setSimpleAlert(message: "", info: "Looks like Bitcoin Core is not running", buttonLabel: "OK")
             
         } else {
             
@@ -433,7 +433,7 @@ class ViewController: NSViewController {
             
             bitcoinStopped()
             
-            setSimpleAlert(message: "Error", info: "Looks like Bitcoin Core is not running.\n\nOr if you just made changes in settings you will need to restart your node", buttonLabel: "OK")
+            setSimpleAlert(message: "", info: "Looks like Bitcoin Core is not running", buttonLabel: "OK")
             
         } else if result.contains("chain") {
             

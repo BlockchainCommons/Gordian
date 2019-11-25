@@ -21,6 +21,7 @@ class Installer: NSViewController {
     var standingDown = Bool()
     var upgrading = Bool()
     var standUpConf = ""
+    var refreshing = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,6 +112,11 @@ class Installer: NSViewController {
             
             getURLs()
 
+        } else if refreshing {
+            
+            refreshing = false
+            refreshHS()
+            
         }
         
         DispatchQueue.main.async {
@@ -157,6 +163,10 @@ class Installer: NSViewController {
         var userExists = false
         var passwordExists = false
         var testnetExists = false
+        var proxyExists = false
+        var debugExists = false
+        var bindExists = false
+        var listenExists = false
         
         getBitcoinConf { (conf, error) in
             
@@ -174,26 +184,23 @@ class Installer: NSViewController {
                             let k = arr[0]
                             let existingValue = arr[1]
                             
-                            if k == "rpcuser" {
+                            switch k {
+                            case "rpcuser":
                                 
                                 if existingValue != "" {
                                     
                                     userExists = true
                                 }
                                 
-                            }
-                            
-                            if k == "rpcpassword" {
+                            case "rpcpassword":
                                 
                                 if existingValue != "" {
                                     
                                     passwordExists = true
                                     
                                 }
-                                                                
-                            }
-                            
-                            if k == "testnet" {
+                                
+                            case "testnet":
                                 
                                 if existingValue != "" {
                                     
@@ -201,6 +208,24 @@ class Installer: NSViewController {
                                     
                                 }
                                 
+                            case "proxy":
+                                
+                                proxyExists = true
+                                
+                            case "listen":
+                                
+                                listenExists = true
+                                
+                            case "bindaddress":
+                                
+                                bindExists = true
+                                
+                            case "debug":
+                                
+                                debugExists = true
+                                
+                            default:
+                                break
                             }
                             
                         }
@@ -229,7 +254,30 @@ class Installer: NSViewController {
                     
                     if !testnetExists {
                         
-                        self.standUpConf += "\ntestnet=\(d.testnet())"
+                        self.standUpConf = "testnet=\(d.testnet())\n" + self.standUpConf + "\n"
+                        
+                    }
+                    
+                    if !debugExists {
+                        
+                        self.standUpConf = "#debug=tor\n" + self.standUpConf + "\n"
+                    }
+                    
+                    if !proxyExists {
+                        
+                        self.standUpConf = "#proxy=127.0.0.1:9050\n" + self.standUpConf + "\n"
+                        
+                    }
+                    
+                    if !listenExists {
+                        
+                        self.standUpConf = "#listen=1\n" + self.standUpConf + "\n"
+                        
+                    }
+                    
+                    if !bindExists {
+                        
+                        self.standUpConf = "#bindaddress=127.0.0.1\n" + self.standUpConf + "\n"
                         
                     }
                     
@@ -313,6 +361,33 @@ class Installer: NSViewController {
                    setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
                     
                 }
+                
+            }
+            
+        }
+        
+    }
+    
+    func refreshHS() {
+        
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = []
+        runBuildTask.showLog = true
+        runBuildTask.textView = consoleOutput
+        runBuildTask.env = ["":""]
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.runScript(script: .refreshHS) {
+            
+            if !runBuildTask.errorBool {
+                
+                self.setLog(content: runBuildTask.stringToReturn)
+                setSimpleAlert(message: "Success", info: "Tor hidden service was refreshed, go back and scan the new QR Code to connect", buttonLabel: "OK")
+                
+                self.goBack()
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
                 
             }
             

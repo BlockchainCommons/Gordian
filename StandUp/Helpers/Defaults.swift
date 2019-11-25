@@ -92,6 +92,10 @@ class Defaults {
         
         getBitcoinConf { (conf, error) in
             
+            var proxyOn = false
+            var listenOn = false
+            var bindOn = false
+            
             if !error {
                 
                 print("conf = \(conf)")
@@ -104,19 +108,49 @@ class Defaults {
                             
                             let arr = setting.components(separatedBy: "=")
                             let k = arr[0]
-                            let existingValue = Int(arr[1])
+                            let existingValue = arr[1]
                             
                             switch k {
+                                
+                            case "proxy":
                             
+                                if existingValue == "127.0.0.1:9050" {
+                                    
+                                    proxyOn = true
+                                    
+                                }
+                                
+                            case "listen":
+                                
+                                if Int(existingValue) == 1 {
+                                    
+                                    listenOn = true
+                                    
+                                }
+                                
+                            case "bindaddress":
+                                
+                                if existingValue == "127.0.0.1" {
+                                    
+                                    bindOn = true
+                                    
+                                }
+                                
                             case "testnet":
                                 
-                                self.ud.set(existingValue, forKey: "testnet")
+                                self.ud.set(Int(existingValue), forKey: "testnet")
+                                
+                                if Int(existingValue) == 1 {
+                                
+                                    self.ud.set(0, forKey: "mainnet")
+                                
+                                }
                                 
                             case "prune":
                                 
-                                self.ud.set(existingValue, forKey: "prune")
+                                self.ud.set(Int(existingValue), forKey: "prune")
                                 
-                                if existingValue == 1 {
+                                if Int(existingValue) == 1 {
                                 
                                     self.ud.set(0, forKey: "txindex")
                                 
@@ -124,11 +158,11 @@ class Defaults {
                                 
                             case "walletdisabled":
                                 
-                                self.ud.set(existingValue, forKey: "walletdisabled")
+                                self.ud.set(Int(existingValue), forKey: "walletdisabled")
                                 
                             case "txindex":
                                 
-                                self.ud.set(existingValue, forKey: "txindex")
+                                self.ud.set(Int(existingValue), forKey: "txindex")
                                 
                             default:
                                 
@@ -137,6 +171,12 @@ class Defaults {
                             }
                             
                         }
+                        
+                    }
+                    
+                    if bindOn && proxyOn && listenOn {
+                        
+                        self.ud.set(1, forKey: "isPrivate")
                         
                     }
                     
@@ -187,6 +227,12 @@ class Defaults {
     func dataDir() -> String {
         
         return ud.object(forKey:"dataDir") as? String ?? "/Users/\(NSUserName())/Application Support/Bitcoin"
+        
+    }
+    
+    func isPrivate() -> Int {
+        
+        return ud.object(forKey: "isPrivate") as? Int ?? 0
         
     }
     

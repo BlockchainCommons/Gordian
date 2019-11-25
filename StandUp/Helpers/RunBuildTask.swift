@@ -87,7 +87,7 @@ class RunBuildTask {
                 
 
                 self.stringToReturn += output as String
-                
+                                
                 DispatchQueue.main.async {
                     
                     if self.showLog {
