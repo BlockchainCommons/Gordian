@@ -117,12 +117,24 @@ class Settings: NSViewController {
         
         if value == .on {
             
-            privateOn()
+            actionAlert(message: "Go private?", info: "This sets your proxy to the local host and tors control port, binds localhost address, and sets listen to true in your bitcoin.conf, in plain english this means your node will only accept connections over the Tor network, this can make initial block download very slow, it is recommended to go private once your node is fully synced.") { (response) in
+                
+                if response {
+                    
+                    self.privateOn()
+                    
+                }
+                
+            }
             
         } else {
             
-            privateOff()
-            
+            actionAlert(message: "Disable?", info: "This will enable your node to connect to other nodes over the clearnet, not just over tor, it is recommended to disable this setting when your node is doing the initial block download.") { (result) in
+                
+                self.privateOff()
+                
+            }
+                        
         }
         
     }
@@ -255,7 +267,7 @@ class Settings: NSViewController {
                             
                         case "debug":
                             
-                            if existingValue != "tor" {
+                            if existingValue == "tor" {
                                 
                                 stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#debug=\(existingValue)")
                                 
@@ -263,27 +275,15 @@ class Settings: NSViewController {
                             
                         case "proxy":
                             
-                            if existingValue != "127.0.0.1:9050" {
-                                
-                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#proxy=\(existingValue)")
-                                
-                            }
+                            stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#proxy=\(existingValue)")
                             
                         case "listen":
                             
-                            if existingValue != "1" {
-                                
-                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#listen=\(existingValue)")
-                                
-                            }
+                            stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#listen=\(existingValue)")
                             
                         case "bindaddress":
                             
-                            if existingValue != "127.0.0.1" {
-                                
-                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#bindaddress=\(existingValue)")
-                                
-                            }
+                            stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#bindaddress=\(existingValue)")
                             
                         default:
                             break
