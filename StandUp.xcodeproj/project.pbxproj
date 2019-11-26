@@ -59,6 +59,7 @@
 		D0EB531A237E4E9F002212F8 /* fullynoded_tap_pubkey.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EB5317237E4E9F002212F8 /* fullynoded_tap_pubkey.png */; };
 		D0EBC02F2376834D008302D2 /* Authenticate.command in Resources */ = {isa = PBXBuildFile; fileRef = D0EBC02E2376834D008302D2 /* Authenticate.command */; };
 		D0EBC0312377EE65008302D2 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EBC0302377EE65008302D2 /* Utilities.swift */; };
+		D0F9352C238CAC48001FF151 /* onion.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F9352B238CAC48001FF151 /* onion.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,7 @@
 		D0EB5317237E4E9F002212F8 /* fullynoded_tap_pubkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullynoded_tap_pubkey.png; sourceTree = "<group>"; };
 		D0EBC02E2376834D008302D2 /* Authenticate.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Authenticate.command; sourceTree = "<group>"; };
 		D0EBC0302377EE65008302D2 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		D0F9352B238CAC48001FF151 /* onion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = onion.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +212,7 @@
 		D0A871CD237E4B81006033C9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D0F9352B238CAC48001FF151 /* onion.png */,
 				D082103F238AA76000E21EDC /* btccore copy.png */,
 				D0821042238AA78800E21EDC /* blockchaincommons.png */,
 				D082103E238AA76000E21EDC /* tor_logo_redesign copy.png */,
@@ -421,6 +424,7 @@
 				D0EB5319237E4E9F002212F8 /* fullynoded_generate.png in Resources */,
 				D0B9277A2383F8D400956651 /* CheckForBitcoinCore.command in Resources */,
 				D0DCD8EE236ACD6300F2D15A /* Installer.xib in Resources */,
+				D0F9352C238CAC48001FF151 /* onion.png in Resources */,
 				D0BCB337236A6D27000D8FDE /* Assets.xcassets in Resources */,
 				D0534CCA237E4DF00093DE67 /* fullynoded_qr.png in Resources */,
 				D0DCD8EA236ACD5300F2D15A /* QRDisplayer.xib in Resources */,

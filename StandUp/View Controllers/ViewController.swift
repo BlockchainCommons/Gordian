@@ -158,7 +158,7 @@ class ViewController: NSViewController {
             
             DispatchQueue.main.async {
                 
-                self.startSpinner(description: "Starting Tor...")
+                self.startSpinner(description: "starting tor...")
                 self.installTorOutlet.isEnabled = false
                 
             }
@@ -169,7 +169,7 @@ class ViewController: NSViewController {
             
             DispatchQueue.main.async {
                 
-                self.startSpinner(description: "Stopping Tor...")
+                self.startSpinner(description: "stopping tor...")
                 self.installTorOutlet.isEnabled = false
                 
             }
@@ -204,7 +204,7 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 
                 
-                self.startSpinner(description: "stopping Bitcoin Core...")
+                self.startSpinner(description: "stopping bitcoin core...")
                 self.installBitcoindOutlet.isEnabled = false
                 
             }
@@ -222,7 +222,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.taskDescription.stringValue = "checking if Bitcoin Core is running..."
+            self.taskDescription.stringValue = "checking if bitcoin core is running..."
             self.runLaunchScript(script: .isBitcoinOn)
             
         }
@@ -234,7 +234,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.taskDescription.stringValue = "verifying PGP signatures..."
+            self.taskDescription.stringValue = "verifying pgp signatures..."
             self.runLaunchScript(script: .verifyBitcoin)
             self.hideSpinner()
             
@@ -247,7 +247,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.taskDescription.stringValue = "checking if Bitcoin Core is installed..."
+            self.taskDescription.stringValue = "checking if bitcoin core is installed..."
             self.runLaunchScript(script: .checkForBitcoin)
             
         }
@@ -259,7 +259,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.taskDescription.stringValue = "checking if Tor is installed..."
+            self.taskDescription.stringValue = "checking if tor is installed..."
             self.runLaunchScript(script: .checkForTor)
             
         }
@@ -283,7 +283,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.taskDescription.stringValue = "getting RPC credentials..."
+            self.taskDescription.stringValue = "getting rpc credentials..."
             self.runLaunchScript(script: .getRPCCredentials)
             
         }
@@ -295,7 +295,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.taskDescription.stringValue = "getting Tor hostname..."
+            self.taskDescription.stringValue = "getting tor hostname..."
             self.runLaunchScript(script: .getTorHostname)
             
         }
@@ -306,7 +306,7 @@ class ViewController: NSViewController {
         print("isTorOn")
         
         DispatchQueue.main.async {
-            self.taskDescription.stringValue = "Checking Tor status..."
+            self.taskDescription.stringValue = "checking tor status..."
             self.runLaunchScript(script: .torStatus)
         }
         
@@ -565,14 +565,14 @@ class ViewController: NSViewController {
             }
             
             DispatchQueue.main.async {
-                self.torStatusLabel.stringValue = "✅ Tor v\(version)"
+                self.torStatusLabel.stringValue = "✓ Tor v\(version)"
                 self.installTorOutlet.title = "Start Tor"
             }
             
         } else {
             
             DispatchQueue.main.async {
-                self.torStatusLabel.stringValue = "⛔️ Tor not installed"
+                self.torStatusLabel.stringValue = "╳ Tor not installed"
             }
             
         }
@@ -608,7 +608,7 @@ class ViewController: NSViewController {
             
             DispatchQueue.main.async {
                 
-                self.bitcoinConfLabel.stringValue = "✅ Bitcoin Core configured"
+                self.bitcoinConfLabel.stringValue = "✓ Bitcoin Core configured"
                 
             }
             
@@ -617,7 +617,7 @@ class ViewController: NSViewController {
             
             DispatchQueue.main.async {
                 
-                self.bitcoinConfLabel.stringValue = "⛔️ Bitcoin Core not configured"
+                self.bitcoinConfLabel.stringValue = "╳ Bitcoin Core not configured"
                 
             }
             
@@ -635,7 +635,7 @@ class ViewController: NSViewController {
             // hidden service exists already
             DispatchQueue.main.async {
                 
-                self.torConfLabel.stringValue = "✅ Tor configured"
+                self.torConfLabel.stringValue = "✓ Tor configured"
                 
             }
             
@@ -643,7 +643,7 @@ class ViewController: NSViewController {
             
             DispatchQueue.main.async {
                 
-                self.torConfLabel.stringValue = "⛔️ Tor not configured"
+                self.torConfLabel.stringValue = "╳ Tor not configured"
                 
             }
             
@@ -665,7 +665,7 @@ class ViewController: NSViewController {
                 
                 self.installBitcoindOutlet.isEnabled = true
                 self.verifyOutlet.isEnabled = true
-                self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(currentVersion)"
+                self.bitcoinCoreStatusLabel.stringValue = "✓ Bitcoin Core \(currentVersion)"
                 self.bitcoinInstalled = true
                 
                 let req = FetchJSON()
@@ -675,7 +675,7 @@ class ViewController: NSViewController {
                         
                         print("error getting supported version")
                         DispatchQueue.main.async {
-                            self.updateBitcoinlabel.stringValue = "⛔️ Error getting latest version"
+                            self.updateBitcoinlabel.stringValue = "╳ Error getting latest version"
                         }
                         
                     } else {
@@ -690,14 +690,14 @@ class ViewController: NSViewController {
                             print("up to date")
                             
                             DispatchQueue.main.async {
-                                self.updateBitcoinlabel.stringValue = "✅ Bitcoin Core Up to Date"
+                                self.updateBitcoinlabel.stringValue = "✓ Bitcoin Core up to date"
                             }
                             
                         } else {
                             
                             print("not up to date")
                             DispatchQueue.main.async {
-                                self.updateBitcoinlabel.stringValue = "⛔️ Bitcoin Core Out of Date"
+                                self.updateBitcoinlabel.stringValue = "╳ Bitcoin Core out of date"
                                 self.updateOutlet.isEnabled = true
                             }
                             
@@ -718,7 +718,7 @@ class ViewController: NSViewController {
                 
                 self.installBitcoindOutlet.isEnabled = true
                 self.verifyOutlet.isEnabled = true
-                self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(currentVersion)"
+                self.bitcoinCoreStatusLabel.stringValue = "✓ Bitcoin Core \(currentVersion)"
                 self.bitcoinInstalled = true
                 
                 let req = FetchJSON()
@@ -728,7 +728,7 @@ class ViewController: NSViewController {
                         
                         print("error getting supported version")
                         DispatchQueue.main.async {
-                            self.updateBitcoinlabel.stringValue = "⛔️ Error getting latest version"
+                            self.updateBitcoinlabel.stringValue = "╳ Error getting latest version"
                         }
                         
                     } else {
@@ -743,14 +743,14 @@ class ViewController: NSViewController {
                             print("up to date")
                             
                             DispatchQueue.main.async {
-                                self.updateBitcoinlabel.stringValue = "✅ Bitcoin Core Up to Date"
+                                self.updateBitcoinlabel.stringValue = "✓ Bitcoin Core up to date"
                             }
                             
                         } else {
                             
                             print("not up to date")
                             DispatchQueue.main.async {
-                                self.updateBitcoinlabel.stringValue = "⛔️ Bitcoin Core Out of Date"
+                                self.updateBitcoinlabel.stringValue = "╳ Bitcoin Core out of date"
                                 self.updateOutlet.isEnabled = true
                             }
                             
@@ -765,7 +765,7 @@ class ViewController: NSViewController {
         } else {
             
             DispatchQueue.main.async {
-                self.bitcoinCoreStatusLabel.stringValue = "⛔️ Bitcoin Core not installed"
+                self.bitcoinCoreStatusLabel.stringValue = "╳ Bitcoin Core not installed"
                 self.installBitcoindOutlet.isEnabled = false
                 self.bitcoinInstalled = false
             }
@@ -809,7 +809,7 @@ class ViewController: NSViewController {
         if result.contains("\(binaryName): OK") {
             
             print("results verified")
-            showAlertMessage(message: "Success", info: "Signatures for \(binaryName) and Laanjw SHA256SUMS.asc match")
+            showAlertMessage(message: "Success", info: "Wladimir J. van der Laan signatures for \(binaryName) and SHA256SUMS.asc match")
             
         } else {
             
@@ -949,7 +949,6 @@ class ViewController: NSViewController {
             
             if let vc = segue.destinationController as? QRDisplayer {
                 
-                //vc.rpcport = rpcport
                 vc.rpcpassword = rpcpassword
                 vc.rpcuser = rpcuser
                 vc.torHostname = torHostname
