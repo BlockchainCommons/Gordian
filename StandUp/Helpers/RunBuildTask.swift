@@ -84,9 +84,9 @@ class RunBuildTask {
                     completion()
                     return
                 }
-                
+
                 self.stringToReturn += output as String
-                
+                                
                 DispatchQueue.main.async {
                     
                     if self.showLog {
@@ -98,18 +98,22 @@ class RunBuildTask {
                     }
                     
                     var exitNow = false
-                    
+                        
                     for str in self.exitStrings {
                         
-                        if (output as String).contains(str) {
+                        if output != "" {
                             
-                            exitNow = true
-                            print("exitnow")
+                            if (output as String).contains(str) {
+                                
+                                exitNow = true
+                                print("exitnow")
+                                
+                            }
                             
                         }
                         
                     }
-                    
+                        
                     if exitNow && self.isRunning {
                         
                         if self.buildTask.isRunning {

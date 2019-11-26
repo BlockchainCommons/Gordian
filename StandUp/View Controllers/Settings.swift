@@ -18,6 +18,7 @@ class Settings: NSViewController {
     var seeLog = Bool()
     var standingDown = Bool()
     var args = [String]()
+    var refreshing = Bool()
     
     @IBOutlet var directoryLabel: NSTextField!
     @IBOutlet var textInput: NSTextField!
@@ -26,17 +27,286 @@ class Settings: NSViewController {
     @IBOutlet var pruneOutlet: NSButton!
     @IBOutlet var mainnetOutlet: NSButton!
     @IBOutlet var testnetOutlet: NSButton!
-    @IBOutlet var regtestOutlet: NSButton!
     @IBOutlet var txIndexOutlet: NSButton!
-
+    @IBOutlet var goPrivateOutlet: NSButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setScene()
+        let d = Defaults()
+        d.setDefaults() {
+            
+            self.getSettings()
+            
+        }
         
     }
     
     // MARK: User Actions
+    
+    @IBAction func seeTorLog(_ sender: Any) {
+        
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = []
+        runBuildTask.showLog = false
+        runBuildTask.env = ["":""]
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.runScript(script: .showTorLog) {
+            
+            if !runBuildTask.errorBool {
+                
+                
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    @IBAction func seeBtcLog(_ sender: Any) {
+        
+        let runBuildTask = RunBuildTask()
+        let d = Defaults()
+        runBuildTask.args = []
+        runBuildTask.showLog = false
+        runBuildTask.env = ["DATADIR":d.dataDir()]
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.runScript(script: .showBitcoinLog) {
+            
+            if !runBuildTask.errorBool {
+                
+                
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    
+    @IBAction func refreshHS(_ sender: Any) {
+        
+        actionAlert(message: "Refresh Hidden Service?", info: "This will remove your current Tor hidden service and start a new one, you will need to scan a new QuickConnect QR code to access your node remotely, all existing remote connections will fail.") { (response) in
+            
+            if response {
+                
+                DispatchQueue.main.async {
+                    self.refreshing = true
+                    self.performSegue(withIdentifier: "seeLog", sender: self)
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    @IBAction func goPrivate(_ sender: Any) {
+        
+        let value = goPrivateOutlet.state
+        
+        if value == .on {
+            
+            actionAlert(message: "Go private?", info: "This sets your proxy to the local host and tors control port, binds localhost address, and sets listen to true in your bitcoin.conf, in plain english this means your node will only accept connections over the Tor network, this can make initial block download very slow, it is recommended to go private once your node is fully synced.") { (response) in
+                
+                if response {
+                    
+                    self.privateOn()
+                    
+                }
+                
+            }
+            
+        } else {
+            
+            actionAlert(message: "Disable?", info: "This will enable your node to connect to other nodes over the clearnet, not just over tor, it is recommended to disable this setting when your node is doing the initial block download.") { (result) in
+                
+                self.privateOff()
+                
+            }
+                        
+        }
+        
+    }
+    
+    func privateOn() {
+        
+        var proxyExists = false
+        var debugExists = false
+        var bindExists = false
+        var listenExists = false
+        
+        getBitcoinConf { (conf, error) in
+            
+            if !error {
+                
+                var stringConf = conf.joined(separator: "\n")
+            
+                for c in conf {
+                    
+                    if c.contains("=") {
+                    
+                        let arr = c.components(separatedBy: "=")
+                        let k = arr[0]
+                        let existingValue = arr[1]
+                        
+                        switch k {
+                            
+                        case "#debug", "debug":
+                            
+                            debugExists = true
+                            
+                            if existingValue != "tor" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "debug=tor")
+                                
+                            }
+                            
+                        case "#proxy", "proxy":
+                            
+                            proxyExists = true
+                            
+                            if existingValue != "127.0.0.1:9050" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "proxy=127.0.0.1:9050")
+                                
+                            }
+                            
+                        case "#listen", "listen":
+                            
+                            listenExists = true
+                            
+                            if existingValue != "1" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "listen=1")
+                                
+                            }
+                            
+                        case "#bindaddress", "bindaddress":
+                            
+                            bindExists = true
+                            
+                            if existingValue != "127.0.0.1" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "bindaddress=127.0.0.1")
+                                
+                            }
+                            
+                        default:
+                            
+                            break
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                if !debugExists {
+                    
+                    stringConf = "debug=tor\n" + stringConf + "\n"
+                }
+                
+                if !proxyExists {
+                    
+                    stringConf = "proxy=127.0.0.1:9050\n" + stringConf + "\n"
+                    
+                }
+                
+                if !listenExists {
+                    
+                    stringConf = "listen=1\n" + stringConf + "\n"
+                    
+                }
+                
+                if !bindExists {
+                    
+                    stringConf = "bindaddress=127.0.0.1\n" + stringConf + "\n"
+                    
+                }
+                
+                self.setBitcoinConf(conf: stringConf, activeOutlet: self.goPrivateOutlet, newValue: 3, key: "")
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: "We had a problem getting your bitcoin.conf, please try again", buttonLabel: "OK")
+                
+            }
+            
+        }
+        
+    }
+    
+    func privateOff() {
+        
+        getBitcoinConf { (conf, error) in
+            
+            if !error {
+                
+                var stringConf = conf.joined(separator: "\n")
+            
+                for c in conf {
+                    
+                    if c.contains("=") {
+                    
+                        let arr = c.components(separatedBy: "=")
+                        let k = arr[0]
+                        let existingValue = arr[1]
+                        
+                        switch k {
+                            
+                        case "debug":
+                            
+                            if existingValue == "tor" {
+                                
+                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#debug=\(existingValue)")
+                                
+                            }
+                            
+                        case "proxy":
+                            
+                            stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#proxy=\(existingValue)")
+                            
+                        case "listen":
+                            
+                            stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#listen=\(existingValue)")
+                            
+                        case "bindaddress":
+                            
+                            stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#bindaddress=\(existingValue)")
+                            
+                        default:
+                            break
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                self.setBitcoinConf(conf: stringConf, activeOutlet: self.goPrivateOutlet, newValue: 3, key: "")
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: "We had a problem getting your bitcoin.conf, please try again", buttonLabel: "OK")
+                
+            }
+            
+        }
+        
+    }
+    
     
     @IBAction func seeStandUpLog(_ sender: Any) {
         
@@ -60,7 +330,7 @@ class Settings: NSViewController {
         
         DispatchQueue.main.async {
             
-            actionAlert(message: "Danger!", info: "This will remove the StandUp directory including all its contents!\n\nIt may hold Bitcoin wallets and blockchain data!\n\nThis will remove tor config, tor hidden services and uninstall tor.\n\nAre you aure you want to do this?") { (response) in
+            actionAlert(message: "Danger!", info: "This will remove the StandUp directory including all its contents!\n\nThis will remove tor config, tor hidden services and uninstall tor.\n\nAre you aure you want to do this?") { (response) in
                 
                 if response {
                     
@@ -85,15 +355,14 @@ class Settings: NSViewController {
         DispatchQueue.main.async {
             
             actionAlert(message: "Danger!", info: "This will remove the Bitcoin directory! All Bitcoin Core data including your wallets will be deleted!\n\nAre you sure you want to continue?") { (response) in
-                
-                let datadir = self.ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
-                
+                                
                 if response {
                     
                     let runBuildTask = RunBuildTask()
+                    let d = Defaults()
                     runBuildTask.args = []
                     runBuildTask.showLog = false
-                    runBuildTask.env = ["DATADIR":datadir]
+                    runBuildTask.env = ["DATADIR":d.dataDir()]
                     runBuildTask.exitStrings = ["Done"]
                     runBuildTask.runScript(script: .removeBitcoin) {
                         
@@ -177,21 +446,37 @@ class Settings: NSViewController {
     @IBAction func didSetMainnet(_ sender: Any) {
         
         setOutlet(outlet: mainnetOutlet, keyOn: .mainnet)
-        setSimpleAlert(message: "Updated", info: "In order for these changes to take effect you need to restart Bitcoin Core", buttonLabel: "OK")
+        let value = mainnetOutlet.state.rawValue
+        if value == 1 {
+            
+            // change testnet in bitcoin.conf
+            getBitcoinConf { (conf, error) in
+                
+                if !error {
+                    
+                    self.parseBitcoinConf(conf: conf, keyToUpdate: .testnet, outlet: self.testnetOutlet, newValue: 0)
+                    
+                }
+                
+            }
+            
+        }
         
     }
     
     @IBAction func didSetTestnet(_ sender: Any) {
         
         setOutlet(outlet: testnetOutlet, keyOn: .testnet)
-        setSimpleAlert(message: "Updated", info: "In order for these changes to take effect you need to restart Bitcoin Core", buttonLabel: "OK")
-        
-    }
-    
-    @IBAction func didSetRegtest(_ sender: Any) {
-        
-        setOutlet(outlet: regtestOutlet, keyOn: .regtest)
-        setSimpleAlert(message: "Updated", info: "In order for these changes to take effect you need to restart Bitcoin Core", buttonLabel: "OK")
+        let value = testnetOutlet.state.rawValue
+        getBitcoinConf { (conf, error) in
+            
+            if !error {
+                
+                self.parseBitcoinConf(conf: conf, keyToUpdate: .testnet, outlet: self.testnetOutlet, newValue: value)
+                
+            }
+            
+        }
         
     }
     
@@ -206,9 +491,9 @@ class Settings: NSViewController {
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
                 self.selectedFolder = panel.urls[0]
                 DispatchQueue.main.async {
-                    self.directoryLabel.stringValue = self.selectedFolder?.path ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
+                    self.directoryLabel.stringValue = self.selectedFolder?.path ?? Defaults().dataDir()
                     self.ud.set(self.directoryLabel.stringValue, forKey: "dataDir")
-                    self.setScene()
+                    self.getSettings()
                 }
             }
         }
@@ -244,17 +529,20 @@ class Settings: NSViewController {
     func setBitcoinConf(conf: String, activeOutlet: NSButton, newValue: Int, key: String) {
         print("setBitcoinConf")
         
-        let dataDir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
         let runBuildTask = RunBuildTask()
+        let d = Defaults()
         runBuildTask.args = args
-        runBuildTask.env = ["CONF":conf,"DATADIR":dataDir]
+        runBuildTask.env = ["CONF":conf,"DATADIR":d.dataDir()]
         runBuildTask.showLog = false
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .updateBTCConf) {
             
             if !runBuildTask.errorBool {
                 
-                self.ud.set(newValue, forKey: key)
+                if newValue < 2 {
+                    self.ud.set(newValue, forKey: key)
+                }
+                
                 self.setLog(content: runBuildTask.stringToReturn)
                 setSimpleAlert(message: "Success", info: "bitcoin.conf updated", buttonLabel: "OK")
                 
@@ -282,16 +570,12 @@ class Settings: NSViewController {
         var network = ""
         let mainnet = ud.object(forKey: "mainnet") as! Int
         let testnet = ud.object(forKey: "testnet") as! Int
-        let regtest = ud.object(forKey: "regtest") as! Int
         
         if mainnet == 1 {
             network = "mainnet"
         }
         if testnet == 1 {
             network = "testnet"
-        }
-        if regtest == 1 {
-            network = "regtest"
         }
         
         func alertSettingNotForCurrentNetwork() {
@@ -304,45 +588,6 @@ class Settings: NSViewController {
             
             DispatchQueue.main.async {
                 outlet.setNextState()
-            }
-            
-        }
-        
-        func updateGlobalConfArray(conf: [String], oldValue: Int, newValue: Int, key: String) {
-            print("updateGlobalConfArray")
-            
-            // assuming there will only ever be one global instance of any given setting in bitcoin.conf outside of sections
-            
-            for c in conf {
-                
-                if c.contains("=") {
-                    
-                    let arr = c.components(separatedBy: "=")
-                    let k = arr[0]
-                    let existingValue = arr[1]
-                    print("k = \(k)")
-                    print("key = \(key)")
-                    
-                    if k.contains(key) {
-                        
-                        print("same")
-                        
-                        if let ev = Int(existingValue) {
-                            
-                            if oldValue == ev {
-                                
-                                var stringConf = conf.joined(separator: "\n")
-                                stringConf = stringConf.replacingOccurrences(of: "\(key + "=" + existingValue)", with: "\(key + "=")\(newValue)")
-                                setBitcoinConf(conf: stringConf, activeOutlet: outlet, newValue: newValue, key: key)
-                                
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                }
-                
             }
             
         }
@@ -499,7 +744,7 @@ class Settings: NSViewController {
                                 
                                 if let i = Int(value) {
                                     
-                                    updateGlobalConfArray(conf: conf, oldValue: i, newValue: newValue, key: key)
+                                    self.updateGlobalConfArray(conf: conf, oldValue: i, newValue: newValue, key: key, outlet: outlet)
                                     
                                 } else {
                                     
@@ -531,10 +776,49 @@ class Settings: NSViewController {
             
         }
         
-        if !isUpdatingCorrectNetwork {
+        if !isUpdatingCorrectNetwork && section != "" {
             
             alertSettingNotForCurrentNetwork()
             revert()
+            
+        }
+        
+    }
+    
+    func updateGlobalConfArray(conf: [String], oldValue: Int, newValue: Int, key: String, outlet: NSButton) {
+        print("updateGlobalConfArray")
+        
+        // assuming there will only ever be one global instance of any given setting in bitcoin.conf outside of sections
+        
+        for c in conf {
+            
+            if c.contains("=") {
+                
+                let arr = c.components(separatedBy: "=")
+                let k = arr[0]
+                let existingValue = arr[1]
+                print("k = \(k)")
+                print("key = \(key)")
+                
+                if k.contains(key) {
+                    
+                    print("same")
+                    
+                    if let ev = Int(existingValue) {
+                        
+                        if oldValue == ev {
+                            
+                            var stringConf = conf.joined(separator: "\n")
+                            stringConf = stringConf.replacingOccurrences(of: "\(key + "=" + existingValue)", with: "\(key + "=")\(newValue)")
+                            setBitcoinConf(conf: stringConf, activeOutlet: outlet, newValue: newValue, key: key)
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
             
         }
         
@@ -569,177 +853,19 @@ class Settings: NSViewController {
         
     }
     
-    // MARK: Get bitcoin.conf and assign environment variables for script
-    
-    func getBitcoinConfSettings() {
-        print("getBitcoinConfSettings")
-        
-        args.removeAll()
-        
-        getExisistingRPCCreds { (user, password) in
-            
-            let ud = UserDefaults.standard
-            var rpcpassword = password
-            var rpcuser = user
-            if rpcpassword == "" { rpcpassword = randomString(length: 32) }
-            if rpcuser == "" { rpcuser = randomString(length: 10) }
-            let prune = ud.object(forKey: "prune") as? Int ?? 0
-            let txindex = ud.object(forKey: "txindex") as? Int ?? 1
-            let dataDir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
-            let testnet = ud.object(forKey: "testnet") as? Int ?? 1
-            let mainnet = ud.object(forKey: "mainnet") as? Int ?? 0
-            let regtest = ud.object(forKey: "regtest") as? Int ?? 0
-            let walletDisabled = ud.object(forKey: "walletdisabled") as? Int ?? 0
-            self.args.append(rpcpassword)
-            self.args.append(rpcuser)
-            self.args.append(dataDir)
-            self.args.append("\(prune)")
-            self.args.append("\(mainnet)")
-            self.args.append("\(testnet)")
-            self.args.append("\(regtest)")
-            self.args.append("\(txindex)")
-            self.args.append("\(walletDisabled)")
-            print("args = \(self.args)")
-            
-        }
-        
-    }
-    
-    func setScene() {
-        print("setscene")
-        
-        let compatibleSettings:[BTCCONF] = [.txindex,.prune,.walletdisabled]
-        let incompatibleSettings:[BTCCONF] = [.mainnet,.testnet,.regtest,.datadir]
-                
-        getBitcoinConf { (conf, error) in
-            
-            if !error {
-                
-                if conf.count > 0 {
-                    
-                    for setting in conf {
-                        
-                        if setting.contains("=") {
-                            
-                            let arr = setting.components(separatedBy: "=")
-                            let key = arr[0]
-                            let value = arr[1]
-                            
-                            for c in compatibleSettings {
-                                
-                                if key == c.rawValue {
-                                    
-                                    //set the scene and the default
-                                    print("set \(c.rawValue) outlet to \(value)")
-                                    
-                                    if key == "prune" {
-                                        
-                                        if value == "1" {
-                                            DispatchQueue.main.async {
-                                                self.pruneOutlet.state = .on
-                                                self.ud.set(1, forKey: "prune")
-                                            }
-                                        } else {
-                                            DispatchQueue.main.async {
-                                                self.pruneOutlet.state = .off
-                                                self.ud.set(0, forKey: "prune")
-                                            }
-                                        }
-                                        
-                                    }
-                                    
-                                    if key == "walletdisabled" {
-                                        
-                                        if value == "1" {
-                                            DispatchQueue.main.async {
-                                                self.walletDisabled.state = .on
-                                                self.ud.set(1, forKey: "walletdisabled")
-                                            }
-                                        } else {
-                                            DispatchQueue.main.async {
-                                                self.walletDisabled.state = .off
-                                                self.ud.set(0, forKey: "walletdisabled")
-                                            }
-                                        }
-                                        
-                                    }
-                                    
-                                    if key == "txindex" {
-                                        
-                                        if value == "1" {
-                                            DispatchQueue.main.async {
-                                                self.txIndexOutlet.state = .on
-                                                self.ud.set(1, forKey: "txindex")
-                                            }
-                                        } else {
-                                            DispatchQueue.main.async {
-                                                self.txIndexOutlet.state = .off
-                                                self.ud.set(0, forKey: "txindex")
-                                            }
-                                        }
-                                        
-                                    }
-                                                                        
-                                }
-                                
-                            }
-                            
-                            for x in incompatibleSettings {
-                                
-                                if key == x.rawValue {
-                                    
-                                    // warn user this setting is not compatible with their exisiting bitcoin.conf, from what I can tell you can not specify a datdir when launching bitcoind and also specify a datadir in your bitcoin.conf, same goes for networks
-                                    
-                                    print("incompatible setting warning \(key)")
-                                    
-                                    setSimpleAlert(message: "Warning!", info: "Your bitcoin.conf has settings in it which are not compatible with StandUp, you can not specifiy a network or a datadir in your bitcoin.conf if you want to use it with StandUp.\n\nTo fix it you need to delete either the datadir, testnet or regtest setting from your bitcoin.conf and instead select the datadir or network here in StandUp\n\nIf you do not do this you will get errors when trying to use StandUp.", buttonLabel: "OK")
-                                    
-                                }
-                                
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                    self.getSettings()
-                    
-                } else {
-                    
-                    self.getSettings()
-                    
-                }
-                
-            } else {
-                
-               setSimpleAlert(message: "Error", info: "We had an error fetching the bitcoin.conf file", buttonLabel: "OK")
-                
-            }
-            
-        }
-        
-    }
-    
     func getBitcoinConf(completion: @escaping ((conf: [String], error: Bool)) -> Void) {
         
-        let datadir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
         let runBuildTask = RunBuildTask()
+        let d = Defaults()
         runBuildTask.args = []
-        runBuildTask.env = ["DATADIR":datadir]
+        runBuildTask.env = ["DATADIR":d.dataDir()]
         runBuildTask.showLog = false
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .getRPCCredentials) {
             
             if !runBuildTask.errorBool {
                 
-                var conf = (runBuildTask.stringToReturn).components(separatedBy: "\n")
-                print("conf = \(conf)")
-//                for (i, c) in conf.enumerated() {
-//                    if c == "" {
-//                        conf.remove(at: i)
-//                    }
-//                }
-                
+                let conf = (runBuildTask.stringToReturn).components(separatedBy: "\n")
                 completion((conf, false))
                 
             } else {
@@ -752,54 +878,7 @@ class Settings: NSViewController {
         }
         
     }
-    
-    func getExisistingRPCCreds(completion: @escaping ((user: String, password: String)) -> Void) {
-        print("getExisistingRPCCreds")
         
-        var user = ""
-        var password = ""
-        let datadir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
-        let runBuildTask = RunBuildTask()
-        runBuildTask.args = []
-        runBuildTask.env = ["DATADIR":datadir]
-        runBuildTask.exitStrings = ["Done"]
-        runBuildTask.runScript(script: .getRPCCredentials) {
-            
-            if !runBuildTask.errorBool {
-                
-                let conf = (runBuildTask.stringToReturn).components(separatedBy: "\n")
-                
-                for item in conf {
-                    
-                    if item.contains("rpcuser") {
-                        
-                        let arr = item.components(separatedBy: "rpcuser=")
-                        user = arr[1]
-                        
-                    }
-                    
-                    if item.contains("rpcpassword") {
-                        
-                        let arr = item.components(separatedBy: "rpcpassword=")
-                        password = arr[1]
-                        
-                    }
-                    
-                    completion((user: user, password: password))
-                    
-                }
-                
-            } else {
-                
-                completion((user: "", password: ""))
-                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
-                
-            }
-            
-        }
-        
-    }
-    
     // MARK: Update User Interface
     
     func goBackAndRefresh() {
@@ -822,22 +901,41 @@ class Settings: NSViewController {
         
     }
     
+    func setState(int: Int, outlet: NSButton) {
+        
+        print("int = \(int) outlet = \(outlet)")
+        
+        if int == 1 {
+            
+            DispatchQueue.main.async {
+                outlet.state = .on
+            }
+                        
+        } else if int == 0 {
+            
+            DispatchQueue.main.async {
+                outlet.state = .off
+            }
+        }
+        
+    }
+    
     func getSettings() {
         print("getSettings")
         
-        getSetting(key: .prune, button: pruneOutlet, def: 0)
-        getSetting(key: .txindex, button: txIndexOutlet, def: 1)
         getSetting(key: .mainnet, button: mainnetOutlet, def: 0)
         getSetting(key: .testnet, button: testnetOutlet, def: 1)
-        getSetting(key: .regtest, button: regtestOutlet, def: 0)
-        getSetting(key: .walletdisabled, button: walletDisabled, def: 0)
+        
+        let d = Defaults()
+        setState(int: d.prune(), outlet: pruneOutlet)
+        setState(int: d.txindex(), outlet: txIndexOutlet)
+        setState(int: d.walletdisabled(), outlet: walletDisabled)
+        setState(int: d.isPrivate(), outlet: goPrivateOutlet)
         
         if ud.object(forKey: "dataDir") != nil {
-            
-            let dd = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
-            
+                        
             DispatchQueue.main.async {
-                self.directoryLabel.stringValue = dd
+                self.directoryLabel.stringValue = d.dataDir()
             }
             
         }
@@ -879,7 +977,7 @@ class Settings: NSViewController {
         let key = keyOn.rawValue
         ud.set(b, forKey: key)
         print("set key: \(key) to \(b)")
-        let networkKeys = ["mainnet","testnet","regtest"]
+        let networkKeys = ["mainnet","testnet"]
         
         if b == 0 {
             
@@ -907,7 +1005,7 @@ class Settings: NSViewController {
     
     func updateOutlets(activeOutlet: NSButton) {
 
-        let outlets = [regtestOutlet, testnetOutlet, mainnetOutlet]
+        let outlets = [testnetOutlet, mainnetOutlet]
         DispatchQueue.main.async {
             for o in outlets {
                 if o != activeOutlet {
@@ -941,6 +1039,7 @@ class Settings: NSViewController {
             
             if let vc = segue.destinationController as? Installer {
                 
+                vc.refreshing = refreshing
                 vc.seeLog = seeLog
                 vc.standingDown = standingDown
                 

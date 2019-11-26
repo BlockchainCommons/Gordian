@@ -21,6 +21,7 @@ class Installer: NSViewController {
     var standingDown = Bool()
     var upgrading = Bool()
     var standUpConf = ""
+    var refreshing = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,6 +112,11 @@ class Installer: NSViewController {
             
             getURLs()
 
+        } else if refreshing {
+            
+            refreshing = false
+            refreshHS()
+            
         }
         
         DispatchQueue.main.async {
@@ -153,8 +159,14 @@ class Installer: NSViewController {
     
     func checkExistingConf() {
         
+        let d = Defaults()
         var userExists = false
         var passwordExists = false
+        var testnetExists = false
+        var proxyExists = false
+        var debugExists = false
+        var bindExists = false
+        var listenExists = false
         
         getBitcoinConf { (conf, error) in
             
@@ -172,23 +184,48 @@ class Installer: NSViewController {
                             let k = arr[0]
                             let existingValue = arr[1]
                             
-                            if k == "rpcuser" {
+                            switch k {
+                            case "rpcuser":
                                 
                                 if existingValue != "" {
                                     
                                     userExists = true
                                 }
                                 
-                            }
-                            
-                            if k == "rpcpassword" {
+                            case "rpcpassword":
                                 
                                 if existingValue != "" {
                                     
                                     passwordExists = true
                                     
                                 }
-                                                                
+                                
+                            case "testnet":
+                                
+                                if existingValue != "" {
+                                    
+                                    testnetExists = true
+                                    
+                                }
+                                
+                            case "proxy":
+                                
+                                proxyExists = true
+                                
+                            case "listen":
+                                
+                                listenExists = true
+                                
+                            case "bindaddress":
+                                
+                                bindExists = true
+                                
+                            case "debug":
+                                
+                                debugExists = true
+                                
+                            default:
+                                break
                             }
                             
                         }
@@ -215,6 +252,35 @@ class Installer: NSViewController {
                         
                     }
                     
+                    if !testnetExists {
+                        
+                        self.standUpConf = "testnet=\(d.testnet())\n" + self.standUpConf + "\n"
+                        
+                    }
+                    
+                    if !debugExists {
+                        
+                        self.standUpConf = "#debug=tor\n" + self.standUpConf + "\n"
+                    }
+                    
+                    if !proxyExists {
+                        
+                        self.standUpConf = "#proxy=127.0.0.1:9050\n" + self.standUpConf + "\n"
+                        
+                    }
+                    
+                    if !listenExists {
+                        
+                        self.standUpConf = "#listen=1\n" + self.standUpConf + "\n"
+                        
+                    }
+                    
+                    if !bindExists {
+                        
+                        self.standUpConf = "#bindaddress=127.0.0.1\n" + self.standUpConf + "\n"
+                        
+                    }
+                    
                     self.getURLs()
                     
                 } else {
@@ -225,7 +291,7 @@ class Installer: NSViewController {
                     let txindex = self.ud.object(forKey: "txindex") as? Int ?? 1
                     let walletDisabled = self.ud.object(forKey: "walletDisabled") as? Int ?? 0
                     
-                    self.standUpConf = "walletdisabled=\(walletDisabled)\nrpcuser=\(randomString(length: 10))\nrpcpassword=\(randomString(length: 32))\nserver=1\nprune=\(prune)\ntxindex=\(txindex)\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
+                    self.standUpConf = "testnet=\(d.testnet())\nwalletdisabled=\(walletDisabled)\nrpcuser=\(randomString(length: 10))\nrpcpassword=\(randomString(length: 32))\nserver=1\nprune=\(prune)\ntxindex=\(txindex)\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
                     
                     self.getURLs()
                     
@@ -250,10 +316,6 @@ class Installer: NSViewController {
                 
                 DispatchQueue.main.async {
                     
-                    let ud = UserDefaults.standard
-                    let domain = Bundle.main.bundleIdentifier!
-                    ud.removePersistentDomain(forName: domain)
-                    ud.synchronize()
                     self.hideSpinner()
                     self.setLog(content: self.consoleOutput.string)
                     setSimpleAlert(message: "Success", info: "You have StoodDown", buttonLabel: "OK")
@@ -275,10 +337,10 @@ class Installer: NSViewController {
         
         DispatchQueue.main.async {
             
+            let d = Defaults()
             let runBuildTask = RunBuildTask()
             runBuildTask.args = []
-            let datadir = self.ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
-            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version, "CONF":self.standUpConf, "DATADIR":datadir]
+            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version, "CONF":self.standUpConf, "DATADIR":d.dataDir()]
             runBuildTask.textView = self.consoleOutput
             runBuildTask.showLog = true
             runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
@@ -299,6 +361,33 @@ class Installer: NSViewController {
                    setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
                     
                 }
+                
+            }
+            
+        }
+        
+    }
+    
+    func refreshHS() {
+        
+        let runBuildTask = RunBuildTask()
+        runBuildTask.args = []
+        runBuildTask.showLog = true
+        runBuildTask.textView = consoleOutput
+        runBuildTask.env = ["":""]
+        runBuildTask.exitStrings = ["Done"]
+        runBuildTask.runScript(script: .refreshHS) {
+            
+            if !runBuildTask.errorBool {
+                
+                self.setLog(content: runBuildTask.stringToReturn)
+                setSimpleAlert(message: "Success", info: "Tor hidden service was refreshed, go back and scan the new QR Code to connect", buttonLabel: "OK")
+                
+                self.goBack()
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: runBuildTask.errorDescription, buttonLabel: "OK")
                 
             }
             
@@ -385,10 +474,10 @@ class Installer: NSViewController {
         
         var user = ""
         var password = ""
-        let datadir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
+        let d = Defaults()
         let runBuildTask = RunBuildTask()
         runBuildTask.args = []
-        runBuildTask.env = ["DATADIR":datadir]
+        runBuildTask.env = ["DATADIR":d.dataDir()]
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .getRPCCredentials) {
             
@@ -428,10 +517,10 @@ class Installer: NSViewController {
     
     func getBitcoinConf(completion: @escaping ((conf: [String], error: Bool)) -> Void) {
         
-        let datadir = ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data"
+        let d = Defaults()
         let runBuildTask = RunBuildTask()
         runBuildTask.args = []
-        runBuildTask.env = ["DATADIR":datadir]
+        runBuildTask.env = ["DATADIR":d.dataDir()]
         runBuildTask.showLog = false
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .getRPCCredentials) {

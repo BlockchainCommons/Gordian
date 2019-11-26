@@ -57,7 +57,31 @@ If you are a software developer you can join us by offering issues and pull requ
 
 #### What does it do?
 
-The application *Bitcoin Standup.app* currently installs, configures, and launches `tor stable v0.4.1.6` and `bitcoin-qt v0.19.0`. The app is under development and as it stands will install and configure a Bitcoin Core full node.
+The application *Bitcoin Standup.app* currently installs, configures, and launches `tor stable v0.4.1.6` and `bitcoin-qt v0.19.0`. The app is under development and as it stands will install and configure a Bitcoin Core full node, Tor as a service, a Tor V3 hidden service controlling each  `rpcport` with native client cookie authentication. The app allows the user to set custom settings including `txindex`, `prune`, `walletdisabled`, `testnet`, `mainnet`, `datadir` which should not interfere with any exisiting bitcoin.conf settings. It offeres a simple `go private` option which closes off your node to the clearnet only accepting connections over Tor. The user may refresh their hidden service at the push of a button.
+
+The default `bitcoin.conf` is:
+```
+testnet=1
+walletdisabled=0
+rpcuser=arandomstring
+rpcpassword=astrongrandompassword
+server=1
+prune=0
+txindex=1
+rpcallowip=127.0.0.1
+bindaddress=127.0.0.1
+proxy=127.0.0.1:9050
+listen=1
+debug=tor
+[main]
+rpcport=8332
+[test]
+rpcport=18332
+[regtest]
+rpcport=18443
+```
+
+If there is an exisiting `bitcoin.conf` in your `datadir` then *Bitcoin Standup.app* will simply check for and add `rpccredentials` if they are missing. 
 
 Once the app has completely installed and launched Bitcoin, it will present a *Quick Connect QR code* which can be used to securely link your full node remotely over Tor to other devices, such as the iOS application [Fully Noded](https://github.com/FontaineDenton/FullyNoded).
 
@@ -128,7 +152,7 @@ This is currently a work in progress (there is no Quick Connect URI at the end o
 
 This section defines the spec for a deep link URI and a scannable QR Code. These ideally would have the same format among a number of different software projects and hardware products to ensure universal compatibility.
 
-The iOS application [Fully Noded](https://github.com/FontaineDenton/FullyNoded) is a proof of concept of such a light client. The only server side node manufacturer supporting this protocol is [Nodl](https://www.nodl.it/) (release is imminent).
+The iOS application [Fully Noded](https://github.com/FontaineDenton/FullyNoded) is a proof of concept of such a light client. The server side node manufacturers/providers supporting this protocol are [BTCPayServer](https://btcpayserver.org), [Nodl](https://www.nodl.it/), [MyNode](http://www.mynodebtc.com) and [RaspiBlitz](https://github.com/rootzoll/raspiblitz).
 
 #### Current Format
 

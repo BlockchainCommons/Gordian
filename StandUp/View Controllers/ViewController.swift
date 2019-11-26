@@ -26,6 +26,7 @@ class ViewController: NSViewController {
     @IBOutlet var standUpOutlet: NSButton!
     @IBOutlet var verifyOutlet: NSButton!
     @IBOutlet var updateOutlet: NSButton!
+    @IBOutlet var icon: NSImageView!
     
     var rpcpassword = ""
     var rpcuser = ""
@@ -44,73 +45,18 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        icon.wantsLayer = true
+        icon.layer?.cornerRadius = icon.frame.width / 2
+        icon.layer?.masksToBounds = true
         isLoading = true
         setScene()
-        setDefaults()
-        setEnv { self.isBitcoinOn() }
-        
-    }
-    
-    //MARK: Set default settings
-    
-    func setDefaults() {
-        print("setDefaults")
-        
-        // TO DO: Ideally should fetch the actual bitcoin.conf first and if they exist set them in the app just incase user edits manually, otherwise the settings in the app will be out of sync
-                
-        let ud = UserDefaults.standard
-        
-        if ud.object(forKey: "pruned") == nil {
+        let d = Defaults()
+        d.setDefaults {
             
-            ud.set(0, forKey: "pruned")
+            self.setEnv { self.isBitcoinOn() }
             
         }
         
-        if ud.object(forKey: "txindex") == nil {
-            
-            ud.set(1, forKey: "txindex")
-            
-        }
-        
-        if ud.object(forKey: "dataDir") == nil {
-            
-            ud.set("/Users/\(NSUserName())/StandUp/BitcoinCore/Data", forKey: "dataDir")
-            
-        } else {
-            
-            print("datadir=\(ud.object(forKey: "dataDir") as! String)")
-        }
-        
-        if ud.object(forKey: "testnet") == nil {
-            
-            ud.set(1, forKey: "testnet")
-            
-        }
-        
-        if ud.object(forKey: "mainnet") == nil {
-            
-            ud.set(0, forKey: "mainnet")
-            
-        }
-        
-        if ud.object(forKey: "regtest") == nil {
-            
-            ud.set(0, forKey: "regtest")
-            
-        }
-        
-        if ud.object(forKey: "walletdisabled") == nil {
-            
-            ud.set(0, forKey: "walletdisabled")
-            
-        }
-        
-        if ud.object(forKey: "nodeLabel") == nil {
-            
-            ud.set("StandUp Node", forKey: "nodeLabel")
-            
-        }
-    
     }
     
     //MARK: User Action Segues
@@ -148,7 +94,7 @@ class ViewController: NSViewController {
                 } else {
                     
                     let version = dict!["version"] as! String
-                    actionAlert(message: "Upgrade to Bitcoin Core \(version)?", info: "Upgrading removes the ~/StandUp directory completely and writes over it!\n\nAre you sure you would like to upgrade to Bitcoin Core version \(version)?") { (response) in
+                    actionAlert(message: "Upgrade to Bitcoin Core \(version)?", info: "Upgrading writes over the ~/StandUp directory completely.\n\nAre you sure you would like to upgrade to Bitcoin Core version \(version)?") { (response) in
                         
                         if response {
                             
@@ -197,7 +143,7 @@ class ViewController: NSViewController {
                 
                 self.hideSpinner()
                 
-                self.showstandUpAlert(message: "Ready to StandUp?", info: "StandUp installs and configures a fully indexed Bitcoin Core v\(version) testnet node and Tor v0.4.1.6\n\n~30gb of space needed for testnet and ~300gb for mainnet\n\nIf you would like to install a different node go to \"Settings\" for pruning, network, data directory and tor related options, you can always adjust the settings and restart your node for the changes to take effect.\n\nStandUp will create the following directory: /Users/\(NSUserName())/StandUp\n\nBy default it will create a bitcoin.conf in /Users/\(NSUserName())/StandUp/BitcoinCore/Data, you can also specify a custom data directory in settings, if you do this it will check for an exisiting bitcoin.conf and add a rpcuser and rpcpassword if they do not already exist.")
+                self.showstandUpAlert(message: "Ready to StandUp?", info: "StandUp installs and configures a fully indexed Bitcoin Core v\(version) testnet node and Tor v0.4.1.6\n\n~30gb of space needed for testnet and ~300gb for mainnet\n\nIf you would like to install a different node go to \"Settings\" for pruning, mainnet, data directory and tor related options, you can always adjust the settings and restart your node for the changes to take effect.\n\nStandUp will create the following directory: /Users/\(NSUserName())/StandUp\n\nBy default it will create or if one exists add any missing rpc credentials to the bitcoin.conf in \(Defaults().dataDir()).")
                 
             }
             
@@ -212,7 +158,7 @@ class ViewController: NSViewController {
             
             DispatchQueue.main.async {
                 
-                self.startSpinner(description: "Starting Tor...")
+                self.startSpinner(description: "starting tor...")
                 self.installTorOutlet.isEnabled = false
                 
             }
@@ -223,7 +169,7 @@ class ViewController: NSViewController {
             
             DispatchQueue.main.async {
                 
-                self.startSpinner(description: "Stopping Tor...")
+                self.startSpinner(description: "stopping tor...")
                 self.installTorOutlet.isEnabled = false
                 
             }
@@ -258,7 +204,7 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 
                 
-                self.startSpinner(description: "stopping Bitcoin Core...")
+                self.startSpinner(description: "stopping bitcoin core...")
                 self.installBitcoindOutlet.isEnabled = false
                 
             }
@@ -276,7 +222,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.taskDescription.stringValue = "checking if Bitcoin Core is running..."
+            self.taskDescription.stringValue = "checking if bitcoin core is running..."
             self.runLaunchScript(script: .isBitcoinOn)
             
         }
@@ -288,7 +234,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.taskDescription.stringValue = "verifying PGP signatures..."
+            self.taskDescription.stringValue = "verifying pgp signatures..."
             self.runLaunchScript(script: .verifyBitcoin)
             self.hideSpinner()
             
@@ -301,7 +247,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.taskDescription.stringValue = "checking if Bitcoin Core is installed..."
+            self.taskDescription.stringValue = "checking if bitcoin core is installed..."
             self.runLaunchScript(script: .checkForBitcoin)
             
         }
@@ -313,7 +259,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.taskDescription.stringValue = "checking if Tor is installed..."
+            self.taskDescription.stringValue = "checking if tor is installed..."
             self.runLaunchScript(script: .checkForTor)
             
         }
@@ -337,7 +283,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.taskDescription.stringValue = "getting RPC credentials..."
+            self.taskDescription.stringValue = "getting rpc credentials..."
             self.runLaunchScript(script: .getRPCCredentials)
             
         }
@@ -349,7 +295,7 @@ class ViewController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.taskDescription.stringValue = "getting Tor hostname..."
+            self.taskDescription.stringValue = "getting tor hostname..."
             self.runLaunchScript(script: .getTorHostname)
             
         }
@@ -360,7 +306,7 @@ class ViewController: NSViewController {
         print("isTorOn")
         
         DispatchQueue.main.async {
-            self.taskDescription.stringValue = "Checking Tor status..."
+            self.taskDescription.stringValue = "checking tor status..."
             self.runLaunchScript(script: .torStatus)
         }
         
@@ -372,31 +318,15 @@ class ViewController: NSViewController {
         print("runlaunchscript: \(script.rawValue)")
         
         let ud = UserDefaults.standard
+        let d = Defaults()
         
         switch script {
             
         case .isBitcoinOn, .checkForBitcoin, .startBitcoinqt, .stopBitcoin, .getRPCCredentials:
-            
-            var chain = ""
-            let testnet = ud.object(forKey: "testnet") as! Int
-            let mainnet = ud.object(forKey: "mainnet") as! Int
-            let regtest = ud.object(forKey: "regtest") as! Int
-            
-            if mainnet == 1 {
-                chain = "main"
-            }
-            
-            if testnet == 1 {
-                chain = "test"
-            }
-            
-            if regtest == 1 {
-                chain = "regtest"
-            }
-            
-            self.env["CHAIN"] = chain
+                        
+            self.env["CHAIN"] = d.chain()
             self.env["PREFIX"] = ud.object(forKey: "binaryPrefix") as? String ?? "bitcoin-0.19.0rc3"
-            self.env["DATADIR"] = "\(ud.object(forKey: "dataDir") as? String ?? "/Users/\(NSUserName())/StandUp/BitcoinCore/Data")"
+            self.env["DATADIR"] = d.dataDir()
             
         default:
             
@@ -420,7 +350,7 @@ class ViewController: NSViewController {
                 
                 let str = runBuildTask.stringToReturn
                 print("str = \(str)")
-                self.setLog(content: str)
+                //self.setLog(content: str)
                 self.parseScriptResult(script: script, result: str)
                 
             } else {
@@ -486,7 +416,7 @@ class ViewController: NSViewController {
         } else if result.contains("Could not connect to the server") {
             
             hideSpinner()
-            setSimpleAlert(message: "Error", info: result, buttonLabel: "OK")
+            setSimpleAlert(message: "", info: "Looks like Bitcoin Core is not running", buttonLabel: "OK")
             
         } else {
             
@@ -503,9 +433,7 @@ class ViewController: NSViewController {
             
             bitcoinStopped()
             
-            DispatchQueue.main.async {
-                setSimpleAlert(message: "Error", info: result, buttonLabel: "OK")
-            }
+            setSimpleAlert(message: "", info: "Looks like Bitcoin Core is not running", buttonLabel: "OK")
             
         } else if result.contains("chain") {
             
@@ -637,14 +565,14 @@ class ViewController: NSViewController {
             }
             
             DispatchQueue.main.async {
-                self.torStatusLabel.stringValue = "✅ Tor v\(version)"
+                self.torStatusLabel.stringValue = "✓ Tor v\(version)"
                 self.installTorOutlet.title = "Start Tor"
             }
             
         } else {
             
             DispatchQueue.main.async {
-                self.torStatusLabel.stringValue = "⛔️ Tor not installed"
+                self.torStatusLabel.stringValue = "╳ Tor not installed"
             }
             
         }
@@ -680,7 +608,7 @@ class ViewController: NSViewController {
             
             DispatchQueue.main.async {
                 
-                self.bitcoinConfLabel.stringValue = "✅ Bitcoin Core configured"
+                self.bitcoinConfLabel.stringValue = "✓ Bitcoin Core configured"
                 
             }
             
@@ -689,7 +617,7 @@ class ViewController: NSViewController {
             
             DispatchQueue.main.async {
                 
-                self.bitcoinConfLabel.stringValue = "⛔️ Bitcoin Core not configured"
+                self.bitcoinConfLabel.stringValue = "╳ Bitcoin Core not configured"
                 
             }
             
@@ -707,7 +635,7 @@ class ViewController: NSViewController {
             // hidden service exists already
             DispatchQueue.main.async {
                 
-                self.torConfLabel.stringValue = "✅ Tor configured"
+                self.torConfLabel.stringValue = "✓ Tor configured"
                 
             }
             
@@ -715,7 +643,7 @@ class ViewController: NSViewController {
             
             DispatchQueue.main.async {
                 
-                self.torConfLabel.stringValue = "⛔️ Tor not configured"
+                self.torConfLabel.stringValue = "╳ Tor not configured"
                 
             }
             
@@ -737,7 +665,7 @@ class ViewController: NSViewController {
                 
                 self.installBitcoindOutlet.isEnabled = true
                 self.verifyOutlet.isEnabled = true
-                self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(currentVersion)"
+                self.bitcoinCoreStatusLabel.stringValue = "✓ Bitcoin Core \(currentVersion)"
                 self.bitcoinInstalled = true
                 
                 let req = FetchJSON()
@@ -747,7 +675,7 @@ class ViewController: NSViewController {
                         
                         print("error getting supported version")
                         DispatchQueue.main.async {
-                            self.updateBitcoinlabel.stringValue = "⛔️ Error getting latest version"
+                            self.updateBitcoinlabel.stringValue = "╳ Error getting latest version"
                         }
                         
                     } else {
@@ -762,14 +690,14 @@ class ViewController: NSViewController {
                             print("up to date")
                             
                             DispatchQueue.main.async {
-                                self.updateBitcoinlabel.stringValue = "✅ Bitcoin Core Up to Date"
+                                self.updateBitcoinlabel.stringValue = "✓ Bitcoin Core up to date"
                             }
                             
                         } else {
                             
                             print("not up to date")
                             DispatchQueue.main.async {
-                                self.updateBitcoinlabel.stringValue = "⛔️ Bitcoin Core Out of Date"
+                                self.updateBitcoinlabel.stringValue = "╳ Bitcoin Core out of date"
                                 self.updateOutlet.isEnabled = true
                             }
                             
@@ -790,7 +718,7 @@ class ViewController: NSViewController {
                 
                 self.installBitcoindOutlet.isEnabled = true
                 self.verifyOutlet.isEnabled = true
-                self.bitcoinCoreStatusLabel.stringValue = "✅ Bitcoin Core \(currentVersion)"
+                self.bitcoinCoreStatusLabel.stringValue = "✓ Bitcoin Core \(currentVersion)"
                 self.bitcoinInstalled = true
                 
                 let req = FetchJSON()
@@ -800,7 +728,7 @@ class ViewController: NSViewController {
                         
                         print("error getting supported version")
                         DispatchQueue.main.async {
-                            self.updateBitcoinlabel.stringValue = "⛔️ Error getting latest version"
+                            self.updateBitcoinlabel.stringValue = "╳ Error getting latest version"
                         }
                         
                     } else {
@@ -815,14 +743,14 @@ class ViewController: NSViewController {
                             print("up to date")
                             
                             DispatchQueue.main.async {
-                                self.updateBitcoinlabel.stringValue = "✅ Bitcoin Core Up to Date"
+                                self.updateBitcoinlabel.stringValue = "✓ Bitcoin Core up to date"
                             }
                             
                         } else {
                             
                             print("not up to date")
                             DispatchQueue.main.async {
-                                self.updateBitcoinlabel.stringValue = "⛔️ Bitcoin Core Out of Date"
+                                self.updateBitcoinlabel.stringValue = "╳ Bitcoin Core out of date"
                                 self.updateOutlet.isEnabled = true
                             }
                             
@@ -837,7 +765,7 @@ class ViewController: NSViewController {
         } else {
             
             DispatchQueue.main.async {
-                self.bitcoinCoreStatusLabel.stringValue = "⛔️ Bitcoin Core not installed"
+                self.bitcoinCoreStatusLabel.stringValue = "╳ Bitcoin Core not installed"
                 self.installBitcoindOutlet.isEnabled = false
                 self.bitcoinInstalled = false
             }
@@ -881,7 +809,7 @@ class ViewController: NSViewController {
         if result.contains("\(binaryName): OK") {
             
             print("results verified")
-            showAlertMessage(message: "Success", info: "Signatures for \(binaryName) and Laanjw SHA256SUMS.asc match")
+            showAlertMessage(message: "Success", info: "Wladimir J. van der Laan signatures for \(binaryName) and SHA256SUMS.asc match")
             
         } else {
             
@@ -912,6 +840,7 @@ class ViewController: NSViewController {
                 let binaryName = dict!["macosBinary"] as! String
                 let prefix = dict!["binaryPrefix"] as! String
                 self.env = ["BINARY_NAME":binaryName,"VERSION":version,"PREFIX":prefix]
+                print("env = \(self.env)")
                 completion()
                 
             }
@@ -1020,7 +949,6 @@ class ViewController: NSViewController {
             
             if let vc = segue.destinationController as? QRDisplayer {
                 
-                //vc.rpcport = rpcport
                 vc.rpcpassword = rpcpassword
                 vc.rpcuser = rpcuser
                 vc.torHostname = torHostname
