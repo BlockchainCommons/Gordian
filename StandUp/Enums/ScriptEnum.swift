@@ -41,7 +41,7 @@ public enum BTCCONF: String {
     case mainnet = "mainnet"
     case testnet = "testnet"
     case regtest = "regtest"
-    case walletdisabled = "walletdisabled"
+    case disablewallet = "disablewallet"
     case datadir = "datadir"
     
 }
