@@ -165,10 +165,27 @@ chmod 700 /var/lib/tor/standup
 
 # add V3 authorized_clients public key if one exists
 
-if ! [ $PUBKEY == "" ]; then
-  echo $PUBKEY > /var/lib/tor/standup/authorized_clients/fullynoded.auth
+if ! [ $PUBKEY == "" ]
+then
+
+  # create the directory manually incase tor.service did not restart quickly enough
+  mkdir /var/lib/tor/standup/authorized_clients
+
+  # Create the file for the pubkey
+  sudo touch /var/lib/tor/standup/authorized_clients/fullynoded.auth
+
+  # Write the pubkey to the file
+  sudo echo $PUBKEY > /var/lib/tor/standup/authorized_clients/fullynoded.auth
+
+  # Restart tor for authentication to take effect
+  sudo systemctl restart tor.service
+
+  echo "$0 - Successfully added Tor V3 authentication"
+
 else
-  echo "No Tor V3 authentication, anyone who gets access to your QR code can have full access to your node, ensure you do not store more then you are willing to lose and better yet use the node as a watch-only wallet"
+
+  echo "$0 - No Tor V3 authentication, anyone who gets access to your QR code can have full access to your node, ensure you do not store more then you are willing to lose and better yet use the node as a watch-only wallet"
+
 fi
 
 # Add standup to the tor group so that the tor authentication cookie can be read by bitcoind
