@@ -163,45 +163,29 @@ class Settings: NSViewController {
                         
                         switch k {
                             
-                        case "#debug", "debug":
+                        case "#debug":
                             
                             debugExists = true
                             
-                            if existingValue != "tor" {
-                                
-                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "debug=tor")
-                                
-                            }
+                            stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "debug=tor")
                             
-                        case "#proxy", "proxy":
+                        case "#proxy":
                             
                             proxyExists = true
                             
-                            if existingValue != "127.0.0.1:9050" {
-                                
-                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "proxy=127.0.0.1:9050")
-                                
-                            }
+                            stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "proxy=127.0.0.1:9050")
                             
-                        case "#listen", "listen":
+                        case "#listen":
                             
                             listenExists = true
                             
-                            if existingValue != "1" {
-                                
-                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "listen=1")
-                                
-                            }
+                            stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "listen=1")
                             
-                        case "#bindaddress", "bindaddress":
+                        case "#bindaddress":
                             
                             bindExists = true
                             
-                            if existingValue != "127.0.0.1" {
-                                
-                                stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "bindaddress=127.0.0.1")
-                                
-                            }
+                            stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "bindaddress=127.0.0.1")
                             
                         default:
                             
@@ -215,24 +199,24 @@ class Settings: NSViewController {
                 
                 if !debugExists {
                     
-                    stringConf = "debug=tor\n" + stringConf + "\n"
+                    stringConf = "debug=tor\n" + stringConf
                 }
                 
                 if !proxyExists {
                     
-                    stringConf = "proxy=127.0.0.1:9050\n" + stringConf + "\n"
+                    stringConf = "proxy=127.0.0.1:9050\n" + stringConf
                     
                 }
                 
                 if !listenExists {
                     
-                    stringConf = "listen=1\n" + stringConf + "\n"
+                    stringConf = "listen=1\n" + stringConf
                     
                 }
                 
                 if !bindExists {
                     
-                    stringConf = "bindaddress=127.0.0.1\n" + stringConf + "\n"
+                    stringConf = "bindaddress=127.0.0.1\n" + stringConf
                     
                 }
                 
@@ -266,7 +250,7 @@ class Settings: NSViewController {
                         
                         switch k {
                             
-                        case "debug":
+                        case "debug", "#debug":
                             
                             if existingValue == "tor" {
                                 
@@ -274,15 +258,15 @@ class Settings: NSViewController {
                                 
                             }
                             
-                        case "proxy":
+                        case "proxy", "#proxy":
                             
                             stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#proxy=\(existingValue)")
                             
-                        case "listen":
+                        case "listen", "#listen":
                             
                             stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#listen=\(existingValue)")
                             
-                        case "bindaddress":
+                        case "bindaddress", "#bindaddress":
                             
                             stringConf = stringConf.replacingOccurrences(of: "\(k + "=" + existingValue)", with: "#bindaddress=\(existingValue)")
                             
@@ -406,7 +390,7 @@ class Settings: NSViewController {
             
             if !error {
                 
-                self.parseBitcoinConf(conf: conf, keyToUpdate: .walletdisabled, outlet: self.walletDisabled, newValue: value)
+                self.parseBitcoinConf(conf: conf, keyToUpdate: .disablewallet, outlet: self.walletDisabled, newValue: value)
                 
             }
             

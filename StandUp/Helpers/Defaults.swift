@@ -156,9 +156,9 @@ class Defaults {
                                 
                                 }
                                 
-                            case "walletdisabled":
+                            case "disablewallet":
                                 
-                                self.ud.set(Int(existingValue), forKey: "walletdisabled")
+                                self.ud.set(Int(existingValue), forKey: "disablewallet")
                                 
                             case "txindex":
                                 
@@ -254,7 +254,7 @@ class Defaults {
     
     func walletdisabled() -> Int {
         
-        return ud.object(forKey: "walletdisabled") as? Int ?? 0
+        return ud.object(forKey: "disablewallet") as? Int ?? 0
         
     }
     

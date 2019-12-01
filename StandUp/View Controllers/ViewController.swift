@@ -325,7 +325,7 @@ class ViewController: NSViewController {
         case .isBitcoinOn, .checkForBitcoin, .startBitcoinqt, .stopBitcoin, .getRPCCredentials:
                         
             self.env["CHAIN"] = d.chain()
-            self.env["PREFIX"] = ud.object(forKey: "binaryPrefix") as? String ?? "bitcoin-0.19.0rc3"
+            //self.env["PREFIX"] = ud.object(forKey: "binaryPrefix") as? String ?? "bitcoin-0.19.0rc3"
             self.env["DATADIR"] = d.dataDir()
             
         default:
