@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#  LinodeStandUp.sh
+#  
+#
+#  Created by Peter on 02/12/19.
+#  
+
 # DISCLAIMER: It is not a good idea to store large amounts of Bitcoin on a VPS,
 # ideally you should use this as a watch-only wallet. This script is expiramental
 # and has not been widely tested. The creators are not responsible for loss of
@@ -9,88 +15,54 @@
 # This script installs the latest stable version of Tor, Bitcoin Core,
 # Uncomplicated Firewall (UFW), debian updates, enables automatic updates for
 # debian for good security practices, installs a random number generator, and
-# optionally a QR encoder and an image displayer.
+# a QR encoder.
 
-# The script will display the uri in plain text which you can convert to a QR Code
-# yourself. It is highly recommended to add a Tor V3 pubkey for cookie authentication
-# so that even if your QR code is compromised an attacker would not be able to access
-# your node.
+# The script will display a btcstandup:// uri in plain text which you can convert
+# to a QR Code and scan with FullyNoded to connect remotely.
 
-# StandUp.sh sets Tor and Bitcoin Core up as systemd services so that they start
-# automatically after crashes or reboots. By default it sets up a pruned testnet node,
-# a Tor V3 hidden service controlling your rpcports and enables the firewall to only
-# allow incoming connections for SSH. If you supply a SSH_KEY in the arguments
-# it allows you to easily access your node via SSH using your rsa pubkey, if you add
-# SYS_SSH_IP's your VPS will only accept SSH connections from those IP's.
+# Upon completion of the script their will be a QR code saved to /qrcode.png which
+# you can open and scan. You can use `sudo apt-get install fim` then:
+# `fim -a qrcode.png` to display the QR in a terminal (as root).
 
-# StandUp.sh will create a user called standup, and assign the optional password you
-# give it in the arguments.
+# It is highly recommended to add a Tor V3 pubkey for cookie authentication so that
+# even if your QR code is compromised an attacker would not be able to access your
+# node. It is also recommended to delete the /qrcode.png, /standup.log, and
+# /standup.err files.
 
-# StandUp.sh will create two logs in your root directory, to read them run:
+# LindodeStandUp.sh sets Tor and Bitcoin Core up as systemd services so that they
+# start automatically after crashes or reboots. By default it sets up a pruned
+# testnet node, a Tor V3 hidden service controlling your rpcports and enables the
+# firewall to only allow incoming connections for SSH. If you supply a SSH_KEY in
+# the arguments it allows you to easily access your node via SSH using your rsa
+# pubkey, if you add SYS_SSH_IP's it will only accept SSH connections from those
+# IP's.
+
+# LindodeStandUp.sh will create a user called standup, and assign the optional
+# password you give it in the arguments.
+
+# LindodeStandUp.sh will create two logs in your root directory, to read them run:
 # $ cat standup.err
 # $ cat standup.log
 
-####
-#0. Prerequisites
-####
-
-# In order to run this script you need to be logged in as root, and enter in the commands
-# listed below:
-
-# (the $ represents a terminal commmand prompt, do not actually type in a $)
-
-# First you need to give the root user a password:
-# $ sudo passwd
-
-# Then you need to switch to the root user:
-# $ su - root
-
-# Then create the file for the script:
-# $ nano standup.sh
-
-# Nano is a text editor that works in a terminal, you need to paste the entire contents
-# of this script into your terminal after running the above command,
-# then you can type:
-# control x (this starts to exit nano)
-# y (this confirms you want to save the file)
-# return (just press enter to confirm you want to save and exit)
-
-# Then we need to make sure the script can be executable with:
-# $ chmod +x standup.sh
-
-# After that you can run the script with the optional arguments like so:
-# $ ./standup.sh "insert pubkey" "insert node type (see options below)" "insert ssh key" "insert ssh allowed IP's" "insert password for standup user"
-
-####
-# 1. Set Initial Variables from command line arguments
-####
-
-# The arguments are read as per the below variables:
-# ./standup.sh "PUBKEY" "BTCTYPE" "SSH_KEY" "SYS_SSH_IP" "USERPASSWORD"
-
-# If you want to omit an argument then input empty qoutes in its place for example:
-# ./standup "" "Mainnet" "" "" "aPasswordForTheUser"
-
-# If you do not want to add any arguments and run everything as per the defaults simply run:
-# ./standup.sh
-
-# For Tor V3 client authentication (optional), you can run standup.sh like:
-# ./standup.sh "descriptor:x25519:NWJNEFU487H2BI3JFNKJENFKJWI3"
-# and it will automatically add the pubkey to the authorized_clients directory, which
-# means the user is Tor authenticated before the node is even installed.
-PUBKEY=$1
-
-# Can be one of the following: "Mainnet", "Pruned Mainnet", "Testnet", "Pruned Testnet", or "Private Regtest", default is "Pruned Testnet"
-BTCTYPE=$2
-
-# Optional key for automated SSH logins to standup non-privileged account - if you do not want to add one add "" as an argument
-SSH_KEY=$3
-
-# Optional comma separated list of IPs that can use SSH - if you do not want to add any add "" as an argument
-SYS_SSH_IP=$4
-
-# Optional password for the standup non-privileged account - if you do not want to add one add "" as an argument
-USERPASSWORD=$5
+# This block defines the variables the user of the script needs to input
+# when deploying using this script.
+#
+# <UDF name="hostname" label="Short Hostname" example="Example: bitcoincore-testnet-pruned"/>
+# HOSTNAME=
+# <UDF name="fqdn" label="Fully Qualified Hostname" example="Example: bitcoincore-testnet-pruned.local or bitcoincore-testnet-pruned.domain.com"/>
+# FQDN=
+# <UDF name="torV3AuthKey" Label="x25519 Public Key" default="" example="descriptor:x25519:JBFKJBEUF72387RH2UHDJFHIUWH47R72UH3I2UHD" optional="true"/>
+# PUBKEY=
+# <UDF name="btctype" label="Installation Type" oneOf="Mainnet,Pruned Mainnet,Testnet,Pruned Testnet,Private Regtest" default="Puned Testnet" example="Bitcoin node type" optional="true"/>
+# BTCTYPE=
+# <UDF name="userpassword" label="StandUp Password" example="Password to for the standup non-privileged account." />
+# USERPASSWORD=
+# <UDF name="ssh_key" label="SSH Key" default="" example="Key for automated logins to standup non-privileged account." optional="true" />
+# SSH_KEY=
+# <UDF name="sys_ssh_ip" label="SSH-Allowed IPs" default="" example="Comma separated list of IPs that can use SSH" optional="true" />
+# SYS_SSH_IP=
+# <UDF name="region" label="Timezone" oneOf="Asia/Singapore,America/Los_Angeles" default="America/Los_Angeles" example="Servers location" optional="false"/>
+# REGION=
 
 # Force check for root, if you are not logged in as root then the script will not execute
 if ! [ "$(id -u)" = 0 ]
@@ -105,13 +77,44 @@ fi
 exec > >(tee -a /root/standup.log) 2> >(tee -a /root/standup.log /root/standup.err >&2)
 
 ####
-# 2. Bring Debian Up To Date
+# 1. Update Hostname
+####
+
+echo $HOSTNAME > /etc/hostname
+/bin/hostname $HOSTNAME
+
+# Set the variable $IPADDR to the IP address the new Linode receives.
+IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
+
+echo "$0 - Set hostname as $FQDN ($IPADDR)"
+echo "$0 - TODO: Put $FQDN with IP $IPADDR in your main DNS file."
+
+# Add localhost aliases
+
+echo "127.0.0.1    localhost" > /etc/hosts
+echo "127.0.1.1 $FQDN $HOSTNAME" >> /etc/hosts
+
+echo "$0 - Set localhost"
+
+####
+# 2. Update Timezone
+####
+
+# Set Timezone
+
+echo "$0 - Set Time Zone to $REGION"
+
+echo $REGION > /etc/timezone
+cp /usr/share/zoneinfo/${REGION} /etc/localtime
+
+####
+# 3. Bring Debian Up To Date
 ####
 
 echo "$0 - Starting Debian updates; this will take a while!"
 
 # Make sure all packages are up-to-date
-apt-get update
+apt-get update -y
 apt-get upgrade -y
 apt-get dist-upgrade -y
 
@@ -125,12 +128,12 @@ apt-get -y install unattended-upgrades
 echo "$0 - Updated Debian Packages"
 
 # get uncomplicated firewall and deny all incoming connections except SSH
-sudo apt-get install ufw
+sudo apt-get install ufw -y
 ufw allow ssh
 ufw enable
 
 ####
-# 3. Set Up User
+# 4. Set Up User
 ####
 
 # Create "standup" user with optional password and give them sudo capability
@@ -166,13 +169,13 @@ else
 fi
 
 ####
-# 4. Install latest stable tor
+# 5. Install latest stable tor
 ####
 
 # Download tor
 
 #  To use source lines with https:// in /etc/apt/sources.list the apt-transport-https package is required. Install it with:
-sudo apt install apt-transport-https
+sudo apt install apt-transport-https -y
 
 # We need to set up our package repository before you can fetch Tor. First, you need to figure out the name of your distribution:
 DEBIAN_VERSION=$(lsb_release -c | awk '{ print $2 }')
@@ -188,8 +191,8 @@ sudo curl https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8C
 sudo gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add -
 
 # Update system, install and run tor as a service
-sudo apt update
-sudo apt install tor deb.torproject.org-keyring
+sudo apt update -y
+sudo apt install tor deb.torproject.org-keyring -y
 
 # Setup hidden service
 sed -i -e 's/#ControlPort 9051/ControlPort 9051/g' /etc/tor/torrc
@@ -213,7 +216,7 @@ sudo systemctl restart tor.service
 
 
 # add V3 authorized_clients public key if one exists
-if ! [ $PUBKEY == "" ]
+if ! [[ $PUBKEY == "" ]]
 then
 
   # create the directory manually incase tor.service did not restart quickly enough
@@ -237,7 +240,7 @@ else
 fi
 
 ####
-# 5. Install Bitcoin
+# 6. Install Bitcoin
 ####
 
 # Download Bitcoin
@@ -259,7 +262,7 @@ sudo -u standup /usr/bin/gpg --no-tty --import ~standup/laanwj-releases.asc
 export SHASIG=`sudo -u standup /usr/bin/gpg --no-tty --verify ~standup/SHA256SUMS.asc 2>&1 | grep "Good signature"`
 echo "SHASIG is $SHASIG"
 
-if [[ $SHASIG ]]
+if [ $SHASIG ]
 then
 
     echo "$0 - VERIFICATION SUCCESS / SIG: $SHASIG"
@@ -274,7 +277,7 @@ fi
 export TARSHA256=`/usr/bin/sha256sum ~standup/$BITCOINPLAIN-x86_64-linux-gnu.tar.gz | awk '{print $1}'`
 export EXPECTEDSHA256=`cat ~standup/SHA256SUMS.asc | grep $BITCOINPLAIN-x86_64-linux-gnu.tar.gz | awk '{print $1}'`
 
-if [ "$TARSHA256" == "$EXPECTEDSHA256" ]
+if [[ "$TARSHA256" == "$EXPECTEDSHA256" ]]
 then
 
    echo "$0 - VERIFICATION SUCCESS / SHA: $TARSHA256"
@@ -313,39 +316,39 @@ rpcallowip=127.0.0.1
 debug=tor
 EOF
 
-if [ "$BTCTYPE" == "" ]; then
+if [[ "$BTCTYPE" == "" ]]; then
 
 BTCTYPE="Pruned Testnet"
 
 fi
 
-if [ "$BTCTYPE" == "Mainnet" ]; then
+if [[ "$BTCTYPE" == "Mainnet" ]]; then
 
 cat >> ~standup/.bitcoin/bitcoin.conf << EOF
 txindex=1
 EOF
 
-elif [ "$BTCTYPE" == "Pruned Mainnet" ]; then
+elif [[ "$BTCTYPE" == "Pruned Mainnet" ]]; then
 
 cat >> ~standup/.bitcoin/bitcoin.conf << EOF
 prune=550
 EOF
 
-elif [ "$BTCTYPE" == "Testnet" ]; then
+elif [[ "$BTCTYPE" == "Testnet" ]]; then
 
 cat >> ~standup/.bitcoin/bitcoin.conf << EOF
 txindex=1
 testnet=1
 EOF
 
-elif [ "$BTCTYPE" == "Pruned Testnet" ]; then
+elif [[ "$BTCTYPE" == "Pruned Testnet" ]]; then
 
 cat >> ~standup/.bitcoin/bitcoin.conf << EOF
 prune=550
 testnet=1
 EOF
 
-elif [ "$BTCTYPE" == "Private Regtest" ]; then
+elif [[ "$BTCTYPE" == "Private Regtest" ]]; then
 
 cat >> ~standup/.bitcoin/bitcoin.conf << EOF
 regtest=1
@@ -450,28 +453,31 @@ sudo systemctl start bitcoind.service
 HS_HOSTNAME=$(sudo cat /var/lib/tor/standup/hostname)
 
 # Create the QR string
-QR="btcstandup://StandUp:$RPCPASSWORD@$HS_HOSTNAME:1309/?label=StandUp.sh"
+QR="btcstandup://StandUp:$RPCPASSWORD@$HS_HOSTNAME:1309/?label=LinodeStandUp.sh"
 echo "$0 - Ready to display the QuickConnect QR, first we need to install qrencode and fim"
 
 # Get software packages for encoding a QR code and displaying it in a terminal
-sudo apt-get install qrencode
-sudo apt-get install fim
+sudo apt-get install qrencode -y
 
 # Create the QR
-qrencode -m 10 -o qrcode.png "$QR"
+sudo qrencode -m 10 -o qrcode.png "$QR"
 
-# Display the QR code
-fim -a qrcode.png
+# Display the uri text
 
-# Display the uri text incase QR code does not work
-echo "$0 - **************************************************************************************************************"
 echo "$0 - This is your btcstandup:// uri to convert into a QR which can be scanned with FullyNoded to connect remotely:"
-echo $QR
+
 echo "$0 - **************************************************************************************************************"
+
+
+echo $QR
+
+
+echo "$0 - **************************************************************************************************************"
+
+
 echo "$0 - Bitcoin is setup as a service and will automatically start if your VPS reboots and so is Tor"
 echo "$0 - You can manually stop Bitcoin with: sudo systemctl stop bitcoind.service"
 echo "$0 - You can manually start Bitcoin with: sudo systemctl start bitcoind.service"
 
 # Finished, exit script
 exit 1
-
