@@ -1,7 +1,7 @@
 # Linux Scripts
 There are two linux based StandUp scripts; `StandUp.sh` and `LinodeStandUp.sh`.
 
-`StandUp.sh` is a linux script and can be used on any Debian VPS (tested on Debian Stretch and Ubuntu 18.04).
+`StandUp.sh` can be used on a Debian VPS and has been tested on Debian Stretch and Ubuntu 18.04.
 
 `LinodeStandUp.sh` is built as a StackScript for the Linode platform and can be used as is.
 
