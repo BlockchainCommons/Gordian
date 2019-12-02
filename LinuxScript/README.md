@@ -19,7 +19,7 @@ This project is an early **Work-In-Progress**, so that we can prototype, discove
 
 This script installs the latest stable version of Tor, Bitcoin Core, Uncomplicated Firewall (UFW), Debian updates, enables automatic updates for Debian for good security practices, installs a random number generator, and optionally a QR encoder and an image displayer.
 
-The script will display a `btcstandup://` uri in plain text in the `/standup.log` which you can convert to a QR Code and scan with FullyNoded to connect remotely, it will save the QuickConnect uri to `/btcstandup.uri` which you can see as root by running `cat btcstandup.uri`.
+The script will display a `btcstandup://` uri in plain text in the `/standup.log` which you can convert to a QR Code and scan with FullyNoded to connect remotely.
 
 Upon completion of the script there will be a QR code saved to `/qrcode.png` which you can open and scan. You can use `sudo apt-get install fim` then `fim -a qrcode.png` to display the QR in a terminal (as root).
 
