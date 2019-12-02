@@ -456,6 +456,10 @@ HS_HOSTNAME=$(sudo cat /var/lib/tor/standup/hostname)
 QR="btcstandup://StandUp:$RPCPASSWORD@$HS_HOSTNAME:1309/?label=LinodeStandUp.sh"
 echo "$0 - Ready to display the QuickConnect QR, first we need to install qrencode and fim"
 
+# Write it to a file
+sudo cat > $QR btcstandup.uri
+echo "$0 - Wrote the QuickConnect QR string to /btcstandup.uri, to read it run cat btcstandup.uri"
+
 # Get software packages for encoding a QR code and displaying it in a terminal
 sudo apt-get install qrencode -y
 

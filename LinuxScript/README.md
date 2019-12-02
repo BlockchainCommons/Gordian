@@ -19,11 +19,18 @@ This project is an early **Work-In-Progress**, so that we can prototype, discove
 
 This script installs the latest stable version of Tor, Bitcoin Core, Uncomplicated Firewall (UFW), Debian updates, enables automatic updates for Debian for good security practices, installs a random number generator, and optionally a QR encoder and an image displayer.
 
-The script will display a `btcstandup://` uri in plain text which you can convert to a QR Code and scan with FullyNoded to connect remotely.
+The script will display a `btcstandup://` uri in plain text in the `/standup.log` which you can convert to a QR Code and scan with FullyNoded to connect remotely, it will save the QuickConnect uri to `/btcstandup.uri` which you can see as root by running `cat btcstandup.uri`.
 
 Upon completion of the script there will be a QR code saved to `/qrcode.png` which you can open and scan. You can use `sudo apt-get install fim` then `fim -a qrcode.png` to display the QR in a terminal (as root).
 
-It is highly recommended to add a Tor V3 pubkey for cookie authentication so that even if your QR code is compromised an attacker would not be able to access your node. It is also recommended to delete the `/qrcode.png`, `/standup.log`, and `/standup.err` files once you get connected.
+It is highly recommended to add a Tor V3 pubkey for cookie authentication so that even if your QR code is compromised an attacker would not be able to access your node. It is also recommended to delete the `btcstandup.uri`, `/qrcode.png`, `/standup.log`, and `/standup.err` files once you get connected with FullyNoded. Just run:
+
+```
+rm -R -f standup.log
+rm -R -f standup.err
+rm -R -f btcstandup.uri
+rm -R -f qrcode.png
+```
 
 `StandUp.sh` sets Tor and Bitcoin Core up as `systemd` services so that they start automatically after crashes or reboots. By default it sets up a pruned testnet node, a Tor V3 hidden service controlling your `rpcport` and enables the firewall to only allow incoming connections for SSH. If you supply a `SSH_KEY` in the arguments it allows you to easily access your node via SSH using your rsa pubkey, if you add `SYS_SSH_IP`'s it will only accept SSH connections from those IP's.
 
