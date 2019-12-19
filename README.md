@@ -202,31 +202,31 @@ Prevent the existence of any single point of failure or "honey pot" (e.g. the QR
 
 For now the only mobile app which deals with Bitcoin Core RPC communications that we know of is FullyNoded. Assume you have downloaded FullyNoded, have a StandUp node running and want to add native Tor authentication. All you would need to do is open FullyNoded > "Settings" > "Node Manager" > select your node > "Next" > "Next" > "generate key pair" and most importantly tap the blue "Save" or "Update" button at the bottom to save the private key!
 
-<img src="https://github.com/Fonta1n3/Bitcoin-Standup/blob/master/StandUp/Images/fullynoded_generate.png" alt="generate V3 auth key pair" width="250"/>
+<img src="https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/StandUp/Images/fullynoded_generate.png" alt="generate V3 auth key pair" width="250"/>
 
 If you do not press "Save" or "Update" you will lose the key pair and need to start again. This will produce a x25519 private and public key pair.
 
-<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/fullynoded_tap_pubkey.png" alt="Update the node" width="250"/>
+<img src="https://github.com/BlockchainCommons/Bitcoin-StandUp/blob/master/StandUp/Images/fullynoded_tap_pubkey.png" alt="Update the node" width="250"/>
 
 In FullyNoded the private key is stored encrypted locally on the device to AES256CBC standards, the user can not access it and the encryption key for the encrypted private key is stored on your keychain. Whenever you connect to your node the key is decrypted and stored in your temporary torrc file which is integrated into FullyNoded's Tor thread. In FullyNoded each time you connect to a node the credentials refresh so there is nothing being stored in clear text on your device persistently.
 
 Tap the green text which would look like `descriptor:x25519:JNEF892349FH24HF872H4FU2H387H3R982NFN238HF928`, that is your public key which needs to be passed to your StandUp node.
 
-<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/fullynoded_qr.png" alt="export the public key" width="250"/>
+<img src="https://github.com/BlockchainCommons/Bitcoin-StandUp/blob/master/StandUp/Images/fullynoded_qr.png" alt="export the public key" width="250"/>
 
 This public key is not sensitive as it only works in conjunction with the private key. FullyNoded will display the public key in QR code format so you can easily scan it with your laptop, you can also send it via airdrop or email just by tapping the text or QR image.
 
-<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/fullynoded_share.png" alt="share the public key" width="250"/>
+<img src="https://github.com/BlockchainCommons/Bitcoin-StandUp/blob/master/StandUp/Images/fullynoded_share.png" alt="share the public key" width="250"/>
 
 In this way you can also share access to your node with trusted family and friends. Tor V3 hidden services support up to ~330 different public keys stored in the `authorized_clients` directory (link to source). If you were doing this manually, you would go on your laptop which has StandUp installed and find your `HiddenServiceDir` which is `/usr/local/var/lib/tor/standup/authorized_clients`. You would then open the `authorized_clients` directory and add a file which contains only the public key exactly as FullyNoded exports it. The filename must have a `.auth` extension.
 
 But of course you are using StandUp so the process is as easy as a click. In StandUp go to "Settings" and paste in the public key just as FullyNoded exported it, then tap "Add".
 
-<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/paste.png" alt="paste the public key" width="750"/>
+<img src="https://github.com/BlockchainCommons/Bitcoin-StandUp/blob/master/StandUp/Images/paste.png" alt="paste the public key" width="750"/>
 
-<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/yes.png" alt="tap yes" width="750"/>
+<img src="https://github.com/BlockchainCommons/Bitcoin-StandUp/blob/master/StandUp/Images/yes.png" alt="tap yes" width="750"/>
 
-<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/StandUp/Images/ok.png" alt="tap yes" width="750"/>
+<img src="https://github.com/BlockchainCommons/Bitcoin-StandUp/blob/master/StandUp/Images/ok.png" alt="tap yes" width="750"/>
 
 StandUp then simply creates a random filename with a `.auth` extension, writes the public key to it, and saves it to `/usr/local/var/lib/tor/standup/authorized_clients/`. 
 
