@@ -70,7 +70,7 @@ class FirstTime {
     func createSaveSeed() {
         
         let keychain = KeychainCreator()
-        keychain.createKeyChain { (mnemonic, error) in
+        keychain.createKeyChain(isTestnet: false) { (mnemonic, error) in
             
             if !error {
                 
@@ -79,6 +79,7 @@ class FirstTime {
                     if success {
                         
                         // seed encrypted and saved
+                        print("seed saved")
                         
                     } else {
                         

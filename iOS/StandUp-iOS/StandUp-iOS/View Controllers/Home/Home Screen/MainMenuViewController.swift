@@ -109,11 +109,17 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 self.removeSpinner()
                 
                 if ud.object(forKey: "showIntro") == nil {
+                    
                     self.performSegue(withIdentifier: "showIntro", sender: self)
+                    
                 } else {
+                    
                     DispatchQueue.main.async {
+                        
                         self.performSegue(withIdentifier: "scanNow", sender: self)
+                        
                     }
+                    
                 }
                 
             }
@@ -126,7 +132,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             if !self.cd.errorBool {
                 
                 self.nodes = self.cd.entities
-                print("nodes = \(self.nodes)")
                 filter()
                 
             } else {
@@ -147,9 +152,11 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         if ud.object(forKey: "walletName") == nil {
             
             addlaunchScreen()
+            
             DispatchQueue.main.async {
                 self.label.text = "Creating your wallet..."
-            }            
+            }
+            
             let walletCreator = WalletCreator()
             walletCreator.createStandUpWallet { (success) in
                 
@@ -971,14 +978,17 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     
                     if ud.object(forKey: "walletName") == nil {
                         
-                        //first time do whole shebang
+                        // first time do whole shebang
                         let walletCreator = WalletCreator()
                         
                         DispatchQueue.main.async {
                             self.addNavBarSpinner()
-                            self.label.text = "Creating your wallet..."
                         }
                         
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            self.label.text = "Creating your wallet..."
+                        }
+                            
                         walletCreator.createStandUpWallet { (success) in
                             
                             if success {

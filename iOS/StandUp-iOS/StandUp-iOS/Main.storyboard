@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nU0-zz-6p3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -708,7 +707,7 @@
             </objects>
             <point key="canvasLocation" x="-1866" y="-506"/>
         </scene>
-        <!--Settings v0.0.4-->
+        <!--Settings v0.0.6-->
         <scene sceneID="Ajv-p7-tUm">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="AS8-ke-Yxh" customClass="SettingsViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -795,7 +794,7 @@
                         <viewLayoutGuide key="safeArea" id="Cze-jj-bFe"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Settings" id="n34-O3-Fyo"/>
-                    <navigationItem key="navigationItem" title="Settings v0.0.4" id="YNb-Gd-Hqq"/>
+                    <navigationItem key="navigationItem" title="Settings v0.0.6" id="YNb-Gd-Hqq"/>
                     <connections>
                         <outlet property="settingsTable" destination="hcp-eG-lok" id="xPg-8r-KBs"/>
                         <segue destination="bKH-sI-MiM" kind="show" identifier="goLogIn" id="qed-hl-jG5"/>

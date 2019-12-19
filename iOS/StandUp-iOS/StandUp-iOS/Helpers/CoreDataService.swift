@@ -320,14 +320,14 @@ class CoreDataService {
         
     }
     
-    func deleteEntity(id: String, entityName: ENTITY, completion: @escaping () -> Void) {
+    func deleteSeed(completion: @escaping () -> Void) {
         
         DispatchQueue.main.async {
             
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                 
                 let context = appDelegate.persistentContainer.viewContext
-                let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName.rawValue)
+                let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Seed")
                 fetchRequest.returnsObjectsAsFaults = false
                 
                 do {
@@ -336,27 +336,23 @@ class CoreDataService {
                     
                     if results.count > 0 {
                         
-                        for (index, data) in results.enumerated() {
+                        for result in results {
                             
-                            if id == data.value(forKey: "id") as? String {
+                            context.delete(result as NSManagedObject)
+                            
+                            do {
                                 
-                                context.delete(results[index] as NSManagedObject)
+                                try context.save()
+                                print("deleted succesfully")
+                                self.boolToReturn = true
+                                self.errorBool = false
                                 
-                                do {
-                                    
-                                    try context.save()
-                                    print("deleted succesfully")
-                                    self.boolToReturn = true
-                                    self.errorBool = false
-                                    
-                                } catch {
-                                    
-                                    print("error deleting")
-                                    self.boolToReturn = false
-                                    self.errorBool = true
-                                    self.errorDescription = "error deleting"
-                                    
-                                }
+                            } catch {
+                                
+                                print("error deleting")
+                                self.boolToReturn = false
+                                self.errorBool = true
+                                self.errorDescription = "error deleting"
                                 
                             }
                             

@@ -17,6 +17,43 @@ class WalletCreator {
     
     func createStandUpWallet(completion: @escaping (Bool) -> Void) {
         
+        func createSaveSeed() {
+            
+            let enc = Encryption()
+            let keychain = KeychainCreator()
+            keychain.createKeyChain(isTestnet: true) { (mnemonic, error) in
+                
+                if !error {
+                    
+                    enc.encryptAndSaveSeed(string: mnemonic) { (success) in
+                        
+                        if success {
+                            
+                            // seed encrypted and saved
+                            print("seed saved")
+                            checkForStandUpWallet()
+                            
+                        } else {
+                            
+                            print("seed not saved!!!")
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        func whichChain() {
+            
+            executeNodeCommand(method: .getblockchaininfo,
+                               param: "")
+            
+        }
+        
         func checkForStandUpWallet() {
             
             executeNodeCommand(method: .listwalletdir,
@@ -34,6 +71,30 @@ class WalletCreator {
                     
                     switch method {
                         
+                    case .getblockchaininfo:
+                        
+                        let response = reducer.dictToReturn
+                        let chain = response["chain"] as! String
+                        
+                        if chain == "main" {
+                            
+                            print("main chain")
+                            checkForStandUpWallet()
+                            
+                        } else if chain == "test" {
+                            
+                            print("test chain")
+                            
+                            //MARK: Have to hardcode a testnet seed and tpub as Core Bitcoin does not produce them, will fix this with iOS-Bitcoin
+                            
+                            let cd = CoreDataService()
+                            
+                            cd.deleteSeed {
+                                createSaveSeed()
+                            }
+                            
+                        }
+                                                
                     case .createwallet:
                         
                         let response = reducer.dictToReturn
@@ -93,7 +154,8 @@ class WalletCreator {
                         
                         let params = "[{ \"desc\": \(descriptor), \"timestamp\": \"now\", \"range\": [0,999], \"watchonly\": true, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }]"
                         
-                        executeNodeCommand(method: .importmulti, param: params)
+                        executeNodeCommand(method: .importmulti,
+                                           param: params)
                         
                         
                     default:
@@ -145,7 +207,8 @@ class WalletCreator {
                 
                 // create it
                 let param = "\"StandUp\", true, true, \"\", true"
-                executeNodeCommand(method: .createwallet, param: param)
+                executeNodeCommand(method: .createwallet,
+                                   param: param)
                 
             }
             
@@ -200,7 +263,8 @@ class WalletCreator {
             
         }
         
-        checkForStandUpWallet()
+        //checkForStandUpWallet()
+        whichChain()
         
     }
     
