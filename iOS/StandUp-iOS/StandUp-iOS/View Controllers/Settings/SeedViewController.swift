@@ -16,17 +16,31 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     var barTitle = ""
     var privateKeyDescriptor = ""
     var publicKeyDescriptor = ""
-
+    @IBOutlet var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        loadData()
+        
+    }
+    
+    func loadData() {
         
         self.xprv { (xprv) in
             
             if xprv != "" {
                 
                 self.privateKeyDescriptor = "wpkh(\(xprv)/*)"
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
+            } else {
+                
+                print("error getting xprv")
                 
             }
             
@@ -37,7 +51,13 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             if xpub != "" {
                 
                 self.publicKeyDescriptor = "wpkh(\(xpub)/*)"
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
                 
+            } else {
+                
+                print("error getting xpub")
             }
             
         }
