@@ -40,6 +40,7 @@ StandUp-iOS keeps thing simple by relying on Bitcoin Core for all wallet functio
 
 ### To do:
 
+- Add biometrics and lock screen
 - Ability to import a BIP39 recovery phrase, descriptor or xprv/xpub.
 - Cold mode?
 - Custom derivation path?
