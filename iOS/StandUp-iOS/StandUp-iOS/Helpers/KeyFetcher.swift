@@ -28,7 +28,9 @@ class KeyFetcher {
                             
                             // MARK: Change the derivation path to m/84'/0'/0'/0 for mainnet
                             
-                            if let keychain = mnemonic.keychain.derivedKeychain(withPath: "m/84'/1'/0'/0") {
+                            let derivation = UserDefaults.standard.object(forKey: "derivation") as! String
+                            
+                            if let keychain = mnemonic.keychain.derivedKeychain(withPath: derivation) {
                                 
                                 keychain.key.isPublicKeyCompressed = true
                                 
@@ -62,6 +64,8 @@ class KeyFetcher {
         
     }
     
+    // MARK: Need to check whether or not we are on testnet or mainnet before fetching the xpub
+    
     func bip32Xpub(completion: @escaping ((xpub: String, error: Bool)) -> Void) {
         
         let cd = CoreDataService()
@@ -78,17 +82,30 @@ class KeyFetcher {
                         
                         if let mnemonic = BTCMnemonic.init(words: wordArray, password: "", wordListType: .english) {
                             
-                            if let keychain = mnemonic.keychain.derivedKeychain(withPath: "m/84'/0'/0'/0") {
+                            let derivation = UserDefaults.standard.object(forKey: "derivation") as! String
+                                                        
+                            if let keychain = mnemonic.keychain.derivedKeychain(withPath: derivation) {
                                 
                                 if let xpub = keychain.extendedPublicKey {
-                                    
-                                    // MARK: To revert to mainnet comment out the tpub and replace the tpub with the xpub in completion
-                                    // have to hardcode a tpub for now as this libary does not produce them...
-                                    // using these words: decide insect sign cover bicycle other chief what industry bomb lobster lonely piece toss practice
-                                    // to get this BIP32 tpub (not account, to simplify the derivation path and importmulti command): tpubDFDmUKGUCgamEmJ79BfaZsobK3pCYpTU9uBPLr1QF8kszgQj3WkWh2u6LEVxg3URRqNSoGHMk2KVwguKkcwyu5JYQM1TM1EbNAYMsGFpN6Q
-                                    
-                                    let tpub = "tpubDFDmUKGUCgamEmJ79BfaZsobK3pCYpTU9uBPLr1QF8kszgQj3WkWh2u6LEVxg3URRqNSoGHMk2KVwguKkcwyu5JYQM1TM1EbNAYMsGFpN6Q"
-                                    completion((tpub,false))
+                                                                        
+                                    if derivation != "m/84'/0'/0'/0" {
+                                        
+                                        // we are in testnet
+                                        
+                                        // MARK: To revert to mainnet comment out the tpub and replace the tpub with the xpub in completion
+                                        // have to hardcode a tpub for now as this libary does not produce them...
+                                        // using these words: decide insect sign cover bicycle other chief what industry bomb lobster lonely piece toss practice
+                                        // to get this BIP32 tpub (not account, to simplify the derivation path and importmulti command): tpubDFDmUKGUCgamEmJ79BfaZsobK3pCYpTU9uBPLr1QF8kszgQj3WkWh2u6LEVxg3URRqNSoGHMk2KVwguKkcwyu5JYQM1TM1EbNAYMsGFpN6Q
+                                        
+                                        let tpub = "tpubDFDmUKGUCgamEmJ79BfaZsobK3pCYpTU9uBPLr1QF8kszgQj3WkWh2u6LEVxg3URRqNSoGHMk2KVwguKkcwyu5JYQM1TM1EbNAYMsGFpN6Q"
+                                        completion((tpub,false))
+                                        
+                                    } else {
+                                        
+                                        // we are in mainnet
+                                        completion((xpub,false))
+                                        
+                                    }
                                     
                                 } else {
                                     
@@ -138,15 +155,12 @@ class KeyFetcher {
                         
                         if let mnemonic = BTCMnemonic.init(words: wordArray, password: "", wordListType: .english) {
                             
-                            if let keychain = mnemonic.keychain.derivedKeychain(withPath: "m/84'/0'/0'/0") {
+                            let derivation = UserDefaults.standard.object(forKey: "derivation") as! String
+                            
+                            if let keychain = mnemonic.keychain.derivedKeychain(withPath: derivation) {
                                 
                                 if let xprv = keychain.extendedPrivateKey {
-                                    
-                                    // have to hardcode a tpub for now as this libary does not produce them...
-                                    // using these words: decide insect sign cover bicycle other chief what industry bomb lobster lonely piece toss practice
-                                    // to get this BIP32 tpub (not account, to simplify the derivation path and importmulti command): tpubDFDmUKGUCgamEmJ79BfaZsobK3pCYpTU9uBPLr1QF8kszgQj3WkWh2u6LEVxg3URRqNSoGHMk2KVwguKkcwyu5JYQM1TM1EbNAYMsGFpN6Q
-                                    
-                                    //let tpub = "tpubDFDmUKGUCgamEmJ79BfaZsobK3pCYpTU9uBPLr1QF8kszgQj3WkWh2u6LEVxg3URRqNSoGHMk2KVwguKkcwyu5JYQM1TM1EbNAYMsGFpN6Q"
+                            
                                     completion((xprv,false))
                                     
                                 } else {

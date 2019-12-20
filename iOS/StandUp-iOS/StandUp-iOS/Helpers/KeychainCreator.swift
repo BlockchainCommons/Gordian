@@ -22,9 +22,7 @@ class KeychainCreator {
             let sha256OfData = BTCSHA256(data) as Data
             
             if let m = BTCMnemonic.init(entropy: sha256OfData, password: "", wordListType: .english) {
-                
-                var mnemonic = ""
-                
+                                
                 if !isTestnet {
                     
                     let words = m.words.description

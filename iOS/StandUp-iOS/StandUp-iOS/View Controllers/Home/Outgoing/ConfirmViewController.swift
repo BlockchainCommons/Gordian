@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConfirmViewController: UIViewController {
+class ConfirmViewController: UIViewController, UINavigationControllerDelegate {
     
     let creatingView = ConnectingView()
     
@@ -24,9 +24,11 @@ class ConfirmViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.delegate = self
 
         creatingView.addConnectingView(vc: self,
-                                       description: "analyzing signed transaction")
+                                       description: "verifying signed transaction")
         
         executeNodeCommand(method: .decoderawtransaction,
                            param: "\"\(signedRawTx)\"")
@@ -36,7 +38,7 @@ class ConfirmViewController: UIViewController {
     @IBAction func sendNow(_ sender: Any) {
         
         creatingView.addConnectingView(vc: self,
-                                       description: "broadcasting raw transaction")
+                                       description: "broadcasting transaction")
         
         executeNodeCommand(method: .sendrawtransaction,
                            param: "\"\(signedRawTx)\"")
@@ -64,6 +66,7 @@ class ConfirmViewController: UIViewController {
                         UIPasteboard.general.string = result
                         self.creatingView.removeConnectingView()
                         self.textView.text = "Transaction ID:\n\n\(result)"
+                        self.navigationItem.title = "Sent ✓"
                         
                         displayAlert(viewController: self,
                                      isError: false,

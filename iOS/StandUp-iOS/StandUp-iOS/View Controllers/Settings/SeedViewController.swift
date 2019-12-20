@@ -14,11 +14,34 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     var itemToDisplay = ""
     var infoText = ""
     var barTitle = ""
+    var privateKeyDescriptor = ""
+    var publicKeyDescriptor = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        self.xprv { (xprv) in
+            
+            if xprv != "" {
+                
+                self.privateKeyDescriptor = "wpkh(\(xprv)/*)"
+                
+            }
+            
+        }
+        
+        self.xpub { (xpub) in
+            
+            if xpub != "" {
+                
+                self.publicKeyDescriptor = "wpkh(\(xpub)/*)"
+                
+            }
+            
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,31 +71,15 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         case 2:
             
-            self.xpub { (xpub) in
-                
-                if xpub != "" {
-                    
-                    cell.textLabel?.text = "wpkh(\(xpub)/*)"
-                    
-                }
-                
-            }
+            cell.textLabel?.text = self.publicKeyDescriptor
             
         case 3:
             
-            self.xprv { (xprv) in
-                
-                if xprv != "" {
-                    
-                    cell.textLabel?.text = "wpkh(\(xprv)/*)"
-                    
-                }
-                
-            }
+            cell.textLabel?.text = self.privateKeyDescriptor
             
         case 4:
             
-            cell.textLabel?.text = "bitcoin-cli importmulti { \"desc\": \"<insert descriptor here>\", \"timestamp\": \"now\", \"range\": [0,999], \"watchonly\": true, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }\n\nbitcoin-cli importmulti { \"desc\": \"<insert descriptor here>\", \"timestamp\": \"now\", \"range\": [1000,1999], \"watchonly\": true, \"keypool\": true, \"internal\": true }"
+            cell.textLabel?.text = "bitcoin-cli importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \"now\", \"range\": [0,999], \"watchonly\": false, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }\n\nbitcoin-cli importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \"now\", \"range\": [1000,1999], \"watchonly\": false, \"keypool\": true, \"internal\": true }"
             
         default:
             

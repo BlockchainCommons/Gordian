@@ -31,6 +31,7 @@ class WalletCreator {
                             
                             // seed encrypted and saved
                             print("seed saved")
+                            self.ud.set("m/84'/1'/0'/0", forKey: "derivation")
                             checkForStandUpWallet()
                             
                         } else {
@@ -79,6 +80,7 @@ class WalletCreator {
                         if chain == "main" {
                             
                             print("main chain")
+                            self.ud.set("m/84'/0'/0'/0", forKey: "derivation")
                             checkForStandUpWallet()
                             
                         } else if chain == "test" {

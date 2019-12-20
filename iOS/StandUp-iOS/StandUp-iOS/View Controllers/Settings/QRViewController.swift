@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QRViewController: UIViewController {
+class QRViewController: UIViewController, UINavigationControllerDelegate {
 
     var tapQRGesture = UITapGestureRecognizer()
     var tapTextViewGesture = UITapGestureRecognizer()
@@ -17,12 +17,13 @@ class QRViewController: UIViewController {
     var itemToDisplay = ""
     var infoText = ""
     var barTitle = ""
-    
     @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        navigationController?.delegate = self
         descriptionLabel.text = infoText
         descriptionLabel.sizeToFit()
         configureDisplayer()
@@ -41,7 +42,8 @@ class QRViewController: UIViewController {
     func configureDisplayer() {
         
         displayer.vc = self
-        displayer.y = self.descriptionLabel.frame.maxY + 10 + self.navigationController!.navigationBar.frame.height
+        displayer.y = self.descriptionLabel.frame.maxY + 10
+        
         tapQRGesture = UITapGestureRecognizer(target: self,
                                               action: #selector(shareQRCode(_:)))
         

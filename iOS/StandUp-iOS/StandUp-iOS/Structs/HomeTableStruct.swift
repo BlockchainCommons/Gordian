@@ -24,8 +24,6 @@ public struct HomeStruct: CustomStringConvertible {
     let size:String
     let progress:String
     let pruned:Bool
-    let unconfirmedBalance:String
-    let hotBalance:String
     let mempoolCount:Int
     let transactions:[[String: Any]]
     let uptime:Int
@@ -48,8 +46,6 @@ public struct HomeStruct: CustomStringConvertible {
         self.size = dictionary["size"] as? String ?? ""
         self.progress = dictionary["progress"] as? String ?? ""
         self.pruned = dictionary["pruned"] as? Bool ?? false
-        self.unconfirmedBalance = dictionary["unconfirmedBalance"] as? String ?? "0.00000000"
-        self.hotBalance = dictionary["hotBalance"] as? String ?? "0.00000000"
         self.mempoolCount = dictionary["mempoolCount"] as? Int ?? 0
         self.transactions = dictionary["transactions"] as? [[String: Any]] ?? []
         

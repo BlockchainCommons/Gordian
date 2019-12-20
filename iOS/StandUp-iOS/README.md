@@ -1,6 +1,8 @@
 # StandUp-iOS
 
-StandUp-iOS is currently in the very early testing phase and it status is proof of concept or minimum viable product.
+### Status
+
+StandUp-iOS is currently in the very early testing phase and should be considered as proof of concept or minimum viable product.
 
 In order to use it you need to scan a `btcstandup://` uri which you can read about [here](https://github.com/BlockchainCommons/Bitcoin-Standup#quick-connect-url-using-btcstandup).
 
@@ -38,7 +40,11 @@ StandUp-iOS keeps thing simple by relying on Bitcoin Core for all wallet functio
 
 ### To do:
 
-- Kill switch code.
+- Ability to import a BIP39 recovery phrase, descriptor or xprv/xpub.
+- Cold mode?
+- Custom derivation path?
+- Make Tor auto reconnect after the background process is killed in the background.
+- Kill switch code?
 - Add birthdate for the seed so a user can easily recover their wallet by scanning another `btcstandup://` uri.
 - Add an alert when your node rejects a connnection because you have not authenticated the device yet.
 - Replace Core Bitcoin with iOS-Bitcoin.

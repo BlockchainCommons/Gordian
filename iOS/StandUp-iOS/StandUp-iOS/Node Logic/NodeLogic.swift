@@ -35,15 +35,6 @@ class NodeLogic {
                     parseUtxos(utxos: utxos)
                     completion()
                     
-                case BTC_CLI_COMMAND.getbalance.rawValue:
-                    
-                    let balanceCheck = reducer.doubleToReturn
-                    parseBalance(balance: balanceCheck)
-                    
-                    reducer.makeCommand(command: BTC_CLI_COMMAND.listunspent,
-                                        param: "0",
-                                        completion: getResult)
-                    
                 default:
                     
                     print("break1")
@@ -85,8 +76,8 @@ class NodeLogic {
         
         if !walletDisabled {
             
-            reducer.makeCommand(command: .getbalance,
-                                param: "\"*\", 0, false",
+            reducer.makeCommand(command: .listunspent,
+                                param: "0",
                                 completion: getResult)
             
         } else {
@@ -138,7 +129,7 @@ class NodeLogic {
                     dictToReturn["mempoolCount"] = dict["size"] as! Int
                     let feeRate = UserDefaults.standard.integer(forKey: "feeTarget")
                     
-                    reducer.makeCommand(command: BTC_CLI_COMMAND.estimatesmartfee,
+                    reducer.makeCommand(command: .estimatesmartfee,
                                         param: "\(feeRate)",
                                         completion: getResult)
                     
@@ -146,7 +137,7 @@ class NodeLogic {
                     
                     dictToReturn["uptime"] = Int(reducer.doubleToReturn)
                     
-                    reducer.makeCommand(command: BTC_CLI_COMMAND.getmempoolinfo,
+                    reducer.makeCommand(command: .getmempoolinfo,
                                         param: "",
                                         completion: getResult)
                     
@@ -155,7 +146,7 @@ class NodeLogic {
                     let miningInfo = reducer.dictToReturn
                     parseMiningInfo(miningInfo: miningInfo)
                     
-                    reducer.makeCommand(command: BTC_CLI_COMMAND.uptime,
+                    reducer.makeCommand(command: .uptime,
                                         param: "",
                                         completion: getResult)
                     
@@ -164,7 +155,7 @@ class NodeLogic {
                     let networkInfo = reducer.dictToReturn
                     parseNetworkInfo(networkInfo: networkInfo)
                     
-                    reducer.makeCommand(command: BTC_CLI_COMMAND.getmininginfo,
+                    reducer.makeCommand(command: .getmininginfo,
                                         param: "",
                                         completion: getResult)
                     
@@ -173,7 +164,7 @@ class NodeLogic {
                     let peerInfo = reducer.arrayToReturn
                     parsePeerInfo(peerInfo: peerInfo)
                     
-                    reducer.makeCommand(command: BTC_CLI_COMMAND.getnetworkinfo,
+                    reducer.makeCommand(command: .getnetworkinfo,
                                         param: "",
                                         completion: getResult)
                     
@@ -182,7 +173,7 @@ class NodeLogic {
                     let blockchainInfo = reducer.dictToReturn
                     parseBlockchainInfo(blockchainInfo: blockchainInfo)
                     
-                    reducer.makeCommand(command: BTC_CLI_COMMAND.getpeerinfo,
+                    reducer.makeCommand(command: .getpeerinfo,
                                         param: "",
                                         completion: getResult)
                     
@@ -258,34 +249,6 @@ class NodeLogic {
     
     // MARK: Section 0 parsers
     
-    func parseBalance(balance: Double) {
-        
-        if balance == 0.0 {
-            
-            dictToReturn["hotBalance"] = "0.00000000"
-            
-        } else {
-            
-            dictToReturn["hotBalance"] = "\((round(100000000*balance)/100000000).avoidNotation)"
-            
-        }
-        
-    }
-    
-    func parseUncomfirmedBalance(unconfirmedBalance: Double) {
-        
-        if unconfirmedBalance != 0.0 || unconfirmedBalance != 0 {
-            
-            dictToReturn["unconfirmedBalance"] = "unconfirmed \(unconfirmedBalance.avoidNotation)"
-            
-        } else {
-            
-            dictToReturn["unconfirmedBalance"] = "unconfirmed 0.00000000"
-            
-        }
-        
-    }
-    
     func parseUtxos(utxos: NSArray) {
         
         var amount = 0.0
@@ -310,7 +273,7 @@ class NodeLogic {
             
         } else {
             
-            dictToReturn["coldBalance"] = "\(round(100000000*amount)/100000000)"
+            dictToReturn["coldBalance"] = "\((round(100000000*amount)/100000000).avoidNotation)"
             
         }
         

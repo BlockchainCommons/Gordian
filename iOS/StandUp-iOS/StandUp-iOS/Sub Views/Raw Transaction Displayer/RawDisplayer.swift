@@ -13,7 +13,7 @@ class RawDisplayer {
     
     var y = CGFloat()
     let textView = UITextView()
-    let qrView = UIImageView()
+    var qrView = UIImageView()
     let qrGenerator = QRGenerator()
     let backgroundView = UIView()
     let copiedLabel = UILabel()
