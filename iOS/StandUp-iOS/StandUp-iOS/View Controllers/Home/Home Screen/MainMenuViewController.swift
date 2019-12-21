@@ -42,12 +42,13 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     var network = ""
     var sectionZeroLoaded = Bool()
     var sectionOneLoaded = Bool()
-    let spinner = UIActivityIndicatorView(style: .white)
+    let spinner = UIActivityIndicatorView(style: .medium)
     var refreshButton = UIBarButtonItem()
     var dataRefresher = UIBarButtonItem()
     var wallets = NSArray()
     var viewHasLoaded = Bool()
     let label = UILabel()
+    @IBOutlet var scannerButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,13 +67,8 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         setFeeTarget()
         showUnlockScreen()
         addlaunchScreen()
+        scannerButton.tintColor = UIColor.white.withAlphaComponent(0)
         
-    }
-    
-    @IBAction func authenticate(_ sender: Any) {
-        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "authenticate", sender: self)
-        }
     }
     
     @IBAction func scan(_ sender: Any) {
@@ -107,6 +103,10 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 self.removeLoadingView()
                 self.removeSpinner()
+                
+                DispatchQueue.main.async {
+                    self.scannerButton.tintColor = UIColor.white.withAlphaComponent(1)
+                }
                 
                 if ud.object(forKey: "showIntro") == nil {
                     

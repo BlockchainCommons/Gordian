@@ -41,6 +41,7 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             } else {
                 
                 print("error getting xprv")
+                displayAlert(viewController: self, isError: true, message: "Error getting your xprv")
                 
             }
             
@@ -58,6 +59,7 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             } else {
                 
                 print("error getting xpub")
+                displayAlert(viewController: self, isError: true, message: "Error getting your xpub")
             }
             
         }
@@ -166,6 +168,10 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                         self.barTitle = "Private Key Descriptor"
                         self.goToQRDisplayer()
                         
+                    case 4:
+                        
+                        self.shareRecoveryCommand()
+                        
                     default:
                         
                         break
@@ -222,6 +228,22 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 completion((""))
                 
             }
+            
+        }
+        
+    }
+    
+    func shareRecoveryCommand() {
+        
+        DispatchQueue.main.async {
+                            
+            let textToShare = ["bitcoin-cli importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \"now\", \"range\": [0,999], \"watchonly\": false, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }\n\nbitcoin-cli importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \"now\", \"range\": [1000,1999], \"watchonly\": false, \"keypool\": true, \"internal\": true }"]
+            
+            let activityViewController = UIActivityViewController(activityItems: textToShare,
+                                                                  applicationActivities: nil)
+            
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true) {}
             
         }
         
