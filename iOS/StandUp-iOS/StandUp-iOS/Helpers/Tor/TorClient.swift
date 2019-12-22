@@ -1,10 +1,10 @@
 //
 //  TorClient.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 12/06/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
-//  Copyright © 2018 Verge Currency.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
+//  Copyright © 2018 Verge Currency. All rights reserved.
 //
 
 import Foundation

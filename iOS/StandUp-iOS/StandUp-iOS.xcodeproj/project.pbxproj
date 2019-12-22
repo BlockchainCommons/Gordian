@@ -21,7 +21,6 @@
 		D07ED56C23AA549B00E7712A /* NodeStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07ED50323AA549800E7712A /* NodeStruct.swift */; };
 		D07ED56E23AA549B00E7712A /* HomeTableStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07ED50523AA549800E7712A /* HomeTableStruct.swift */; };
 		D07ED56F23AA549B00E7712A /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07ED50723AA549900E7712A /* Entities.swift */; };
-		D07ED57023AA549B00E7712A /* KillSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07ED50823AA549900E7712A /* KillSwitch.swift */; };
 		D07ED57123AA549B00E7712A /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07ED50923AA549900E7712A /* Reducer.swift */; };
 		D07ED57223AA549B00E7712A /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07ED50A23AA549900E7712A /* CoreDataService.swift */; };
 		D07ED57423AA549B00E7712A /* FirstTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07ED50C23AA549900E7712A /* FirstTime.swift */; };
@@ -157,7 +156,6 @@
 		D07ED50323AA549800E7712A /* NodeStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeStruct.swift; sourceTree = "<group>"; };
 		D07ED50523AA549800E7712A /* HomeTableStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableStruct.swift; sourceTree = "<group>"; };
 		D07ED50723AA549900E7712A /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
-		D07ED50823AA549900E7712A /* KillSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KillSwitch.swift; sourceTree = "<group>"; };
 		D07ED50923AA549900E7712A /* Reducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
 		D07ED50A23AA549900E7712A /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		D07ED50C23AA549900E7712A /* FirstTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstTime.swift; sourceTree = "<group>"; };
@@ -362,7 +360,6 @@
 			isa = PBXGroup;
 			children = (
 				D07ED50723AA549900E7712A /* Entities.swift */,
-				D07ED50823AA549900E7712A /* KillSwitch.swift */,
 				D07ED50923AA549900E7712A /* Reducer.swift */,
 				D07ED50A23AA549900E7712A /* CoreDataService.swift */,
 				D07ED50C23AA549900E7712A /* FirstTime.swift */,
@@ -896,7 +893,6 @@
 				D07ED5AD23AA549B00E7712A /* ScannerViewController.swift in Sources */,
 				D07ED58723AA549B00E7712A /* NodeLogic.swift in Sources */,
 				D07ED56F23AA549B00E7712A /* Entities.swift in Sources */,
-				D07ED57023AA549B00E7712A /* KillSwitch.swift in Sources */,
 				D07ED5A323AA549B00E7712A /* UTXOViewController.swift in Sources */,
 				D07ED5B023AA549B00E7712A /* PageViewController.swift in Sources */,
 				D07ED5B623AA549B00E7712A /* RawDisplayer.swift in Sources */,

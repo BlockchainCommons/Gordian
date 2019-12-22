@@ -487,16 +487,35 @@ class Settings: NSViewController {
     @IBAction func addPubkey(_ sender: Any) {
         
         if textInput.stringValue != "" {
-            let info = textInput.stringValue
-            DispatchQueue.main.async {
-                actionAlert(message: "Set V3 authorized_client pubkey?", info: info) { (response) in
-                    if response {
-                        self.authenticate()
-                    } else {
-                        print("tapped no")
+            
+            let descriptor = textInput.stringValue.replacingOccurrences(of: " ", with: "")
+            
+            if descriptor.hasPrefix("descriptor:x25519:") {
+                
+                DispatchQueue.main.async {
+                    
+                    actionAlert(message: "Add Tor V3 authentication key?", info: descriptor) { (response) in
+                        
+                        if response {
+                            
+                            self.authenticate()
+                            
+                        } else {
+                            
+                            print("tapped no")
+                            
+                        }
+                        
                     }
+                    
                 }
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: "Incorrect format, the correct format is:\n\ndescriptor:x25519:<public key here>", buttonLabel: "OK")
+                
             }
+            
         }
         
     }

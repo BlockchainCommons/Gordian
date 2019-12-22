@@ -1,9 +1,9 @@
 //
 //  KeyGen.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 24/10/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import CryptoKit
@@ -11,10 +11,7 @@ import Foundation
 
 class KeyGen {
     
-    var privKey = ""
-    var pubKey = ""
-    
-    func generate() {
+    func generate(completion: @escaping ((pubkey: String?, privkey: String?)) -> Void) {
         
         if #available(iOS 13.0, *) {
             
@@ -27,9 +24,15 @@ class KeyGen {
             let privkeyBase32 = privKeyData.base32EncodedString
             let pubkeyBase32 = pubkeyData.base32EncodedString
             
-            privKey = privkeyBase32.replacingOccurrences(of: "====", with: "")
-            pubKey = pubkeyBase32.replacingOccurrences(of: "====", with: "")
+            let privKey = privkeyBase32.replacingOccurrences(of: "====", with: "")
+            let pubKey = pubkeyBase32.replacingOccurrences(of: "====", with: "")
+            
+            completion((pubKey, privKey))
         
+        } else {
+            
+            completion((nil,nil))
+            
         }
         
     }

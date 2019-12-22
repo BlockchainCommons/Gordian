@@ -1,9 +1,9 @@
 //
 //  FirstTime.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 05/04/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import Foundation
@@ -22,6 +22,8 @@ class FirstTime {
         print("firstTimeHere")
         
         if ud.object(forKey: "firstTime") == nil {
+            
+            ud .set("m/84'/0'/0'/0", forKey: "derivation")
             
             let password = randomString(length: 32)
             

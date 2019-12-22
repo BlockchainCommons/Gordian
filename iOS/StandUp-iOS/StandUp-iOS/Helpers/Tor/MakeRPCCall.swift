@@ -1,9 +1,9 @@
 //
 //  MakeRPCCall.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 31/03/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import Foundation

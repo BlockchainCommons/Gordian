@@ -1,9 +1,9 @@
 //
 //  UTXOViewController.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 30/04/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import UIKit
@@ -515,23 +515,23 @@ class UTXOViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let utxos = utxoArray as NSArray
-        let utxo = utxos[editActionsForRowAt.section] as! NSDictionary
+        let utxo = utxos[indexPath.section] as! NSDictionary
         let txid = utxo["txid"] as! String
         let vout = utxo["vout"] as! Int
         
-        let lock = UITableViewRowAction(style: .normal, title: "Lock") { action, index in
+        let contextItem = UIContextualAction(style: .destructive, title: "Lock") {  (contextualAction, view, boolValue) in
             
             self.lockUTXO(txid: txid, vout: vout)
             
         }
         
-        lock.backgroundColor = .red
-        
-        return [lock]
-        
+        let swipeActions = UISwipeActionsConfiguration(actions: [contextItem])
+        contextItem.backgroundColor = .systemRed
+
+        return swipeActions
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

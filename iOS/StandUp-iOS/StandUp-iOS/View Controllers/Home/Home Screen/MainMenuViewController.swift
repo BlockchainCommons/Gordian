@@ -1,9 +1,9 @@
 //
 //  MainMenuViewController.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 08/09/18.
-//  Copyright © 2018 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import UIKit
@@ -48,7 +48,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     var wallets = NSArray()
     var viewHasLoaded = Bool()
     let label = UILabel()
-    @IBOutlet var scannerButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +66,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         setFeeTarget()
         showUnlockScreen()
         addlaunchScreen()
-        scannerButton.tintColor = UIColor.white.withAlphaComponent(0)
         
     }
     
@@ -103,10 +101,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 self.removeLoadingView()
                 self.removeSpinner()
-                
-                DispatchQueue.main.async {
-                    self.scannerButton.tintColor = UIColor.white.withAlphaComponent(1)
-                }
                 
                 if ud.object(forKey: "showIntro") == nil {
                     

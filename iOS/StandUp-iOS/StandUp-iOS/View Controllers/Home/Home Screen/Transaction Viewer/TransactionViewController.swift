@@ -1,9 +1,9 @@
 //
 //  TransactionViewController.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 22/07/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import UIKit
@@ -56,7 +56,7 @@ class TransactionViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         
-                        self.textView.text = "\(reducer.dictToReturn)"
+                        self.textView.text = "\(dict)"
                         self.creatingView.removeConnectingView()
                         
                     }

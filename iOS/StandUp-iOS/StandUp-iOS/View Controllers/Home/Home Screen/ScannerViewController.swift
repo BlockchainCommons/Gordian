@@ -1,9 +1,9 @@
 //
 //  ScannerViewController.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 04/12/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import UIKit
@@ -24,14 +24,14 @@ class ScannerViewController: UIViewController, UINavigationControllerDelegate {
         scanNow()
         
         // MARK: For testing purposes we hard code a btcstandup url, to revert just comment out addNode()
-        //addnode()
+        addnode()
     }
     
     func addnode() {
         
         // Testnet Linode instance:
-        let url = "btcstandup://StandUp:71e355f8e097857c932cc315f321eb4a@ftemeyifladknw3cpdhilomt7fhb3cquebzczjb7hslia77khc7cnwid.onion:1309/?label=LinodeStandUp.sh"
-        
+        //let url = "btcstandup://StandUp:71e355f8e097857c932cc315f321eb4a@ftemeyifladknw3cpdhilomt7fhb3cquebzczjb7hslia77khc7cnwid.onion:1309/?label=LinodeStandUp.sh"
+        let url = "btcstandup://user:password@2ejm4v4dnwb5psxxqbl3aa5lvuxn5f6sil2p47qikgt5maijw2xwxmqd.onion:1309/?label=StandUp"
         addBtcRpcQr(url: url)
         
     }
@@ -120,13 +120,19 @@ class ScannerViewController: UIViewController, UINavigationControllerDelegate {
             connectingView.addConnectingView(vc: self, description: "getting authentication keys")
             
             let keygen = KeyGen()
-            keygen.generate()
-            let pubkey = "descriptor:x25519:" + keygen.pubKey
-            let privkey = keygen.privKey
-            
-            qc.addNode(vc: self,
-                       url: url, authkey: privkey, authPubKey: pubkey,
-                       completion: nodeAdded)
+            keygen.generate { (pubkey, privkey) in
+                
+                if pubkey != nil && privkey != nil {
+                    
+                    let pubkeyDesc = "descriptor:x25519:" + pubkey!
+                    
+                    qc.addNode(vc: self,
+                               url: url, authkey: privkey!, authPubKey: pubkeyDesc,
+                               completion: nodeAdded)
+                    
+                }
+                
+            }
             
         }
         

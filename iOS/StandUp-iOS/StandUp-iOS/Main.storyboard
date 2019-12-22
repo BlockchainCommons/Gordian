@@ -287,16 +287,9 @@
                     <tabBarItem key="tabBarItem" title="" image="Home" id="2Tc-dk-uCe">
                         <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" id="83A-pa-ZRF">
-                        <barButtonItem key="leftBarButtonItem" image="qrcode.viewfinder" catalog="system" id="owW-6N-LiY">
-                            <connections>
-                                <action selector="scan:" destination="XmP-lK-cua" id="iI1-Rx-HPw"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="83A-pa-ZRF"/>
                     <connections>
                         <outlet property="mainMenu" destination="WFU-Fl-Gfe" id="lGR-uB-jyD"/>
-                        <outlet property="scannerButton" destination="owW-6N-LiY" id="tRq-H9-sWO"/>
                         <segue destination="MkV-nj-qUL" kind="show" identifier="getTransaction" id="La4-nW-6qo"/>
                         <segue destination="bKH-sI-MiM" kind="presentation" identifier="lockScreen" id="UBf-qr-XYG"/>
                         <segue destination="o69-RN-9VD" kind="show" identifier="scanNow" id="LzA-tD-DJD"/>
@@ -693,6 +686,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="playButton" destination="8N0-A8-wd6" id="m76-Ym-wmN"/>
                         <outlet property="textView" destination="eBs-1h-vAq" id="0dP-kX-Q4W"/>
                     </connections>
                 </viewController>
@@ -1224,7 +1218,7 @@
             <objects>
                 <viewController storyboardIdentifier="LogIn" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bKH-sI-MiM" customClass="LogInViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wt8-Mt-3Mi">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="EbK-Bw-j4E"/>
@@ -1248,7 +1242,7 @@
         <image name="whiteCheck.png" width="2048" height="2048"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qed-hl-jG5"/>
+        <segue reference="UBf-qr-XYG"/>
         <segue reference="zL7-ti-xtY"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

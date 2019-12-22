@@ -1,9 +1,9 @@
 //
 //  AuthenticateViewController.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 05/12/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import UIKit
@@ -33,20 +33,29 @@ class AuthenticateViewController: UIViewController, UITabBarControllerDelegate {
         
         cd.retrieveEntity(entityName: .nodes) {
             
-            if !cd.errorBool {
+            if cd.entities.count > 0 {
                 
-                let nodes = cd.entities
-                let node = NodeStruct(dictionary: nodes[0])
-                let aes = AESService()
-                self.pubkey = aes.decryptKey(keyToDecrypt: node.authPubKey)
-                self.showDescriptor()
+                if !cd.errorBool {
+                    
+                    let nodes = cd.entities
+                    let node = NodeStruct(dictionary: nodes[0])
+                    let aes = AESService()
+                    self.pubkey = aes.decryptKey(keyToDecrypt: node.authPubKey)
+                    self.showDescriptor()
+                    
+                } else {
+                    
+                    displayAlert(viewController: self, isError: true, message: "no node added, go scan a QuickConnect QR")
+                }
                 
             } else {
                 
-                displayAlert(viewController: self, isError: true, message: "no node added, go scan a QuickConnect QR")
+                displayAlert(viewController: self, isError: true, message: "No nodes added yet")
+                
             }
             
         }
+        
     }
 
     func configureDisplayer() {

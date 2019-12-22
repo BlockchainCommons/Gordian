@@ -1,9 +1,9 @@
 //
 //  LogInViewController.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 03/09/18.
-//  Copyright © 2018 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 //need to copy account creation to create account view controller

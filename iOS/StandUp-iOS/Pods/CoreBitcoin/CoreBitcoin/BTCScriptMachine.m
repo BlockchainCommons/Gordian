@@ -232,9 +232,9 @@
     __block BOOL opFailed = NO;
     [script enumerateOperations:^(NSUInteger opIndex, BTCOpcode opcode, NSData *pushdata, BOOL *stop) {
         
-        _opIndex = opIndex;
-        _opcode = opcode;
-        _pushdata = pushdata;
+        self->_opIndex = opIndex;
+        self->_opcode = opcode;
+        self->_pushdata = pushdata;
         
         if (![self executeOpcodeError:errorOut])
         {

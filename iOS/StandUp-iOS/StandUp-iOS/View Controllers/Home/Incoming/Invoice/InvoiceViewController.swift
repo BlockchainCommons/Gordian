@@ -1,16 +1,16 @@
 //
 //  InvoiceViewController.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 21/03/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import UIKit
 
 class InvoiceViewController: UIViewController, UITextFieldDelegate {
     
-    let spinner = UIActivityIndicatorView(style: .white)
+    let spinner = UIActivityIndicatorView(style: .medium)
     var textToShareViaQRCode = String()
     var addressString = String()
     var qrCode = UIImage()

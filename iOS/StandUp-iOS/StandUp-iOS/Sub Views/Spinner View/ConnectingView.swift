@@ -1,9 +1,9 @@
 //
 //  ConnectingView.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 06/04/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import Foundation
@@ -28,7 +28,7 @@ class ConnectingView: UIView {
                                              height: 50)
             
             self.activityIndicator.hidesWhenStopped = true
-            self.activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
+            self.activityIndicator.style = .large
             self.activityIndicator.alpha = 0
             self.blurView.contentView.addSubview(self.activityIndicator)
             self.activityIndicator.startAnimating()
