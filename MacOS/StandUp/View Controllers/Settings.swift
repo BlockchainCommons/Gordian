@@ -841,7 +841,7 @@ class Settings: NSViewController {
                 
                 DispatchQueue.main.async {
                     self.setLog(content: runBuildScript.stringToReturn)
-                    setSimpleAlert(message: "Success", info: "Added pubkey: \(pubkey)", buttonLabel: "OK")
+                    setSimpleAlert(message: "Successfully added auth key", info: "Important! Tor is now restarting, authentication will not come into effect until this completes.\n\nYou may get an \"Internet not connected error\" when reconnecting to your node, just keep tapping the refresh button until the app connects, it is normal to have a connectivity issue immediately after restarting Tor.", buttonLabel: "OK")
                     self.textInput.stringValue = ""
                     self.textInput.resignFirstResponder()
                 }
