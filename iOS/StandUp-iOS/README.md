@@ -61,9 +61,9 @@ iOS 13
 Peter Denton, fontainedenton@gmail.com
 
 ### Bulit with
-[Tor.framework](https://github.com/iCepa/Tor.framework) by the [iCepa project](https://github.com/iCepa)
-[Core Bitcoin](https://github.com/oleganza/CoreBitcoin) built by @oleganza
-[Base32](https://github.com/norio-nomura/Base32/tree/master/Sources/Base32) built by @norio-nomura
+- [Tor.framework](https://github.com/iCepa/Tor.framework) by the [iCepa project](https://github.com/iCepa) - for communicating with your nodes hidden service
+- [Core Bitcoin](https://github.com/oleganza/CoreBitcoin) built by @oleganza - for mnemonic creation and keychain derivation
+- [Base32](https://github.com/norio-nomura/Base32/tree/master/Sources/Base32) built by @norio-nomura - for Tor V3 authentication key creation
 
 # Contributing
 
