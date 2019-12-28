@@ -4,7 +4,17 @@
 #  StandUp
 #
 #  Created by Peter on 19/11/19.
-#  Copyright © 2019 Peter. All rights reserved.
-sudo -u $(whoami) ~/StandUp/BitcoinCore/$PREFIX/bin/bitcoin-cli -datadir="$DATADIR" stop
+#  Copyright © 2019 Blockchain Commons, LLC
+if [ -d ~/StandUp/BitcoinCore ]; then
+
+  ~/StandUp/BitcoinCore/$PREFIX/bin/bitcoin-cli -datadir="$DATADIR" stop
+
+else
+
+  PATH="$(command -v bitcoin-cli)"
+  $PATH -datadir="$DATADIR" stop
+
+fi
+
 echo "Done"
-exit
+exit 1

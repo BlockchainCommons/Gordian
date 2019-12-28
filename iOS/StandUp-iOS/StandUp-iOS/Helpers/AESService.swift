@@ -1,9 +1,9 @@
 //
 //  AESService.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 04/04/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import Foundation
@@ -19,7 +19,7 @@ class AESService {
         
         var stringtoReturn = ""
         
-        if let pw = keychain.get("AESKey") as? String {
+        if let pw = keychain.get("AESKey") {
             
             do {
                 
@@ -49,7 +49,7 @@ class AESService {
         
         var stringtoReturn = ""
         
-        if let pw = keychain.get("AESKey") as? String {
+        if let pw = keychain.get("AESKey") {
             
             do {
                 

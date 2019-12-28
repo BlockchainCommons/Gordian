@@ -1,9 +1,9 @@
 //
 //  LockedViewController.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 27/09/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import UIKit
@@ -87,7 +87,7 @@ class LockedViewController: UIViewController, UITableViewDelegate, UITableViewDa
             selectedTxid = helperArray[i]["txid"] as! String
             selectedVout = helperArray[i]["vout"] as! Int
             
-            executeNodeCommand(method: BTC_CLI_COMMAND.getrawtransaction,
+            executeNodeCommand(method: .getrawtransaction,
                                param: "\"\(selectedTxid)\", true")
             
         }
@@ -134,22 +134,22 @@ class LockedViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let utxo = helperArray[editActionsForRowAt.row]
+        let utxo = helperArray[indexPath.row]
         let txid = utxo["txid"] as! String
         let vout = utxo["vout"] as! Int
         
-        let unlock = UITableViewRowAction(style: .destructive, title: "Unlock") { action, index in
+        let contextItem = UIContextualAction(style: .destructive, title: "Unlock") {  (contextualAction, view, boolValue) in
             
             self.unlockUTXO(txid: txid, vout: vout)
             
         }
         
-        unlock.backgroundColor = .blue
-        
-        return [unlock]
-        
+        let swipeActions = UISwipeActionsConfiguration(actions: [contextItem])
+        contextItem.backgroundColor = .blue
+
+        return swipeActions
     }
     
     func unlockUTXO(txid: String, vout: Int) {
@@ -172,7 +172,7 @@ class LockedViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
                 switch method {
                     
-                case BTC_CLI_COMMAND.getrawtransaction:
+                case .getrawtransaction:
                     
                     let dict = reducer.dictToReturn
                     let outputs = dict["vout"] as! NSArray
@@ -211,12 +211,12 @@ class LockedViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         
                     }
                     
-                case BTC_CLI_COMMAND.listlockunspent:
+                case .listlockunspent:
                     
                     lockedArray = reducer.arrayToReturn
                     getHelperArray()
                     
-                case BTC_CLI_COMMAND.lockunspent:
+                case .lockunspent:
                     
                     let result = reducer.doubleToReturn
                     
@@ -236,7 +236,7 @@ class LockedViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     
                     helperArray.removeAll()
                     
-                    executeNodeCommand(method: BTC_CLI_COMMAND.listlockunspent,
+                    executeNodeCommand(method: .listlockunspent,
                                        param: "")
                     
                     DispatchQueue.main.async {

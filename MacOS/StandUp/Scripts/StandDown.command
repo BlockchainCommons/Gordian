@@ -4,7 +4,7 @@
 #  StandUp
 #
 #  Created by Peter on 13/11/19.
-#  Copyright © 2019 Peter. All rights reserved.
+#  Copyright © 2019 Blockchain Commons, LLC
 echo "Removing ~/StandUp"
 rm -R ~/StandUp
 echo "Removing /usr/local/etc/tor"
@@ -16,4 +16,4 @@ sudo -u $(whoami) /usr/local/bin/brew services stop tor
 echo "Uninstalling Tor..."
 sudo -u $(whoami) /usr/local/bin/brew uninstall tor
 echo "Finished"
-exit
+exit 1

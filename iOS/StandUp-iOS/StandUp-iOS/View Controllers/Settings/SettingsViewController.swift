@@ -1,9 +1,9 @@
 //
 //  SettingsViewController.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 08/10/18.
-//  Copyright © 2018 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import UIKit
@@ -106,11 +106,11 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             
         case 1:
             
-            label.text = "Kill Switch ☠️"
+            label.text = "Export Authentication Public Key"
             return settingsCell
             
         case 2:
-        
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "miningFeeCell", for: indexPath)
             let label = cell.viewWithTag(1) as! UILabel
             let slider = cell.viewWithTag(2) as! UISlider
@@ -162,7 +162,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         switch section {
         case 0: return "Seed"
-        case 1: return "Reset App"
+        case 1: return "Tor V3 Authentication"
         case 2: return "Mining Fee"
         default:return ""
         }
@@ -201,8 +201,16 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         switch indexPath.section {
         case 0: goToSeed()
-        case 1: kill()
+        case 1: goToAuth()
         default: break
+        }
+        
+    }
+    
+    func goToAuth() {
+        
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "goToAuth", sender: self)
         }
         
     }
@@ -233,41 +241,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             
         }
 
-    }
-    
-    func kill() {
-        
-        let tit = "Danger!"
-        let mess = "This will DELETE all the apps data, are you sure you want to proceed?"
-        let alert = UIAlertController(title: tit, message: mess, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Reset", style: .destructive, handler: { action in
-            
-            let killswitch = KillSwitch()
-            let killed = killswitch.resetApp(vc: self.navigationController!)
-            
-            if killed {
-                
-                displayAlert(viewController: self,
-                             isError: false,
-                             message: "app has been reset")
-                
-            } else {
-                
-                displayAlert(viewController: self,
-                             isError: true,
-                             message: "error reseting app")
-                
-            }
-            
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
-            
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
-        
     }
     
     func goToWalletManager() {

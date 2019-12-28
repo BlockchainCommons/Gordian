@@ -3,7 +3,7 @@
 //  StandUp
 //
 //  Created by Peter on 23/11/19.
-//  Copyright © 2019 Peter. All rights reserved.
+//  Copyright © 2019 Blockchain Commons, LLC
 //
 
 import Foundation
@@ -76,7 +76,7 @@ class Defaults {
             
             if ud.object(forKey: "txindex") == nil {
                 
-                ud.set(0, forKey: "txindex")
+                ud.set(1, forKey: "txindex")
                 
             }
             
@@ -97,8 +97,6 @@ class Defaults {
             var bindOn = false
             
             if !error {
-                
-                print("conf = \(conf)")
                 
                 if conf.count > 0 {
                     

@@ -1,9 +1,9 @@
 //
 //  QRScanner.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 15/04/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import Foundation

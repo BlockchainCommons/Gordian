@@ -1,9 +1,9 @@
 //
 //  MainMenuViewController.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 08/09/18.
-//  Copyright © 2018 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import UIKit
@@ -42,7 +42,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     var network = ""
     var sectionZeroLoaded = Bool()
     var sectionOneLoaded = Bool()
-    let spinner = UIActivityIndicatorView(style: .white)
+    let spinner = UIActivityIndicatorView(style: .medium)
     var refreshButton = UIBarButtonItem()
     var dataRefresher = UIBarButtonItem()
     var wallets = NSArray()
@@ -67,12 +67,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         showUnlockScreen()
         addlaunchScreen()
         
-    }
-    
-    @IBAction func authenticate(_ sender: Any) {
-        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "authenticate", sender: self)
-        }
     }
     
     @IBAction func scan(_ sender: Any) {

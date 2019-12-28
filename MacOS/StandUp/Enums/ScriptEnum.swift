@@ -3,7 +3,7 @@
 //  StandUp
 //
 //  Created by Peter on 31/10/19.
-//  Copyright © 2019 Peter. All rights reserved.
+//  Copyright © 2019 Blockchain Commons, LLC
 //
 
 import Foundation
@@ -31,6 +31,7 @@ public enum SCRIPT: String {
     case refreshHS = "RefreshHS"
     case showBitcoinLog = "ShowBitcoinCoreLog"
     case showTorLog = "ShowTorLog"
+    case checkStandUp = "CheckStandUp"
     
 }
 

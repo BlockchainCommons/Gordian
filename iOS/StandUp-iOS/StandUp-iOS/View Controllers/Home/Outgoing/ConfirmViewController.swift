@@ -1,9 +1,9 @@
 //
 //  ConfirmViewController.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 12/12/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import UIKit
@@ -11,7 +11,6 @@ import UIKit
 class ConfirmViewController: UIViewController, UINavigationControllerDelegate {
     
     let creatingView = ConnectingView()
-    
     var signedRawTx = ""
     var outputsString = ""
     var inputsString = ""
@@ -19,8 +18,9 @@ class ConfirmViewController: UIViewController, UINavigationControllerDelegate {
     var index = Int()
     var inputTotal = Double()
     var outputTotal = Double()
-    
     @IBOutlet var textView: UITextView!
+    @IBOutlet var playButton: UIBarButtonItem!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +67,7 @@ class ConfirmViewController: UIViewController, UINavigationControllerDelegate {
                         self.creatingView.removeConnectingView()
                         self.textView.text = "Transaction ID:\n\n\(result)"
                         self.navigationItem.title = "Sent ✓"
+                        self.playButton.tintColor = UIColor.white.withAlphaComponent(0)
                         
                         displayAlert(viewController: self,
                                      isError: false,

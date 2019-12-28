@@ -1,9 +1,9 @@
 //
 //  SeedViewController.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 16/12/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import UIKit
@@ -16,12 +16,20 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     var barTitle = ""
     var privateKeyDescriptor = ""
     var publicKeyDescriptor = ""
+    var birthdate = "\"now\""
     @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        if let birthdateCheck = UserDefaults.standard.object(forKey: "birthdate") as? Int {
+            
+            birthdate = "\(birthdateCheck)"
+            
+        }
+        
         loadData()
         
     }
@@ -41,6 +49,7 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             } else {
                 
                 print("error getting xprv")
+                displayAlert(viewController: self, isError: true, message: "Error getting your xprv")
                 
             }
             
@@ -51,6 +60,7 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             if xpub != "" {
                 
                 self.publicKeyDescriptor = "wpkh(\(xpub)/*)"
+                
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -58,6 +68,7 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             } else {
                 
                 print("error getting xpub")
+                displayAlert(viewController: self, isError: true, message: "Error getting your xpub")
             }
             
         }
@@ -99,7 +110,7 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         case 4:
             
-            cell.textLabel?.text = "bitcoin-cli importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \"now\", \"range\": [0,999], \"watchonly\": false, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }\n\nbitcoin-cli importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \"now\", \"range\": [1000,1999], \"watchonly\": false, \"keypool\": true, \"internal\": true }"
+            cell.textLabel?.text = "bitcoin-cli importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \(birthdate), \"range\": [0,999], \"watchonly\": false, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }\n\nbitcoin-cli importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \(birthdate), \"range\": [1000,1999], \"watchonly\": false, \"keypool\": true, \"internal\": true }"
             
         default:
             
@@ -166,6 +177,10 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                         self.barTitle = "Private Key Descriptor"
                         self.goToQRDisplayer()
                         
+                    case 4:
+                        
+                        self.shareRecoveryCommand()
+                        
                     default:
                         
                         break
@@ -222,6 +237,22 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 completion((""))
                 
             }
+            
+        }
+        
+    }
+    
+    func shareRecoveryCommand() {
+        
+        DispatchQueue.main.async {
+                            
+            let textToShare = ["bitcoin-cli importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \(self.birthdate), \"range\": [0,999], \"watchonly\": false, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }\n\nbitcoin-cli importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \(self.birthdate), \"range\": [1000,1999], \"watchonly\": false, \"keypool\": true, \"internal\": true }"]
+            
+            let activityViewController = UIActivityViewController(activityItems: textToShare,
+                                                                  applicationActivities: nil)
+            
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true) {}
             
         }
         

@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  StandUp-iOS
 //
-//  Created by Peter on 18/12/19.
-//  Copyright © 2019 Blockchain Commons, LLC. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import UIKit
@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UIApplication.shared.statusBarStyle = .lightContent
+        //UIApplication.shared.statusBarStyle = .lightContent
         return true
     }
 
@@ -62,14 +62,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             let keyGen = KeyGen()
-            
-            keyGen.generate()
-            
-            qc.addNode(vc: myTabBar,
-                       url: url,
-                       authkey: keyGen.privKey,
-                       authPubKey: keyGen.pubKey,
-                       completion: getResult)
+            keyGen.generate { (pubkey, privkey) in
+                
+                if pubkey != nil && privkey != nil {
+                    
+                    let pubkeyDesc = "descriptor:x25519:" + pubkey!
+                    
+                    qc.addNode(vc: myTabBar,
+                               url: url,
+                               authkey: privkey!,
+                               authPubKey: pubkeyDesc,
+                               completion: getResult)
+                    
+                }
+                
+            }
             
         } else {
             

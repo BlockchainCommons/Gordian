@@ -4,36 +4,50 @@
 #  StandUp
 #
 #  Created by Peter on 07/11/19.
-#  Copyright © 2019 Peter. All rights reserved.
-echo "Creating ~/StandUp/BitcoinCore..."
+#  Copyright © 2019 Blockchain Commons, LLC
+
 mkdir ~/StandUp
-mkdir ~/StandUp/BitcoinCore
 
-echo "Downloading $SHA_URL"
-curl $SHA_URL -o ~/StandUp/BitcoinCore/SHA256SUMS.asc -s
-echo "Saved to ~/StandUp/BitcoinCore/SHA256SUMS.asc"
+function installBitcoin () {
 
-echo "Downloading Laanwj PGP signature from https://bitcoincore.org/laanwj-releases.asc..."
-curl https://bitcoincore.org/laanwj-releases.asc -o ~/StandUp/BitcoinCore/laanwj-releases.asc -s
-echo "Saved to ~/StandUp/BitcoinCore/laanwj-releases.asc"
+  echo "Creating ~/StandUp/BitcoinCore..."
+  mkdir ~/StandUp/BitcoinCore
 
-echo "Downloading Bitcoin Core $VERSION from $MACOS_URL"
-cd ~/StandUp/BitcoinCore
-curl $MACOS_URL -o ~/StandUp/BitcoinCore/$BINARY_NAME --progress-bar
+  echo "Downloading $SHA_URL"
+  curl $SHA_URL -o ~/StandUp/BitcoinCore/SHA256SUMS.asc -s
+  echo "Saved to ~/StandUp/BitcoinCore/SHA256SUMS.asc"
 
-echo "Checking sha256 checksums $BINARY_NAME against SHA256SUMS.asc"
-ACTUAL_SHA=$(shasum -a 256 $BINARY_NAME | awk '{print $1}')
-EXPECTED_SHA=$(grep osx64 SHA256SUMS.asc | awk '{print $1}')
+  echo "Downloading Laanwj PGP signature from https://bitcoincore.org/laanwj-releases.asc..."
+  curl https://bitcoincore.org/laanwj-releases.asc -o ~/StandUp/BitcoinCore/laanwj-releases.asc -s
+  echo "Saved to ~/StandUp/BitcoinCore/laanwj-releases.asc"
+  
+  echo "Downloading Bitcoin Core $VERSION from $MACOS_URL"
+  cd ~/StandUp/BitcoinCore
+  curl $MACOS_URL -o ~/StandUp/BitcoinCore/$BINARY_NAME --progress-bar
 
-echo "See two signatures (they should match):"
-echo $ACTUAL_SHA
-echo $EXPECTED_SHA
+  echo "Checking sha256 checksums $BINARY_NAME against SHA256SUMS.asc"
+  ACTUAL_SHA=$(shasum -a 256 $BINARY_NAME | awk '{print $1}')
+  EXPECTED_SHA=$(grep osx64 SHA256SUMS.asc | awk '{print $1}')
 
-if [ "$ACTUAL_SHA" == "$EXPECTED_SHA" ]; then
+  echo "See two signatures (they should match):"
+  echo $ACTUAL_SHA
+  echo $EXPECTED_SHA
+  
+  if [ "$ACTUAL_SHA" == "$EXPECTED_SHA" ]; then
 
-  echo "Signatures match"
-  echo "Unpacking $BINARY_NAME"
-  tar -zxvf $BINARY_NAME
+    echo "Signatures match"
+    echo "Unpacking $BINARY_NAME"
+    tar -zxvf $BINARY_NAME
+
+  else
+
+    echo "Signatures do not match! Terminating..."
+    
+  fi
+  
+}
+
+function configureBitcoin () {
 
   echo "Creating the following bitcoin.conf at: "$DATADIR"/bitcoin.conf:"
   echo "$CONF"
@@ -51,6 +65,10 @@ if [ "$ACTUAL_SHA" == "$EXPECTED_SHA" ]; then
 
   echo "$CONF" > bitcoin.conf
   echo "Done"
+  
+}
+
+function installTor () {
 
   echo "Installing tor..."
   sudo -u $(whoami) /usr/local/bin/brew install tor
@@ -78,12 +96,38 @@ if [ "$ACTUAL_SHA" == "$EXPECTED_SHA" ]; then
   echo "Congratulations you are now StoodUp!\nClick the back button if this screen does not dismiss automatically"
   echo "Starting Tor as a service (it will automatically start every time you turn on your computer).."
   sudo -u $(whoami) /usr/local/bin/brew services start tor
-  exit
+  
+}
 
+if ! [ -x "$(command -v bitcoind)" ]; then
+  
+  # Bitcoin is not installed, install it
+  installBitcoin
+  configureBitcoin
+  installTor
+  ~/StandUp/BitcoinCore/$PREFIX/bin/bitcoind -datadir="$DATADIR" -daemon
+  
 else
-
-  echo "Signatures do not match! Terminating..."
+  
+  if [ "$IGNORE_EXISTING_BITCOIN" == "YES" ]; then
+  
+    # Bitcoin is already installed, install again
+    installBitcoin
+    configureBitcoin
+    installTor
+    ~/StandUp/BitcoinCore/$PREFIX/bin/bitcoind -datadir="$DATADIR" -daemon
+  
+  else
+  
+    # Bitcoin is already installed, don't install again
+    configureBitcoin
+    installTor
+    PATH="$(command -v bitcoind)"
+    $PATH -datadir="$DATADIR" -daemon
+    
+  fi
   
 fi
 
-exit
+echo "StandUp complete"
+exit 1

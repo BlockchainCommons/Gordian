@@ -1,14 +1,23 @@
 //
 //  KeychainCreator.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 03/12/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import Foundation
 
 class KeychainCreator {
+    
+    func saveKeyBirthday() {
+        
+        let date = Date()
+        let unixTime = date.timeIntervalSince1970
+        let birthdate = Int(unixTime)
+        UserDefaults.standard.set(birthdate, forKey: "birthdate")
+        
+    }
     
     func createKeyChain(isTestnet: Bool, completion: @escaping ((mnemonic: String, error: Bool)) -> Void) {
         
@@ -22,6 +31,8 @@ class KeychainCreator {
             let sha256OfData = BTCSHA256(data) as Data
             
             if let m = BTCMnemonic.init(entropy: sha256OfData, password: "", wordListType: .english) {
+                
+                saveKeyBirthday()
                                 
                 if !isTestnet {
                     

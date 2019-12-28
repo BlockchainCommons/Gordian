@@ -3,7 +3,7 @@
 //  StandUp
 //
 //  Created by Peter on 08/10/19.
-//  Copyright © 2019 Peter. All rights reserved.
+//  Copyright © 2019 Blockchain Commons, LLC
 //
 
 import Cocoa
@@ -487,16 +487,35 @@ class Settings: NSViewController {
     @IBAction func addPubkey(_ sender: Any) {
         
         if textInput.stringValue != "" {
-            let info = textInput.stringValue
-            DispatchQueue.main.async {
-                actionAlert(message: "Set V3 authorized_client pubkey?", info: info) { (response) in
-                    if response {
-                        self.authenticate()
-                    } else {
-                        print("tapped no")
+            
+            let descriptor = textInput.stringValue.replacingOccurrences(of: " ", with: "")
+            
+            if descriptor.hasPrefix("descriptor:x25519:") {
+                
+                DispatchQueue.main.async {
+                    
+                    actionAlert(message: "Add Tor V3 authentication key?", info: descriptor) { (response) in
+                        
+                        if response {
+                            
+                            self.authenticate()
+                            
+                        } else {
+                            
+                            print("tapped no")
+                            
+                        }
+                        
                     }
+                    
                 }
+                
+            } else {
+                
+                setSimpleAlert(message: "Error", info: "Incorrect format, the correct format is:\n\ndescriptor:x25519:<public key here>", buttonLabel: "OK")
+                
             }
+            
         }
         
     }
@@ -822,7 +841,7 @@ class Settings: NSViewController {
                 
                 DispatchQueue.main.async {
                     self.setLog(content: runBuildScript.stringToReturn)
-                    setSimpleAlert(message: "Success", info: "Added pubkey: \(pubkey)", buttonLabel: "OK")
+                    setSimpleAlert(message: "Successfully added auth key", info: "Important! Tor is now restarting, authentication will not come into effect until this completes.\n\nYou may get an \"Internet not connected error\" when reconnecting to your node, just keep tapping the refresh button until the app connects, it is normal to have a connectivity issue immediately after restarting Tor.", buttonLabel: "OK")
                     self.textInput.stringValue = ""
                     self.textInput.resignFirstResponder()
                 }

@@ -1,9 +1,9 @@
 //
 //  WalletCreator.swift
-//  BitSense
+//  StandUp-iOS
 //
-//  Created by Peter on 05/12/19.
-//  Copyright © 2019 Fontaine. All rights reserved.
+//  Created by Peter on 12/01/19.
+//  Copyright © 2019 BlockchainCommons. All rights reserved.
 //
 
 import Foundation
@@ -14,8 +14,15 @@ class WalletCreator {
     var importingChange = false
     var descriptor = ""
     var errorString = ""
+    var birthdate = "\"now\""
     
     func createStandUpWallet(completion: @escaping (Bool) -> Void) {
+        
+        if let birthdateCheck = ud.object(forKey: "birthdate") as? Int {
+            
+            birthdate = "\(birthdateCheck)"
+            
+        }
         
         func createSaveSeed() {
             
@@ -110,7 +117,6 @@ class WalletCreator {
                     case .importmulti:
                         
                         let result = reducer.arrayToReturn
-                        print("result = \(result)")
                         let success = (result[0] as! NSDictionary)["success"] as! Bool
                         
                         if success {
@@ -154,7 +160,7 @@ class WalletCreator {
                         let result = reducer.dictToReturn
                         descriptor = "\"\(result["descriptor"] as! String)\""
                         
-                        let params = "[{ \"desc\": \(descriptor), \"timestamp\": \"now\", \"range\": [0,999], \"watchonly\": true, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }]"
+                        let params = "[{ \"desc\": \(descriptor), \"timestamp\": \(birthdate), \"range\": [0,999], \"watchonly\": true, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }]"
                         
                         executeNodeCommand(method: .importmulti,
                                            param: params)
@@ -260,7 +266,7 @@ class WalletCreator {
         func importChangeKeys() {
             
             importingChange = true
-            let params = "[{ \"desc\": \(descriptor), \"timestamp\": \"now\", \"range\": [1000,1999], \"watchonly\": true, \"keypool\": true, \"internal\": true }]"
+            let params = "[{ \"desc\": \(descriptor), \"timestamp\": \(birthdate), \"range\": [1000,1999], \"watchonly\": true, \"keypool\": true, \"internal\": true }]"
             executeNodeCommand(method: .importmulti, param: params)
             
         }
