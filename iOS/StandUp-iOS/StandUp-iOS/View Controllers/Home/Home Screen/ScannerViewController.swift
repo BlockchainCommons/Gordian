@@ -24,14 +24,13 @@ class ScannerViewController: UIViewController, UINavigationControllerDelegate {
         scanNow()
         
         // MARK: For testing purposes we hard code a btcstandup url, to revert just comment out addNode()
-        addnode()
+        //addnode()
     }
     
     func addnode() {
         
         // Testnet Linode instance:
-        //let url = "btcstandup://StandUp:71e355f8e097857c932cc315f321eb4a@ftemeyifladknw3cpdhilomt7fhb3cquebzczjb7hslia77khc7cnwid.onion:1309/?label=LinodeStandUp.sh"
-        let url = "btcstandup://user:password@2ejm4v4dnwb5psxxqbl3aa5lvuxn5f6sil2p47qikgt5maijw2xwxmqd.onion:1309/?label=StandUp"
+        let url = "btcstandup://StandUp:71e355f8e097857c932cc315f321eb4a@ftemeyifladknw3cpdhilomt7fhb3cquebzczjb7hslia77khc7cnwid.onion:1309/?label=LinodeStandUp.sh"
         addBtcRpcQr(url: url)
         
     }

@@ -19,7 +19,7 @@ enum Pages: CaseIterable {
         case .pageZero:
             return "Welcome to StandUp-iOS!"
         case .pageOne:
-            return "What does StandUp-iOS do?"
+            return "How do I use StandUp-iOS?"
         case .pageTwo:
             return "How does StandUp-iOS work?"
         case .pageThree:
@@ -28,14 +28,23 @@ enum Pages: CaseIterable {
     }
     
     var body: String {
+        
         switch self {
+            
         case .pageZero:
-            return "StandUp is made possible by Blockchain Commons, please see our website for more info www.blockchaincommons.com and the GitHub for all the details at https://github.com/BlockchainCommons/Bitcoin-Standup\n\nStandUp-iOS is tailor made to work with Bitcoin Core and works especially well with the MacOS StandUp.app and the StandUp.sh Linux scripts."
+            
+            return "StandUp is made possible by Blockchain Commons, A \"not-for-profit\" benefit corporation. Founded to support blockchain infrastructure & the broader security industry through cryptographic & privacy protocol implementations, research, and standards.\n\nPlease consider supporting us via BTCPayServer at https://btcpay.blockchaincommons.com\n\nPlease see our website for more info at www.blockchaincommons.com and our GitHub at https://github.com/BlockchainCommons/Bitcoin-Standup\n\nStandUp-iOS is tailor made to work with Bitcoin Core and works especially well with the MacOS StandUp.app and the StandUp.sh Linux scripts. You may also pair this app over Tor by scanning the QR code your BTCPayServer, RaspiBlitz, Nodl, or MyNode produce."
+            
         case .pageOne:
-            return "1. Connect to your node by scanning the QuickConnect QR code over Tor.\n\nStandUp-iOS will then automatically:\n\n2. Create a seed locally on your device and encrypt it.\n\n3. Create a dedicated \"StandUp\" wallet on your node.\n\n4. Import your xpub to create a watch-only wallet on your node.\n\n5. Stores your seed locally so it can sign transactions before broadcasting them, that way your node does not hold the private keys, to back up your wallet simply go to \"Settings\" and tap \"Export Seed\".\n\n6. Full coin control, batching and simple sending of Bitcoin transactions, it will display statistics about the Bitcoin network straight from your node, it allows seed exporting via BIP39 recovery phrase or public/private descriptors."
+            
+            return "First, connect to your node by scanning the QuickConnect QR code that your node software produces, supporting node software includes StandUp.app (MacOS), BTCPayServer, MyNode, RaspiBlitz and Nodl. Of course you may do this yourself by following the instructions on our github.\n\nThe app will then do all the hard work for you. Using StandUp is straightforward, to create a Bitcoin invoice just tap the \"In\" button, to spend Bitcoin just tap the \"Out\" button. For advanced users you can tap the list button for full coin control.\n\nGo to settings to export your seed and for wallet recovery information.\n\nAuthenticate your connection to your node with the public key you can export in settings."
+            
         case .pageTwo:
-            return "StandUp-iOS keeps things simple by storing your seed locally and using Bitcoin Core for all the complex wallet functionality.\n\nAll wallet functionality is powered by your node over Tor.\n\nStandUp-iOS runs its very own Tor node on your device which allows it to connect to your nodes hidden service to utilize Bitcoin Core wallet functions.\n\nThe unique architecture of StandUp-iOS means that you can use BIP39 recovery phrases with your Bitcoin Core node whilst keeping your node cold and storing the private keys in a more secure way on your device."
+            
+            return "StandUp-iOS keeps things simple by storing your seed locally and using Bitcoin Core for all the complex wallet functionality.\n\nStandUp-iOS runs a Tor node on your device which it uses to connect to your nodes hidden service. This way you can privately and securely control your nodes wallet functionality remotely from anywhere in the world, allowing you to keep your node completely behind a firewall.\n\nThe unique architecture of StandUp-iOS means that you can use BIP39 recovery phrases with your Bitcoin Core node whilst keeping your node cold and storing the private keys in a more secure way on your device.\n\nStandUp-iOS automatically creates a seed locally on your device and encrypts it.\n\nIt then creates a dedicated \"StandUp\" wallet on your node, importing your xpub to create a watch-only wallet on your node.\n\nIt stores your seed locally so it can derive the necessary private keys on demand to sign raw transactions before broadcasting them. To back up your wallet simply go to \"Settings\" and tap \"Export Seed\", to recover your wallet use the Wallet Recovery Commands with any Bitcoin Core node console."
+            
         case .pageThree:
+            
             return "StandUp-iOS will create a Tor V3 authentication private key and public key, the private key is encrypted and stored locally on your device, you will never see it. You will need to export the public key to your nodes hidden service \"authorized_clients\" directory which is simple to do with either MacOS StandUp.app or the StandUp.sh Linux scripts.\n\nThat's it! Tap the back button or the home button to get started."
         }
     }
