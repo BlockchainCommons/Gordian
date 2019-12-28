@@ -4,7 +4,7 @@
 #  StandUp
 #
 #  Created by Peter on 24/11/19.
-#  Copyright © 2019 Peter. All rights reserved.
+#  Copyright © 2019 Blockchain Commons, LLC
 echo "Refreshing hidden service..."
 echo "Stopping Tor..."
 sudo -u $(whoami) /usr/local/bin/brew services stop tor
@@ -15,4 +15,4 @@ rm -f /usr/local/var/lib/tor/standup/hs_ed25519_secret_key
 echo "Starting Tor..."
 sudo -u $(whoami) /usr/local/bin/brew services start tor
 echo "Done"
-exit
+exit 1

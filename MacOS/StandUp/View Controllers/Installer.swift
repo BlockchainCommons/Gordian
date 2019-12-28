@@ -3,7 +3,7 @@
 //  StandUp
 //
 //  Created by Peter on 07/10/19.
-//  Copyright © 2019 Peter. All rights reserved.
+//  Copyright © 2019 Blockchain Commons, LLC
 //
 
 import Cocoa
@@ -14,6 +14,7 @@ class Installer: NSViewController {
     @IBOutlet var spinnerDescription: NSTextField!
     @IBOutlet var backButtonOutlet: NSButton!
     @IBOutlet var consoleOutput: NSTextView!
+    
     let ud = UserDefaults.standard
     var seeLog = Bool()
     var standingUp = Bool()
@@ -22,6 +23,7 @@ class Installer: NSViewController {
     var upgrading = Bool()
     var standUpConf = ""
     var refreshing = Bool()
+    var ignoreExistingBitcoin = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -216,7 +218,7 @@ class Installer: NSViewController {
                                 
                                 listenExists = true
                                 
-                            case "bindaddress":
+                            case "bind":
                                 
                                 bindExists = true
                                 
@@ -277,7 +279,7 @@ class Installer: NSViewController {
                     
                     if !bindExists {
                         
-                        self.standUpConf = "#bindaddress=127.0.0.1\n" + self.standUpConf + "\n"
+                        self.standUpConf = "#bind=127.0.0.1\n" + self.standUpConf + "\n"
                         
                     }
                     
@@ -291,7 +293,7 @@ class Installer: NSViewController {
                     let txindex = self.ud.object(forKey: "txindex") as? Int ?? 1
                     let walletDisabled = self.ud.object(forKey: "walletDisabled") as? Int ?? 0
                     
-                    self.standUpConf = "testnet=\(d.testnet())\ndisablewallet=\(walletDisabled)\nrpcuser=\(randomString(length: 10))\nrpcpassword=\(randomString(length: 32))\nserver=1\nprune=\(prune)\ntxindex=\(txindex)\nrpcallowip=127.0.0.1\nbindaddress=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
+                    self.standUpConf = "testnet=\(d.testnet())\ndisablewallet=\(walletDisabled)\nrpcuser=\(randomString(length: 10))\nrpcpassword=\(randomString(length: 32))\nserver=1\nprune=\(prune)\ntxindex=\(txindex)\nrpcbind=127.0.0.1\nrpcallowip=127.0.0.1\nbind=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
                     
                     self.getURLs()
                     
@@ -337,13 +339,21 @@ class Installer: NSViewController {
         
         DispatchQueue.main.async {
             
+            var ignore = "NO"
+            
+            if self.ignoreExistingBitcoin {
+                
+                ignore = "YES"
+                
+            }
+            
             let d = Defaults()
             let runBuildTask = RunBuildTask()
             runBuildTask.args = []
-            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version, "CONF":self.standUpConf, "DATADIR":d.dataDir()]
+            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version, "CONF":self.standUpConf, "DATADIR":d.dataDir(), "IGNORE_EXISTING_BITCOIN":ignore]
             runBuildTask.textView = self.consoleOutput
             runBuildTask.showLog = true
-            runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating..."]
+            runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating...", "StandUp complete"]
             runBuildTask.runScript(script: .standUp) {
                 
                 if !runBuildTask.errorBool {

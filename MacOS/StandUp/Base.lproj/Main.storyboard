@@ -971,7 +971,7 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="blockchaincommons" id="7iz-Dc-FQy"/>
                             </imageView>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sNE-QI-e93">
-                                <rect key="frame" x="79" y="11" width="86" height="12"/>
+                                <rect key="frame" x="212" y="199" width="86" height="12"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="***98jr843.onion ✓" id="RzY-po-iKE">
                                     <font key="font" size="10" name="HelveticaNeue"/>
@@ -980,7 +980,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ICc-Az-APX">
-                                <rect key="frame" x="251" y="34" width="42" height="12"/>
+                                <rect key="frame" x="313" y="265" width="42" height="12"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="8 peers" id="0zY-se-CgO">
                                     <font key="font" size="10" name="HelveticaNeue"/>
@@ -989,7 +989,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VSl-6L-Dfx">
-                                <rect key="frame" x="164" y="12" width="38" height="12"/>
+                                <rect key="frame" x="297" y="200" width="38" height="12"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="main" id="RGZ-l8-MqT">
                                     <font key="font" size="10" name="HelveticaNeue"/>
@@ -998,7 +998,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lq4-fv-sN7">
-                                <rect key="frame" x="207" y="11" width="97" height="12"/>
+                                <rect key="frame" x="269" y="242" width="97" height="12"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="clients authenticated" id="Ol5-HX-DzC">
                                     <font key="font" size="10" name="HelveticaNeue"/>
@@ -1007,7 +1007,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qhH-cg-q1d">
-                                <rect key="frame" x="164" y="32" width="24" height="12"/>
+                                <rect key="frame" x="297" y="220" width="24" height="12"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="⛓" id="fzW-U0-Xk6">
                                     <font key="font" size="11" name="HelveticaNeue"/>
@@ -1016,7 +1016,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jw1-xx-WSa">
-                                <rect key="frame" x="-2" y="11" width="72" height="12"/>
+                                <rect key="frame" x="131" y="199" width="72" height="12"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="99% synced" id="eju-TO-ktQ">
                                     <font key="font" size="10" name="HelveticaNeue"/>
@@ -1025,46 +1025,75 @@
                                 </textFieldCell>
                             </textField>
                             <progressIndicator hidden="YES" wantsLayer="YES" fixedFrame="YES" maxValue="100" doubleValue="65" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="9Oc-1V-SL9">
-                                <rect key="frame" x="20" y="24" width="16" height="16"/>
+                                <rect key="frame" x="153" y="212" width="16" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </progressIndicator>
                             <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4bd-zM-LJX">
-                                <rect key="frame" x="113" y="26" width="18" height="27"/>
+                                <rect key="frame" x="246" y="214" width="18" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="onion" id="dB1-U8-ahu"/>
                             </imageView>
                             <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BGK-So-oNh">
-                                <rect key="frame" x="222" y="27" width="23" height="21"/>
+                                <rect key="frame" x="284" y="258" width="23" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSLockLockedTemplate" id="3Fc-Xn-cfA"/>
                             </imageView>
                             <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="42N-Mk-ado">
-                                <rect key="frame" x="262" y="49" width="20" height="24"/>
+                                <rect key="frame" x="271" y="217" width="20" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" controlSize="small" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSEveryone" id="yGi-NH-OKa"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AB6-v1-7yU">
                                 <rect key="frame" x="8" y="217" width="100" height="11"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="BlockchainCommons" id="wyD-cr-mau">
-                                    <font key="font" metaFont="system" size="9"/>
+                                    <font key="font" metaFont="miniSystem"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Y0x-fc-cFc">
+                                <rect key="frame" x="36" y="10" width="48" height="11"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Bitcoin on" id="4Gt-pJ-KGW">
+                                    <font key="font" metaFont="miniSystem"/>
+                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="asx-6e-lJH">
+                                <rect key="frame" x="20" y="7" width="16" height="16"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusAvailable" id="1XJ-Js-eW0"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rRe-9Q-TXG">
+                                <rect key="frame" x="106" y="10" width="32" height="11"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Tor on" id="alQ-IP-qjH">
+                                    <font key="font" metaFont="miniSystem"/>
+                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mwn-Hz-Tc2">
+                                <rect key="frame" x="90" y="7" width="16" height="16"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusAvailable" id="Amy-lY-9Zx"/>
+                            </imageView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="Y0x-fc-cFc" firstAttribute="leading" secondItem="asx-6e-lJH" secondAttribute="trailing" constant="2" id="06k-kM-wOj"/>
                             <constraint firstItem="y6q-T1-byM" firstAttribute="top" secondItem="w4M-Pe-mtd" secondAttribute="bottom" constant="14" id="27z-VE-C6s"/>
                             <constraint firstItem="AB6-v1-7yU" firstAttribute="centerX" secondItem="zZj-w8-TgT" secondAttribute="centerX" id="2WX-z4-zK3"/>
+                            <constraint firstItem="Y0x-fc-cFc" firstAttribute="centerY" secondItem="asx-6e-lJH" secondAttribute="centerY" id="59r-7H-ckI"/>
                             <constraint firstItem="8vD-Aq-02i" firstAttribute="top" secondItem="0Fk-4I-h7q" secondAttribute="bottom" constant="14" id="5AG-OU-sII"/>
                             <constraint firstItem="8vD-Aq-02i" firstAttribute="leading" secondItem="8iX-4Q-Ggk" secondAttribute="leading" id="6px-mb-4oW"/>
                             <constraint firstItem="w4M-Pe-mtd" firstAttribute="centerY" secondItem="0Fk-4I-h7q" secondAttribute="centerY" id="75M-k0-F5W"/>
+                            <constraint firstItem="rRe-9Q-TXG" firstAttribute="leading" secondItem="mwn-Hz-Tc2" secondAttribute="trailing" constant="2" id="CGc-NN-scQ"/>
                             <constraint firstItem="w4M-Pe-mtd" firstAttribute="top" secondItem="eeZ-As-8fa" secondAttribute="bottom" constant="14" id="Cm4-8p-VU8"/>
                             <constraint firstItem="qhb-g5-W9f" firstAttribute="leading" secondItem="tf2-ZI-mJF" secondAttribute="leading" id="FRa-yw-cZk"/>
                             <constraint firstItem="zZj-w8-TgT" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="32" id="HUB-k7-fmq"/>
+                            <constraint firstItem="mwn-Hz-Tc2" firstAttribute="leading" secondItem="Y0x-fc-cFc" secondAttribute="trailing" constant="8" id="Hsg-An-NFV"/>
                             <constraint firstItem="8iX-4Q-Ggk" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="111" id="JbM-i1-9zW"/>
                             <constraint firstItem="1Mv-9m-mvv" firstAttribute="centerY" secondItem="zZj-w8-TgT" secondAttribute="centerY" constant="-6" id="KDx-Pc-ibT"/>
                             <constraint firstItem="tf2-ZI-mJF" firstAttribute="top" secondItem="8vD-Aq-02i" secondAttribute="bottom" constant="14" id="MHS-yy-GrG"/>
                             <constraint firstItem="Yrb-JG-EZW" firstAttribute="trailing" secondItem="eeZ-As-8fa" secondAttribute="trailing" id="MOX-bH-FDl"/>
+                            <constraint firstItem="mwn-Hz-Tc2" firstAttribute="centerY" secondItem="Y0x-fc-cFc" secondAttribute="centerY" id="Nsp-pt-fqO"/>
                             <constraint firstItem="1Mv-9m-mvv" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="25" id="Pr4-Qt-7zm"/>
                             <constraint firstItem="K4o-Sf-dSl" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="SJ9-vB-W8w"/>
                             <constraint firstItem="y6q-T1-byM" firstAttribute="trailing" secondItem="eeZ-As-8fa" secondAttribute="trailing" id="U9j-uP-WZa"/>
@@ -1074,14 +1103,19 @@
                             <constraint firstItem="tf2-ZI-mJF" firstAttribute="leading" secondItem="8iX-4Q-Ggk" secondAttribute="leading" id="c18-Xm-gBQ"/>
                             <constraint firstItem="eeZ-As-8fa" firstAttribute="centerY" secondItem="8iX-4Q-Ggk" secondAttribute="centerY" id="e7g-kZ-OVp"/>
                             <constraint firstItem="Yrb-JG-EZW" firstAttribute="centerY" secondItem="tf2-ZI-mJF" secondAttribute="centerY" id="eKB-SV-rD4"/>
+                            <constraint firstItem="asx-6e-lJH" firstAttribute="leading" secondItem="qhb-g5-W9f" secondAttribute="leading" id="f0v-PX-cex"/>
                             <constraint firstItem="K4o-Sf-dSl" firstAttribute="leading" secondItem="kdQ-HU-D0l" secondAttribute="trailing" constant="8" id="fsE-3v-par"/>
+                            <constraint firstItem="rRe-9Q-TXG" firstAttribute="centerY" secondItem="mwn-Hz-Tc2" secondAttribute="centerY" id="gTk-Lw-bGR"/>
+                            <constraint firstAttribute="bottom" secondItem="mwn-Hz-Tc2" secondAttribute="bottom" constant="7" id="hgd-KQ-HSU"/>
                             <constraint firstItem="0Fk-4I-h7q" firstAttribute="leading" secondItem="8iX-4Q-Ggk" secondAttribute="leading" id="j8q-hj-zjs"/>
                             <constraint firstItem="tMm-82-jtg" firstAttribute="centerY" secondItem="qhb-g5-W9f" secondAttribute="centerY" id="m5A-43-OMT"/>
                             <constraint firstItem="LCJ-cy-WyO" firstAttribute="trailing" secondItem="tMm-82-jtg" secondAttribute="trailing" id="mMR-va-QGF"/>
+                            <constraint firstItem="Y0x-fc-cFc" firstAttribute="centerY" secondItem="rRe-9Q-TXG" secondAttribute="centerY" id="mji-6e-lRe"/>
                             <constraint firstAttribute="trailing" secondItem="1Mv-9m-mvv" secondAttribute="trailing" constant="20" id="mmy-Pf-OyY"/>
                             <constraint firstItem="K4o-Sf-dSl" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="13" id="pqF-ZK-NJ0"/>
                             <constraint firstItem="y6q-T1-byM" firstAttribute="centerY" secondItem="8vD-Aq-02i" secondAttribute="centerY" id="pwu-KL-wHd"/>
                             <constraint firstItem="8iX-4Q-Ggk" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="q6E-dI-bMK"/>
+                            <constraint firstAttribute="bottom" secondItem="asx-6e-lJH" secondAttribute="bottom" constant="7" id="sbV-2j-a3x"/>
                             <constraint firstItem="w4M-Pe-mtd" firstAttribute="trailing" secondItem="eeZ-As-8fa" secondAttribute="trailing" id="tP0-8i-6hI"/>
                             <constraint firstItem="tMm-82-jtg" firstAttribute="trailing" secondItem="Yrb-JG-EZW" secondAttribute="trailing" id="tP2-qt-LVb"/>
                             <constraint firstItem="AB6-v1-7yU" firstAttribute="top" secondItem="zZj-w8-TgT" secondAttribute="bottom" constant="2" id="uLf-00-5qU"/>
@@ -1092,6 +1126,8 @@
                     <connections>
                         <outlet property="bitcoinConfLabel" destination="tf2-ZI-mJF" id="kCc-aF-Pty"/>
                         <outlet property="bitcoinCoreStatusLabel" destination="8vD-Aq-02i" id="Bq1-iX-crK"/>
+                        <outlet property="bitcoinRunningImage" destination="asx-6e-lJH" id="VzR-w2-Aei"/>
+                        <outlet property="bitcoinRunningLabel" destination="Y0x-fc-cFc" id="dUt-Gi-Mcw"/>
                         <outlet property="icon" destination="zZj-w8-TgT" id="mC2-fU-qbF"/>
                         <outlet property="installBitcoindOutlet" destination="Yrb-JG-EZW" id="3uL-fr-XN1"/>
                         <outlet property="installTorOutlet" destination="w4M-Pe-mtd" id="Pnf-UR-CsW"/>
@@ -1101,6 +1137,8 @@
                         <outlet property="standUpOutlet" destination="eeZ-As-8fa" id="Kaj-cG-D36"/>
                         <outlet property="taskDescription" destination="K4o-Sf-dSl" id="Xb9-TC-9s2"/>
                         <outlet property="torConfLabel" destination="0Fk-4I-h7q" id="hoP-rI-iTs"/>
+                        <outlet property="torRunningImage" destination="mwn-Hz-Tc2" id="6iH-Pv-QIC"/>
+                        <outlet property="torRunningLabel" destination="rRe-9Q-TXG" id="PlU-ky-DI2"/>
                         <outlet property="torStatusLabel" destination="8iX-4Q-Ggk" id="O4b-d0-gwO"/>
                         <outlet property="updateBitcoinlabel" destination="qhb-g5-W9f" id="PgE-M4-Jxt"/>
                         <outlet property="updateOutlet" destination="tMm-82-jtg" id="b1B-LH-TKx"/>
@@ -1521,7 +1559,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wKT-1w-B96">
                                 <rect key="frame" x="123" y="20" width="135" height="11"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="refreshes your hidden service" id="TAQ-Vy-FlI">
-                                    <font key="font" metaFont="system" size="9"/>
+                                    <font key="font" metaFont="miniSystem"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -1579,6 +1617,7 @@
         <image name="NSEveryone" width="32" height="32"/>
         <image name="NSLockLockedTemplate" width="10" height="14"/>
         <image name="NSRefreshFreestandingTemplate" width="14" height="14"/>
+        <image name="NSStatusAvailable" width="16" height="16"/>
         <image name="NSTouchBarGoUpTemplate" width="16" height="30"/>
         <image name="blockchaincommons" width="256" height="256"/>
         <image name="onion" width="512" height="512"/>

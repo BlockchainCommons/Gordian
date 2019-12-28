@@ -3,7 +3,7 @@
 //  StandUp
 //
 //  Created by Peter on 08/10/19.
-//  Copyright © 2019 Peter. All rights reserved.
+//  Copyright © 2019 Blockchain Commons, LLC
 //
 
 import Cocoa

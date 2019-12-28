@@ -4,7 +4,17 @@
 #  StandUp
 #
 #  Created by Peter on 05/11/19.
-#  Copyright © 2019 Peter. All rights reserved.
-sudo -u $(whoami) ~/StandUp/BitcoinCore/$PREFIX/bin/bitcoin-qt -datadir="$DATADIR"
+#  Copyright © 2019 Blockchain Commons, LLC
+if [ -d ~/StandUp/BitcoinCore ]; then
+
+  ~/StandUp/BitcoinCore/$PREFIX/bin/bitcoind -datadir="$DATADIR" -daemon
+
+else
+
+  PATH="$(command -v bitcoind)"
+  $PATH -datadir="$DATADIR" -daemon
+
+fi
+
 echo "Done"
-exit
+exit 1

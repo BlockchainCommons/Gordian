@@ -54,6 +54,7 @@
 		D0DCD8EA236ACD5300F2D15A /* QRDisplayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0DCD8E8236ACD5300F2D15A /* QRDisplayer.xib */; };
 		D0DCD8ED236ACD6300F2D15A /* Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCD8EB236ACD6300F2D15A /* Installer.swift */; };
 		D0DCD8EE236ACD6300F2D15A /* Installer.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0DCD8EC236ACD6300F2D15A /* Installer.xib */; };
+		D0E74F2323B6A527008B1EC5 /* CheckStandUp.command in Resources */ = {isa = PBXBuildFile; fileRef = D0E74F2223B6A527008B1EC5 /* CheckStandUp.command */; };
 		D0EB5318237E4E9F002212F8 /* fullynoded_share.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EB5315237E4E9F002212F8 /* fullynoded_share.png */; };
 		D0EB5319237E4E9F002212F8 /* fullynoded_generate.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EB5316237E4E9F002212F8 /* fullynoded_generate.png */; };
 		D0EB531A237E4E9F002212F8 /* fullynoded_tap_pubkey.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EB5317237E4E9F002212F8 /* fullynoded_tap_pubkey.png */; };
@@ -134,6 +135,7 @@
 		D0DCD8E8236ACD5300F2D15A /* QRDisplayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRDisplayer.xib; sourceTree = "<group>"; };
 		D0DCD8EB236ACD6300F2D15A /* Installer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Installer.swift; sourceTree = "<group>"; };
 		D0DCD8EC236ACD6300F2D15A /* Installer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Installer.xib; sourceTree = "<group>"; };
+		D0E74F2223B6A527008B1EC5 /* CheckStandUp.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = CheckStandUp.command; sourceTree = "<group>"; };
 		D0EB5315237E4E9F002212F8 /* fullynoded_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullynoded_share.png; sourceTree = "<group>"; };
 		D0EB5316237E4E9F002212F8 /* fullynoded_generate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullynoded_generate.png; sourceTree = "<group>"; };
 		D0EB5317237E4E9F002212F8 /* fullynoded_tap_pubkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullynoded_tap_pubkey.png; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				D0821044238AC9CC00E21EDC /* RefreshHS.command */,
 				D0821046238B66F300E21EDC /* ShowBitcoinCoreLog.command */,
 				D0821048238B702100E21EDC /* ShowTorLog.command */,
+				D0E74F2223B6A527008B1EC5 /* CheckStandUp.command */,
 			);
 			path = Scripts;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				D0534CCA237E4DF00093DE67 /* fullynoded_qr.png in Resources */,
 				D0DCD8EA236ACD5300F2D15A /* QRDisplayer.xib in Resources */,
 				D0534CC6237E4CC20093DE67 /* ok.png in Resources */,
+				D0E74F2323B6A527008B1EC5 /* CheckStandUp.command in Resources */,
 				D0971D90237008D8001C3636 /* LICENSE in Resources */,
 				D0B927782383E59700956651 /* UpgradeBitcoin.command in Resources */,
 				D0B927822384DD7100956651 /* CheckForTor.command in Resources */,
@@ -660,7 +664,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 0.0.1;
-				DEVELOPMENT_TEAM = YZHG975W3A;
+				DEVELOPMENT_TEAM = 69FR345CDA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = StandUp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -680,8 +684,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StandUp/StandUp.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 69FR345CDA;
@@ -692,9 +696,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fontaine.BitcoinStandUp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.BitcoinStandUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = MacosDistributionNov2019;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
