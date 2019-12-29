@@ -102,6 +102,7 @@ function installTor () {
 if ! [ -x "$(command -v bitcoind)" ]; then
   
   # Bitcoin is not installed, install it
+  
   installBitcoin
   configureBitcoin
   installTor
@@ -109,9 +110,12 @@ if ! [ -x "$(command -v bitcoind)" ]; then
   
 else
   
+  # Bitcoin is installed already but user may want to do a fresh install
+  
   if [ "$IGNORE_EXISTING_BITCOIN" == "YES" ]; then
   
     # Bitcoin is already installed, install again
+    
     installBitcoin
     configureBitcoin
     installTor
@@ -120,6 +124,7 @@ else
   else
   
     # Bitcoin is already installed, don't install again
+    
     configureBitcoin
     installTor
     PATH="$(command -v bitcoind)"

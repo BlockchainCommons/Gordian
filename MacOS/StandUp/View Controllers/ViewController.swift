@@ -150,7 +150,32 @@ class ViewController: NSViewController {
                 
                 func standup() {
                     
-                    self.showstandUpAlert(message: "Ready to StandUp?", info: "StandUp installs and configures a fully indexed Bitcoin Core v\(version) testnet node and Tor v0.4.2.5\n\n~30gb of space needed for testnet and ~300gb for mainnet\n\nIf you would like to install a different node go to \"Settings\" for pruning, mainnet, data directory and tor related options, you can always adjust the settings and restart your node for the changes to take effect.\n\nStandUp will create the following directory: /Users/\(NSUserName())/StandUp\n\nBy default it will create or if one exists add any missing rpc credentials to the bitcoin.conf in \(Defaults().dataDir()).")
+                    let d = Defaults()
+                    var chain = d.chain()
+                    let pruned = d.prune()
+                    let txindex = d.txindex()
+                    let directory = d.dataDir()
+                    var type = ""
+                    
+                    if chain == "main" || chain == "test" {
+                        
+                        chain += "net"
+                        
+                    }                    
+                    
+                    if pruned == 1 {
+                        
+                        type = "pruned"
+                        
+                    }
+                    
+                    if txindex == 1 {
+                        
+                        type = "fully indexed"
+                        
+                    }
+                    
+                    self.showstandUpAlert(message: "Ready to StandUp?", info: "StandUp will install and configure a \(type) Bitcoin Core v\(version) \(chain) node and Tor v0.4.2.5\n\n~30gb of space needed for testnet and ~300gb for mainnet\n\nIf you would like to install a different node go to \"Settings\" for pruning, mainnet, data directory and tor related options, you can always adjust the settings and restart your node for the changes to take effect.\n\nStandUp will create the following directory: /Users/\(NSUserName())/StandUp\n\nBy default it will create or if one exists add any missing rpc credentials to the bitcoin.conf in \(directory).")
                     
                 }
                 
@@ -171,7 +196,6 @@ class ViewController: NSViewController {
                         }
                         
                     }
-                    
                     
                 } else {
                     
@@ -397,6 +421,7 @@ class ViewController: NSViewController {
                 
                 let str = runBuildTask.stringToReturn
                 self.parseScriptResult(script: script, result: str)
+                self.setLog(content: str)
                 
             } else {
                 

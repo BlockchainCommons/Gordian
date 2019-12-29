@@ -694,7 +694,7 @@
             </objects>
             <point key="canvasLocation" x="-1866" y="-506"/>
         </scene>
-        <!--Settings v0.0.9-->
+        <!--Settings v0.0.10-->
         <scene sceneID="Ajv-p7-tUm">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="AS8-ke-Yxh" customClass="SettingsViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -781,7 +781,7 @@
                         <viewLayoutGuide key="safeArea" id="Cze-jj-bFe"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Settings" id="n34-O3-Fyo"/>
-                    <navigationItem key="navigationItem" title="Settings v0.0.9" id="YNb-Gd-Hqq"/>
+                    <navigationItem key="navigationItem" title="Settings v0.0.10" id="YNb-Gd-Hqq"/>
                     <connections>
                         <outlet property="settingsTable" destination="hcp-eG-lok" id="xPg-8r-KBs"/>
                         <segue destination="bKH-sI-MiM" kind="show" identifier="goLogIn" id="qed-hl-jG5"/>
@@ -1218,7 +1218,7 @@
             <objects>
                 <viewController storyboardIdentifier="LogIn" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bKH-sI-MiM" customClass="LogInViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wt8-Mt-3Mi">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="EbK-Bw-j4E"/>
@@ -1242,7 +1242,7 @@
         <image name="whiteCheck.png" width="2048" height="2048"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UBf-qr-XYG"/>
+        <segue reference="qed-hl-jG5"/>
         <segue reference="zL7-ti-xtY"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
