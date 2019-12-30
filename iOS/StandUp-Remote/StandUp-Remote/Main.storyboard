@@ -31,7 +31,7 @@
         <!--Authenticate-->
         <scene sceneID="uhr-cc-fch">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="FI5-Kv-Y72" customClass="AuthenticateViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="FI5-Kv-Y72" customClass="AuthenticateViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xx3-cn-bLQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -63,7 +63,7 @@
         <!--Main Menu View Controller-->
         <scene sceneID="erx-5N-Kcy">
             <objects>
-                <viewController storyboardIdentifier="MainMenu" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XmP-lK-cua" customClass="MainMenuViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainMenu" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XmP-lK-cua" customClass="MainMenuViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xal-ei-X51">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -303,7 +303,7 @@
         <!--Intro View Controller-->
         <scene sceneID="xwq-yX-n8x">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="I2N-Ql-8qz" customClass="IntroViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="I2N-Ql-8qz" customClass="IntroViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="brz-ev-3wV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -340,7 +340,7 @@
         <!--Transaction-->
         <scene sceneID="VqF-ym-nmL">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="MkV-nj-qUL" customClass="TransactionViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="MkV-nj-qUL" customClass="TransactionViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gzX-0t-QhJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -374,7 +374,7 @@
         <!--QuickConnect QR-->
         <scene sceneID="S5B-qY-ww0">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="o69-RN-9VD" customClass="ScannerViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="o69-RN-9VD" customClass="ScannerViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tBq-5k-T1U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -425,7 +425,7 @@
         <!--Invoice-->
         <scene sceneID="aU3-2L-A1l">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="Xxg-Pp-vvN" customClass="InvoiceViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="Xxg-Pp-vvN" customClass="InvoiceViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eUN-hK-8St">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -512,7 +512,7 @@
         <!--Send-->
         <scene sceneID="nPC-E2-jSN">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="pUo-bf-sNm" customClass="CreateRawTxViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="pUo-bf-sNm" customClass="CreateRawTxViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DIN-Fg-EH6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -656,7 +656,7 @@
         <!--Confirm-->
         <scene sceneID="cYH-Od-C1K">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="xB3-mY-13p" customClass="ConfirmViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="xB3-mY-13p" customClass="ConfirmViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="T5K-PU-RA6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -694,10 +694,10 @@
             </objects>
             <point key="canvasLocation" x="-1866" y="-506"/>
         </scene>
-        <!--Settings v0.0.10-->
+        <!--Settings v0.0.13-->
         <scene sceneID="Ajv-p7-tUm">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="AS8-ke-Yxh" customClass="SettingsViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="AS8-ke-Yxh" customClass="SettingsViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="A3f-zZ-K5e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -781,7 +781,7 @@
                         <viewLayoutGuide key="safeArea" id="Cze-jj-bFe"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Settings" id="n34-O3-Fyo"/>
-                    <navigationItem key="navigationItem" title="Settings v0.0.10" id="YNb-Gd-Hqq"/>
+                    <navigationItem key="navigationItem" title="Settings v0.0.13" id="YNb-Gd-Hqq"/>
                     <connections>
                         <outlet property="settingsTable" destination="hcp-eG-lok" id="xPg-8r-KBs"/>
                         <segue destination="bKH-sI-MiM" kind="show" identifier="goLogIn" id="qed-hl-jG5"/>
@@ -797,7 +797,7 @@
         <!--Seed Info-->
         <scene sceneID="whf-ed-7JK">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="lq5-Pd-gqW" customClass="SeedViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="lq5-Pd-gqW" customClass="SeedViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GDk-pd-kDa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -869,7 +869,7 @@
         <!--Export-->
         <scene sceneID="txy-Zb-nWB">
             <objects>
-                <viewController id="aWn-Fx-ACR" customClass="QRViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="aWn-Fx-ACR" customClass="QRViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0ft-op-zNI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -956,7 +956,7 @@
         <!--UTXO'S-->
         <scene sceneID="WAZ-Eh-cw6">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="qYd-Xi-rqO" customClass="UTXOViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="qYd-Xi-rqO" customClass="UTXOViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mo7-j4-oZL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1141,7 +1141,7 @@
         <!--Locked View Controller-->
         <scene sceneID="CKp-4Z-5YA">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="03r-hX-hYT" customClass="LockedViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="03r-hX-hYT" customClass="LockedViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hqF-Ak-aXu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1216,7 +1216,7 @@
         <!--Log In View Controller-->
         <scene sceneID="Ieg-P5-lGV">
             <objects>
-                <viewController storyboardIdentifier="LogIn" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bKH-sI-MiM" customClass="LogInViewController" customModule="StandUp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogIn" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bKH-sI-MiM" customClass="LogInViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wt8-Mt-3Mi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

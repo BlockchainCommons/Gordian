@@ -24,7 +24,7 @@ class ScannerViewController: UIViewController, UINavigationControllerDelegate {
         scanNow()
         
         // MARK: For testing purposes we hard code a btcstandup url, to revert just comment out addNode()
-        addnode()
+        //addnode()
     }
     
     func addnode() {
