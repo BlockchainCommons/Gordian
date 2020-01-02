@@ -124,15 +124,27 @@ class Settings: NSViewController {
                     
                     self.privateOn()
                     
+                } else {
+                    
+                    self.revert(outlet: self.goPrivateOutlet)
+                    
                 }
-                
+
             }
             
         } else {
             
-            actionAlert(message: "Disable?", info: "This will enable your node to connect to other nodes over the clearnet, not just over tor, it is recommended to disable this setting when your node is doing the initial block download.") { (result) in
+            actionAlert(message: "Disable?", info: "This will enable your node to connect to other nodes over the clearnet, not just over tor, it is recommended to disable this setting when your node is doing the initial block download.") { (response) in
                 
-                self.privateOff()
+                if response {
+                    
+                    self.privateOff()
+                    
+                } else {
+                    
+                    self.revert(outlet: self.goPrivateOutlet)
+                    
+                }
                 
             }
                         
@@ -559,6 +571,14 @@ class Settings: NSViewController {
         
     }
     
+    func revert(outlet: NSButton) {
+        
+        DispatchQueue.main.async {
+            outlet.setNextState()
+        }
+        
+    }
+    
     func parseBitcoinConf(conf: [String], keyToUpdate: BTCCONF, outlet: NSButton, newValue: Int) {
         print("parseBitcoinConf")
         print("conf = \(conf)")
@@ -584,14 +604,6 @@ class Settings: NSViewController {
         func alertSettingNotForCurrentNetwork() {
             
             setSimpleAlert(message: "Error", info: "You are attempting to update a setting that is network specific. You must select the correct network first then update the setting.", buttonLabel: "OK")
-            
-        }
-        
-        func revert() {
-            
-            DispatchQueue.main.async {
-                outlet.setNextState()
-            }
             
         }
         
@@ -677,7 +689,7 @@ class Settings: NSViewController {
                         } else {
                             
                             print("user said no")
-                            revert()
+                            self.revert(outlet: outlet)
                             
                         }
                         
@@ -758,7 +770,7 @@ class Settings: NSViewController {
                             } else {
                                 
                                 print("user said no")
-                                revert()
+                                self.revert(outlet: outlet)
                                 
                             }
                             
@@ -782,7 +794,7 @@ class Settings: NSViewController {
         if !isUpdatingCorrectNetwork && section != "" {
             
             alertSettingNotForCurrentNetwork()
-            revert()
+            revert(outlet: outlet)
             
         }
         
