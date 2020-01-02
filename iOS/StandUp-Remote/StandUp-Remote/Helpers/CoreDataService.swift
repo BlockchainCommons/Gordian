@@ -97,17 +97,6 @@ class CoreDataService {
                         
                     }
                     
-//                    if let results = try context.fetch(fetchRequest) as? [Data] {
-//
-//                        print("results = \(results)")
-//
-//                        completion((results[0], false))
-//
-//                    } else {
-//
-//                        print("no result")
-//                    }
-                    
                 } catch {
                     
                     print("Failed getting nodes")

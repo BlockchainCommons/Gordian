@@ -12,7 +12,6 @@ import KeychainSwift
 class MainMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UINavigationControllerDelegate {
     
     let backView = UIView()
-    let aes = AESService()
     let ud = UserDefaults.standard
     var hashrateString = String()
     var version = String()
@@ -212,7 +211,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         
         if ud.object(forKey: "feeTarget") == nil {
             
-            ud.set(1008, forKey: "feeTarget")
+            ud.set(432, forKey: "feeTarget")
             
         }
         

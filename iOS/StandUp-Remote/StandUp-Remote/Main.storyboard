@@ -37,7 +37,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In order to authenticate your connection you need to add this public key to the macOS StandUp.app in &quot;Settings&quot;. " lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xaH-Sk-RIJ">
-                                <rect key="frame" x="16" y="53" width="343" height="54"/>
+                                <rect key="frame" x="16" y="58" width="343" height="54"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -45,7 +45,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.074236519629999997" green="0.082159139219999996" blue="0.094636552040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="xaH-Sk-RIJ" firstAttribute="top" secondItem="4te-9n-iGJ" secondAttribute="top" constant="9" id="EnV-fa-BfX"/>
+                            <constraint firstItem="xaH-Sk-RIJ" firstAttribute="top" secondItem="4te-9n-iGJ" secondAttribute="top" constant="14" id="EnV-fa-BfX"/>
                             <constraint firstItem="4te-9n-iGJ" firstAttribute="trailing" secondItem="xaH-Sk-RIJ" secondAttribute="trailing" constant="16" id="UT7-3c-EaP"/>
                             <constraint firstItem="xaH-Sk-RIJ" firstAttribute="leading" secondItem="4te-9n-iGJ" secondAttribute="leading" constant="16" id="weu-WF-JWN"/>
                         </constraints>
@@ -694,7 +694,7 @@
             </objects>
             <point key="canvasLocation" x="-1866" y="-506"/>
         </scene>
-        <!--Settings v0.0.13-->
+        <!--Settings v0.0.15-->
         <scene sceneID="Ajv-p7-tUm">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="AS8-ke-Yxh" customClass="SettingsViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
@@ -781,7 +781,7 @@
                         <viewLayoutGuide key="safeArea" id="Cze-jj-bFe"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Settings" id="n34-O3-Fyo"/>
-                    <navigationItem key="navigationItem" title="Settings v0.0.13" id="YNb-Gd-Hqq"/>
+                    <navigationItem key="navigationItem" title="Settings v0.0.15" id="YNb-Gd-Hqq"/>
                     <connections>
                         <outlet property="settingsTable" destination="hcp-eG-lok" id="xPg-8r-KBs"/>
                         <segue destination="bKH-sI-MiM" kind="show" identifier="goLogIn" id="qed-hl-jG5"/>

@@ -117,7 +117,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             
             slider.addTarget(self, action: #selector(setFee), for: .allEvents)
             slider.maximumValue = 2 * -1
-            slider.minimumValue = 1008 * -1
+            slider.minimumValue = 432 * -1
             
             if ud.object(forKey: "feeTarget") != nil {
                 
@@ -128,7 +128,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             } else {
                 
                 label.text = "Minimum fee set (you can always bump it)"
-                slider.value = 1008 * -1
+                slider.value = 432 * -1
                 
             }
             

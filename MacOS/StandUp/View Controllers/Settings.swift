@@ -70,16 +70,24 @@ class Settings: NSViewController {
     
     @IBAction func seeBtcLog(_ sender: Any) {
         
-        let runBuildTask = RunBuildTask()
         let d = Defaults()
+        var path = d.dataDir()
+        let isTestnet = d.testnet()
+        
+        if isTestnet == 1 {
+            
+            path += "/testnet3"
+            
+        }
+        
+        let runBuildTask = RunBuildTask()
         runBuildTask.args = []
         runBuildTask.showLog = false
-        runBuildTask.env = ["DATADIR":d.dataDir()]
+        runBuildTask.env = ["DATADIR":path]
         runBuildTask.exitStrings = ["Done"]
         runBuildTask.runScript(script: .showBitcoinLog) {
             
             if !runBuildTask.errorBool {
-                
                 
                 
             } else {

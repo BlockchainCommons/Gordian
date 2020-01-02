@@ -12,7 +12,6 @@ import CryptoKit
 
 class FirstTime {
     
-    let aes = AESService()
     let cd = CoreDataService()
     let ud = UserDefaults.standard
     let keychain = KeychainSwift()
@@ -23,10 +22,8 @@ class FirstTime {
         
         if ud.object(forKey: "firstTime") == nil {
             
-            ud .set("m/84'/0'/0'/0", forKey: "derivation")
-            
-            let password = randomString(length: 32)
-            
+            ud.set("m/84'/1'/0'/0", forKey: "derivation")
+                        
             if ud.string(forKey: "UnlockPassword") != nil {
                 
                 keychain.set(ud.string(forKey: "UnlockPassword")!, forKey: "UnlockPassword")
@@ -52,17 +49,6 @@ class FirstTime {
                 
             }
             
-            if keychain.set(password, forKey: "AESKey") {
-                
-                print("keychain set AESKey succesfully")
-                ud.set(true, forKey: "firstTime")
-            
-            } else {
-                
-                print("error setting AESKey in keychain")
-                
-            }
-            
             createSaveSeed()
             
         }
@@ -80,7 +66,6 @@ class FirstTime {
                     
                     if success {
                         
-                        // seed encrypted and saved
                         print("seed saved")
                         
                     } else {
