@@ -24,6 +24,8 @@ class Installer: NSViewController {
     var standUpConf = ""
     var refreshing = Bool()
     var ignoreExistingBitcoin = Bool()
+    var rpcuser = ""
+    var rpcpassword = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -192,6 +194,7 @@ class Installer: NSViewController {
                                 if existingValue != "" {
                                     
                                     userExists = true
+                                    self.rpcuser = existingValue
                                 }
                                 
                             case "rpcpassword":
@@ -199,6 +202,7 @@ class Installer: NSViewController {
                                 if existingValue != "" {
                                     
                                     passwordExists = true
+                                    self.rpcpassword = existingValue
                                     
                                 }
                                 
@@ -292,8 +296,10 @@ class Installer: NSViewController {
                     let prune = self.ud.object(forKey: "pruned") as? Int ?? 0
                     let txindex = self.ud.object(forKey: "txindex") as? Int ?? 1
                     let walletDisabled = self.ud.object(forKey: "walletDisabled") as? Int ?? 0
+                    self.rpcpassword = randomString(length: 32)
+                    self.rpcuser = randomString(length: 10)
                     
-                    self.standUpConf = "testnet=\(d.testnet())\ndisablewallet=\(walletDisabled)\nrpcuser=\(randomString(length: 10))\nrpcpassword=\(randomString(length: 32))\nserver=1\nprune=\(prune)\ntxindex=\(txindex)\nrpcbind=127.0.0.1\nrpcallowip=127.0.0.1\nbind=127.0.0.1\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\n[main]\nrpcport=8332\n[test]\nrpcport=18332\n[regtest]\nrpcport=18443"
+                    self.standUpConf = "testnet=\(d.testnet())\ndisablewallet=\(walletDisabled)\nrpcuser=\(self.rpcuser)\nrpcpassword=\(self.rpcpassword)\nserver=1\nprune=\(prune)\ntxindex=\(txindex)\nproxy=127.0.0.1:9050\nlisten=1\ndebug=tor\n[main]\nrpcbind=127.0.0.1\nrpcallowip=127.0.0.1\nbind=127.0.0.1\nrpcport=8332\n[test]\nrpcbind=127.0.0.1\nrpcallowip=127.0.0.1\nbind=127.0.0.1\nrpcport=18332\n[regtest]\nrpcbind=127.0.0.1\nrpcallowip=127.0.0.1\nbind=127.0.0.1\nrpcport=18443"
                     
                     self.getURLs()
                     
@@ -350,10 +356,10 @@ class Installer: NSViewController {
             let d = Defaults()
             let runBuildTask = RunBuildTask()
             runBuildTask.args = []
-            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version, "CONF":self.standUpConf, "DATADIR":d.dataDir(), "IGNORE_EXISTING_BITCOIN":ignore]
+            runBuildTask.env = ["BINARY_NAME":binaryName, "MACOS_URL":macosURL, "SHA_URL":shaURL, "VERSION":version, "PREFIX":prefix, "CONF":self.standUpConf, "DATADIR":d.dataDir(), "IGNORE_EXISTING_BITCOIN":ignore, "RPCUSER": self.rpcuser, "RPCPASSWORD":self.rpcpassword]
             runBuildTask.textView = self.consoleOutput
             runBuildTask.showLog = true
-            runBuildTask.exitStrings = ["Successfully started `tor`", "Service `tor` already started", "Signatures do not match! Terminating...", "StandUp complete"]
+            runBuildTask.exitStrings = ["Signatures do not match! Terminating...", "StandUp complete"]
             runBuildTask.runScript(script: .standUp) {
                 
                 if !runBuildTask.errorBool {
