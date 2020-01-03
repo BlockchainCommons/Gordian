@@ -12,7 +12,6 @@ import KeychainSwift
 class MainMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UINavigationControllerDelegate {
     
     let backView = UIView()
-    let aes = AESService()
     let ud = UserDefaults.standard
     var hashrateString = String()
     var version = String()
@@ -212,7 +211,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         
         if ud.object(forKey: "feeTarget") == nil {
             
-            ud.set(1008, forKey: "feeTarget")
+            ud.set(432, forKey: "feeTarget")
             
         }
         
@@ -238,31 +237,21 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 3
+        if transactionArray.count > 0 {
+            
+            return 2 + transactionArray.count
+            
+        } else {
+            
+            return 3
+            
+        }
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        switch section {
-            
-        case 2:
-            
-            if transactionArray.count > 0 {
-                
-                return transactionArray.count
-                
-            } else {
-                
-                return 1
-                
-            }
-            
-        default:
-            
-            return 1
-            
-        }
+        return 1
         
     }
     
@@ -323,6 +312,20 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 let sizeLabel = cell.viewWithTag(13) as! UILabel
                 let feeRate = cell.viewWithTag(14) as! UILabel
                 
+                network.layer.cornerRadius = 6
+                pruned.layer.cornerRadius = 6
+                connections.layer.cornerRadius = 6
+                version.layer.cornerRadius = 6
+                hashRate.layer.cornerRadius = 6
+                sync.layer.cornerRadius = 6
+                blockHeight.layer.cornerRadius = 6
+                uptime.layer.cornerRadius = 6
+                mempool.layer.cornerRadius = 6
+                tor.layer.cornerRadius = 6
+                difficultyLabel.layer.cornerRadius = 6
+                sizeLabel.layer.cornerRadius = 6
+                feeRate.layer.cornerRadius = 6
+                
                 sizeLabel.text = "\(self.size) size"
                 difficultyLabel.text = "\(self.difficulty) difficulty"
                 sync.text = "\(self.progress) synced"
@@ -381,7 +384,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
             }
             
-        case 2:
+        default:
             
             if transactionArray.count == 0 {
                 
@@ -404,7 +407,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 labelLabel.alpha = 1
                 dateLabel.alpha = 1
                 
-                let dict = self.transactionArray[indexPath.row]
+                let dict = self.transactionArray[indexPath.section - 2]
                                 
                 confirmationsLabel.text = (dict["confirmations"] as! String) + " " + "confs"
                 let label = dict["label"] as? String
@@ -451,10 +454,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
             }
             
-        default:
-            
-            return blankCell()
-            
         }
         
     }
@@ -482,13 +481,19 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if section == 0 {
+        switch section {
+            
+        case 0:
             
             return 30
             
-        } else {
+        case 1, 2:
             
             return 20
+            
+        default:
+            
+            return 5
             
         }
         
@@ -514,19 +519,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             
             if sectionOneLoaded {
                 
-                return 134
-                
-            } else {
-                
-                return 47
-                
-            }
-            
-        case 2:
-            
-            if sectionZeroLoaded {
-                
-                return 75
+                return 192
                 
             } else {
                 
@@ -536,7 +529,15 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             
         default:
             
-            return 47
+            if sectionZeroLoaded {
+                
+                return 80
+                
+            } else {
+                
+                return 47
+                
+            }
             
         }
         
@@ -668,8 +669,9 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 DispatchQueue.main.async {
                     
-                    self.mainMenu.reloadSections(IndexSet.init(arrayLiteral: 2),
-                                                 with: .fade)
+//                    self.mainMenu.reloadSections(IndexSet.init(arrayLiteral: 2),
+//                                                 with: .fade)
+                    self.mainMenu.reloadData()
                     
                     let impact = UIImpactFeedbackGenerator()
                     impact.impactOccurred()
@@ -774,12 +776,11 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             self.addNavBarSpinner()
             self.loadSectionZero()
             
-        } else if indexPath.section == 2 {
+        } else if indexPath.section > 1 {
             
             if transactionArray.count > 0 {
                 
-                    
-                    let selectedTx = self.transactionArray[indexPath.row]
+                    let selectedTx = self.transactionArray[indexPath.section - 2]
                     let txID = selectedTx["txID"] as! String
                     self.tx = txID
                     UIPasteboard.general.string = txID
@@ -1036,7 +1037,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         
         DispatchQueue.main.async {
             
-            self.mainMenu.reloadSections([0, 2], with: .fade)
+            self.mainMenu.reloadData()
             
         }
         
@@ -1074,7 +1075,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     self.mainMenu.reloadSections(IndexSet.init(arrayLiteral: 0), with: .fade)
                     let impact = UIImpactFeedbackGenerator()
                     impact.impactOccurred()
-                    
                     self.loadSectionTwo()
                     
                 }

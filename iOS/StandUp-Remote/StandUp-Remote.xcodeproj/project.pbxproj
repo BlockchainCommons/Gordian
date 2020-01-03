@@ -10,6 +10,9 @@
 		6070F5CB297783B60DD62636 /* Pods_StandUp_RemoteTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 970521F5BA804DCE7CE11C12 /* Pods_StandUp_RemoteTests.framework */; };
 		73B4E617637C31373B9CDF47 /* Pods_StandUp_Remote_StandUp_RemoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCB567D1BC95EA24E2A7C67 /* Pods_StandUp_Remote_StandUp_RemoteUITests.framework */; };
 		B6BB24DE939A1A5D070F4A00 /* Pods_StandUp_Remote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14DA7EEDB18BC14C39F6A2D6 /* Pods_StandUp_Remote.framework */; };
+		D017ADA623BFC89F004DBB25 /* VerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017ADA523BFC89F004DBB25 /* VerifyViewController.swift */; };
+		D059156623BB5FEC00577DB6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D059156423BB5FEC00577DB6 /* LICENSE */; };
+		D059156723BB5FEC00577DB6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D059156523BB5FEC00577DB6 /* README.md */; };
 		D09C1F8123BA1F8700566DF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1F8023BA1F8700566DF8 /* AppDelegate.swift */; };
 		D09C1F8323BA1F8700566DF8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1F8223BA1F8700566DF8 /* SceneDelegate.swift */; };
 		D09C1F8523BA1F8700566DF8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1F8423BA1F8700566DF8 /* ViewController.swift */; };
@@ -20,8 +23,6 @@
 		D09C1FB723BA38D100566DF8 /* KeychainSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D09C1FB323BA38D100566DF8 /* KeychainSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D09C1FB823BA38D100566DF8 /* Tor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D09C1FB423BA38D100566DF8 /* Tor.framework */; };
 		D09C1FB923BA38D100566DF8 /* Tor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D09C1FB423BA38D100566DF8 /* Tor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D09C1FBA23BA38D100566DF8 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D09C1FB523BA38D100566DF8 /* CryptoSwift.framework */; };
-		D09C1FBB23BA38D100566DF8 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D09C1FB523BA38D100566DF8 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D09C202223BA489500566DF8 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1FBF23BA489400566DF8 /* Utilities.swift */; };
 		D09C202323BA489500566DF8 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1FC023BA489400566DF8 /* Transition.swift */; };
 		D09C202423BA489500566DF8 /* KeyGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1FC223BA489400566DF8 /* KeyGen.swift */; };
@@ -63,7 +64,6 @@
 		D09C204923BA489500566DF8 /* MakeRPCCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1FF723BA489400566DF8 /* MakeRPCCall.swift */; };
 		D09C204A23BA489500566DF8 /* TorClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1FF823BA489400566DF8 /* TorClient.swift */; };
 		D09C204B23BA489500566DF8 /* Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1FF923BA489400566DF8 /* Encryption.swift */; };
-		D09C204C23BA489500566DF8 /* AESService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1FFA23BA489400566DF8 /* AESService.swift */; };
 		D09C204D23BA489500566DF8 /* AddressParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1FFB23BA489400566DF8 /* AddressParser.swift */; };
 		D09C204E23BA489500566DF8 /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1FFC23BA489400566DF8 /* Connector.swift */; };
 		D09C204F23BA489500566DF8 /* FiatConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1FFD23BA489400566DF8 /* FiatConverter.swift */; };
@@ -120,7 +120,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D09C1FBB23BA38D100566DF8 /* CryptoSwift.framework in Embed Frameworks */,
 				D09C1FB923BA38D100566DF8 /* Tor.framework in Embed Frameworks */,
 				D09C1FB723BA38D100566DF8 /* KeychainSwift.framework in Embed Frameworks */,
 			);
@@ -138,6 +137,9 @@
 		8568C014617B43C9120193FD /* Pods-StandUp-Remote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandUp-Remote.release.xcconfig"; path = "Target Support Files/Pods-StandUp-Remote/Pods-StandUp-Remote.release.xcconfig"; sourceTree = "<group>"; };
 		970521F5BA804DCE7CE11C12 /* Pods_StandUp_RemoteTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StandUp_RemoteTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A260AC352FDFDA3A543B2878 /* Pods-StandUp-Remote-StandUp-RemoteUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandUp-Remote-StandUp-RemoteUITests.release.xcconfig"; path = "Target Support Files/Pods-StandUp-Remote-StandUp-RemoteUITests/Pods-StandUp-Remote-StandUp-RemoteUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D017ADA523BFC89F004DBB25 /* VerifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyViewController.swift; sourceTree = "<group>"; };
+		D059156423BB5FEC00577DB6 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		D059156523BB5FEC00577DB6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D09C1F7D23BA1F8700566DF8 /* StandUp-Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StandUp-Remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D09C1F8023BA1F8700566DF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D09C1F8223BA1F8700566DF8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -194,7 +196,6 @@
 		D09C1FF723BA489400566DF8 /* MakeRPCCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeRPCCall.swift; sourceTree = "<group>"; };
 		D09C1FF823BA489400566DF8 /* TorClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TorClient.swift; sourceTree = "<group>"; };
 		D09C1FF923BA489400566DF8 /* Encryption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encryption.swift; sourceTree = "<group>"; };
-		D09C1FFA23BA489400566DF8 /* AESService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AESService.swift; sourceTree = "<group>"; };
 		D09C1FFB23BA489400566DF8 /* AddressParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressParser.swift; sourceTree = "<group>"; };
 		D09C1FFC23BA489400566DF8 /* Connector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Connector.swift; sourceTree = "<group>"; };
 		D09C1FFD23BA489400566DF8 /* FiatConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiatConverter.swift; sourceTree = "<group>"; };
@@ -236,7 +237,6 @@
 				D09C1FB823BA38D100566DF8 /* Tor.framework in Frameworks */,
 				D09C1FB623BA38D100566DF8 /* KeychainSwift.framework in Frameworks */,
 				B6BB24DE939A1A5D070F4A00 /* Pods_StandUp_Remote.framework in Frameworks */,
-				D09C1FBA23BA38D100566DF8 /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +275,8 @@
 		D09C1F7423BA1F8700566DF8 = {
 			isa = PBXGroup;
 			children = (
+				D059156423BB5FEC00577DB6 /* LICENSE */,
+				D059156523BB5FEC00577DB6 /* README.md */,
 				D09C1F7F23BA1F8700566DF8 /* StandUp-Remote */,
 				D09C1F9923BA1F8900566DF8 /* StandUp-RemoteTests */,
 				D09C1FA423BA1F8900566DF8 /* StandUp-RemoteUITests */,
@@ -394,6 +396,7 @@
 				D09C1FD023BA489400566DF8 /* Raw Tx */,
 				D09C1FD223BA489400566DF8 /* UTXO's */,
 				D09C1FD523BA489400566DF8 /* ConfirmViewController.swift */,
+				D017ADA523BFC89F004DBB25 /* VerifyViewController.swift */,
 			);
 			path = Outgoing;
 			sourceTree = "<group>";
@@ -501,7 +504,6 @@
 				D09C1FF523BA489400566DF8 /* QuickConnect.swift */,
 				D09C1FF623BA489400566DF8 /* Tor */,
 				D09C1FF923BA489400566DF8 /* Encryption.swift */,
-				D09C1FFA23BA489400566DF8 /* AESService.swift */,
 				D09C1FFB23BA489400566DF8 /* AddressParser.swift */,
 				D09C1FFC23BA489400566DF8 /* Connector.swift */,
 				D09C1FFD23BA489400566DF8 /* FiatConverter.swift */,
@@ -739,6 +741,7 @@
 				D09C206423BA489500566DF8 /* switcher.PNG in Resources */,
 				D09C206023BA489500566DF8 /* whitePlus.png in Resources */,
 				D09C205E23BA489500566DF8 /* addNode.PNG in Resources */,
+				D059156623BB5FEC00577DB6 /* LICENSE in Resources */,
 				D09C206323BA489500566DF8 /* screenShot.png in Resources */,
 				D09C206223BA489500566DF8 /* clear.png in Resources */,
 				D09C206823BA489500566DF8 /* whiteCheck.png in Resources */,
@@ -755,6 +758,7 @@
 				D09C205523BA489500566DF8 /* KeyPadButtonView.xib in Resources */,
 				D09C206A23BA489500566DF8 /* images.png in Resources */,
 				D09C205B23BA489500566DF8 /* whiteBroom.png in Resources */,
+				D059156723BB5FEC00577DB6 /* README.md in Resources */,
 				D09C205F23BA489500566DF8 /* settings90.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -863,7 +867,6 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Tor.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KeychainSwift.framework",
 			);
 			outputFileListPaths = (
@@ -929,7 +932,6 @@
 				D09C203223BA489500566DF8 /* InvoiceViewController.swift in Sources */,
 				D09C202623BA489500566DF8 /* shim.swift in Sources */,
 				D09C203B23BA489500566DF8 /* CreateUnsigned.swift in Sources */,
-				D09C204C23BA489500566DF8 /* AESService.swift in Sources */,
 				D09C205723BA489500566DF8 /* ConnectingView.swift in Sources */,
 				D09C205123BA489500566DF8 /* HomeTableStruct.swift in Sources */,
 				D09C203D23BA489500566DF8 /* SendUTXO.swift in Sources */,
@@ -945,6 +947,7 @@
 				D09C205A23BA489500566DF8 /* QRScanner.swift in Sources */,
 				D09C202523BA489500566DF8 /* Base32.swift in Sources */,
 				D09C205423BA489500566DF8 /* QRGenerator.swift in Sources */,
+				D017ADA623BFC89F004DBB25 /* VerifyViewController.swift in Sources */,
 				D09C203623BA489500566DF8 /* ScannerViewController.swift in Sources */,
 				D09C204D23BA489500566DF8 /* AddressParser.swift in Sources */,
 				D09C204123BA489500566DF8 /* Reducer.swift in Sources */,
@@ -1114,7 +1117,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.13;
+				CURRENT_PROJECT_VERSION = 0.0.18;
 				DEVELOPMENT_TEAM = YZHG975W3A;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1125,7 +1128,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.13;
+				MARKETING_VERSION = 0.0.18;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.standupios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1139,7 +1142,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.13;
+				CURRENT_PROJECT_VERSION = 0.0.18;
 				DEVELOPMENT_TEAM = YZHG975W3A;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1150,7 +1153,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.13;
+				MARKETING_VERSION = 0.0.18;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.standupios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

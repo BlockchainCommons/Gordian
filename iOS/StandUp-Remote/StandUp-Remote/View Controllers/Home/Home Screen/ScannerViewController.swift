@@ -14,17 +14,18 @@ class ScannerViewController: UIViewController, UINavigationControllerDelegate {
     var isTorchOn = Bool()
     let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     let connectingView = ConnectingView()
-    
     @IBOutlet var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationController?.delegate = self
         configureScanner()
         scanNow()
         
         // MARK: For testing purposes we hard code a btcstandup url, to revert just comment out addNode()
         //addnode()
+        
     }
     
     func addnode() {
@@ -160,8 +161,9 @@ class ScannerViewController: UIViewController, UINavigationControllerDelegate {
                 
                 vc.isadding = true
             }
+            
         }
+        
     }
-    
 
 }

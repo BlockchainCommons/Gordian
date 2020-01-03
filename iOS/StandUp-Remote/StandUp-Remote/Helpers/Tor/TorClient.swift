@@ -224,6 +224,7 @@ class TorClient {
             }
             
         }
+    
     private func createTorDirectory() -> String {
         print("createTorDirectory")
         
@@ -242,6 +243,7 @@ class TorClient {
         }
         
         return torDirPath
+        
     }
     
     private func getTorPath() -> String {
@@ -292,40 +294,30 @@ class TorClient {
         print("addAuthKeysToAuthDirectory")
         
         let authPath = self.authDirPath
-        let cd = CoreDataService()
-        cd.retrieveEntity(entityName: .nodes) {
+        let enc = Encryption()
+        enc.getNode { (node, error) in
             
-            if !cd.errorBool {
+            if !error {
                 
-                let nodes = cd.entities
-                let aes = AESService()
-                
-                if nodes.count > 0 {
+                if node!.authKey != "" {
                     
-                    let str = NodeStruct(dictionary: nodes[0])
+                    let authorizedKey = node!.authKey
+                    let onionAddress = node!.onionAddress
+                    let onionAddressArray = onionAddress.components(separatedBy: ".onion:")
+                    let authString = onionAddressArray[0] + ":descriptor:x25519:" + authorizedKey
+                    let file = URL(fileURLWithPath: authPath, isDirectory: true).appendingPathComponent("\(randomString(length: 10)).auth_private")
                     
-                    if str.authKey != "" {
+                    do {
                         
-                        let authorizedKey = aes.decryptKey(keyToDecrypt: str.authKey)
-                        let onionAddress = aes.decryptKey(keyToDecrypt: str.onionAddress)
-                        let onionAddressArray = onionAddress.components(separatedBy: ".onion:")
-                        let authString = onionAddressArray[0] + ":descriptor:x25519:" + authorizedKey
-                        let file = URL(fileURLWithPath: authPath, isDirectory: true).appendingPathComponent("\(randomString(length: 10)).auth_private")
+                        try authString.write(to: file, atomically: true, encoding: .utf8)
                         
-                        do {
-                            
-                            try authString.write(to: file, atomically: true, encoding: .utf8)
-                            
-                            print("successfully wrote authkey to file")
-                            completion()
-                                                
-                        } catch {
-                            
-                            print("failed writing auth key")
-                            completion()
-                        }
+                        print("successfully wrote authkey to file")
+                        completion()
                         
+                    } catch {
                         
+                        print("failed writing auth key")
+                        completion()
                     }
                     
                 }

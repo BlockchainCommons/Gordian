@@ -11,12 +11,6 @@ import Foundation
 class MakeRPCCall {
     
     static let sharedInstance = MakeRPCCall()
-    let aes = AESService()
-    let cd = CoreDataService()
-    var rpcusername = ""
-    var rpcpassword = ""
-    var onionAddress = ""
-    var rpcport = ""
     var errorBool = Bool()
     var errorDescription = String()
     let torClient = TorClient.sharedInstance
@@ -28,16 +22,18 @@ class MakeRPCCall {
         
         attempts += 1
         
-        cd.retrieveEntity(entityName: .nodes) {
+        let enc = Encryption()
+        enc.getNode { (node, error) in
             
-            if !self.cd.errorBool {
+            if !error {
                 
-                let nodes = self.cd.entities
-                let node = NodeStruct(dictionary: nodes[0])
-                self.onionAddress = self.aes.decryptKey(keyToDecrypt: node.onionAddress)
-                self.rpcusername = self.aes.decryptKey(keyToDecrypt: node.rpcuser)
-                self.rpcpassword = self.aes.decryptKey(keyToDecrypt: node.rpcpassword)
-                let walletUrl = "http://\(self.rpcusername):\(self.rpcpassword)@\(self.onionAddress)/wallet/StandUp"
+                let onionAddress = node!.onionAddress
+                let rpcusername = node!.rpcuser
+                let rpcpassword = node!.rpcpassword
+                let walletUrl = "http://\(rpcusername):\(rpcpassword)@\(onionAddress)/wallet/StandUp"
+                //print("walleturl = \(walletUrl)")
+                
+                // Have to escape ' characters for certain rpc commands
                 var formattedParam = (param as! String).replacingOccurrences(of: "''", with: "")
                 formattedParam = formattedParam.replacingOccurrences(of: "'\"'\"'", with: "'")
                 
@@ -51,9 +47,7 @@ class MakeRPCCall {
                 var request = URLRequest(url: url)
                 request.httpMethod = "POST"
                 request.setValue("text/plain", forHTTPHeaderField: "Content-Type")
-                //print("request: \("{\"jsonrpc\":\"1.0\",\"id\":\"curltest\",\"method\":\"\(method)\",\"params\":[\(formattedParam)]}")")
                 request.httpBody = "{\"jsonrpc\":\"1.0\",\"id\":\"curltest\",\"method\":\"\(method)\",\"params\":[\(formattedParam)]}".data(using: .utf8)
-                //print("request = \(request)")
                 
                 let queue = DispatchQueue(label: "com.FullyNoded.torQueue")
                 queue.async {
@@ -64,8 +58,8 @@ class MakeRPCCall {
                             
                             if error != nil {
                                 
-                                // attempt a node command 5 times to avoid user having to tap refresh button
-                                if self.attempts < 5 {
+                                // attempt a node command 10 times to avoid user having to tap refresh button
+                                if self.attempts < 10 {
                                     
                                     self.executeRPCCommand(method: method, param: param, completion: completion)
                                     
@@ -136,7 +130,6 @@ class MakeRPCCall {
                 
                 self.errorBool = true
                 self.errorDescription = "error getting nodes from core data"
-                completion()
                 
             }
             

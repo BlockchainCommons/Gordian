@@ -27,6 +27,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
     var isFirstTime = Bool()
     var outputs = [Any]()
     var outputsString = ""
+    var recipients = [String]()
     
     @IBOutlet var addressInput: UITextView!
     @IBOutlet var addOutlet: UIButton!
@@ -147,6 +148,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
                 let dict = ["address":addressInput.text!, "amount":amountInput.text!] as [String : String]
                 
                 outputArray.append(dict)
+                recipients.append(addressInput.text!)
                 
                 DispatchQueue.main.async {
                     
@@ -332,8 +334,6 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
     @objc func tryRaw() {
         print("tryraw")
         
-        
-        
         creatingView.addConnectingView(vc: self,
                                        description: "Creating Raw Transaction")
         
@@ -390,14 +390,6 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
                              message: "You need to fill out an amount and a recipient")
                 
             }
-            
-        /*} else if outputArray.count > 0 && self.amountInput.text != "" || self.amountInput.text != "0.0" && self.addressInput.text != "" {
-            
-            creatingView.removeConnectingView()
-            
-            displayAlert(viewController: self,
-                         isError: true,
-                         message: "If you want to add multiple recipients please tap the \"+\" and add them all first.")*/
             
         } else if outputArray.count > 0 {
             
@@ -508,10 +500,6 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
             
             processKeys(key: addressInput.text!)
             
-        //} else if textField == self.amountInput && self.amountInput.text != "" {
-            
-            //self.amountInput.resignFirstResponder()
-            
         } else if textField == addressInput && addressInput.text == "" {
             
             shakeAlert(viewToShake: self.qrScanner.textField)
@@ -611,7 +599,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
     func getRawTx() {
         print("getRawTx")
         
-        let rawTransaction = Send()//RawTransaction()
+        let rawTransaction = Send()
         rawTransaction.outputs = outputsString
         let ud = UserDefaults.standard
         rawTransaction.numberOfBlocks = ud.object(forKey: "feeTarget") as? Int ?? 6
@@ -667,9 +655,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         textView.resignFirstResponder()
-                        //self.processKeys(key: string)
                     }
-                    
                     
                 } else {
                     
@@ -705,6 +691,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
             if let vc = segue.destination as? ConfirmViewController {
                 
                 vc.signedRawTx = self.rawTxSigned
+                vc.recipients = self.recipients
                 
             }
             

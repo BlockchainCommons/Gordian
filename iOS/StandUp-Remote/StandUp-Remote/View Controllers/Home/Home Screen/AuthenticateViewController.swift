@@ -29,28 +29,17 @@ class AuthenticateViewController: UIViewController, UITabBarControllerDelegate {
     
     func getpubkey() {
         
-        let cd = CoreDataService()
-        
-        cd.retrieveEntity(entityName: .nodes) {
+        let enc = Encryption()
+        enc.getNode { (node, error) in
             
-            if cd.entities.count > 0 {
+            if !error {
                 
-                if !cd.errorBool {
-                    
-                    let nodes = cd.entities
-                    let node = NodeStruct(dictionary: nodes[0])
-                    let aes = AESService()
-                    self.pubkey = aes.decryptKey(keyToDecrypt: node.authPubKey)
-                    self.showDescriptor()
-                    
-                } else {
-                    
-                    displayAlert(viewController: self, isError: true, message: "no node added, go scan a QuickConnect QR")
-                }
+                self.pubkey = node!.authPubKey
+                self.showDescriptor()
                 
             } else {
                 
-                displayAlert(viewController: self, isError: true, message: "No nodes added yet")
+                displayAlert(viewController: self, isError: true, message: "no node added, go scan a QuickConnect QR")
                 
             }
             
