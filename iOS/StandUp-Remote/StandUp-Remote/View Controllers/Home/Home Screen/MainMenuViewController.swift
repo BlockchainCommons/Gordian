@@ -237,31 +237,19 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 3
+        if transactionArray.count > 0 {
+            
+            return 2 + transactionArray.count
+            
+        } else {
+            
+            return 3
+            
+        }
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-//        switch section {
-//
-//        case 2:
-//
-//            if transactionArray.count > 0 {
-//
-//                return transactionArray.count
-//
-//            } else {
-//
-//                return 1
-//
-//            }
-//
-//        default:
-//
-//            return 1
-//
-//        }
         
         return 1
         
@@ -396,7 +384,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
             }
             
-        case 2:
+        default:
             
             if transactionArray.count == 0 {
                 
@@ -466,10 +454,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
             }
             
-        default:
-            
-            return blankCell()
-            
         }
         
     }
@@ -537,21 +521,29 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
             }
             
-        case 2:
+//        case 2:
+//            
+//            if sectionZeroLoaded {
+//                
+//                return 75
+//                
+//            } else {
+//                
+//                return 47
+//                
+//            }
+            
+        default:
             
             if sectionZeroLoaded {
                 
-                return 75
+                return 101
                 
             } else {
                 
                 return 47
                 
             }
-            
-        default:
-            
-            return 47
             
         }
         
@@ -683,8 +675,9 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 DispatchQueue.main.async {
                     
-                    self.mainMenu.reloadSections(IndexSet.init(arrayLiteral: 2),
-                                                 with: .fade)
+//                    self.mainMenu.reloadSections(IndexSet.init(arrayLiteral: 2),
+//                                                 with: .fade)
+                    self.mainMenu.reloadData()
                     
                     let impact = UIImpactFeedbackGenerator()
                     impact.impactOccurred()
