@@ -481,13 +481,19 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if section == 0 {
+        switch section {
+            
+        case 0:
             
             return 30
             
-        } else {
+        case 1, 2:
             
             return 20
+            
+        default:
+            
+            return 5
             
         }
         
@@ -521,23 +527,11 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
             }
             
-//        case 2:
-//            
-//            if sectionZeroLoaded {
-//                
-//                return 75
-//                
-//            } else {
-//                
-//                return 47
-//                
-//            }
-            
         default:
             
             if sectionZeroLoaded {
                 
-                return 101
+                return 80
                 
             } else {
                 
@@ -1043,7 +1037,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         
         DispatchQueue.main.async {
             
-            self.mainMenu.reloadSections([0, 2], with: .fade)
+            self.mainMenu.reloadData()
             
         }
         
@@ -1081,7 +1075,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     self.mainMenu.reloadSections(IndexSet.init(arrayLiteral: 0), with: .fade)
                     let impact = UIImpactFeedbackGenerator()
                     impact.impactOccurred()
-                    
                     self.loadSectionTwo()
                     
                 }

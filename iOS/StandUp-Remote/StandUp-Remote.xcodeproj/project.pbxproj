@@ -10,6 +10,7 @@
 		6070F5CB297783B60DD62636 /* Pods_StandUp_RemoteTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 970521F5BA804DCE7CE11C12 /* Pods_StandUp_RemoteTests.framework */; };
 		73B4E617637C31373B9CDF47 /* Pods_StandUp_Remote_StandUp_RemoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCB567D1BC95EA24E2A7C67 /* Pods_StandUp_Remote_StandUp_RemoteUITests.framework */; };
 		B6BB24DE939A1A5D070F4A00 /* Pods_StandUp_Remote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14DA7EEDB18BC14C39F6A2D6 /* Pods_StandUp_Remote.framework */; };
+		D017ADA623BFC89F004DBB25 /* VerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017ADA523BFC89F004DBB25 /* VerifyViewController.swift */; };
 		D059156623BB5FEC00577DB6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D059156423BB5FEC00577DB6 /* LICENSE */; };
 		D059156723BB5FEC00577DB6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D059156523BB5FEC00577DB6 /* README.md */; };
 		D09C1F8123BA1F8700566DF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C1F8023BA1F8700566DF8 /* AppDelegate.swift */; };
@@ -136,6 +137,7 @@
 		8568C014617B43C9120193FD /* Pods-StandUp-Remote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandUp-Remote.release.xcconfig"; path = "Target Support Files/Pods-StandUp-Remote/Pods-StandUp-Remote.release.xcconfig"; sourceTree = "<group>"; };
 		970521F5BA804DCE7CE11C12 /* Pods_StandUp_RemoteTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StandUp_RemoteTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A260AC352FDFDA3A543B2878 /* Pods-StandUp-Remote-StandUp-RemoteUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandUp-Remote-StandUp-RemoteUITests.release.xcconfig"; path = "Target Support Files/Pods-StandUp-Remote-StandUp-RemoteUITests/Pods-StandUp-Remote-StandUp-RemoteUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D017ADA523BFC89F004DBB25 /* VerifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyViewController.swift; sourceTree = "<group>"; };
 		D059156423BB5FEC00577DB6 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D059156523BB5FEC00577DB6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D09C1F7D23BA1F8700566DF8 /* StandUp-Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StandUp-Remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -394,6 +396,7 @@
 				D09C1FD023BA489400566DF8 /* Raw Tx */,
 				D09C1FD223BA489400566DF8 /* UTXO's */,
 				D09C1FD523BA489400566DF8 /* ConfirmViewController.swift */,
+				D017ADA523BFC89F004DBB25 /* VerifyViewController.swift */,
 			);
 			path = Outgoing;
 			sourceTree = "<group>";
@@ -944,6 +947,7 @@
 				D09C205A23BA489500566DF8 /* QRScanner.swift in Sources */,
 				D09C202523BA489500566DF8 /* Base32.swift in Sources */,
 				D09C205423BA489500566DF8 /* QRGenerator.swift in Sources */,
+				D017ADA623BFC89F004DBB25 /* VerifyViewController.swift in Sources */,
 				D09C203623BA489500566DF8 /* ScannerViewController.swift in Sources */,
 				D09C204D23BA489500566DF8 /* AddressParser.swift in Sources */,
 				D09C204123BA489500566DF8 /* Reducer.swift in Sources */,
@@ -1113,7 +1117,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.17;
+				CURRENT_PROJECT_VERSION = 0.0.18;
 				DEVELOPMENT_TEAM = YZHG975W3A;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1124,7 +1128,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.17;
+				MARKETING_VERSION = 0.0.18;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.standupios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1138,7 +1142,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.17;
+				CURRENT_PROJECT_VERSION = 0.0.18;
 				DEVELOPMENT_TEAM = YZHG975W3A;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1149,7 +1153,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.17;
+				MARKETING_VERSION = 0.0.18;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.standupios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

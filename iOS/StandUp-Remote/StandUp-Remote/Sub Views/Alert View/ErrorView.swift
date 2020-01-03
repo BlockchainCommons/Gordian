@@ -53,8 +53,6 @@ class ErrorView: UIView {
         upSwipe.direction = .up
         upSwipe.addTarget(self, action: #selector(handleSwipes(_:)))
         backgroundView.addGestureRecognizer(self.upSwipe)
-        //backgroundView.clipsToBounds = true
-        //backgroundView.layer.cornerRadius = 15
         
         let width = vc.view.frame.width
         

@@ -39,7 +39,6 @@ class Send {
                     if !reducer.errorBool {
                         
                         let dict = reducer.dictToReturn
-                        print("dict = \(dict)")
                         let complete = dict["complete"] as! Bool
                         
                         if complete {
@@ -47,9 +46,6 @@ class Send {
                             let hex = dict["hex"] as! String
                             self.signedRawTx = hex
                             completion()
-                            
-                        } else {
-                            
                             
                         }
                         
@@ -70,11 +66,9 @@ class Send {
                     
                     self.index += 1
                     let result = reducer.dictToReturn
-                    print("result: \(result)")
                     let hdkeypath = result["hdkeypath"] as! String
                     let arr = hdkeypath.components(separatedBy: "/")
                     indexarray.append(arr[1])
-                    print("indexarray = \(indexarray)")
                     getAddressInfo(addresses: addresses)
                         
                 } else {
@@ -98,7 +92,6 @@ class Send {
                 print("loop finished")
                 // loop is finished get the private keys
                 let keyfetcher = KeyFetcher()
-                print("indexarray2 = \(indexarray)")
                 
                 for (i, keypathint) in indexarray.enumerated() {
                     
@@ -113,7 +106,6 @@ class Send {
                             if i == self.indexarray.count - 1 {
                                 
                                 // get the unsigned raw transaction and sign it
-                                print("privekeys = \(privkeyarray)")
                                 sign()
                                 
                             }
@@ -175,7 +167,6 @@ class Send {
                         let result = reducer.dictToReturn
                         let psbt = result["psbt"] as? String ?? "error getting psbt"
                         unsignedRawTx = psbt
-                        //completion()
                         
                     case .decodepsbt:
                         
@@ -216,11 +207,6 @@ class Send {
                                 completion: getResult)
             
         }
-        
-//        let param = "''[]'', ''{\(self.outputs)}'', 0, { \"includeWatching\":true, \"subtractFeeFromOutputs\":[], \"replaceable\": true, \"conf_target\": \(numberOfBlocks), \"change_type\": \"bech32\" }, true"
-//
-//        executeNodeCommand(method: .walletcreatefundedpsbt,
-//                           param: param)
         
         let param = "''[]'', ''{\(self.outputs)}'', 0, true"
         
