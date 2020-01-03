@@ -142,8 +142,8 @@ class Encryption {
                     cd.retrieveEntity(entityName: .nodes) {
                         
                         let node = cd.entities[0]
-                        //print("node = \(node)")
                         var decryptedNode = [String:Any]()
+                        var loopCount = 0
                         
                         for (k, value) in node {
                             
@@ -156,6 +156,15 @@ class Encryption {
                                 if let decryptedValue = String(data: decryptedData, encoding: .utf8) {
                                     
                                     decryptedNode[k] = decryptedValue
+                                    loopCount += 1
+                                    
+                                    if loopCount == 6 {
+                                        
+                                        // we know there will be 6 keys, so can check the loop has finished here
+                                        let nodeStruct = NodeStruct.init(dictionary: decryptedNode)
+                                        completion((nodeStruct,false))
+                                        
+                                    }
                                     
                                 } else {
                                     
@@ -170,10 +179,7 @@ class Encryption {
                             }
                             
                         }
-                        
-                        let nodeStruct = NodeStruct.init(dictionary: decryptedNode)
-                        completion((nodeStruct,false))
-                        
+                                                
                     }
                     
                 } else {

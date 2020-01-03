@@ -243,25 +243,27 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        switch section {
-            
-        case 2:
-            
-            if transactionArray.count > 0 {
-                
-                return transactionArray.count
-                
-            } else {
-                
-                return 1
-                
-            }
-            
-        default:
-            
-            return 1
-            
-        }
+//        switch section {
+//
+//        case 2:
+//
+//            if transactionArray.count > 0 {
+//
+//                return transactionArray.count
+//
+//            } else {
+//
+//                return 1
+//
+//            }
+//
+//        default:
+//
+//            return 1
+//
+//        }
+        
+        return 1
         
     }
     
@@ -321,6 +323,20 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 let difficultyLabel = cell.viewWithTag(12) as! UILabel
                 let sizeLabel = cell.viewWithTag(13) as! UILabel
                 let feeRate = cell.viewWithTag(14) as! UILabel
+                
+                network.layer.cornerRadius = 6
+                pruned.layer.cornerRadius = 6
+                connections.layer.cornerRadius = 6
+                version.layer.cornerRadius = 6
+                hashRate.layer.cornerRadius = 6
+                sync.layer.cornerRadius = 6
+                blockHeight.layer.cornerRadius = 6
+                uptime.layer.cornerRadius = 6
+                mempool.layer.cornerRadius = 6
+                tor.layer.cornerRadius = 6
+                difficultyLabel.layer.cornerRadius = 6
+                sizeLabel.layer.cornerRadius = 6
+                feeRate.layer.cornerRadius = 6
                 
                 sizeLabel.text = "\(self.size) size"
                 difficultyLabel.text = "\(self.difficulty) difficulty"
@@ -403,7 +419,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 labelLabel.alpha = 1
                 dateLabel.alpha = 1
                 
-                let dict = self.transactionArray[indexPath.row]
+                let dict = self.transactionArray[indexPath.section - 2]
                                 
                 confirmationsLabel.text = (dict["confirmations"] as! String) + " " + "confs"
                 let label = dict["label"] as? String
@@ -513,7 +529,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             
             if sectionOneLoaded {
                 
-                return 134
+                return 192
                 
             } else {
                 
@@ -773,12 +789,11 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             self.addNavBarSpinner()
             self.loadSectionZero()
             
-        } else if indexPath.section == 2 {
+        } else if indexPath.section > 1 {
             
             if transactionArray.count > 0 {
                 
-                    
-                    let selectedTx = self.transactionArray[indexPath.row]
+                    let selectedTx = self.transactionArray[indexPath.section - 2]
                     let txID = selectedTx["txID"] as! String
                     self.tx = txID
                     UIPasteboard.general.string = txID

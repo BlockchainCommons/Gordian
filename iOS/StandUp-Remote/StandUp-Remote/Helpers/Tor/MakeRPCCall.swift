@@ -31,7 +31,7 @@ class MakeRPCCall {
                 let rpcusername = node!.rpcuser
                 let rpcpassword = node!.rpcpassword
                 let walletUrl = "http://\(rpcusername):\(rpcpassword)@\(onionAddress)/wallet/StandUp"
-                print("walleturl = \(walletUrl)")
+                //print("walleturl = \(walletUrl)")
                 
                 // Have to escape ' characters for certain rpc commands
                 var formattedParam = (param as! String).replacingOccurrences(of: "''", with: "")

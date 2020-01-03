@@ -67,6 +67,7 @@ class FirstTime {
                     if success {
                         
                         print("seed saved")
+                        self.ud.set(false, forKey: "firstTime")
                         
                     } else {
                         
