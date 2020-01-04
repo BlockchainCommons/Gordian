@@ -51,16 +51,37 @@ class NodeLogic {
                 
                 if errorDescription.contains("Requested wallet does not exist or is not loaded") {
                     
+                    // possibly changed from mainnet to testnet or vice versa, try and load once and if it does not exist create wallet again
+                    
                     reducer.errorDescription = ""
                     reducer.errorBool = false
                     errorDescription = ""
                     errorBool = false
-                                        
-                    reducer.makeCommand(command: .loadwallet, param: "\"StandUp\"") {
+                    
+                    let ud = UserDefaults.standard
+                    var walletName = "StandUp"
+                    
+                    if ud.object(forKey: "walletName") != nil {
                         
-                        reducer.makeCommand(command: .getbalance,
-                                            param: "\"*\", 0, false",
-                                            completion: getResult)
+                        walletName = ud.object(forKey: "walletName") as! String
+                        
+                    }
+                                        
+                    reducer.makeCommand(command: .loadwallet, param: "\"\(walletName)\"") {
+                        
+                        if !reducer.errorBool {
+                            
+                            reducer.makeCommand(command: .getbalance,
+                                                param: "\"*\", 0, false",
+                                                completion: getResult)
+                            
+                        } else {
+                            
+                            self.errorBool = true
+                            self.errorDescription = "Wallet does not exist, maybe you changed networks? If you want to use the app on a different network please delete the app and install again"
+                            completion()
+                            
+                        }
                         
                     }
                     
@@ -193,7 +214,7 @@ class NodeLogic {
             
         }
         
-        reducer.makeCommand(command: BTC_CLI_COMMAND.getblockchaininfo,
+        reducer.makeCommand(command: .getblockchaininfo,
                             param: "",
                             completion: getResult)
         
@@ -234,7 +255,7 @@ class NodeLogic {
         
         if !walletDisabled {
             
-            reducer.makeCommand(command: BTC_CLI_COMMAND.listtransactions,
+            reducer.makeCommand(command: .listtransactions,
                                 param: "\"*\", 50, 0, true",
                                 completion: getResult)
             

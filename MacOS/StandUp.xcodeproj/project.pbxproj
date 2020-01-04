@@ -664,7 +664,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 0.0.1;
-				DEVELOPMENT_TEAM = YZHG975W3A;
+				DEVELOPMENT_TEAM = 69FR345CDA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = StandUp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -672,7 +672,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.BitcoinStandUp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fontaine.BitcoinStandUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -688,7 +688,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 0.0.1;
-				DEVELOPMENT_TEAM = YZHG975W3A;
+				DEVELOPMENT_TEAM = 69FR345CDA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = StandUp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -696,7 +696,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.BitcoinStandUp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fontaine.BitcoinStandUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

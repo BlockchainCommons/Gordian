@@ -19,30 +19,52 @@ class Encryption {
         
         if #available(iOS 13.0, *) {
             
-            if self.ud.bool(forKey: "privateKeySet") {
+            //if self.ud.bool(forKey: "privateKeySet") {
+            //if let privateKeySet = self.keychain.getBool("privateKeySet") {
                 
-                if let key = self.keychain.getData("privateKey") {
+                //if privateKeySet {
                     
-                    let k = SymmetricKey(data: key)
-                    
-                    if let dataToEncrypt = string.data(using: .utf8) {
+                    if let key = self.keychain.getData("privateKey") {
                         
-                        if let sealedBox = try? ChaChaPoly.seal(dataToEncrypt, using: k) {
+                        let k = SymmetricKey(data: key)
+                        
+                        if let dataToEncrypt = string.data(using: .utf8) {
                             
-                            let cd = CoreDataService()
-                            let encryptedData = sealedBox.combined
-                            cd.saveSeed(seed: encryptedData) {
+                            if let sealedBox = try? ChaChaPoly.seal(dataToEncrypt, using: k) {
                                 
-                                if !cd.errorBool {
+                                //let cd = CoreDataService()
+                                let encryptedData = sealedBox.combined
+                                let success = self.keychain.set(encryptedData, forKey: "seed")
+                                
+                                if success {
                                     
-                                    print("saved seed to coredata")
+                                    print("saved seed to keychain")
                                     completion((true))
                                     
                                 } else {
                                     
+                                    print("error saving seed to keychain")
                                     completion((false))
                                     
                                 }
+                                //                            cd.saveSeed(seed: encryptedData) {
+                                //
+                                //                                if !cd.errorBool {
+                                //
+                                //                                    print("saved seed to coredata")
+                                //                                    completion((true))
+                                //
+                                //                                } else {
+                                //
+                                //                                    completion((false))
+                                //
+                                //                                }
+                                //
+                                //                            }
+                                
+                            } else {
+                                
+                                completion((false))
                                 
                             }
                             
@@ -58,17 +80,13 @@ class Encryption {
                         
                     }
                     
-                } else {
-                    
-                    completion((false))
-                    
-                }
+                //}
                 
-            } else {
-                
-                completion((false))
-                
-            }
+//            } else {
+//
+//                completion((false))
+//
+//            }
             
         } else {
             
@@ -78,22 +96,39 @@ class Encryption {
         
     }
     
-    func decrypt(data: Data, completion: @escaping ((seed: String, error: Bool)) -> Void) {
+    func getSeed(completion: @escaping ((seed: String, error: Bool)) -> Void) {
         
         if #available(iOS 13.0, *) {
             
-            if ud.bool(forKey: "privateKeySet") {
+            //if let privateKeySet = self.keychain.getBool("privateKeySet") {
                 
-                if let key = keychain.getData("privateKey") {
+                //if privateKeySet {
                     
-                    do {
+                    if let key = keychain.getData("privateKey") {
                         
-                        let box = try ChaChaPoly.SealedBox.init(combined: data)
-                        let k = SymmetricKey(data: key)
-                        let decryptedData = try ChaChaPoly.open(box, using: k)
-                        if let seed = String(data: decryptedData, encoding: .utf8) {
+                        if let encryptedSeed = self.keychain.getData("seed") {
                             
-                            completion((seed,false))
+                            do {
+                                
+                                let box = try ChaChaPoly.SealedBox.init(combined: encryptedSeed)
+                                let k = SymmetricKey(data: key)
+                                let decryptedData = try ChaChaPoly.open(box, using: k)
+                                if let seed = String(data: decryptedData, encoding: .utf8) {
+                                    
+                                    completion((seed,false))
+                                    
+                                } else {
+                                    
+                                    completion(("",true))
+                                    
+                                }
+                                
+                            } catch {
+                                
+                                print("failed decrypting")
+                                completion(("",true))
+                                
+                            }
                             
                         } else {
                             
@@ -101,39 +136,38 @@ class Encryption {
                             
                         }
                         
+                    } else {
                         
-                    } catch {
-                        
-                        print("failed decrypting")
                         completion(("",true))
                         
                     }
                     
-                } else {
                     
-                    completion(("",true))
-                    
-                }
+//                } else {
+//
+//                    completion(("",true))
+//
+//                }
                 
-            } else {
-                
-                completion(("",true))
-                
-            }
+//            } else {
+//
+//                completion(("",true))
+//
+//            }
             
         } else {
             
             completion(("",true))
             
         }
-                
+        
     }
     
     func getNode(completion: @escaping ((node: NodeStruct?, error: Bool)) -> Void) {
         
         if #available(iOS 13.0, *) {
             
-            if ud.bool(forKey: "privateKeySet") {
+            //if ud.bool(forKey: "privateKeySet") {
                 
                 if let key = keychain.getData("privateKey") {
                     
@@ -188,11 +222,11 @@ class Encryption {
                     
                 }
                 
-            } else {
-                
-                completion((nil,true))
-                
-            }
+//            } else {
+//
+//                completion((nil,true))
+//
+//            }
             
         } else {
             
@@ -206,7 +240,7 @@ class Encryption {
         
         if #available(iOS 13.0, *) {
             
-            if self.ud.bool(forKey: "privateKeySet") {
+            //if self.ud.bool(forKey: "privateKeySet") {
                 
                 if let key = self.keychain.getData("privateKey") {
                     
@@ -257,11 +291,11 @@ class Encryption {
                     
                 }
                 
-            } else {
-                
-                completion((false))
-                
-            }
+//            } else {
+//
+//                completion((false))
+//
+//            }
             
         } else {
             

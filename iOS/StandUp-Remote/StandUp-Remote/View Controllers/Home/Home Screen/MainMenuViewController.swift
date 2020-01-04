@@ -51,6 +51,9 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        let keychain = KeychainSwift()
+//        keychain.clear()
+        
         tabBarController?.delegate = self
         mainMenu.delegate = self
         mainMenu.alpha = 0
@@ -66,12 +69,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         showUnlockScreen()
         addlaunchScreen()
         
-    }
-    
-    @IBAction func scan(_ sender: Any) {
-        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "scanNow", sender: self)
-        }
     }
     
     func addNavBarSpinner() {
@@ -142,15 +139,16 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         
         addNavBarSpinner()
         
-        if ud.object(forKey: "walletName") == nil {
+        if ud.object(forKey: "walletCreated") == nil || ud.object(forKey: "keysImported") == nil {
             
             addlaunchScreen()
             
+            let walletCreator = WalletCreator()
+            
             DispatchQueue.main.async {
-                self.label.text = "Creating your wallet..."
+                self.label.text = walletCreator.statusDescription
             }
             
-            let walletCreator = WalletCreator()
             walletCreator.createStandUpWallet { (success) in
                 
                 if success {
@@ -790,7 +788,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                         self.performSegue(withIdentifier: "getTransaction", sender: self)
                         
                     }
-                    
                 
             }
             
@@ -971,7 +968,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     
                     let ud = UserDefaults.standard
                     
-                    if ud.object(forKey: "walletName") == nil {
+                    if ud.object(forKey: "walletCreated") == nil || ud.object(forKey: "keysImported") == nil {
                         
                         // first time do whole shebang
                         let walletCreator = WalletCreator()
@@ -981,7 +978,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                         }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            self.label.text = "Creating your wallet..."
+                            self.label.text = walletCreator.statusDescription
                         }
                             
                         walletCreator.createStandUpWallet { (success) in
@@ -989,7 +986,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                             if success {
                                 
                                 displayAlert(viewController: self, isError: false, message: "Succesfully created your StandUp wallet ✓")
-                                ud.set("StandUp", forKey: "walletName")
+                                //ud.set("StandUp", forKey: "walletName")
                                 self.loadSectionZero()
                                 
                             } else {
@@ -997,7 +994,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                                 print("error")
                                 self.removeSpinner()
                                 self.removeLoadingView()
-                                ud.removeObject(forKey: "walletName")
+                                ud.removeObject(forKey: "walletCreated")
                                 displayAlert(viewController: self, isError: true, message: "Error creating your wallet! Tap the refresh button\n" + walletCreator.errorString)
                             }
                             

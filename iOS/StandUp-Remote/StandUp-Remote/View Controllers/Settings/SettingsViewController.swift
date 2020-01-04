@@ -217,25 +217,19 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func goToSeed() {
         
-        let cd = CoreDataService()
-        cd.retrieveSeed { (seed, error) in
+        let enc = Encryption()
+        enc.getSeed() { (words, error) in
             
             if !error {
                 
-                let encryptedSeedData = seed
-                let enc = Encryption()
-                enc.decrypt(data: encryptedSeedData!) { (words, error) in
-                    
-                    if !error {
-                        
-                        DispatchQueue.main.async {
-                            self.seed = words
-                            self.performSegue(withIdentifier: "goToSeed", sender: self)
-                        }
-                        
-                    }
-                    
+                DispatchQueue.main.async {
+                    self.seed = words
+                    self.performSegue(withIdentifier: "goToSeed", sender: self)
                 }
+                
+            } else {
+                
+                displayAlert(viewController: self, isError: true, message: "Error getting your seed")
                 
             }
             

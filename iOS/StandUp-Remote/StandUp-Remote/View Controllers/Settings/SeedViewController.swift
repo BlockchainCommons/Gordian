@@ -98,7 +98,7 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                         
         case 1:
             
-            cell.textLabel?.text = "m/84'/1'/0'/0"//UserDefaults.standard.object(forKey: "derivation") as? String
+            cell.textLabel?.text = UserDefaults.standard.object(forKey: "derivation") as? String
             
         case 2:
             

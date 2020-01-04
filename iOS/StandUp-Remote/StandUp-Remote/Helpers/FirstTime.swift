@@ -22,28 +22,26 @@ class FirstTime {
         
         if ud.object(forKey: "firstTime") == nil {
             
+            let walletName = "\(randomString(length: 10))" + "_StandUp"
             ud.set("m/84'/1'/0'/0", forKey: "derivation")
-                        
-            if ud.string(forKey: "UnlockPassword") != nil {
-                
-                keychain.set(ud.string(forKey: "UnlockPassword")!, forKey: "UnlockPassword")
-                ud.removeObject(forKey: "UnlockPassword")
-                
-            }
+            ud.set(walletName, forKey: "walletName")
+            //keychain.set(ud.string(forKey: "UnlockPassword")!, forKey: "UnlockPassword")
             
             if #available(iOS 13.0, *) {
                 
                 let privateKey = P256.Signing.PrivateKey().rawRepresentation
                 
-                if keychain.set(privateKey, forKey: "privateKey") {
+                if keychain.getData("privateKey") == nil {
                     
-                    print("keychain set privkey")
-                    ud.set(true, forKey: "privateKeySet")
-                    
-                } else {
-                    
-                    print("keychain set privkey")
-                    ud.set(false, forKey: "privateKeySet")
+                    if keychain.set(privateKey, forKey: "privateKey") {
+                        
+                        print("keychain set privkey")
+                        
+                    } else {
+                        
+                        print("keychain set privkey")
+                        
+                    }
                     
                 }
                 
@@ -57,27 +55,36 @@ class FirstTime {
     
     func createSaveSeed() {
         
-        let keychain = KeychainCreator()
-        keychain.createKeyChain() { (mnemonic, error) in
+        if self.keychain.getData("seed") == nil {
             
-            if !error {
+            let keyCreator = KeychainCreator()
+            keyCreator.createKeyChain() { (mnemonic, error) in
                 
-                self.enc.encryptAndSaveSeed(string: mnemonic!) { (success) in
+                if !error {
                     
-                    if success {
+                    self.enc.encryptAndSaveSeed(string: mnemonic!) { (success) in
                         
-                        print("seed saved")
-                        self.ud.set(false, forKey: "firstTime")
-                        
-                    } else {
-                        
-                        print("seed not saved!!!")
+                        if success {
+                            
+                            print("seed saved")
+                            self.ud.set(false, forKey: "firstTime")
+                            
+                        } else {
+                            
+                            print("seed not saved!!!")
+                            
+                        }
                         
                     }
                     
                 }
                 
             }
+            
+        } else {
+            
+            // seed already saved
+            self.ud.set(false, forKey: "firstTime")
             
         }
         

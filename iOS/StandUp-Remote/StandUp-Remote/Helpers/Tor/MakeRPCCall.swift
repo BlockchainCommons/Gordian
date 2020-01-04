@@ -11,9 +11,10 @@ import Foundation
 class MakeRPCCall {
     
     static let sharedInstance = MakeRPCCall()
+    let torClient = TorClient.sharedInstance
+    let ud = UserDefaults.standard
     var errorBool = Bool()
     var errorDescription = String()
-    let torClient = TorClient.sharedInstance
     var objectToReturn:Any!
     var attempts = 0
     
@@ -30,7 +31,15 @@ class MakeRPCCall {
                 let onionAddress = node!.onionAddress
                 let rpcusername = node!.rpcuser
                 let rpcpassword = node!.rpcpassword
-                let walletUrl = "http://\(rpcusername):\(rpcpassword)@\(onionAddress)/wallet/StandUp"
+                var walletName = "StandUp"
+                
+                if self.ud.object(forKey: "walletName") != nil {
+                    
+                    walletName = self.ud.object(forKey: "walletName") as! String
+                    
+                }
+                
+                let walletUrl = "http://\(rpcusername):\(rpcpassword)@\(onionAddress)/wallet/\(walletName)"
                 //print("walleturl = \(walletUrl)")
                 
                 // Have to escape ' characters for certain rpc commands
@@ -59,7 +68,7 @@ class MakeRPCCall {
                             if error != nil {
                                 
                                 // attempt a node command 10 times to avoid user having to tap refresh button
-                                if self.attempts < 10 {
+                                if self.attempts < 20 {
                                     
                                     self.executeRPCCommand(method: method, param: param, completion: completion)
                                     
