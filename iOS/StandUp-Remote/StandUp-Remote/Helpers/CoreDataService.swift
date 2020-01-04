@@ -63,60 +63,6 @@ class CoreDataService {
         
     }
     
-//    func retrieveSeed(completion: @escaping ((seed:Data?,error:Bool)) -> Void) {
-//        print("retrieveSeed")
-//        
-//        DispatchQueue.main.async {
-//
-//            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-//                print("got app delegate")
-//
-//                let context = appDelegate.persistentContainer.viewContext
-//                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Seed")
-//                fetchRequest.returnsObjectsAsFaults = false
-//                
-//                do {
-//                    
-//                    if let results = try context.fetch(fetchRequest) as? [NSManagedObject] {
-//                        
-//                        print("results = \(results)")
-//                        
-//                        for data in results {
-//                            
-//                            if let encryptedSeed = data.value(forKey: "seed") as? Data {
-//                                
-//                                completion((encryptedSeed, false))
-//                                
-//                            }
-//                            
-//                        }
-//                        
-//                    } else {
-//                        
-//                        print("no result")
-//                        
-//                    }
-//                    
-//                } catch {
-//                    
-//                    print("Failed getting nodes")
-//                    self.errorDescription = "failed getting nodes"
-//                    completion((nil,true))
-//                    
-//                }
-//
-//            } else {
-//
-//                print("error can't access app delegate")
-//                self.errorDescription = "error can't access app delegate"
-//                completion((nil,true))
-//                
-//            }
-//
-//        }
-//        
-//    }
-    
     func saveEntity(dict: [String:Any], entityName: ENTITY, completion: @escaping () -> Void) {
         print("saveEntityToCoreData")
         

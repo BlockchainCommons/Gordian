@@ -51,7 +51,7 @@ class NodeLogic {
                 
                 if errorDescription.contains("Requested wallet does not exist or is not loaded") {
                     
-                    // possibly changed from mainnet to testnet or vice versa, try and load once and if it does not exist create wallet again
+                    // possibly changed from mainnet to testnet or vice versa, try and load once
                     
                     reducer.errorDescription = ""
                     reducer.errorBool = false

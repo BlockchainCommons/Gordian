@@ -25,37 +25,6 @@ class WalletCreator {
             
         }
         
-//        func createSaveSeed() {
-//
-//            let enc = Encryption()
-//            let keychain = KeychainCreator()
-//            keychain.createKeyChain(isTestnet: true) { (mnemonic, error) in
-//
-//                if !error {
-//
-//                    enc.encryptAndSaveSeed(string: mnemonic!) { (success) in
-//
-//                        if success {
-//
-//                            // seed encrypted and saved
-//                            print("seed saved")
-//                            self.ud.set("m/84'/1'/0'/0", forKey: "derivation")
-//                            checkForStandUpWallet()
-//
-//                        } else {
-//
-//                            print("seed not saved!!!")
-//
-//                        }
-//
-//                    }
-//
-//                }
-//
-//            }
-//
-//        }
-        
         func whichChain() {
             
             executeNodeCommand(method: .getblockchaininfo,
@@ -211,7 +180,6 @@ class WalletCreator {
             
             if walletExists {
                 
-                //completion((true))
                 // Import the keys again incase it failed
                 
                 if ud.object(forKey: "keysImported") == nil {
@@ -286,7 +254,6 @@ class WalletCreator {
             
         }
         
-        //checkForStandUpWallet()
         whichChain()
         
     }

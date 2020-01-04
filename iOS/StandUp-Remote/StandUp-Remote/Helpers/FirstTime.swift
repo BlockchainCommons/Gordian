@@ -25,7 +25,6 @@ class FirstTime {
             let walletName = "\(randomString(length: 10))" + "_StandUp"
             ud.set("m/84'/1'/0'/0", forKey: "derivation")
             ud.set(walletName, forKey: "walletName")
-            //keychain.set(ud.string(forKey: "UnlockPassword")!, forKey: "UnlockPassword")
             
             if #available(iOS 13.0, *) {
                 
