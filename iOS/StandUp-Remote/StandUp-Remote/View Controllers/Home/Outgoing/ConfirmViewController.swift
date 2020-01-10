@@ -78,6 +78,10 @@ class ConfirmViewController: UIViewController, UINavigationControllerDelegate, U
                                      isError: false,
                                      message: "Transaction sent ✓")
                         
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }
+                        
                     }
                     
                 case .decoderawtransaction:
@@ -474,8 +478,8 @@ class ConfirmViewController: UIViewController, UINavigationControllerDelegate, U
         
         (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.clear
         (view as! UITableViewHeaderFooterView).textLabel?.textAlignment = .left
-        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont.systemFont(ofSize: 12)
-        (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.lightText
+        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .heavy)//UIFont.systemFont(ofSize: 12)
+        (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
         (view as! UITableViewHeaderFooterView).textLabel?.alpha = 1
         
     }

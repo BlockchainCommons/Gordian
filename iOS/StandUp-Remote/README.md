@@ -8,6 +8,10 @@ In order to use it you need to scan a `btcstandup://` uri which you can read abo
 
 StandUp-Remote is designed to work with the [MacOS StandUp.app](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/StandUp) and [Linux scripts](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/LinuxScript), but will work with any properly configured Bitcoin Core node with a hidden service controlling `rpcport`. Supporting nodes are myNode, Nodl, BTCPayServer and RaspiBlitz.
 
+### Testflight
+
+We have a public link available for beta testing here [at this link](https://testflight.apple.com/join/OQHyL0a8), please bare in mind the app may change drastically and may not be backward compatible, please only use the app on testnet.
+
 ### What does it do?
 
 #### Initial Setup
@@ -37,21 +41,6 @@ After the above process completes you will be able to:
 ### How does it work?
 
 StandUp-Remote keeps thing simple by relying on Bitcoin Core for all wallet functionality. The app simply derives the private keys necessary for signing whatever transaction you create then uses your node to sign the transaction with that key with `signrawtransactionwithkey`, this way we can keep your node cold and store the seed only on your device which is generally recognized to be more secure then general purpose computers.
-
-### To do:
-
-- Automatically add Tor V3 public key to your node during initial connection
-- Add biometrics and lock screen and 2fa
-- Ability to import a BIP39 recovery phrase, descriptor or xprv/xpub.
-- Cold mode?
-- Custom derivation path?
-- Different wallet templates
-- Make Tor auto reconnect after the background process is killed.
-- Kill switch?
-- Add an alert when your node rejects a connnection because you have not authenticated the device yet.
-- Improve the confirmation screen for transactions.
-- Add multisig capability.
-- Improve the UI and the intro tutorial screen.
 
 ### Requirements
 iOS 13

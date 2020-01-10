@@ -113,8 +113,34 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
                     self.qrView.image = nil
                     self.addressOutlet.alpha = 1
                     self.qrView.alpha = 1
-                    self.executeNodeCommand(method: .getnewaddress,
-                                            param: "\"\", \"bech32\"")
+                    
+                    let enc = Encryption()
+                    
+                    enc.getSeed { (seed, derivation, error) in
+                        
+                        if !error {
+                            
+                            if derivation.contains("84") {
+                                
+                                self.executeNodeCommand(method: .getnewaddress,
+                                                        param: "\"\", \"bech32\"")
+                                
+                            } else if derivation.contains("44") {
+                                
+                                self.executeNodeCommand(method: .getnewaddress,
+                                                        param: "\"\", \"legacy\"")
+                                
+                            } else if derivation.contains("49") {
+                                
+                                self.executeNodeCommand(method: .getnewaddress,
+                                                        param: "\"\", \"p2sh-segwit\"")
+                                
+                            }
+                            
+                        }
+                        
+                    }
+                    
                 }
             
             }
@@ -129,10 +155,36 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
     
     func showAddress() {
         
-        let params = "\"\", \"bech32\""
+        //let params = "\"\", \"bech32\""
         
-        self.executeNodeCommand(method: .getnewaddress,
-                                   param: params)
+        let enc = Encryption()
+        enc.getSeed { (seed, derivation, error) in
+            
+            if !error {
+                
+                if derivation.contains("84") {
+                    
+                    self.executeNodeCommand(method: .getnewaddress,
+                                            param: "\"\", \"bech32\"")
+                    
+                } else if derivation.contains("44") {
+                    
+                    self.executeNodeCommand(method: .getnewaddress,
+                                            param: "\"\", \"legacy\"")
+                    
+                } else if derivation.contains("49") {
+                    
+                    self.executeNodeCommand(method: .getnewaddress,
+                                            param: "\"\", \"p2sh-segwit\"")
+                    
+                }
+                
+            }
+            
+        }
+        
+//        self.executeNodeCommand(method: .getnewaddress,
+//                                   param: params)
         
     }
     

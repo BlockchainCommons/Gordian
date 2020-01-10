@@ -158,29 +158,10 @@ class CoreDataService {
         
     }
     
-    func updateEntity(dictsToUpdate: [[String:Any]], completion: @escaping () -> Void) {
+    func updateEntity(id: UUID, keyToUpdate: String, newValue: Any, entityName: ENTITY, completion: @escaping () -> Void) {
         print("updateEntity")
         
-        for (i, d) in dictsToUpdate.enumerated() {
-            
-            var newValue:Any!
-            
-            let id = d["id"] as! String
-            
-            if let newValueCheck = d["newValue"] as? String {
-                
-                newValue = newValueCheck
-                
-            } else if let newValueCheck = d["newValue"] as? Bool {
-                
-                newValue = newValueCheck
-                
-            }
-            
-            let keyToEdit = d["keyToEdit"] as! String
-            let entityName = d["entityName"] as! ENTITY
-            
-            DispatchQueue.main.async {
+       DispatchQueue.main.async {
                 
                 if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                     
@@ -196,9 +177,9 @@ class CoreDataService {
                             
                             for data in results {
                                 
-                                if id == data.value(forKey: "id") as? String {
+                                if id == data.value(forKey: "id") as? UUID {
                                     
-                                    data.setValue(newValue, forKey: keyToEdit)
+                                    data.setValue(newValue, forKey: keyToUpdate)
                                     
                                     do {
                                         
@@ -206,25 +187,21 @@ class CoreDataService {
                                         self.errorBool = false
                                         self.boolToReturn = true
                                         print("updated successfully")
+                                        completion()
                                         
                                     } catch {
                                         
                                         print("error editing")
                                         self.errorBool = true
                                         self.errorDescription = "error editing"
+                                        completion()
                                         
                                     }
                                     
                                 }
                                 
                             }
-                            
-                            if i == dictsToUpdate.count - 1 {
-                                
-                                completion()
-                                
-                            }
-                                                        
+                                                       
                         } else {
                             
                             print("no results")
@@ -251,7 +228,7 @@ class CoreDataService {
                 
             }
             
-        }
+        //}
         
     }
     

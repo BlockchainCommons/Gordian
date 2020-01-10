@@ -47,6 +47,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     var wallets = NSArray()
     var viewHasLoaded = Bool()
     let label = UILabel()
+    var existingWalletName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +69,49 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         setFeeTarget()
         showUnlockScreen()
         addlaunchScreen()
+        setExistingWallet()
+        
+    }
+    
+    func setExistingWallet() {
+        
+        getActiveWallet { (wallet) in
+            
+            if wallet != nil {
+                
+                self.existingWalletName = wallet!.name
+                
+            }
+            
+        }
+        
+        //if ud.object(forKey: "walletName") != nil {
+            
+            //existingWalletName = getA//ud.object(forKey: "walletName") as! String
+            
+        //}
+        
+    }
+    
+    func walletChanged() -> Bool {
+        
+        if ud.object(forKey: "walletName") != nil {
+            
+            if existingWalletName != ud.object(forKey: "walletName") as! String {
+                
+                return true
+                
+            } else {
+                
+                return false
+                
+            }
+            
+        } else {
+            
+            return false
+            
+        }
         
     }
     
@@ -87,9 +131,28 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             
             if self.nodes.count > 0 {
                 
-                if initialLoad {
+                getActiveWallet { (wallet) in
                     
-                    self.refresh()
+                    if wallet != nil {
+                        
+                        if self.initialLoad || self.walletChanged() {
+                            
+                            self.refresh()
+                            
+                        }
+                        
+                    } else {
+                        
+                        displayAlert(viewController: self, isError: true, message: "no active wallets")
+                        
+                        if self.initialLoad {
+                            
+                            self.connector = Connector()
+                            self.connectTor(connector: self.connector)
+                            
+                        }
+                        
+                    }
                     
                 }
                 
@@ -143,27 +206,37 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             
             addlaunchScreen()
             
-            let walletCreator = WalletCreator()
+            let enc = Encryption()
             
-            DispatchQueue.main.async {
-                self.label.text = walletCreator.statusDescription
-            }
-            
-            walletCreator.createStandUpWallet { (success) in
+            enc.getSeed { (seed, derivation, error) in
                 
-                if success {
+                if !error {
                     
-                    self.loadSectionZero()
+                    let walletCreator = WalletCreator()
                     
-                } else {
+                    DispatchQueue.main.async {
+                        self.label.text = walletCreator.statusDescription
+                    }
                     
-                    print("error")
-                    self.removeSpinner()
-                    self.removeLoadingView()
-                    displayAlert(viewController: self, isError: true, message: "Wallet creation interrupted! Tap the refresh button\n" + walletCreator.errorString)
+                    walletCreator.createStandUpWallet(derivation: derivation) { (success, error) in
+                        
+                        if success {
+                            
+                            self.loadSectionZero()
+                            self.setExistingWallet()
+                            
+                        } else {
+                            
+                            print("error")
+                            self.removeSpinner()
+                            self.removeLoadingView()
+                            displayAlert(viewController: self, isError: true, message: "Wallet creation interrupted! Tap the refresh button\n" + error!)
+                            
+                        }
+                        
+                    }
                     
                 }
-                
             }
             
         } else {
@@ -471,8 +544,8 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         
         (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.clear
         (view as! UITableViewHeaderFooterView).textLabel?.textAlignment = .left
-        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont.systemFont(ofSize: 12)
-        (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.lightText
+        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .heavy)//UIFont.systemFont(ofSize: 12)
+        (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
         (view as! UITableViewHeaderFooterView).textLabel?.alpha = 1
         
     }
@@ -970,34 +1043,43 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     
                     if ud.object(forKey: "walletCreated") == nil || ud.object(forKey: "keysImported") == nil {
                         
-                        // first time do whole shebang
-                        let walletCreator = WalletCreator()
-                        
-                        DispatchQueue.main.async {
-                            self.addNavBarSpinner()
-                        }
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            self.label.text = walletCreator.statusDescription
-                        }
+                        let enc = Encryption()
+                        enc.getSeed { (seed, derivation, error) in
                             
-                        walletCreator.createStandUpWallet { (success) in
-                            
-                            if success {
+                            if !error {
                                 
-                                displayAlert(viewController: self, isError: false, message: "Succesfully created your StandUp wallet ✓")
-                                //ud.set("StandUp", forKey: "walletName")
-                                self.loadSectionZero()
+                                // first time do whole shebang
+                                let walletCreator = WalletCreator()
                                 
-                            } else {
+                                DispatchQueue.main.async {
+                                    self.addNavBarSpinner()
+                                }
                                 
-                                print("error")
-                                self.removeSpinner()
-                                self.removeLoadingView()
-                                ud.removeObject(forKey: "walletCreated")
-                                displayAlert(viewController: self, isError: true, message: "Error creating your wallet! Tap the refresh button\n" + walletCreator.errorString)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                    self.label.text = walletCreator.statusDescription
+                                }
+                                    
+                                walletCreator.createStandUpWallet(derivation: derivation) { (success, error) in
+                                    
+                                    if success {
+                                        
+                                        displayAlert(viewController: self, isError: false, message: "Succesfully created your StandUp wallet ✓")
+                                        self.setExistingWallet()
+                                        self.loadSectionZero()
+                                        
+                                    } else {
+                                        
+                                        print("error")
+                                        self.removeSpinner()
+                                        self.removeLoadingView()
+                                        ud.removeObject(forKey: "walletCreated")
+                                        displayAlert(viewController: self, isError: true, message: "Error creating your wallet! Tap the refresh button\n" + error!)
+                                        
+                                    }
+                                    
+                                }
+                                
                             }
-                            
                         }
                         
                     } else {

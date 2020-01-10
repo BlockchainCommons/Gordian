@@ -12,5 +12,6 @@ public enum ENTITY: String {
     
     case nodes = "Nodes"
     case seed = "Seed"
+    case wallets = "Wallets"
     
 }

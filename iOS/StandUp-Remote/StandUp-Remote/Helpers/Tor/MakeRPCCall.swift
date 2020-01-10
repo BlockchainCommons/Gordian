@@ -40,7 +40,7 @@ class MakeRPCCall {
                 }
                 
                 let walletUrl = "http://\(rpcusername):\(rpcpassword)@\(onionAddress)/wallet/\(walletName)"
-                //print("walleturl = \(walletUrl)")
+                print("walleturl = \(walletUrl)")
                 
                 // Have to escape ' characters for certain rpc commands
                 var formattedParam = (param as! String).replacingOccurrences(of: "''", with: "")
@@ -57,6 +57,7 @@ class MakeRPCCall {
                 request.httpMethod = "POST"
                 request.setValue("text/plain", forHTTPHeaderField: "Content-Type")
                 request.httpBody = "{\"jsonrpc\":\"1.0\",\"id\":\"curltest\",\"method\":\"\(method)\",\"params\":[\(formattedParam)]}".data(using: .utf8)
+                print("request = \("{\"jsonrpc\":\"1.0\",\"id\":\"curltest\",\"method\":\"\(method)\",\"params\":[\(formattedParam)]}")")
                 
                 let queue = DispatchQueue(label: "com.FullyNoded.torQueue")
                 queue.async {
