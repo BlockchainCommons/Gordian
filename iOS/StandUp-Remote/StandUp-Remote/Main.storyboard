@@ -920,7 +920,7 @@
             </objects>
             <point key="canvasLocation" x="-1060" y="-508.69565217391306"/>
         </scene>
-        <!--Settings v0.0.18-->
+        <!--Settings v0.0.19-->
         <scene sceneID="Ajv-p7-tUm">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="AS8-ke-Yxh" customClass="SettingsViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
@@ -1007,7 +1007,7 @@
                         <viewLayoutGuide key="safeArea" id="Cze-jj-bFe"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Settings" id="n34-O3-Fyo"/>
-                    <navigationItem key="navigationItem" title="Settings v0.0.18" id="YNb-Gd-Hqq"/>
+                    <navigationItem key="navigationItem" title="Settings v0.0.19" id="YNb-Gd-Hqq"/>
                     <connections>
                         <outlet property="settingsTable" destination="hcp-eG-lok" id="xPg-8r-KBs"/>
                         <segue destination="bKH-sI-MiM" kind="show" identifier="goLogIn" id="qed-hl-jG5"/>
@@ -1101,13 +1101,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is your private key descriptor you can use with an importmulti command to recover your wallet with Bitcoin Core." lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rZ-1E-YUG">
-                                <rect key="frame" x="16" y="0.0" width="343" height="61"/>
+                                <rect key="frame" x="16" y="5" width="343" height="61"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Srs-UQ-mxz">
-                                <rect key="frame" x="16" y="69" width="343" height="343"/>
+                                <rect key="frame" x="16" y="74" width="343" height="343"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="343" id="Aq9-XC-IZK"/>
                                     <constraint firstAttribute="height" constant="343" id="ufh-rf-9Rg"/>
@@ -1118,7 +1118,7 @@
                         <constraints>
                             <constraint firstItem="Srs-UQ-mxz" firstAttribute="leading" secondItem="eRR-dj-rri" secondAttribute="leading" constant="16" id="HmQ-Xn-wAv"/>
                             <constraint firstItem="8rZ-1E-YUG" firstAttribute="leading" secondItem="eRR-dj-rri" secondAttribute="leading" constant="16" id="Ogc-gK-EDO"/>
-                            <constraint firstItem="8rZ-1E-YUG" firstAttribute="top" secondItem="eRR-dj-rri" secondAttribute="top" id="QK5-XP-vZ7"/>
+                            <constraint firstItem="8rZ-1E-YUG" firstAttribute="top" secondItem="eRR-dj-rri" secondAttribute="top" constant="5" id="QK5-XP-vZ7"/>
                             <constraint firstItem="eRR-dj-rri" firstAttribute="trailing" secondItem="Srs-UQ-mxz" secondAttribute="trailing" constant="16" id="mPe-Ik-hAX"/>
                             <constraint firstItem="Srs-UQ-mxz" firstAttribute="top" secondItem="8rZ-1E-YUG" secondAttribute="bottom" constant="8" id="oUd-AF-KHT"/>
                             <constraint firstItem="eRR-dj-rri" firstAttribute="trailing" secondItem="8rZ-1E-YUG" secondAttribute="trailing" constant="16" id="yM5-Dp-uht"/>

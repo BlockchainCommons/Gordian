@@ -15,6 +15,7 @@ class WalletCreator {
     var descriptor = ""
     var errorString = ""
     var birthdate = "\"now\""
+    var statusDescription = "Creating your wallet..."
     
     func createStandUpWallet(completion: @escaping (Bool) -> Void) {
         
@@ -23,37 +24,6 @@ class WalletCreator {
             birthdate = "\(birthdateCheck)"
             
         }
-        
-//        func createSaveSeed() {
-//
-//            let enc = Encryption()
-//            let keychain = KeychainCreator()
-//            keychain.createKeyChain(isTestnet: true) { (mnemonic, error) in
-//
-//                if !error {
-//
-//                    enc.encryptAndSaveSeed(string: mnemonic!) { (success) in
-//
-//                        if success {
-//
-//                            // seed encrypted and saved
-//                            print("seed saved")
-//                            self.ud.set("m/84'/1'/0'/0", forKey: "derivation")
-//                            checkForStandUpWallet()
-//
-//                        } else {
-//
-//                            print("seed not saved!!!")
-//
-//                        }
-//
-//                    }
-//
-//                }
-//
-//            }
-//
-//        }
         
         func whichChain() {
             
@@ -79,30 +49,24 @@ class WalletCreator {
                     
                     switch method {
                         
-//                    case .getblockchaininfo:
-//
-//                        let response = reducer.dictToReturn
-//                        let chain = response["chain"] as! String
-//
-//                        if chain == "main" {
-//
-//                            print("main chain")
-//                            self.ud.set("m/84'/0'/0'/0", forKey: "derivation")
-//                            checkForStandUpWallet()
-//
-//                        } else if chain == "test" {
-//
-//                            print("test chain")
-//
-//                            //MARK: Have to hardcode a testnet seed and tpub as Core Bitcoin does not produce them, will fix this with iOS-Bitcoin
-//
-//                            let cd = CoreDataService()
-//
-//                            cd.deleteSeed {
-//                                createSaveSeed()
-//                            }
-//
-//                        }
+                    case .getblockchaininfo:
+
+                        let response = reducer.dictToReturn
+                        let chain = response["chain"] as! String
+
+                        if chain == "main" {
+
+                            print("main chain")
+                            self.ud.set("m/84'/0'/0'/0", forKey: "derivation")
+                            checkForStandUpWallet()
+
+                        } else {
+
+                            print("test chain")
+                            self.ud.set("m/84'/1'/0'/0", forKey: "derivation")
+                            checkForStandUpWallet()
+
+                        }
                                                 
                     case .createwallet:
                         
@@ -123,6 +87,7 @@ class WalletCreator {
                             
                             if importingChange {
                                 
+                                ud.set(true, forKey: "keysImported")
                                 completion(true)
                                 
                             } else {
@@ -165,7 +130,6 @@ class WalletCreator {
                         executeNodeCommand(method: .importmulti,
                                            param: params)
                         
-                        
                     default:
                         
                         break
@@ -193,13 +157,20 @@ class WalletCreator {
             
             let walletArr = walletDict["wallets"] as! NSArray
             var walletExists = false
+            var standUpWalletName = "StandUp"
+            
+            if ud.object(forKey: "walletName") != nil {
+                
+                standUpWalletName = ud.object(forKey: "walletName") as! String
+                
+            }
             
             for wallet in walletArr {
                 
                 let dict = wallet as! NSDictionary
                 let walletName = dict["name"] as! String
                 
-                if walletName == "StandUp" {
+                if walletName == standUpWalletName {
                     
                     walletExists = true
                     
@@ -209,12 +180,22 @@ class WalletCreator {
             
             if walletExists {
                 
-                completion((true))
+                // Import the keys again incase it failed
+                
+                if ud.object(forKey: "keysImported") == nil {
+                    
+                    importPrimaryAddresses()
+                    
+                } else {
+                    
+                    completion((true))
+                    
+                }
                 
             } else {
                 
                 // create it
-                let param = "\"StandUp\", true, true, \"\", true"
+                let param = "\"\(standUpWalletName)\", true, true, \"\", true"
                 executeNodeCommand(method: .createwallet,
                                    param: param)
                 
@@ -224,12 +205,10 @@ class WalletCreator {
         
         func handleWalletCreation(response: NSDictionary) {
             
-            let name = response["name"] as! String
             let warning = response["warning"] as! String
-            ud.set(name, forKey: "walletName")
+            ud.set(true, forKey: "walletCreated")
             
             if warning == "" {
-                
                 
                 
             } else {
@@ -245,6 +224,8 @@ class WalletCreator {
         func importPrimaryAddresses() {
             print("importPrimaryAddresses")
             
+            self.statusDescription = "Importing 1,000 primary addresses..."
+            
             //get the xpub
             let keyFetcher = KeyFetcher()
             keyFetcher.bip32Xpub { (xpub, error) in
@@ -257,6 +238,7 @@ class WalletCreator {
                 } else {
                     
                     print("error getting xpub")
+                    
                 }
                 
             }
@@ -265,14 +247,14 @@ class WalletCreator {
         
         func importChangeKeys() {
             
+            self.statusDescription = "Importing 1,000 change addresses..."
             importingChange = true
             let params = "[{ \"desc\": \(descriptor), \"timestamp\": \(birthdate), \"range\": [1000,1999], \"watchonly\": true, \"keypool\": true, \"internal\": true }]"
             executeNodeCommand(method: .importmulti, param: params)
             
         }
         
-        checkForStandUpWallet()
-        //whichChain()
+        whichChain()
         
     }
     

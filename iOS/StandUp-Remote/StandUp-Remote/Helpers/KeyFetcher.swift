@@ -11,55 +11,43 @@ import LibWally
 
 class KeyFetcher {
     
+    let derivationPath = UserDefaults.standard.object(forKey: "derivation") as! String
+    
     func privKey(index: Int, completion: @escaping ((privKey: String?, error: Bool)) -> Void) {
         
-        let cd = CoreDataService()
-        cd.retrieveSeed { (encSeed, error) in
+        let enc = Encryption()
+        enc.getSeed() { (words, error) in
             
             if !error {
                 
-                let enc = Encryption()
-                enc.decrypt(data: encSeed!) { (words, error) in
+                let mnenomicCreator = MnemonicCreator()
+                
+                mnenomicCreator.convert(words: words) { (mnemonic, error) in
                     
                     if !error {
                         
-                        let mnenomicCreator = MnemonicCreator()
-                        
-                        mnenomicCreator.convert(words: words) { (mnemonic, error) in
+                        if let masterKey = HDKey((mnemonic!.seedHex("")), self.network()) {
                             
-                            if !error {
+                            if let path = BIP32Path(self.derivationPath) {
                                 
-                                if let masterKey = HDKey((mnemonic!.seedHex("")), .testnet) {
+                                do {
                                     
-                                    if let path = BIP32Path("m/84'/1'/0'/0") {
+                                    let account = try masterKey.derive(path)
+                                    
+                                    if let childPath = BIP32Path("\(index)") {
                                         
                                         do {
                                             
-                                            let account = try masterKey.derive(path)
+                                            let key = try account.derive(childPath)
                                             
-                                            if let childPath = BIP32Path("\(index)") {
+                                            if let keyToReturn = key.privKey {
                                                 
-                                                do {
-                                                    
-                                                    let key = try account.derive(childPath)
-                                                    
-                                                    if let keyToReturn = key.privKey {
-                                                        
-                                                        let wif = keyToReturn.wif
-                                                        print("private key = \(wif)")
-                                                        completion((wif,false))
-                                                        
-                                                    } else {
-                                                        
-                                                        completion((nil,true))
-                                                        
-                                                    }
-                                                    
-                                                } catch {
-                                                    
-                                                    completion((nil,true))
-                                                    
-                                                }
+                                                let wif = keyToReturn.wif
+                                                completion((wif,false))
+                                                
+                                            } else {
+                                                
+                                                completion((nil,true))
                                                 
                                             }
                                             
@@ -69,13 +57,9 @@ class KeyFetcher {
                                             
                                         }
                                         
-                                    } else {
-                                        
-                                        completion((nil,true))
-                                        
                                     }
                                     
-                                } else {
+                                } catch {
                                     
                                     completion((nil,true))
                                     
@@ -87,7 +71,15 @@ class KeyFetcher {
                                 
                             }
                             
+                        } else {
+                            
+                            completion((nil,true))
+                            
                         }
+                        
+                    } else {
+                        
+                        completion((nil,true))
                         
                     }
                     
@@ -101,46 +93,26 @@ class KeyFetcher {
     
     func bip32Xpub(completion: @escaping ((xpub: String?, error: Bool)) -> Void) {
         
-        let cd = CoreDataService()
-        cd.retrieveSeed { (encSeed, error) in
+        let enc = Encryption()
+        enc.getSeed() { (words, error) in
             
             if !error {
                 
-                let enc = Encryption()
-                enc.decrypt(data: encSeed!) { (words, error) in
+                let mnenomicCreator = MnemonicCreator()
+                mnenomicCreator.convert(words: words) { (mnemonic, error) in
                     
                     if !error {
                         
-                        let mnenomicCreator = MnemonicCreator()
-                        
-                        mnenomicCreator.convert(words: words) { (mnemonic, error) in
+                        if let masterKey = HDKey((mnemonic!.seedHex("")), self.network()) {
                             
-                            if !error {
+                            if let path = BIP32Path(self.derivationPath) {
                                 
-                                if let masterKey = HDKey((mnemonic!.seedHex("")), .testnet) {
+                                do {
                                     
-                                    if let path = BIP32Path("m/84'/1'/0'/0") {
-                                        
-                                        do {
-                                            
-                                            let account = try masterKey.derive(path)
-                                            let tpub = account.xpub
-                                            print("tpub = \(tpub)")
-                                            completion((tpub,false))
-                                            
-                                        } catch {
-                                            
-                                            completion((nil,true))
-                                            
-                                        }
-                                        
-                                    } else {
-                                        
-                                        completion((nil,true))
-                                        
-                                    }
+                                    let account = try masterKey.derive(path)
+                                    completion((account.xpub,false))
                                     
-                                } else {
+                                } catch {
                                     
                                     completion((nil,true))
                                     
@@ -151,6 +123,10 @@ class KeyFetcher {
                                 completion((nil,true))
                                 
                             }
+                            
+                        } else {
+                            
+                            completion((nil,true))
                             
                         }
                         
@@ -174,46 +150,28 @@ class KeyFetcher {
     
     func bip32Xprv(completion: @escaping ((xprv: String?, error: Bool)) -> Void) {
         
-        let cd = CoreDataService()
-        cd.retrieveSeed { (encSeed, error) in
+        let enc = Encryption()
+        enc.getSeed() { (words, error) in
             
             if !error {
                 
-                let enc = Encryption()
-                enc.decrypt(data: encSeed!) { (words, error) in
+                let mnenomicCreator = MnemonicCreator()
+                
+                mnenomicCreator.convert(words: words) { (mnemonic, error) in
                     
                     if !error {
                         
-                        let mnenomicCreator = MnemonicCreator()
-                        
-                        mnenomicCreator.convert(words: words) { (mnemonic, error) in
+                        if let masterKey = HDKey((mnemonic!.seedHex("")), self.network()) {
                             
-                            if !error {
+                            if let path = BIP32Path(self.derivationPath) {
                                 
-                                if let masterKey = HDKey((mnemonic!.seedHex("")), .testnet) {
+                                do {
                                     
-                                    if let path = BIP32Path("m/84'/1'/0'/0") {
+                                    let account = try masterKey.derive(path)
+                                    
+                                    if let xprv = account.xpriv {
                                         
-                                        do {
-                                            
-                                            let account = try masterKey.derive(path)
-                                            
-                                            if let tprv = account.xpriv {
-                                                
-                                                print("tprv = \(tprv)")
-                                                completion((tprv,false))
-                                                
-                                            } else {
-                                                
-                                                completion((nil,true))
-                                                
-                                            }
-                                            
-                                        } catch {
-                                            
-                                            completion((nil,true))
-                                            
-                                        }
+                                        completion((xprv,false))
                                         
                                     } else {
                                         
@@ -221,7 +179,7 @@ class KeyFetcher {
                                         
                                     }
                                     
-                                } else {
+                                } catch {
                                     
                                     completion((nil,true))
                                     
@@ -232,6 +190,10 @@ class KeyFetcher {
                                 completion((nil,true))
                                 
                             }
+                            
+                        } else {
+                            
+                            completion((nil,true))
                             
                         }
                         
@@ -250,6 +212,24 @@ class KeyFetcher {
             }
             
         }
+        
+    }
+    
+    private func network() -> Network {
+        
+        var network:Network!
+        
+        if self.derivationPath == "m/84'/1'/0'/0" {
+            
+            network = .testnet
+            
+        } else {
+            
+            network = .mainnet
+            
+        }
+        
+        return network
         
     }
     
