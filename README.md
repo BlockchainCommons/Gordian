@@ -2,7 +2,7 @@
 
 > *Bitcoin-Standup* is a open source project and a suite of tools that helps users to install a [Bitcoin-Core](https://bitcoin.org/) full-node on a fresh computer or VPS and to add important privacy tools like onion services and eventually optional Bitcoin-related tools like [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server), [C-Lightning](https://github.com/ElementsProject/lightning), [Esplora](https://github.com/Blockstream/esplora), [BTCPay Server](https://github.com/btcpayserver/btcpayserver), etc., as well as emerging technologies like Bitcoin-based Decentralized Identifiers.
 >
-> This tool will also harden and secure your OS to current best practices, as well as adding sufficient system tools to support basic Bitcoin development. After setup, *Bitcoin-Standup* will present a QR code and/or special URI that can be used to securely link your full-node to other devices, such as your mobile phone (for instance using [Fully Noded](https://github.com/FontaineDenton/FullyNoded) on iOS) or a remote desktop.
+> This tool will also harden and secure your OS to current best practices, as well as adding sufficient system tools to support basic Bitcoin development. After setup, *Bitcoin-Standup* will present a QR code and/or special URI that can be used to securely link your full-node to other devices, such as your mobile phone (for instance using [Fully Noded](https://github.com/FontaineDenton/iOS *StandUp-Remote*) on iOS) or a remote desktop.
 >
 > Once installed and fully synced, a *Bitcoin-Standup* full node can also be used with developer education courses like [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line).
 
@@ -23,7 +23,7 @@
 - [API](#api)
   - [Quick Connect URL using btcstandup](#quick-connect-url-using-btcstandup)
 - [Security](#security)
-  - [Tor V3 Authentication using StandUp and FullyNoded](#tor-v3-authentication-using-standup-and-fullynoded)
+  - [Tor V3 Authentication using StandUp and iOS *StandUp-Remote*](#tor-v3-authentication-using-standup-and-iOS *StandUp-Remote*)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
 - [License](#license)
@@ -163,7 +163,7 @@ We have a public link available for beta testing [here at this link](https://tes
 
 The macOS application *Bitcoin Standup.app* currently installs, configures, and launches `tor stable v0.4.2.5` and `bitcoin-core v0.19.0.1`. The app is under development and as it stands will install and configure a Bitcoin Core full node, Tor as a service, a Tor V3 hidden service controlling each  `rpcport` with a GUI for native Tor V3 authentication. The app allows the user to set custom settings including `txindex`, `prune`, `walletdisabled`, `testnet`, `mainnet`,  and `datadir`. It offeres a simple `go private` option which closes off your node to the clearnet, only accepting connections over Tor. The user may refresh their hidden service at the push of a button. The user can start/stop Tor and Bitcoin Core from the GUI, adjust bitcoin.conf settings, see the status of Bitcoin Core and Tor, the app will configure a hidden service and you bitcoin.conf so that it can display a QuickConnect QR code to connect to with the StandUp-Remote iOS app.
 
-Once the app has completely installed and launched Bitcoin Core, it will present a *Quick Connect QR code* which can be used to securely link your full node remotely over Tor to other devices, such as the iOS application [StandUp-Remote](https://testflight.apple.com/join/OQHyL0a8) and [Fully Noded](https://github.com/FontaineDenton/FullyNoded).
+Once the app has completely installed and launched Bitcoin Core, it will present a *Quick Connect QR code* which can be used to securely link your full node remotely over Tor to other devices, such as the iOS application [StandUp-Remote](https://testflight.apple.com/join/OQHyL0a8) and [Fully Noded](https://github.com/FontaineDenton/iOS *StandUp-Remote*).
 
 The app currently relies on initial installation of [Strap.sh](https://github.com/MikeMcQuaid/strap/) to install basic development tools before installing `tor` and `bitcoin-core`. This tool also does some basic hardening of your Macintosh including turning on FileVault (the full-disk encryption services offered in macOS), turning on your Mac firewall, and turning off Java. Future versions of *Bitcoin Standup* will integrate *Strap.sh* features directly to offer additional macOS hardening configuration options.
 
@@ -190,7 +190,7 @@ To see all the details please visit the dedicated github [readme here](https://g
 
 This section defines the spec for a deep link URI and a scannable QR Code. These ideally would have the same format among a number of different software projects and hardware products to ensure universal compatibility.
 
-The iOS application [Fully Noded](https://github.com/FontaineDenton/FullyNoded) is a proof of concept of such a light client. The server side node manufacturers/providers supporting this protocol are [BTCPayServer](https://btcpayserver.org), [Nodl](https://www.nodl.it/), [MyNode](http://www.mynodebtc.com) and [RaspiBlitz](https://github.com/rootzoll/raspiblitz).
+The iOS application [Fully Noded](https://github.com/FontaineDenton/iOS *StandUp-Remote*) is a proof of concept of such a light client. The server side node manufacturers/providers supporting this protocol are [BTCPayServer](https://btcpayserver.org), [Nodl](https://www.nodl.it/), [MyNode](http://www.mynodebtc.com) and [RaspiBlitz](https://github.com/rootzoll/raspiblitz).
 
 #### Current Format
 
@@ -224,8 +224,8 @@ We'd love to have more discussion with other developers about any additional req
 
 Don’t configure a VPS with the Bitcoin wallet feature turned on with any significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . A higher level of safety is required for significant funds. A VPS-based install can be a useful as a wallet-less full node connected remotely to a more secure wallet that signs the keys elsewhere.
 
-### Tor V3 Authentication using StandUp and FullyNoded
-Think of your StandUp node as a server, and FullyNoded or your iPhone as a client. Tor V3 hidden services have new and improved built in functionality for authenticating client connections to servers, whereby the client stores a private key that is kept secret to everyone only ever existing on the client and the public key is stored in a special directory called `authorized_clients` on your StandUp server which (in StandUp) lives in your `HiddenServiceDir`  > `/usr/local/var/lib/tor/standup/authorized_clients`.
+### Tor V3 Authentication using StandUp and iOS *StandUp-Remote*
+Think of your StandUp node as a server, and iOS *StandUp-Remote* or your iPhone as a client. Tor V3 hidden services have new and improved built in functionality for authenticating client connections to servers, whereby the client stores a private key that is kept secret to everyone only ever existing on the client and the public key is stored in a special directory called `authorized_clients` on your StandUp server which (in StandUp) lives in your `HiddenServiceDir`  > `/usr/local/var/lib/tor/standup/authorized_clients`.
 
 #### The problem:
 The QuickConnect QR code that StandUp produces for you contains very sensitive information. If you had a malicious maid in your house or a hacker was remotely recording your computer screen then they would have access to your node and your bitcoin as soon as they got an image of the QuickConnect QR code. If the `authorized_clients` directory is empty then anyone with the QR code has full access to your node.
@@ -236,15 +236,13 @@ Prevent the existence of any single point of failure or "honey pot" (e.g. the QR
 #### How?
  Two factor authentication whereby a trusted separate isolated device (e.g. the client) produces the private key and public key, which requires the owner of the server to physically add in the public key to the `authorized_clients` directory. In this way there is no "honey pot" which contains all the information necessary to obtain access to your node. Of course if someone has access to your node they can produce their own key pair and add the public key into the hidden service but then again they already have access to your node and hidden service so this attack vector is somewhat irrelevant. What we are trying to accomplish is a method to guarantee that your device (e.g. the client) is the *only* device in the world that is able to remotely access your node. It is highly recommended as an additional layer of security to also encrypt your nodes wallet so that even if someone somehow stole your phone they would still need to brute force your wallet.dat encryption.
 
- For a detailed guide see [this link](https://github.com/AnarchoTechNYC/meta/wiki/Connecting-to-an-authenticated-Onion-service#connecting-to-authenticated-version-3-onion-services), for a simple video tutorial using StandUp and FullyNoded see [this link](https://youtu.be/pSm2VftTCBI) (TO DO create demo videos for StandUp-Remote)
+ For a detailed guide see [this link](https://github.com/AnarchoTechNYC/meta/wiki/Connecting-to-an-authenticated-Onion-service#connecting-to-authenticated-version-3-onion-services), for a simple video tutorial using StandUp and iOS *StandUp-Remote* see [this link](https://youtu.be/pSm2VftTCBI) (TO DO create demo videos for StandUp-Remote)
 
 **Assuming you have downloaded and installed macOS *StandUp.app* and iOS *StandUp-Remote* **
 
 On *StandUp-Remote* go to settings and tap "Export Authentication Public Key" as pictured below:
 
 <img src="https://github.com/Fonta1n3/Bitcoin-Standup/blob/master/Images/StandUp_Remote_Settings.PNG" alt="export authentication public key" width="250"/>
-
-<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/Images/fullynoded_tap_pubkey.png" alt="Update the node" width="250"/>
 
 In *StandUp-Remote* the private key is stored encrypted locally on the device, the user can not access it and the encryption key for the private key is stored on your keychain. Whenever you connect to your node the key is decrypted and stored in your temporary torrc file which is integrated into the *StandUp-Remote* Tor thread.
 
