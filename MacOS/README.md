@@ -2,7 +2,7 @@
 
 > *Bitcoin-Standup* is a open source project and a suite of tools that helps users to install a [Bitcoin-Core](https://bitcoin.org/) full-node on a fresh computer or VPS and to add important privacy tools like onion services and eventually optional Bitcoin-related tools like [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server), [C-Lightning](https://github.com/ElementsProject/lightning), [Esplora](https://github.com/Blockstream/esplora), [BTCPay Server](https://github.com/btcpayserver/btcpayserver), etc., as well as emerging technologies like Bitcoin-based Decentralized Identifiers.
 >
-> This tool will also harden and secure your OS to current best practices, as well as adding sufficient system tools to support basic Bitcoin development. After setup, *Bitcoin-Standup* will present a QR code and/or special URI that can be used to securely link your full-node to other devices, such as your mobile phone (for instance using [Fully Noded](https://github.com/FontaineDenton/StandUp-Remote) on iOS) or a remote desktop.
+> This tool will also harden and secure your OS to current best practices, as well as adding sufficient system tools to support basic Bitcoin development. After setup, *Bitcoin-Standup* will present a QR code and/or special URI that can be used to securely link your full-node to other devices, such as your mobile phone (for instance using [StandUp-Remote](https://github.com/FontaineDenton/StandUp-Remote) on iOS) or a remote desktop.
 >
 > Once installed and fully synced, a *Bitcoin-Standup* full node can also be used with developer education courses like [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line).
 
@@ -76,7 +76,7 @@ rpcport=18443
 
 If there is an exisiting `bitcoin.conf` in your `datadir` then *Bitcoin Standup.app* will simply check for and add `rpccredentials` if they are missing. 
 
-Once the app has completely installed and launched Bitcoin, it will present a *Quick Connect QR code* which can be used to securely link your full node remotely over Tor to other devices, such as the iOS application[StandUp-Remote](https://testflight.apple.com/join/OQHyL0a8) and [Fully Noded](https://github.com/FontaineDenton/StandUp-Remote).
+Once the app has completely installed and launched Bitcoin, it will present a *Quick Connect QR code* which can be used to securely link your full node remotely over Tor to other devices, such as the iOS application[StandUp-Remote](https://testflight.apple.com/join/OQHyL0a8) and [StandUp-Remote](https://github.com/FontaineDenton/StandUp-Remote).
 
 The app currently relies on initial installation of [Strap.sh](https://github.com/MikeMcQuaid/strap/) to install basic development tools before installing `tor` and `bitcoin-qt`. This tool also does some basic hardening of your Macintosh including turning on FileVault (the full-disk encryption services offered in macOS), turning on your Mac firewall, and turning off Java. Future versions of *Bitcoin Standup* will integrate *Strap.sh* features directly to offer additional macOS hardening configuration options.
 
@@ -177,44 +177,38 @@ Prevent the existence of any single point of failure or "honey pot" (e.g. the QR
 
 #### How?
  Two factor authentication whereby a trusted separate isolated device (e.g. the client) produces the private key and public key, which requires the owner of the server to physically add in the public key to the `authorized_clients` directory. In this way there is no "honey pot" which contains all the information necessary to obtain access to your node. Of course if someone has access to your node they can produce their own key pair and add the public key into the hidden service but then again they already have access to your node and hidden service so this attack vector is somewhat irrelevant. What we are trying to accomplish is a method to guarantee that your device (e.g. the client) is the *only* device in the world that is able to remotely access your node. It is highly recommended as an additional layer of security to also encrypt your nodes wallet so that even if someone somehow stole your phone they would still need to brute force your wallet.dat encryption.
- 
- For a detailed guide see [this link](https://github.com/AnarchoTechNYC/meta/wiki/Connecting-to-an-authenticated-Onion-service#connecting-to-authenticated-version-3-onion-services), for a simple video tutorial using StandUp and StandUp-Remote see [this link](https://youtu.be/pSm2VftTCBI).
 
-For now the only mobile app which deals with Bitcoin Core RPC communications that we know of is StandUp-Remote. Assume you have downloaded StandUp-Remote, have a StandUp node running and want to add native Tor authentication. All you would need to do is open StandUp-Remote > "Settings" > "Node Manager" > select your node > "Next" > "Next" > "generate key pair" and most importantly tap the blue "Save" or "Update" button at the bottom to save the private key!
+ For a detailed guide see [this link](https://github.com/AnarchoTechNYC/meta/wiki/Connecting-to-an-authenticated-Onion-service#connecting-to-authenticated-version-3-onion-services), for a simple video tutorial using StandUp and iOS *StandUp-Remote* see [this link](https://youtu.be/pSm2VftTCBI) (TO DO create demo videos for StandUp-Remote)
 
-<img src="https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/StandUp/Images/StandUp-Remote_generate.png" alt="generate V3 auth key pair" width="250"/>
+**Assuming you have downloaded and installed macOS *StandUp.app* and iOS *StandUp-Remote* **
 
-If you do not press "Save" or "Update" you will lose the key pair and need to start again. This will produce a x25519 private and public key pair.
+On *StandUp-Remote* go to settings and tap "Export Authentication Public Key" as pictured below:
 
-<img src="https://github.com/BlockchainCommons/Bitcoin-StandUp/blob/master/StandUp/Images/StandUp-Remote_tap_pubkey.png" alt="Update the node" width="250"/>
+<img src="https://github.com/Fonta1n3/Bitcoin-Standup/blob/master/Images/StandUp_Remote_Settings.PNG" alt="export authentication public key" width="250"/>
 
-In StandUp-Remote the private key is stored encrypted locally on the device to AES256CBC standards, the user can not access it and the encryption key for the encrypted private key is stored on your keychain. Whenever you connect to your node the key is decrypted and stored in your temporary torrc file which is integrated into StandUp-Remote's Tor thread. In StandUp-Remote each time you connect to a node the credentials refresh so there is nothing being stored in clear text on your device persistently.
+In *StandUp-Remote* the private key is stored encrypted locally on the device, the user can not access it and the encryption key for the private key is stored on your keychain. Whenever you connect to your node the key is decrypted and stored in your temporary torrc file which is integrated into the *StandUp-Remote* Tor thread.
 
-Tap the green text which would look like `descriptor:x25519:JNEF892349FH24HF872H4FU2H387H3R982NFN238HF928`, that is your public key which needs to be passed to your StandUp node.
+The public key text which would look like `descriptor:x25519:JNEF892349FH24HF872H4FU2H387H3R982NFN238HF928` is automatically copied to your clipboard for easy copy and pasting or you may scan the QR code with your mac to input the key into the macOS *StandUp.app*.
 
-<img src="https://github.com/BlockchainCommons/Bitcoin-StandUp/blob/master/StandUp/Images/StandUp-Remote_qr.png" alt="export the public key" width="250"/>
+<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/Images/StandUp_Remote_QR.PNG" alt="export the public key" width="250"/>
 
-This public key is not sensitive as it only works in conjunction with the private key. StandUp-Remote will display the public key in QR code format so you can easily scan it with your laptop, you can also send it via airdrop or email just by tapping the text or QR image.
+This public key is not sensitive as it only works in conjunction with the private key.
 
-<img src="https://github.com/BlockchainCommons/Bitcoin-StandUp/blob/master/StandUp/Images/StandUp-Remote_share.png" alt="share the public key" width="250"/>
+In this way you can also share access to your node with trusted family and friends. Tor V3 hidden services support up to ~330 different public keys stored in the `authorized_clients` directory (link to source). If you were doing this manually, you would go on your laptop which has *StandUp.app* installed and find your `HiddenServiceDir` which is `/usr/local/var/lib/tor/standup/authorized_clients`. You would then open the `authorized_clients` directory and add a file which contains only the public key exactly as *StandUp-Remote* exports it. The filename must have a `.auth` extension.
 
-In this way you can also share access to your node with trusted family and friends. Tor V3 hidden services support up to ~330 different public keys stored in the `authorized_clients` directory (link to source). If you were doing this manually, you would go on your laptop which has StandUp installed and find your `HiddenServiceDir` which is `/usr/local/var/lib/tor/standup/authorized_clients`. You would then open the `authorized_clients` directory and add a file which contains only the public key exactly as StandUp-Remote exports it. The filename must have a `.auth` extension.
+But of course you are using *Bitcoin-StandUp* so the process is as easy as a click. In macOS *StandUp.app* go to "Settings" and paste in the public key just as iOS *StandUp-Remote* exported it, then tap "Add".
 
-But of course you are using StandUp so the process is as easy as a click. In StandUp go to "Settings" and paste in the public key just as StandUp-Remote exported it, then tap "Add".
+<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/Images/paste.png" alt="paste the public key" width="750"/>
 
-<img src="https://github.com/BlockchainCommons/Bitcoin-StandUp/blob/master/StandUp/Images/paste.png" alt="paste the public key" width="750"/>
+<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/Images/yes.png" alt="tap yes" width="750"/>
 
-<img src="https://github.com/BlockchainCommons/Bitcoin-StandUp/blob/master/StandUp/Images/yes.png" alt="tap yes" width="750"/>
+<img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/Images/ok.png" alt="tap yes" width="750"/>
 
-<img src="https://github.com/BlockchainCommons/Bitcoin-StandUp/blob/master/StandUp/Images/ok.png" alt="tap yes" width="750"/>
-
-StandUp then simply creates a random filename with a `.auth` extension, writes the public key to it, and saves it to `/usr/local/var/lib/tor/standup/authorized_clients/`. 
-
-Once again you can add around 330 of these `authorized_clients` in this manner. You can also delete them at will, and refresh them. StandUp-Remote is capable of creating an ~infinite number of the key pairs on demand.  If you would like to create your own you can easily do so with a [simple python script](https://github.com/BlockchainCommons/StandUp-Remote/blob/master/Readme.md#v3-auth-keypair-generation-optional).
+macOS *StandUp.app* then simply creates a random filename with a `.auth` extension, writes the public key to it, and saves it to `/usr/local/var/lib/tor/standup/authorized_clients/`.
 
 ### Supported Versions
 
-v0.0.1
+none yet
 
 ### Reporting a Vulnerability
 
