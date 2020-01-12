@@ -26,14 +26,14 @@ We have a public link available for beta testing [here at this link](https://tes
   - [x] Multiwalletrpc
   
 - [ ] Security
- - [x] Seed created with Apple's cryptographically secure random number generator
- - [x] Seed encrypted with a private key stored on the devices keychain which is itself encrypted
- - [x] Seed encrypted with native iOS code
- - [x] Tor V3 Authentication
- - [ ] Passphrase support
- - [ ] Wallet.dat encryption
- - [ ] Disable all networking before importing/exporting seed 
- - [ ] Automated Tor authentication
+  - [x] Seed created with Apple's cryptographically secure random number generator
+  - [x] Seed encrypted with a private key stored on the devices keychain which is itself encrypted
+  - [x] Seed encrypted with native iOS code
+  - [x] Tor V3 Authentication
+  - [ ] Passphrase support
+  - [ ] Wallet.dat encryption
+  - [ ] Disable all networking before importing/exporting seed 
+  - [ ] Automated Tor authentication
  
 - [ ] Compatible Nodes
   - [x] Your own Bitcoin Core node
