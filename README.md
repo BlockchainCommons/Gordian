@@ -2,7 +2,7 @@
 
 > *Bitcoin-Standup* is a open source project and a suite of tools that helps users to install a [Bitcoin-Core](https://bitcoin.org/) full-node on a fresh computer or VPS and to add important privacy tools like onion services and eventually optional Bitcoin-related tools like [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server), [C-Lightning](https://github.com/ElementsProject/lightning), [Esplora](https://github.com/Blockstream/esplora), [BTCPay Server](https://github.com/btcpayserver/btcpayserver), etc., as well as emerging technologies like Bitcoin-based Decentralized Identifiers. *Bitcoin-Standup* strives to provide the community with an easy to use "one-click" set up full-node complete with a purpose built remote app for securely connecting to your node over Tor from anywhere in the world, providing you with a powerful suite of tools.
 >
-> This tool will also harden and secure your OS to current best practices, as well as adding sufficient system tools to support basic Bitcoin development. After setup, *Bitcoin-Standup* will present a QR code and/or special URI that can be used to securely link your full-node to other devices, such as your mobile phone (for instance using [StandUp-Remote](https://testflight.apple.com/join/OQHyL0a8) or [Fully Noded](https://github.com/FontaineDenton/iOS *StandUp-Remote*) on iOS or a remote desktop.
+> This tool will also harden and secure your OS to current best practices, as well as adding sufficient system tools to support basic Bitcoin development. After setup, *Bitcoin-Standup* will present a QR code and/or special URI that can be used to securely link your full-node to other devices, such as your mobile phone (for instance using [StandUp-Remote](https://testflight.apple.com/join/OQHyL0a8) or [Fully Noded](https://github.com/FontaineDenton/iOS/StandUp-Remote) on iOS or a remote desktop.
 >
 > iOS *StandUp-Remote* is compatible with some of the most popular node manufacturers and Bitcoin products on the market making pairing to your own node easier then ever. Simply scan a QR code or tap a link and *StandUp-Remote* will be 100% powered by your own full-node.
 >
@@ -20,8 +20,8 @@
 - [Financial Support](#financial-support)
 - [Install](#install)
   - [macOS Install](#macos-install)
+  - [iOS Install](#ios-install)
   - [Linode and Debian Linux Install](#linode-and-debian-linux-install)
-  - [iOS Testflight](#ios-testflight)
 - [API](#api)
   - [Quick Connect URL using btcstandup](#quick-connect-url-using-btcstandup)
 - [Security](#security)
@@ -148,7 +148,9 @@ Instead of downloading binaries through *Strap*, you can build *Bitcoin-Standup*
 - In XCode, click "XCode" -> "preferences" -> "Accounts" -> add your github account
 - On the github repo click "Clone and Download" > "Open in XCode"; when XCode launches, just press the "play" button in the top left
 
-### *StandUp-Remote* iOS Testflight
+### iOS Install
+
+#### *StandUp-Remote* iOS Testflight
 
 We have a public link available for beta testing [here](https://testflight.apple.com/join/OQHyL0a8), please bare in mind the app may change drastically and may not be backwards compatible, please only use the app on testnet. You will need to first install the [Testflight app](https://testflight.apple.com) onto your device in order to be able to access the testflight beta of StandUp-Remote.
 
