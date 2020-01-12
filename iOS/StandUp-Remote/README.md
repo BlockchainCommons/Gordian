@@ -35,7 +35,7 @@ We have a public link available for beta testing [here at this link](https://tes
  - [ ] Disable all networking before importing/exporting seed 
  - [ ] Automated Tor authentication
  
- - [ ] Compatible Nodes
+- [ ] Compatible Nodes
   - [x] Your own Bitcoin Core node
   - [x] MacOS - [StandUp.app](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/StandUp)
   - [x] Linux - [StandUp.sh](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/LinuxScript)

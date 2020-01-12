@@ -167,7 +167,7 @@ This is currently a work in progress (there is no Quick Connect URI at the end o
 
 ## Functionality
 
-### macOS
+### macOS - node/server
 
 The macOS application *Bitcoin Standup.app* currently installs, configures, and launches `tor stable v0.4.2.5` and `bitcoin-core v0.19.0.1`. The app is under development and as it stands will install and configure a Bitcoin Core full node, Tor as a service, a Tor V3 hidden service controlling each  `rpcport` with a GUI for native Tor V3 authentication. The app allows the user to set custom settings including `txindex`, `prune`, `walletdisabled`, `testnet`, `mainnet`,  and `datadir`. It offeres a simple `go private` option which closes off your node to the clearnet, only accepting connections over Tor. The user may refresh their hidden service at the push of a button. The user can start/stop Tor and Bitcoin Core from the GUI, adjust bitcoin.conf settings, see the status of Bitcoin Core and Tor, the app will configure a hidden service and you bitcoin.conf so that it can display a QuickConnect QR code to connect to with the StandUp-Remote iOS app.
 
@@ -177,7 +177,7 @@ The app currently relies on initial installation of [Strap.sh](https://github.co
 
 To read more details about macos *StandUp.app* please see the dedicated github [readme here](https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/MacOS/README.md).
 
-### iOS
+### iOS - remote app
 
 The iOS application *StandUp-Remote* utilizes your Bitconi Core node as a backend, offering you a relatively secure, private, self sovereign means of accessing, spending, and receiving your Bitcoin on the go. Once you scan a QuickConnect QR code the app will automatically start firing off a carefully constructed list of RPC commands to your node to create a special type of wallet whereby no private keys are stored on your node. The iOS device holds your encrypted seed and simply derives the correct private keys to sign transactions with on demand whenever you go to spend, *never* reusing a private key or address. StandUp-Remote is a powerfiul but simple to use wallet that offers both advanced and basic functionality, giving users full control over their seed with the ability to import seeds.
 
