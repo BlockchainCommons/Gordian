@@ -46,7 +46,7 @@ We have a public link available for beta testing [here at this link](https://tes
   - [ ] Wasabi
   - [ ] CasaHodl
   
-StandUp-Remote is designed to work with the [MacOS StandUp.app](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/StandUp) and [Linux scripts](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/LinuxScript), but will work with any properly configured Bitcoin Core node with a hidden service controlling `rpcport` via localhost. Supporting nodes are [myNode](http://www.mynodebtc.com), Nodl, BTCPayServer and RaspiBlitz, these nodes can be connected by clicking a link or scanning a qr code. Please refer to their telegram groups for simple instructions: 
+StandUp-Remote is designed to work with the [MacOS StandUp.app](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/StandUp) and [Linux scripts](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/LinuxScript), but will work with any properly configured Bitcoin Core node with a hidden service controlling `rpcport` via localhost. Supporting nodes are [myNode](http://www.mynodebtc.com), [Nodl](https://www.nodl.it/), [BTCPayServer](https://btcpayserver.org) and [RaspiBlitz](https://github.com/rootzoll/raspiblitz), these nodes can be connected by clicking a link or scanning a qr code. Please refer to their telegram groups for simple instructions: 
 
 - [Nodl Telegram](https://t.me/nodl_support)
 - [myNode Telegram](https://t.me/mynode_btc)
