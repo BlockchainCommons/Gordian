@@ -8,7 +8,7 @@ In order to use it you need to scan a `btcstandup://` uri which you can read abo
 
 ### Testflight
 
-We have a public link available for beta testing here [at this link](https://testflight.apple.com/join/OQHyL0a8), please bare in mind the app may change drastically and may not be backward compatible, please only use the app on testnet.
+We have a public link available for beta testing [here at this link](https://testflight.apple.com/join/OQHyL0a8), please bare in mind the app may change drastically and may not be backward compatible, please only use the app on testnet.
 
 - [ ] Wallet Functions
   - [x] Spend and Receive
@@ -85,7 +85,8 @@ After the above process completes you will be able to:
 StandUp-Remote keeps thing simple by relying on Bitcoin Core for the majority of wallet functions related to buidling/signing of transactions. StandUp-Remote is responsible for passing the appropriate private key to Bitcoin Core (your node) to sign transactions with. We create wallets with `avoidaddressreuse` set to `true` so that private keys will only every be used once. As the app is designed it is a hot wallet with keys stored locally onto your device. Your seed is fully encrypted and stored as raw data. The private key for decrypting your seed is stored securely on the keychain. We beleive that storing private keys on your device is generally safer then an all purpose computer. You should never store more bitcoins then you are willing to lose on a hot wallet just as you would never carry more cash then neccessary when going out.
 
 ### Requirements
-iOS 13
+- iOS 13
+- a Bitcoin Core full-node v0.18.0 (at minimum) which is running on Tor with `rpcport` exposed to a Tor V3 hidden service
 
 ### Author
 Peter Denton, fontainedenton@gmail.com
