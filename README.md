@@ -156,7 +156,7 @@ We have a public link available for beta testing [here](https://testflight.apple
 
 ### Linode and Debian Linux Installs
 
-If you are not on macOS you can utilize our [Linux based scripts](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/Scripts) which will alos produce a QuickConnect QR code upon completion for pairing to. Please read full details [here on the dedicated readme](https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Scripts/README.md). The scripts are simple to run and set you up with Tor and Bitcoin Core as services.
+If you are not on macOS you can utilize our [Linux based scripts](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/Scripts) which will also produce a QuickConnect QR code upon completion for pairing to. Please read full details [here](https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Scripts/README.md) on the dedicated readme. The scripts are simple to run and set you up with Tor and Bitcoin Core as services.
 
 ##### By Hand
 
