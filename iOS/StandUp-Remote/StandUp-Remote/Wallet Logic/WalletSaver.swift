@@ -17,7 +17,6 @@ class WalletSaver {
     func save(walletToSave: [String:Any], completion: @escaping ((Bool)) -> Void) {
         
         let cd = CoreDataService()
-        
         cd.retrieveEntity(entityName: .wallets) {
             
             let wallets = cd.entities
@@ -36,21 +35,17 @@ class WalletSaver {
                                 
                                 print("deactived a wallet")
                                 
-                                if i + 1 == wallets.count {
+                                cd.saveEntity(dict: walletToSave, entityName: .wallets) {
                                     
-                                    cd.saveEntity(dict: walletToSave, entityName: .wallets) {
+                                    if !cd.errorBool {
                                         
-                                        if !cd.errorBool {
-                                            
-                                            print("saved wallet")
-                                            completion((true))
-                                            
-                                        } else {
-                                            
-                                            print("error saving wallet")
-                                            completion((false))
-                                            
-                                        }
+                                        print("saved wallet")
+                                        completion((true))
+                                        
+                                    } else {
+                                        
+                                        print("error saving wallet")
+                                        completion((false))
                                         
                                     }
                                     
@@ -92,14 +87,5 @@ class WalletSaver {
         }
         
     }
-    
-//    private func genesis() -> String {
-//        
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "dd/MM/yyyy"
-//        let genesis =  dateFormatter.date(from: "09/01/2009")!
-//        return "\(genesis.timeIntervalSince1970)"
-//    
-//    }
     
 }

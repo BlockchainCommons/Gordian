@@ -13,6 +13,7 @@ import VisionKit
 class ImportSeedViewController: UIViewController, VNDocumentCameraViewControllerDelegate, UINavigationControllerDelegate {
     
     var words = ""
+    var derivation = ""
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var textView: UITextView!
     @IBOutlet var nextButtonOutlet: UIButton!
@@ -36,10 +37,19 @@ class ImportSeedViewController: UIViewController, VNDocumentCameraViewController
     
     @IBAction func nextButtonAction(_ sender: Any) {
         
-        // save seed here, use default derivation add another option for custom derivations in settings
-        DispatchQueue.main.async {
+        getActiveWallet { (wallet) in
             
-            self.performSegue(withIdentifier: "goVerify", sender: self)
+            if wallet != nil {
+                
+                self.derivation = wallet!.derivation
+                
+                DispatchQueue.main.async {
+                    
+                    self.performSegue(withIdentifier: "goVerify", sender: self)
+                    
+                }
+                
+            }
             
         }
         
@@ -189,7 +199,7 @@ class ImportSeedViewController: UIViewController, VNDocumentCameraViewController
             
             if let vc = segue.destination as? VerifyKeysViewController {
                 
-                vc.derivation = UserDefaults.standard.object(forKey: "derivation") as! String
+                vc.derivation = derivation
                 vc.comingFromSettings = false
                 vc.words = words
                 

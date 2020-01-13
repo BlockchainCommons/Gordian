@@ -85,12 +85,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             
         }
         
-        //if ud.object(forKey: "walletName") != nil {
-            
-            //existingWalletName = getA//ud.object(forKey: "walletName") as! String
-            
-        //}
-        
     }
     
     func walletChanged(walletName: String) -> Bool {
@@ -142,11 +136,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                             
                         }
                         
-                    }// else {
-                        
-//                        displayAlert(viewController: self, isError: true, message: "no active wallets")
-//                        
-//                    }
+                    }
                     
                 }
                 
@@ -538,7 +528,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         
         (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.clear
         (view as! UITableViewHeaderFooterView).textLabel?.textAlignment = .left
-        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .heavy)//UIFont.systemFont(ofSize: 12)
+        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .heavy)
         (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
         (view as! UITableViewHeaderFooterView).textLabel?.alpha = 1
         
@@ -734,10 +724,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 DispatchQueue.main.async {
                     
-//                    self.mainMenu.reloadSections(IndexSet.init(arrayLiteral: 2),
-//                                                 with: .fade)
                     self.mainMenu.reloadData()
-                    
                     let impact = UIImpactFeedbackGenerator()
                     impact.impactOccurred()
                     self.loadSectionOne()                    

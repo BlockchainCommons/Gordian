@@ -928,7 +928,7 @@
             </objects>
             <point key="canvasLocation" x="-1060" y="-508.69565217391306"/>
         </scene>
-        <!--v0.0.20-->
+        <!--v0.0.21-->
         <scene sceneID="Ajv-p7-tUm">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="AS8-ke-Yxh" customClass="SettingsViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
@@ -1056,7 +1056,7 @@
                         <viewLayoutGuide key="safeArea" id="Cze-jj-bFe"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Settings" id="n34-O3-Fyo"/>
-                    <navigationItem key="navigationItem" title="v0.0.20" id="YNb-Gd-Hqq"/>
+                    <navigationItem key="navigationItem" title="v0.0.21" id="YNb-Gd-Hqq"/>
                     <connections>
                         <outlet property="settingsTable" destination="hcp-eG-lok" id="xPg-8r-KBs"/>
                         <outlet property="switchOutlet" destination="75e-5E-gzP" id="xTV-Xe-NtR"/>
@@ -1310,6 +1310,7 @@
                     <navigationItem key="navigationItem" title="Seed Import" id="reU-SK-g64"/>
                     <connections>
                         <segue destination="v7U-6n-7Mb" kind="show" identifier="scanWords" id="bfz-PJ-AnB"/>
+                        <segue destination="ncF-7Y-oK6" kind="show" identifier="scanQR" id="OLi-mh-F6V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbw-zx-ecN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1421,6 +1422,37 @@
             </objects>
             <point key="canvasLocation" x="972" y="1040.3298350824589"/>
         </scene>
+        <!--ImportQR View Controller-->
+        <scene sceneID="c6Z-bq-xba">
+            <objects>
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="ncF-7Y-oK6" customClass="ImportQRViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bQc-en-HuB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CGv-49-MOP">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.050735630099999998" green="0.058785595000000003" blue="0.062973126769999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="CGv-49-MOP" firstAttribute="top" secondItem="tG2-cg-5GN" secondAttribute="top" id="KiN-6h-Ev8"/>
+                            <constraint firstItem="CGv-49-MOP" firstAttribute="leading" secondItem="tG2-cg-5GN" secondAttribute="leading" id="Kkw-0D-Bdr"/>
+                            <constraint firstItem="CGv-49-MOP" firstAttribute="bottom" secondItem="tG2-cg-5GN" secondAttribute="bottom" id="bgj-Kg-tqF"/>
+                            <constraint firstItem="CGv-49-MOP" firstAttribute="trailing" secondItem="tG2-cg-5GN" secondAttribute="trailing" id="zkL-L2-fUB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tG2-cg-5GN"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hLe-KI-gZx"/>
+                    <connections>
+                        <outlet property="imageView" destination="CGv-49-MOP" id="Iwy-65-Ugk"/>
+                        <segue destination="jXY-2O-cMK" kind="show" identifier="goVerify" id="zpS-pl-Czc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sjw-Zt-TBR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1749.5999999999999" y="1043.9280359820091"/>
+        </scene>
         <!--Verify Keys View Controller-->
         <scene sceneID="1tG-du-HiP">
             <objects>
@@ -1480,7 +1512,7 @@
                                     <constraint firstAttribute="width" constant="174" id="MGj-ac-uLR"/>
                                     <constraint firstAttribute="height" constant="48" id="Ogb-FP-vzV"/>
                                 </constraints>
-                                <state key="normal" title="Save Seed">
+                                <state key="normal" title="Save Wallet">
                                     <color key="titleColor" red="0.037975538519999998" green="0.3805198669" blue="0.8801537156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -1924,7 +1956,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="0El-QV-frt">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="110" width="375" height="557"/>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="lockedCell" rowHeight="113" id="IMb-wx-CLS">
@@ -1971,13 +2003,24 @@
                                     <outlet property="delegate" destination="03r-hX-hYT" id="aFT-i6-6G7"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Locked UTXO's" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rju-GQ-OoJ">
+                                <rect key="frame" x="16" y="44" width="211.5" height="58"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="58" id="WbR-Or-HXx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="28"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.078040815890000004" green="0.090017892419999995" blue="0.10251823810000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0El-QV-frt" firstAttribute="leading" secondItem="jVf-S4-FLm" secondAttribute="leading" id="5kQ-lW-por"/>
+                            <constraint firstItem="0El-QV-frt" firstAttribute="top" secondItem="rju-GQ-OoJ" secondAttribute="bottom" constant="8" id="A34-Op-bKb"/>
                             <constraint firstItem="0El-QV-frt" firstAttribute="bottom" secondItem="jVf-S4-FLm" secondAttribute="bottom" id="Umz-nl-xmY"/>
-                            <constraint firstItem="0El-QV-frt" firstAttribute="top" secondItem="hqF-Ak-aXu" secondAttribute="top" id="aLZ-K5-W8i"/>
+                            <constraint firstItem="rju-GQ-OoJ" firstAttribute="leading" secondItem="jVf-S4-FLm" secondAttribute="leading" constant="16" id="Xyw-T7-Xhd"/>
                             <constraint firstItem="0El-QV-frt" firstAttribute="trailing" secondItem="jVf-S4-FLm" secondAttribute="trailing" id="nYA-nK-3BD"/>
+                            <constraint firstItem="rju-GQ-OoJ" firstAttribute="top" secondItem="jVf-S4-FLm" secondAttribute="top" id="q5n-h9-dII"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jVf-S4-FLm"/>
                     </view>
@@ -1988,7 +2031,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XHY-E8-tJm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2774" y="1040"/>
+            <point key="canvasLocation" x="-2775.1999999999998" y="1039.4302848575712"/>
         </scene>
         <!--Log In View Controller-->
         <scene sceneID="Ieg-P5-lGV">

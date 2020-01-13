@@ -9,7 +9,7 @@
 import UIKit
 import LibWally
 
-class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
     
     var words = ""
     var derivation = ""
@@ -21,6 +21,8 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.delegate = self
         
         if comingFromSettings {
             
@@ -45,8 +47,6 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
             
             if !error {
                 
-                //let ud = UserDefaults.standard
-                //let derivation = ud.object(forKey: "derivation") as! String
                 let masterKey = HDKey((mnemonic!.seedHex("")), self.network(path: self.derivation))!
                 let path = BIP32Path(self.derivation)!
                 let account = try! masterKey.derive(path)
@@ -89,9 +89,7 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "keyCell", for: indexPath)
-        //let indexLabel = cell.viewWithTag(1) as! UILabel
         let keyLabel = cell.viewWithTag(2) as! UILabel
-        //indexLabel.text = "Index #\(indexPath.section)"
         keyLabel.text = "\(keys[indexPath.section])"
         keyLabel.adjustsFontSizeToFitWidth = true
         return cell
@@ -109,7 +107,7 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
                 
                 if !self.comingFromSettings {
                     
-                    displayAlert(viewController: self, isError: false, message: "please verify that these keys match your expected keys, if they don't then do not save your seed as something is wrong!")
+                    displayAlert(viewController: self, isError: false, message: "please verify that these keys match your expected keys, if they don't then do not save your wallet as something is wrong!")
                     
                 }
                 
@@ -124,9 +122,7 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func getKeys(mnemonic: BIP39Mnemonic) {
-        
-        //let ud = UserDefaults.standard
-        //let derivation = ud.object(forKey: "derivation") as! String
+        print("derivation = \(derivation)")
         let path = BIP32Path(derivation)!
         let masterKey = HDKey((mnemonic.seedHex("")), network(path: derivation))!
         let account = try! masterKey.derive(path)
@@ -171,8 +167,6 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let reducer = Reducer()
         var param = ""
-        //let ud = UserDefaults.standard
-        // derivation = ud.object(forKey: "derivation") as! String
         
         switch self.derivation {
             
@@ -232,15 +226,11 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
                     
                 } else {
                     
+                    self.connectingView.removeConnectingView()
+                    
                     displayAlert(viewController: self,
                                  isError: true,
                                  message: "keys do not match! error confirming derived keys with bitcoin core, seed will not be saved")
-                    
-                }
-                
-                DispatchQueue.main.async {
-                    
-                    self.connectingView.removeConnectingView()
                     
                 }
                 
@@ -260,96 +250,72 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
         connectingView.addConnectingView(vc: self, description: "saving new wallet")
         
         let enc = Encryption()
-        let ud = UserDefaults.standard
         let dataToEncrypt = words.dataUsingUTF8StringEncoding
         enc.encryptData(dataToEncrypt: dataToEncrypt) { (encryptedData, error) in
             
-            var newWallet = [String:Any]()
-            newWallet["birthdate"] = keyBirthday()
-            newWallet["id"] = UUID()
-            newWallet["derivation"] = self.derivation
-            newWallet["isActive"] = true
-            newWallet["name"] = "\(randomString(length: 10))_StandUp"
-            ud.set(newWallet["name"] as! String, forKey: "walletName")
-            newWallet["seed"] = encryptedData
-            
-            let walletSaver = WalletSaver()
-            walletSaver.save(walletToSave: newWallet) { (success) in
+            if !error {
                 
-                if success {
+                var newWallet = [String:Any]()
+                newWallet["birthdate"] = keyBirthday()
+                newWallet["id"] = UUID()
+                newWallet["derivation"] = self.derivation
+                newWallet["isActive"] = true
+                newWallet["name"] = "\(randomString(length: 10))_StandUp"
+                newWallet["seed"] = encryptedData
+                
+                let walletSaver = WalletSaver()
+                walletSaver.save(walletToSave: newWallet) { (success) in
                     
-                    print("default wallet saved")
-                    
-                    let walletCreator = WalletCreator()
-                    
-                    DispatchQueue.main.async {
+                    if success {
                         
-                        self.connectingView.label.text = "creating new wallet"
+                        print("wallet saved")
                         
-                    }
-                    
-                    walletCreator.createStandUpWallet(derivation: self.derivation) { (success, errorDescription) in
+                        let walletCreator = WalletCreator()
                         
-                        if success {
+                        DispatchQueue.main.async {
                             
-                            displayAlert(viewController: self, isError: false, message: "✓ successfully created new wallet")
-                            
-                        } else {
-                            
-                            print("error creating new wallet")
-                            displayAlert(viewController: self, isError: true, message: errorDescription!)
-                            self.connectingView.removeConnectingView()
+                            self.connectingView.label.text = "creating new wallet"
                             
                         }
                         
+                        walletCreator.createStandUpWallet(derivation: self.derivation) { (success, errorDescription) in
+                            
+                            if success {
+                                
+                                self.connectingView.removeConnectingView()
+                                displayAlert(viewController: self, isError: false, message: "✓ successfully created new wallet")
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                                    self.navigationController?.popToRootViewController(animated: true)
+                                }
+                                
+                            } else {
+                                
+                                print("error creating new wallet")
+                                displayAlert(viewController: self, isError: true, message: errorDescription!)
+                                self.connectingView.removeConnectingView()
+                                
+                            }
+                            
+                        }
+                        
+                    } else {
+                        
+                        print("error saving default wallet")
+                        self.connectingView.removeConnectingView()
+                        
                     }
                     
-                } else {
-                    
-                    print("error saving default wallet")
-                    
                 }
+                
+            } else {
+                
+                print("error encrypting seed")
+                self.connectingView.removeConnectingView()
                 
             }
             
         }
-        
-        
-//        enc.encryptAndSaveSeed(string: self.words) { (success) in
-//
-//            if success {
-//
-//                let walletCreator = WalletCreator()
-//
-//                DispatchQueue.main.async {
-//                    self.connectingView.label.text = "creating new wallet"
-//                }
-//
-//                let ud = UserDefaults.standard
-//                ud.set("\(randomString(length: 10) + "_StandUp")", forKey: "walletName")
-//
-//                walletCreator.createStandUpWallet { (success) in
-//
-//                    if success {
-//
-//                        displayAlert(viewController: self, isError: false, message: "✓ successfully created new wallet")
-//
-//                    } else {
-//
-//                        print("error creating new wallet")
-//                        self.connectingView.removeConnectingView()
-//
-//                    }
-//
-//                }
-//
-//            } else {
-//
-//                displayAlert(viewController: self, isError: true, message: "error saving seed")
-//
-//            }
-//
-//        }
         
     }
     
@@ -375,7 +341,7 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
         
         (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.clear
         (view as! UITableViewHeaderFooterView).textLabel?.textAlignment = .left
-        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .heavy)//UIFont.systemFont(ofSize: 12)
+        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .heavy)
         (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
         (view as! UITableViewHeaderFooterView).textLabel?.alpha = 1
         

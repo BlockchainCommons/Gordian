@@ -19,7 +19,7 @@ class ImportSeedMenuViewController: UIViewController, UITableViewDelegate, UITab
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 1//4
+        return 2//4
         
     }
     
@@ -39,11 +39,11 @@ class ImportSeedMenuViewController: UIViewController, UITableViewDelegate, UITab
             cell.selectionStyle = .none
             return cell
             
-//        case 1:
-//
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "qrCell", for: indexPath)
-//            cell.selectionStyle = .none
-//            return cell
+        case 1:
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: "qrCell", for: indexPath)
+            cell.selectionStyle = .none
+            return cell
 //
 //        case 2:
 //
@@ -73,9 +73,23 @@ class ImportSeedMenuViewController: UIViewController, UITableViewDelegate, UITab
             
             scanWords()
             
+        case 1:
+            
+            scanQR()
+            
         default:
             
             break
+            
+        }
+        
+    }
+    
+    func scanQR() {
+        
+        DispatchQueue.main.async {
+            
+            self.performSegue(withIdentifier: "scanQR", sender: self)
             
         }
         

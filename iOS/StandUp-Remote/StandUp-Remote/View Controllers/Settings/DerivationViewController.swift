@@ -13,6 +13,7 @@ class DerivationViewController: UIViewController, UINavigationControllerDelegate
     var words = ""
     var derivation = ""
     var isTestnet = Bool()
+    let connectingView = ConnectingView()
     @IBOutlet var segmentedControl: UISegmentedControl!
     @IBOutlet var derivationLabel: UILabel!
     
@@ -118,7 +119,8 @@ class DerivationViewController: UIViewController, UINavigationControllerDelegate
         let alert = UIAlertController(title: "Notice", message: "Changing the derivation scheme will create a new wallet with the exisiting seed, the current wallet is saved and can be accessed and reactivated at any time", preferredStyle: UIAlertController.Style.alert)
 
         alert.addAction(UIAlertAction(title: "Create New Wallet", style: .default, handler: { action in
-
+            
+            self.connectingView.addConnectingView(vc: self.navigationController!, description: "deriving keys for verification")
             self.createNewWallet()
 
         }))
@@ -169,12 +171,14 @@ class DerivationViewController: UIViewController, UINavigationControllerDelegate
                     
                     self.derivation = path
                     self.words = seed
+                    self.connectingView.removeConnectingView()
                     self.performSegue(withIdentifier: "verifyDerivation", sender: self)
                     
                 }
                 
             } else {
                 
+                self.connectingView.removeConnectingView()
                 displayAlert(viewController: self, isError: true, message: "error getting seed")
                 
             }
