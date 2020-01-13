@@ -12,7 +12,6 @@ import LibWally
 class KeyFetcher {
     
     let enc = Encryption()
-    //let derivationPath = UserDefaults.standard.object(forKey: "derivation") as! String
     
     func privKey(index: Int, completion: @escaping ((privKey: String?, error: Bool)) -> Void) {
         

@@ -665,6 +665,8 @@
 			dependencies = (
 			);
 			name = "StandUp-Remote";
+			packageProductDependencies = (
+			);
 			productName = "StandUp-Remote";
 			productReference = D09C1F7D23BA1F8700566DF8 /* StandUp-Remote.app */;
 			productType = "com.apple.product-type.application";
@@ -740,6 +742,8 @@
 				Base,
 			);
 			mainGroup = D09C1F7423BA1F8700566DF8;
+			packageReferences = (
+			);
 			productRefGroup = D09C1F7E23BA1F8700566DF8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

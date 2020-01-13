@@ -10,7 +10,7 @@ import UIKit
 
 class WalletsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var wallets = [WalletStruct]()
+    var wallets = [[String:Any]]()
     let dateFormatter = DateFormatter()
     @IBOutlet var walletTable: UITableView!
     
@@ -19,6 +19,7 @@ class WalletsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         // Do any additional setup after loading the view.
         walletTable.delegate = self
+        walletTable.dataSource = self
         
     }
     
@@ -29,19 +30,16 @@ class WalletsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func refresh() {
+        print("refresh")
         
         wallets.removeAll()
         let cd = CoreDataService()
+        cd.entities.removeAll()
         cd.retrieveEntity(entityName: .wallets) {
             
             if !cd.errorBool {
                 
-                for entity in cd.entities {
-                    
-                    let str = WalletStruct.init(dictionary: entity)
-                    self.wallets.append(str)
-                    
-                }
+                self.wallets = cd.entities
                 
                 DispatchQueue.main.async {
                     self.walletTable.reloadData()
@@ -70,13 +68,14 @@ class WalletsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "walletCell", for: indexPath)
         let birthdateLabel = cell.viewWithTag(1) as! UILabel
         let derivationLabel = cell.viewWithTag(2) as! UILabel
-        //let isActiveLabel = cell.viewWithTag(3) as! UILabel
         let typeLabel = cell.viewWithTag(5) as! UILabel
         let onOffSwitch = cell.viewWithTag(6) as! UISegmentedControl
+        
         onOffSwitch.accessibilityLabel = "\(indexPath.section)"
-        //onOffSwitch.target(forAction: #selector(alternate(_:)), for: nil)
         onOffSwitch.addTarget(self, action: #selector(alternate(_:)), for: .valueChanged)
-        let wallet = wallets[indexPath.section]
+        
+        let walletDict = wallets[indexPath.section]
+        let wallet = WalletStruct.init(dictionary: walletDict)
         
         birthdateLabel.text = "birthdate \(getDate(unixTime: wallet.birthdate))"
         derivationLabel.text = "\(wallet.derivation)"
@@ -111,88 +110,70 @@ class WalletsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-     
-        return "\(wallets[section].name)"
+        
+        let name = WalletStruct.init(dictionary: wallets[section]).name
+        return name
         
     }
     
     func getDate(unixTime: Int32) -> String {
         
-        print("unixtime = \(unixTime)")
         let date = Date(timeIntervalSince1970: TimeInterval(unixTime))
         dateFormatter.timeZone = .current
         dateFormatter.dateFormat = "yyyy-MMM-dd" //Specify your format that you want
         let strDate = dateFormatter.string(from: date)
-        print("strDate = \(strDate)")
         return strDate
         
     }
     
     @objc func alternate(_ sender: UISegmentedControl) {
+        print("alternate")
         
         let index = sender.selectedSegmentIndex
         let wallet = wallets[Int(sender.accessibilityLabel!)!]
+        let idToActivate = WalletStruct.init(dictionary: wallet).id
         
         if index == 0 {
             
             //turning on
-            makeActive(wallet: wallet)
+            makeActive(walletToActivate: idToActivate)
             
         } else {
             
             //turning off
-            deactivate(wallet: wallet)
+            //deactivate(wallet: wallet)
+            
+        }
+        
+        DispatchQueue.main.async {
+            
+            let impact = UIImpactFeedbackGenerator()
+            impact.impactOccurred()
             
         }
         
     }
     
-    func makeActive(wallet: WalletStruct) {
+    func makeActive(walletToActivate: UUID) {
         
-        let idToActivate = wallet.id
-        let walletname = wallet.name
         let cd = CoreDataService()
         cd.retrieveEntity(entityName: .wallets) {
             
             let wallets = cd.entities
             
-            if wallets.count > 1 {
+            if wallets.count > 0 {
                 
-                for (i, wallet) in wallets.enumerated() {
+                for wallet in wallets {
                     
                     let str = WalletStruct.init(dictionary: wallet)
                     
-                    if str.id != idToActivate && str.isActive {
+                    if str.id == walletToActivate {
                         
-                        cd.updateEntity(id: str.id, keyToUpdate: "isActive", newValue: false, entityName: .wallets) {
+                        cd.updateEntity(id: walletToActivate, keyToUpdate: "isActive", newValue: true, entityName: .wallets) {
                             
                             if !cd.errorBool {
                                 
-                                let ud = UserDefaults.standard
-                                ud.removeObject(forKey: "walletName")
-                                
-                                if i + 1 == wallets.count {
-                                    
-                                    cd.updateEntity(id: idToActivate, keyToUpdate: "isActive", newValue: true, entityName: .wallets) {
-                                        
-                                        if !cd.errorBool {
-                                            
-                                            ud.set(walletname, forKey: "walletName")
-                                            DispatchQueue.main.async {
-                                                
-                                                self.refresh()
-                                                
-                                            }
-                                            
-                                        } else {
-                                            
-                                            displayAlert(viewController: self, isError: true, message: "error activating wallet")
-                                            
-                                        }
-                                        
-                                    }
-                                    
-                                }
+                               self.deactivateOtherWallets(walletToActivate: walletToActivate)
                                 
                             } else {
                                 
@@ -206,49 +187,45 @@ class WalletsViewController: UIViewController, UITableViewDelegate, UITableViewD
                     
                 }
 
-            } else {
-                
-                cd.updateEntity(id: idToActivate, keyToUpdate: "isActive", newValue: true, entityName: .wallets) {
-                    
-                    if !cd.errorBool {
-                        
-                        DispatchQueue.main.async {
-                            
-                            self.refresh()
-                            
-                        }
-                        
-                    } else {
-                        
-                        displayAlert(viewController: self, isError: true, message: "error activating wallet")
-                        
-                    }
-                    
-                }
-                
             }
                     
         }
         
     }
     
-    func deactivate(wallet: WalletStruct) {
+    func deactivateOtherWallets(walletToActivate: UUID) {
+        print("deactivateOtherWallets")
         
         let cd = CoreDataService()
-        
-        cd.updateEntity(id: wallet.id, keyToUpdate: "isActive", newValue: false, entityName: .wallets) {
+        cd.retrieveEntity(entityName: .wallets) {
             
-            if !cd.errorBool {
+            let wallets = cd.entities
+            
+            if wallets.count > 0 {
                 
-                DispatchQueue.main.async {
+                for wallet in wallets {
                     
-                    self.refresh()
+                    let str = WalletStruct.init(dictionary: wallet)
+                    
+                    if str.id != walletToActivate {
+                        
+                        cd.updateEntity(id: str.id, keyToUpdate: "isActive", newValue: false, entityName: .wallets) {
+                            
+                            if !cd.errorBool {
+                                
+                                self.refresh()
+                                
+                            } else {
+                                
+                                displayAlert(viewController: self, isError: true, message: cd.errorDescription)
+                                
+                            }
+                            
+                        }
+                        
+                    }
                     
                 }
-                
-            } else {
-                
-                displayAlert(viewController: self, isError: true, message: "error activating wallet")
                 
             }
             

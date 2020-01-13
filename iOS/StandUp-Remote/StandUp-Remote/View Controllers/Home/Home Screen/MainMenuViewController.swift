@@ -93,11 +93,11 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    func walletChanged() -> Bool {
+    func walletChanged(walletName: String) -> Bool {
         
-        if ud.object(forKey: "walletName") != nil {
+        if walletName != "" {
             
-            if existingWalletName != ud.object(forKey: "walletName") as! String {
+            if existingWalletName != walletName {
                 
                 return true
                 
@@ -135,24 +135,18 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     
                     if wallet != nil {
                         
-                        if self.initialLoad || self.walletChanged() {
+                        if self.initialLoad || self.walletChanged(walletName: wallet!.name) {
                             
+                            self.existingWalletName = wallet!.name
                             self.refresh()
                             
                         }
                         
-                    } else {
+                    }// else {
                         
-                        displayAlert(viewController: self, isError: true, message: "no active wallets")
-                        
-                        if self.initialLoad {
-                            
-                            self.connector = Connector()
-                            self.connectTor(connector: self.connector)
-                            
-                        }
-                        
-                    }
+//                        displayAlert(viewController: self, isError: true, message: "no active wallets")
+//                        
+//                    }
                     
                 }
                 

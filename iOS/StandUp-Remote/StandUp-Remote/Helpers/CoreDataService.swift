@@ -179,6 +179,7 @@ class CoreDataService {
                                 
                                 if id == data.value(forKey: "id") as? UUID {
                                     
+                                    print("set \(newValue) for key \(keyToUpdate)")
                                     data.setValue(newValue, forKey: keyToUpdate)
                                     
                                     do {

@@ -26,122 +26,130 @@ class MakeRPCCall {
         let enc = Encryption()
         enc.getNode { (node, error) in
             
-            if !error {
+            getActiveWallet { (wallet) in
                 
-                let onionAddress = node!.onionAddress
-                let rpcusername = node!.rpcuser
-                let rpcpassword = node!.rpcpassword
-                var walletName = "StandUp"
-                
-                if self.ud.object(forKey: "walletName") != nil {
+                if wallet != nil {
                     
-                    walletName = self.ud.object(forKey: "walletName") as! String
+                    let onionAddress = node!.onionAddress
+                    let rpcusername = node!.rpcuser
+                    let rpcpassword = node!.rpcpassword
+                    let walletName = wallet!.name
                     
-                }
-                
-                let walletUrl = "http://\(rpcusername):\(rpcpassword)@\(onionAddress)/wallet/\(walletName)"
-                print("walleturl = \(walletUrl)")
-                
-                // Have to escape ' characters for certain rpc commands
-                var formattedParam = (param as! String).replacingOccurrences(of: "''", with: "")
-                formattedParam = formattedParam.replacingOccurrences(of: "'\"'\"'", with: "'")
-                
-                guard let url = URL(string: walletUrl) else {
-                    self.errorBool = true
-                    self.errorDescription = "url error"
-                    completion()
-                    return
-                }
-                
-                var request = URLRequest(url: url)
-                request.httpMethod = "POST"
-                request.setValue("text/plain", forHTTPHeaderField: "Content-Type")
-                request.httpBody = "{\"jsonrpc\":\"1.0\",\"id\":\"curltest\",\"method\":\"\(method)\",\"params\":[\(formattedParam)]}".data(using: .utf8)
-                print("request = \("{\"jsonrpc\":\"1.0\",\"id\":\"curltest\",\"method\":\"\(method)\",\"params\":[\(formattedParam)]}")")
-                
-                let queue = DispatchQueue(label: "com.FullyNoded.torQueue")
-                queue.async {
+                    let walletUrl = "http://\(rpcusername):\(rpcpassword)@\(onionAddress)/wallet/\(walletName)"
+                    print("walleturl = \(walletUrl)")
                     
-                    let task = self.torClient.session.dataTask(with: request as URLRequest) { (data, response, error) in
+                    // Have to escape ' characters for certain rpc commands
+                    var formattedParam = (param as! String).replacingOccurrences(of: "''", with: "")
+                    formattedParam = formattedParam.replacingOccurrences(of: "'\"'\"'", with: "'")
+                    
+                    guard let url = URL(string: walletUrl) else {
+                        self.errorBool = true
+                        self.errorDescription = "url error"
+                        completion()
+                        return
+                    }
+                    
+                    var request = URLRequest(url: url)
+                    request.httpMethod = "POST"
+                    request.setValue("text/plain", forHTTPHeaderField: "Content-Type")
+                    request.httpBody = "{\"jsonrpc\":\"1.0\",\"id\":\"curltest\",\"method\":\"\(method)\",\"params\":[\(formattedParam)]}".data(using: .utf8)
+                    print("request = \("{\"jsonrpc\":\"1.0\",\"id\":\"curltest\",\"method\":\"\(method)\",\"params\":[\(formattedParam)]}")")
+                    
+                    let queue = DispatchQueue(label: "com.FullyNoded.torQueue")
+                    queue.async {
                         
-                        do {
+                        let task = self.torClient.session.dataTask(with: request as URLRequest) { (data, response, error) in
                             
-                            if error != nil {
+                            do {
                                 
-                                // attempt a node command 10 times to avoid user having to tap refresh button
-                                if self.attempts < 20 {
+                                if error != nil {
                                     
-                                    self.executeRPCCommand(method: method, param: param, completion: completion)
+                                    // attempt a node command 10 times to avoid user having to tap refresh button
+                                    if self.attempts < 20 {
+                                        
+                                        self.executeRPCCommand(method: method, param: param, completion: completion)
+                                        
+                                    } else {
+                                        
+                                        self.errorBool = true
+                                        self.errorDescription = error!.localizedDescription
+                                        completion()
+                                        
+                                    }
                                     
                                 } else {
                                     
-                                    self.errorBool = true
-                                    self.errorDescription = error!.localizedDescription
-                                    completion()
+                                    self.attempts = 0
                                     
-                                }
-                                
-                            } else {
-                                
-                                self.attempts = 0
-                                
-                                if let urlContent = data {
-                                    
-                                    do {
+                                    if let urlContent = data {
                                         
-                                        let jsonAddressResult = try JSONSerialization.jsonObject(with: urlContent, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSDictionary
-                                        
-                                        if let errorCheck = jsonAddressResult["error"] as? NSDictionary {
+                                        do {
                                             
-                                                if let errorMessage = errorCheck["message"] as? String {
-                                                    
-                                                    self.errorDescription = errorMessage
-                                                    
-                                                } else {
-                                                    
-                                                    self.errorDescription = "Uknown error"
-                                                    
-                                                }
+                                            let jsonAddressResult = try JSONSerialization.jsonObject(with: urlContent, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSDictionary
+                                            
+                                            if let errorCheck = jsonAddressResult["error"] as? NSDictionary {
                                                 
-                                                self.errorBool = true
+                                                    if let errorMessage = errorCheck["message"] as? String {
+                                                        
+                                                        self.errorDescription = errorMessage
+                                                        
+                                                    } else {
+                                                        
+                                                        self.errorDescription = "Uknown error"
+                                                        
+                                                    }
+                                                    
+                                                    self.errorBool = true
+                                                    completion()
+                                                    
+                                                
+                                            } else {
+                                                
+                                                self.errorBool = false
+                                                self.errorDescription = ""
+                                                self.objectToReturn = jsonAddressResult["result"]
                                                 completion()
                                                 
+                                            }
                                             
-                                        } else {
+                                        } catch {
                                             
-                                            self.errorBool = false
-                                            self.errorDescription = ""
-                                            self.objectToReturn = jsonAddressResult["result"]
+                                            self.errorBool = true
+                                            self.errorDescription = "Uknown Error"
                                             completion()
                                             
                                         }
-                                        
-                                    } catch {
-                                        
-                                        self.errorBool = true
-                                        self.errorDescription = "Uknown Error"
-                                        completion()
                                         
                                     }
                                     
                                 }
                                 
                             }
-                            
+                        
                         }
-                    
+                        
+                        task.resume()
+                        
                     }
                     
-                    task.resume()
+                    
+                } else {
+                    
                     
                 }
                 
-            } else {
-                
-                self.errorBool = true
-                self.errorDescription = "error getting nodes from core data"
-                
             }
+            
+            //if !error {
+                
+                
+                
+//            } else {
+//
+//                self.errorBool = true
+//                self.errorDescription = "error getting nodes from core data"
+//
+//            }
             
         }
         

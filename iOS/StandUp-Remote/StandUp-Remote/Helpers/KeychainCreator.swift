@@ -30,7 +30,6 @@ class KeychainCreator {
                     words = words.replacingOccurrences(of: ",", with: "")
                     words = words.replacingOccurrences(of: "[", with: "")
                     words = words.replacingOccurrences(of: "]", with: "")
-                    print("created mnmemonic = \(words)")
                     saveKeyBirthday()
                     completion((words,false))
                     

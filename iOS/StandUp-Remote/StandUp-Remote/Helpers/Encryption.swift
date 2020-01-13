@@ -62,144 +62,41 @@ class Encryption {
         
     }
     
-//    func encryptAndSaveSeed(string: String, completion: @escaping ((Bool)) -> Void) {
-//
-//        if #available(iOS 13.0, *) {
-//
-//            if let key = self.keychain.getData("privateKey") {
-//
-//                let k = SymmetricKey(data: key)
-//
-//                if let dataToEncrypt = string.data(using: .utf8) {
-//
-//                    if let sealedBox = try? ChaChaPoly.seal(dataToEncrypt, using: k) {
-//
-//                        let encryptedData = sealedBox.combined
-//                        //let success = self.keychain.set(encryptedData, forKey: "seed")
-//
-//                        if success {
-//
-//                            print("saved seed to keychain")
-//                            completion((true))
-//
-//                        } else {
-//
-//                            print("error saving seed to keychain")
-//                            completion((false))
-//
-//                        }
-//
-//                    } else {
-//
-//                        completion((false))
-//
-//                    }
-//
-//                } else {
-//
-//                    completion((false))
-//
-//                }
-//
-//            } else {
-//
-//                completion((false))
-//
-//            }
-//
-//        } else {
-//
-//            completion((false))
-//
-//        }
-//
-//    }
-    
     func getSeed(completion: @escaping ((seed: String, derivation: String, error: Bool)) -> Void) {
         
         if #available(iOS 13.0, *) {
             
-            //if let key = keychain.getData("privateKey") {
+            getActiveWallet() { (activeWallet) in
                 
-                //if let encryptedSeed = self.keychain.getData("seed") {
-                
-                getActiveWallet() { (activeWallet) in
+                if activeWallet != nil {
                     
-                    if activeWallet != nil {
+                    let encryptedSeed = activeWallet!.seed
+                    
+                    self.decryptData(dataToDecrypt: encryptedSeed) { (decryptedSeed) in
                         
-                        let encryptedSeed = activeWallet!.seed
-                        
-                        //do {
+                        if decryptedSeed != nil {
                             
-//                            let box = try ChaChaPoly.SealedBox.init(combined: encryptedSeed)
-//                            let k = SymmetricKey(data: key)
-//                            let decryptedData = try ChaChaPoly.open(box, using: k)
-//                            if let seed = String(data: decryptedData, encoding: .utf8) {
-//
-//                                completion((seed,false))
-//
-//                            } else {
-//
-//                                completion(("",true))
-//
-//                            }
-                            
-                            self.decryptData(dataToDecrypt: encryptedSeed) { (decryptedSeed) in
+                            if let seed = String(data: decryptedSeed!, encoding: .utf8) {
                                 
-                                if decryptedSeed != nil {
-                                    
-                                    if let seed = String(data: decryptedSeed!, encoding: .utf8) {
-                                        
-                                        completion((seed, activeWallet!.derivation, false))
-                                        
-                                    } else {
-                                        
-                                        completion(("","",true))
-                                        
-                                    }
-                                    
-                                } else {
-                                    
-                                    completion(("","",true))
-                                    
-                                }
+                                completion((seed, activeWallet!.derivation, false))
+                                
+                            } else {
+                                
+                                completion(("","",true))
                                 
                             }
                             
-//                        } catch {
-//
-//                            print("failed decrypting")
-//                            completion(("",true))
-//
-//                        }
-                        
-//                        enc.decryptData(dataToDecrypt: encryptedSeedData) { (decryptedData) in
-//
-//                            if decryptedData != nil {
-//
-//                                let words = String(data: decryptedData, encoding: .utf8)!
-//
-//
-//
-//                            }
-//
-//                        }
+                        } else {
+                            
+                            completion(("","",true))
+                            
+                        }
                         
                     }
                     
                 }
-                    
-//                } else {
-//
-//                    completion(("",true))
-//
-//                }
                 
-//            } else {
-//
-//                completion(("",true))
-//
-//            }
+            }
             
         } else {
             

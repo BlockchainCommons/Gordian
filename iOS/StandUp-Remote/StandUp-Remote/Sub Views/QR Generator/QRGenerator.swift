@@ -25,7 +25,7 @@ class QRGenerator: UIView {
         
         // Scale it up (because it is generated as a tiny image)
         //let scale = UIScreen.main.scale
-        let transform = CGAffineTransform(scaleX: 10, y: 10)
+        let transform = CGAffineTransform(scaleX: 10.0, y: 10.0)//CGAffineTransform(scaleX: 10, y: 10)
         guard let output = filter.outputImage?.transformed(by: transform) else { return imageToReturn }
         
         // Change the color using CIFilter
@@ -33,7 +33,7 @@ class QRGenerator: UIView {
         
         let colorParameters = [
             "inputColor0": CIColor(color: grey), // Foreground
-            "inputColor1": CIColor(color: UIColor.white) // Background
+            "inputColor1": CIColor(color: .white) // Background
         ]
         
         let colored = (output.applyingFilter("CIFalseColor", parameters: colorParameters))
