@@ -152,7 +152,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
                 
                 DispatchQueue.main.async {
                     
-                    self.outputsTable.alpha = 1
+                    //self.outputsTable.alpha = 1
                     self.amountInput.text = ""
                     self.addressInput.text = ""
                     self.outputsTable.reloadData()
@@ -173,6 +173,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
     
     @IBAction func addOutput(_ sender: Any) {
         
+        self.outputsTable.alpha = 1
         addOut()
         
     }
@@ -193,8 +194,8 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
         
         (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.clear
         (view as! UITableViewHeaderFooterView).textLabel?.textAlignment = .left
-        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont.init(name: "System", size: 10)
-        (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.lightText
+        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .heavy)//UIFont.init(name: "System", size: 12)
+        (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
         
     }
     
@@ -257,7 +258,9 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
         rawTxSigned = ""
+        outputsTable.alpha = 0
     }
     
     func addTapGesture() {
@@ -552,16 +555,19 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
                 
                 DispatchQueue.main.async {
                     
-                    let dict = ["address":address, "amount":amount] as [String : String]
-                    
-                    self.outputArray.append(dict)
-                    
                     DispatchQueue.main.async {
                         
-                        self.outputsTable.alpha = 1
-                        self.amountInput.text = ""
-                        self.addressInput.text = ""
-                        self.outputsTable.reloadData()
+                        if amount != "0.0" {
+                            
+                            self.amountInput.text = amount
+                            
+                        }
+                        
+                        if address != "" {
+                            
+                           self.addressInput.text = address
+                            
+                        }
                         
                     }
                     

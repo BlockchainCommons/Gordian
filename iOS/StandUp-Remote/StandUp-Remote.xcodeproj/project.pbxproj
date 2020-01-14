@@ -101,6 +101,7 @@
 		D0ACE49623C4B0BF00EF6684 /* VerifyKeysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ACE49523C4B0BF00EF6684 /* VerifyKeysViewController.swift */; };
 		D0BE779723C744E800DC51E1 /* WalletStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BE779623C744E800DC51E1 /* WalletStruct.swift */; };
 		D0BE779923C7701300DC51E1 /* WalletSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BE779823C7701300DC51E1 /* WalletSaver.swift */; };
+		D0C2D9E323CDCA3400D5DD2A /* WalletInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2D9E223CDCA3400D5DD2A /* WalletInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +241,7 @@
 		D0ACE49523C4B0BF00EF6684 /* VerifyKeysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyKeysViewController.swift; sourceTree = "<group>"; };
 		D0BE779623C744E800DC51E1 /* WalletStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletStruct.swift; sourceTree = "<group>"; };
 		D0BE779823C7701300DC51E1 /* WalletSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSaver.swift; sourceTree = "<group>"; };
+		D0C2D9E223CDCA3400D5DD2A /* WalletInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoViewController.swift; sourceTree = "<group>"; };
 		F7368007E459EDC8B5471B45 /* Pods-StandUp-Remote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandUp-Remote.debug.xcconfig"; path = "Target Support Files/Pods-StandUp-Remote/Pods-StandUp-Remote.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -395,6 +397,7 @@
 				D0ACE49523C4B0BF00EF6684 /* VerifyKeysViewController.swift */,
 				D085830523C8ED60009ED61C /* WalletsViewController.swift */,
 				D0083FA823CC90B30055FC3F /* ImportQRViewController.swift */,
+				D0C2D9E223CDCA3400D5DD2A /* WalletInfoViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -976,6 +979,7 @@
 				D09C204423BA489500566DF8 /* MnemonicCreator.swift in Sources */,
 				D085830623C8ED60009ED61C /* WalletsViewController.swift in Sources */,
 				D09C205A23BA489500566DF8 /* QRScanner.swift in Sources */,
+				D0C2D9E323CDCA3400D5DD2A /* WalletInfoViewController.swift in Sources */,
 				D09C202523BA489500566DF8 /* Base32.swift in Sources */,
 				D09C205423BA489500566DF8 /* QRGenerator.swift in Sources */,
 				D017ADA623BFC89F004DBB25 /* VerifyViewController.swift in Sources */,
@@ -1149,7 +1153,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.21;
+				CURRENT_PROJECT_VERSION = 0.0.22;
 				DEVELOPMENT_TEAM = YZHG975W3A;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1160,7 +1164,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.21;
+				MARKETING_VERSION = 0.0.22;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.standupios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1174,7 +1178,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.21;
+				CURRENT_PROJECT_VERSION = 0.0.22;
 				DEVELOPMENT_TEAM = YZHG975W3A;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1185,7 +1189,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.21;
+				MARKETING_VERSION = 0.0.22;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.standupios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -11,7 +11,6 @@ import KeychainSwift
 
 class WalletSaver {
     
-    let ud = UserDefaults.standard
     let keychain = KeychainSwift()
     
     func save(walletToSave: [String:Any], completion: @escaping ((Bool)) -> Void) {
@@ -23,7 +22,7 @@ class WalletSaver {
             
             if wallets.count > 0 {
                 
-                for (i, wallet) in wallets.enumerated() {
+                for wallet in wallets {
                     
                     let str = WalletStruct.init(dictionary: wallet)
                     

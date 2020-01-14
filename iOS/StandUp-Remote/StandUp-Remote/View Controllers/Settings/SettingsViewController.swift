@@ -14,6 +14,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     var seed = ""
     var derivation = ""
     var miningFeeText = ""
+    var walletName = ""
     let backgroundview = UIView()
     @IBOutlet var settingsTable: UITableView!
     @IBOutlet var switchOutlet: UISegmentedControl!
@@ -76,9 +77,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func switchBasic(_ sender: Any) {
-        
-        print("switch index = \(switchOutlet.selectedSegmentIndex)")
-        
+                
         if switchOutlet.selectedSegmentIndex == 0 {
             
             ud.set(true, forKey: "basic")
@@ -171,7 +170,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func setFee(_ sender: UISlider) {
         
-        var section = 6
+        var section = 7
         
         if switchOutlet.selectedSegmentIndex == 0 {
             
@@ -223,18 +222,24 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 return settingsCell
                 
             case 4:
+            
+                thumbnail.image = UIImage(systemName: "info.circle")
+                label.text = "Wallet Info"
+                return settingsCell
+                
+            case 5:
                 
                 thumbnail.image = UIImage(systemName: "checkmark.seal")
                 label.text = "Verify"
                 return settingsCell
                 
-            case 5:
+            case 6:
                 
                 thumbnail.image = UIImage(systemName: "lock")
                 label.text = "Export Authentication Public Key"
                 return settingsCell
                 
-            case 6:
+            case 7:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "miningFeeCell", for: indexPath)
                 let label = cell.viewWithTag(1) as! UILabel
@@ -338,7 +343,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         if switchOutlet.selectedSegmentIndex == 1 {
             
-            return 7
+            return 8
             
         } else {
             
@@ -362,9 +367,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             case 0: return "Seed"
             case 2: return "Derivation"
             case 3: return "Wallet Manager"
-            case 4: return "Verify Keys"
-            case 5: return "Tor V3 Authentication"
-            case 6: return "Mining Fee"
+            case 5: return "Verify Keys"
+            case 6: return "Tor V3 Authentication"
+            case 7: return "Mining Fee"
             default: return ""
             }
             
@@ -388,22 +393,40 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.clear
         (view as! UITableViewHeaderFooterView).textLabel?.textAlignment = .left
-        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .heavy)//UIFont.init(name: "HiraginoSans-W3", size: 12)
+        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .heavy)
         (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
         
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         
-        switch section {
+        if switchOutlet.selectedSegmentIndex == 1 {
             
-        case 0:
+            switch section {
+                
+            case 0, 3:
+                
+                return 10
+                
+            default:
+                
+                return 20
+                
+            }
             
-            return 10
+        } else {
             
-        default:
-            
-            return 20
+            switch section {
+                
+            case 0:
+                
+                return 10
+                
+            default:
+                
+                return 20
+                
+            }
             
         }
         
@@ -417,7 +440,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             
             return 50
             
-        case 1:
+        case 1, 4:
             
             if switchOutlet.selectedSegmentIndex == 0 {
                 
@@ -490,9 +513,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 
             case 4:
                 
-                verifyKeys()
+                getWalletInfo()
                 
             case 5:
+                
+                verifyKeys()
+                
+            case 6:
                 
                 goToAuth()
                 
@@ -506,10 +533,32 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    func getWalletInfo() {
+        
+        getActiveWallet { (wallet) in
+            
+            if wallet != nil {
+                
+                self.walletName = wallet!.name
+                
+                DispatchQueue.main.async {
+                    
+                    self.performSegue(withIdentifier: "walletInfo", sender: self)
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
     func goToWallets() {
         
         DispatchQueue.main.async {
+            
             self.performSegue(withIdentifier: "goToWallets", sender: self)
+            
         }
         
     }
@@ -645,6 +694,14 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 vc.comingFromSettings = true
                 vc.words = self.seed
                 vc.derivation = self.derivation
+                
+            }
+            
+        case "walletInfo":
+        
+            if let vc = segue.destination as? WalletInfoViewController {
+                
+                vc.walletname = walletName
                 
             }
                     

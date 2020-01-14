@@ -10,6 +10,7 @@ import UIKit
 
 class WalletsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var name = ""
     var wallets = [[String:Any]]()
     let dateFormatter = DateFormatter()
     @IBOutlet var walletTable: UITableView!
@@ -113,6 +114,18 @@ class WalletsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let name = WalletStruct.init(dictionary: wallets[section]).name
         return name
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+//        name = WalletStruct.init(dictionary: wallets[indexPath.section]).name
+//        
+//        DispatchQueue.main.async {
+//            
+//            self.performSegue(withIdentifier: "walletInfo", sender: self)
+//            
+//        }
         
     }
     
@@ -233,14 +246,31 @@ class WalletsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        
+        let id = segue.identifier
+        
+        switch id {
+            
+        case "walletInfo":
+            
+            if let vc = segue.destination as? WalletInfoViewController {
+                
+                vc.walletname = name
+                
+            }
+            
+        default:
+            
+            break
+            
+        }
+        
     }
-    */
+    
 
 }

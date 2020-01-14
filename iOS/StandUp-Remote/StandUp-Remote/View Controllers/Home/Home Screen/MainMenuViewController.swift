@@ -868,10 +868,11 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 self.view.addSubview(self.backView)
                 
                 // add a label to update whats happening...
-                self.label.frame = CGRect(x: 16, y: self.navigationController!.navigationBar.frame.maxY + 10, width: self.view.frame.width - 32, height: 40)
-                self.label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+                self.label.frame = CGRect(x: 16, y: self.navigationController!.navigationBar.frame.maxY + 5, width: self.view.frame.width - 32, height: 40)
+                self.label.font = UIFont.systemFont(ofSize: 38, weight: .black)
+                self.label.adjustsFontSizeToFitWidth = true
                 self.label.textAlignment = .left
-                self.label.textColor = UIColor.white
+                self.label.textColor = .lightText
                 self.label.text = "Connecting Tor..."
                 self.label.numberOfLines = 0
                 self.backView.addSubview(self.label)
