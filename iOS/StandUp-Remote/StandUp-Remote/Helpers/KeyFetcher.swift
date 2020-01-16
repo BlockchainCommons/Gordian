@@ -11,24 +11,24 @@ import LibWally
 
 class KeyFetcher {
     
-    let derivationPath = UserDefaults.standard.object(forKey: "derivation") as! String
+    let enc = Encryption()
     
     func privKey(index: Int, completion: @escaping ((privKey: String?, error: Bool)) -> Void) {
         
         let enc = Encryption()
-        enc.getSeed() { (words, error) in
-            
+        enc.getSeed() { (words, derivationPath, error) in
+
             if !error {
-                
+
                 let mnenomicCreator = MnemonicCreator()
                 
                 mnenomicCreator.convert(words: words) { (mnemonic, error) in
                     
                     if !error {
                         
-                        if let masterKey = HDKey((mnemonic!.seedHex("")), self.network()) {
+                        if let masterKey = HDKey((mnemonic!.seedHex("")), self.network(path: derivationPath)) {
                             
-                            if let path = BIP32Path(self.derivationPath) {
+                            if let path = BIP32Path(derivationPath) {
                                 
                                 do {
                                     
@@ -84,17 +84,18 @@ class KeyFetcher {
                     }
                     
                 }
-                
+
+
             }
-            
+
         }
-        
+
     }
     
     func bip32Xpub(completion: @escaping ((xpub: String?, error: Bool)) -> Void) {
         
         let enc = Encryption()
-        enc.getSeed() { (words, error) in
+        enc.getSeed() { (words, derivationPath, error) in
             
             if !error {
                 
@@ -103,9 +104,9 @@ class KeyFetcher {
                     
                     if !error {
                         
-                        if let masterKey = HDKey((mnemonic!.seedHex("")), self.network()) {
+                        if let masterKey = HDKey((mnemonic!.seedHex("")), self.network(path: derivationPath)) {
                             
-                            if let path = BIP32Path(self.derivationPath) {
+                            if let path = BIP32Path(derivationPath) {
                                 
                                 do {
                                     
@@ -151,7 +152,7 @@ class KeyFetcher {
     func bip32Xprv(completion: @escaping ((xprv: String?, error: Bool)) -> Void) {
         
         let enc = Encryption()
-        enc.getSeed() { (words, error) in
+        enc.getSeed() { (words, derivationPath, error) in
             
             if !error {
                 
@@ -161,9 +162,9 @@ class KeyFetcher {
                     
                     if !error {
                         
-                        if let masterKey = HDKey((mnemonic!.seedHex("")), self.network()) {
+                        if let masterKey = HDKey((mnemonic!.seedHex("")), self.network(path: derivationPath)) {
                             
-                            if let path = BIP32Path(self.derivationPath) {
+                            if let path = BIP32Path(derivationPath) {
                                 
                                 do {
                                     
@@ -215,11 +216,11 @@ class KeyFetcher {
         
     }
     
-    private func network() -> Network {
+    private func network(path: String) -> Network {
         
         var network:Network!
         
-        if self.derivationPath == "m/84'/1'/0'/0" {
+        if path.contains("/1'") {
             
             network = .testnet
             

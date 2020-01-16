@@ -100,7 +100,9 @@ class ScannerViewController: UIViewController, UINavigationControllerDelegate {
             if !qc.errorBool {
                 
                 DispatchQueue.main.async {
+                    
                     self.navigationController?.popToRootViewController(animated: true)
+                    
                 }
                 
             } else {

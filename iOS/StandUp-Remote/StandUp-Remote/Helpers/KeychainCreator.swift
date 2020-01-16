@@ -11,16 +11,6 @@ import LibWally
 
 class KeychainCreator {
     
-    func saveKeyBirthday() {
-        
-        let date = Date()
-        let unixTime = date.timeIntervalSince1970
-        let birthdate = Int(unixTime)
-        let ud = UserDefaults.standard
-        ud.set(birthdate, forKey: "birthdate")
-        
-    }
-    
     func createKeyChain(completion: @escaping ((mnemonic: String?, error: Bool)) -> Void) {
         
         let bytesCount = 24
@@ -40,7 +30,6 @@ class KeychainCreator {
                     words = words.replacingOccurrences(of: ",", with: "")
                     words = words.replacingOccurrences(of: "[", with: "")
                     words = words.replacingOccurrences(of: "]", with: "")
-                    print("created mnmemonic = \(words)")
                     saveKeyBirthday()
                     completion((words,false))
                     

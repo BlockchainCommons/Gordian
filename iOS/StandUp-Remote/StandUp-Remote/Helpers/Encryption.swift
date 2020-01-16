@@ -15,104 +15,92 @@ class Encryption {
     let keychain = KeychainSwift()
     let ud = UserDefaults.standard
     
-    func encryptAndSaveSeed(string: String, completion: @escaping ((Bool)) -> Void) {
+    func encryptData(dataToEncrypt: Data, completion: @escaping ((encryptedData: Data?, error: Bool)) -> Void) {
         
-        if #available(iOS 13.0, *) {
+        if let key = self.keychain.getData("privateKey") {
             
-            if let key = self.keychain.getData("privateKey") {
+            let k = SymmetricKey(data: key)
+            
+            if let sealedBox = try? ChaChaPoly.seal(dataToEncrypt, using: k) {
                 
-                let k = SymmetricKey(data: key)
-                
-                if let dataToEncrypt = string.data(using: .utf8) {
-                    
-                    if let sealedBox = try? ChaChaPoly.seal(dataToEncrypt, using: k) {
-                        
-                        let encryptedData = sealedBox.combined
-                        let success = self.keychain.set(encryptedData, forKey: "seed")
-                        
-                        if success {
-                            
-                            print("saved seed to keychain")
-                            completion((true))
-                            
-                        } else {
-                            
-                            print("error saving seed to keychain")
-                            completion((false))
-                            
-                        }
-                        
-                    } else {
-                        
-                        completion((false))
-                        
-                    }
-                    
-                } else {
-                    
-                    completion((false))
-                    
-                }
+                let encryptedData = sealedBox.combined
+                completion((encryptedData,false))
                 
             } else {
                 
-                completion((false))
+                completion((nil,true))
                 
             }
-            
-        } else {
-            
-            completion((false))
             
         }
         
     }
     
-    func getSeed(completion: @escaping ((seed: String, error: Bool)) -> Void) {
+    func decryptData(dataToDecrypt: Data, completion: @escaping ((Data?)) -> Void) {
         
         if #available(iOS 13.0, *) {
             
-            if let key = keychain.getData("privateKey") {
+            if let key = self.keychain.getData("privateKey") {
                 
-                if let encryptedSeed = self.keychain.getData("seed") {
+                do {
                     
-                    do {
-                        
-                        let box = try ChaChaPoly.SealedBox.init(combined: encryptedSeed)
-                        let k = SymmetricKey(data: key)
-                        let decryptedData = try ChaChaPoly.open(box, using: k)
-                        if let seed = String(data: decryptedData, encoding: .utf8) {
-                            
-                            completion((seed,false))
-                            
-                        } else {
-                            
-                            completion(("",true))
-                            
-                        }
-                        
-                    } catch {
-                        
-                        print("failed decrypting")
-                        completion(("",true))
-                        
-                    }
+                    let box = try ChaChaPoly.SealedBox.init(combined: dataToDecrypt)
+                    let k = SymmetricKey(data: key)
+                    let decryptedData = try ChaChaPoly.open(box, using: k)
+                    completion((decryptedData))
                     
-                } else {
+                } catch {
                     
-                    completion(("",true))
+                    print("failed decrypting")
+                    completion((nil))
                     
                 }
                 
-            } else {
+            }
+            
+        }
+        
+    }
+    
+    func getSeed(completion: @escaping ((seed: String, derivation: String, error: Bool)) -> Void) {
+        
+        if #available(iOS 13.0, *) {
+            
+            getActiveWallet() { (activeWallet) in
                 
-                completion(("",true))
+                if activeWallet != nil {
+                    
+                    let encryptedSeed = activeWallet!.seed
+                    
+                    self.decryptData(dataToDecrypt: encryptedSeed) { (decryptedSeed) in
+                        
+                        if decryptedSeed != nil {
+                            
+                            if let seed = String(data: decryptedSeed!, encoding: .utf8) {
+                                
+                                completion((seed, activeWallet!.derivation, false))
+                                
+                            } else {
+                                
+                                completion(("","",true))
+                                
+                            }
+                            
+                        } else {
+                            
+                            completion(("","",true))
+                            
+                        }
+                        
+                    }
+                    
+                }
                 
             }
             
         } else {
             
-            completion(("",true))
+            completion(("","",true))
             
         }
         
@@ -128,42 +116,51 @@ class Encryption {
                 let cd = CoreDataService()
                 cd.retrieveEntity(entityName: .nodes) {
                     
-                    let node = cd.entities[0]
-                    var decryptedNode = [String:Any]()
-                    var loopCount = 0
-                    
-                    for (k, value) in node {
+                    if cd.entities.count > 0 {
                         
-                        let dataToDecrypt = value as! Data
+                        let node = cd.entities[0]
+                        var decryptedNode = [String:Any]()
+                        var loopCount = 0
                         
-                        do {
+                        for (k, value) in node {
                             
-                            let box = try ChaChaPoly.SealedBox.init(combined: dataToDecrypt)
-                            let decryptedData = try ChaChaPoly.open(box, using: pk)
-                            if let decryptedValue = String(data: decryptedData, encoding: .utf8) {
+                            let dataToDecrypt = value as! Data
+                            
+                            do {
                                 
-                                decryptedNode[k] = decryptedValue
-                                loopCount += 1
-                                
-                                if loopCount == 6 {
+                                let box = try ChaChaPoly.SealedBox.init(combined: dataToDecrypt)
+                                let decryptedData = try ChaChaPoly.open(box, using: pk)
+                                if let decryptedValue = String(data: decryptedData, encoding: .utf8) {
                                     
-                                    // we know there will be 6 keys, so can check the loop has finished here
-                                    let nodeStruct = NodeStruct.init(dictionary: decryptedNode)
-                                    completion((nodeStruct,false))
+                                    decryptedNode[k] = decryptedValue
+                                    loopCount += 1
+                                    
+                                    if loopCount == 6 {
+                                        
+                                        // we know there will be 6 keys, so can check the loop has finished here
+                                        let nodeStruct = NodeStruct.init(dictionary: decryptedNode)
+                                        completion((nodeStruct,false))
+                                        
+                                    }
+                                    
+                                } else {
+                                    
+                                    completion((nil,true))
                                     
                                 }
                                 
-                            } else {
+                            } catch {
                                 
                                 completion((nil,true))
                                 
                             }
                             
-                        } catch {
-                            
-                            completion((nil,true))
-                            
                         }
+                        
+                    } else {
+                        
+                        print("no nodes")
+                        completion((nil,true))
                         
                     }
                     

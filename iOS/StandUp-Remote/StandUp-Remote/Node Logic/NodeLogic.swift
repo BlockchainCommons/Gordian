@@ -71,8 +71,8 @@ class NodeLogic {
                         
                         if !reducer.errorBool {
                             
-                            reducer.makeCommand(command: .getbalance,
-                                                param: "\"*\", 0, false",
+                            reducer.makeCommand(command: .listunspent,
+                                                param: "0",
                                                 completion: getResult)
                             
                         } else {

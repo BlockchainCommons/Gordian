@@ -2,59 +2,91 @@
 
 ### Status
 
-StandUp-Remote is currently under active development and in the early testing phase. It should be considered as proof of concept or minimum viable product.
+StandUp-Remote is currently under active development and in the early testing phase. Future versions may include breaking changes which aren't backward compatible, use only on testnet.
 
 In order to use it you need to scan a `btcstandup://` uri which you can read about [here](https://github.com/BlockchainCommons/Bitcoin-Standup#quick-connect-url-using-btcstandup).
 
-StandUp-Remote is designed to work with the [MacOS StandUp.app](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/StandUp) and [Linux scripts](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/LinuxScript), but will work with any properly configured Bitcoin Core node with a hidden service controlling `rpcport`. Supporting nodes are myNode, Nodl, BTCPayServer and RaspiBlitz.
+### Testflight
+
+We have a public link available for beta testing [here at this link](https://testflight.apple.com/join/OQHyL0a8), please bare in mind the app may change drastically and may not be backward compatible, please only use the app on testnet.
+
+- [ ] Wallet Functions
+  - [x] Spend and Receive
+  - [x] Segwit
+  - [x] Non-custodial
+  - [x] Coin Control
+  - [x] BIP44
+  - [x] BIP84
+  - [x] BIP49
+  - [x] BIP32
+  - [x] BIP21
+  - [x] Custom mining fee
+  - [ ] Multisig
+  - [ ] Cold storage
+  - [x] Multiwalletrpc
+  
+- [ ] Security
+  - [x] Seed created with Apple's cryptographically secure random number generator
+  - [x] Seed encrypted with a private key stored on the devices keychain which is itself encrypted
+  - [x] Seed encrypted with native iOS code
+  - [x] Tor V3 Authentication
+  - [ ] Passphrase support
+  - [ ] Wallet.dat encryption
+  - [ ] Disable all networking before importing/exporting seed 
+  - [ ] Automated Tor authentication
+ 
+- [ ] Compatible Nodes
+  - [x] Your own Bitcoin Core node
+  - [x] MacOS - [StandUp.app](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/StandUp)
+  - [x] Linux - [StandUp.sh](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/LinuxScript)
+  - [x] Nodl
+  - [x] myNode
+  - [x] BTCPayServer
+  - [x] RaspiBlitz
+  - [ ] Wasabi
+  - [ ] CasaHodl
+  
+StandUp-Remote is designed to work with the [MacOS StandUp.app](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/StandUp) and [Linux scripts](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/LinuxScript), but will work with any properly configured Bitcoin Core node with a hidden service controlling `rpcport` via localhost. Supporting nodes are [myNode](http://www.mynodebtc.com), [Nodl](https://www.nodl.it/), [BTCPayServer](https://btcpayserver.org) and [RaspiBlitz](https://github.com/rootzoll/raspiblitz), these nodes can be connected by clicking a link or scanning a qr code. Please refer to their telegram groups for simple instructions: 
+
+- [Nodl Telegram](https://t.me/nodl_support)
+- [myNode Telegram](https://t.me/mynode_btc)
+- [BTCPayServer](https://t.me/btcpayserver)
+- [RaspiBlitz Telegram](https://t.me/raspiblitz)
 
 ### What does it do?
 
 #### Initial Setup
 
-Upon scanning a QuickConnect QR code StandUp-Remote will:
+Everything below happens automatically after you scan the QuickConnect QR code.
 
-- Create a seed that is used to derive a BIP39 recovery phrase, extended keys and private keys.
-- Encrypt and store the seed to Core Data on your device locally.
-- Create a x25519 keypair, encrypting the private key and storing it locally to be used for Tor V3 authentication to your node. The user may export the public key by tapping the lock button in the top left of the home screen. In order to authenticate your devices connection to your node you need to add the public key as StandUp-Remote exports it to your `authorized_clients` directory, for a more detailed guide see these [instructions](https://github.com/BlockchainCommons/Bitcoin-Standup#tor-v3-authentication-using-standup-and-fullynoded).
-- Start an integrated Tor thread running Tor version 0.4.0.6
-- Once Tor is connected it will create wallet on your node with the following command `createwallet "StandUp", true, true, "", true"`, this creates a wallet with private keys disabled, which holds no keys, will not reuse addresses and an empty passphrase.
-- It then fetches the BIP32 xpub, using BIP84 derivation, and utilizes the `importmulti` command to import 2,000 native segwit addresses into your node, adding the first thousand address to the keypool and the second thousand addresses as change.
+When you open StandUp the first time it will create a seed for you, encrypt it, save it locally. Once the seed is created you can connect to your node by scanning a [QuickConnect QR code](https://github.com/BlockchainCommons/Bitcoin-Standup#quick-connect-url-using-btcstandup) or by clicking it as a deeplink.  Upon scanning a valid QuickConnect QR code the app will create a private/public keypair which is used for authenticating your tor connection. The app then goes through a series of Bitcoin Core RPC calls over Tor to your node. The app will create a new wallet on your node, import the first 2,000 addresses from your xpub deriving the addresses as m/84'/1'/0'/0 by default and m/84'/0'/0'/0 if the node is on mainnet. Advanced users may set different derivation paths and import seeds. Altering the derivation path or adding a seed will always create a new wallet so that nothing is ever overwritten or deleted, simply go to advanced settings to see your wallets and switch them on and off. Altering the derivation path will always create a new wallet with the existing seed, if you want to import a new seed simply go to advanced settings and tap import seed.
 
 #### Everyday use
 
 After the above process completes you will be able to:
 
-- Create BIP21 invoices
-- Spend your Bitcoin either using Bitcoin Core's coin selection algorithm by default or for advanced users the app also allows full coin control by tapping the list button on the "Out" tab.
-- Transaction batching.
-- BIP39 seed exporting, descriptor exporting and instructions on issuing a one line command to recover your wallet with Bitcoin Core should you lose your device.
-- Custom fee preference.
-- See statistics about the Bitcoin network straight from your node.
-- See your balance in BTC or fiat (tap the blance to toggle).
-- See you last 50 transactions, tap a transaction to see full details.
+- spend and receive using BIP44, BIP84, BIP49 compatible keys
+- breakdown of your raw transaction before broadcasting to ensure piece of mind
+- import/export BIP39 seeds
+- customize derivation schemes
+- create and pay BIP21 invoices
+- coin control
+- transaction batching
+- descriptor exporting
+- one line exportable command to recover your wallet with Bitcoin Core should you lose your device
+- export/verify your addresses
+- custom fee preference
+- statistics about the Bitcoin network straight from your node
+- balance in BTC or fiat (tap the blance to toggle)
+- your last 50 transactions, tap a transaction to see full details
 
 ### How does it work?
 
-StandUp-Remote keeps thing simple by relying on Bitcoin Core for all wallet functionality. The app simply derives the private keys necessary for signing whatever transaction you create then uses your node to sign the transaction with that key with `signrawtransactionwithkey`, this way we can keep your node cold and store the seed only on your device which is generally recognized to be more secure then general purpose computers.
-
-### To do:
-
-- Automatically add Tor V3 public key to your node during initial connection
-- Add biometrics and lock screen and 2fa
-- Ability to import a BIP39 recovery phrase, descriptor or xprv/xpub.
-- Cold mode?
-- Custom derivation path?
-- Different wallet templates
-- Make Tor auto reconnect after the background process is killed.
-- Kill switch?
-- Add an alert when your node rejects a connnection because you have not authenticated the device yet.
-- Improve the confirmation screen for transactions.
-- Add multisig capability.
-- Improve the UI and the intro tutorial screen.
+StandUp-Remote keeps thing simple by relying on Bitcoin Core for the majority of wallet functions related to buidling/signing of transactions. StandUp-Remote is responsible for passing the appropriate private key to Bitcoin Core (your node) to sign transactions with. We create wallets with `avoidaddressreuse` set to `true` so that private keys will only every be used once. As the app is designed it is a hot wallet with keys stored locally onto your device. Your seed is fully encrypted and stored as raw data. The private key for decrypting your seed is stored securely on the keychain. We beleive that storing private keys on your device is generally safer then an all purpose computer. You should never store more bitcoins then you are willing to lose on a hot wallet just as you would never carry more cash then neccessary when going out.
 
 ### Requirements
-iOS 13
+- iOS 13
+- a Bitcoin Core full-node v0.18.0 (at minimum) which is running on Tor with `rpcport` exposed to a Tor V3 hidden service
 
 ### Author
 Peter Denton, fontainedenton@gmail.com

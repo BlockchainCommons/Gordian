@@ -9,6 +9,60 @@
 import Foundation
 import UIKit
 
+public func getActiveWallet(completion: @escaping ((WalletStruct?)) -> Void) {
+    
+    let cd = CoreDataService()
+    cd.retrieveEntity(entityName: .wallets) {
+        
+        let wallets = cd.entities
+        
+        for (i, wallet) in wallets.enumerated() {
+            
+            let walletStr = WalletStruct.init(dictionary: wallet)
+            
+            if walletStr.isActive {
+                
+                completion((walletStr))
+                
+            } else {
+                
+                if i + 1  == wallets.count {
+                    
+                    print("no active wallets")
+                    completion(nil)
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+}
+
+func dateToUnix(inputdate: Date) -> Int {
+    
+    let unixTime = inputdate.timeIntervalSince1970
+    return Int(unixTime)
+    
+}
+
+public func keyBirthday() -> Int32 {
+    
+    let date = Date()
+    return Int32(date.timeIntervalSince1970)
+    
+}
+
+public func saveKeyBirthday() {
+    
+    let birthdate = keyBirthday()
+    let ud = UserDefaults.standard
+    ud.set(birthdate, forKey: "birthdate")
+    
+}
+
 public func randomString(length: Int) -> String {
     
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

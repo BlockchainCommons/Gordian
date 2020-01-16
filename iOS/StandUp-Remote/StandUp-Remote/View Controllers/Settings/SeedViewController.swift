@@ -23,7 +23,6 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
         if let birthdateCheck = UserDefaults.standard.object(forKey: "birthdate") as? Int {
             
             birthdate = "\(birthdateCheck)"
@@ -80,7 +79,7 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,6 +88,7 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.backgroundColor = #colorLiteral(red: 0.0507061556, green: 0.05862525851, blue: 0.0711022839, alpha: 1)
         cell.selectionStyle = .none
         cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.textColor = .lightGray
         
         switch indexPath.section {
             
@@ -98,17 +98,13 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                         
         case 1:
             
-            cell.textLabel?.text = UserDefaults.standard.object(forKey: "derivation") as? String
+            cell.textLabel?.text = self.publicKeyDescriptor
             
         case 2:
             
-            cell.textLabel?.text = self.publicKeyDescriptor
-            
-        case 3:
-            
             cell.textLabel?.text = self.privateKeyDescriptor
             
-        case 4:
+        case 3:
             
             cell.textLabel?.text = "bitcoin-cli importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \(birthdate), \"range\": [0,999], \"watchonly\": false, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }\n\nbitcoin-cli importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \(birthdate), \"range\": [1000,1999], \"watchonly\": false, \"keypool\": true, \"internal\": true }"
             
@@ -127,12 +123,21 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         switch section {
         case 0: return "BIP39 Phrase"
-        case 1: return "Derivation Path"
-        case 2: return "Public Key Descriptor"
-        case 3: return "Private Key Descriptor"
-        case 4: return "Bitcoin Core Recovery"
+        case 1: return "Public Key Descriptor"
+        case 2: return "Private Key Descriptor"
+        case 3: return "Bitcoin Core Recovery"
         default: return ""
         }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = .clear
+        (view as! UITableViewHeaderFooterView).textLabel?.textAlignment = .left
+        (view as! UITableViewHeaderFooterView).textLabel?.font = .systemFont(ofSize: 12, weight: .heavy)//UIFont.systemFont(ofSize: 12)
+        (view as! UITableViewHeaderFooterView).textLabel?.textColor = .white
+        (view as! UITableViewHeaderFooterView).textLabel?.alpha = 1
         
     }
     
@@ -165,19 +170,19 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                         self.barTitle = "BIP39 Phrase"
                         self.goToQRDisplayer()
                         
-                    case 2:
+                    case 1:
                         
                         self.infoText = "Your public key descriptor which can be used with the importmulti command to create a watch-only wallet with Bitcoin Core."
                         self.barTitle = "Pubkey Descriptor"
                         self.goToQRDisplayer()
                         
-                    case 3:
+                    case 2:
                         
                         self.infoText = "Your private key descriptor which can be used with the importmulti command to recover your StandUp wallet with Bitcoin Core."
                         self.barTitle = "Private Key Descriptor"
                         self.goToQRDisplayer()
                         
-                    case 4:
+                    case 3:
                         
                         self.shareRecoveryCommand()
                         

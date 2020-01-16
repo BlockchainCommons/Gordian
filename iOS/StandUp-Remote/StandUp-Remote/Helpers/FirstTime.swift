@@ -46,31 +46,44 @@ class FirstTime {
                 
             }
             
-            createSaveSeed()
+            saveDefaultWallet()
             
         }
         
     }
     
-    func createSaveSeed() {
+    func saveDefaultWallet() {
         
-        if self.keychain.getData("seed") == nil {
+        let keyCreator = KeychainCreator()
+        keyCreator.createKeyChain() { (mnemonic, error) in
             
-            let keyCreator = KeychainCreator()
-            keyCreator.createKeyChain() { (mnemonic, error) in
+            if !error {
                 
-                if !error {
+                let walletSaver = WalletSaver()
+                let dataToEncrypt = mnemonic!.dataUsingUTF8StringEncoding
+                self.enc.encryptData(dataToEncrypt: dataToEncrypt) { (encryptedData, error) in
                     
-                    self.enc.encryptAndSaveSeed(string: mnemonic!) { (success) in
+                    var defaultWallet = [String:Any]()
+                    defaultWallet["birthdate"] = keyBirthday()
+                    print("birthdate = \(defaultWallet["birthdate"] as! Int32)")
+                    defaultWallet["id"] = UUID()
+                    defaultWallet["derivation"] = "m/84'/1'/0'/0"
+                    self.ud.set("m/84'/1'/0'/0", forKey: "derivation")
+                    defaultWallet["isActive"] = true
+                    defaultWallet["name"] = "\(randomString(length: 10))_StandUp"
+                    self.ud.set(defaultWallet["name"] as! String, forKey: "walletName")
+                    defaultWallet["seed"] = encryptedData
+                    
+                    walletSaver.save(walletToSave: defaultWallet) { (success) in
                         
                         if success {
                             
-                            print("seed saved")
+                            print("default wallet saved")
                             self.ud.set(false, forKey: "firstTime")
                             
                         } else {
                             
-                            print("seed not saved!!!")
+                            print("error saving default wallet")
                             
                         }
                         
@@ -79,11 +92,6 @@ class FirstTime {
                 }
                 
             }
-            
-        } else {
-            
-            // seed already saved
-            self.ud.set(false, forKey: "firstTime")
             
         }
         

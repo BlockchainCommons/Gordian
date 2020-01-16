@@ -10,6 +10,7 @@ import UIKit
 
 class UTXOViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate {
     
+    @IBOutlet var createRawOutlet: UIBarButtonItem!
     var isSweeping = false
     var amountToSend = String()
     let amountInput = UITextField()
@@ -139,6 +140,8 @@ class UTXOViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @objc func closeAmount() {
         
+        self.createRawOutlet.tintColor = UIColor.white.withAlphaComponent(1)
+        
         if self.amountInput.text != "" {
             
             self.creatingView.addConnectingView(vc: self, description: "")
@@ -203,6 +206,8 @@ class UTXOViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func getAmount() {
+        
+        self.createRawOutlet.tintColor = UIColor.white.withAlphaComponent(0)
         
         blurView2.removeFromSuperview()
         
@@ -345,6 +350,8 @@ class UTXOViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                            height: -200)
             
             self.blurView2.alpha = 0
+            
+            self.createRawOutlet.tintColor = UIColor.white.withAlphaComponent(1)
             
         }) { _ in
             
@@ -849,7 +856,7 @@ class UTXOViewController: UIViewController, UITableViewDataSource, UITableViewDe
         blurView.isUserInteractionEnabled = true
         
         blurView.frame = CGRect(x: view.frame.minX + 10,
-                                y: 100,
+                                y: 120,
                                 width: view.frame.width - 20,
                                 height: 50)
         
@@ -858,7 +865,7 @@ class UTXOViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         imageView.alpha = 0
         imageView.frame = view.frame
-        imageView.backgroundColor = UIColor.black
+        imageView.backgroundColor = .black
         
         qrScanner.uploadButton.addTarget(self, action: #selector(chooseQRCodeFromLibrary),
                                          for: .touchUpInside)

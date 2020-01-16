@@ -14,247 +14,289 @@ class WalletCreator {
     var importingChange = false
     var descriptor = ""
     var errorString = ""
-    var birthdate = "\"now\""
     var statusDescription = "Creating your wallet..."
     
-    func createStandUpWallet(completion: @escaping (Bool) -> Void) {
+    func createStandUpWallet(derivation: String, completion: @escaping ((success: Bool, errorDescription: String?)) -> Void) {
         
-        if let birthdateCheck = ud.object(forKey: "birthdate") as? Int {
+        getActiveWallet { (wallet) in
             
-            birthdate = "\(birthdateCheck)"
-            
-        }
-        
-        func whichChain() {
-            
-            executeNodeCommand(method: .getblockchaininfo,
-                               param: "")
-            
-        }
-        
-        func checkForStandUpWallet() {
-            
-            executeNodeCommand(method: .listwalletdir,
-                               param: "")
-            
-        }
-        
-        func executeNodeCommand(method: BTC_CLI_COMMAND, param: String) {
-            
-            let reducer = Reducer()
-            
-            func getResult() {
+            func whichChain() {
                 
-                if !reducer.errorBool {
+                executeNodeCommand(method: .getblockchaininfo,
+                                   param: "")
+                
+            }
+            
+            func checkForStandUpWallet() {
+                
+                executeNodeCommand(method: .listwalletdir,
+                                   param: "")
+                
+            }
+            
+            func executeNodeCommand(method: BTC_CLI_COMMAND, param: String) {
+                
+                let reducer = Reducer()
+                
+                func getResult() {
                     
-                    switch method {
+                    if !reducer.errorBool {
                         
-                    case .getblockchaininfo:
-
-                        let response = reducer.dictToReturn
-                        let chain = response["chain"] as! String
-
-                        if chain == "main" {
-
-                            print("main chain")
-                            self.ud.set("m/84'/0'/0'/0", forKey: "derivation")
-                            checkForStandUpWallet()
-
-                        } else {
-
-                            print("test chain")
-                            self.ud.set("m/84'/1'/0'/0", forKey: "derivation")
-                            checkForStandUpWallet()
-
-                        }
-                                                
-                    case .createwallet:
-                        
-                        let response = reducer.dictToReturn
-                        handleWalletCreation(response: response)
-                        
-                    case .listwalletdir:
-                        
-                        let dict =  reducer.dictToReturn
-                        parseWallets(walletDict: dict)
-                        
-                    case .importmulti:
-                        
-                        let result = reducer.arrayToReturn
-                        let success = (result[0] as! NSDictionary)["success"] as! Bool
-                        
-                        if success {
+                        switch method {
                             
-                            if importingChange {
+                        case .getblockchaininfo:
+
+                            let response = reducer.dictToReturn
+                            let chain = response["chain"] as! String
+
+                            if chain == "main" {
+
+                                print("main chain")
                                 
-                                ud.set(true, forKey: "keysImported")
-                                completion(true)
+                                var newDerivation = wallet!.derivation
+                                
+                                switch wallet!.derivation {
+                                    
+                                case "m/84'/1'/0'/0":
+                                    
+                                    newDerivation = "m/84'/0'/0'/0"
+                                    
+                                case "m/44'/1'/0'/0":
+                                    
+                                    newDerivation = "m/44'/0'/0'/0"
+                                    
+                                case "m/49'/1'/0'/0":
+                                    
+                                    newDerivation = "m/49'/0'/0'/0"
+                                    
+                                default:
+                                    
+                                    break
+                                    
+                                }
+                                
+                                let cd = CoreDataService()
+                                
+                                cd.updateEntity(id: wallet!.id, keyToUpdate: "derivation", newValue: newDerivation, entityName: .wallets) {
+                                    
+                                    if !cd.errorBool {
+                                        
+                                        print("changed derivation to mainnet")
+                                        checkForStandUpWallet()
+                                        
+                                    }
+                                    
+                                }
+                                
+                            } else {
+
+                                print("test chain")
+                                checkForStandUpWallet()
+
+                            }
+                                                    
+                        case .createwallet:
+                            
+                            let response = reducer.dictToReturn
+                            handleWalletCreation(response: response)
+                            
+                        case .listwalletdir:
+                            
+                            let dict =  reducer.dictToReturn
+                            parseWallets(walletDict: dict)
+                            
+                        case .importmulti:
+                            
+                            let result = reducer.arrayToReturn
+                            let success = (result[0] as! NSDictionary)["success"] as! Bool
+                            
+                            if success {
+                                
+                                if self.importingChange {
+                                    
+                                    self.ud.set(true, forKey: "keysImported")
+                                    completion((true,nil))
+                                    
+                                } else {
+                                    
+                                    importChangeKeys()
+                                    
+                                }
                                 
                             } else {
                                 
-                                importChangeKeys()
+                                let errorDict = (result[0] as! NSDictionary)["error"] as! NSDictionary
+                                let error = errorDict["message"] as! String
+                                completion((false,error))
                                 
                             }
                             
-                        } else {
-                            
-                            let errorDict = (result[0] as! NSDictionary)["error"] as! NSDictionary
-                            let error = errorDict["message"] as! String
-                            errorString = error
-                            completion(false)
-                            
-                        }
-                        
-                        if let warnings = (result[0] as! NSDictionary)["warnings"] as? NSArray {
-                            
-                            if warnings.count > 0 {
+                            if let warnings = (result[0] as! NSDictionary)["warnings"] as? NSArray {
                                 
-                                for warning in warnings {
+                                if warnings.count > 0 {
                                     
-                                    let warn = warning as! String
-                                    errorString += warn
+                                    for warning in warnings {
+                                        
+                                        let warn = warning as! String
+                                        self.errorString += warn
+                                        
+                                    }
                                     
                                 }
                                 
                             }
                             
+                        case .getdescriptorinfo:
+                            
+                            let result = reducer.dictToReturn
+                            self.descriptor = "\"\(result["descriptor"] as! String)\""
+                            
+                            let params = "[{ \"desc\": \(self.descriptor), \"timestamp\": \"now\", \"range\": [0,999], \"watchonly\": true, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }]"
+                            
+                            executeNodeCommand(method: .importmulti,
+                                               param: params)
+                            
+                        default:
+                            
+                            break
+                            
                         }
                         
-                    case .getdescriptorinfo:
+                    } else {
                         
-                        let result = reducer.dictToReturn
-                        descriptor = "\"\(result["descriptor"] as! String)\""
+                        completion((false,reducer.errorDescription))
                         
-                        let params = "[{ \"desc\": \(descriptor), \"timestamp\": \(birthdate), \"range\": [0,999], \"watchonly\": true, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }]"
+                    }
+                    
+                }
+                
+                reducer.makeCommand(command: method,
+                                    param: param,
+                                    completion: getResult)
+                
+            }
+            
+            func parseWallets(walletDict: NSDictionary) {
+                
+                let walletArr = walletDict["wallets"] as! NSArray
+                var walletExists = false
+                
+                for existingWallet in walletArr {
+                    
+                    let dict = existingWallet as! NSDictionary
+                    let existingWalletName = dict["name"] as! String
+                    
+                    if existingWalletName == wallet!.name {
                         
-                        executeNodeCommand(method: .importmulti,
-                                           param: params)
+                        walletExists = true
                         
-                    default:
+                    }
+                    
+                }
+                
+                if walletExists {
+                    
+                    // Import the keys again incase it failed
+                    
+                    if self.ud.object(forKey: "keysImported") == nil {
                         
-                        break
+                        importPrimaryAddresses()
+                        
+                    } else {
+                        
+                        completion((true,nil))
                         
                     }
                     
                 } else {
                     
-                    //return an error
-                    errorString = reducer.errorDescription
-                    print("reducer.errorDescription = \(reducer.errorDescription)")
-                    completion((false))
+                    // create it
+                    let param = "\"\(wallet!.name)\", true, true, \"\", true"
+                    executeNodeCommand(method: .createwallet,
+                                       param: param)
                     
                 }
                 
             }
             
-            reducer.makeCommand(command: method,
-                                param: param,
-                                completion: getResult)
-            
-        }
-        
-        func parseWallets(walletDict: NSDictionary) {
-            
-            let walletArr = walletDict["wallets"] as! NSArray
-            var walletExists = false
-            var standUpWalletName = "StandUp"
-            
-            if ud.object(forKey: "walletName") != nil {
+            func handleWalletCreation(response: NSDictionary) {
                 
-                standUpWalletName = ud.object(forKey: "walletName") as! String
+                let warning = response["warning"] as! String
+                self.ud.set(true, forKey: "walletCreated")
                 
-            }
-            
-            for wallet in walletArr {
-                
-                let dict = wallet as! NSDictionary
-                let walletName = dict["name"] as! String
-                
-                if walletName == standUpWalletName {
+                if warning == "" {
                     
-                    walletExists = true
-                    
-                }
-                
-            }
-            
-            if walletExists {
-                
-                // Import the keys again incase it failed
-                
-                if ud.object(forKey: "keysImported") == nil {
-                    
-                    importPrimaryAddresses()
                     
                 } else {
                     
-                    completion((true))
+                    // should return an error to alert user to anything that may have gone wrong
                     
                 }
                 
-            } else {
-                
-                // create it
-                let param = "\"\(standUpWalletName)\", true, true, \"\", true"
-                executeNodeCommand(method: .createwallet,
-                                   param: param)
+                importPrimaryAddresses()
                 
             }
             
-        }
-        
-        func handleWalletCreation(response: NSDictionary) {
-            
-            let warning = response["warning"] as! String
-            ud.set(true, forKey: "walletCreated")
-            
-            if warning == "" {
+            func importPrimaryAddresses() {
+                print("importPrimaryAddresses")
                 
+                self.statusDescription = "Importing 1,000 primary addresses..."
                 
-            } else {
-                
-                // should return an error to alert user to anything that may have gone wrong
-                
-            }
-            
-            importPrimaryAddresses()
-            
-        }
-        
-        func importPrimaryAddresses() {
-            print("importPrimaryAddresses")
-            
-            self.statusDescription = "Importing 1,000 primary addresses..."
-            
-            //get the xpub
-            let keyFetcher = KeyFetcher()
-            keyFetcher.bip32Xpub { (xpub, error) in
-                
-                if !error {
+                //get the xpub
+                let keyFetcher = KeyFetcher()
+                keyFetcher.bip32Xpub { (xpub, error) in
                     
-                    let param = "\"wpkh(\(xpub!)/*)\""
-                    executeNodeCommand(method: .getdescriptorinfo, param: param)
-                    
-                } else {
-                    
-                    print("error getting xpub")
+                    if !error {
+                        
+                        var param = ""
+                        //let ud = UserDefaults.standard
+                        //let derivation = ud.object(forKey: "derivation") as! String
+                        
+                        switch wallet!.derivation {
+                            
+                        case "m/84'/1'/0'/0", "m/84'/0'/0'/0":
+                            
+                            param = "\"wpkh(\(xpub!)/*)\""
+                            
+                        case "m/44'/1'/0'/0", "m/44'/0'/0'/0":
+                            
+                            param = "\"pkh(\(xpub!)/*)\""
+                            
+                        case "m/49'/1'/0'/0", "m/49'/0'/0'/0":
+                            
+                            param = "\"sh(wpkh(\(xpub!)/*))\""
+                            
+                        default:
+                            
+                            break
+                            
+                        }
+                        
+                        //let param = "\"wpkh(\(xpub!)/*)\""
+                        executeNodeCommand(method: .getdescriptorinfo, param: param)
+                        
+                    } else {
+                        
+                        print("error getting xpub")
+                        
+                    }
                     
                 }
                 
             }
             
-        }
-        
-        func importChangeKeys() {
+            func importChangeKeys() {
+                
+                self.statusDescription = "Importing 1,000 change addresses..."
+                self.importingChange = true
+                let params = "[{ \"desc\": \(self.descriptor), \"timestamp\": \"now\", \"range\": [1000,1999], \"watchonly\": true, \"keypool\": true, \"internal\": true }]"
+                executeNodeCommand(method: .importmulti, param: params)
+                
+            }
             
-            self.statusDescription = "Importing 1,000 change addresses..."
-            importingChange = true
-            let params = "[{ \"desc\": \(descriptor), \"timestamp\": \(birthdate), \"range\": [1000,1999], \"watchonly\": true, \"keypool\": true, \"internal\": true }]"
-            executeNodeCommand(method: .importmulti, param: params)
+            whichChain()
             
         }
-        
-        whichChain()
         
     }
     
