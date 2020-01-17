@@ -16,6 +16,7 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
     var keys = [String]()
     var comingFromSettings = Bool()
     let connectingView = ConnectingView()
+    var wallet:WalletStruct!
     @IBOutlet var table: UITableView!
     @IBOutlet var saveButtonOutlet: UIButton!
     
@@ -32,7 +33,33 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
         
         saveButtonOutlet.clipsToBounds = true
         saveButtonOutlet.layer.cornerRadius = 8
-        getKeysFromLibWally()
+        
+        
+        load()
+        
+    }
+    
+    func load() {
+        
+        getActiveWallet { (wallet) in
+            
+            if wallet != nil {
+                
+                self.wallet = wallet!
+                
+                if wallet!.type == "MULTI" {
+                    
+                    self.getKeysFromBitcoinCore()
+                    
+                } else {
+                    
+                    self.getKeysFromLibWally()
+                    
+                }
+                
+            }
+            
+        }
         
     }
     
@@ -93,6 +120,38 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
         keyLabel.text = "\(keys[indexPath.section])"
         keyLabel.adjustsFontSizeToFitWidth = true
         return cell
+        
+    }
+    
+    func getKeysFromBitcoinCore() {
+        
+        connectingView.addConnectingView(vc: self, description: "getting the keys from your node")
+        
+        let reducer = Reducer()
+        reducer.makeCommand(command: .deriveaddresses, param: "\"\(wallet.descriptor)\", ''[0,1999]''") {
+            
+            if !reducer.errorBool {
+                
+                let result = reducer.arrayToReturn
+                self.keys = result as! [String]
+                
+                DispatchQueue.main.async {
+                    
+                    self.table.reloadData()
+                    
+                }
+                
+                self.connectingView.removeConnectingView()
+                
+            } else {
+                
+                displayAlert(viewController: self, isError: true, message: "error getting addresses from your node")
+                
+                self.connectingView.removeConnectingView()
+                
+            }
+            
+        }
         
     }
 

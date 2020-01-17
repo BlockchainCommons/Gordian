@@ -70,11 +70,26 @@ class SendUTXO {
                     self.index += 1
                     let result = reducer.dictToReturn
                     print("result: \(result)")
-                    let hdkeypath = result["hdkeypath"] as! String
-                    let arr = hdkeypath.components(separatedBy: "/")
-                    indexarray.append(arr[1])
-                    print("indexarray = \(indexarray)")
-                    getAddressInfo(addresses: addresses)
+                    
+                    if let hdkeypath = result["hdkeypath"] as? String {
+                        
+                        let arr = hdkeypath.components(separatedBy: "/")
+                        indexarray.append(arr[1])
+                        print("indexarray = \(indexarray)")
+                        getAddressInfo(addresses: addresses)
+                        
+                    } else {
+                        
+                        if let desc = result["desc"] as? String {
+                            
+                            let arr = desc.components(separatedBy: "/")
+                            let index = (arr[1].components(separatedBy: "]"))[0]
+                            indexarray.append(index)
+                            getAddressInfo(addresses: addresses)
+                            
+                        }
+                        
+                    }
                         
                 } else {
                     
@@ -112,8 +127,37 @@ class SendUTXO {
                             if i == self.indexarray.count - 1 {
                                 
                                 // get the unsigned raw transaction and sign it
-                                print("privekeys = \(privkeyarray)")
-                                sign()
+                                print("privkeys = \(privkeyarray)")
+                                
+                                let multiSigSigner = SignMultiSig()
+                                getActiveWallet { (wallet) in
+                                    
+                                    if wallet != nil {
+                                        
+                                        if wallet!.type == "MULTI" {
+                                            
+                                            multiSigSigner.sign(tx: self.unsignedRawTx, privateKeys: privkeyarray) { (signedTx) in
+
+                                                if signedTx != nil {
+
+                                                    print("signedTx = \(signedTx!)")
+
+
+                                                }
+
+                                            }
+                                            
+                                        } else {
+                                            
+                                            sign()
+                                            
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                
+                                //sign()
                                 
                             }
                             
@@ -194,14 +238,14 @@ class SendUTXO {
             
         } else {
             
-            let receiver = "\"\(self.addressToPay)\":\(self.amount)"
+            let receiver = "\"\(self.addressToPay)\":\(self.amount - 0.00000200)"
             param = "''\(self.inputs)'', ''{\(receiver)}''"
             param = param.replacingOccurrences(of: "\"{", with: "{")
             param = param.replacingOccurrences(of: "}\"", with: "}")
             
         }
         
-        executeNodeCommand(method: BTC_CLI_COMMAND.createrawtransaction,
+        executeNodeCommand(method: .createrawtransaction,
                            param: param)
         
     }

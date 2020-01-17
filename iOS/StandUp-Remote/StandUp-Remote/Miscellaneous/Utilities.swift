@@ -55,13 +55,13 @@ public func keyBirthday() -> Int32 {
     
 }
 
-public func saveKeyBirthday() {
-    
-    let birthdate = keyBirthday()
-    let ud = UserDefaults.standard
-    ud.set(birthdate, forKey: "birthdate")
-    
-}
+//public func saveKeyBirthday() {
+//    
+//    let birthdate = keyBirthday()
+//    let ud = UserDefaults.standard
+//    ud.set(birthdate, forKey: "birthdate")
+//    
+//}
 
 public func randomString(length: Int) -> String {
     

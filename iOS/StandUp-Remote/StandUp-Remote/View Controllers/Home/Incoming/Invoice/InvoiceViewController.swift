@@ -106,40 +106,17 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
             DispatchQueue.main.async {
                 
                 UIView.animate(withDuration: 0.3, animations: {
+                    
                     self.addressOutlet.alpha = 0
                     self.qrView.alpha = 0
+                    
                 }) { (_) in
+                    
                     self.addressOutlet.text = ""
                     self.qrView.image = nil
                     self.addressOutlet.alpha = 1
                     self.qrView.alpha = 1
-                    
-                    let enc = Encryption()
-                    
-                    enc.getSeed { (seed, derivation, error) in
-                        
-                        if !error {
-                            
-                            if derivation.contains("84") {
-                                
-                                self.executeNodeCommand(method: .getnewaddress,
-                                                        param: "\"\", \"bech32\"")
-                                
-                            } else if derivation.contains("44") {
-                                
-                                self.executeNodeCommand(method: .getnewaddress,
-                                                        param: "\"\", \"legacy\"")
-                                
-                            } else if derivation.contains("49") {
-                                
-                                self.executeNodeCommand(method: .getnewaddress,
-                                                        param: "\"\", \"p2sh-segwit\"")
-                                
-                            }
-                            
-                        }
-                        
-                    }
+                    self.showAddress()
                     
                 }
             
@@ -153,29 +130,43 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    func filterDerivation(derivation: String) {
+        
+        if derivation.contains("84") {
+            
+            self.executeNodeCommand(method: .getnewaddress,
+                                    param: "\"\", \"bech32\"")
+            
+        } else if derivation.contains("44") {
+            
+            self.executeNodeCommand(method: .getnewaddress,
+                                    param: "\"\", \"legacy\"")
+            
+        } else if derivation.contains("49") {
+            
+            self.executeNodeCommand(method: .getnewaddress,
+                                    param: "\"\", \"p2sh-segwit\"")
+            
+        }
+        
+    }
+    
     func showAddress() {
         
-        //let params = "\"\", \"bech32\""
-        
-        let enc = Encryption()
-        enc.getSeed { (seed, derivation, error) in
+        getActiveWallet { (wallet) in
             
-            if !error {
+            if wallet != nil {
                 
-                if derivation.contains("84") {
+                let derivation = wallet!.derivation
+                let type = wallet!.type
+                
+                if type == "MULTI" {
                     
-                    self.executeNodeCommand(method: .getnewaddress,
-                                            param: "\"\", \"bech32\"")
+                    self.getMsigAddress()
                     
-                } else if derivation.contains("44") {
+                } else {
                     
-                    self.executeNodeCommand(method: .getnewaddress,
-                                            param: "\"\", \"legacy\"")
-                    
-                } else if derivation.contains("49") {
-                    
-                    self.executeNodeCommand(method: .getnewaddress,
-                                            param: "\"\", \"p2sh-segwit\"")
+                    self.filterDerivation(derivation: derivation)
                     
                 }
                 
@@ -183,8 +174,26 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
             
         }
         
-//        self.executeNodeCommand(method: .getnewaddress,
-//                                   param: params)
+    }
+    
+    func getMsigAddress() {
+        
+        let keyFetcher = KeyFetcher()
+        keyFetcher.musigAddress { (address, error) in
+            
+            if !error {
+                
+                self.removeLoader()
+                self.addressString = address!
+                self.showAddress(address: address!)
+                
+            } else {
+                
+                displayAlert(viewController: self, isError: true, message: "error getting musig address")
+                
+            }
+            
+        }
         
     }
     
@@ -236,7 +245,7 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
                 
             }) { _ in
                 
-                self.addressOutlet.text = self.addressString
+                self.addressOutlet.text = address
                 self.addCopiedLabel()
                 
             }

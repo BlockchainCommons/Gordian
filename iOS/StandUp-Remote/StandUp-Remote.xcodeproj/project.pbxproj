@@ -11,6 +11,12 @@
 		73B4E617637C31373B9CDF47 /* Pods_StandUp_Remote_StandUp_RemoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCB567D1BC95EA24E2A7C67 /* Pods_StandUp_Remote_StandUp_RemoteUITests.framework */; };
 		B6BB24DE939A1A5D070F4A00 /* Pods_StandUp_Remote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14DA7EEDB18BC14C39F6A2D6 /* Pods_StandUp_Remote.framework */; };
 		D0083FA923CC90B30055FC3F /* ImportQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0083FA823CC90B30055FC3F /* ImportQRViewController.swift */; };
+		D01398D723CE3BFB006E4C06 /* CreateMultisigWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01398D623CE3BFB006E4C06 /* CreateMultisigWallet.swift */; };
+		D01398D923CE5F89006E4C06 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01398D823CE5F89006E4C06 /* TemplateViewController.swift */; };
+		D01398DD23CF29A0006E4C06 /* CreateMultiSigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01398DC23CF29A0006E4C06 /* CreateMultiSigViewController.swift */; };
+		D01398DF23CF2F9B006E4C06 /* MultiSigDescriptorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01398DE23CF2F9B006E4C06 /* MultiSigDescriptorViewController.swift */; };
+		D01398E123CF31F5006E4C06 /* RecoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01398E023CF31F5006E4C06 /* RecoveryViewController.swift */; };
+		D01398E323D1B4C3006E4C06 /* SignMultiSig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01398E223D1B4C3006E4C06 /* SignMultiSig.swift */; };
 		D017ADA623BFC89F004DBB25 /* VerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017ADA523BFC89F004DBB25 /* VerifyViewController.swift */; };
 		D059156623BB5FEC00577DB6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D059156423BB5FEC00577DB6 /* LICENSE */; };
 		D059156723BB5FEC00577DB6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D059156523BB5FEC00577DB6 /* README.md */; };
@@ -146,6 +152,12 @@
 		970521F5BA804DCE7CE11C12 /* Pods_StandUp_RemoteTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StandUp_RemoteTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A260AC352FDFDA3A543B2878 /* Pods-StandUp-Remote-StandUp-RemoteUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandUp-Remote-StandUp-RemoteUITests.release.xcconfig"; path = "Target Support Files/Pods-StandUp-Remote-StandUp-RemoteUITests/Pods-StandUp-Remote-StandUp-RemoteUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D0083FA823CC90B30055FC3F /* ImportQRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportQRViewController.swift; sourceTree = "<group>"; };
+		D01398D623CE3BFB006E4C06 /* CreateMultisigWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMultisigWallet.swift; sourceTree = "<group>"; };
+		D01398D823CE5F89006E4C06 /* TemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
+		D01398DC23CF29A0006E4C06 /* CreateMultiSigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMultiSigViewController.swift; sourceTree = "<group>"; };
+		D01398DE23CF2F9B006E4C06 /* MultiSigDescriptorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSigDescriptorViewController.swift; sourceTree = "<group>"; };
+		D01398E023CF31F5006E4C06 /* RecoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryViewController.swift; sourceTree = "<group>"; };
+		D01398E223D1B4C3006E4C06 /* SignMultiSig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMultiSig.swift; sourceTree = "<group>"; };
 		D017ADA523BFC89F004DBB25 /* VerifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyViewController.swift; sourceTree = "<group>"; };
 		D059156423BB5FEC00577DB6 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D059156523BB5FEC00577DB6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -288,6 +300,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D01398DA23CF2864006E4C06 /* Seed */ = {
+			isa = PBXGroup;
+			children = (
+				D0083FA823CC90B30055FC3F /* ImportQRViewController.swift */,
+				D09C1FCA23BA489400566DF8 /* SeedViewController.swift */,
+				D0ACE48F23C4908800EF6684 /* ImportSeedViewController.swift */,
+				D0ACE49123C49A8200EF6684 /* ImportSeedMenuViewController.swift */,
+			);
+			path = Seed;
+			sourceTree = "<group>";
+		};
+		D01398DB23CF2887006E4C06 /* Wallets */ = {
+			isa = PBXGroup;
+			children = (
+				D085830523C8ED60009ED61C /* WalletsViewController.swift */,
+				D0C2D9E223CDCA3400D5DD2A /* WalletInfoViewController.swift */,
+				D01398D823CE5F89006E4C06 /* TemplateViewController.swift */,
+				D01398DC23CF29A0006E4C06 /* CreateMultiSigViewController.swift */,
+				D01398DE23CF2F9B006E4C06 /* MultiSigDescriptorViewController.swift */,
+				D01398E023CF31F5006E4C06 /* RecoveryViewController.swift */,
+			);
+			path = Wallets;
+			sourceTree = "<group>";
+		};
 		D09C1F7423BA1F8700566DF8 = {
 			isa = PBXGroup;
 			children = (
@@ -387,17 +423,13 @@
 		D09C1FC923BA489400566DF8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				D09C1FCA23BA489400566DF8 /* SeedViewController.swift */,
+				D01398DA23CF2864006E4C06 /* Seed */,
 				D09C1FCB23BA489400566DF8 /* QRViewController.swift */,
 				D09C1FCC23BA489400566DF8 /* SettingsViewController.swift */,
 				D09C1FCD23BA489400566DF8 /* SecurityCenterViewController.swift */,
-				D0ACE48F23C4908800EF6684 /* ImportSeedViewController.swift */,
-				D0ACE49123C49A8200EF6684 /* ImportSeedMenuViewController.swift */,
 				D0ACE49323C4AB3C00EF6684 /* DerivationViewController.swift */,
 				D0ACE49523C4B0BF00EF6684 /* VerifyKeysViewController.swift */,
-				D085830523C8ED60009ED61C /* WalletsViewController.swift */,
-				D0083FA823CC90B30055FC3F /* ImportQRViewController.swift */,
-				D0C2D9E223CDCA3400D5DD2A /* WalletInfoViewController.swift */,
+				D01398DB23CF2887006E4C06 /* Wallets */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -509,6 +541,8 @@
 				D09C1FEA23BA489400566DF8 /* WalletCreator.swift */,
 				D09C1FEB23BA489400566DF8 /* GetSmartFee.swift */,
 				D0BE779823C7701300DC51E1 /* WalletSaver.swift */,
+				D01398D623CE3BFB006E4C06 /* CreateMultisigWallet.swift */,
+				D01398E223D1B4C3006E4C06 /* SignMultiSig.swift */,
 			);
 			path = "Wallet Logic";
 			sourceTree = "<group>";
@@ -941,11 +975,13 @@
 				D09C202723BA489500566DF8 /* StringExtension.swift in Sources */,
 				D09C1F8B23BA1F8700566DF8 /* StandUp_Remote.xcdatamodeld in Sources */,
 				D09C204823BA489500566DF8 /* QuickConnect.swift in Sources */,
+				D01398E123CF31F5006E4C06 /* RecoveryViewController.swift in Sources */,
 				D09C205823BA489500566DF8 /* ErrorView.swift in Sources */,
 				D09C1F8123BA1F8700566DF8 /* AppDelegate.swift in Sources */,
 				D09C204223BA489500566DF8 /* CoreDataService.swift in Sources */,
 				D09C205623BA489500566DF8 /* KeyPad.swift in Sources */,
 				D09C205923BA489500566DF8 /* RawDisplayer.swift in Sources */,
+				D01398D723CE3BFB006E4C06 /* CreateMultisigWallet.swift in Sources */,
 				D09C203923BA489500566DF8 /* LogInViewController.swift in Sources */,
 				D0ACE49623C4B0BF00EF6684 /* VerifyKeysViewController.swift in Sources */,
 				D09C204B23BA489500566DF8 /* Encryption.swift in Sources */,
@@ -971,8 +1007,10 @@
 				D09C203C23BA489500566DF8 /* Send.swift in Sources */,
 				D09C203E23BA489500566DF8 /* WalletCreator.swift in Sources */,
 				D09C204323BA489500566DF8 /* FirstTime.swift in Sources */,
+				D01398D923CE5F89006E4C06 /* TemplateViewController.swift in Sources */,
 				D09C205023BA489500566DF8 /* NodeStruct.swift in Sources */,
 				D0ACE49023C4908800EF6684 /* ImportSeedViewController.swift in Sources */,
+				D01398E323D1B4C3006E4C06 /* SignMultiSig.swift in Sources */,
 				D0BE779723C744E800DC51E1 /* WalletStruct.swift in Sources */,
 				D0BE779923C7701300DC51E1 /* WalletSaver.swift in Sources */,
 				D0ACE49223C49A8200EF6684 /* ImportSeedMenuViewController.swift in Sources */,
@@ -984,6 +1022,8 @@
 				D09C205423BA489500566DF8 /* QRGenerator.swift in Sources */,
 				D017ADA623BFC89F004DBB25 /* VerifyViewController.swift in Sources */,
 				D0083FA923CC90B30055FC3F /* ImportQRViewController.swift in Sources */,
+				D01398DD23CF29A0006E4C06 /* CreateMultiSigViewController.swift in Sources */,
+				D01398DF23CF2F9B006E4C06 /* MultiSigDescriptorViewController.swift in Sources */,
 				D09C203623BA489500566DF8 /* ScannerViewController.swift in Sources */,
 				D09C204D23BA489500566DF8 /* AddressParser.swift in Sources */,
 				D09C204123BA489500566DF8 /* Reducer.swift in Sources */,

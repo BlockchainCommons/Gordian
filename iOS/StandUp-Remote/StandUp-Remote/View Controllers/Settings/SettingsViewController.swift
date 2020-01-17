@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UINavigationControllerDelegate {
     
     let ud = UserDefaults.standard
     var seed = ""
@@ -16,18 +16,67 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     var miningFeeText = ""
     var walletName = ""
     let backgroundview = UIView()
+    var initialLoad = Bool()
     @IBOutlet var settingsTable: UITableView!
     @IBOutlet var switchOutlet: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.delegate = self
         backgroundview.backgroundColor = .black
         backgroundview.frame = settingsTable.frame
         view.addSubview(backgroundview)
         
         tabBarController!.delegate = self
         settingsTable.delegate = self
+        initialLoad = true
+        load()
+        
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if !initialLoad {
+            
+            initialLoad = false
+            load()
+            
+        }
+        
+    }
+    
+    func load() {
+        
+        self.checkDefault()
+                
+        getActiveWallet { (wallet) in
+            
+            if wallet != nil {
+                
+                self.derivation = wallet!.derivation
+                
+                DispatchQueue.main.async {
+                    self.settingsTable.reloadData()
+                }
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    
+                    self.backgroundview.alpha = 0
+                    
+                }) { (_) in
+                    
+                    self.backgroundview.removeFromSuperview()
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    func checkDefault() {
         
         if ud.object(forKey: "basic") != nil {
             
@@ -55,22 +104,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 self.switchOutlet.selectedSegmentIndex = 0
                 
             }
-            
-        }
-        
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        
-        settingsTable.reloadData()
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            
-            self.backgroundview.alpha = 0
-            
-        }) { (_) in
-            
-            self.backgroundview.removeFromSuperview()
             
         }
         
@@ -170,7 +203,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func setFee(_ sender: UISlider) {
         
-        var section = 7
+        var section = 8
         
         if switchOutlet.selectedSegmentIndex == 0 {
             
@@ -212,7 +245,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             case 2:
                 
                 thumbnail.image = UIImage(systemName: "info.circle")
-                label.text = "Set Derivation Scheme"
+                label.text = self.derivation
                 return settingsCell
                 
             case 3:
@@ -228,18 +261,24 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 return settingsCell
                 
             case 5:
+            
+                thumbnail.image = UIImage(systemName: "rectangle.stack")
+                label.text = "Wallet Templates"
+                return settingsCell
+                
+            case 6:
                 
                 thumbnail.image = UIImage(systemName: "checkmark.seal")
                 label.text = "Verify"
                 return settingsCell
                 
-            case 6:
+            case 7:
                 
                 thumbnail.image = UIImage(systemName: "lock")
                 label.text = "Export Authentication Public Key"
                 return settingsCell
                 
-            case 7:
+            case 8:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "miningFeeCell", for: indexPath)
                 let label = cell.viewWithTag(1) as! UILabel
@@ -343,7 +382,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         if switchOutlet.selectedSegmentIndex == 1 {
             
-            return 8
+            return 9
             
         } else {
             
@@ -367,9 +406,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             case 0: return "Seed"
             case 2: return "Derivation"
             case 3: return "Wallet Manager"
-            case 5: return "Verify Keys"
-            case 6: return "Tor V3 Authentication"
-            case 7: return "Mining Fee"
+            case 6: return "Verify Keys"
+            case 7: return "Tor V3 Authentication"
+            case 8: return "Mining Fee"
             default: return ""
             }
             
@@ -404,7 +443,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             
             switch section {
                 
-            case 0, 3:
+            case 0, 3, 4:
                 
                 return 10
                 
@@ -440,7 +479,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             
             return 50
             
-        case 1, 4:
+        case 1, 4, 5:
             
             if switchOutlet.selectedSegmentIndex == 0 {
                 
@@ -517,9 +556,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 
             case 5:
                 
-                verifyKeys()
+                walletTemplates()
                 
             case 6:
+                
+                verifyKeys()
+                
+            case 7:
                 
                 goToAuth()
                 
@@ -528,6 +571,16 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 break
                 
             }
+            
+        }
+        
+    }
+    
+    func walletTemplates() {
+        
+        DispatchQueue.main.async {
+            
+            self.performSegue(withIdentifier: "templates", sender: self)
             
         }
         
@@ -684,7 +737,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             if let vc = segue.destination as? SeedViewController {
                 
                 vc.seed = self.seed
-                //vc.derivation = self.derivation
+                
             }
             
         case "seeKeys":

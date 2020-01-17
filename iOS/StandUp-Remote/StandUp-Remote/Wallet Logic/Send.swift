@@ -30,6 +30,28 @@ class Send {
             
             var privkeyarray = [String]()
             
+            func signMultiSig() {
+                
+                let multiSigSigner = SignMultiSig()
+                multiSigSigner.sign(tx: unsignedRawTx, privateKeys: privkeyarray) { (signedTx) in
+                    
+                    if signedTx != nil {
+                        
+                        self.signedRawTx = signedTx!
+                        completion()
+                        
+                    } else {
+                        
+                        self.errorBool = true
+                        self.errorDescription = reducer.errorDescription
+                        completion()
+                        
+                    }
+                    
+                }
+                
+            }
+            
             func sign() {
                 print("sign")
                 
@@ -106,7 +128,23 @@ class Send {
                             if i == self.indexarray.count - 1 {
                                 
                                 // get the unsigned raw transaction and sign it
-                                sign()
+                                getActiveWallet { (wallet) in
+                                    
+                                    if wallet != nil {
+                                        
+                                        if wallet!.type == "MULTI" {
+                                            
+                                            signMultiSig()
+                                            
+                                        } else {
+                                            
+                                            sign()
+                                            
+                                        }
+                                        
+                                    }
+                                    
+                                }
                                 
                             }
                             
@@ -148,8 +186,6 @@ class Send {
 
                         let result = reducer.dictToReturn
                         unsignedRawTx = result["hex"] as! String
-                        //completion()
-                        
                         executeNodeCommand(method: .converttopsbt, param: "\"\(unsignedRawTx)\"")
 
                     case .createrawtransaction:
@@ -158,8 +194,7 @@ class Send {
 
                         let param = "\"\(unsignedRawTx)\", { \"includeWatching\":true, \"subtractFeeFromOutputs\":[], \"replaceable\": true, \"conf_target\": \(numberOfBlocks) }"
 
-                        executeNodeCommand(method: .fundrawtransaction,
-                                           param: param)
+                        executeNodeCommand(method: .fundrawtransaction, param: param)
                         
                     case .walletcreatefundedpsbt:
                         

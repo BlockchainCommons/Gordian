@@ -249,8 +249,6 @@ class WalletCreator {
                     if !error {
                         
                         var param = ""
-                        //let ud = UserDefaults.standard
-                        //let derivation = ud.object(forKey: "derivation") as! String
                         
                         switch wallet!.derivation {
                             
@@ -272,7 +270,6 @@ class WalletCreator {
                             
                         }
                         
-                        //let param = "\"wpkh(\(xpub!)/*)\""
                         executeNodeCommand(method: .getdescriptorinfo, param: param)
                         
                     } else {

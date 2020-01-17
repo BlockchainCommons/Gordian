@@ -216,6 +216,57 @@ class KeyFetcher {
         
     }
     
+    func musigAddress(completion: @escaping ((address: String?, error: Bool)) -> Void) {
+        
+        getActiveWallet { (wallet) in
+            
+            if wallet != nil {
+                
+                let reducer = Reducer()
+                let index = wallet!.index + 1
+                let param = "\"\(wallet!.descriptor)\", [\(index),\(index)]"
+                
+                reducer.makeCommand(command: .deriveaddresses, param: param) {
+                    
+                    if !reducer.errorBool {
+                        
+                        self.updateIndex(wallet: wallet!)
+                        let address = reducer.arrayToReturn[0] as! String
+                        completion((address,false))
+                        
+                    } else {
+                        
+                        print("error deriving addresses: \(reducer.errorDescription)")
+                        completion((nil,true))
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    private func updateIndex(wallet: WalletStruct) {
+        
+        let cd = CoreDataService()
+        cd.updateEntity(id: wallet.id, keyToUpdate: "index", newValue: wallet.index + 1, entityName: .wallets) {
+            
+            if !cd.errorBool {
+                
+                
+            } else {
+                
+                print("error updating index: \(cd.errorDescription)")
+                
+            }
+            
+        }
+        
+    }
+    
     private func network(path: String) -> Network {
         
         var network:Network!

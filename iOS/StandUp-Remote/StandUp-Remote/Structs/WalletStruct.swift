@@ -18,6 +18,9 @@ public struct WalletStruct: CustomStringConvertible {
     let seed:Data
     let name:String
     let type:String
+    let keys:String
+    let descriptor:String
+    let index:Int
     
     init(dictionary: [String: Any]) {
         
@@ -28,7 +31,10 @@ public struct WalletStruct: CustomStringConvertible {
         self.isActive = dictionary["isActive"] as? Bool ?? false
         self.name = dictionary["name"] as? String ?? ""
         self.seed = dictionary["seed"] as? Data ?? "no seed".data(using: .utf8)!
-        self.type = dictionary["type"] as? String ?? "default"
+        self.type = dictionary["type"] as? String ?? "DEFAULT"
+        self.keys = dictionary["keys"] as? String ?? ""
+        self.descriptor = dictionary["descriptor"] as? String ?? ""
+        self.index = dictionary["index"] as? Int ?? 0
         
     }
     

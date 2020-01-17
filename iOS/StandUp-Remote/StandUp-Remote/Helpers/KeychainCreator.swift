@@ -30,7 +30,6 @@ class KeychainCreator {
                     words = words.replacingOccurrences(of: ",", with: "")
                     words = words.replacingOccurrences(of: "[", with: "")
                     words = words.replacingOccurrences(of: "]", with: "")
-                    saveKeyBirthday()
                     completion((words,false))
                     
                 } else {

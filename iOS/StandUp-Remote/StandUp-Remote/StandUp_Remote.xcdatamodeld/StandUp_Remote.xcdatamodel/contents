@@ -15,15 +15,18 @@
     <entity name="Wallets" representedClassName="Wallets" syncable="YES" codeGenerationType="class">
         <attribute name="birthdate" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="derivation" optional="YES" attributeType="String"/>
+        <attribute name="descriptor" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="identity" optional="YES" attributeType="Binary"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="seed" optional="YES" attributeType="Binary"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="Nodes" positionX="-63" positionY="-18" width="128" height="148"/>
         <element name="Seed" positionX="-54" positionY="-9" width="128" height="58"/>
-        <element name="Wallets" positionX="-45" positionY="45" width="128" height="148"/>
+        <element name="Wallets" positionX="-45" positionY="45" width="128" height="193"/>
     </elements>
 </model>
