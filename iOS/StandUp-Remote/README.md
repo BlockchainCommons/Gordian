@@ -21,7 +21,7 @@ We have a public link available for beta testing [here at this link](https://tes
   - [x] BIP32
   - [x] BIP21
   - [x] Custom mining fee
-  - [ ] Multisig
+  - [x] Multisig
   - [ ] Cold storage
   - [x] Multiwalletrpc
   
