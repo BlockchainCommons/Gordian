@@ -18,6 +18,7 @@ class SignMultiSig {
     var redeemScript = ""
     var scriptSigHex = ""
     var signedByNodeTx = ""
+    var privateKeys = [String]()
     
     func sign(tx: String, privateKeys: [String], completion: @escaping ((String?)) -> Void) {
         
@@ -34,13 +35,11 @@ class SignMultiSig {
                     case .signrawtransactionwithwallet:
                         
                         let dict = reducer.dictToReturn
-                        print("result = \(dict)")
                         let complete = dict["complete"] as! Bool
                         
                         if complete {
                             
                             let hex = dict["hex"] as! String
-                            //self.showRaw(raw: hex)
                             signedByNodeTx = hex
                             executeNodeCommand(method: .decoderawtransaction, param: "\"\(signedByNodeTx)\"")
                             
@@ -62,9 +61,6 @@ class SignMultiSig {
                             
                             if let hex = dict["hex"] as? String {
                                 
-                                // MARK: Complete here
-                                // not enough signatures
-                                //completion(hex)
                                 signedByNodeTx = hex
                                 executeNodeCommand(method: .decoderawtransaction, param: "\"\(signedByNodeTx)\"")
                                 
@@ -74,7 +70,6 @@ class SignMultiSig {
                                 completion(nil)
                                 
                             }
-                            
                             
                         }
                         
@@ -119,25 +114,14 @@ class SignMultiSig {
                         if let script = result["hex"] as? String {
                             
                             isWitness = result["iswitness"] as! Bool
-                            // redeem script found here
                             redeemScript = script
-                            // sign transaction here?
-                            
-                            //let unsigned = unsignedTextView.text!
-                            //let redeemScript = scriptTextView.text!
-                            //let privateKey = privateKeyField.text!
-                            
                             var param = ""
                             
                             if !isWitness {
                                 
-                                //param = "\"\(tx)\", ''[\"\(privateKey)\"]'', ''[{ \"txid\": \"\(self.prevTxID)\", \"vout\": \(vout), \"scriptPubKey\": \"\(scriptSigHex)\", \"redeemScript\": \"\(redeemScript)\", \"amount\": \(amount) }]''"
-                                
                                 param = "\"\(signedByNodeTx)\", ''\(privateKeys)'', ''[{ \"txid\": \"\(self.prevTxID)\", \"vout\": \(vout), \"scriptPubKey\": \"\(scriptSigHex)\", \"redeemScript\": \"\(redeemScript)\", \"amount\": \(amount) }]''"
                                 
                             } else {
-                                
-                                //param = "\"\(tx)\", ''[\"\(privateKey)\"]'', ''[{ \"txid\": \"\(self.prevTxID)\", \"vout\": \(vout), \"scriptPubKey\": \"\(scriptSigHex)\", \"witnessScript\": \"\(redeemScript)\", \"amount\": \(amount) }]''"
                                 
                                 param = "\"\(signedByNodeTx)\", ''\(privateKeys)'', ''[{ \"txid\": \"\(self.prevTxID)\", \"vout\": \(vout), \"scriptPubKey\": \"\(scriptSigHex)\", \"witnessScript\": \"\(redeemScript)\", \"amount\": \(amount) }]''"
                                 
@@ -168,7 +152,6 @@ class SignMultiSig {
                             
                             DispatchQueue.main.async {
                                 
-                                
                                 let errors = dict["errors"] as! NSArray
                                 var errorStrings = [String]()
                                 
@@ -185,8 +168,6 @@ class SignMultiSig {
                                 
                                 if let hex = dict["hex"] as? String {
                                     
-                                    // MARK: Complete here
-                                    // not enough signatures
                                     completion(hex)
                                     
                                 } else {
@@ -220,7 +201,6 @@ class SignMultiSig {
             
         }
         
-        //executeNodeCommand(method: .decoderawtransaction, param: "\"\(tx)\"")
         executeNodeCommand(method: .signrawtransactionwithwallet, param: "\"\(tx)\"")
         
     }

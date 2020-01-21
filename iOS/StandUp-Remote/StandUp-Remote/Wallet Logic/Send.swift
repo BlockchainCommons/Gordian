@@ -26,34 +26,10 @@ class Send {
         let reducer = Reducer()
         
         func getAddressInfo(addresses: [String]) {
-            print("getAddressInfo: \(addresses)")
             
             var privkeyarray = [String]()
             
-            func signMultiSig() {
-                
-                let multiSigSigner = SignMultiSig()
-                multiSigSigner.sign(tx: unsignedRawTx, privateKeys: privkeyarray) { (signedTx) in
-                    
-                    if signedTx != nil {
-                        
-                        self.signedRawTx = signedTx!
-                        completion()
-                        
-                    } else {
-                        
-                        self.errorBool = true
-                        self.errorDescription = reducer.errorDescription
-                        completion()
-                        
-                    }
-                    
-                }
-                
-            }
-            
             func sign() {
-                print("sign")
                 
                 let param = "\"\(unsignedRawTx)\", \(privkeyarray)"
                 reducer.makeCommand(command: .signrawtransactionwithkey, param: param) {
@@ -128,23 +104,7 @@ class Send {
                             if i == self.indexarray.count - 1 {
                                 
                                 // get the unsigned raw transaction and sign it
-                                getActiveWallet { (wallet) in
-                                    
-                                    if wallet != nil {
-                                        
-                                        if wallet!.type == "MULTI" {
-                                            
-                                            signMultiSig()
-                                            
-                                        } else {
-                                            
-                                            sign()
-                                            
-                                        }
-                                        
-                                    }
-                                    
-                                }
+                                sign()
                                 
                             }
                             

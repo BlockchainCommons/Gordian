@@ -605,6 +605,65 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate, UITableV
     func getRawTx() {
         print("getRawTx")
         
+        getActiveWallet { (wallet) in
+            
+            if wallet != nil {
+                
+                if wallet!.type == "MULTI" {
+                    
+                    self.createMultiSig()
+                    
+                } else {
+                    
+                    self.createSingleSig()
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    func createMultiSig() {
+        
+        var amount = Double()
+        for output in outputArray {
+            
+            let outputAmount = Double(output["amount"]!)!
+            amount += outputAmount
+            
+        }
+        
+        let multiSigTxBuilder = MultiSigTxBuilder()
+        multiSigTxBuilder.build(amount: amount, outputs: outputs) { (signedTx) in
+            
+            if signedTx != nil {
+                
+                self.confirm(raw: signedTx!)
+                
+            } else {
+                
+                DispatchQueue.main.async {
+                    
+                    self.outputsString = ""
+                    self.outputs.removeAll()
+                    self.creatingView.removeConnectingView()
+                    
+                    displayAlert(viewController: self,
+                                 isError: true,
+                                 message: "error creating multisig tx")
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    func createSingleSig() {
+        
         let rawTransaction = Send()
         rawTransaction.outputs = outputsString
         let ud = UserDefaults.standard

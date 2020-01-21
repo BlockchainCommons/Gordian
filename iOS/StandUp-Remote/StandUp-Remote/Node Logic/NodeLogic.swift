@@ -403,7 +403,7 @@ class NodeLogic {
     
     func parseTransactions(transactions: NSArray) {
         
-        var transactionArray = [Any]()
+        var transactionArray = [[String:Any]]()
         
         for item in transactions {
             
@@ -461,6 +461,8 @@ class NodeLogic {
                     
                 }
                 
+                
+                                
                 transactionArray.append(["address": address,
                                          "amount": amountString,
                                          "confirmations": confirmations,
@@ -475,7 +477,31 @@ class NodeLogic {
             
         }
         
-        arrayToReturn = transactionArray as! [[String:Any]]
+        for tx in transactionArray {
+            
+            let amount = Double(tx["amount"] as! String)!
+            let txID = tx["txID"] as! String
+            
+            for (i, transaction) in transactionArray.enumerated() {
+                
+                let amountToCompare = Double(transaction["amount"] as! String)!
+                
+                if amount == amountToCompare * -1 {
+                    
+                    if txID == (transaction["txID"] as! String) {
+                        
+                        // this is a change transaction from a HD multisig transaction, hiding it to avoid confusion
+                        transactionArray.remove(at: i)
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        arrayToReturn = transactionArray
         
     }
     

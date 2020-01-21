@@ -29,12 +29,10 @@ class SendUTXO {
     var errorDescription = ""
     
     func createRawTransaction(completion: @escaping () -> Void) {
-        print("addresses = \(addresses)")
         
         let reducer = Reducer()
         
         func getAddressInfo(addresses: [String]) {
-            print("getAddressInfo: \(addresses)")
             
             var privkeyarray = [String]()
             
@@ -47,7 +45,6 @@ class SendUTXO {
                         
                         let dict = reducer.dictToReturn
                         let complete = dict["complete"] as! Bool
-                        print("dict = \(dict)")
                         
                         if complete {
                             
@@ -69,13 +66,11 @@ class SendUTXO {
                     
                     self.index += 1
                     let result = reducer.dictToReturn
-                    print("result: \(result)")
                     
                     if let hdkeypath = result["hdkeypath"] as? String {
                         
                         let arr = hdkeypath.components(separatedBy: "/")
                         indexarray.append(arr[1])
-                        print("indexarray = \(indexarray)")
                         getAddressInfo(addresses: addresses)
                         
                     } else {
@@ -112,7 +107,6 @@ class SendUTXO {
                 print("loop finished")
                 // loop is finished get the private keys
                 let keyfetcher = KeyFetcher()
-                print("indexarray2 = \(indexarray)")
                 
                 for (i, keypathint) in indexarray.enumerated() {
                     
@@ -127,25 +121,16 @@ class SendUTXO {
                             if i == self.indexarray.count - 1 {
                                 
                                 // get the unsigned raw transaction and sign it
-                                print("privkeys = \(privkeyarray)")
-                                
-                                let multiSigSigner = SignMultiSig()
+                                //let multiSigSigner = SignMultiSig()
                                 getActiveWallet { (wallet) in
                                     
                                     if wallet != nil {
                                         
                                         if wallet!.type == "MULTI" {
                                             
-                                            multiSigSigner.sign(tx: self.unsignedRawTx, privateKeys: privkeyarray) { (signedTx) in
-
-                                                if signedTx != nil {
-
-                                                    print("signedTx = \(signedTx!)")
-
-
-                                                }
-
-                                            }
+                                            self.errorBool = true
+                                            self.errorDescription = "coin selection for multisig wallets still under development"
+                                            completion()
                                             
                                         } else {
                                             
@@ -156,9 +141,7 @@ class SendUTXO {
                                     }
                                     
                                 }
-                                
-                                //sign()
-                                
+                                                                
                             }
                             
                         } else {
@@ -188,7 +171,6 @@ class SendUTXO {
                     case .createrawtransaction:
                         
                         unsignedRawTx = reducer.stringToReturn
-                        //executeNodeCommand(method: .signrawtransactionwithwallet, param: "\"\(unsignedRawTx)\"")
                         getAddressInfo(addresses: addresses)
                         
                     default:
@@ -238,7 +220,7 @@ class SendUTXO {
             
         } else {
             
-            let receiver = "\"\(self.addressToPay)\":\(self.amount - 0.00000200)"
+            let receiver = "\"\(self.addressToPay)\":\(self.amount)"
             param = "''\(self.inputs)'', ''{\(receiver)}''"
             param = param.replacingOccurrences(of: "\"{", with: "{")
             param = param.replacingOccurrences(of: "}\"", with: "}")

@@ -249,6 +249,47 @@ class KeyFetcher {
         
     }
     
+    func musigChangeAddress(completion: @escaping ((address: String?, error: Bool)) -> Void) {
+        
+        getActiveWallet { (wallet) in
+            
+            if wallet != nil {
+                
+                let reducer = Reducer()
+                let index = wallet!.index + 1000
+                
+                if wallet!.index < 1000 {
+                    
+                    let param = "\"\(wallet!.descriptor)\", [\(index),\(index)]"
+                    
+                    reducer.makeCommand(command: .deriveaddresses, param: param) {
+                        
+                        if !reducer.errorBool {
+                            
+                            let address = reducer.arrayToReturn[0] as! String
+                            completion((address,false))
+                            
+                        } else {
+                            
+                            print("error deriving addresses: \(reducer.errorDescription)")
+                            completion((nil,true))
+                            
+                        }
+                        
+                    }
+                    
+                } else {
+                    
+                    print("error, need to import more keys")
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
     private func updateIndex(wallet: WalletStruct) {
         
         let cd = CoreDataService()

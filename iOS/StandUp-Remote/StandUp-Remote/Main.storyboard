@@ -336,28 +336,28 @@
                                     <outlet property="delegate" destination="XmP-lK-cua" id="wm7-vQ-AYN"/>
                                 </connections>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="6UG-cD-HAX">
+                                <rect key="frame" x="16" y="52" width="30" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="VCQ-tc-HD6"/>
+                                    <constraint firstAttribute="height" constant="37" id="vkX-ow-Grs"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StandUp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="psG-Xh-Agg">
-                                <rect key="frame" x="16" y="44" width="191.5" height="53"/>
+                                <rect key="frame" x="54" y="44" width="191.5" height="53"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="44"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="6UG-cD-HAX">
-                                <rect key="frame" x="313" y="48" width="46" height="45"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="VCQ-tc-HD6"/>
-                                    <constraint firstAttribute="height" constant="45" id="vkX-ow-Grs"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="psG-Xh-Agg" firstAttribute="top" secondItem="ioR-4d-qfe" secondAttribute="top" id="AXM-qn-iRu"/>
-                            <constraint firstItem="ioR-4d-qfe" firstAttribute="trailing" secondItem="6UG-cD-HAX" secondAttribute="trailing" constant="16" id="QiK-uX-5Wq"/>
+                            <constraint firstItem="6UG-cD-HAX" firstAttribute="leading" secondItem="ioR-4d-qfe" secondAttribute="leading" constant="16" id="Fza-By-w77"/>
                             <constraint firstItem="ioR-4d-qfe" firstAttribute="trailing" secondItem="WFU-Fl-Gfe" secondAttribute="trailing" id="bj2-pg-lic"/>
-                            <constraint firstItem="psG-Xh-Agg" firstAttribute="leading" secondItem="ioR-4d-qfe" secondAttribute="leading" constant="16" id="eLp-Qf-hiX"/>
                             <constraint firstItem="ioR-4d-qfe" firstAttribute="bottom" secondItem="WFU-Fl-Gfe" secondAttribute="bottom" id="gd4-rE-ZJc"/>
                             <constraint firstItem="psG-Xh-Agg" firstAttribute="centerY" secondItem="6UG-cD-HAX" secondAttribute="centerY" id="mgL-Q8-chY"/>
+                            <constraint firstItem="psG-Xh-Agg" firstAttribute="leading" secondItem="6UG-cD-HAX" secondAttribute="trailing" constant="8" id="ol3-6C-g4y"/>
                             <constraint firstItem="WFU-Fl-Gfe" firstAttribute="top" secondItem="psG-Xh-Agg" secondAttribute="bottom" constant="8" id="vtu-gy-rPM"/>
                             <constraint firstItem="WFU-Fl-Gfe" firstAttribute="leading" secondItem="ioR-4d-qfe" secondAttribute="leading" id="y2z-ak-hGg"/>
                         </constraints>
@@ -988,7 +988,7 @@
             </objects>
             <point key="canvasLocation" x="-1060" y="-508.69565217391306"/>
         </scene>
-        <!--v0.0.22-->
+        <!--v0.0.24-->
         <scene sceneID="Ajv-p7-tUm">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="AS8-ke-Yxh" customClass="SettingsViewController" customModule="StandUp_Remote" customModuleProvider="target" sceneMemberID="viewController">
@@ -1126,7 +1126,7 @@
                         <viewLayoutGuide key="safeArea" id="Cze-jj-bFe"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Settings" id="n34-O3-Fyo"/>
-                    <navigationItem key="navigationItem" title="v0.0.22" id="YNb-Gd-Hqq"/>
+                    <navigationItem key="navigationItem" title="v0.0.24" id="YNb-Gd-Hqq"/>
                     <connections>
                         <outlet property="settingsTable" destination="hcp-eG-lok" id="xPg-8r-KBs"/>
                         <outlet property="switchOutlet" destination="75e-5E-gzP" id="xTV-Xe-NtR"/>
@@ -1154,8 +1154,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="NOC-aP-rCn">
-                                <rect key="frame" x="0.0" y="110" width="375" height="623"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="NOC-aP-rCn">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="separatorColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -1170,7 +1170,7 @@
                                                     <rect key="frame" x="15" y="11" width="315" height="114"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
@@ -1198,6 +1198,11 @@
                                     <outlet property="delegate" destination="lq5-Pd-gqW" id="z0d-FI-zxt"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BMV-eT-vJd" customClass="CustomButton" customModule="StandUp_Remote" customModuleProvider="target">
+                                <rect key="frame" x="67" y="453" width="189" height="143"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.050735630099999998" green="0.058785595000000003" blue="0.062973126769999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -1210,6 +1215,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Seed Export" id="7T2-eh-dsR"/>
                     <connections>
+                        <outlet property="customButtons" destination="BMV-eT-vJd" id="gcQ-mj-oPu"/>
                         <outlet property="tableView" destination="NOC-aP-rCn" id="EJQ-4i-ZGa"/>
                         <segue destination="aWn-Fx-ACR" kind="show" identifier="showQR" id="EvJ-Lj-YLy"/>
                     </connections>
@@ -2535,8 +2541,8 @@
         <image name="whiteCheck.png" width="2048" height="2048"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ckQ-WD-ole"/>
-        <segue reference="sHA-Gy-yk4"/>
+        <segue reference="qed-hl-jG5"/>
+        <segue reference="qbv-38-KBn"/>
         <segue reference="zL7-ti-xtY"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

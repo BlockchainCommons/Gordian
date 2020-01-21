@@ -181,7 +181,7 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func getKeys(mnemonic: BIP39Mnemonic) {
-        print("derivation = \(derivation)")
+        
         let path = BIP32Path(derivation)!
         let masterKey = HDKey((mnemonic.seedHex("")), network(path: derivation))!
         let account = try! masterKey.derive(path)
