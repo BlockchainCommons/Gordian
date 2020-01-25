@@ -20,6 +20,7 @@ class TorClient {
     private var authDirPath = ""
     private var torDirPath = ""
     var isRefreshing = false
+    var progress = Int()
     
     // Client status?
     private(set) var isOperational: Bool = false
@@ -186,11 +187,38 @@ class TorClient {
                     
                 }
                 
+                var progressObs: Any?
+                progressObs = self.controller?.addObserver(forStatusEvents: {
+                    (type: String, severity: String, action: String, arguments: [String : String]?) -> Bool in
+                    
+                    print("arguments = \(String(describing: arguments))")
+                    
+                    if arguments != nil {
+                        
+                        if arguments!["PROGRESS"] != nil {
+                            
+                            self.progress = Int(arguments!["PROGRESS"]!)!
+                            print("self.progress = \(self.progress)")
+                            
+                            if self.progress >= 100 {
+                                self.controller.removeObserver(progressObs)
+                            }
+                            
+                            return true
+                            
+                        }
+                        
+                    }
+                    
+                    return false
+                    
+                })
+                
                 var observer: Any? = nil
                 observer = self.controller?.addObserver(forCircuitEstablished: { established in
                     
                     if established {
-                        
+                                            
                         print("observer added")
                         self.controller?.getSessionConfiguration() { sessionConfig in
                             print("getsessionconfig")
@@ -218,7 +246,9 @@ class TorClient {
                         self.controller?.removeObserver(observer)
 
                     }
-                    
+                                            
+                        
+                                            
                 })
                 
             }

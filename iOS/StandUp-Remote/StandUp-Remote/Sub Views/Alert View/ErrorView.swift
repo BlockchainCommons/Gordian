@@ -14,7 +14,7 @@ class ErrorView: UIView {
     let errorLabel = UILabel()
     let impact = UIImpactFeedbackGenerator()
     let upSwipe = UISwipeGestureRecognizer()
-    let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffect.Style.dark))
+    let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
     @objc func handleSwipes(_ sender: UIGestureRecognizer) {
         
@@ -27,7 +27,7 @@ class ErrorView: UIView {
                                           width: self.backgroundView.frame.width,
                                           height: 61)
             
-            self.errorLabel.frame = CGRect(x: 0,
+            self.errorLabel.frame = CGRect(x: 16,
                                            y: -61,
                                            width: self.backgroundView.frame.width,
                                            height: 61)
@@ -68,26 +68,23 @@ class ErrorView: UIView {
         
         if isError {
             
-            //backgroundView.backgroundColor = UIColor.red
-            errorLabel.textColor = UIColor.red
+            errorLabel.textColor = .red
             
         } else {
             
-            //backgroundView.backgroundColor = UIColor(#colorLiteral(red: 0.007097487926, green: 0.6329314721, blue: 0, alpha: 1))
-            errorLabel.textColor = UIColor.green
+            errorLabel.textColor = .green
             
         }
         
-        errorLabel.frame = CGRect(x: 5,
+        errorLabel.frame = CGRect(x: 16,
                                   y: -61,
-                                  width: width - 10,
+                                  width: width - 32,
                                   height: 61)
         
-        //errorLabel.font = UIFont.init(name: "System-Regular", size: 10)
         errorLabel.font = UIFont.systemFont(ofSize: 12)
         errorLabel.text = text.lowercased()
         errorLabel.numberOfLines = 0
-        errorLabel.textAlignment = .center
+        errorLabel.textAlignment = .left
         backgroundView.contentView.addSubview(errorLabel)
         vc.view.addSubview(backgroundView)
         let imageView = UIImageView()
@@ -109,7 +106,7 @@ class ErrorView: UIView {
                                                    width: width,
                                                    height: 61)
                 
-                self.errorLabel.frame = CGRect(x: 0,
+                self.errorLabel.frame = CGRect(x: 16,
                                                y: 0,
                                                width: width,
                                                height: 61)
@@ -123,7 +120,7 @@ class ErrorView: UIView {
                                                    width: width,
                                                    height: 61)
                 
-                self.errorLabel.frame = CGRect(x: 0,
+                self.errorLabel.frame = CGRect(x: 16,
                                                y: 0,
                                                width: width,
                                                height: 61)
@@ -156,7 +153,7 @@ class ErrorView: UIView {
                                                        width: width,
                                                        height: 61)
                     
-                    self.errorLabel.frame = CGRect(x: 0,
+                    self.errorLabel.frame = CGRect(x: 16,
                                                    y: -61,
                                                    width: width,
                                                    height: 61)

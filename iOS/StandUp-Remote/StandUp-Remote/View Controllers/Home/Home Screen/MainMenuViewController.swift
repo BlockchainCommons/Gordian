@@ -11,6 +11,11 @@ import KeychainSwift
 
 class MainMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UINavigationControllerDelegate {
     
+    let progressView = UIProgressView(progressViewStyle: .bar)
+    var statusLabel = UILabel()
+    var timer:Timer!
+    var wallet:WalletStruct!
+    var node:NodeStruct!
     let backView = UIView()
     let ud = UserDefaults.standard
     var hashrateString = String()
@@ -39,6 +44,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     var coldBalance = ""
     var unconfirmedBalance = ""
     var network = ""
+    var p2pOnionAddress = ""
     var sectionZeroLoaded = Bool()
     var sectionOneLoaded = Bool()
     let spinner = UIActivityIndicatorView(style: .medium)
@@ -55,8 +61,9 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
 //        let keychain = KeychainSwift()
 //        keychain.clear()
         
-        tabBarController?.delegate = self
         mainMenu.delegate = self
+        tabBarController?.delegate = self
+        navigationController?.delegate = self
         mainMenu.alpha = 0
         mainMenu.tableFooterView = UIView(frame: .zero)
         initialLoad = true
@@ -64,12 +71,36 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         sectionZeroLoaded = false
         sectionOneLoaded = false
         firstTimeHere()
+        setTitleView()
         addNavBarSpinner()
         configureRefresher()
         setFeeTarget()
         showUnlockScreen()
+        configureLaunchScreen()
         addlaunchScreen()
         setExistingWallet()
+        
+    }
+    
+    @IBAction func goToWallets(_ sender: Any) {
+        
+        DispatchQueue.main.async {
+            
+            self.performSegue(withIdentifier: "goToWallets", sender: self)
+            
+        }
+        
+    }
+    
+    
+    func setTitleView() {
+        
+        let imageView = UIImageView(image: UIImage(named: "1024.png"))
+        imageView.contentMode = .scaleAspectFit
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        imageView.frame = titleView.bounds
+        titleView.addSubview(imageView)
+        self.navigationItem.titleView = titleView
         
     }
     
@@ -125,9 +156,22 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             
             if self.nodes.count > 0 {
                 
+                let enc = Encryption()
+                enc.getNode { (node, error) in
+                    
+                    if !error {
+                        
+                        self.node = node!
+                        
+                    }
+                    
+                }
+                
                 getActiveWallet { (wallet) in
                     
                     if wallet != nil {
+                        
+                        self.wallet = wallet!
                         
                         if self.initialLoad || self.walletChanged(walletName: wallet!.name) {
                             
@@ -298,7 +342,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             
         } else {
             
-            return 3
+            return 4
             
         }
         
@@ -327,16 +371,74 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             
             if sectionZeroLoaded {
                 
-                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-                let coldBalanceLabel = cell.viewWithTag(2) as! UILabel
+                let cell = tableView.dequeueReusableCell(withIdentifier: "walletCell", for: indexPath)
+                cell.selectionStyle = .none
                 
+                let walletNameLabel = cell.viewWithTag(1) as! UILabel
+                let coldBalanceLabel = cell.viewWithTag(2) as! UILabel
+                let walletTypeLabel = cell.viewWithTag(4) as! UILabel
+                let derivationPathLabel = cell.viewWithTag(5) as! UILabel
+                let backUpSeedLabel = cell.viewWithTag(6) as! UILabel
+                let seedOnNodeLabel = cell.viewWithTag(7) as! UILabel
+                let seedOnDeviceLabel = cell.viewWithTag(8) as! UILabel
+                let seedOnNodeImage = cell.viewWithTag(9) as! UIImageView
+                let seedOnDeviceImage = cell.viewWithTag(10) as! UIImageView
+                                
                 if coldBalance == "" {
                     
                     self.coldBalance = "0"
                     
                 }
                 
-                coldBalanceLabel.text = self.coldBalance
+                if network == "test" {
+                    
+                    coldBalanceLabel.textColor = .systemOrange
+                    
+                } else if network == "main" {
+                    
+                    coldBalanceLabel.textColor = .systemGreen
+                    
+                }
+                
+                coldBalanceLabel.text = self.coldBalance + " " + "BTC"
+                coldBalanceLabel.adjustsFontSizeToFitWidth = true
+                
+                if wallet.type == "MULTI" {
+                    
+                    walletTypeLabel.text = "2 of 3 multisig"
+                    backUpSeedLabel.text = "1 BIP39 seed backup"
+                    seedOnNodeLabel.text = "1 BIP39 seed on node"
+                    seedOnDeviceLabel.text = "1 BIP39 seed on device"
+                    seedOnNodeImage.alpha = 1
+                    seedOnDeviceImage.alpha = 1
+                    
+                } else if wallet.type == "DEFAULT" {
+                    
+                    walletTypeLabel.text = "single signature"
+                    backUpSeedLabel.text = "1 BIP39 seed on device"
+                    seedOnNodeLabel.text = ""
+                    seedOnDeviceLabel.text = ""
+                    seedOnNodeImage.alpha = 0
+                    seedOnDeviceImage.alpha = 0
+                    
+                }
+                
+                if wallet.derivation.contains("84") {
+                    
+                    derivationPathLabel.text = "BIP84"
+                    
+                } else if wallet.derivation.contains("44") {
+                    
+                    derivationPathLabel.text = "BIP44"
+                    
+                } else if wallet.derivation.contains("49") {
+                    
+                    derivationPathLabel.text = "BIP49"
+                    
+                }
+                
+                walletNameLabel.text = "\(wallet.name).dat"
+                
                 return cell
                 
             } else {
@@ -346,6 +448,49 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             }
             
         case 1:
+            
+            if sectionOneLoaded {
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "torCell", for: indexPath)
+                cell.selectionStyle = .none
+                let connectionStatusLabel = cell.viewWithTag(1) as! UILabel
+                //let authStatusLabel = cell.viewWithTag(2) as! UILabel
+                let p2pOnionLabel = cell.viewWithTag(3) as! UILabel
+                let onionVersionLabel = cell.viewWithTag(4) as! UILabel
+                
+                let onionAddress = (node.onionAddress.split(separator: "."))[0]
+                
+                if onionAddress.count == 16 {
+                    
+                    onionVersionLabel.text = "bitcoin core rpc hidden service version 2"
+                    
+                } else if onionAddress.count == 56 {
+                    
+                    onionVersionLabel.text = "bitcoin core rpc hidden service version 3"
+                    
+                }
+                
+                if TorClient.sharedInstance.isOperational {
+                    
+                    connectionStatusLabel.text = "connected"
+                    
+                } else {
+                    
+                    connectionStatusLabel.text = "disconnected"
+                    
+                }
+                
+                p2pOnionLabel.text = p2pOnionAddress
+                
+                return cell
+                
+            } else {
+                
+                return blankCell()
+                
+            }
+            
+        case 2:
             
             if sectionOneLoaded {
                 
@@ -366,6 +511,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 let difficultyLabel = cell.viewWithTag(12) as! UILabel
                 let sizeLabel = cell.viewWithTag(13) as! UILabel
                 let feeRate = cell.viewWithTag(14) as! UILabel
+                let isHot = cell.viewWithTag(15) as! UILabel
                 
                 network.layer.cornerRadius = 6
                 pruned.layer.cornerRadius = 6
@@ -380,11 +526,26 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 difficultyLabel.layer.cornerRadius = 6
                 sizeLabel.layer.cornerRadius = 6
                 feeRate.layer.cornerRadius = 6
+                isHot.layer.cornerRadius = 6
                 
                 sizeLabel.text = "\(self.size) size"
                 difficultyLabel.text = "\(self.difficulty) difficulty"
                 sync.text = "\(self.progress) synced"
                 feeRate.text = "\(self.feeRate) fee rate"
+                
+                isHot.textColor = .white
+                
+                if wallet.type == "DEFAULT" {
+                    
+                    isHot.backgroundColor = .systemBlue
+                    isHot.text = "node is cold"
+                    
+                } else if wallet.type == "MULTI" {
+                    
+                    isHot.backgroundColor = .systemYellow
+                    isHot.text = "node is warm"
+                    
+                }
                 
                 if torReachable {
                     
@@ -412,10 +573,13 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     if self.network == "main" {
                         
                         network.text = "mainnet"
+                        network.backgroundColor = .systemGreen
                         
                     } else if self.network == "test" {
                         
-                        network.text = "testnet"
+                        network.text = "⚠ testnet"
+                        network.backgroundColor = .systemOrange
+                        network.textColor = .white
                         
                     } else {
                         
@@ -462,7 +626,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 labelLabel.alpha = 1
                 dateLabel.alpha = 1
                 
-                let dict = self.transactionArray[indexPath.section - 2]
+                let dict = self.transactionArray[indexPath.section - 3]
                                 
                 confirmationsLabel.text = (dict["confirmations"] as! String) + " " + "confs"
                 let label = dict["label"] as? String
@@ -517,11 +681,13 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         
         var sectionString = ""
         switch section {
-        case 0: sectionString = "Balance"
-        case 1: sectionString = "Stats"
-        case 2: sectionString = "History"
+        case 0: sectionString = "Wallet Info"
+        case 1: sectionString = "Tor Status"
+        case 2: sectionString = "Bitcoin Core Status"
+        case 3: sectionString = "Transaction History"
         default: break}
         return sectionString
+        
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -542,7 +708,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             
             return 30
             
-        case 1, 2:
+        case 1, 2, 3:
             
             return 20
             
@@ -559,18 +725,30 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         switch indexPath.section {
             
         case 0:
-            
+                        
             if sectionZeroLoaded {
+
+                return 143
+
+            } else {
+
+                return 47
+
+            }
+            
+        case 1:
+            
+            if sectionOneLoaded {
                 
-                return 80
+                return 83
                 
             } else {
                 
                 return 47
                 
             }
-            
-        case 1:
+                        
+        case 2:
             
             if sectionOneLoaded {
                 
@@ -600,11 +778,11 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     
     func loadSectionZero() {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.removeLoadingView()
-        }
+        self.removeLoadingView()
+        self.addStatusLabel()
                 
         let nodeLogic = NodeLogic()
+        nodeLogic.wallet = wallet
         nodeLogic.walletDisabled = walletDisabled
         
         func completion() {
@@ -614,10 +792,9 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 self.removeLoadingView()
                 self.removeSpinner()
+                self.removeStatusLabel()
                 
-                displayAlert(viewController: self,
-                             isError: true,
-                             message: nodeLogic.errorDescription)
+                self.showAlert(title: "Error connecting to your node's hidden service", message: "\nError description: \(nodeLogic.errorDescription)\n\nRestarting Bitcoin Core and Tor might help.")
                 
             } else {
                 
@@ -648,7 +825,10 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     func loadSectionOne() {
         print("loadSectionOne")
         
+        statusLabel.text = "     Getting Bitcoin Core statistics..."
+        
         let nodeLogic = NodeLogic()
+        nodeLogic.wallet = wallet
         nodeLogic.walletDisabled = walletDisabled
         
         func completion() {
@@ -657,6 +837,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 self.removeLoadingView()
                 self.removeSpinner()
+                self.removeStatusLabel()
                 
                 displayAlert(viewController: self,
                              isError: true,
@@ -681,16 +862,18 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 hashrateString = str.hashrate
                 uptime = str.uptime
                 currentBlock = str.blockheight
+                p2pOnionAddress = str.p2pOnionAddress
                 sectionOneLoaded = true
                 
                 DispatchQueue.main.async {
                     
-                    self.mainMenu.reloadSections(IndexSet.init(arrayLiteral: 1),
+                    self.mainMenu.reloadSections(IndexSet.init(arrayLiteral: 0, 1, 2),
                                                  with: .fade)
                     
                     let impact = UIImpactFeedbackGenerator()
                     impact.impactOccurred()
                     self.removeSpinner()
+                    self.removeStatusLabel()
                     
                 }
                 
@@ -704,7 +887,10 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     
     func loadSectionTwo() {
         
+        statusLabel.text = "     Getting transactions..."
+        
         let nodeLogic = NodeLogic()
+        nodeLogic.wallet = wallet
         nodeLogic.walletDisabled = walletDisabled
         
         func completion() {
@@ -712,6 +898,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             if nodeLogic.errorBool {
                 
                 self.removeSpinner()
+                self.removeStatusLabel()
                 
                 displayAlert(viewController: self,
                              isError: true,
@@ -736,6 +923,18 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         nodeLogic.loadSectionTwo(completion: completion)
+        
+    }
+    
+    func showAlert(title: String, message: String) {
+        
+        DispatchQueue.main.async {
+            
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in }))
+            self.present(alert, animated: true, completion: nil)
+            
+        }
         
     }
     
@@ -823,16 +1022,16 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             
             converter.getFxRate(completion: getResult)
             
-        } else if indexPath.section == 1 {
+        } else if indexPath.section == 2 {
             
             self.addNavBarSpinner()
             self.loadSectionZero()
             
-        } else if indexPath.section > 1 {
+        } else if indexPath.section > 2 {
             
             if transactionArray.count > 0 {
                 
-                    let selectedTx = self.transactionArray[indexPath.section - 2]
+                    let selectedTx = self.transactionArray[indexPath.section - 3]
                     let txID = selectedTx["txID"] as! String
                     self.tx = txID
                     UIPasteboard.general.string = txID
@@ -851,35 +1050,81 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: User Interface
     
-    func addlaunchScreen() {
+    func configureLaunchScreen() {
         
-        if let _ = self.tabBarController {
+        backView.alpha = 0
+        backView.frame = self.view.frame
+        backView.backgroundColor = .black
+        let imageView = UIImageView()
+        imageView.frame = CGRect(x: view.center.x - 75, y: view.center.y - 75, width: 150, height: 150)
+        imageView.image = UIImage(named: "1024.png")
+        backView.addSubview(imageView)
+        
+        label.frame = CGRect(x: 16, y: self.navigationController!.navigationBar.frame.maxY + 50, width: self.view.frame.width - 32, height: 50)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .left
+        label.textColor = .white
+        label.text = "Connecting Tor... progress 0%"
+        label.numberOfLines = 0
+        self.backView.addSubview(self.label)
+        
+        progressView.trackTintColor = .clear
+        progressView.tintColor = .blue
+        progressView.frame = CGRect(x: 0, y: self.label.frame.maxY, width: self.backView.frame.width, height: 20)
+        self.backView.addSubview(self.progressView)
+        
+    }
+    
+    func addlaunchScreen() {
+                    
+        DispatchQueue.main.async {
             
-            DispatchQueue.main.async {
+            self.addNavBarSpinner()
+            self.view.addSubview(self.backView)
+            
+            UIView.animate(withDuration: 0.8) {
+                self.backView.alpha = 1
+            }
+            
+        }
+                    
+    }
+    
+    func addStatusLabel() {
+        
+        DispatchQueue.main.async {
+            
+            self.statusLabel.frame = CGRect(x: 0, y: -50, width: self.view.frame.width, height: 50)
+            self.statusLabel.backgroundColor = .black
+            self.statusLabel.textAlignment = .left
+            self.statusLabel.textColor = .white
+            self.statusLabel.font = .systemFont(ofSize: 12)
+            self.statusLabel.text = "     Getting wallet info... please be patient, Tor can take a bit of time"
+            self.view.addSubview(self.statusLabel)
+            self.mainMenu.translatesAutoresizingMaskIntoConstraints = true
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.statusLabel.frame = CGRect(x: 0, y: self.navigationController!.navigationBar.frame.maxY, width: self.view.frame.width, height: 50)
+                self.mainMenu.frame = CGRect(x: 0, y: self.statusLabel.frame.maxY, width: self.mainMenu.frame.width, height: self.mainMenu.frame.height)
+            })
+            
+        }
+        
+    }
+    
+    func removeStatusLabel() {
+        
+        DispatchQueue.main.async {
+            
+            UIView.animate(withDuration: 0.5, animations: {
                 
-                self.addNavBarSpinner()
-                self.backView.alpha = 0
-                self.backView.frame = self.tabBarController!.view.frame
-                self.backView.backgroundColor = .black
-                let imageView = UIImageView()
-                imageView.frame = CGRect(x: self.view.center.x - 75, y: self.view.center.y - 75, width: 150, height: 150)
-                imageView.image = UIImage(named: "1024.png")
-                self.backView.addSubview(imageView)
-                self.view.addSubview(self.backView)
+                self.statusLabel.frame.origin.y = -50
+                self.mainMenu.frame = CGRect(x: 0, y: 0, width: self.mainMenu.frame.width, height: self.view.frame.height)
                 
-                // add a label to update whats happening...
-                self.label.frame = CGRect(x: 16, y: self.navigationController!.navigationBar.frame.maxY + 5, width: self.view.frame.width - 32, height: 40)
-                self.label.font = UIFont.systemFont(ofSize: 38, weight: .black)
-                self.label.adjustsFontSizeToFitWidth = true
-                self.label.textAlignment = .left
-                self.label.textColor = .lightText
-                self.label.text = "Connecting Tor..."
-                self.label.numberOfLines = 0
-                self.backView.addSubview(self.label)
+            }) { (_) in
                 
-                UIView.animate(withDuration: 0.8) {
-                    self.backView.alpha = 1
-                }
+                self.statusLabel.removeFromSuperview()
                 
             }
             
@@ -900,8 +1145,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
             
             self.refreshButton.tintColor = UIColor.white.withAlphaComponent(1)
             
-            self.navigationItem.setRightBarButton(self.refreshButton,
-                                                  animated: true)
+            self.navigationItem.setRightBarButtonItems([self.refreshButton], animated: true)
             
             self.viewHasLoaded = true
                         
@@ -914,11 +1158,17 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         DispatchQueue.main.async {
             
             self.refresher.endRefreshing()
+            
             UIView.animate(withDuration: 0.3, animations: {
+                
                 self.backView.alpha = 0
                 self.mainMenu.alpha = 1
+                
             }) { (_) in
+                
+                self.progressView.removeFromSuperview()
                 self.backView.removeFromSuperview()
+                
             }
             
         }
@@ -933,8 +1183,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         refresher.attributedTitle = NSAttributedString(string: "refresh data",
                                                        attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         
-        refresher.addTarget(self, action: #selector(self.refresh),
-                            for: UIControl.Event.valueChanged)
+        refresher.addTarget(self, action: #selector(self.refresh), for: UIControl.Event.valueChanged)
         
         mainMenu.addSubview(refresher)
         
@@ -1001,6 +1250,27 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.addlaunchScreen()
         
+            
+        self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) {
+                (_) in
+                
+                DispatchQueue.main.async {
+                    
+                    self.label.text = "Connecting Tor... progress \(TorClient.sharedInstance.progress)%"
+                    let progressFloat = Float(TorClient.sharedInstance.progress)
+                    self.progressView.setProgress(progressFloat / 100.00, animated: true)
+                                    
+                    if TorClient.sharedInstance.progress == 100 {
+                        
+                        self.timer.invalidate()
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        
         func completion() {
             print("connecttor completion")
             
@@ -1014,8 +1284,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                              message: "unable to connect to tor")
                 
             } else {
-                
-                self.updateLabel(text: "Tor connected ✓")
                 
                 viewHasLoaded = true
                 
@@ -1092,6 +1360,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
         
         addNavBarSpinner()
         let nodeLogic = NodeLogic()
+        nodeLogic.wallet = wallet
         nodeLogic.walletDisabled = false
         sectionZeroLoaded = false
         transactionArray.removeAll()
@@ -1110,6 +1379,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 if nodeLogic.errorDescription.contains("could not connect to the server.") {
                     
                     TorClient.sharedInstance.resign()
+                    print("reconnect tor")
                     self.connector = Connector()
                     self.connectTor(connector: self.connector)
                     

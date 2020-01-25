@@ -13,7 +13,7 @@ class KeychainCreator {
     
     func createKeyChain(completion: @escaping ((mnemonic: String?, error: Bool)) -> Void) {
         
-        let bytesCount = 24
+        let bytesCount = 16//24
         var randomBytes = [UInt8](repeating: 0, count: bytesCount)
         let status = SecRandomCopyBytes(kSecRandomDefault, bytesCount, &randomBytes)
         

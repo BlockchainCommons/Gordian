@@ -17,6 +17,7 @@ class NodeLogic {
     var arrayToReturn = [[String:Any]]()
     var walletsToReturn = NSArray()
     var walletDisabled = Bool()
+    var wallet:WalletStruct!
     
     func loadSectionZero(completion: @escaping () -> Void) {
         print("loadSectionZero")
@@ -58,16 +59,7 @@ class NodeLogic {
                     errorDescription = ""
                     errorBool = false
                     
-                    let ud = UserDefaults.standard
-                    var walletName = "StandUp"
-                    
-                    if ud.object(forKey: "walletName") != nil {
-                        
-                        walletName = ud.object(forKey: "walletName") as! String
-                        
-                    }
-                                        
-                    reducer.makeCommand(command: .loadwallet, param: "\"\(walletName)\"") {
+                    reducer.makeCommand(command: .loadwallet, param: "\"\(wallet.name)\"") {
                         
                         if !reducer.errorBool {
                             
@@ -382,6 +374,26 @@ class NodeLogic {
         
         let subversion = (networkInfo["subversion"] as! String).replacingOccurrences(of: "/", with: "")
         dictToReturn["subversion"] = subversion.replacingOccurrences(of: "Satoshi:", with: "")
+        
+        let localaddresses = networkInfo["localaddresses"] as! NSArray
+        
+        if localaddresses.count > 0 {
+            
+            for address in localaddresses {
+                
+                let dict = address as! NSDictionary
+                let p2pAddress = dict["address"] as! String
+                let port = dict["port"] as! Int
+                
+                if p2pAddress.contains("onion") {
+                    
+                    dictToReturn["p2pOnionAddress"] = p2pAddress + ":" + "\(port)"
+                    
+                }
+                
+            }
+            
+        }
         
         let networks = networkInfo["networks"] as! NSArray
         

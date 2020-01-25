@@ -21,6 +21,8 @@
 		D01398E723D5C7E9006E4C06 /* GetPrivateKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01398E623D5C7E9006E4C06 /* GetPrivateKeys.swift */; };
 		D01398E923D5F9FF006E4C06 /* CustomButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01398E823D5F9FF006E4C06 /* CustomButton.xib */; };
 		D01398ED23D604BF006E4C06 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01398EC23D604BF006E4C06 /* CustomButton.swift */; };
+		D01398EF23D8B467006E4C06 /* 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = D01398EE23D8B466006E4C06 /* 1024.png */; };
+		D01398F123D8B7F2006E4C06 /* blockchain-commons-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D01398F023D8B7F2006E4C06 /* blockchain-commons-logo.png */; };
 		D017ADA623BFC89F004DBB25 /* VerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017ADA523BFC89F004DBB25 /* VerifyViewController.swift */; };
 		D059156623BB5FEC00577DB6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D059156423BB5FEC00577DB6 /* LICENSE */; };
 		D059156723BB5FEC00577DB6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D059156523BB5FEC00577DB6 /* README.md */; };
@@ -90,7 +92,6 @@
 		D09C205923BA489500566DF8 /* RawDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C200E23BA489500566DF8 /* RawDisplayer.swift */; };
 		D09C205A23BA489500566DF8 /* QRScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09C201023BA489500566DF8 /* QRScanner.swift */; };
 		D09C205B23BA489500566DF8 /* whiteBroom.png in Resources */ = {isa = PBXBuildFile; fileRef = D09C201223BA489500566DF8 /* whiteBroom.png */; };
-		D09C205C23BA489500566DF8 /* 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = D09C201323BA489500566DF8 /* 1024.png */; };
 		D09C205D23BA489500566DF8 /* whiteLock.png in Resources */ = {isa = PBXBuildFile; fileRef = D09C201423BA489500566DF8 /* whiteLock.png */; };
 		D09C205E23BA489500566DF8 /* addNode.PNG in Resources */ = {isa = PBXBuildFile; fileRef = D09C201523BA489500566DF8 /* addNode.PNG */; };
 		D09C205F23BA489500566DF8 /* settings90.png in Resources */ = {isa = PBXBuildFile; fileRef = D09C201623BA489500566DF8 /* settings90.png */; };
@@ -111,6 +112,9 @@
 		D0ACE49623C4B0BF00EF6684 /* VerifyKeysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ACE49523C4B0BF00EF6684 /* VerifyKeysViewController.swift */; };
 		D0BE779723C744E800DC51E1 /* WalletStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BE779623C744E800DC51E1 /* WalletStruct.swift */; };
 		D0BE779923C7701300DC51E1 /* WalletSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BE779823C7701300DC51E1 /* WalletSaver.swift */; };
+		D0BE93E923DC24AA00154557 /* greenCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = D0BE93E823DC24A900154557 /* greenCircle.png */; };
+		D0BE93EB23DC24D700154557 /* redCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = D0BE93EA23DC24D700154557 /* redCircle.png */; };
+		D0BE93ED23DC325A00154557 /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = D0BE93EC23DC325A00154557 /* key.png */; };
 		D0C2D9E323CDCA3400D5DD2A /* WalletInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2D9E223CDCA3400D5DD2A /* WalletInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -166,6 +170,8 @@
 		D01398E623D5C7E9006E4C06 /* GetPrivateKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPrivateKeys.swift; sourceTree = "<group>"; };
 		D01398E823D5F9FF006E4C06 /* CustomButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomButton.xib; sourceTree = "<group>"; };
 		D01398EC23D604BF006E4C06 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		D01398EE23D8B466006E4C06 /* 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1024.png; sourceTree = "<group>"; };
+		D01398F023D8B7F2006E4C06 /* blockchain-commons-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blockchain-commons-logo.png"; sourceTree = "<group>"; };
 		D017ADA523BFC89F004DBB25 /* VerifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyViewController.swift; sourceTree = "<group>"; };
 		D059156423BB5FEC00577DB6 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D059156523BB5FEC00577DB6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -240,7 +246,6 @@
 		D09C200E23BA489500566DF8 /* RawDisplayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawDisplayer.swift; sourceTree = "<group>"; };
 		D09C201023BA489500566DF8 /* QRScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScanner.swift; sourceTree = "<group>"; };
 		D09C201223BA489500566DF8 /* whiteBroom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteBroom.png; sourceTree = "<group>"; };
-		D09C201323BA489500566DF8 /* 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1024.png; sourceTree = "<group>"; };
 		D09C201423BA489500566DF8 /* whiteLock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteLock.png; sourceTree = "<group>"; };
 		D09C201523BA489500566DF8 /* addNode.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addNode.PNG; sourceTree = "<group>"; };
 		D09C201623BA489500566DF8 /* settings90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings90.png; sourceTree = "<group>"; };
@@ -261,6 +266,9 @@
 		D0ACE49523C4B0BF00EF6684 /* VerifyKeysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyKeysViewController.swift; sourceTree = "<group>"; };
 		D0BE779623C744E800DC51E1 /* WalletStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletStruct.swift; sourceTree = "<group>"; };
 		D0BE779823C7701300DC51E1 /* WalletSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSaver.swift; sourceTree = "<group>"; };
+		D0BE93E823DC24A900154557 /* greenCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenCircle.png; sourceTree = "<group>"; };
+		D0BE93EA23DC24D700154557 /* redCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redCircle.png; sourceTree = "<group>"; };
+		D0BE93EC23DC325A00154557 /* key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key.png; sourceTree = "<group>"; };
 		D0C2D9E223CDCA3400D5DD2A /* WalletInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoViewController.swift; sourceTree = "<group>"; };
 		F7368007E459EDC8B5471B45 /* Pods-StandUp-Remote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandUp-Remote.debug.xcconfig"; path = "Target Support Files/Pods-StandUp-Remote/Pods-StandUp-Remote.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -664,8 +672,10 @@
 		D09C201123BA489500566DF8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D0BE93EC23DC325A00154557 /* key.png */,
+				D0BE93EA23DC24D700154557 /* redCircle.png */,
+				D0BE93E823DC24A900154557 /* greenCircle.png */,
 				D09C201223BA489500566DF8 /* whiteBroom.png */,
-				D09C201323BA489500566DF8 /* 1024.png */,
 				D09C201423BA489500566DF8 /* whiteLock.png */,
 				D09C201523BA489500566DF8 /* addNode.PNG */,
 				D09C201623BA489500566DF8 /* settings90.png */,
@@ -678,6 +688,8 @@
 				D09C201D23BA489500566DF8 /* Search - tripkey.png */,
 				D09C201E23BA489500566DF8 /* bWhite.png */,
 				D09C201F23BA489500566DF8 /* whiteCheck.png */,
+				D01398F023D8B7F2006E4C06 /* blockchain-commons-logo.png */,
+				D01398EE23D8B466006E4C06 /* 1024.png */,
 				D09C202023BA489500566DF8 /* back.png */,
 				D09C202123BA489500566DF8 /* images.png */,
 			);
@@ -821,11 +833,15 @@
 				D09C206823BA489500566DF8 /* whiteCheck.png in Resources */,
 				D09C205323BA489500566DF8 /* LaunchScreen.storyboard in Resources */,
 				D09C206123BA489500566DF8 /* whiteFingerPrint.png in Resources */,
+				D0BE93EB23DC24D700154557 /* redCircle.png in Resources */,
 				D09C206623BA489500566DF8 /* Search - tripkey.png in Resources */,
 				D09C205D23BA489500566DF8 /* whiteLock.png in Resources */,
+				D01398F123D8B7F2006E4C06 /* blockchain-commons-logo.png in Resources */,
+				D0BE93E923DC24AA00154557 /* greenCircle.png in Resources */,
+				D01398EF23D8B467006E4C06 /* 1024.png in Resources */,
 				D09C205223BA489500566DF8 /* Assets.xcassets in Resources */,
-				D09C205C23BA489500566DF8 /* 1024.png in Resources */,
 				D09C206723BA489500566DF8 /* bWhite.png in Resources */,
+				D0BE93ED23DC325A00154557 /* key.png in Resources */,
 				D09C202823BA489500566DF8 /* Main.storyboard in Resources */,
 				D09C206523BA489500566DF8 /* strobe.png in Resources */,
 				D09C206923BA489500566DF8 /* back.png in Resources */,
@@ -1209,7 +1225,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.24;
+				CURRENT_PROJECT_VERSION = 0.0.25;
 				DEVELOPMENT_TEAM = YZHG975W3A;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1220,7 +1236,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.24;
+				MARKETING_VERSION = 0.0.25;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.standupios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1234,7 +1250,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.24;
+				CURRENT_PROJECT_VERSION = 0.0.25;
 				DEVELOPMENT_TEAM = YZHG975W3A;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1245,7 +1261,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.24;
+				MARKETING_VERSION = 0.0.25;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.standupios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

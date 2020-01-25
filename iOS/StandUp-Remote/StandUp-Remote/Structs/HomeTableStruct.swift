@@ -28,6 +28,7 @@ public struct HomeStruct: CustomStringConvertible {
     let transactions:[[String: Any]]
     let uptime:Int
     let feeRate:String
+    let p2pOnionAddress:String
     
     init(dictionary: [String: Any]) {
         
@@ -48,6 +49,7 @@ public struct HomeStruct: CustomStringConvertible {
         self.pruned = dictionary["pruned"] as? Bool ?? false
         self.mempoolCount = dictionary["mempoolCount"] as? Int ?? 0
         self.transactions = dictionary["transactions"] as? [[String: Any]] ?? []
+        self.p2pOnionAddress = dictionary["p2pOnionAddress"] as? String ?? "none"
         
     }
     

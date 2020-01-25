@@ -67,10 +67,12 @@ class WalletsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "walletCell", for: indexPath)
+        cell.selectionStyle = .none
         let birthdateLabel = cell.viewWithTag(1) as! UILabel
         let derivationLabel = cell.viewWithTag(2) as! UILabel
         let typeLabel = cell.viewWithTag(5) as! UILabel
         let onOffSwitch = cell.viewWithTag(6) as! UISegmentedControl
+        let onOffImage = cell.viewWithTag(7) as! UIImageView
         
         onOffSwitch.accessibilityLabel = "\(indexPath.section)"
         onOffSwitch.addTarget(self, action: #selector(alternate(_:)), for: .valueChanged)
@@ -79,16 +81,40 @@ class WalletsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let wallet = WalletStruct.init(dictionary: walletDict)
         
         birthdateLabel.text = "birthdate \(getDate(unixTime: wallet.birthdate))"
-        derivationLabel.text = "\(wallet.derivation)"
-        typeLabel.text = "\(wallet.type) type"
         
+        if wallet.derivation.contains("84") {
+            
+            derivationLabel.text = "BIP84"
+            
+        } else if wallet.derivation.contains("44") {
+            
+            derivationLabel.text = "BIP44"
+            
+        } else if wallet.derivation.contains("49") {
+            
+            derivationLabel.text = "BIP49"
+            
+        }
+                
+        if wallet.type == "DEFAULT" {
+            
+            typeLabel.text = "Single signature"
+            
+        } else {
+            
+            typeLabel.text = "2 of 3 multi signature"
+            
+        }
+                
         if wallet.isActive {
             
             onOffSwitch.selectedSegmentIndex = 0
+            onOffImage.image = UIImage(named: "greenCircle.png")
             
         } else {
             
             onOffSwitch.selectedSegmentIndex = 1
+            onOffImage.image = UIImage(named: "redCircle.png")
             
         }
         
@@ -113,7 +139,7 @@ class WalletsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         let name = WalletStruct.init(dictionary: wallets[section]).name
-        return name
+        return "\(name).dat"
         
     }
     

@@ -24,6 +24,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         navigationController?.delegate = self
+        backgroundview.alpha = 0
         backgroundview.backgroundColor = .black
         backgroundview.frame = settingsTable.frame
         view.addSubview(backgroundview)
