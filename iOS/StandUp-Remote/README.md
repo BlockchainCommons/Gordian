@@ -77,12 +77,12 @@ After the above process completes you will be able to:
 - export/verify your addresses
 - custom fee preference
 - statistics about the Bitcoin network straight from your node
-- balance in BTC or fiat (tap the blance to toggle)
+- balance in BTC or fiat (tap the balance to toggle)
 - your last 50 transactions, tap a transaction to see full details
 
 ### How does it work?
 
-StandUp-Remote keeps thing simple by relying on Bitcoin Core for the majority of wallet functions related to buidling/signing of transactions. StandUp-Remote is responsible for passing the appropriate private key to Bitcoin Core (your node) to sign transactions with. We create wallets with `avoidaddressreuse` set to `true` so that private keys will only every be used once. As the app is designed it is a hot wallet with keys stored locally onto your device. Your seed is fully encrypted and stored as raw data. The private key for decrypting your seed is stored securely on the keychain. We beleive that storing private keys on your device is generally safer then an all purpose computer. You should never store more bitcoins then you are willing to lose on a hot wallet just as you would never carry more cash then neccessary when going out.
+StandUp-Remote keeps thing simple by relying on Bitcoin Core for the majority of wallet functions related to building/signing of transactions. StandUp-Remote is responsible for passing the appropriate private key to Bitcoin Core (your node) to sign transactions with. We create wallets with `avoidaddressreuse` set to `true` so that private keys will only every be used once. As the app is designed it is a hot wallet with keys stored locally onto your device. Your seed is fully encrypted and stored as raw data. The private key for decrypting your seed is stored securely on the keychain. We believe that storing private keys on your device is generally safer then an all purpose computer. You should never store more bitcoins then you are willing to lose on a hot wallet just as you would never carry more cash than necessary when going out.
 
 ### Requirements
 - iOS 13
@@ -91,7 +91,7 @@ StandUp-Remote keeps thing simple by relying on Bitcoin Core for the majority of
 ### Author
 Peter Denton, fontainedenton@gmail.com
 
-### Bulit with
+### Built with
 - [Tor.framework](https://github.com/iCepa/Tor.framework) by the [iCepa project](https://github.com/iCepa) - for communicating with your nodes hidden service
 - [LibWally-Swift](https://github.com/blockchain/libwally-swift) built by @sjors - for BIP39 mnemonic creation and HD key derivation
 - [Base32](https://github.com/norio-nomura/Base32/tree/master/Sources/Base32) built by @norio-nomura - for Tor V3 authentication key encoding
