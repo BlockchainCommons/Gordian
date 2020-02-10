@@ -10,6 +10,7 @@
 		391F5A65379DC463BEB9D1CC /* Pods_FullyNoded2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52CC707C319DA2AC51DC2778 /* Pods_FullyNoded2.framework */; };
 		909C32A7D23C358CEDE6B2C2 /* Pods_FullyNoded2_FullyNoded2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 844709F0C8016CF38686145B /* Pods_FullyNoded2_FullyNoded2UITests.framework */; };
 		A151B8FD6A96BB6F17C9A12B /* Pods_FullyNoded2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D002CA2C3751C4A29EE7C952 /* Pods_FullyNoded2Tests.framework */; };
+		D080F49523F120B200CC8D6E /* ImportCustomDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080F49423F120B200CC8D6E /* ImportCustomDescriptor.swift */; };
 		D09D724123F0EDBB00847DC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09D724023F0EDBB00847DC8 /* AppDelegate.swift */; };
 		D09D724323F0EDBB00847DC8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09D724223F0EDBB00847DC8 /* SceneDelegate.swift */; };
 		D09D724B23F0EDBB00847DC8 /* FullyNoded2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D09D724923F0EDBB00847DC8 /* FullyNoded2.xcdatamodeld */; };
@@ -152,6 +153,7 @@
 		844709F0C8016CF38686145B /* Pods_FullyNoded2_FullyNoded2UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FullyNoded2_FullyNoded2UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A8B77AF9161303353F149F /* Pods-FullyNoded2-FullyNoded2UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullyNoded2-FullyNoded2UITests.debug.xcconfig"; path = "Target Support Files/Pods-FullyNoded2-FullyNoded2UITests/Pods-FullyNoded2-FullyNoded2UITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D002CA2C3751C4A29EE7C952 /* Pods_FullyNoded2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FullyNoded2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D080F49423F120B200CC8D6E /* ImportCustomDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCustomDescriptor.swift; sourceTree = "<group>"; };
 		D09D723D23F0EDBB00847DC8 /* FullyNoded2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FullyNoded2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D09D724023F0EDBB00847DC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D09D724223F0EDBB00847DC8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -731,6 +733,7 @@
 				D09D730723F0F3C000847DC8 /* OfflineSignerP2SHSegwit.swift */,
 				D09D730823F0F3C000847DC8 /* OfflineSignerLegacy.swift */,
 				D09D730923F0F3C000847DC8 /* GetSmartFee.swift */,
+				D080F49423F120B200CC8D6E /* ImportCustomDescriptor.swift */,
 			);
 			path = "Wallet Logic";
 			sourceTree = "<group>";
@@ -1072,6 +1075,7 @@
 				D09D736023F0F3C000847DC8 /* KeyPad.swift in Sources */,
 				D09DCF6823F1072A008F5B9F /* KeyGen.swift in Sources */,
 				D09D736823F0F3C000847DC8 /* MultiSigTxBuilder.swift in Sources */,
+				D080F49523F120B200CC8D6E /* ImportCustomDescriptor.swift in Sources */,
 				D09D732623F0F3C000847DC8 /* UTXOViewController.swift in Sources */,
 				D09D733C23F0F3C000847DC8 /* CoreDataService.swift in Sources */,
 				D09D736423F0F3C000847DC8 /* RawDisplayer.swift in Sources */,

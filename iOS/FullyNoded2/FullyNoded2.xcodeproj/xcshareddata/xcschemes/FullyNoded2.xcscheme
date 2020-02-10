@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D09D723C23F0EDBB00847DC8"
-               BuildableName = "FullyNoded2.app"
+               BuildableName = "FullyNoded2.0.app"
                BlueprintName = "FullyNoded2"
                ReferencedContainer = "container:FullyNoded2.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D09D723C23F0EDBB00847DC8"
-            BuildableName = "FullyNoded2.app"
+            BuildableName = "FullyNoded2.0.app"
             BlueprintName = "FullyNoded2"
             ReferencedContainer = "container:FullyNoded2.xcodeproj">
          </BuildableReference>
@@ -82,7 +82,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D09D723C23F0EDBB00847DC8"
-            BuildableName = "FullyNoded2.app"
+            BuildableName = "FullyNoded2.0.app"
             BlueprintName = "FullyNoded2"
             ReferencedContainer = "container:FullyNoded2.xcodeproj">
          </BuildableReference>
