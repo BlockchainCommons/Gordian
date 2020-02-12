@@ -1,2 +1,0 @@
-binary "https://icepa.github.io/Tor.framework/Tor.json" == 400.6.1
-github "evgenyneu/keychain-swift" ~> 18.0
