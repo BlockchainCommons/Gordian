@@ -10,8 +10,6 @@ import Foundation
 
 class WalletCreator {
     
-    //let cd = CoreDataService()
-    //let enc = Encryption()
     var importingChange = false
     var descriptor = ""
     var errorString = ""
@@ -20,7 +18,7 @@ class WalletCreator {
     var walletDict = [String:Any]()
     var node:NodeStruct!
     
-    func createStandUpWallet(derivation: String, completion: @escaping ((success: Bool, errorDescription: String?)) -> Void) {
+    func createStandUpWallet(derivation: String, completion: @escaping ((success: Bool, errorDescription: String?, descriptor: String?)) -> Void) {
         
         let wallet = WalletStruct.init(dictionary: walletDict)
         
@@ -89,7 +87,7 @@ class WalletCreator {
                                 
                                 self.statusDescription = "You can not use mainnet yet..."
                                 self.progress = 100
-                                completion((false, "mainnet is not yet allowed"))
+                                completion((false, "mainnet is not yet allowed", nil))
                                 
 //                                let cd = CoreDataService()
 //
@@ -135,7 +133,7 @@ class WalletCreator {
                                 if self.importingChange {
                                     
                                     self.progress = 100
-                                    completion((true,nil))
+                                    completion((true, nil, self.descriptor))
                                     
                                 } else {
                                     
@@ -147,7 +145,7 @@ class WalletCreator {
                                 
                                 let errorDict = (result[0] as! NSDictionary)["error"] as! NSDictionary
                                 let error = errorDict["message"] as! String
-                                completion((false,error))
+                                completion((false, error, nil))
                                 
                             }
                             
@@ -172,6 +170,8 @@ class WalletCreator {
                             let result = reducer.dictToReturn
                             self.descriptor = "\"\(result["descriptor"] as! String)\""
                             
+                            
+                            
                             let params = "[{ \"desc\": \(self.descriptor), \"timestamp\": \"now\", \"range\": [0,999], \"watchonly\": true, \"label\": \"StandUp\", \"keypool\": true, \"internal\": false }]"
                             
                             executeNodeCommand(method: .importmulti,
@@ -185,7 +185,7 @@ class WalletCreator {
                         
                     } else {
                         
-                        completion((false,reducer.errorDescription))
+                        completion((false,reducer.errorDescription, nil))
                         
                     }
                     

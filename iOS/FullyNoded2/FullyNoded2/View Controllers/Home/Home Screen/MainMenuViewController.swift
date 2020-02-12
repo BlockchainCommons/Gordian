@@ -119,6 +119,20 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 
     }
     
+    @IBAction func goToSettings(_ sender: Any) {
+        
+        let impact = UIImpactFeedbackGenerator()
+        
+        DispatchQueue.main.async {
+            
+            impact.impactOccurred()
+            self.performSegue(withIdentifier: "settings", sender: self)
+            
+        }
+        
+    }
+    
+    
     @objc func notificationReceived(_ notification: Notification) {
         print("notificationReceived TorConnected")
         
@@ -409,11 +423,14 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     let seedOnDeviceImage = cell.viewWithTag(10) as! UIImageView
                     let dirtyFiatLabel = cell.viewWithTag(11) as! UILabel
                     let infoButton = cell.viewWithTag(12) as! UIButton
-                    let walletsButton = cell.viewWithTag(13) as! UIButton
-                    let addWalletButton = cell.viewWithTag(14) as! UIButton
+                    //let walletsButton = cell.viewWithTag(13) as! UIButton
+                    //let addWalletButton = cell.viewWithTag(14) as! UIButton
                     let deviceXprv = cell.viewWithTag(15) as! UILabel
                     let deviceView = cell.viewWithTag(16)!
                     let refreshingSpinner = cell.viewWithTag(23) as! UIActivityIndicatorView
+                    let nodeView = cell.viewWithTag(24)!
+                    
+                    nodeView.layer.cornerRadius = 8
                     
                     if isRefreshingZero {
                         
@@ -428,9 +445,9 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     
                     deviceView.layer.cornerRadius = 8
                     
-                    addWalletButton.addTarget(self, action: #selector(addWallet), for: .touchUpInside)
+                    //addWalletButton.addTarget(self, action: #selector(addWallet), for: .touchUpInside)
                     infoButton.addTarget(self, action: #selector(getWalletInfo(_:)), for: .touchUpInside)
-                    walletsButton.addTarget(self, action: #selector(walletsSegue), for: .touchUpInside)
+                    //walletsButton.addTarget(self, action: #selector(walletsSegue), for: .touchUpInside)
                     
                     self.coldBalance = walletInfo.coldBalance
                                     
@@ -468,25 +485,25 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     walletTypeLabel.text = "Single Signature"
                     seedOnDeviceLabel.text = "1 Signer on \(UIDevice.current.name)"
                     
-                    var account = "1"
-                    
-                    if walletInfo.network == "main" {
-                        
-                        account = "0"
-                        
-                    }
+//                    var cointype = "1"
+//
+//                    if walletInfo.network == "main" {
+//
+//                        cointype = "0"
+//
+//                    }
                     
                     if wallet.derivation.contains("84") {
                         
-                        derivationPathLabel.text = "Native Segwit Account \(account) (BIP84 \(wallet.derivation))"
+                        derivationPathLabel.text = "Native Segwit Account 0 (BIP84 \(wallet.derivation))"
                         
                     } else if wallet.derivation.contains("44") {
                         
-                        derivationPathLabel.text = "Legacy Account \(account) (BIP44 \(wallet.derivation))"
+                        derivationPathLabel.text = "Legacy Account 0 (BIP44 \(wallet.derivation))"
                         
                     } else if wallet.derivation.contains("49") {
                         
-                        derivationPathLabel.text = "P2SH Nested Segwit Account \(account) (BIP49 \(wallet.derivation))"
+                        derivationPathLabel.text = "P2SH Nested Segwit Account 0 (BIP49 \(wallet.derivation))"
                         
                     }
                     
@@ -494,7 +511,7 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     
                     return cell
                     
-                } else {
+                } else if wallet.type == "MULTI" {
                     
                     let cell = tableView.dequeueReusableCell(withIdentifier: "walletCell", for: indexPath)
                     cell.selectionStyle = .none
@@ -506,20 +523,20 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     let backUpSeedLabel = cell.viewWithTag(6) as! UILabel
                     let seedOnNodeLabel = cell.viewWithTag(7) as! UILabel
                     let seedOnDeviceLabel = cell.viewWithTag(8) as! UILabel
-                    let seedOnNodeImage = cell.viewWithTag(9) as! UIImageView
-                    let seedOnDeviceImage = cell.viewWithTag(10) as! UIImageView
+                    //let seedOnNodeImage = cell.viewWithTag(9) as! UIImageView
+                    //let seedOnDeviceImage = cell.viewWithTag(10) as! UIImageView
                     let dirtyFiatLabel = cell.viewWithTag(11) as! UILabel
                     let infoButton = cell.viewWithTag(12) as! UIButton
-                    let walletsButton = cell.viewWithTag(13) as! UIButton
-                    let addWalletButton = cell.viewWithTag(14) as! UIButton
-                    let deviceXprv = cell.viewWithTag(15) as! UILabel
+                    //let walletsButton = cell.viewWithTag(13) as! UIButton
+                    //let addWalletButton = cell.viewWithTag(14) as! UIButton
+                    //let deviceXprv = cell.viewWithTag(15) as! UILabel
                     let deviceView = cell.viewWithTag(16)!
-                    let nodeXprv = cell.viewWithTag(17) as! UILabel
+                    //let nodeXprv = cell.viewWithTag(17) as! UILabel
                     let nodeView = cell.viewWithTag(18)!
                     let offlineView = cell.viewWithTag(19)!
-                    let keysOnNodeImage = cell.viewWithTag(20) as! UIImageView
-                    let keyOfflineImage = cell.viewWithTag(21) as! UIImageView
-                    let offlineSignerImage = cell.viewWithTag(22) as! UIImageView
+                    //let keysOnNodeImage = cell.viewWithTag(20) as! UIImageView
+                    //let keyOfflineImage = cell.viewWithTag(21) as! UIImageView
+                    //let offlineSignerImage = cell.viewWithTag(22) as! UIImageView
                     let refreshingSpinner = cell.viewWithTag(23) as! UIActivityIndicatorView
                     
                     if isRefreshingZero {
@@ -537,9 +554,9 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     offlineView.layer.cornerRadius = 8
                     deviceView.layer.cornerRadius = 8
                     
-                    addWalletButton.addTarget(self, action: #selector(addWallet), for: .touchUpInside)
+                    //addWalletButton.addTarget(self, action: #selector(addWallet), for: .touchUpInside)
                     infoButton.addTarget(self, action: #selector(getWalletInfo(_:)), for: .touchUpInside)
-                    walletsButton.addTarget(self, action: #selector(walletsSegue), for: .touchUpInside)
+                    //walletsButton.addTarget(self, action: #selector(walletsSegue), for: .touchUpInside)
                     
                     self.coldBalance = walletInfo.coldBalance
                                     
@@ -607,6 +624,92 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     
                     return cell
                     
+                } else {
+                    
+                    let cell = mainMenu.dequeueReusableCell(withIdentifier: "coldStorageCell", for: indexPath)
+                    cell.selectionStyle = .none
+                    
+                    let walletNameLabel = cell.viewWithTag(1) as! UILabel
+                    let coldBalanceLabel = cell.viewWithTag(2) as! UILabel
+                    let walletTypeLabel = cell.viewWithTag(4) as! UILabel
+                    let derivationPathLabel = cell.viewWithTag(5) as! UILabel
+                    let seedOnDeviceLabel = cell.viewWithTag(8) as! UILabel
+                    let dirtyFiatLabel = cell.viewWithTag(11) as! UILabel
+                    let infoButton = cell.viewWithTag(12) as! UIButton
+                    let refreshingSpinner = cell.viewWithTag(23) as! UIActivityIndicatorView
+                    let nodeView = cell.viewWithTag(24)!
+                    
+                    nodeView.layer.cornerRadius = 8
+                    
+                    if isRefreshingZero {
+                        
+                        refreshingSpinner.alpha = 1
+                        refreshingSpinner.startAnimating()
+                        
+                    } else {
+                        
+                        refreshingSpinner.alpha = 0
+                        refreshingSpinner.stopAnimating()
+                    }
+                    
+                    
+                    infoButton.addTarget(self, action: #selector(getWalletInfo(_:)), for: .touchUpInside)
+                    
+                    self.coldBalance = walletInfo.coldBalance
+                    
+                    if coldBalance == "" {
+                        
+                        self.coldBalance = "0"
+                        
+                    }
+                    
+                    dirtyFiatLabel.text = "\(self.fiatBalance)"
+                    
+                    if network == "test" {
+                        
+                        coldBalanceLabel.textColor = .systemOrange
+                        
+                    } else if network == "main" {
+                        
+                        coldBalanceLabel.textColor = .systemGreen
+                        
+                    }
+                    
+                    if walletInfo.unconfirmed {
+                        
+                        coldBalanceLabel.text = self.coldBalance + " " + "BTC ⚠︎"
+                        coldBalanceLabel.textColor = .systemRed
+                        
+                    } else {
+                        
+                        coldBalanceLabel.text = self.coldBalance + " " + "BTC"
+                        
+                    }
+                    
+                    coldBalanceLabel.adjustsFontSizeToFitWidth = true
+                    
+                    walletTypeLabel.text = "Custom"
+                    seedOnDeviceLabel.text = "1 Watch-only wallet on \(node.label)"
+                    
+                    // need to parse the descriptor or key
+                    
+                    if wallet.derivation.contains("84") {
+                        
+                        derivationPathLabel.text = "Native Segwit Account 0 (BIP84 \(wallet.derivation))"
+                        
+                    } else if wallet.derivation.contains("44") {
+                        
+                        derivationPathLabel.text = "Legacy Account 0 (BIP44 \(wallet.derivation))"
+                        
+                    } else if wallet.derivation.contains("49") {
+                        
+                        derivationPathLabel.text = "P2SH Nested Segwit Account 0 (BIP49 \(wallet.derivation))"
+                        
+                    }
+                    
+                    walletNameLabel.text = "\(wallet.name).dat"
+                    
+                    return cell
                 }
                 
             } else {
@@ -626,13 +729,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     addWalletButton.setImage(image, for: .normal)
                     addWalletButton.tintColor = .systemBlue
                     cell.addSubview(addWalletButton)
-                    
-                    let goToWalletsButton = UIButton()
-                    goToWalletsButton.addTarget(self, action: #selector(walletsSegue), for: .touchUpInside)
-                    goToWalletsButton.setImage(UIImage(systemName: "square.stack.3d.down.right"), for: .normal)
-                    goToWalletsButton.tintColor = .systemBlue
-                    goToWalletsButton.frame = CGRect(x: addWalletButton.frame.minX - 40, y: (cell.frame.height / 2) - 10, width: 20, height: 20)
-                    cell.addSubview(goToWalletsButton)
                     
                     return cell
                     
@@ -825,6 +921,10 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                         isHot.backgroundColor = .systemYellow
                         isHot.text = "signer"
                         
+                    } else if wallet.type == "CUSTOM" {
+                        
+                        isHot.backgroundColor = .systemBlue
+                        isHot.text = "watch-only"
                     }
                     
                 } else {
@@ -1106,9 +1206,13 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                     
                     return 290
                     
+                } else if wallet.type == "CUSTOM" {
+                    
+                    return 188
+                    
                 } else {
                     
-                    return 204
+                    return 255
                     
                 }
 
@@ -1771,9 +1875,11 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
                         walletCreator.walletDict = newWallet
                         walletCreator.node = self.node
                         
-                        walletCreator.createStandUpWallet(derivation: "m/84'/1'/0'/0") { (success, errorDescription) in
+                        walletCreator.createStandUpWallet(derivation: "m/84'/1'/0'/0") { (success, errorDescription, descriptor) in
                             
                             if success {
+                                
+                                newWallet["descriptor"] = descriptor!
                                 
                                 walletSaver.save(walletToSave: newWallet) { (success) in
                                     
@@ -1897,18 +2003,6 @@ class MainMenuViewController: UIViewController, UITableViewDelegate, UITableView
     func reloadTableData() {
         
         addNavBarSpinner()
-//        self.sectionZeroLoaded = false
-//        self.sectionOneLoaded = false
-//        self.sectionTwoLoaded = false
-//        self.sectionThreeLoaded = false
-//        self.refresher.endRefreshing()
-//        let numberOfSections = mainMenu.numberOfSections - 1
-//        for i in 0...numberOfSections {
-//
-//            mainMenu.reloadSections([i], with: .fade)
-//
-//        }
-        
         self.refresher.endRefreshing()
         self.addStatusLabel(description: "     Getting Tor Network Info...")
         

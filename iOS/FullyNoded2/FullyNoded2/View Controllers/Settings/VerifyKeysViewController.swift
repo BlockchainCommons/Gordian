@@ -9,7 +9,7 @@
 import UIKit
 import LibWally
 
-class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
+class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var address = ""
     var words = ""
@@ -24,9 +24,7 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.delegate = self
-        
+                
         if comingFromSettings {
             
             saveButtonOutlet.alpha = 0
@@ -73,29 +71,29 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func labelText(derivation: String) -> String {
         
-        var account = "0"
-        
-        if derivation.contains("1") {
-            
-            account = "1"
-            
-        }
+//        var account = "0"
+//        
+//        if derivation.contains("1") {
+//            
+//            account = "1"
+//            
+//        }
         
         if derivation.contains("84") {
             
-            return "Native Segwit Account \(account) (BIP84 \(derivation))"
+            return "Native Segwit Account 0 (BIP84 \(derivation))"
             
         } else if derivation.contains("44") {
             
-            return "Legacy Account \(account) (BIP44 \(derivation))"
+            return "Legacy Account 0 (BIP44 \(derivation))"
             
         } else if derivation.contains("49") {
             
-            return "P2SH Nested Segwit Account \(account) (BIP49 \(derivation))"
+            return "P2SH Nested Segwit Account 0 (BIP49 \(derivation))"
             
         } else {
             
-            return "error"
+            return ""
             
         }
         
@@ -115,13 +113,33 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
                 
                 self.wallet = wallet!
                 
-                if wallet!.type == "MULTI" {
+                if wallet!.type == "MULTI" || wallet!.type == "CUSTOM" {
                     
                     self.getKeysFromBitcoinCore()
                     
                 } else {
                     
-                    self.getKeysFromLibWally()
+                    let enc = Encryption()
+                    
+                    if let encryptedSeed = wallet?.seed {
+                        
+                        enc.decryptData(dataToDecrypt: encryptedSeed) { (decryptedSeed) in
+                            
+                            if decryptedSeed != nil {
+                                
+                                self.words = String(data: decryptedSeed!, encoding: .utf8)!
+                                self.getKeysFromLibWally()
+                                
+                            }
+                            
+                        }
+                        
+                    } else {
+                        
+                        // to do use libwally for key generation of cold wallets and multisig
+                        self.getKeysFromBitcoinCore()
+                        
+                    }
                     
                 }
                 
@@ -144,8 +162,8 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
             
             if !error {
                 
-                let masterKey = HDKey((mnemonic!.seedHex("")), self.network(path: self.derivation))!
-                let path = BIP32Path(self.derivation)!
+                let masterKey = HDKey((mnemonic!.seedHex("")), self.network(path: "m/84'/1'/0'/0"))!
+                let path = BIP32Path("m/84'/1'/0'/0")!
                 let account = try! masterKey.derive(path)
                 let xpub = account.xpub
                 self.getDescriptorInfo(xpub: xpub)
@@ -192,7 +210,7 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
         let keyLabel = cell.viewWithTag(2) as! UILabel
         let pathLabel = cell.viewWithTag(3) as! UILabel
         
-        pathLabel.text = "\(self.derivation)/\(indexPath.section)"
+        pathLabel.text = "m/84'/1'/0'/0/\(indexPath.section)"
         keyLabel.text = "\(keys[indexPath.section])"
         
         keyLabel.adjustsFontSizeToFitWidth = true
@@ -275,28 +293,29 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func getKeys(mnemonic: BIP39Mnemonic) {
         
-        let path = BIP32Path(derivation)!
-        let masterKey = HDKey((mnemonic.seedHex("")), network(path: derivation))!
+        let path = BIP32Path("m/84'/1'/0'/0")!
+        let masterKey = HDKey((mnemonic.seedHex("")), network(path: "m/84'/1'/0'/0"))!
         let account = try! masterKey.derive(path)
         
         for i in 0 ... 1999 {
             
             let key1 = try! account.derive(BIP32Path("\(i)")!)
             var addressType:AddressType!
+            addressType = .payToWitnessPubKeyHash
             
-            if derivation.contains("84") {
-                
-                addressType = .payToWitnessPubKeyHash
-                
-            } else if derivation.contains("44") {
-                
-                addressType = .payToPubKeyHash
-                
-            } else if derivation.contains("49") {
-                
-                addressType = .payToScriptHashPayToWitnessPubKeyHash
-                
-            }
+//            if derivation.contains("84") {
+//
+//                addressType = .payToWitnessPubKeyHash
+//
+//            } else if derivation.contains("44") {
+//
+//                addressType = .payToPubKeyHash
+//
+//            } else if derivation.contains("49") {
+//
+//                addressType = .payToScriptHashPayToWitnessPubKeyHash
+//
+//            }
             
             let address = key1.address(addressType)
             keys.append("\(address)")
@@ -420,24 +439,20 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
                 newWallet["keysImported"] = false
                 newWallet["type"] = "DEFAULT"
                 
-                let walletSaver = WalletSaver()
-                walletSaver.save(walletToSave: newWallet) { (success) in
-                    
+                let walletCreator = WalletCreator()
+                
+                walletCreator.createStandUpWallet(derivation: self.derivation) { (success, errorDescription, descriptor) in
+                                                
                     if success {
                         
-                        print("wallet saved")
+                        newWallet["descriptor"] = descriptor!
                         
-                        let walletCreator = WalletCreator()
-                        
-                        DispatchQueue.main.async {
-                            
-                            self.connectingView.label.text = "creating new wallet"
-                            
-                        }
-                        
-                        walletCreator.createStandUpWallet(derivation: self.derivation) { (success, errorDescription) in
+                        let walletSaver = WalletSaver()
+                        walletSaver.save(walletToSave: newWallet) { (success) in
                             
                             if success {
+                                
+                                print("wallet saved")
                                 
                                 self.connectingView.removeConnectingView()
                                 displayAlert(viewController: self, isError: false, message: "✓ successfully created new wallet")
@@ -448,8 +463,7 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
                                 
                             } else {
                                 
-                                print("error creating new wallet")
-                                displayAlert(viewController: self, isError: true, message: errorDescription!)
+                                print("error saving default wallet")
                                 self.connectingView.removeConnectingView()
                                 
                             }
@@ -458,7 +472,8 @@ class VerifyKeysViewController: UIViewController, UITableViewDelegate, UITableVi
                         
                     } else {
                         
-                        print("error saving default wallet")
+                        print("error creating new wallet")
+                        displayAlert(viewController: self, isError: true, message: errorDescription!)
                         self.connectingView.removeConnectingView()
                         
                     }

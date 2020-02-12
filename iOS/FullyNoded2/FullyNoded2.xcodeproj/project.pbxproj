@@ -154,7 +154,7 @@
 		C2A8B77AF9161303353F149F /* Pods-FullyNoded2-FullyNoded2UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FullyNoded2-FullyNoded2UITests.debug.xcconfig"; path = "Target Support Files/Pods-FullyNoded2-FullyNoded2UITests/Pods-FullyNoded2-FullyNoded2UITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D002CA2C3751C4A29EE7C952 /* Pods_FullyNoded2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FullyNoded2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D080F49423F120B200CC8D6E /* ImportCustomDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCustomDescriptor.swift; sourceTree = "<group>"; };
-		D09D723D23F0EDBB00847DC8 /* FullyNoded2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FullyNoded2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D09D723D23F0EDBB00847DC8 /* FullyNoded 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FullyNoded 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D09D724023F0EDBB00847DC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D09D724223F0EDBB00847DC8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D09D724A23F0EDBB00847DC8 /* FullyNoded2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FullyNoded2.xcdatamodel; sourceTree = "<group>"; };
@@ -353,7 +353,7 @@
 		D09D723E23F0EDBB00847DC8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D09D723D23F0EDBB00847DC8 /* FullyNoded2.0.app */,
+				D09D723D23F0EDBB00847DC8 /* FullyNoded 2.app */,
 				D09D725623F0EDC300847DC8 /* FullyNoded2Tests.xctest */,
 				D09D726123F0EDC300847DC8 /* FullyNoded2UITests.xctest */,
 			);
@@ -758,7 +758,7 @@
 			);
 			name = FullyNoded2;
 			productName = FullyNoded2;
-			productReference = D09D723D23F0EDBB00847DC8 /* FullyNoded2.0.app */;
+			productReference = D09D723D23F0EDBB00847DC8 /* FullyNoded 2.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D09D725523F0EDC300847DC8 /* FullyNoded2Tests */ = {
@@ -1259,7 +1259,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FullyNoded2/FullyNoded2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.39;
+				CURRENT_PROJECT_VERSION = 0.0.40;
 				DEVELOPMENT_TEAM = YZHG975W3A;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1272,9 +1272,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.39;
+				MARKETING_VERSION = 0.0.40;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.standupios;
-				PRODUCT_NAME = FullyNoded2.0;
+				PRODUCT_NAME = "FullyNoded 2";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1288,7 +1288,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FullyNoded2/FullyNoded2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.39;
+				CURRENT_PROJECT_VERSION = 0.0.40;
 				DEVELOPMENT_TEAM = YZHG975W3A;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1301,9 +1301,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.39;
+				MARKETING_VERSION = 0.0.40;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blockchaincommons.standupios;
-				PRODUCT_NAME = FullyNoded2.0;
+				PRODUCT_NAME = "FullyNoded 2";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

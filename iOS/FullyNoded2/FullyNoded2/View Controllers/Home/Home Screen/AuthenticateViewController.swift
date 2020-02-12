@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AuthenticateViewController: UIViewController, UITabBarControllerDelegate {
+class AuthenticateViewController: UIViewController {
     
     var pubkey = ""
     var tapQRGesture = UITapGestureRecognizer()
@@ -22,7 +22,6 @@ class AuthenticateViewController: UIViewController, UITabBarControllerDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        tabBarController?.delegate = self
         configureDisplayer()
         
     }
@@ -47,28 +46,12 @@ class AuthenticateViewController: UIViewController, UITabBarControllerDelegate {
             
         }
         
-//        let enc = Encryption()
-//        enc.getNode { (node, error) in
-//            
-//            if !error {
-//                
-//                self.pubkey = node!.authPubKey
-//                self.showDescriptor()
-//                
-//            } else {
-//                
-//                displayAlert(viewController: self, isError: true, message: "no node added, go scan a QuickConnect QR")
-//                
-//            }
-//            
-//        }
-        
     }
 
     func configureDisplayer() {
-        
+                
         displayer.vc = self
-        displayer.y = self.descriptionLabel.frame.maxY + self.navigationController!.navigationBar.frame.height + 10
+        displayer.y = self.descriptionLabel.frame.maxY + 10
         tapQRGesture = UITapGestureRecognizer(target: self,
                                               action: #selector(shareQRCode(_:)))
         
@@ -87,7 +70,6 @@ class AuthenticateViewController: UIViewController, UITabBarControllerDelegate {
         
         displayer.rawString = pubkey
         displayer.addRawDisplay()
-        navigationItem.title = "Tor V3 Authentication Key"
         
     }
     

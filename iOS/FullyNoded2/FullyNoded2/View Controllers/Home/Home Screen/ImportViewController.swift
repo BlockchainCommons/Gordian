@@ -71,7 +71,7 @@ class ImportViewController: UIViewController, UINavigationControllerDelegate {
     func didPickImage() {
         
         let qrString = qrScanner.qrString
-        addBtcRpcQr(url: qrString)
+        processDescriptor(url: qrString)
         
     }
     
@@ -114,7 +114,7 @@ class ImportViewController: UIViewController, UINavigationControllerDelegate {
     func getQRCode() {
         
         let btcstandupURI = qrScanner.stringToReturn
-        addBtcRpcQr(url: btcstandupURI)
+        processDescriptor(url: btcstandupURI)
         
     }
     
@@ -134,55 +134,73 @@ class ImportViewController: UIViewController, UINavigationControllerDelegate {
         
     }
     
-    func addBtcRpcQr(url: String) {
+    func processDescriptor(url: String) {
         
-        let qc = QuickConnect()
-    
-        func nodeAdded() {
+        connectingView.addConnectingView(vc: self, description: "creating custom wallet")
+        
+        let importWallet = ImportColdMultiSigDescriptor()
+        importWallet.create(descriptor: url) { (success, error, errorDescription) in
             
-            print("result")
-            
-            if !qc.errorBool {
+            if !error && success {
                 
-                DispatchQueue.main.async {
-                    
-                    self.onDoneBlock!(true)
-                    self.dismiss(animated: true, completion: nil)
-                    
-                }
+                self.connectingView.removeConnectingView()
+                showAlert(vc: self, title: "Success!", message: "Wallet created, to use it activate it in \"Wallets\"")
                 
             } else {
                 
-                scanNow()
-                
-                displayAlert(viewController: self,
-                             isError: true,
-                             message: qc.errorDescription)
+                displayAlert(viewController: self, isError: true, message: errorDescription!)
                 
             }
             
         }
         
-        func addnode() {
-            
-            qc.addNode(vc: self,
-                       url: url,
-                       completion: nodeAdded)
-            
-        }
-        
-        if url.hasPrefix("btcrpc://") || url.hasPrefix("btcstandup://") {
-            
-            addnode()
-            
-        } else {
-            
-            
-            displayAlert(viewController: self,
-                         isError: true,
-                         message: "Thats not a compatible url!")
-            
-        }
+//        let qc = QuickConnect()
+//
+//        func nodeAdded() {
+//
+//            print("result")
+//
+//            if !qc.errorBool {
+//
+//                DispatchQueue.main.async {
+//
+//                    self.onDoneBlock!(true)
+//                    self.dismiss(animated: true, completion: nil)
+//
+//                }
+//
+//            } else {
+//
+//                scanNow()
+//
+//                displayAlert(viewController: self,
+//                             isError: true,
+//                             message: qc.errorDescription)
+//
+//            }
+//
+//        }
+//
+//        func addnode() {
+//
+//            qc.addNode(vc: self,
+//                       url: url,
+//                       completion: nodeAdded)
+//
+//        }
+//
+//        if url.hasPrefix("btcrpc://") || url.hasPrefix("btcstandup://") {
+//
+//            addnode()
+//
+//        } else {
+//
+//
+//            displayAlert(viewController: self,
+//                         isError: true,
+//                         message: "Thats not a compatible url!")
+//
+//        }
                 
     }
     /*

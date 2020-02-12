@@ -36,7 +36,6 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         setupTaps()
         
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -266,16 +265,20 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                     self.recoveryText = "bitcoin-cli -rpcwallet=\(self.wallet.name) importmulti { \"desc\": \"\(self.privateKeyDescriptor)\", \"timestamp\": \(self.wallet.birthdate), \"range\": [0,1999], \"watchonly\": false, \"label\": \"StandUp\", \"keypool\": false, \"internal\": false }"
                     
                 }
+                                
+            } else if self.wallet.type == "CUSTOM" {
                 
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+                self.recoveryText = "bitcoin-cli -rpcwallet=\(self.wallet.name) importmulti { \"desc\": \"\(self.publicKeyDescriptor)\", \"timestamp\": \(self.wallet.birthdate), \"range\": [0,1999], \"watchonly\": true, \"label\": \"StandUp\", \"keypool\": false, \"internal\": false }"
                 
             } else {
                 
                 print("error getting xprv")
                 displayAlert(viewController: self, isError: true, message: "Error getting your xprv")
                 
+            }
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
             
         }
@@ -302,6 +305,14 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                     
                 }
                 
+            } else if self.wallet.type == "CUSTOM" {
+                
+                self.publicKeyDescriptor = self.wallet.descriptor
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
             } else {
                 
                 print("error getting xpub")
@@ -320,7 +331,7 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
+                
         return 4
         
     }
@@ -337,25 +348,57 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         case 0:
             
-            let arr = seed.split(separator: " ")
-            var str = ""
-            
-            for (i, word) in arr.enumerated() {
+            if wallet != nil {
                 
-                if i + 1 == arr.count {
+                if wallet.type == "CUSTOM" {
                     
-                    str += "\(i + 1). \(word)"
-                    
-                } else {
-                    
-                    str += "\(i + 1). \(word)\n"
+                    cell.textLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+                    cell.textLabel?.text = "⚠︎ No seed on device"
                     
                 }
                 
             }
             
-            cell.textLabel?.font = .systemFont(ofSize: 15, weight: .regular)
-            cell.textLabel?.text = str
+            if wallet?.seed != nil {
+                
+                let encryptedSeed = wallet!.seed
+                
+                let enc = Encryption()
+                enc.decryptData(dataToDecrypt: encryptedSeed) { (decryptedData) in
+                    
+                    if decryptedData != nil {
+                        
+                        let decryptedSeed = String(bytes: decryptedData!, encoding: .utf8)!
+                        let arr = decryptedSeed.split(separator: " ")
+                        var str = ""
+                        
+                        for (i, word) in arr.enumerated() {
+                            
+                            if i + 1 == arr.count {
+                                
+                                str += "\(i + 1). \(word)"
+                                
+                            } else {
+                                
+                                str += "\(i + 1). \(word)\n"
+                                
+                            }
+                            
+                        }
+                        
+                        cell.textLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+                        cell.textLabel?.text = str
+                        
+                    }
+                    
+                }
+                
+            } else {
+                
+                cell.textLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+                cell.textLabel?.text = "⚠︎ No seed on device"
+                
+            }
                         
         case 1:
             
@@ -364,8 +407,21 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         case 2:
             
-            cell.textLabel?.font = .systemFont(ofSize: 15, weight: .regular)
-            cell.textLabel?.text = self.privateKeyDescriptor
+            if self.wallet != nil {
+                
+                if self.wallet.type == "CUSTOM" {
+                    
+                    cell.textLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+                    cell.textLabel?.text = "⚠︎ No private keys on device"
+                    
+                } else {
+                    
+                    cell.textLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+                    cell.textLabel?.text = self.privateKeyDescriptor
+                    
+                }
+                
+            }
             
         case 3:
             
@@ -431,6 +487,18 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 return 80
                 
+            } else if wallet.type == "CUSTOM" {
+                
+                switch section {
+                    
+                case 1, 3: return 80
+                                        
+                default:
+                    
+                    return 0
+                    
+                }
+                
             } else {
                 
                 return 0
@@ -459,7 +527,30 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if wallet != nil {
             
-            if wallet.type == "MULTI" {
+            if wallet.type == "CUSTOM" {
+                
+                switch section {
+                    
+                case 1:
+                    
+                    label.text = "Your public key descriptor can be used to easily create watch-only wallets with Bitcoin Core or to supplement multisig wallet recovery. You may use it to derive the public keys and addresses associated with this wallet."
+                    footerView.frame = CGRect(x: 0, y: 10, width: tableView.frame.size.width - 50, height: 80)
+                    label.frame = CGRect(x: 10, y: 0, width: tableView.frame.size.width - 50, height: 80)
+                    
+                case 3:
+                    
+                    label.text = "You may paste this command directly into a terminal where Bitcoin Core is running and it will automatically import all the public keys and scripts from the descriptor which is held on this device for the current wallet."
+                    footerView.frame = CGRect(x: 0, y: 10, width: tableView.frame.size.width - 50, height: 80)
+                    label.frame = CGRect(x: 10, y: 0, width: tableView.frame.size.width - 50, height: 80)
+                    
+                default:
+                    
+                    label.text = ""
+                    
+                }
+                
+                
+            } else if wallet.type == "MULTI" {
                 
                 switch section {
                     
@@ -597,7 +688,6 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
             } else {
                 
-                displayAlert(viewController: self, isError: true, message: "error retrieving your xpub")
                 completion((""))
                 
             }
@@ -617,7 +707,6 @@ class SeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
             } else {
                 
-                displayAlert(viewController: self, isError: true, message: "error retrieving your xprv")
                 completion((""))
                 
             }

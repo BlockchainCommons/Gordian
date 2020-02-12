@@ -34,8 +34,6 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var qrView: UIImageView!
     @IBOutlet var addressOutlet: UILabel!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -102,11 +100,11 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
     
     @objc func load() {
         
+        connectingView.addConnectingView(vc: self, description: "fetching invoice address from your node")
+        
         getActiveWalletNow() { (wallet, error) in
             
             if !error && wallet != nil {
-                
-                print("wallet name = \(wallet!.name)")
                 
                 self.wallet = wallet!
                 
@@ -141,6 +139,7 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
                 
             } else if error {
                 
+                self.connectingView.removeConnectingView()
                 self.removeLoader()
                 showAlert(vc: self, title: "Error", message: "No active wallets")
                 
@@ -176,7 +175,7 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
         let derivation = wallet!.derivation
         let type = wallet!.type
         
-        if type == "MULTI" {
+        if type == "MULTI" || type == "CUSTOM" {
             
             self.getMsigAddress()
             
@@ -195,12 +194,14 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
             
             if !error {
                 
+                self.connectingView.removeConnectingView()
                 self.removeLoader()
                 self.addressString = address!
                 self.showAddress(address: address!)
                 
             } else {
                 
+                self.connectingView.removeConnectingView()
                 displayAlert(viewController: self, isError: true, message: "error getting musig address")
                 
             }
@@ -377,6 +378,7 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
                     
                     DispatchQueue.main.async {
                         
+                        self.connectingView.removeConnectingView()
                         self.initialLoad = false
                         let address = reducer.stringToReturn
                         self.removeLoader()
@@ -394,6 +396,7 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
                 
             } else {
                 
+                self.connectingView.removeConnectingView()
                 self.removeLoader()
                 
                 displayAlert(viewController: self,

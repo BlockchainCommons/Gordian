@@ -235,6 +235,10 @@ class KeyFetcher {
                             
                         }
                         
+                    } else {
+                        
+                        completion((nil,true))
+                        
                     }
                     
                 }
@@ -254,8 +258,6 @@ class KeyFetcher {
             if wallet != nil && !error {
                 
                 let derivationPath = wallet!.derivation
-                print("derivation = \(derivationPath)")
-                
                 let enc = Encryption()
                 enc.decryptData(dataToDecrypt: wallet!.seed) { (seed) in
                     
@@ -310,6 +312,11 @@ class KeyFetcher {
                             }
                             
                         }
+                        
+                    } else {
+                        
+                        completion((nil,true))
+                        
                     }
                     
                 }

@@ -25,7 +25,7 @@ class RawDisplayer {
     
     func addRawDisplay() {
         
-        tabbar = vc.tabBarController!.tabBar
+        //tabbar = vc.tabBarController!.tabBar
         //navigationBar = vc.navigationController!.navigationBar
         configureBackground()
         configureQrView()
@@ -95,7 +95,7 @@ class RawDisplayer {
             UIView.animate(withDuration: 0.3, animations: {
                 
                 self.copiedLabel.frame = CGRect(x: 0,
-                                                y: self.tabbar.frame.minY - 50,//self.vc.view.frame.maxY - 100,
+                                                y: self.vc.view.frame.maxY - 50,
                                                 width: self.vc.view.frame.width,
                                                 height: 50)
                 
@@ -143,7 +143,7 @@ class RawDisplayer {
         qrView.isUserInteractionEnabled = true
         
         qrView.frame = CGRect(x: 10,
-                              y: (vc.view.frame.width - 20) * -1,
+                              y: vc.view.frame.maxY + 200,
                               width: vc.view.frame.width - 20,
                               height: vc.view.frame.width - 20)
         
@@ -154,7 +154,7 @@ class RawDisplayer {
         textView.textColor = UIColor.white
         textView.backgroundColor = UIColor.clear
         textView.textAlignment = .natural
-        textView.font = UIFont.systemFont(ofSize: 14)//UIFont.init(name: "HelveticaNeue-Light", size: 14)
+        textView.font = UIFont.systemFont(ofSize: 14)
         textView.adjustsFontForContentSizeCategory = true
         textView.isUserInteractionEnabled = true
         textView.isEditable = false
@@ -165,7 +165,7 @@ class RawDisplayer {
         textView.frame = CGRect(x: 10,
                                 y: vc.view.frame.maxY + 170,
                                 width: vc.view.frame.width - 20,
-                                height: totalViewHeight - qrHeight/*200*/)
+                                height: totalViewHeight - qrHeight)
         
     }
     

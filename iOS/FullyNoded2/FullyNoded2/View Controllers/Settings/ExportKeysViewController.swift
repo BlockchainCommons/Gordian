@@ -15,6 +15,7 @@ class ExportKeysViewController: UIViewController, UITableViewDelegate, UITableVi
     var qrString = ""
     var keys = [[String:String]]()
     var wallet:WalletStruct!
+    var connectingView = ConnectingView()
     @IBOutlet var table: UITableView!
     
     override func viewDidLoad() {
@@ -23,6 +24,7 @@ class ExportKeysViewController: UIViewController, UITableViewDelegate, UITableVi
         table.delegate = self
         table.dataSource = self
         getWords()
+        connectingView.addConnectingView(vc: self, description: "fetching your keys")
         
     }
     
@@ -55,11 +57,27 @@ class ExportKeysViewController: UIViewController, UITableViewDelegate, UITableVi
         let publicKeyLabel = cell.viewWithTag(6) as! UILabel
         let wifLabel = cell.viewWithTag(10) as! UILabel
         
-        if wallet.type != "MULTI" {
+        if wallet.type == "DEFAULT" {
             
-             addressLabel.text = keys[indexPath.section]["address"]
+            addressLabel.text = keys[indexPath.section]["address"]
+            publicKeyLabel.text = keys[indexPath.section]["publicKey"]
+            wifLabel.text = "*********************************************************"
             
-        } else {
+        } else if wallet.type == "MULTI" {
+                        
+            if fetchingAddresses {
+                
+                addressLabel.text = "Fetching addresses from your node..."
+                publicKeyLabel.text = keys[indexPath.section]["publicKey"]
+                wifLabel.text = "*********************************************************"
+                
+            } else {
+                
+                 addressLabel.text = keys[indexPath.section]["address"]
+                
+            }
+            
+        } else if wallet.type == "CUSTOM" {
             
             if fetchingAddresses {
                 
@@ -70,11 +88,13 @@ class ExportKeysViewController: UIViewController, UITableViewDelegate, UITableVi
                  addressLabel.text = keys[indexPath.section]["address"]
                 
             }
+            
+            publicKeyLabel.text = "need to look into deriving multi-sig pub keys/scripts from libwally"
+            wifLabel.text = "⚠︎ no private keys on device for current wallet"
              
         }
         
-        publicKeyLabel.text = keys[indexPath.section]["publicKey"]
-        wifLabel.text = "*********************************************************"
+        
         
         addressLabel.adjustsFontSizeToFitWidth = true
         publicKeyLabel.adjustsFontSizeToFitWidth = true
@@ -229,17 +249,39 @@ class ExportKeysViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
      func getKeysFromBitcoinCore() {
-                  
-         let reducer = Reducer()
-         reducer.makeCommand(walletName: wallet.name, command: .deriveaddresses, param: "\"\(wallet.descriptor)\", ''[0,1999]''") {
+        
+        let reducer = Reducer()
+        var param = ""
+        
+        if wallet.descriptor.contains("\"\"") {
+            
+            param = "\(wallet.descriptor), ''[0,1999]''"
+            
+        } else {
+            
+            param = "\"\(wallet.descriptor)\", ''[0,1999]''"
+            
+        }
+        
+        reducer.makeCommand(walletName: wallet.name, command: .deriveaddresses, param: param) {
              
              if !reducer.errorBool {
                  
-                 let result = reducer.arrayToReturn
+                let result = reducer.arrayToReturn
                  
                 for (i, address) in result.enumerated() {
                     
-                    self.keys[i]["address"] = (address as! String)
+                    if self.wallet.type == "CUSTOM" {
+                        
+                        self.keys.append(["address":(address as! String)])
+                        
+                    } else {
+                        
+                        self.keys[i]["address"] = (address as! String)
+                        
+                    }
+                    
+                    
                     
                     if i + 1 == result.count {
                         
@@ -247,6 +289,7 @@ class ExportKeysViewController: UIViewController, UITableViewDelegate, UITableVi
                             
                             self.fetchingAddresses = false
                             self.table.reloadData()
+                            self.connectingView.removeConnectingView()
                             
                         }
                         
@@ -256,6 +299,7 @@ class ExportKeysViewController: UIViewController, UITableViewDelegate, UITableVi
                                   
              } else {
                  
+                self.connectingView.removeConnectingView()
                  displayAlert(viewController: self, isError: true, message: "error getting addresses from your node")
                                   
              }
@@ -272,12 +316,21 @@ class ExportKeysViewController: UIViewController, UITableViewDelegate, UITableVi
             if wallet != nil && !error {
                 
                 self.wallet = wallet!
-                let encryptedSeed = wallet!.seed
-                let enc = Encryption()
-                enc.decryptData(dataToDecrypt: encryptedSeed) { (decryptedSeed) in
+                
+                if wallet!.type == "DEFAULT" || wallet!.type == "MULTI" {
                     
-                    let words = String(bytes: decryptedSeed!, encoding: .utf8)!
-                    self.getKeysFromLibWally(words: words)
+                    let encryptedSeed = wallet!.seed
+                    let enc = Encryption()
+                    enc.decryptData(dataToDecrypt: encryptedSeed) { (decryptedSeed) in
+                        
+                        let words = String(bytes: decryptedSeed!, encoding: .utf8)!
+                        self.getKeysFromLibWally(words: words)
+                        
+                    }
+                    
+                } else if wallet!.type == "CUSTOM" {
+                    
+                    self.getKeysFromBitcoinCore()
                     
                 }
                 
@@ -298,6 +351,7 @@ class ExportKeysViewController: UIViewController, UITableViewDelegate, UITableVi
                 
             } else {
                 
+                self.connectingView.removeConnectingView()
                 displayAlert(viewController: self, isError: true, message: "error converting those words into a seed")
                 
             }
@@ -316,21 +370,21 @@ class ExportKeysViewController: UIViewController, UITableViewDelegate, UITableVi
         for i in 0 ... 1999 {
             
             let key1 = try! account.derive(BIP32Path("\(i)")!)
-            var addressType:AddressType!
+            let addressType = AddressType.payToWitnessPubKeyHash
             
-            if derivation.contains("84") {
-                
-                addressType = .payToWitnessPubKeyHash
-                
-            } else if derivation.contains("44") {
-                
-                addressType = .payToPubKeyHash
-                
-            } else if derivation.contains("49") {
-                
-                addressType = .payToScriptHashPayToWitnessPubKeyHash
-                
-            }
+//            if derivation.contains("84") {
+//
+//                addressType = .payToWitnessPubKeyHash
+//
+//            } else if derivation.contains("44") {
+//
+//                addressType = .payToPubKeyHash
+//
+//            } else if derivation.contains("49") {
+//
+//                addressType = .payToScriptHashPayToWitnessPubKeyHash
+//
+//            }
             
             let address = key1.address(addressType)
             
@@ -356,6 +410,7 @@ class ExportKeysViewController: UIViewController, UITableViewDelegate, UITableVi
                     }
                     
                     self.table.reloadData()
+                    self.connectingView.removeConnectingView()
                     
                 }
                 

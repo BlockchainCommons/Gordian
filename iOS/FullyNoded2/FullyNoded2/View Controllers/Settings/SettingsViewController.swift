@@ -8,7 +8,7 @@
 import KeychainSwift
 import UIKit
 
-class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UINavigationControllerDelegate {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let ud = UserDefaults.standard
     var seed = ""
@@ -17,17 +17,16 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     var walletName = ""
     let backgroundview = UIView()
     @IBOutlet var settingsTable: UITableView!
-    @IBOutlet var switchOutlet: UISegmentedControl!
+    //@IBOutlet var switchOutlet: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.delegate = self
         backgroundview.alpha = 0
         backgroundview.backgroundColor = .black
         backgroundview.frame = settingsTable.frame
         view.addSubview(backgroundview)
-        tabBarController!.delegate = self
+        //tabBarController!.delegate = self
         settingsTable.delegate = self
         
     }
@@ -40,7 +39,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func load() {
         
-        self.checkDefault()
+        //self.checkDefault()
                 
         getActiveWalletNow { (wallet, error) in
             
@@ -68,82 +67,82 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    func checkDefault() {
-        
-        if ud.object(forKey: "basic") != nil {
-            
-            if ud.object(forKey: "basic") as! Bool {
-                
-                DispatchQueue.main.async {
-                    
-                    self.switchOutlet.selectedSegmentIndex = 0
-                    
-                }
-                
-            } else {
-                
-                DispatchQueue.main.async {
-                    
-                    self.switchOutlet.selectedSegmentIndex = 1
-                    
-                }
-            }
-            
-        } else {
-            
-            DispatchQueue.main.async {
-                
-                self.switchOutlet.selectedSegmentIndex = 0
-                
-            }
-            
-        }
-        
-    }
+//    func checkDefault() {
+//
+//        if ud.object(forKey: "basic") != nil {
+//
+//            if ud.object(forKey: "basic") as! Bool {
+//
+//                DispatchQueue.main.async {
+//
+//                    self.switchOutlet.selectedSegmentIndex = 0
+//
+//                }
+//
+//            } else {
+//
+//                DispatchQueue.main.async {
+//
+//                    self.switchOutlet.selectedSegmentIndex = 1
+//
+//                }
+//            }
+//
+//        } else {
+//
+//            DispatchQueue.main.async {
+//
+//                self.switchOutlet.selectedSegmentIndex = 0
+//
+//            }
+//
+//        }
+//
+//    }
     
-    @IBAction func switchBasic(_ sender: Any) {
-                
-        if switchOutlet.selectedSegmentIndex == 0 {
-            
-            ud.set(true, forKey: "basic")
-            
-        } else {
-            
-            ud.set(false, forKey: "basic")
-            
-        }
-                
-        DispatchQueue.main.async {
-            
-            let newview = UIView()
-            newview.backgroundColor = .black
-            newview.frame = self.settingsTable.frame
-            newview.alpha = 0
-            self.view.addSubview(newview)
-            
-            UIView.animate(withDuration: 0.2, animations: {
-                
-                newview.alpha = 1
-                
-            }) { (_) in
-                
-                self.settingsTable.reloadData()
-                
-                UIView.animate(withDuration: 0.2, animations: {
-                                        
-                    newview.alpha = 0
-                    
-                }) { (_) in
-                    
-                    newview.removeFromSuperview()
-                    
-                }
-                
-            }
-            
-        }
-        
-    }
+//    @IBAction func switchBasic(_ sender: Any) {
+//
+//        if switchOutlet.selectedSegmentIndex == 0 {
+//
+//            ud.set(true, forKey: "basic")
+//
+//        } else {
+//
+//            ud.set(false, forKey: "basic")
+//
+//        }
+//
+//        DispatchQueue.main.async {
+//
+//            let newview = UIView()
+//            newview.backgroundColor = .black
+//            newview.frame = self.settingsTable.frame
+//            newview.alpha = 0
+//            self.view.addSubview(newview)
+//
+//            UIView.animate(withDuration: 0.2, animations: {
+//
+//                newview.alpha = 1
+//
+//            }) { (_) in
+//
+//                self.settingsTable.reloadData()
+//
+//                UIView.animate(withDuration: 0.2, animations: {
+//
+//                    newview.alpha = 0
+//
+//                }) { (_) in
+//
+//                    newview.removeFromSuperview()
+//
+//                }
+//
+//            }
+//
+//        }
+//
+//    }
     
     func updateFeeLabel(label: UILabel, numberOfBlocks: Int) {
         
@@ -195,15 +194,15 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func setFee(_ sender: UISlider) {
         
-        var section = 9
+//        var section = 9
+//
+//        if switchOutlet.selectedSegmentIndex == 0 {
+//
+//            section = 6
+//
+//        }
         
-        if switchOutlet.selectedSegmentIndex == 0 {
-            
-            section = 6
-            
-        }
-        
-        let cell = settingsTable.cellForRow(at: IndexPath.init(row: 0, section: section))
+        let cell = settingsTable.cellForRow(at: IndexPath.init(row: 0, section: 3))
         let label = cell?.viewWithTag(1) as! UILabel
         let numberOfBlocks = Int(sender.value) * -1
         updateFeeLabel(label: label, numberOfBlocks: numberOfBlocks)
@@ -218,172 +217,27 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let thumbnail = settingsCell.viewWithTag(2) as! UIImageView
         settingsCell.selectionStyle = .none
         
-        if switchOutlet.selectedSegmentIndex == 1 {
+        switch indexPath.section {
             
-            switch indexPath.section {
-                
             case 0:
-                
-                thumbnail.image = UIImage(systemName: "square.and.arrow.up")
-                label.text = "Export"
-                return settingsCell
-                
-            case 1:
-                
-                thumbnail.image = UIImage(systemName: "square.and.arrow.down")
-                label.text = "Import"
-                return settingsCell
-                
-            case 2:
-                
-                thumbnail.image = UIImage(systemName: "checkmark.seal")
-                label.text = "Verify"
-                return settingsCell
-                
-            case 3:
-                
-                thumbnail.image = UIImage(systemName: "square.and.arrow.up")
-                label.text = "Export"
-                return settingsCell
-                                
-            case 4:
-                
-                thumbnail.image = UIImage(systemName: "square.stack.3d.down.right")
-                label.text = "Wallets"
-                return settingsCell
-                
-            case 5:
-            
-                thumbnail.image = UIImage(systemName: "info.circle")
-                label.text = "Wallet Info"
-                return settingsCell
-                
-//            case 7:
-//
-//                thumbnail.image = UIImage(systemName: "info.circle")
-//
-//                var account = "0"
-//
-//                if self.derivation.contains("1") {
-//
-//                    account = "1"
-//
-//                }
-//
-//                if self.derivation.contains("84") {
-//
-//                    label.text = "Native Segwit Account \(account) (BIP84 \(self.derivation))"
-//
-//                } else if self.derivation.contains("44") {
-//
-//                    label.text = "Legacy Account \(account) (BIP44 \(self.derivation))"
-//
-//                } else if self.derivation.contains("49") {
-//
-//                    label.text = "P2SH Segwit Account \(account) (BIP49 \(self.derivation))"
-//
-//                }
-//
-//                label.adjustsFontSizeToFitWidth = true
-//
-//                return settingsCell
-                
-            case 6:
                 
                 thumbnail.image = UIImage(systemName: "lock")
                 label.text = "Export Authentication Public Key"
                 return settingsCell
                 
-            case 7:
+            case 1:
                 
                 thumbnail.image = UIImage(systemName: "desktopcomputer")
                 label.text = "Node Manager"
                 return settingsCell
                 
-            case 8:
+            case 2:
                 
                 thumbnail.image = UIImage(systemName: "exclamationmark.triangle")
                 label.text = "Reset app"
                 return settingsCell
                 
-            case 9:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "miningFeeCell", for: indexPath)
-                let label = cell.viewWithTag(1) as! UILabel
-                let slider = cell.viewWithTag(2) as! UISlider
-                let thumbnail = cell.viewWithTag(3) as! UIImageView
-                thumbnail.image = UIImage(systemName: "timer")
-                
-                slider.addTarget(self, action: #selector(setFee), for: .allEvents)
-                slider.maximumValue = 2 * -1
-                slider.minimumValue = 432 * -1
-                
-                if ud.object(forKey: "feeTarget") != nil {
-                    
-                    let numberOfBlocks = ud.object(forKey: "feeTarget") as! Int
-                    slider.value = Float(numberOfBlocks) * -1
-                    updateFeeLabel(label: label, numberOfBlocks: numberOfBlocks)
-                    
-                } else {
-                    
-                    label.text = "Minimum fee set"
-                    slider.value = 432 * -1
-                    
-                }
-                
-                label.text = ""
-                
-                return cell
-                
-            default:
-                
-                let cell = UITableViewCell()
-                cell.backgroundColor = UIColor.clear
-                return cell
-                
-            }
-
-        } else {
-            
-            switch indexPath.section {
-                
-            case 0:
-                
-                thumbnail.image = UIImage(systemName: "square.and.arrow.up")
-                label.text = "Export"
-                return settingsCell
-                
-            case 1:
-            
-                thumbnail.image = UIImage(systemName: "square.and.arrow.down")
-                label.text = "Import"
-                return settingsCell
-                
-            case 2:
-                
-                thumbnail.image = UIImage(systemName: "checkmark.seal")
-                label.text = "Verify"
-                return settingsCell
-                
             case 3:
-            
-                thumbnail.image = UIImage(systemName: "square.and.arrow.up")
-                label.text = "Export"
-                return settingsCell
-                
-            case 4:
-                
-                thumbnail.image = UIImage(systemName: "lock")
-                label.text = "Export Authentication Public Key"
-                return settingsCell
-                
-            case 5:
-            
-                thumbnail.image = UIImage(systemName: "desktopcomputer")
-                label.text = "Node Manager"
-                return settingsCell
-                
-            case 6:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "miningFeeCell", for: indexPath)
                 let label = cell.viewWithTag(1) as! UILabel
@@ -419,22 +273,230 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 return cell
                 
             }
-            
+        
         }
+        
+//        if switchOutlet.selectedSegmentIndex == 1 {
+//
+//            switch indexPath.section {
+//
+//            /*case 0:
+//
+//                thumbnail.image = UIImage(systemName: "square.and.arrow.up")
+//                label.text = "Export"
+//                return settingsCell
+//
+//            case 1:
+//
+//                thumbnail.image = UIImage(systemName: "square.and.arrow.down")
+//                label.text = "Import"
+//                return settingsCell
+//
+//            case 2:
+//
+//                thumbnail.image = UIImage(systemName: "checkmark.seal")
+//                label.text = "Verify"
+//                return settingsCell
+//
+//            case 3:
+//
+//                thumbnail.image = UIImage(systemName: "square.and.arrow.up")
+//                label.text = "Export"
+//                return settingsCell
+//
+//            case 4:
+//
+//                thumbnail.image = UIImage(systemName: "square.stack.3d.down.right")
+//                label.text = "Wallets"
+//                return settingsCell
+//
+//            case 5:
+//
+//                thumbnail.image = UIImage(systemName: "info.circle")
+//                label.text = "Wallet Info"
+//                return settingsCell*/
+//
+////            case 7:
+////
+////                thumbnail.image = UIImage(systemName: "info.circle")
+////
+////                var account = "0"
+////
+////                if self.derivation.contains("1") {
+////
+////                    account = "1"
+////
+////                }
+////
+////                if self.derivation.contains("84") {
+////
+////                    label.text = "Native Segwit Account \(account) (BIP84 \(self.derivation))"
+////
+////                } else if self.derivation.contains("44") {
+////
+////                    label.text = "Legacy Account \(account) (BIP44 \(self.derivation))"
+////
+////                } else if self.derivation.contains("49") {
+////
+////                    label.text = "P2SH Segwit Account \(account) (BIP49 \(self.derivation))"
+////
+////                }
+////
+////                label.adjustsFontSizeToFitWidth = true
+////
+////                return settingsCell
+//
+//            case 0:
+//
+//                thumbnail.image = UIImage(systemName: "lock")
+//                label.text = "Export Authentication Public Key"
+//                return settingsCell
+//
+//            case 1:
+//
+//                thumbnail.image = UIImage(systemName: "desktopcomputer")
+//                label.text = "Node Manager"
+//                return settingsCell
+//
+//            case 2:
+//
+//                thumbnail.image = UIImage(systemName: "exclamationmark.triangle")
+//                label.text = "Reset app"
+//                return settingsCell
+//
+//            case 3:
+//
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "miningFeeCell", for: indexPath)
+//                let label = cell.viewWithTag(1) as! UILabel
+//                let slider = cell.viewWithTag(2) as! UISlider
+//                let thumbnail = cell.viewWithTag(3) as! UIImageView
+//                thumbnail.image = UIImage(systemName: "timer")
+//
+//                slider.addTarget(self, action: #selector(setFee), for: .allEvents)
+//                slider.maximumValue = 2 * -1
+//                slider.minimumValue = 432 * -1
+//
+//                if ud.object(forKey: "feeTarget") != nil {
+//
+//                    let numberOfBlocks = ud.object(forKey: "feeTarget") as! Int
+//                    slider.value = Float(numberOfBlocks) * -1
+//                    updateFeeLabel(label: label, numberOfBlocks: numberOfBlocks)
+//
+//                } else {
+//
+//                    label.text = "Minimum fee set"
+//                    slider.value = 432 * -1
+//
+//                }
+//
+//                label.text = ""
+//
+//                return cell
+//
+//            default:
+//
+//                let cell = UITableViewCell()
+//                cell.backgroundColor = UIColor.clear
+//                return cell
+//
+//            }
+//
+//        } else {
+//
+//            switch indexPath.section {
+//
+//            /*case 0:
+//
+//                thumbnail.image = UIImage(systemName: "square.and.arrow.up")
+//                label.text = "Export"
+//                return settingsCell
+//
+//            case 1:
+//
+//                thumbnail.image = UIImage(systemName: "square.and.arrow.down")
+//                label.text = "Import"
+//                return settingsCell
+//
+//            case 2:
+//
+//                thumbnail.image = UIImage(systemName: "checkmark.seal")
+//                label.text = "Verify"
+//                return settingsCell
+//
+//            case 3:
+//
+//                thumbnail.image = UIImage(systemName: "square.and.arrow.up")
+//                label.text = "Export"
+//                return settingsCell*/
+//
+//            case 4:
+//
+//                thumbnail.image = UIImage(systemName: "lock")
+//                label.text = "Export Authentication Public Key"
+//                return settingsCell
+//
+//            case 5:
+//
+//                thumbnail.image = UIImage(systemName: "desktopcomputer")
+//                label.text = "Node Manager"
+//                return settingsCell
+//
+//            case 6:
+//
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "miningFeeCell", for: indexPath)
+//                let label = cell.viewWithTag(1) as! UILabel
+//                let slider = cell.viewWithTag(2) as! UISlider
+//                let thumbnail = cell.viewWithTag(3) as! UIImageView
+//                thumbnail.image = UIImage(systemName: "timer")
+//
+//                slider.addTarget(self, action: #selector(setFee), for: .allEvents)
+//                slider.maximumValue = 2 * -1
+//                slider.minimumValue = 432 * -1
+//
+//                if ud.object(forKey: "feeTarget") != nil {
+//
+//                    let numberOfBlocks = ud.object(forKey: "feeTarget") as! Int
+//                    slider.value = Float(numberOfBlocks) * -1
+//                    updateFeeLabel(label: label, numberOfBlocks: numberOfBlocks)
+//
+//                } else {
+//
+//                    label.text = "Minimum fee set"
+//                    slider.value = 432 * -1
+//
+//                }
+//
+//                label.text = ""
+//
+//                return cell
+//
+//            default:
+//
+//                let cell = UITableViewCell()
+//                cell.backgroundColor = UIColor.clear
+//                return cell
+//
+//            }
+//
+//        }
     
-    }
+
+    
+    //}
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        if switchOutlet.selectedSegmentIndex == 1 {
-            
-            return 10
-            
-        } else {
-            
-            return 7
-            
-        }
+//        if switchOutlet.selectedSegmentIndex == 1 {
+//
+//            return 10
+//
+//        } else {
+//
+//            return 7
+//
+//        }
+        
+        return 4
         
     }
     
@@ -446,12 +508,12 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        if switchOutlet.selectedSegmentIndex == 1 {
+        //if switchOutlet.selectedSegmentIndex == 1 {
             
             switch section {
-            case 0: return "Seed"
-            case 2: return "Keys and Addresses"
-            case 4: return "Wallet Manager"
+//            case 0: return "Seed"
+//            case 2: return "Keys and Addresses"
+//            case 4: return "Wallet Manager"
             //case 7: return "Derivation"
             case 6: return "Tor V3 Authentication"
             case 7: return "Node Manager"
@@ -460,18 +522,18 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             default: return ""
             }
             
-        } else {
-            
-            switch section {
-            case 0: return "Seed"
-            case 2: return "Keys and Addresses"
-            case 4: return "Tor V3 Authentication"
-            case 5: return "Node Manager"
-            case 6: return "Mining Fee"
-            default: return ""
-            }
-            
-        }
+//        } else {
+//
+//            switch section {
+//            case 0: return "Seed"
+//            case 2: return "Keys and Addresses"
+//            case 4: return "Tor V3 Authentication"
+//            case 5: return "Node Manager"
+//            case 6: return "Mining Fee"
+//            default: return ""
+//            }
+//
+//        }
         
     }
     
@@ -486,77 +548,91 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         
-        if switchOutlet.selectedSegmentIndex == 1 {
-            
-            switch section {
-                
-            case 0, 2, 4, 5:
-                
-                return 10
-                
-            default:
-                
-                return 20
-                
-            }
-            
-        } else {
-            
-            switch section {
-                
-            case 0, 2:
-                
-                return 10
-                
-            default:
-                
-                return 20
-                
-            }
-            
-        }
+//        if switchOutlet.selectedSegmentIndex == 1 {
+//
+//            switch section {
+//
+//            case 0, 2, 4, 5:
+//
+//                return 10
+//
+//            default:
+//
+//                return 20
+//
+//            }
+//
+//        } else {
+//
+//            switch section {
+//
+//            case 0, 2:
+//
+//                return 10
+//
+//            default:
+//
+//                return 20
+//
+//            }
+//
+//        }
+        
+        return 20
         
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if switchOutlet.selectedSegmentIndex == 0 {
+        switch section {
             
-            switch section {
-                
-            case 0:
-                
-                return 50
-                
-            case 1, 3:
-                
-                return 0.25
-                
-            default:
-                
-                return 30
-                
-            }
+        case 0:
             
-        } else {
+            return 50
             
-            switch section {
-                
-            case 0:
-                
-                return 50
-                
-            case 1, 3, 5:
-                
-                return 0.25
-                
-            default:
-                
-                return 30
-                
-            }
+        default:
+            
+            return 30
             
         }
+        
+//        if switchOutlet.selectedSegmentIndex == 0 {
+//
+//            switch section {
+//
+//            case 0:
+//
+//                return 50
+//
+//            case 1, 3:
+//
+//                return 0.25
+//
+//            default:
+//
+//                return 30
+//
+//            }
+//
+//        } else {
+//
+//            switch section {
+//
+//            case 0:
+//
+//                return 50
+//
+//            case 1, 3, 5:
+//
+//                return 0.25
+//
+//            default:
+//
+//                return 30
+//
+//            }
+//
+//        }
         
         
                 
@@ -571,95 +647,115 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             
         }
         
-        if switchOutlet.selectedSegmentIndex == 0 {
+        switch indexPath.section {
             
-            switch indexPath.section {
-                
-            case 0:
-                
-                exportSeed()
-                
-            case 1:
+        case 0:
             
-                importSeed()
-                
-            case 2:
-                
-                verifyKeys()
-                
-            case 3:
-                
-                exportKeys()
-                
-            case 4:
-                
-                goToAuth()
-                
-            case 5:
-                
-                nodeManager()
-                
-            default:
-                
-                break
-                
-            }
+            goToAuth()
             
-        } else {
+        case 1:
             
-            switch indexPath.section {
-                
-            case 0:
-                
-                exportSeed()
-                
-            case 1:
-                
-                importSeed()
-                
-            case 2:
-                
-                verifyKeys()
-                
-            case 3:
-                
-                exportKeys()
-                
-            case 4:
-                
-                goToWallets()
-                
-            case 5:
-                
-                getWalletInfo()
-                
-//            case 6:
-//
-//                walletTemplates()
-                
-//            case 7:
-//
-//                setDerivation()
-                
-            case 6:
-                
-                goToAuth()
-                
-            case 7:
-                
-                nodeManager()
-                
-            case 8:
-                
-                resetApp()
-                
-            default:
-                
-                break
-                
-            }
+            nodeManager()
+            
+        case 2:
+        
+            resetApp()
+            
+        default:
+            
+            break
             
         }
+        
+//        if switchOutlet.selectedSegmentIndex == 0 {
+//
+//            switch indexPath.section {
+//
+//            case 0:
+//
+//                exportSeed()
+//
+//            case 1:
+//
+//                importSeed()
+//
+//            case 2:
+//
+//                verifyKeys()
+//
+//            case 3:
+//
+//                exportKeys()
+//
+//            case 4:
+//
+//                goToAuth()
+//
+//            case 5:
+//
+//                nodeManager()
+//
+//            default:
+//
+//                break
+//
+//            }
+//
+//        } else {
+//
+//            switch indexPath.section {
+//
+//            case 0:
+//
+//                exportSeed()
+//
+//            case 1:
+//
+//                importSeed()
+//
+//            case 2:
+//
+//                verifyKeys()
+//
+//            case 3:
+//
+//                exportKeys()
+//
+//            case 4:
+//
+//                goToWallets()
+//
+//            case 5:
+//
+//                getWalletInfo()
+//
+////            case 6:
+////
+////                walletTemplates()
+//
+////            case 7:
+////
+////                setDerivation()
+//
+//            case 6:
+//
+//                goToAuth()
+//
+//            case 7:
+//
+//                nodeManager()
+//
+//            case 8:
+//
+//                resetApp()
+//
+//            default:
+//
+//                break
+//
+//            }
+//
+//        }
         
     }
     

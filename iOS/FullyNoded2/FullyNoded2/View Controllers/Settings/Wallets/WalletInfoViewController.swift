@@ -18,28 +18,36 @@ class WalletInfoViewController: UIViewController {
         super.viewDidLoad()
         
         connectingView.addConnectingView(vc: self, description: "getting wallet info")
-        getWalletInfo(name: walletname)
+        getWalletInfo()
         
     }
     
-    func getWalletInfo(name: String) {
+    func getWalletInfo() {
         
-        let reducer = Reducer()
-        reducer.makeCommand(walletName: name, command: .getwalletinfo, param: "") {
+        getActiveWalletNow { (wallet, error) in
             
-            if !reducer.errorBool {
+            if !error && wallet != nil {
                 
-                DispatchQueue.main.async {
+                let reducer = Reducer()
+                reducer.makeCommand(walletName: wallet!.name, command: .getwalletinfo, param: "") {
                     
-                    self.textView.text = "\(reducer.dictToReturn)"
-                    self.connectingView.removeConnectingView()
+                    if !reducer.errorBool {
+                        
+                        DispatchQueue.main.async {
+                            
+                            self.textView.text = "\(reducer.dictToReturn)"
+                            self.connectingView.removeConnectingView()
+                            
+                        }
+                        
+                    } else {
+                                        
+                        self.connectingView.removeConnectingView()
+                        displayAlert(viewController: self, isError: true, message: reducer.errorDescription)
+                        
+                    }
                     
                 }
-                
-            } else {
-                                
-                self.connectingView.removeConnectingView()
-                displayAlert(viewController: self, isError: true, message: reducer.errorDescription)
                 
             }
             
