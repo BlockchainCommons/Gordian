@@ -1,7 +1,0 @@
-{
-    "version":"0.19.0.1",
-    "binaryPrefix":"bitcoin-0.19.0.1",
-    "macosBinary":"bitcoin-0.19.0.1-osx64.tar.gz",
-    "macosURL":"https://bitcoincore.org/bin/bitcoin-core-0.19.0.1/bitcoin-0.19.0.1-osx64.tar.gz",
-    "shaURL":"https://bitcoincore.org/bin/bitcoin-core-0.19.0.1/SHA256SUMS.asc"
-}
