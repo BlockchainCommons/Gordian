@@ -190,7 +190,7 @@ Because the app is accessing your node over Tor you may put your Bitcoin Core ma
 - Utilize your BIP39 recovery phrase with your own node
 - Customize derivation paths
 
-To see all the details please visit the dedicated github [readme here](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/iOS/FullyNoded 2)
+To see all the details please visit the dedicated github [readme here](https://github.com/BlockchainCommons/Bitcoin-Standup/tree/master/iOS/FullyNoded-2)
 
 ## API
 
@@ -198,7 +198,7 @@ To see all the details please visit the dedicated github [readme here](https://g
 
 This section defines the spec for a deep link URI and a scannable QR Code. These ideally would have the same format among a number of different software projects and hardware products to ensure universal compatibility.
 
-The iOS application [FullyNoded 2](https://github.com/FontaineDenton/iOS/FullyNoded 2) and [FullyNoded](https://github.com/Fonta1n3/FullyNoded/blob/master/Readme.md) is a proof of concept of such a light client. The server side node manufacturers/providers supporting this protocol are [BTCPayServer](https://btcpayserver.org), [Nodl](https://www.nodl.it/), [MyNode](http://www.mynodebtc.com) and [RaspiBlitz](https://github.com/rootzoll/raspiblitz).
+The iOS application [FullyNoded 2](https://github.com/FontaineDenton/iOS/FullyNoded-2) and [FullyNoded](https://github.com/Fonta1n3/FullyNoded/blob/master/Readme.md) is a proof of concept of such a light client. The server side node manufacturers/providers supporting this protocol are [BTCPayServer](https://btcpayserver.org), [Nodl](https://www.nodl.it/), [MyNode](http://www.mynodebtc.com) and [RaspiBlitz](https://github.com/rootzoll/raspiblitz).
 
 #### Current Format
 
