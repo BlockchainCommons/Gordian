@@ -8,6 +8,18 @@
 
 <img src="https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Images/standup_config.png" alt="" width="400"/>
 
+### Intro
+
+This repository covers three children repositiories:
+
+- 1. [MacOS StandUp.app](https://github.com/BlockchainCommons/Bitcoin-StandUp-MacOS) (as pictured above) which is a personal one click Bitcoin Core and Tor installer that will present a QuickConnect QR code to pair mobile wallets with for remote use over Tor V3.
+
+- 2. [iOS FullyNoded 2](https://github.com/BlockchainCommons/FullyNoded-2) which you can scan the QuickConnect QR code with and easily create mutli-sig wallets whereby one key gets stored on your device, one on your node and one is kept as an offline backup.
+
+- 3. [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts) which achieve the same thing as the MacOS StandUp.app but come in the form of Linux scripts.
+
+This repo covers an overview of all three as they are meant to work together as a suite of tools. For more details please visit each respective repo.
+
 > *Bitcoin-Standup* is a open source project and a suite of tools that helps users to install a [Bitcoin-Core](https://bitcoin.org/) full-node on a fresh computer or VPS and to add important privacy tools like onion services and eventually optional Bitcoin-related tools like [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server), [C-Lightning](https://github.com/ElementsProject/lightning), [Esplora](https://github.com/Blockstream/esplora), [BTCPay Server](https://github.com/btcpayserver/btcpayserver), etc., as well as emerging technologies like Bitcoin-based Decentralized Identifiers. *Bitcoin-Standup* strives to provide the community with an easy to use "one-click" set up full-node complete with a purpose built remote app for securely connecting to your node over Tor from anywhere in the world, providing you with a powerful suite of tools.
 >
 > This tool will also harden and secure your OS to current best practices, as well as adding sufficient system tools to support basic Bitcoin development. After setup, *Bitcoin-Standup* will present a QR code and/or special URI that can be used to securely link your full-node to other devices, such as your mobile phone for instance using [FullyNoded 2](https://testflight.apple.com/join/OQHyL0a8) or [Fully Noded 1](https://github.com/FontaineDenton/iOS/FullyNoded) on iOS or a remote desktop.
