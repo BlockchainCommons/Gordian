@@ -4,6 +4,8 @@
 
 <img src="https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Images/standup_home.png" alt="" width="400"/>
 
+<img src="https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Images/qr.png" alt="" width="400"/>
+
 <img src="https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Images/standup_config.png" alt="" width="400"/>
 
 > *Bitcoin-Standup* is a open source project and a suite of tools that helps users to install a [Bitcoin-Core](https://bitcoin.org/) full-node on a fresh computer or VPS and to add important privacy tools like onion services and eventually optional Bitcoin-related tools like [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server), [C-Lightning](https://github.com/ElementsProject/lightning), [Esplora](https://github.com/Blockstream/esplora), [BTCPay Server](https://github.com/btcpayserver/btcpayserver), etc., as well as emerging technologies like Bitcoin-based Decentralized Identifiers. *Bitcoin-Standup* strives to provide the community with an easy to use "one-click" set up full-node complete with a purpose built remote app for securely connecting to your node over Tor from anywhere in the world, providing you with a powerful suite of tools.
