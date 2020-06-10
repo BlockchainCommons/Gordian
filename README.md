@@ -22,6 +22,8 @@ The easiest-to-use Linux scripts run through the StackScript system at Linode, b
 
 [Quick Connect API](Docs/Quick-Connect-API.md) defines the spec for a deep link URI and a scannable QR Code. It is used by *Bitcoin-Standup* as well as by several server-side node manufacturers.
 
+## Additional Information
+
 ### Further Docs
 
 More information about the purpose and design of *Bitcoin-Standup* can be found in the following documents:
