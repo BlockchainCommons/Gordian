@@ -10,7 +10,13 @@ This repo contains a table of contents for various *Standup* projects and featur
 
 [MacOS StandUp.app](https://github.com/BlockchainCommons/Bitcoin-StandUp-MacOS) is a personal one-click installer for Bitcoin Core and Tor that will present a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3.
 
-*MacOS Standup* has been developed and tested on "Catalina" and can be installed via a DMG or an XCode compilation
+<img src="./Images/0_standup_mac.png" alt="" width="1000"/>
+
+<img src="./Images/1_standup_mac.png" alt="" width="1000"/>
+
+<img src="./Images/3_standup_mac.png" alt="" width="800"/> 
+
+*MacOS Standup* has been developed and tested on "Mojave" and "Catalina", it can be installed via a DMG or an Xcode compilation
 
 ## Linux Standup
 
@@ -21,6 +27,8 @@ The easiest-to-use Linux scripts run through the StackScript system at Linode, b
 ## Quick Connect
 
 [Quick Connect API](Docs/Quick-Connect-API.md) defines the spec for a deep link URI and a scannable QR Code. It is used by *Bitcoin-Standup* as well as by several server-side node manufacturers.
+
+<img src="./Images/3_standup_mac.png" alt="" width="800"/> <img src="./Images/scanQuickConnect.PNG" alt="" width="400"/>
 
 ## Additional Information
 
@@ -43,4 +51,3 @@ The full node created by *Bitcoin-Standup* can also be interlinked with other pr
 *Bitcoin-Standup* is a project of [Blockchain Commons](https://www.blockchaincommons.com/). We are proudly a "not-for-profit" social benefit corporation committed to open source & open development. Our work is funded entirely by donations and collaborative partnerships with people like you. Every contribution will be spent on building open tools, technologies, and techniques that sustain and advance blockchain and internet security infrastructure and promote an open web.
 
 To financially support further development of *Bitcoin-Standup* and other projects, please consider becoming a Patron of Blockchain Commons through ongoing monthly patronage as a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons). You can also support Blockchain Commons with bitcoins at our [BTCPay Server](https://btcpay.blockchaincommons.com/).
-
