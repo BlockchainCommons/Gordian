@@ -6,9 +6,9 @@ This tool will also harden and secure your OS to current best practices and will
 
 This repo contains a table of contents for various *Standup* projects and features. Please see individual repos and pages for more information.
 
-## MacOs Standup
+## macOS Standup
 
-[MacOS StandUp.app](https://github.com/BlockchainCommons/Bitcoin-StandUp-MacOS) is a personal one-click installer for Bitcoin Core and Tor that will present a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3.
+[macOS StandUp.app](https://github.com/BlockchainCommons/Bitcoin-StandUp-MacOS) is a personal one-click installer for Bitcoin Core and Tor that will present a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3.
 
 <img src="./Images/0_standup_mac.png" alt="" width="500"/>
 
