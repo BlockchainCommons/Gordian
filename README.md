@@ -10,11 +10,11 @@ This repo contains a table of contents for various *Standup* projects and featur
 
 [MacOS StandUp.app](https://github.com/BlockchainCommons/Bitcoin-StandUp-MacOS) is a personal one-click installer for Bitcoin Core and Tor that will present a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3.
 
-<img src="./Images/0_standup_mac.png" alt="" width="1000"/>
+<img src="./Images/0_standup_mac.png" alt="" width="500"/>
 
 <img src="./Images/1_standup_mac.png" alt="" width="1000"/>
 
-<img src="./Images/3_standup_mac.png" alt="" width="800"/> 
+<img src="./Images/3_standup_mac.png" alt="" width="800"/>
 
 *MacOS Standup* has been developed and tested on "Mojave" and "Catalina", it can be installed via a DMG or an Xcode compilation
 
