@@ -42,7 +42,7 @@ GordianWallet author Peter Denton also provides an alternative app: [FullyNoded-
 
 TheGordianSystem is built on the [Quick Connect API](Docs/Quick-Connect-API.md), which defines the spec for a deep link URI and a scannable QR Code, and which links your *GordianNode* (or other Bitcoin Standup node) to a *GordianWallet*. Besides being used by *GordianNode-macOS*, it's also supported by several server-side node manufacturers.
 
-<img src="https://github.com/BlockchainCommons/GordianWallet-iOS/Images/3_standup_mac.png" alt="" width="800"/> <img src="https://github.com/BlockchainCommons/GordianWallet-iOS/Images/scanQuickConnect.PNG" alt="" width="400"/>
+<img src="https://github.com/BlockchainCommons/GordianWallet-iOS/blob/master/Images/3_standup_mac.png" alt="" width="800"/> <img src="https://github.com/BlockchainCommons/GordianWallet-iOS/blob/master/Images/scanQuickConnect.PNG" alt="" width="400"/>
 
 ## Additional Information
 
