@@ -10,6 +10,13 @@
 
 *This repo contains a table of contents for various *GordianSystem* projects and features. Please see individual repos and pages for more information.*
 
+## Quick Links for All Repos
+
+* [GordianNode-macOS.app](https://github.com/BlockchainCommons/GordianNode-macOS)
+   * [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts)
+* [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS)
+* [QuickCOnnect API](Docs/Quick-Connect-API.md)
+
 ## Gordian Node on MacOS
 
 [GordianNode-macOS.app](https://github.com/BlockchainCommons/GordianNode-macOS) is an app that provides personal one-click installation for Bitcoin Core and Tor. It's built on Bitcoin Standup technology that presents a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3.
