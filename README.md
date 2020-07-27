@@ -65,7 +65,7 @@ More information about the purpose and design of *GordianSystem* can be found in
 
 The full node created by *GordianSystem* can also be interlinked with other projects from Blockchain Commons.
 
-1. [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line) is a tutorial for programming the `bitcoin-cli`, which can be run using a full node such as the one created by *GordianSystem.
+1. [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line) is a tutorial for programming the `bitcoin-cli`, which can be run using a full node such as the one created by *GordianSystem*.
 
 ## Financial Support
 
