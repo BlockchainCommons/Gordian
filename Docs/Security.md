@@ -18,19 +18,19 @@ This can be used to solve the problem of a "malicious maid" or an easedropping h
 
 To use two-factor authentication a trusted and separate isolated device (e.g. the client) produces a private key and public key. The owner of the server must then physically add the public key to the `authorized_clients` directory on the server. In this way you can also share access to your node with trusted family and friends. Tor V3 hidden services support up to ~330 different public keys stored in the `authorized_clients` directory (link to source). 
 
-For a detailed guide see [this link](https://github.com/AnarchoTechNYC/meta/wiki/Connecting-to-an-authenticated-Onion-service#connecting-to-authenticated-version-3-onion-services); for a simple video tutorial that links  iOS *FullyNoded 2*  to a Bitcoin-StandUp node, see [this link](https://youtu.be/pSm2VftTCBI) (TO DO create demo videos for FullyNoded 2).
+For a detailed guide see [this link](https://github.com/AnarchoTechNYC/meta/wiki/Connecting-to-an-authenticated-Onion-service#connecting-to-authenticated-version-3-onion-services); for a simple video tutorial that links  iOS *GordianWallet-iOS*  to a Bitcoin-StandUp node, see [this link](https://youtu.be/pSm2VftTCBI) (TO DO create demo videos for GordianWallet-iOS).
 
-#### Using 2FA for Standup and FullyNoded
+#### Using 2FA for Standup and GordianWallet-iOS
 
-You can also follow these instructions if you have downloaded and installed macOS *Standup.app* and iOS *FullyNoded 2.* 
+You can also follow these instructions if you have downloaded and installed macOS *GordianNode-macOS.app* and iOS *GordianWallet-iOS.* 
 
-In *FullyNoded 2*, the private key is stored encrypted locally on the device. The user can not access it, and the encryption key for the private key is stored on your keychain. Whenever you connect to your node, the key is decrypted and stored in your temporary `torrc`, file which is integrated into the *FullyNoded 2* Tor thread. The public key, however, is not sensitive as it only works in conjunction with the private key. Thus it can be easily accessed from *FullyNoded 2*.
+In *GordianWallet-iOS*, the private key is stored encrypted locally on the device. The user can not access it, and the encryption key for the private key is stored on your keychain. Whenever you connect to your node, the key is decrypted and stored in your temporary `torrc`, file which is integrated into the *GordianWallet-iOS* Tor thread. The public key, however, is not sensitive as it only works in conjunction with the private key. Thus it can be easily accessed from *GordianWallet-iOS*.
 
-To share the linked public key from *FullyNoded 2*, go to settings and tap "Export Authentication Public Key" as pictured below:
+To share the linked public key from *GordianWallet-iOS*, go to settings and tap "Export Authentication Public Key" as pictured below:
 
 <img src="https://github.com/Fonta1n3/Bitcoin-Standup/blob/master/Images/StandUp_Remote_Settings.PNG" alt="export authentication public key" width="250"/>
 
-This will pop up a QR code which you may scan from your Mac to input the key into the macOS *StandUp.app*:
+This will pop up a QR code which you may scan from your Mac to input the key into the macOS *GordianNode-macOS.app*:
 
 <img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/Images/StandUp_Remote_QR.PNG" alt="export the public key" width="250"/>
 
@@ -38,9 +38,9 @@ This will pop up a QR code which you may scan from your Mac to input the key int
 
 If you prefer, you can enter the public key by hand.
 
-The public key text, which looks like `descriptor:x25519:JNEF892349FH24HF872H4FU2H387H3R982NFN238HF928`, is  automatically copied to your clipboard for easy cut and pasting. If you prefer to enter your public key manually, you would go to the computer that has *StandUp.app* installed and find your `HiddenServiceDir`, which is `/usr/local/var/lib/tor/standup/authorized_clients`. You would then open the `authorized_clients` directory and add a file which contains only the public key exactly as *FullyNoded 2* exports it. The filename must have a `.auth` extension.
+The public key text, which looks like `descriptor:x25519:JNEF892349FH24HF872H4FU2H387H3R982NFN238HF928`, is  automatically copied to your clipboard for easy cut and pasting. If you prefer to enter your public key manually, you would go to the computer that has *GordianNode-macOS.app* installed and find your `HiddenServiceDir`, which is `/usr/local/var/lib/tor/standup/authorized_clients`. You would then open the `authorized_clients` directory and add a file which contains only the public key exactly as *GordianWallet-iOS* exports it. The filename must have a `.auth` extension.
 
-But of course you are using *Bitcoin-StandUp* so the process is as easy as a click. In macOS *StandUp.app* go to "Settings" and paste in the public key just as iOS *FullyNoded 2* exported it, then tap "Add".
+But of course you are using *Bitcoin-StandUp* so the process is as easy as a click. In macOS *GordianNode-macOS.app* go to "Settings" and paste in the public key just as iOS *GordianWallet-iOS* exported it, then tap "Add".
 
 <img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/Images/paste.png" alt="paste the public key" width="400"/>
 
@@ -48,5 +48,5 @@ But of course you are using *Bitcoin-StandUp* so the process is as easy as a cli
 
 <img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/Images/ok.png" alt="tap yes" width="400"/>
 
-macOS *StandUp.app* then simply creates a random filename with a `.auth` extension, writes the public key to it, and saves it to `/usr/local/var/lib/tor/standup/authorized_clients/`.
+*GordianNode-macOS.app* then simply creates a random filename with a `.auth` extension, writes the public key to it, and saves it to `/usr/local/var/lib/tor/standup/authorized_clients/`.
 
