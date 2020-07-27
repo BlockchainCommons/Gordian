@@ -32,7 +32,7 @@ The easiest-to-use Linux scripts run through the StackScript system at Linode, b
 
 [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS) is a purpose-built remote app for securely connecting to your node over Tor from anywhere in the world. Combined with your *GordianNode*, it provides you with a powerful suite of tools for managing Bitcoin. You can scan the QuickConnect QR code from *GordianNode-macOS* and easily create mutli-sig wallets where one key gets stored on your device, one on your node, and one in offline backup.
 
-<img src="./Images/home_screen_collapsed.PNG" alt="Gordian Wallet app Home Screen" width="250"/> <img src="./Images/home_screen_expanded.PNG" alt="Gordian Wallet app Home Screen" width="250"/>
+<img src="https://raw.githubusercontent.com/BlockchainCommons/GordianWallet-iOS/master/Images/home_screen_collapsed.PNG" alt="Gordian Wallet app Home Screen" width="250"/> <img src="https://raw.githubusercontent.com/BlockchainCommons/GordianWallet-iOS/master/Images/home_screen_expanded.PNG" alt="Gordian Wallet app Home Screen" width="250"/>
 
 ### Other Wallet Options: FullyNoded for iOS
 
@@ -42,7 +42,7 @@ GordianWallet author Peter Denton also provides an alternative app: [FullyNoded-
 
 TheGordianSystem is built on the [Quick Connect API](Docs/Quick-Connect-API.md), which defines the spec for a deep link URI and a scannable QR Code, and which links your *GordianNode* (or other Bitcoin Standup node) to a *GordianWallet*. Besides being used by *GordianNode-macOS*, it's also supported by several server-side node manufacturers.
 
-<img src="https://github.com/BlockchainCommons/GordianWallet-iOS/blob/master/Images/3_standup_mac.png" alt="" width="800"/> <img src="https://github.com/BlockchainCommons/GordianWallet-iOS/blob/master/Images/scanQuickConnect.PNG" alt="" width="400"/>
+<img src="Images/3_standup_mac.png" alt="" width="800"/> <img src="Images/scanQuickConnect.PNG" alt="" width="400"/>
 
 ## Additional Information
 
