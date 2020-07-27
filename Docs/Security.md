@@ -1,4 +1,4 @@
-## Security for Your GOrdianSystem
+## Security for Your GordianSystem
 
 The following security advisories are intended to ensure the security of your *GordianNode* or other *Bitcoin-Standup* node.
 
