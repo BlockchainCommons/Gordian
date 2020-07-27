@@ -2,7 +2,7 @@
 
 This section defines the spec for a deep link URI and a scannable QR Code. These ideally would have the same format among a number of different software projects and hardware products to ensure universal compatibility.
 
-Server-side node manufacturers or providers supporting this protocol include [BTCPayServer](https://btcpayserver.org), [Nodl](https://www.nodl.it/), [MyNode](http://www.mynodebtc.com), [RaspiBlitz](https://github.com/rootzoll/raspiblitz), and of course *Bitcoin-Standup*. The iOS application [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS) offers proof of concept of a light client built to use this protocol.
+Server-side node manufacturers or providers supporting this protocol include [BTCPayServer](https://btcpayserver.org), [Nodl](https://www.nodl.it/), [MyNode](http://www.mynodebtc.com), [RaspiBlitz](https://github.com/rootzoll/raspiblitz), and of course [GordianNode](https://github.com/BlockchainCommons/GordianNode-macOS). The iOS application [GordianWallet](https://github.com/BlockchainCommons/GordianWallet-iOS) offers proof of concept of a light client built to use this protocol.
 
 ## Current Format
 
