@@ -15,7 +15,7 @@
 * [GordianNode-macOS.app](https://github.com/BlockchainCommons/GordianNode-macOS)
    * [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts)
 * [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS)
-* [QuickCOnnect API](Docs/Quick-Connect-API.md)
+* [QuickConnect API](Docs/Quick-Connect-API.md)
 
 ## Gordian Node on MacOS
 
