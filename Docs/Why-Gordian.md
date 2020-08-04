@@ -4,4 +4,4 @@ Figuring out how to access full-node services through a mobile client has been a
 
 But we also believe that our Gordian services are Guardians, protecting your digital assets and keys using technology that's entirely state of the art.
 
-Blockchain Commons is all about solving the knotty problems in blockchain infrastructure that are holding back our joint development. That's why we have the Borromean Rings in our logo. One twist of the magician's hands, and they're split apart. We hope to similarly make other problems of blockchain infrastructure go away, with our "not for profit" open source and open development work. The *GordianSystem* is just one such project.
+Blockchain Commons is all about solving the knotty problems in blockchain infrastructure that are holding back our joint development. That's why we have the Borromean Rings in our logo. One twist of the magician's hands, and they're split apart. We hope to similarly make other problems of blockchain infrastructure go away, with our "not for profit" open source and open development work. The Gordian system is just one such project (or rather: many such projects).

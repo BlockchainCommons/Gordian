@@ -1,6 +1,6 @@
-## Security for Your GordianSystem
+## Security for Your Gordian Products
 
-The following security advisories are intended to ensure the security of your *GordianNode* or other *Bitcoin-Standup* node.
+The following security advisories are intended to ensure the security of your *GordianServer* or other *Bitcoin-Standup* node.
 
 ## 1. Do Not Use a VPS for Real Funds
 
@@ -16,13 +16,13 @@ This can be used to solve the problem of a "malicious maid" or an easedropping h
 
 ### Enabling Two-Factor Authentication
 
-To use two-factor authentication a trusted and separate isolated device (e.g. your *GordianWallet*) produces a private key and public key. You must then physically add the public key to the `authorized_clients` directory on the *GordianNode*. In this way you can also share access to your node with trusted family and friends. Tor V3 hidden services support up to ~330 different public keys stored in the `authorized_clients` directory (link to source). 
+To use two-factor authentication a trusted and separate isolated device (e.g. your *GordianWallet*) produces a private key and public key. You must then physically add the public key to the `authorized_clients` directory on the *GordianServer*. In this way you can also share access to your node with trusted family and friends. Tor V3 hidden services support up to ~330 different public keys stored in the `authorized_clients` directory (link to source). 
 
-For a detailed guide see [this link](https://github.com/AnarchoTechNYC/meta/wiki/Connecting-to-an-authenticated-Onion-service#connecting-to-authenticated-version-3-onion-services); for a simple video tutorial that links *GordianWallet* to a *GordianNode*, see [this link](https://youtu.be/pSm2VftTCBI) (TO DO create demo videos for GordianWallet-iOS).
+For a detailed guide see [this link](https://github.com/AnarchoTechNYC/meta/wiki/Connecting-to-an-authenticated-Onion-service#connecting-to-authenticated-version-3-onion-services); for a simple video tutorial that links *GordianWallet* to a *GordianServer*, see [this link](https://youtu.be/pSm2VftTCBI) (TO DO create demo videos for GordianWallet-iOS).
 
-#### Using 2FA for GordianNode for Mac and GordianWallet
+#### Using 2FA for GordianServer for Mac and GordianWallet
 
-You can also follow these instructions if you have downloaded and installed macOS *GordianNode and iOS *GordianWallet.* 
+You can also follow these instructions if you have downloaded and installed macOS *GordianServer and iOS *GordianWallet.* 
 
 In *GordianWallet*, the private key is stored encrypted locally on the device. The user can not access it, and the encryption key for the private key is stored on your keychain. Whenever you connect to your node, the key is decrypted and stored in your temporary `torrc` file, which is integrated into the *GordianWallet* Tor thread. The public key, however, is not sensitive as it only works in conjunction with the private key. Thus it can be easily accessed from *GordianWallet*.
 
@@ -30,7 +30,7 @@ To share the linked public key from *GordianWallet*, go to settings and tap "Exp
 
 <img src="https://github.com/Fonta1n3/Bitcoin-Standup/blob/master/Images/StandUp_Remote_Settings.PNG" alt="export authentication public key" width="250"/>
 
-This will pop up a QR code which you may scan from your Mac to input the key into the macOS *GordianNode.app*:
+This will pop up a QR code which you may scan from your Mac to input the key into the macOS *GordianServer.app*:
 
 <img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/Images/StandUp_Remote_QR.PNG" alt="export the public key" width="250"/>
 
@@ -38,9 +38,9 @@ This will pop up a QR code which you may scan from your Mac to input the key int
 
 If you prefer, you can enter the public key by hand.
 
-The public key text, which looks like `descriptor:x25519:JNEF892349FH24HF872H4FU2H387H3R982NFN238HF928`, is  automatically copied to your clipboard for easy cut and pasting. If you prefer to enter your public key manually, you would go to the computer that has *GordianNode.app* installed and find your `HiddenServiceDir`, which is `/usr/local/var/lib/tor/standup/authorized_clients`. You would then open the `authorized_clients` directory and add a file which contains only the public key exactly as *GordianWallet* exports it. The filename must have a `.auth` extension.
+The public key text, which looks like `descriptor:x25519:JNEF892349FH24HF872H4FU2H387H3R982NFN238HF928`, is  automatically copied to your clipboard for easy cut and pasting. If you prefer to enter your public key manually, you would go to the computer that has *GordianServer.app* installed and find your `HiddenServiceDir`, which is `/usr/local/var/lib/tor/standup/authorized_clients`. You would then open the `authorized_clients` directory and add a file which contains only the public key exactly as *GordianWallet* exports it. The filename must have a `.auth` extension.
 
-If you are using *GordianNode-macOS.app*, you can more simply go to "Settings" and paste in the public key just as iOS *GordianWallet* exported it, then tap "Add".
+If you are using *GordianServer-macOS.app*, you can more simply go to "Settings" and paste in the public key just as iOS *GordianWallet* exported it, then tap "Add".
 
 <img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/Images/paste.png" alt="paste the public key" width="400"/>
 
@@ -48,5 +48,5 @@ If you are using *GordianNode-macOS.app*, you can more simply go to "Settings" a
 
 <img src="https://github.com/Fonta1n3/Bitcoin-StandUp/blob/master/Images/ok.png" alt="tap yes" width="400"/>
 
-*GordianNode* then creates a random filename with a `.auth` extension, writes the public key to it, and saves it to `/usr/local/var/lib/tor/standup/authorized_clients/`.
+*GordianServer* then creates a random filename with a `.auth` extension, writes the public key to it, and saves it to `/usr/local/var/lib/tor/standup/authorized_clients/`.
 
