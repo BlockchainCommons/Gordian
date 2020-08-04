@@ -1,4 +1,4 @@
-# 🛠 The Gordian System
+# 🛠 Gordian Products & Technologies
 
 *(Previously known as Bitcoin Standup and FullyNoded-2)*
 
