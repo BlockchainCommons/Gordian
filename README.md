@@ -1,4 +1,4 @@
-# 🛠 The Gordian system
+# 🛠 The Gordian System
 
 *(Previously known as Bitcoin Standup and FullyNoded-2)*
 
