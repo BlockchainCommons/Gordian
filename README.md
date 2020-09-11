@@ -15,7 +15,7 @@ The Gordian system is a suite of powerful open-source tools that offers a self-s
 * [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS)
    * [Install in Testflight](https://testflight.apple.com/join/OQHyL0a8)
 * [GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS)
-   * [Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/blob/master/GordianServer-macOS-v0.1.2.dmg)
+   * [Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/blob/master/GordianServer-macOS-v0.1.3.dmg)
 * [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts)
 * [QuickConnect API](Docs/Quick-Connect-API.md)
 
@@ -25,7 +25,11 @@ The Gordian system is a suite of powerful open-source tools that offers a self-s
 
 <img src="https://raw.githubusercontent.com/BlockchainCommons/GordianWallet-iOS/master/Images/home_screen_collapsed.PNG" alt="Gordian Wallet app Home Screen" width="250"/> <img src="https://raw.githubusercontent.com/BlockchainCommons/GordianWallet-iOS/master/Images/home_screen_expanded.PNG" alt="Gordian Wallet app Home Screen" width="250"/>
 
-**[Install in Testflight](https://testflight.apple.com/join/OQHyL0a8)**
+*GordianWallet-iOS* is a macCatalyst app and can therefore be used on either iOS devices or macOS.
+
+**[Install iOS Testflight](https://testflight.apple.com/join/OQHyL0a8)**
+
+**[Install for macOS](https://github.com/BlockchainCommons/GordianWallet-iOS/blob/master/GordianWallet-macOS.dmg)**
 
 ### Other Wallet Options: FullyNoded for iOS
 
