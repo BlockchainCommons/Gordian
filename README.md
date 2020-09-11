@@ -1,16 +1,39 @@
-# 🛠 Gordian-System
+# 🛠 Gordian Products & Technologies
 
-*(Was known as Bitcoin Standup and FullyNoded-2, updates to rename still in progress)*
+*(Previously known as Bitcoin Standup and FullyNoded-2)*
 
-*Gordian-System* is a series of open source projects and a suite of tools that helps users to install a [Bitcoin-Core](https://bitcoin.org/) full-node on a fresh computer or VPS and to add important privacy tools like onion services. It will eventually also support optional Bitcoin-related tools like [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server), [C-Lightning](https://github.com/ElementsProject/lightning), [Esplora](https://github.com/Blockstream/esplora), and [BTCPay Server](https://github.com/btcpayserver/btcpayserver) as well as emerging technologies like Bitcoin-based Decentralized Identifiers. *GordianServer-macOS* strives to provide the community with an easy to use "one-click" set up full-node complete with a purpose built remote app for securely connecting to your node over Tor from anywhere in the world, providing you with a powerful suite of tools.
+The Gordian system is a suite of powerful open-source tools that offers a self-sovereign solution for Bitcoin by using Tor and QuickConnect technology to link a protected GordianServer with a mobile GordianWallet so that you access full-node capabilities from a mobile device. ([It's meant to cut through a traditionally knotty problem in Bitcoin development.](Docs/Why-Gordian.md))
 
-This tool will also harden and secure your OS to current best practices and will add sufficient system tools to support basic Bitcoin development. After setup, *GordianServer-macOS* will present a QR code and/or special URI that can be used to securely link your full-node to other devices, such as a remote desktop or a mobile phone using [GordianWallet](https://testflight.apple.com/join/OQHyL0a8) or [Fully Noded](https://apps.apple.com/us/app/fully-noded/id1436425586) on iOS.
+* **GordianWallet** is a mobile wallet special-built as part of the the Gordian system. It was created to support self-sovereign interactions while providing protected communications, and to utilize the newest cutting-edge Bitcoin technology, such as PSBTs and multi-sig addresses, which can multiply the protection of your Bitcoin funds.
+* **GordianServer** is an app that uses Bitcoin Standup technology to help users to install a [Bitcoin-Core](https://bitcoin.org/) full-node on a fresh computer or VPS and to add important privacy tools like onion services. GordianServer will harden and secure your OS to current best practices and will add sufficient system tools to support basic Bitcoin development. It will also eventually support optional Bitcoin-related tools like [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server), [C-Lightning](https://github.com/ElementsProject/lightning), [Esplora](https://github.com/Blockstream/esplora), and [BTCPay Server](https://github.com/btcpayserver/btcpayserver), as well as emerging technologies like Bitcoin-based Decentralized Identifiers. GordianServer is currently available for [MacOS](https://github.com/BlockchainCommons/GordianServer-macOS), with more limited functionality provided for [Linux machines](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts) by Bitcoin Standup.
+* **QuickConnect** is an API that generates a QR code (and/or special URI) to link your *GordianServer* to other devices, such as a mobile phone using [GordianWallet](https://testflight.apple.com/join/OQHyL0a8) on iOS, a remote desktop, or the [Fully Noded](https://apps.apple.com/us/app/fully-noded/id1436425586) app on iOS.
 
-This repo contains a table of contents for various *Gordian-System* projects and features. Please see individual repos and pages for more information.
+*This repo contains a table of contents for various the Gordian system projects and features. Please see individual repos and pages for more information.*
 
-## GordianServer-macOS
+## Quick Links for All Repos
 
-[GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS) is a personal one-click installer for Bitcoin Core and Tor that will present a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3.
+* [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS)
+   * [Install in Testflight](https://testflight.apple.com/join/OQHyL0a8)
+* [GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS)
+   * [Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/blob/master/GordianServer-macOS-v0.1.2.dmg)
+* [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts)
+* [QuickConnect API](Docs/Quick-Connect-API.md)
+
+## GordianWallet on iOS
+
+[GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS) is a purpose-built remote app for securely connecting to your node over Tor from anywhere in the world. Combined with your *GordianServer*, it provides you with a powerful suite of tools for managing Bitcoin. You can scan the QuickConnect QR code from *GordianServer-macOS* and easily create mutli-sig wallets where one key gets stored on your device, one on your node, and one in offline backup.
+
+<img src="https://raw.githubusercontent.com/BlockchainCommons/GordianWallet-iOS/master/Images/home_screen_collapsed.PNG" alt="Gordian Wallet app Home Screen" width="250"/> <img src="https://raw.githubusercontent.com/BlockchainCommons/GordianWallet-iOS/master/Images/home_screen_expanded.PNG" alt="Gordian Wallet app Home Screen" width="250"/>
+
+**[Install in Testflight](https://testflight.apple.com/join/OQHyL0a8)**
+
+### Other Wallet Options: FullyNoded for iOS
+
+GordianWallet author Peter Denton also provides an alternative app: [FullyNoded-iOS](https://fullynoded.app/), a feature-rich Bitcoin wallet.
+
+## Gordian Server on MacOS
+
+[GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS) is an app that provides personal one-click installation for Bitcoin Core and Tor. It's built on Bitcoin Standup technology that presents a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3.
 
 <img src="./Images/0_standup_mac.png" alt="" width="500"/>
 
@@ -18,38 +41,40 @@ This repo contains a table of contents for various *Gordian-System* projects and
 
 <img src="./Images/3_standup_mac.png" alt="" width="800"/>
 
-*GordianServer-macOS* has been developed and tested on "Mojave" and "Catalina", it can be installed via a DMG or an Xcode compilation.
+*GordianServer-macOS* has been developed and tested on "Mojave" and "Catalina", it can be installed via a DMG or an Xcode compilation
 
-## Linux Standup
+**[Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/blob/master/GordianServer-macOS-v0.1.2.dmg)**
 
-[Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts) achieve the same thing as GordianServer-macOS, but come in the form of Linux scripts.
+### Other Node Options: Bitcoin Standup for Linux
 
-The easiest-to-use Linux scripts run through the StackScript system at Linode, but you can alternatively use Linux scripts that have been tested with Debian Stretch and Ubuntu 18.04.
+[Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts) achieves the same thing as GordianServer-macOS, but comes in the form of Linux scripts rather than a central app.
 
-## Quick Connect
+The easiest-to-use version of the Linux scripts run through the StackScript system at Linode, but you can alternatively use Linux scripts that have been tested with Debian Stretch and Ubuntu 18.04.
 
-[Quick Connect API](Docs/Quick-Connect-API.md) defines the spec for a deep link URI and a scannable QR Code. It is used by *GordianServer-macOS* as well as by several server-side node manufacturers.
+## Quick Connect for the Gordian system
 
-<img src="./Images/3_standup_mac.png" alt="" width="800"/> <img src="./Images/scanQuickConnect.PNG" alt="" width="400"/>
+The Gordian system is built on the [Quick Connect API](Docs/Quick-Connect-API.md), which defines the spec for a deep link URI and a scannable QR Code, and which links your *GordianServer* (or other Bitcoin Standup node) to a *GordianWallet*. Besides being used by *GordianServer-macOS*, it's also supported by several server-side node manufacturers.
+
+<img src="Images/3_standup_mac.png" alt="" width="800"/> <img src="Images/scanQuickConnect.PNG" alt="" width="400"/>
 
 ## Additional Information
 
 ### Further Docs
 
-More information about the purpose and design of *GordianServer-macOS* can be found in the following documents:
+More information about the purpose and design of the Gordian system can be found in the following documents:
 
 1. [Why Run a Full Node?](Docs/Why-Full.md) Why would you want to run a full node in the first place? There are advantages in validation, privacy, security, liquidity, and education.
-3. [Security for GordianServer-macOS](Docs/Security.md). Notes on ensuring the security of your *GordianServer-macOS* node.
+2. [Security for Your Gordian system](Docs/Security.md). Notes on ensuring the security of your GordianServer.
+3. [Why Gordian?](Docs/Why-Gordian.md) What the Gordian name means to us.
 
 ### Related Projects
 
-The full node created by *GordianServer-macOS* can also be interlinked with other projects from Blockchain Commons.
+The full node created by the Gordian system can also be interlinked with other projects from Blockchain Commons.
 
-1. [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS) is a state-of-the-art mobile wallet that was made to work with a *GordianServer-macOS* full node.  You can scan the QuickConnect QR code from *GordianServer-macOS* and easily create mutli-sig wallets where one key gets stored on your device, one on your node, and one in offline backup.
-2. [Learning Bitcoin from the Command Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line) is a tutorial for programming the `bitcoin-cli`, which can be run using a full node such as the one created by *GordianServer-macOS*.
+1. [Learning Bitcoin from the Command Line](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line) is a tutorial for programming the `bitcoin-cli`, which can be run using a full node such as the one created by the Gordian system.
 
 ## Financial Support
 
-*GordianServer-macOS* is a project of [Blockchain Commons](https://www.blockchaincommons.com/). We are proudly a "not-for-profit" social benefit corporation committed to open source & open development. Our work is funded entirely by donations and collaborative partnerships with people like you. Every contribution will be spent on building open tools, technologies, and techniques that sustain and advance blockchain and internet security infrastructure and promote an open web.
+The Gordian system is a project of [Blockchain Commons](https://www.blockchaincommons.com/). We are proudly a "not-for-profit" social benefit corporation committed to open source & open development. Our work is funded entirely by donations and collaborative partnerships with people like you. Every contribution will be spent on building open tools, technologies, and techniques that sustain and advance blockchain and internet security infrastructure and promote an open web.
 
-To financially support further development of *GordianServer-macOS* and other projects, please consider becoming a Patron of Blockchain Commons through ongoing monthly patronage as a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons). You can also support Blockchain Commons with bitcoins at our [BTCPay Server](https://btcpay.blockchaincommons.com/).
+To financially support further development of the Gordian system and other projects, please consider becoming a Patron of Blockchain Commons through ongoing monthly patronage as a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons). You can also support Blockchain Commons with bitcoins at our [BTCPay Server](https://btcpay.blockchaincommons.com/).
