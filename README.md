@@ -71,6 +71,14 @@ More information about the purpose and design of the Gordian system can be found
 2. [Security for Your Gordian system](Docs/Security.md). Notes on ensuring the security of your GordianServer.
 3. [Why Gordian?](Docs/Why-Gordian.md) What the Gordian name means to us.
 
+### Discussions
+
+The best place to talk about Blockchain Commons and its projects is in our GitHub Discussions areas.
+
+[**Gordian System Discussions**](https://github.com/BlockchainCommons/Gordian/discussions). For users and developers of the Gordian system, including the Gordian Server, Bitcoin Standup technology, QuickConnect, and the Gordian Wallet. If you want to talk about our linked full-node and wallet technology, suggest new additions to our Bitcoin Standup standards, or discuss the implementation our standalone wallet, the Discussions area of the [main Gordian repo](https://github.com/BlockchainCommons/Gordian) is the place.
+
+[**Blockchain Commons Discussions**](https://github.com/BlockchainCommons/Community/discussions). For developers, interns, and patrons of Blockchain Commons, please use the discussions area of the [Community repo](https://github.com/BlockchainCommons/Community) to talk about general Blockchain Commons issues, the intern program, or topics other than the [Gordian System](https://github.com/BlockchainCommons/Gordian/discussions) or the [wallet standards](https://github.com/BlockchainCommons/AirgappedSigning/discussions), each of which have their own discussion areas.
+
 ### Related Projects
 
 The full node created by the Gordian system can also be interlinked with other projects from Blockchain Commons.
