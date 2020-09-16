@@ -1,5 +1,9 @@
 # Gordian Android Team Notes
 
+[![hackmd-github-sync-badge](https://hackmd.io/ULEcZKrBS2SQf2AHO2Y2RQ/badge)](https://hackmd.io/ULEcZKrBS2SQf2AHO2Y2RQ)</br>
+or [GitHub Master](https://github.com/BlockchainCommons/Gordian/blob/master/gordian-android-team-notes.md)
+
+
 ## 2020-09-15
 
 ### Participating
