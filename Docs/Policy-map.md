@@ -1,6 +1,6 @@
 # Policy Map
 
-*Gordian System* utilizes what we refer to as an *Account Map* to allow users to seamlessly export and import accounts (aka wallets). You can see the overall description of what an *Account Map* is and its stated purpose [here](./Account-map.md).
+*Gordian System* utilizes what we refer to as an [*Account Map*](./Account-map.md) to allow users to seamlessly export and import accounts (aka wallets).
 
 A *Policy Map* is a key-less (or incomplete) *Account Map* which can be utilized for the purpose of coordinating a multi-party/multi-signature account.
 
@@ -48,8 +48,14 @@ This works by ensuring the xpub's in the `descriptor` are sorted lexicographical
 
 Lexicographic sorting of the xpub's is important because a `sortedmulti` (BIP67) compatible `descriptor` will derive the same multi-sig addresses irregardless of the order of xpub's, however the hash of the descriptor would obviously change defeating the purpose of the use of the hash as a deterministic identifier.
 
-This can be incredibly useful for client software during the process of importing an account. The client software can simply process the `descriptor`, hash it and then see if the Bitcoin Core backend already holds a matching account, if it does it can simply reuse that `wallet.dat` file without requiring a rescan or worse a reindex of the blockchain, if it does not exists it will create the account from scratch.
+This can be incredibly useful for client software during the process of importing an account. The client software can simply process the `descriptor`, hash it and then see if the Bitcoin Core backend already holds a matching account, if it does it can simply reuse that `wallet.dat` file without requiring a rescan or worse a reindex of the blockchain, if it does not exist it will create the account from scratch.
 
 This works particularly well for users who utilize pruned nodes where wallet import/recovery can result in a very long and tedious process of "re-downloading the entire blockchain". In a multi-sig world it is likely a user will use multiple apps/wallets with one Bitcoin Core backend so as to reap the benefits of multi-sig by not relying on one application or operating system.
 
-Once the *Policy Map* is complete it can be added as the `descriptor` parameter in an *Account Map*.
+Once the *Policy Map* is complete it can be added as the `descriptor` parameter in an *Account Map* along with the other relevant metadata.
+
+The finalized *Policy Map* should look like this:
+
+`wsh(sortedmulti(2,[83hf9h94/48h/0h/0h/2h]xpub6CMZuJmP86KE8gaLyDNCQJWWzfGvWfDPhepzBG3keCLZPZ6XPXzsU82ms8BZwCUVR2UxrsDRa2YQ6nSmYbASTqadhRDp2qqd37UvFksA3wT,[9ihgte55/48h/0h/0h/2h]xpub6FJ6w4NAGLFuE6dN3kjbu3fzdfJgULEMpNVD1QacRvnBozrgy4tMMJtXweewEngBxrwR4Q6NwHqu15w2ALPsaUCyXDWUCKUV3WztzJYGZHw,[00yt3t6t/48h/0h/0h/2h]xpub6CcJQNxt2z7s1dPMCuR6CAtyoqc5xYkFPkyJbokjaiEjixcWZPx2huKc8BSBYqv3jya1SBeUfx6rRdLneGVgNCWsBghSiPNB7Vz3ZhWtCcD))`
+
+See [*Account Map*](./Account-map.md) for complete examples. 
