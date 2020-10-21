@@ -7,6 +7,7 @@ The Gordian system is a suite of powerful open-source tools that offers a self-s
 * **GordianWallet** is a mobile wallet special-built as part of the the Gordian system. It was created to support self-sovereign interactions while providing protected communications, and to utilize the newest cutting-edge Bitcoin technology, such as PSBTs and multi-sig addresses, which can multiply the protection of your Bitcoin funds.
 * **GordianServer** is an app that uses Bitcoin Standup technology to help users to install a [Bitcoin-Core](https://bitcoin.org/) full-node on a fresh computer or VPS and to add important privacy tools like onion services. GordianServer will harden and secure your OS to current best practices and will add sufficient system tools to support basic Bitcoin development. It will also eventually support optional Bitcoin-related tools like [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server), [C-Lightning](https://github.com/ElementsProject/lightning), [Esplora](https://github.com/Blockstream/esplora), and [BTCPay Server](https://github.com/btcpayserver/btcpayserver), as well as emerging technologies like Bitcoin-based Decentralized Identifiers. GordianServer is currently available for [MacOS](https://github.com/BlockchainCommons/GordianServer-macOS), with more limited functionality provided for [Linux machines](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts) by Bitcoin Standup.
 * **QuickConnect** is an API that generates a QR code (and/or special URI) to link your *GordianServer* to other devices, such as a mobile phone using [GordianWallet](https://testflight.apple.com/join/OQHyL0a8) on iOS, a remote desktop, or the [Fully Noded](https://apps.apple.com/us/app/fully-noded/id1436425586) app on iOS.
+* **GordianSigner** is our first companion app. It allows single-signature or multi-sig PSBTs to be signed by the entry of the xprv, mnemonic words, or QR-UR, and then passes back an updated PSBT for use at the next stage of transaction creation. It's available for [Android](https://github.com/BlockchainCommons/GordianSigner-Android), [iOS](https://github.com/BlockchainCommons/GordianSigner-Catalyst), and [MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS). 
 
 *This repo contains a table of contents for various the Gordian system projects and features. Please see individual repos and pages for more information.*
 
@@ -17,6 +18,10 @@ The Gordian system is a suite of powerful open-source tools that offers a self-s
 * [GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS)
    * [Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/blob/master/GordianServer-macOS-v0.1.3.dmg)
 * [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts)
+* GordianSigner
+   * [GordianSigner-Android](https://github.com/BlockchainCommons/GordianSigner-Android)
+   * [GordianSigner-catalyst (iOS)](https://github.com/BlockchainCommons/GordianSigner-Catalyst)
+   * [GordianSigner-MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS)
 * [QuickConnect API](Docs/Quick-Connect-API.md)
 
 ## GordianWallet on iOS
@@ -54,6 +59,12 @@ GordianWallet author Peter Denton also provides an alternative app: [FullyNoded-
 [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts) achieves the same thing as GordianServer-macOS, but comes in the form of Linux scripts rather than a central app.
 
 The easiest-to-use version of the Linux scripts run through the StackScript system at Linode, but you can alternatively use Linux scripts that have been tested with Debian Stretch and Ubuntu 18.04.
+
+## Gordian Signer on Android, MacOS, or iOS
+
+The multi-platform GordianSigner app for [Android](https://github.com/BlockchainCommons/GordianSigner-Android), [iOS](https://github.com/BlockchainCommons/GordianSigner-Catalyst), and [MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS) very simply allows for a PSBT to be signed by the input of a xprv, 12-word mnemonic word set, or QR-UR. It does not transmit the PSBT, but just updates it, for finalization on another node.
+
+This is our first example of a rapid multi-platform deployment, and also our first example of one of patrons (Bitmark) directly working with us to release an app for the Commons.
 
 ## Quick Connect for the Gordian system
 
