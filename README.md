@@ -24,7 +24,7 @@ The Gordian system is a suite of powerful open-source tools that offers a self-s
    * [GordianSigner-MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS)
 * [QuickConnect API](Docs/Quick-Connect-API.md)
 
-## GordianWallet on iOS
+## GordianWallet on iOS (and macOS)
 
 [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS) is a purpose-built remote app for securely connecting to your node over Tor from anywhere in the world. Combined with your *GordianServer*, it provides you with a powerful suite of tools for managing Bitcoin. You can scan the QuickConnect QR code from *GordianServer-macOS* and easily create mutli-sig wallets where one key gets stored on your device, one on your node, and one in offline backup.
 
