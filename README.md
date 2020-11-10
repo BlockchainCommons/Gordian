@@ -2,6 +2,8 @@
 
 *(Previously known as Bitcoin Standup and FullyNoded-2)*
 
+![](Images/logo/gordian-overview-screen.png)
+
 The Gordian system is a suite of powerful open-source tools that offers a self-sovereign solution for Bitcoin by using Tor and QuickConnect technology to link a protected GordianServer with a mobile GordianWallet so that you access full-node capabilities from a mobile device. ([It's meant to cut through a traditionally knotty problem in Bitcoin development.](Docs/Why-Gordian.md))
 
 * **GordianWallet** is a mobile wallet special-built as part of the the Gordian system. It was created to support self-sovereign interactions while providing protected communications, and to utilize the newest cutting-edge Bitcoin technology, such as PSBTs and multi-sig addresses, which can multiply the protection of your Bitcoin funds.
