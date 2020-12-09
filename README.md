@@ -2,6 +2,8 @@
 
 *(Previously known as Bitcoin Standup and FullyNoded-2)*
 
+### _by Peter Denton and Christopher Allen_
+
 ![](Images/logos/gordian-overview-screen.png)
 
 The Gordian system contains a wide variety of products, including mobile apps, desktop programs, and do-it-yourself kits. They are connected together from above by an architectural methodology and from below by a series of libraries and protocols. They also all serve the same common goals:
@@ -208,6 +210,7 @@ The following people directly contributed to this repository. You can add your n
 | Name              | Role                | Github                                            | Email                                 | GPG Fingerprint                                    |
 | ----------------- | ------------------- | ------------------------------------------------- | ------------------------------------- | -------------------------------------------------- |
 | Christopher Allen | Principal Architect | [@ChristopherA](https://github.com/ChristopherA) | \<ChristopherA@LifeWithAlacrity.com\> | FDFE 14A5 4ECB 30FC 5D22  74EF F8D3 6C91 3574 05ED |
+| Peter Denton      | Project Lead        | [@Fonta1n3](https://github.com/Fonta1n3)          | <[FontaineDenton@gmail.com](mailto:FontaineDenton@gmail.com)> | 1C72 2776 3647 A221 6E02  E539 025E 9AD2 D3AC 0FCA  |
 
 ## Responsible Disclosure
 
