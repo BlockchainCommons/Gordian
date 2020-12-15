@@ -1,5 +1,7 @@
 # Quick Connect API
 
+* <img src="https://raw.githubusercontent.com/BlockchainCommons/torgap/master/images/logos/torgap.png" width=30 valign="bottom"> ***part of the [torgap](https://github.com/BlockchainCommons/torgap/blob/master/README.md) technology family***
+
 This section defines the spec for a deep link URI and a scannable QR Code. These ideally would have the same format among a number of different software projects and hardware products to ensure universal compatibility.
 
 ## Quick Connect 1.0
