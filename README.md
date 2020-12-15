@@ -2,7 +2,8 @@
 
 *(Previously known as Bitcoin Standup and FullyNoded-2)*
 
-### _by Peter Denton and Christopher Allen_
+### _by [Peter Denton](https://github.com/Fonta1n3) and [Christopher Allen](https://github.com/ChristopherA)_
+* <img src="https://raw.githubusercontent.com/BlockchainCommons/torgap/master/images/logos/torgap.png" width=30 valign="bottom"> ***uses [torgap](https://github.com/BlockchainCommons/torgap/blob/master/README.md) technology***
 
 ![](Images/logos/gordian-overview-screen.png)
 
