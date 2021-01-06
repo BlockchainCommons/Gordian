@@ -26,10 +26,10 @@ The Gordian system contains a wide variety of products, including mobile apps, d
 * [GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS)
    * [Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/blob/master/GordianServer-macOS-v0.1.3.dmg)
    * [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts)
-* GordianSigner
-   * [GordianSigner-Android](https://github.com/BlockchainCommons/GordianSigner-Android)
-   * [GordianSigner-catalyst (iOS)](https://github.com/BlockchainCommons/GordianSigner-Catalyst)
-   * [GordianSigner-MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS)
+* GordianCosigner
+   * [GordianCosigner-Android](https://github.com/BlockchainCommons/GordianSigner-Android)
+   * [GordianCosigner-catalyst (iOS)](https://github.com/BlockchainCommons/GordianSigner-Catalyst)
+   * [GordianCosigner-MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS)
 * [LetheKit](https://github.com/BlockchainCommons/bc-lethekit)
 * [SpotBit](https://github.com/BlockchainCommons/spotbit)
 
@@ -69,7 +69,7 @@ _For higher security, the Gordian system may optionally be used with airgapped s
 
 ***[LetheKit](https://github.com/BlockchainCommons/bc-lethekit).*** A do-it-yourself hardware kit that can be used to generate secure seeds for Bitcoin. It shares functionality with [Seedtool](https://github.com/BlockchainCommons/bc-seedtool-cli), but where seedtool is a reference and a demo, LetheKit should be a secure seed-generation platform when it hits full release. 
 
-***[Gordian Signer](https://github.com/BlockchainCommons/GordianSigner-Catalyst).*** An offline PSBT and multi-sig signer. You can import keys and read PSBTs via QR code. After you sign the PSBT, you can then move it back to your Wallet, which will coordinate the broadcast of the transaction.
+***[Gordian Cosigner](https://github.com/BlockchainCommons/GordianSigner-Catalyst).*** An offline PSBT and multi-sig signer. You can import keys and read PSBTs via QR code. After you sign the PSBT, you can then move it back to your Wallet, which will coordinate the broadcast of the transaction.
 
 ## Overview: Gordian Protocols
 
@@ -132,9 +132,9 @@ GordianWallet author Peter Denton also provides an alternative app: [FullyNoded-
 
 The easiest-to-use version of the Linux scripts run through the StackScript system at Linode, but you can alternatively use Linux scripts that have been tested with Debian Stretch and Ubuntu 18.04.
 
-## Spotlight: Gordian Signer on Android, MacOS, or iOS
+## Spotlight: Gordian Cosigner on Android, MacOS, or iOS
 
-The multi-platform GordianSigner app for [Android](https://github.com/BlockchainCommons/GordianSigner-Android), [iOS](https://github.com/BlockchainCommons/GordianSigner-Catalyst), and [MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS) very simply allows for a PSBT to be signed by the input of a xprv, 12-word mnemonic word set, or QR-UR. It does not transmit the PSBT, but just updates it, for finalization on another node.
+The multi-platform GordianCosigner app for [Android](https://github.com/BlockchainCommons/GordianSigner-Android), [iOS](https://github.com/BlockchainCommons/GordianSigner-Catalyst), and [MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS) very simply allows for a PSBT to be signed by the input of a xprv, 12-word mnemonic word set, or QR-UR. It does not transmit the PSBT, but just updates it, for finalization on another node.
 
 This is our first example of a rapid multi-platform deployment, and also our first example of one of patrons (Bitmark) directly working with us to release an app for the Commons.
 
