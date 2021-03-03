@@ -10,11 +10,9 @@
 
 The Gordian system contains a wide variety of products, including mobile apps, desktop programs, and do-it-yourself kits. They are connected together from above by an architectural methodology and from below by a series of libraries and protocols. They also all serve the same common goals:
 
-1. Create open infrastructure for secure, compassionate, decentralized systems.
-1. Advocate for open infrastructure as a self-organizing approach to collaborative resource generation.
-1. Build an interoperable architecture for secure decentralized systems that are resilient, pragmatic, and easy to use.
-1. Define a new techno-social contract of decentralized infrastructure, based on human dignity, respect for the individual, and mutual benefit for all contributors.
-1. Increase the demand for, and population of, people who understand the effective development, and use of, secure decentralized systems.
+* **Independence.** Gordian focuses on user freedom from external oversight or control.
+* **Resilience.** Gordian ensures that users won't lose their funds via any means.
+* **Openness.** Gordian supports open infrastructure that allows developers to create their own applications.
 
 ([It's meant to cut through a traditionally knotty problem in Bitcoin development.](Docs/Why-Gordian.md))
 
@@ -31,6 +29,7 @@ The Gordian system contains a wide variety of products, including mobile apps, d
    * [GordianCosigner-Android](https://github.com/BlockchainCommons/GordianSigner-Android)
    * [GordianCosigner-catalyst (iOS)](https://github.com/BlockchainCommons/GordianSigner-Catalyst)
    * [GordianCosigner-MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS)
+* [GordianGuardian](https://github.com/BlockchainCommons/GordianGuardian-iOS)
 * [LetheKit](https://github.com/BlockchainCommons/bc-lethekit)
 * [SpotBit](https://github.com/BlockchainCommons/spotbit)
 
@@ -48,7 +47,7 @@ In order to maximize the utility of its functional partitions, the Gordian syste
 
 <img src="https://raw.githubusercontent.com/BlockchainCommons/Gordian/master/Images/torgap.png"  width=30>***Torgaps.***  This is a new methodology for segregating cryptographic services, used when the services must be networked. As the name suggests, it places an onion link between the two services, enabling privacy and security while still allowing connectivity. Its power can be increased further with quorum computing, which aggregates services across different providers.
 
-Using functionally partitioned services, linked by airgaps and torgaps, the Gordian architecture creates a powerful and safe new methodology for financial, data, and information operations on the internet.
+Using functionally partitioned services, linked by airgaps and torgaps, the Gordian architecture creates a powerful and safe new methodology for financial, data, and information operations on the internet. It also creates an interoperable market for cooperative competition, where various creators can introduce their own services, improving the overall architecture through their competitive designs and ensuring survivability of the model as a whole.
 
 ## Overview: Gordian App Map
 
@@ -67,6 +66,8 @@ _The Gordian system also supports microservices:_
 ***[SpotBit](https://github.com/BlockchainCommons/spotbit).*** A price-info microservice, used by Gordian Wallet (and potentially other Gordian services) through a _torgap_. Spotbit can be used to aggregate Bitcoin pricing information from a variety of exchanges and to store that data.
 
 _For higher security, the Gordian system may optionally be used with airgapped services that ensure that your private keys never touch a network:_
+
+***[Gordian Guardian](https://github.com/BlockchainCommons/GordianGuardian-iOS).*** A cryptographic seed manager for your iOS device.
 
 ***[LetheKit](https://github.com/BlockchainCommons/bc-lethekit).*** A do-it-yourself hardware kit that can be used to generate secure seeds for Bitcoin. It shares functionality with [Seedtool](https://github.com/BlockchainCommons/bc-seedtool-cli), but where seedtool is a reference and a demo, LetheKit should be a secure seed-generation platform when it hits full release. 
 
