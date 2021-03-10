@@ -30,6 +30,7 @@ The Gordian system contains a wide variety of products, including mobile apps, d
    * [GordianCosigner-catalyst (iOS)](https://github.com/BlockchainCommons/GordianSigner-Catalyst)
    * [GordianCosigner-MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS)
 * [GordianGuardian](https://github.com/BlockchainCommons/GordianGuardian-iOS)
+   * [Install in Testflight](https://testflight.apple.com/join/0LIl6H1h)
 * [LetheKit](https://github.com/BlockchainCommons/bc-lethekit)
 * [SpotBit](https://github.com/BlockchainCommons/spotbit)
 
