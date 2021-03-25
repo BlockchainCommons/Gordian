@@ -358,7 +358,7 @@ ___Decide where you keys are kept, be they hardware, software, or physical locat
 
 > Fred and Joseph secure their keys in software wallets on their mobile devices. Sarah has a hardware wallet which she links to a more sophisticated desktop software wallet. It allows her to finalize transactions created by Fred or Joseph. Finally, Fred realizes that he needs to find locations for both their Backup key and their Emergency Recovery key, and he doesn't want to place them in the same place lest a "Disaster" destroy them both. He ultimately puts the Emergency Recovery key in a hardware wallet that he places in a safety deposit box associated with his and Sarah's joint back account. He leaves the Backup key, etched in steel, with Sarah's parents, who live halfway across the country: if the family ever needs it, they can ask Sarah's parents to read the mnemonic words. In keeping with the precepts of [Smart Custody](https://www.smartcustody.com/), Fred will check in on the Emergency Recovery and Backup keys twice a year.
 
-![](https://i.imgur.com/wgPCDQC.png)
+![](../Images/multisig/multisig-example.jpg)
 
 ## The Choices of Multisig
 
