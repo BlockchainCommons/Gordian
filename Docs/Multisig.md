@@ -372,7 +372,7 @@ For an Autonomous multisig, also see "Alternative: Creating an Autonomous Multis
 
 The following examples, of traditional multisig design involving two or more people, reveal the breadth of multisig possibilities.
 
-![](https://i.imgur.com/I7hPSMr.png)
+![](../Images/multisig/multisig-traditional-roles.png)
 
 ### Joint Control: 1 of 2
 
@@ -420,7 +420,7 @@ The following examples show the breadth of autonomous multisig possibilities, us
 
 Most autonomous examples use the same transactional design and the same operational roles, with changes being instead in the functional model. However note the _Authorizer_ role entirely disappears, to be replaced by a _Corroborator_: no one OKs your use of autonomous funds, they simply verify that you're who you say you are. 
 
-![](https://i.imgur.com/f8x4SMg.jpg)
+![](../Images/multisig/multisig-ssi-roles.jpg)
 
 Some sources call these multisig designs "self-custodial", but we omit that term because it's a negative description: defining what a self-sovereign multisig _isn't_ rather than what it _is_. Some of these multisig designs could also be called "self-sovereign", depending on your precise definition of that phrase.
 
@@ -608,7 +608,7 @@ Following are the Operational Roles and the linked Functional Element that appea
 
 The following diagram shows how these puzzle pieces can be connected together in many ways
 
-![](https://i.imgur.com/F0WPdSd.jpg)
+![](../Images/multisig/self-custody-multisigs.jpg)
 
 As the diagram shows, autonomous multisig building blocks can come in three types:
 
@@ -789,7 +789,7 @@ Though a multisig just requires multiple parties to sign a transaction, their ma
 
 With these tools in hand, the actual process of creating a multisig comes in three parts: creation; signing; and finalization.
 
-![](https://i.imgur.com/vJiiLwI.png)
+![](../Images/multisig/multisig-functional-roles.png)
 
 * **Initiator.** The creator of a multisig transaction. This is the entity that puts together a transaction, deciding what funds are being spent and who they are being sent to. This role does not include actually signing the transaction, though the Initiator is often the First Cosigner. Not to be confused with Proposer, which is an operational role (defining how a key is used) rather than a functional role (defining how a wallet's multisig signing process works).
 * **Cosigner.** Any of a number of entities who sign a multisig following its creation.
