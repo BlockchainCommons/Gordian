@@ -36,6 +36,10 @@ The Gordian system contains a wide variety of products, including mobile apps, d
 * [LetheKit](https://github.com/BlockchainCommons/bc-lethekit)
 * [SpotBit](https://github.com/BlockchainCommons/spotbit)
 
+## Quick Links for Articles
+
+* [Designing Multisig for Indepedence & Resilience](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Multisig.md) - Our design process & the Gordian multisig.
+
 ## Overview: Gordian Architectural Model
 
 The Gordian architecture is based on a theory of functional partition. 
