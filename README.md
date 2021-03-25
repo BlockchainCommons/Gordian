@@ -8,11 +8,13 @@
 
 ![](Images/logos/gordian-overview-screen.png)
 
-The Gordian system contains a wide variety of products, including mobile apps, desktop programs, and do-it-yourself kits. They are connected together from above by an architectural methodology and from below by a series of libraries and protocols. They also all serve the same common goals:
+Gordian is a cryptowallet architecture focused on advancing the interests of the cryptocurrency user community. It's meant to enhance independence and resilience by granting you the ability to robustly control your own keys, and thus your own finances, and to do so be creating openness, so that you won't be locked into anyone else's security model or (worse) system. It supports #SmartCustody and responsible key management.
 
 * **Independence.** Gordian focuses on user freedom from external oversight or control.
 * **Resilience.** Gordian ensures that users won't lose their funds via any means.
 * **Openness.** Gordian supports open infrastructure that allows developers to create their own applications.
+
+The Gordian system contains a wide variety of products, including mobile apps, desktop programs, and do-it-yourself kits. They are connected together from above by an architectural methodology and from below by a series of libraries and protocols. They also all serve the same common goals:
 
 ([It's meant to cut through a traditionally knotty problem in Bitcoin development.](Docs/Why-Gordian.md))
 
