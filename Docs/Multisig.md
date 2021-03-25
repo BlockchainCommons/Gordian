@@ -9,6 +9,8 @@ However, in order to make the best use of that resilience and security requires 
 
 _If you want more information on any of the terms in this article, please see the appendices, which define resilience terms, key terms, transaction terms, wallet terms, and functional multisig terms._
 
+> _If you want to know more about the multisig used by the Gordian system, jump directly to our [Autonomyous with Independent Corroboration example](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Multisig.md#autonomous-windependent-corroboration-2-of-3).
+
 ## The Design of a Multisig
 
 Multisig ensures that you are less likely to lose your funds. It does so in large part by balancing three major _goals_ related to digital assets:
