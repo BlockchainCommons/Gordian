@@ -8,19 +8,17 @@
 
 ![](Images/logos/gordian-overview-screen.png)
 
-Gordian offers a new approach to managing digital assets based on a set of principles and best practices that put the user first. It enhances independence and resilience by granting users the ability to robustly control their own digital assets using responsible key management and creates openness so that users won't be locked into anyone else's system. 
+Gordian offers a new approach to managing digital assets based on a set of principles and best practices that put the user first. It enhances independence and resilience by granting users the ability to robustly control their own digital assets using responsible key management and creates openness so that users won't be locked into anyone else's system. ([It's meant to cut through a traditionally knotty problem in Bitcoin development.](Docs/Why-Gordian.md))
 
 The Gordian system supports these principles with a number of interoperable specifications such as [Bytewords](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md), [Lifehash](https://github.com/BlockchainCommons/LifeHash), [SSKR](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/README.md#sharded-secret-key-reconstruction-sskr), and [UR](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-1-overview.md) as well architectural elements such as Airgaps and [Torgaps](https://github.com/BlockchainCommons/torgap). 
 
-Blockchain Commons provides a number of reference libraries and reference implementations intended to support these specifications and architectures and to display how they can be used in real-life. We invite developers to use these references based on our open licenses, as detailed in individual repos, as guides for creating your own software that will support the Gordian Principles.
-
-([The Gordian System is also meant to cut through a traditionally knotty problem in Bitcoin development.](Docs/Why-Gordian.md))
+Blockchain Commons provides a number of reference libraries and reference implementations intended as examples for these specifications and architectures that display how they can be used in real-life. We invite developers to use these references based on our open licenses, as detailed in our individual repos, as guides for creating your own software that will support the Gordian Principles.
 
 *This repo contains a table of contents for various the Gordian system projects and features. Please see individual repos and pages for more information.*
 
 ## Gordian Principles
 
-Blockchain Commons' interoperable specifications are meant to support four core principles that put the user first and that support responsible key management:
+Blockchain Commons' interoperable specifications are meant to support four core principles that put the user first and that enable responsible key management:
 
 * **Independence.** Gordian improves user freedom from involuntary oversight or external control.
 * **Resilience.** Gordian protects users to decrease the likelihood of them losing their funds via any means.
@@ -51,47 +49,56 @@ Look at our individual reference apps for guidance on how each acts as a model f
 
 ## Overview: Gordian Architectural Model
 
-The Gordian architecture is based on a theory of functional partition. 
+The Gordian reference architecture, supporting the Gordian principles, is based on a theory of functional partition. 
 
 Rather than following the design pattern of classic services, which group multiple services into singular applications, Blockchain Commons instead separates services from each other. Doing so improves both privacy and security by reducing the value of honeypots and also improves functional design by ensuring that each application is precisely and concisely able to perform a specific function. 
 
-Many of the Gordian applications are actually microservices, intended to perform small and simple but necessary activities as part of the blockchain ecosystem.
+Many of the Gordian reference apps are actually microservices, intended to perform small and simple but necessary activities as part of the blockchain ecosystem.
 
 In order to maximize the utility of its functional partitions, the Gordian system also introduces gaps between services, which further the privacy and security capabilities of the architectural model.
 
-<img src="https://raw.githubusercontent.com/BlockchainCommons/Gordian/master/Images/airgap.png" width=30> ***Airgaps.***  The traditional manner for segregating services within a cryptographic network is to use an airgap. This is a physical gap that keeps the segregated services from talking via any sort of connected network. Instead, data flow between the services occurs via QR codes or other methods of small-scale data-only transfer. An airgap is often used to protect private keys on a non-networked device. Airgaps are built into some Blockchain Commons services, but are optional.
+<img src="https://raw.githubusercontent.com/BlockchainCommons/Gordian/master/Images/airgap.png" width=30> ***Airgaps.***  The traditional manner for segregating services within a cryptographic network is to use an airgap. This is a physical gap that keeps the segregated services from talking via any sort of connected network. Instead, data flow between the services occurs via QR codes or other methods of small-scale data-only transfer. An airgap is often used to protect private keys on a non-networked device. The [UR specification](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-1-overview.md) was built explicitly to enable safe, secure airgapping. Airgaps are built into some of Blockchain Commons' reference apps, but are optional.
 
 <img src="https://raw.githubusercontent.com/BlockchainCommons/Gordian/master/Images/torgap.png"  width=30>***Torgaps.***  This is a new methodology for segregating cryptographic services, used when the services must be networked. As the name suggests, it places an onion link between the two services, enabling privacy and security while still allowing connectivity. Its power can be increased further with quorum computing, which aggregates services across different providers.
 
 Using functionally partitioned services, linked by airgaps and torgaps, the Gordian architecture creates a powerful and safe new methodology for financial, data, and information operations on the internet. It also creates an interoperable market for cooperative competition, where various creators can introduce their own services, improving the overall architecture through their competitive designs and ensuring survivability of the model as a whole.
 
+### Enabling the Gordian Principles with the Gordian Architecture
+
+As a reference architecture, the Gordian Architecture also demonstrates the Gordian Principles.
+
+* **Independence.** Users can choose which applications to use within an open ecosystem.
+* **Privacy.** Airgaps provide data with strong protection, while torgaps do the same for networked interactions.
+* **Resilience.** The paritioned design minimizes Single Points of Compromise.
+* **Openness.** Airgaps and torgaps are connected via standard specifications such as URs, which allow anyone to add apps to the ecosystem.
+
 ## Overview: Gordian App Map
 
-The Gordian architecture model is made concrete through the Gordian-branded wallet services and microservices, all linked by airgaps and torgaps, as laid out in the following diagram.
+The Gordian architecture model is demonstrated through the Gordian reference apps, all linked by airgaps and torgaps, as laid out in the following diagram.
 
 ![](https://raw.githubusercontent.com/BlockchainCommons/Gordian/master/Images/appmap.jpg)
 
-_The core of the Gordian system is the Wallet and Server:_
+_The core of the Gordian system is our Wallet and Server reference apps:_
 
-***[Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS).*** The heart of the Gordian system, the Gordian Wallet is a mobile Bitcoin wallet that supports sophisticated [#SmartCustody](https://www.smartcustody.com/) features such as multi-sigs and PSBTs. It acts as: a policy coordinator, determining how you set up your accounts; a transaction coordinator, creating transactions based on your policies; and a broadcast coordinator, determining how to send our your transactions. The Gordian Wallet is also self-sovereign, which means that you have total control over it and how it interacts with the rest of the Bitcoin network, including choosing your full node and your pricing service. 
+***[Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS).*** The central reference app for the Gordian system, the Gordian Wallet is a mobile Bitcoin wallet that supports sophisticated [#SmartCustody](https://www.smartcustody.com/) features such as multi-sigs and PSBTs. It acts as: a policy coordinator, determining how you set up your accounts; a transaction coordinator, creating transactions based on your policies; and a broadcast coordinator, determining how to send our your transactions. The Gordian Wallet is also self-sovereign, which fulfills the Gordian Principles by giving you total control over it and how it interacts with the rest of the Bitcoin network, including choosing your full node and your pricing service. (Also see the spotlight on Gordian Wallet, below.)
 
-***[Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS).*** A full-node server, created by Blockchain Commons' Bitcoin Standup scripts, running on a Mac or Linux machine. It connects to Gordian Wallet via a _torgap_. In the standard Gordian system setup, all transactions are signed with a 2-of-3 multi-sig, with one key secured by Gordian Wallet, one key used by Gordian Server, and one key saved offline. (Of course, since the Gordian system is self-sovereign, you can choose to use any other full-node server.)
+***[Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS).*** A full-node server, created by Blockchain Commons' Bitcoin Standup scripts, running on a Mac or Linux machine. It connects to Gordian Wallet via a _torgap_. In the standard Gordian system setup, all transactions are signed with a 2-of-3 multi-sig, with one key secured by Gordian Wallet, one key used by Gordian Server, and one key saved offline. (Of course, since the Gordian system is self-sovereign, you can choose to use any other full-node server.) (Also see the spotlight on Gordian Server, below.)
 
-_The Gordian system also supports microservices:_
+_Blockchain Commons also also produced reference apps to demonstrate microservices within its architecture:_
 
 ***[SpotBit](https://github.com/BlockchainCommons/spotbit).*** A price-info microservice, used by Gordian Wallet (and potentially other Gordian services) through a _torgap_. Spotbit can be used to aggregate Bitcoin pricing information from a variety of exchanges and to store that data.
 
-_For higher security, the Gordian system may optionally be used with airgapped services that ensure that your private keys never touch a network:_
+_For higher security, the Gordian system may optionally be used with airgapped services that ensure that your private keys never touch a network. The following reference apps and hardware devices demonstrate how this high level of Resilience can be created:_
 
 ***[Gordian Guardian](https://github.com/BlockchainCommons/GordianGuardian-iOS).*** A cryptographic seed manager for your iOS device.
 
-***[LetheKit](https://github.com/BlockchainCommons/bc-lethekit).*** A do-it-yourself hardware kit that can be used to generate secure seeds for Bitcoin. It shares functionality with [Seedtool](https://github.com/BlockchainCommons/bc-seedtool-cli), but where seedtool is a reference and a demo, LetheKit should be a secure seed-generation platform when it hits full release. 
+***[LetheKit](https://github.com/BlockchainCommons/bc-lethekit).*** A do-it-yourself hardware kit that can be used to generate secure seeds for Bitcoin. It shares functionality with [Seedtool](https://github.com/BlockchainCommons/bc-seedtool-cli), but functions as airgapped hardware rather than potentially connected software.
 
 ***[Gordian Cosigner](https://github.com/BlockchainCommons/GordianSigner-Catalyst).*** An offline PSBT and multi-sig signer. You can import keys and read PSBTs via QR code. After you sign the PSBT, you can then move it back to your Wallet, which will coordinate the broadcast of the transaction.
 
-## Overview: Gordian Protocols
+## Overview: Gordian Specifications
 
-The Gordian system of course uses standard protocols for Bitcoin, to interact with the trustless network. We are also developing and expanding protocols of our own as well as those created for other technology categories, to fill in gaps in the mobile wallet ecosystem. These protocols are in turn incorporated into many of our Gordian apps.
+The Gordian system of course uses standard protocols for Bitcoin, to interact with the trustless network. We are also developing specifications of our own and expanding those created for other technology categories, to better fulfill the Gordian Principles. These specifications are demonstrated in many of our reference apps, to show how they can be used to full Gordian's requirements for Independent, Privacy, Resilience, and Openness. 
 
 ***[Bytewords](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md).*** Blockchain Commons developed its own binary-to-text format because of flaws in current ones, such as the variants that exist for base-64, and the fact that none of them convert efficiently to the QR codes used widely in Bitcoin applications. Bytewords stays within the 31 characters that are well supported by QR codes (that's letters plus numbers minus URL-breaking characters), allowing more efficient and safe usage.
 
@@ -108,7 +115,7 @@ Please see the [Airgapped Wallet repo](https://github.com/BlockchainCommons/Airg
 
 ## Overview: Gordian Crypto Commons
 
-To further support our methodologies and protocols, Blockchain Commons has created a number of Gordian reference libraries, which embody our protocols, as well as demo apps and command-line programs. 
+To further support Gordian's principles and best practices, Blockchain Commons has created a number of Gordian reference libraries, which embody our specifications, as well as reference apps and command-line programs. 
 
 These are fully described in the [Crypto Commons Overview](https://github.com/BlockchainCommons/crypto-commons/blob/master/README.md).
 
@@ -116,7 +123,7 @@ Blockchain Commons is also happy to use libraries from other sources, if they're
 
 ## Spotlight: GordianWallet on iOS (and macOS)
 
-[GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS) is a purpose-built remote app for securely connecting to your node over Tor from anywhere in the world. Combined with your *GordianServer*, it provides you with a powerful suite of tools for managing Bitcoin. You can scan the QuickConnect QR code from *GordianServer-macOS* and easily create mutli-sig wallets where one key gets stored on your device, one on your node, and one in offline backup.
+[GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS) is a reference app demonstrating how to securely connect to your node over Tor from anywhere in the world. Combined with your *GordianServer*, it demonstrates a powerful suite of tools for managing Bitcoin. You can scan the QuickConnect QR code from *GordianServer-macOS* and easily create mutli-sig wallets where one key gets stored on your device, one on your node, and one in offline backup.
 
 <img src="https://raw.githubusercontent.com/BlockchainCommons/GordianWallet-iOS/master/Images/home_screen_collapsed.PNG" alt="Gordian Wallet app Home Screen" width="250"/> <img src="https://raw.githubusercontent.com/BlockchainCommons/GordianWallet-iOS/master/Images/home_screen_expanded.PNG" alt="Gordian Wallet app Home Screen" width="250"/>
 
@@ -132,7 +139,7 @@ GordianWallet author Peter Denton also provides an alternative app: [FullyNoded-
 
 ## Spotlight: Gordian Server on MacOS
 
-[GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS) is an app that provides personal one-click installation for Bitcoin Core and Tor. It's built on Bitcoin Standup technology that presents a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3.
+[GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS) provides personal one-click installation for Bitcoin Core and Tor. It's built on Bitcoin Standup technology that presents a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3.
 
 <img src="./Images/0_standup_mac.png" alt="" width="500"/>
 
@@ -152,7 +159,7 @@ The easiest-to-use version of the Linux scripts run through the StackScript syst
 
 ## Spotlight: Gordian Cosigner on Android, MacOS, or iOS
 
-The multi-platform GordianCosigner app for [Android](https://github.com/BlockchainCommons/GordianSigner-Android), [iOS](https://github.com/BlockchainCommons/GordianSigner-Catalyst), and [MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS) very simply allows for a PSBT to be signed by the input of a xprv, 12-word mnemonic word set, or QR-UR. It does not transmit the PSBT, but just updates it, for finalization on another node.
+The multi-platform GordianCosigner reference app for [Android](https://github.com/BlockchainCommons/GordianSigner-Android), [iOS](https://github.com/BlockchainCommons/GordianSigner-Catalyst), and [MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS) demonstrates how a PSBT can be signed by the input of a xprv, 12-word mnemonic word set, or QR-UR. It does not transmit the PSBT, but just updates it, for finalization on another node.
 
 This is our first example of a rapid multi-platform deployment, and also our first example of one of patrons (Bitmark) directly working with us to release an app for the Commons.
 
@@ -160,7 +167,7 @@ This is our first example of a rapid multi-platform deployment, and also our fir
 
 ### Further Docs
 
-More information about the purpose and design of the Gordian system can be found in the following documents:
+More information about the purpose and design of the Gordian architecture can be found in the following documents:
 
 1. [Why Run a Full Node?](Docs/Why-Full.md) Why would you want to run a full node in the first place? There are advantages in validation, privacy, security, liquidity, and education.
 2. [Security for Your Gordian system](Docs/Security.md). Notes on ensuring the security of your GordianServer.
