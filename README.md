@@ -8,17 +8,26 @@
 
 ![](Images/logos/gordian-overview-screen.png)
 
-Gordian is a cryptowallet architecture focused on advancing the interests of the cryptocurrency user community. It's meant to enhance independence and resilience by granting you the ability to robustly control your own keys, and thus your own finances, and to do so be creating openness, so that you won't be locked into anyone else's security model or (worse) system. It supports #SmartCustody and responsible key management.
+Gordian offers a new approach to managing digital assets based on a set of principles and best practices that put the user first. It enhances independence and resilience by granting users the ability to robustly control their own digital assets using responsible key management and creates openness so that users won't be locked into anyone else's system. 
 
-* **Independence.** Gordian focuses on user freedom from external oversight or control.
-* **Resilience.** Gordian ensures that users won't lose their funds via any means.
-* **Openness.** Gordian supports open infrastructure that allows developers to create their own applications.
+The Gordian system supports these principles with a number of interoperable specifications such as [Bytewords](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md), [Lifehash](https://github.com/BlockchainCommons/LifeHash), [SSKR](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/README.md#sharded-secret-key-reconstruction-sskr), and [UR](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-1-overview.md) as well architectural elements such as Airgaps and [Torgaps](https://github.com/BlockchainCommons/torgap). 
 
-The Gordian system contains a wide variety of products, including mobile apps, desktop programs, and do-it-yourself kits. They are connected together from above by an architectural methodology and from below by a series of libraries and protocols. They also all serve the same common goals:
+Blockchain Commons provides a number of reference libraries and reference implementations intended to support these specifications and architectures and to display how they can be used in real-life. We invite developers to use these references based on our open licenses, as detailed in individual repos, as guides for creating your own software that will support the Gordian Principles.
 
-([It's meant to cut through a traditionally knotty problem in Bitcoin development.](Docs/Why-Gordian.md))
+([The Gordian System is also meant to cut through a traditionally knotty problem in Bitcoin development.](Docs/Why-Gordian.md))
 
 *This repo contains a table of contents for various the Gordian system projects and features. Please see individual repos and pages for more information.*
+
+## Gordian Principles
+
+Blockchain Commons' interoperable specifications are meant to support four core principles that put the user first and that support responsible key management:
+
+* **Independence.** Gordian improves user freedom from involuntary oversight or external control.
+* **Resilience.** Gordian protects users to decrease the likelihood of them losing their funds via any means.
+* **Openness.** Gordian supports open infrastructure that allows developers to create their own applications.
+* **Privacy.** Gordian protects against coercion with non-correlation, privacy, and pseudonymity.
+
+Look at our individual reference apps for guidance on how each acts as a model for these principles.
 
 ## Quick Links for App Repos
 
