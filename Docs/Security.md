@@ -1,6 +1,6 @@
 ## Security for Your Gordian Products
 
-The following security advisories are intended to ensure the security of your *GordianServer* or other *Bitcoin-Standup* node.
+The following security advisories are intended to ensure the security of any testing or reference work you do with your *GordianServer* or other *Bitcoin-Standup* node.
 
 ## 1. Do Not Use a VPS for Real Funds
 
