@@ -21,9 +21,9 @@ Blockchain Commons provides a number of reference libraries and reference implem
 Blockchain Commons' interoperable specifications are meant to support four core principles that put the user first and that enable responsible key management:
 
 * **Independence.** Gordian improves user freedom from involuntary oversight or external control.
+* **Privacy.** Gordian protects against coercion with non-correlation, privacy, and pseudonymity.
 * **Resilience.** Gordian protects users to decrease the likelihood of them losing their funds via any means.
 * **Openness.** Gordian supports open infrastructure that allows developers to create their own applications.
-* **Privacy.** Gordian protects against coercion with non-correlation, privacy, and pseudonymity.
 
 Look at our individual reference apps for guidance on how each acts as a model for these principles.
 
