@@ -15,6 +15,7 @@ Running a full node such as a *GordianServer* offers a number of advantages. Ref
 
 - *GordianServer* installs Bitcoin Core, which is the reference implementation of Bitcoin. That means that you are utilizing one of the most highly peer reviewed and scrutinized pieces of software in the world. The vast majority of the functionality for the *GordianWallet* app also uses Bitcoin Core, extending these benefits. By using *GordianServer* and *GordianWallet* together, you can rest at ease that critical bugs should be minimized.
 - Native Tor V3 client authentication is integrated into *GordianServer*. This is the most secure way of communicating with your node remotely, ensuring that *only* your device has access to your node, even if all other credentials were compromised by an attacker. In short, accessing your Bitcoin Core node with a remote client is most securely done over the Tor network.
+- Having your own full-node server gives you an additional place to store private keys, which is how the Gordian architecture manages its two-of-three multisig, with one key stored on each of your *GordianWallet* and *GordianServer*.
 - Generally: self custody can be scary, as running a node properly over Tor is not something that most people are comfortable with. The entire purpose of the Gordian suite of tools is to make this achievable for anyone who can click a mouse and scan a QR code.
 
 ##### 4. Openness
