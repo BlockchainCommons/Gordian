@@ -36,7 +36,9 @@ Look at our individual reference apps for guidance on how each acts as a model f
    * [GordianCosigner-Android](https://github.com/BlockchainCommons/GordianSigner-Android)
    * [GordianCosigner-catalyst (iOS)](https://github.com/BlockchainCommons/GordianSigner-Catalyst)
    * [GordianCosigner-MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS)
-* [GordianGuardian](https://github.com/BlockchainCommons/GordianGuardian-iOS)
+* [GordianQRTool-iOS](https://github.com/BlockchainCommons/GordianQRTool-iOS)
+   * [Install in Testflight](https://testflight.apple.com/join/X7Ri4nPp)
+* [GordianSeedTool-iOS](https://github.com/BlockchainCommons/GordianSeedTool-iOS)
    * [Install in Testflight](https://testflight.apple.com/join/0LIl6H1h)
 * [LetheKit](https://github.com/BlockchainCommons/bc-lethekit)
 * [SpotBit](https://github.com/BlockchainCommons/spotbit)
@@ -78,21 +80,27 @@ The Gordian architecture model is demonstrated through the Gordian reference app
 
 _The core of the Gordian system is our Wallet and Server reference apps:_
 
+### Wallet & Server
+
 ***[Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS).*** The central reference app for the Gordian system, the Gordian Wallet is a mobile Bitcoin wallet that supports sophisticated [#SmartCustody](https://www.smartcustody.com/) features such as multi-sigs and PSBTs. It acts as: a policy coordinator, determining how you set up your accounts; a transaction coordinator, creating transactions based on your policies; and a broadcast coordinator, determining how to send our your transactions. The Gordian Wallet is also self-sovereign, which fulfills the Gordian Principles by giving you total control over it and how it interacts with the rest of the Bitcoin network, including choosing your full node and your pricing service. (Also see the spotlight on Gordian Wallet, below.)
 
 ***[Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS).*** A full-node server, created by Blockchain Commons' Bitcoin Standup scripts, running on a Mac or Linux machine. It connects to Gordian Wallet via a _torgap_. In the standard Gordian system setup, all transactions are signed with a 2-of-3 multi-sig, with one key secured by Gordian Wallet, one key used by Gordian Server, and one key saved offline. (Of course, since the Gordian system is self-sovereign, you can choose to use any other full-node server.) (Also see the spotlight on Gordian Server, below.)
 
-_Blockchain Commons also also produced reference apps to demonstrate microservices within its architecture:_
-
-***[SpotBit](https://github.com/BlockchainCommons/spotbit).*** A price-info microservice, used by Gordian Wallet (and potentially other Gordian services) through a _torgap_. Spotbit can be used to aggregate Bitcoin pricing information from a variety of exchanges and to store that data.
+### Airgapped Services
 
 _For higher security, the Gordian system may optionally be used with airgapped services that ensure that your private keys never touch a network. The following reference apps and hardware devices demonstrate how this high level of Resilience can be created:_
 
-***[Gordian Guardian](https://github.com/BlockchainCommons/GordianGuardian-iOS).*** A cryptographic seed manager for your iOS device.
+***[Gordian Cosigner](https://github.com/BlockchainCommons/GordianSigner-Catalyst).*** An offline PSBT and multi-sig signer. You can import keys and read PSBTs via QR code. After you sign the PSBT, you can then move it back to your Wallet, which will coordinate the broadcast of the transaction.
+
+***[Gordian SeedTool](https://github.com/BlockchainCommons/GordianSeedTool-iOS).*** A cryptographic seed manager for your iOS device.
 
 ***[LetheKit](https://github.com/BlockchainCommons/bc-lethekit).*** A do-it-yourself hardware kit that can be used to generate secure seeds for Bitcoin. It shares functionality with [Seedtool](https://github.com/BlockchainCommons/bc-seedtool-cli), but functions as airgapped hardware rather than potentially connected software.
 
-***[Gordian Cosigner](https://github.com/BlockchainCommons/GordianSigner-Catalyst).*** An offline PSBT and multi-sig signer. You can import keys and read PSBTs via QR code. After you sign the PSBT, you can then move it back to your Wallet, which will coordinate the broadcast of the transaction.
+### Microservices
+
+_Blockchain Commons also also produced reference apps to demonstrate microservices within its architecture:_
+
+***[SpotBit](https://github.com/BlockchainCommons/spotbit).*** A price-info microservice, used by Gordian Wallet (and potentially other Gordian services) through a _torgap_. Spotbit can be used to aggregate Bitcoin pricing information from a variety of exchanges and to store that data.
 
 ## Overview: Gordian Specifications
 
