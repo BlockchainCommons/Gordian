@@ -76,7 +76,7 @@ As a reference architecture, the Gordian Architecture also demonstrates the Gord
 
 The Gordian architecture model is demonstrated through the Gordian reference apps, all linked by airgaps and torgaps, as laid out in the following diagram.
 
-![](https://raw.githubusercontent.com/BlockchainCommons/Gordian/master/Images/appmap.jpg)
+![](https://raw.githubusercontent.com/BlockchainCommons/Gordian/master/Images/appmap.png)
 
 _The core of the Gordian system is our Wallet and Server reference apps:_
 
