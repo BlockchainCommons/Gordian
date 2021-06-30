@@ -39,7 +39,7 @@ Look at our individual reference apps for guidance on how each acts as a model f
 * [GordianQRTool-iOS](https://github.com/BlockchainCommons/GordianQRTool-iOS)
    * [Download from Appstore](https://apps.apple.com/us/app/gordian-qr-tool/id1506851070)
 * [GordianSeedTool-iOS](https://github.com/BlockchainCommons/GordianSeedTool-iOS)
-   * [Download from Appstore (pending)](https://apps.apple.com/us/app/gordian-qr-tool/id1506851070)
+   * [Download from Appstore](https://apps.apple.com/us/app/gordian-seed-tool/id1545088229)
 * [LetheKit](https://github.com/BlockchainCommons/bc-lethekit)
 * [SpotBit](https://github.com/BlockchainCommons/spotbit)
 
