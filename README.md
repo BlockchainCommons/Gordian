@@ -37,9 +37,9 @@ Look at our individual reference apps for guidance on how each acts as a model f
    * [GordianCosigner-catalyst (iOS)](https://github.com/BlockchainCommons/GordianSigner-Catalyst)
    * [GordianCosigner-MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS)
 * [GordianQRTool-iOS](https://github.com/BlockchainCommons/GordianQRTool-iOS)
-   * [Install in Testflight](https://testflight.apple.com/join/X7Ri4nPp)
-* [GordianSeedTool-iOS](https://github.com/BlockchainCommons/GordianSeedTool-iOS)
    * [Download from Appstore](https://apps.apple.com/us/app/gordian-qr-tool/id1506851070)
+* [GordianSeedTool-iOS](https://github.com/BlockchainCommons/GordianSeedTool-iOS)
+   * [Download from Appstore (pending)](https://apps.apple.com/us/app/gordian-qr-tool/id1506851070)
 * [LetheKit](https://github.com/BlockchainCommons/bc-lethekit)
 * [SpotBit](https://github.com/BlockchainCommons/spotbit)
 
