@@ -43,9 +43,10 @@ Look at our individual reference apps for guidance on how each acts as a model f
 * [LetheKit](https://github.com/BlockchainCommons/bc-lethekit)
 * [SpotBit](https://github.com/BlockchainCommons/spotbit)
 
-## Quick Links for Articles
+## Quick Links for #SmartCustody Articles
 
 * [Designing Multisig for Indepedence & Resilience](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Multisig.md) - Our design process & the Gordian multisig.
+* [Using Timelocks to Protect Digital Assets](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Timelocks.md) - Using Timelocks (preliminary draft)
 
 ## Overview: Gordian Architectural Model
 
