@@ -1,8 +1,6 @@
 # Designing Multisig for Independence & Resilience
 #### v1.0.0: [3/24/21]
 
-###### tags: `article / in process`
-
 Multisig (or multisignature) technology offers a way to balance resilience and security in the control of digital assets. In other words, not only does a multisig ensure you can't accidentally lose your funds, it also makes it much harder for someone to steal those funds.
 
 However, in order to make the best use of that resilience and security requires careful design. That's what this article is about. It provides a paradigm for designing multsigs that addresses topics like single point of failure, separation of interests, separation of duties, dual control, and complexity. It takes you step by step through a process to solve those problems and also offers examples that can be freely used, all with the goal of helping you find the multisig that's right for you.
