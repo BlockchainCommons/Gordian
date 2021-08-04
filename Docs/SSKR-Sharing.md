@@ -76,9 +76,9 @@ A 2-of-3, 2-of-3 is the most basic multilevel SSKR share. It divides nine shares
  **Corporate recovery.** A company could use the same recovery methodology as the self-sovereign/social hybrid, with the role of "owner" taken by a CFO, CEO, or Owner, and the roles of "friends" taken by different offices or organizations within the company:
  
    1. First Remote Office
-      a. Held by Employee #1
-      b. Held by Employee #2
-      c. Held by CFO
+      i. Held by Employee #1
+      i. Held by Employee #2
+      i. Held by CFO
    2. Second Remote Office
       a. Held by Employee #3
       b. Held by Employee #4
