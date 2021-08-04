@@ -76,32 +76,32 @@ A 2-of-3, 2-of-3 is the most basic multilevel SSKR share. It divides nine shares
  **Corporate recovery.** A company could use the same recovery methodology as the self-sovereign/social hybrid, with the role of "owner" taken by a CFO, CEO, or Owner, and the roles of "friends" taken by different offices or organizations within the company:
  
    1. First Remote Office
-      i. Held by Employee #1
-      i. Held by Employee #2
-      i. Held by CFO
+      * Held by Employee #1
+      * Held by Employee #2
+      * Held by CFO
    2. Second Remote Office
-      a. Held by Employee #3
-      b. Held by Employee #4
-      c. Held by CFO
+      * Held by Employee #3
+      * Held by Employee #4
+      * Held by CFO
    3. Personal
-      a. Held by CFO
-      b. Held by CFO
-      c. Held by Employee #1, #2, #3, #4, or #5
+      * Held by CFO
+      * Held by CFO
+      * Held by Employee #1, #2, #3, #4, or #5
 
 A more complex methdology could ensure dual-control by splitting responsibility between a CFO and CEO:
 
    1. First Remote Office
-      a. Held by Employee #1, Recoverable by CFO
-      b. Held by Employee #2, Recoverable by CFO
-      c. Held by CFO
+      * Held by Employee #1, Recoverable by CFO
+      * Held by Employee #2, Recoverable by CFO
+      * Held by CFO
    2. Second Remote Office
-      a. Held by Employee #3, Recoverably by President
-      b. Held by Employee #4, Recoverable by President
-      c. Held by President
+      * Held by Employee #3, Recoverably by President
+      * Held by Employee #4, Recoverable by President
+      * Held by President
    3. Personal
-      a. Held by CFO
-      b. Held by President
-      c. Held by Employee, Recoverable by CFO/President Joint or by Board of Directors
+      * Held by CFO
+      * Held by President
+      * Held by Employee, Recoverable by CFO/President Joint or by Board of Directors
 
 In this situation, neither the CFO nor the President has the ability or authority to reconstruct the key on their own, but if one of them left the company without ensuring continuity, the Board could still step in to reconstruct the seed.
 
