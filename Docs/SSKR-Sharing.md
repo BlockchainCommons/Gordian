@@ -61,17 +61,17 @@ A 2-of-3, 2-of-3 is the most basic multilevel SSKR share. It divides nine shares
 **Self-sovereign/Social hybrid.** The most likely use of a multilevel SSKR setup is to create a hybrid self-sovereign/social #SmartCustody solution, with more security than a single-level scenario. In this situation, you could give out two shares from the first group to one social group (such as friends) and two shares from the second group to another social group (such as family or a separate group of friends). You'd then give out one share from the final group, possibly to someone already holding a share. The final four shares, one from each of the first two groups and two from the last group would be kept by the seed owner and partitioned as much as possible, with the two shares from group three a requirement to separate. This means that in a self-sovereign situation, the seed owner could recover his seed by recovering just a single share from either group one or two. In a partial loss self-sovereign situation, they could recover with four or less shares, depending on what they lost. Finally, in a situation where the seed owner was incapacitated or killed, their successors could recover the seed by retrieving four shares from the two social groups (providing the seed owner recorded what he did!).
 
    1. First Social Group
-      a. Held by Friend #1
-      b. Held by Friend #2
-      c. Held by Owner
+      * Held by Friend #1
+      * Held by Friend #2
+      * Held by Owner
    2. Second Social Group
-      a. Held by Friend #3
-      b. Held by Friend #4
-      c. Held by Owner
+      * Held by Friend #3
+      * Held by Friend #4
+      * Held by Owner
    3. Personal
-      a. Held by Owner
-      b. Held by Owner
-      c. Held by Friend #1, #2, #3, #4, or #5
+      * Held by Owner
+      * Held by Owner
+      * Held by Friend #1, #2, #3, #4, or #5
  
  **Corporate recovery.** A company could use the same recovery methodology as the self-sovereign/social hybrid, with the role of "owner" taken by a CFO, CEO, or Owner, and the roles of "friends" taken by different offices or organizations within the company:
  
