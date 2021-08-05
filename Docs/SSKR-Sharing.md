@@ -105,6 +105,29 @@ A more complex methdology could ensure dual-control by splitting responsibility 
 
 In this situation, neither the CFO nor the President has the ability or authority to reconstruct the key on their own, but if one of them left the company without ensuring continuity, the Board could still step in to reconstruct the seed.
 
+## Combining Scenarios
+
+Each set of SSKR shares is distinct and discrete from each other one. Just as no individual share gives you more information about the secret itself, it's also the case that collecting shares that were sharded independently does not reveal anything more about the secret. As a result, individual gave be given shares from different shardings, as part of different scenarios, without decreasing the overall security.
+
+For example, an individual with only two save locales might create a self-sovereign scenario as follows:
+
+   1. Home Safe
+   2. Bank Safety Deposit Box
+   3. Friend #1
+
+The scenario remains self-sovereign, as the seed owner can recover the seed totally on his own, but he also has a backup if something unexpected happens such as a fire at his house.
+
+Meanwhile, the individual might _also_ want to create a social recovery scenario, to ensure his secret can be reconstructed if there is some cataclysmic disaster in his home town, and so he creates a 3-of-5 social recovery as follows:
+ 
+  1. Home Safe
+  2. Friend #1
+  3. Friend #2
+  4. Dad
+  5. Boss
+
+Though Friend #1 is now holding two different shares, there is no overlap between the shardings, and so this gives no additional insight into the secret (nor does the fact that there are two different shares held in the same Home Safe).
+
+
 ## Maintaining #SmartCustody Scenarios
 
 [check regularly]
