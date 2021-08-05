@@ -2,6 +2,8 @@
 
 [SSKR](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-011-sskr.md) allows the sharding of secrets, such as cryptographic seeds, so that they can be reconstructed with a threshold number of the shares. It goes beyond traditional Shamir's Secret Sharing by also supporting a multi-level group methodology, where shares can be grouped, and reconstruction can then occur if a threshold of shares is recovered from a threshold of groups.
 
+Using SSKR should not be considered an alternative to using multisigs. We consider multisigs an all-around more secure solution for #SmartCustody because they do not require key material to all be collected on the same machine, which creates a security risk. In conjunction with that, multisigs can offer similar levels of resilience with [careful construction of multisig scenarios](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Multisig.md). Nonetheless, SSKR has very powerful uses for protecting single-sig addresses, and can even be used to back up seeds that are part of a multisignature.
+
 ## #SmartCustody Scenarios
 
 For SSKR to truly work as a part of a [#SmartCustody](https://www.smartcustody.com) solution requires careful thought as to what to do with the SSKR shares. Following are ways to secure shares for some standard SSKR scenarios, which match the default options in the [Gordian Seedtool reference app](https://github.com/blockchaincommons/GordianSeedTool-iOS).
