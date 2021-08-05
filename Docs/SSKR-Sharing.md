@@ -130,5 +130,6 @@ Though Friend #1 is now holding two different shares, there is no overlap betwee
 
 ## Maintaining #SmartCustody Scenarios
 
-[check regularly]
-[but don't reconstruct]
+Creating a scenario is just the first step: it also needs to be maintained. As discussed in [the #SmartCustody book](https://bit.ly/SmartCustodyBookV101), you should be checking on your entire backup setup at least once a year (see Steps N to O of the #Smartcustody scenario, pages 71-72 of v1.01). So, for a SSKR scenario, you might check your self-sovereign shares in Spring, then your social-recovery shares in Fall, or something similar. The goal is to make sure that every year you know that every share still exists, and that it looks to still be in its complete form.
+
+What you probably _don't_ want to do is test the reconstruction. That introduces a point of vulnerability, because your entire seed is suddenly available on one device. If you can do this on an entirely non-networked device, such as [Seed Tool on an iPod Touch](https://apps.apple.com/us/app/gordian-seed-tool/id1545088229), then the danger is probably worth it. Otherwise, you should only reconstruct your seed at the point that you're ready to sweep your funds on to a new address.
