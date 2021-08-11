@@ -1,1 +1,0 @@
-Images related to multisigs
