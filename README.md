@@ -25,7 +25,13 @@ Blockchain Commons' interoperable specifications are meant to support four core 
 
 Look at our individual reference apps for guidance on how each acts as a model for these principles.
 
-## Quick Links for App Repos
+## Quick Links for Reference Apps
+
+Blockchain Commons has released a number of apps to exemplify the deployment of Gordian Principles
+
+### Mobile Apps
+
+The following mobile apps are available for compilation, for downloading in testflight, or (in a few cases) for download from the Appstore. They're all available for iOS devices, with some MacOS crossover, and one conversion to Android.
 
 * [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS)
    * [Install in Testflight](https://testflight.apple.com/join/OQHyL0a8)
@@ -40,8 +46,30 @@ Look at our individual reference apps for guidance on how each acts as a model f
    * [Download from Appstore](https://apps.apple.com/us/app/gordian-qr-tool/id1506851070)
 * [GordianSeedTool-iOS](https://github.com/BlockchainCommons/GordianSeedTool-iOS)
    * [Download from Appstore](https://apps.apple.com/us/app/gordian-seed-tool/id1545088229)
-* [LetheKit](https://github.com/BlockchainCommons/bc-lethekit)
+
+### CLI Apps
+
+Many of our CLI apps were built to exercise our [crypto-commons libraries](https://github.com/BlockchainCommons/crypto-commons) but they also serve as references for the Gordian Principles, the UNIX/command-line equivalent of some of our mobile apps.
+
+* **[Bytewords](https://github.com/BlockchainCommons/bc-bytewords-cli) \(CLI\).** A tool for testing bytewords.
+* **[Keytool](https://github.com/BlockchainCommons/bc-keytool-cli) \(CLI\).** A tool for deriving keys and addresses from seeds. 
+* **[LifeHashTool](https://github.com/BlockchainCommons/LifeHashTool) \(Swift CLI\).** A tool for generating Lifehash PNGs from the command line.
+* **[Mori](https://github.com/BlockchainCommons/mori-cli) \(CLI\).** A timelock tool to make sure your assets aren't lost.
+* **[Musign](https://github.com/BlockchainCommons/musign-cli) \(CLI\).** A research project for signing and verifying messages with ECDSA and Schnorr.
+* **[Seedtool](https://github.com/BlockchainCommons/bc-seedtool-cli) \(Rust CLI\).** A tool for generating seeds from a variety of random inputs and for translating seeds among formats.
+* **[Sweeptool](https://github.com/BlockchainCommons/sweeptool-cli) \(Rust CLI\).**  A tool for moving funds out of a descriptor wallet.
+
+### Web Microservices
+
+Web microservices are meant to support mobile or CLI apps by providing specific, small-scale services, such as price-lookups.
+
 * [SpotBit](https://github.com/BlockchainCommons/spotbit)
+
+### Hardware Apps
+
+We've also produced one DIY hardware app that you can build to demonstrate the Gordian Principles.
+
+* [LetheKit](https://github.com/BlockchainCommons/bc-lethekit)
 
 ## Quick Links for #SmartCustody Articles
 
