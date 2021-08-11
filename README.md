@@ -45,8 +45,7 @@ Look at our individual reference apps for guidance on how each acts as a model f
 
 ## Quick Links for #SmartCustody Articles
 
-* [Designing Multisig for Indepedence & Resilience](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Multisig.md) - Our design process & the Gordian multisig.
-* [Using Timelocks to Protect Digital Assets](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Timelocks.md) - Using Timelocks (preliminary draft)
+Please see the [SmartCustody repo](https://github.com/BlockchainCommons/SmartCustody) for articles on Multisigs, Timelocks, and other SmartCustody topics.
 
 ## Overview: Gordian Architectural Model
 
