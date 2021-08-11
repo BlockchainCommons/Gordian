@@ -1,4 +1,5 @@
 # Designing SSKR Share Scenarios
+## V0.2.0 [8/11/21] (Preliminary)
 
 [SSKR](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-011-sskr.md) allows the sharding of secrets, such as cryptographic seeds, so that they can be reconstructed with a threshold number of the shares. It goes beyond traditional Shamir's Secret Sharing by also supporting a multi-level group methodology, where shares can be grouped, and reconstruction can then occur if a threshold of shares is recovered from a threshold of groups.
 
