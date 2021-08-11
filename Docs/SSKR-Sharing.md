@@ -2,7 +2,7 @@
 
 [SSKR](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-011-sskr.md) allows the sharding of secrets, such as cryptographic seeds, so that they can be reconstructed with a threshold number of the shares. It goes beyond traditional Shamir's Secret Sharing by also supporting a multi-level group methodology, where shares can be grouped, and reconstruction can then occur if a threshold of shares is recovered from a threshold of groups.
 
-Using SSKR should not be considered an alternative to using multisigs. We consider multisigs an all-around more secure solution for #SmartCustody because they do not require key material to all be collected on the same machine, which creates a security risk. In conjunction with that, multisigs can offer similar levels of resilience with [careful construction of multisig scenarios](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Multisig.md). Nonetheless, SSKR has very powerful uses for protecting single-sig addresses, and can even be used to back up seeds that are part of a multisignature.
+Using SSKR should not be considered an alternative to using multisigs. We consider multisigs an all-around more secure solution for #SmartCustody because they do not require key material to all be collected together for reconstruction, which creates a security risk. See ["The Dangers of Secret Sharing Schemes"](/SSKR-Dangers.md) for more discussions of hor reconstruction is dangerous, how secret sharing can be combined with multisigs to ensure both resilience and security, and how doing so can actually improve SmartCustody of the multisig itself.
 
 ## #SmartCustody Scenarios
 
@@ -33,6 +33,8 @@ This is probably the most common use of SSKR, where three shares are created, an
 **Social recovery.** At least two shares should be given to friends, family, or business associates when using a 2-of-3 social recovery scenario. Ideally these shares should be partitioned: the two recipients should not have a direct connection between each other. You should also ensure that they can store the share safely. [Gordian QR Tool](https://www.blockchaincommons.com/quarterlies/Q2-2021-Report/) is a great place to have them store shares that have been encoded as QRs. The owner of the seed can keep the third share, if they have a safe place to store it that separates it from the devices that contain the seed itself (such as at work or a bank). Alternatively, they can give it out to a third person.
 
 **Corporate recovery.** Three shares can be given to three people who already have financial responsibility within the company. This create a dual-control situation for key reconstruction. Ideally, the three people are physically separated, such as in different offices. Some of these shares might be stored in safety deposit boxes associated with the company, others in safes or vaults at the company itself, or at worst locked and safe drawers. Places with logged access are also a good option. They should not be taken to personal domiciles.
+
+Also see our ["Dangers of Secret Sharing" article](https://github.com/BlockchainCommons/Gordian/blob/shannona-sskr-scenarios/Docs/SSKR-Dangers.md#an-autonomous-example) for a specific example of a 2-of-3 share scenario that is hybrizied with a 2-of-3 multisig.
 
 ### 3 of 5 Shares
 
