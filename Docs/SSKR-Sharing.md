@@ -3,7 +3,7 @@
 
 [SSKR](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-011-sskr.md) allows the sharding of secrets, such as cryptographic seeds, so that they can be reconstructed with a threshold number of the shares. It goes beyond traditional Shamir's Secret Sharing by also supporting a multi-level group methodology, where shares can be grouped, and reconstruction can then occur if a threshold of shares is recovered from a threshold of groups.
 
-Using SSKR should not be considered an alternative to using multisigs. We consider multisigs an all-around more secure solution for #SmartCustody because they do not require key material to all be collected together for reconstruction, which creates a security risk. See ["The Dangers of Secret Sharing Schemes"](/SSKR-Dangers.md) for more discussions of hor reconstruction is dangerous, how secret sharing can be combined with multisigs to ensure both resilience and security, and how doing so can actually improve SmartCustody of the multisig itself.
+Using SSKR should not be considered an alternative to using multisigs. We consider multisigs an all-around more secure solution for #SmartCustody because they do not require key material to all be collected together for reconstruction, which creates a security risk. See ["The Dangers of Secret Sharing Schemes"](/SSKR-Dangers.md) for more discussions of how reconstruction is dangerous, how secret sharing can be combined with multisigs to ensure both resilience and security, and how doing so can actually improve the SmartCustody implicit in the multisig itself.
 
 ## #SmartCustody Scenarios
 
@@ -17,17 +17,19 @@ These scenarios cover three different methodologies ofr using SSKR:
 
 **Corporate recovery.** In this methodology, which is a variant of social recovery, the shares are given out to employees of a company, to enable the reconstruction of a business' cryptographic secrets.
 
+_Some of the included scenarios also discuss hybrids of self-sovereign and social recovery methodologies._
+
 ### 1 of 1 Shares
 
-This is a simple encoding of the seed as [Bytewords](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md), resulting in a single share that can be used to entirely recover the seed. It is not a true sharding. It may be somewhat more resilient than traditional BIP-39 words, because of the carefully methodology that was used to pick Bytewords, but it is less resilient than using some other methods, such as a QR of a `ur:crypto-seed`, which would be self-identifying.
+This is a simple encoding of the seed as [Bytewords](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md), resulting in a single share that can be used to entirely recover the seed. It is not a true sharding. It may be somewhat more resilient than traditional BIP-39 words, because of the careful choices used to pick Bytewords, but it is less resilient than some other methods, such as a QR of a `ur:crypto-seed`, which would be self-identifying.
 
 **Self-sovereign.** To maintain safety of your seed, you should keept this share in an extremely secure location such as a safe that you personally control.
 
-**Social or corporate recovery.** Anyone else with this share could entirely recover your seed, so you should only give it to someone with whom you have a fiduciary relationship, such as a lawyer or an accountant that is required to work in your best interest. You should also ensure that they store in an extremely secure location that only they have access to.
+**Social or corporate recovery.** Anyone else with this share could entirely recover your seed, so you should only give it to someone with whom you have a fiduciary relationship, such as a lawyer or an accountant that is required to work in your best interest. You should also ensure that they store it in an extremely secure location that only they have access to.
 
 ### 2 of 3 Shares
 
-This is probably the most common use of SSKR, where three shares are created, any two of which can be used to retrieve the secret. No single share can be used to recover your secret, so you don't need the same extreme security required by a 1-of-1 share, but you nonetheless want to ensure that they're well divided, so that no one else can combine them, and that they're secure enough that they'll be available for recovery when required.
+This is probably the most common use of SSKR, where three shares are created, any two of which can be used to retrieve the secret. No single share can be used to recover your secret, so you don't need the same extreme security required by a 1-of-1 share, but you instead need to ensure that they're well divided, so that no one else can combine them, and that they're secure enough that they'll be available for recovery when required.
 
 **Self-sovereign.** Here you simply need to place your shares in three different locations. Work and home are often two good choices. A bank safety deposit box is the ideal third choice, but barring that, the third share could instead be kept with close family members, such as parents (creating the first example of a hybrid solution, combining a self-sovereign methodology with a bit of social recovery). Ideally, these shares are always locked up, to prevent them from being stolen, which would deny your access to them. However barring that, it's most important to keep them somewhere where they'll be easy to find and not subject to being lost or accidentally thrown out.
 
@@ -35,7 +37,7 @@ This is probably the most common use of SSKR, where three shares are created, an
 
 **Corporate recovery.** Three shares can be given to three people who already have financial responsibility within the company. This create a dual-control situation for key reconstruction. Ideally, the three people are physically separated, such as in different offices. Some of these shares might be stored in safety deposit boxes associated with the company, others in safes or vaults at the company itself, or at worst locked and safe drawers. Places with logged access are also a good option. They should not be taken to personal domiciles.
 
-Also see our ["Dangers of Secret Sharing" article](https://github.com/BlockchainCommons/Gordian/blob/shannona-sskr-scenarios/Docs/SSKR-Dangers.md#an-autonomous-example) for a specific example of a 2-of-3 share scenario that is hybrizied with a 2-of-3 multisig.
+Also see our ["Dangers of Secret Sharing" article](https://github.com/BlockchainCommons/Gordian/blob/shannona-sskr-scenarios/Docs/SSKR-Dangers.md#an-autonomous-example) for a specific example of a 2-of-3 share scenario that is hybridized with a 2-of-3 multisig.
 
 ### 3 of 5 Shares
 
@@ -43,7 +45,7 @@ A 3-of-5 scenario is an expansion of a 2-of-3 scenario that should be used if yo
 
 **Self-sovereign/hybrid.** A single person is unlikely to have five distinct places to safely store shares, but you could use a hybrid model, storing 3 shares yourself (as with the 2-of-3 scenario) to ensure the _possibility_ of entirely self-sovereign reconstruction, but then giving out two shares to friends, family, or business associates.
 
-**Social recovery.** While the 2-of-3 scenario is likely the most common, 3-of-5 might be a better scenario for social recovery. Keys can be given out to a wider number of friends and family, with the need to only recover three of them. There's also a little less concern about ensuring that every share-holder doesn't know the others. Though doing so is still ideal, a pair of shareholders who know each other but no one else, cannot reconstruct the original secret. In a 3-of-5 scenario, the seed owner might choose to hold on to one or even two of the shares, if they can be partioned from each other and the devices with the seed.
+**Social recovery.** While the 2-of-3 scenario is likely the most common, 3-of-5 might be a better scenario for social recovery. Keys can be given out to a wider number of friends and family, with the need to only recover three of them. There's also a little less concern about ensuring that every share-holder doesn't know the others. Though doing so is still ideal, a pair of shareholders who know each other but no one else, cannot reconstruct the original secret. In a 3-of-5 scenario, the seed owner might choose to hold on to one or even two of the shares, if they can be partioned from each other and from the devices with the seed.
 
 **Corporate recovery.** This is a fair alternative for corporate recovery. Increasing to five shares lessens the company's control over the seed, but increases the resilience, which is important in a corporate situation where employees might come or go.
 
@@ -61,7 +63,7 @@ The 4-of-9 scenario is likely the greatest extent that you'll ever go to in divi
 
 Multilevel SSKR allows for much more sophisticated sharing scenarios. They can be somewhat more fragile, as you might need a larger number of keys before you initiate recovery, but they also make it much easier to partition the keys so as to deny to inappropriate reconstruction of the original secret.
 
-A 2-of-3, 2-of-3 is the most basic multilevel SSKR share. It divides nine shares into three groups. To reconstruct the key requires that two keys be used each from two different groups. That means that as few as four keys can reconstruct the secret (e.g., `2-2-0` from the different groups), but as many as five cannot (e.g., `1-1-3` from the different groups). This is clear example of the fragility possible in this approach.
+A 2-of-3 of two-of-three groups is the most basic multilevel SSKR share. It divides nine shares into three groups. To reconstruct the key requires that two keys be used each from two different groups. That means that as few as four keys can reconstruct the secret (e.g., `2-2-0` from the different groups), but as many as five cannot (e.g., `1-1-3` from the different groups). This is clear example of the fragility possible in this approach.
 
 **Self-sovereign/Social hybrid.** The most likely use of a multilevel SSKR setup is to create a hybrid self-sovereign/social-recovery #SmartCustody solution, with more security than a single-level scenario. In this situation, you could give out two shares from the first group to one social group (such as friends) and two shares from the second group to another social group (such as family or a separate group of friends). Finally, you'd give out one share from the final group, possibly to someone already holding a share. The remaining four shares, one from each of the first two groups and two from the last group would be kept by the seed owner and partitioned as much as possible, with the two shares from group three a requirement to separate. This means that in a nearly self-sovereign situation, the seed owner could recover his seed by recovering just a single share from either group one or two. In a partial-loss near-self-sovereign situation, they could recover with four or less shares, depending on what they lost. Finally, in a situation where the seed owner was incapacitated or killed, their successors could recover the seed by retrieving four shares from the two social groups (providing the seed owner recorded what he did!).
 
@@ -112,9 +114,9 @@ In this situation, neither the CFO nor the President has the ability or authorit
 
 ## Combining Scenarios
 
-Each set of SSKR shares is distinct and discrete from each other one. Just as no individual share gives you more information about the secret itself, it's also the case that collecting shares that were sharded independently does not reveal anything more about the secret. As a result, individual gave be given shares from different shardings, as part of different scenarios, without decreasing the overall security.
+Each set of SSKR shares is distinct and discrete from each other one. Just as no individual share gives you more information about the secret itself, it's also the case that collecting shares that were sharded independently does not reveal anything more about the secret. As a result, individual can be given shares from different shardings, as part of different scenarios, without decreasing the overall security.
 
-For example, an individual with only two save locales might create a self-sovereign scenario as follows:
+For example, an individual with only two safe locales might create a self-sovereign scenario as follows:
 
    1. Home Safe
    2. Bank Safety Deposit Box
@@ -136,4 +138,4 @@ Though Friend #1 is now holding two different shares, there is no overlap betwee
 
 Creating a scenario is just the first step: it also needs to be maintained. As discussed in [the #SmartCustody book](https://bit.ly/SmartCustodyBookV101), you should be checking on your entire backup setup at least once a year (see Steps N to O of the #Smartcustody scenario, pages 71-72 of v1.01). So, for a SSKR scenario, you might check your self-sovereign shares in Spring, then your social-recovery shares in Fall, or something similar. The goal is to make sure that every year you know that every share still exists, and that it looks to still be in its complete form.
 
-What you probably _don't_ want to do is test the reconstruction. That introduces a point of vulnerability, because your entire seed is suddenly available on one device. If you can do this on an entirely non-networked device, such as [Seed Tool on an iPod Touch](https://apps.apple.com/us/app/gordian-seed-tool/id1545088229), then the danger is perhaps worth it. Otherwise, you should only reconstruct your seed at the point that you're ready to sweep your funds on to a new address.
+What you probably _don't_ want to do is test the reconstruction. That introduces a point of vulnerability as discussed in our ["Dangers of Secret-Sharing Schemes" article](SSKR-Dangers.md), because your entire seed is suddenly available on one device. If you can ensure the safety of _authentication_ and _transmission_ and make sure that _reconstruction_ occurs on an entirely non-networked device, such as [Gordian Seed Tool on an iPod Touch](https://apps.apple.com/us/app/gordian-seed-tool/id1545088229), then the danger is perhaps worth it. Otherwise, you should only reconstruct your seed at the point that you're ready to sweep your funds on to a new address.
