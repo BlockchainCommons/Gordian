@@ -3,7 +3,7 @@
 
 [SSKR](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-011-sskr.md) allows the sharding of secrets, such as cryptographic seeds, so that they can be reconstructed with a threshold number of the shares. It goes beyond traditional Shamir's Secret Sharing by also supporting a multi-level group methodology, where shares can be grouped, and reconstruction can then occur if a threshold of shares is recovered from a threshold of groups.
 
-Using SSKR should not be considered an alternative to using multisigs. We consider multisigs an all-around more secure solution for #SmartCustody because they do not require key material to all be collected together for reconstruction, which creates a security risk. See ["The Dangers of Secret Sharing Schemes"](/SSKR-Dangers.md) for more discussions of how reconstruction is dangerous, how secret sharing can be combined with multisigs to ensure both resilience and security, and how doing so can actually improve the SmartCustody implicit in the multisig itself.
+Using SSKR should not be considered an alternative to using multisigs. We consider multisigs an all-around more secure solution for #SmartCustody because they do not require key material to all be collected together for reconstruction, which creates a security risk. See ["The Dangers of Secret Sharing Schemes"](SSKR-Dangers.md) for more discussions of how reconstruction is dangerous, how secret sharing can be combined with multisigs to ensure both resilience and security, and how doing so can actually improve the SmartCustody implicit in the multisig itself.
 
 ## #SmartCustody Scenarios
 
