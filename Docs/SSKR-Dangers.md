@@ -17,13 +17,13 @@ The danger of reconstruction comes from the fact that the result of these three 
 
 To be specific:
 
-_Authentication._ If an adversary can convince the shard holders to send him the shards, he will be able to recreate the seed.
+_Authentication._ If an adversary can convince the shard holders to send them the shards, they will be able to recreate the seed.
 
-_Transmission._ If an adversary is listening in on the transmission mechanism, then they may be able reconstruct the seed before the original seed holder.
+_Transmission._ If an adversary is eavesdropping on the transmission mechanism, then they may be able reconstruct the seed before the original seed holder.
 
 _Reconstruction._ If an adversary has trojan-horsed the original seed holder's machine to be used for reconstruction, then they may be able to use the reconsted seed before the original seed holder.
 
-A meticulously careful reconstruction process can resolve all of these problems: an in-person meeting to request shards can resolve _authentication_ attacks; the transmission of shards only as QRs from one device to another's camera can mostly deter _transmission_ attacks; and the use of a app such as [Gordian Seed Tool](https://github.com/blockchaincommons/GordianSeedTool-iOS) on an offline device such as an iPod Touch can resolve _reconstruction_ attacks. But, we're well aware that users will often put convenience ahead of security: these meticulous measures will not usually be followed.
+A meticulously careful reconstruction process can largely resolve all of these problems: an in-person meeting to request shards can resolve _authentication_ attacks; the transmission of shards only as QRs from one device to another's camera can mostly deter _transmission_ attacks; and the use of a app such as [Gordian Seed Tool](https://github.com/blockchaincommons/GordianSeedTool-iOS) on an offline device such as an iPod Touch can resolve _reconstruction_ attacks. But, we're well aware that users will often put convenience ahead of security: these meticulous measures will not usually be followed.
 
 This means that reconstructing a seed using a secret-sharing scheme should _always_ be considered a danger, at least in the case of a single-sig situation where the secret is all that's needed to access assets. That doesn't mean that secret-sharing is worthless. Far from it. It can obviously be a valuable tool if you are forced to use single-sig.
 
@@ -31,7 +31,7 @@ However, a secret-sharing system can be even more helpful, and much less dangero
 
 ## Improving Secret-Sharing Safety with Multisigs
 
-Though reconstruction can be dangerous when a single-sig secret is sharded, that danger is largely alleviated if instead secret-sharing systems are combined with [multisig design scenarios](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/Multisig.md). In this situation, a single key is sharded from an m-of-n multisig that has an `m >= 2`. Then, even if the reconstruction of the key succumbs to compromise at the authentication, transmission, or reconstruction stage, the assets protected by the key likely remain safe, because an adversary would also have to steal other keys from hetergeneous environments.
+Though reconstruction can be dangerous when a single-sig secret is sharded, that danger is largely alleviated if instead secret-sharing systems are combined with [multisig design scenarios](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/Multisig.md). In this situation, a single key within an m-of-n multisig that has an `m >= 2` is sharded. Then, even if the reconstruction of the key succumbs to compromise at the authentication, transmission, or reconstruction stage, the assets protected by the key likely remain safe, because an adversary would also have to steal other keys from hetergeneous environments.
 
 Because multisig design scenarios are relatively young, especially for self-sovereign methodologies, the use of a secret-sharing system as a backup can offer strong resilience to protect the digital assets, as Shamir's Secret Sharing is quite well understood and analyzed.
 
