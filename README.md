@@ -45,7 +45,6 @@ We also have released two additional mobile apps, which demonstrate Gordian prin
    * [GordianCosigner-catalyst (iOS)](https://github.com/BlockchainCommons/GordianSigner-Catalyst)
    * [GordianCosigner-MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS)
 * [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS)
-   * [Install in Testflight](https://testflight.apple.com/join/OQHyL0a8)
 
 ### CLI Apps
 
