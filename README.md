@@ -171,47 +171,39 @@ These are fully described in the [Crypto Commons Overview](https://github.com/Bl
 
 Blockchain Commons is also happy to use libraries from other sources, if they're stabled and well-supported.
 
-## Spotlight: GordianWallet on iOS (and macOS)
+## Spotlight: Gordian SeedTool on iOS (and macOS)
 
-[GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS) is a reference app demonstrating how to securely connect to your node over Tor from anywhere in the world. Combined with your *GordianServer*, it demonstrates a powerful suite of tools for managing Bitcoin. You can scan the QuickConnect QR code from *GordianServer-macOS* and easily create mutli-sig wallets where one key gets stored on your device, one on your node, and one in offline backup.
+[Gordian SeedTool](https://github.com/BlockchainCommons/GordianSeedTool-iOS) for iOS And MacOS is Blockchain Commons' most sophisticated reference tool for demonstrating the usage of Blockchain Commons specifications and the Gordian principles.
 
-<img src="https://raw.githubusercontent.com/BlockchainCommons/GordianWallet-iOS/master/Images/home_screen_collapsed.PNG" alt="Gordian Wallet app Home Screen" width="250"/> <img src="https://raw.githubusercontent.com/BlockchainCommons/GordianWallet-iOS/master/Images/home_screen_expanded.PNG" alt="Gordian Wallet app Home Screen" width="250"/>
+Gordian SeedTool:
 
-*GordianWallet-iOS* is a macCatalyst app and can therefore be used on either iOS devices or macOS.
+* Allows the storage of seeds in a protected, closely held device.
+* Derives Keys that can be sent to other devices.
+* Signs PSBTs for seeds that it holds.
+* Answers `crypto-requests` with `crypto-responses`.
+* Demonstrates other UR, SSKR, ByteWord, and LifeHash functionality.
 
-**[Install iOS Testflight](https://testflight.apple.com/join/OQHyL0a8)**
+![](https://raw.githubusercontent.com/BlockchainCommons/GordianSeedTool-iOS/master/images/logos/gordian-seedtool-screen.jpg)
 
-**[Install for macOS](https://github.com/BlockchainCommons/GordianWallet-iOS/blob/master/GordianWallet-macOS.dmg)**
-
-### Other Wallet Options: FullyNoded for iOS
-
-GordianWallet author Peter Denton also provides an alternative app: [FullyNoded-iOS](https://fullynoded.app/), a feature-rich Bitcoin wallet.
+* **[Download from the Apple App Store](https://apps.apple.com/us/app/gordian-seed-tool/id1545088229).**
+* **[Visit the Repo](https://github.com/BlockchainCommons/GordianSeedTool-iOS).**
 
 ## Spotlight: Gordian Server on MacOS
 
-[GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS) provides personal one-click installation for Bitcoin Core and Tor. It's built on Bitcoin Standup technology that presents a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3.
+[GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS) provides personal one-click installation for Bitcoin Core and Tor. It's built on Bitcoin Standup technology that presents a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3. If you want to have your own, independent and self-sovereign Bitcoin node, this is all you need.
 
-<img src="./Images/0_standup_mac.png" alt="" width="500"/>
+![](https://raw.githubusercontent.com/BlockchainCommons/GordianServer-macOS/master/Images/logos/gordian-server-screen.jpg)
 
-<img src="./Images/1_standup_mac.png" alt="" width="1000"/>
+*GordianServer-macOS* has been developed for Macs using Catalina or better; it can be installed via a DMG or an Xcode compilation
 
-<img src="./Images/3_standup_mac.png" alt="" width="800"/>
-
-*GordianServer-macOS* has been developed and tested on "Mojave" and "Catalina", it can be installed via a DMG or an Xcode compilation
-
-**[Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/blob/master/GordianServer-macOS-v0.1.2.dmg)**
+* **[Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/releases).**
+* **[Visit the Repo](https://github.com/BlockchainCommons/GordianServer-macOS).**
 
 ### Other Node Options: Bitcoin Standup for Linux
 
 [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts) achieves the same thing as GordianServer-macOS, but comes in the form of Linux scripts rather than a central app.
 
 The easiest-to-use version of the Linux scripts run through the StackScript system at Linode, but you can alternatively use Linux scripts that have been tested with Debian Stretch and Ubuntu 18.04.
-
-## Spotlight: Gordian Cosigner on Android, MacOS, or iOS
-
-The multi-platform GordianCosigner reference app for [Android](https://github.com/BlockchainCommons/GordianSigner-Android), [iOS](https://github.com/BlockchainCommons/GordianSigner-Catalyst), and [MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS) demonstrates how a PSBT can be signed by the input of a xprv, 12-word mnemonic word set, or QR-UR. It does not transmit the PSBT, but just updates it, for finalization on another node.
-
-This is our first example of a rapid multi-platform deployment, and also our first example of one of patrons (Bitmark) directly working with us to release an app for the Commons.
 
 ## Additional Information
 
