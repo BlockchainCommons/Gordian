@@ -38,7 +38,7 @@ Our two most advanced reference apps are both available from the Apple App Store
 * [GordianQRTool-iOS](https://github.com/BlockchainCommons/GordianQRTool-iOS)
    * [Download from Appstore](https://apps.apple.com/us/app/gordian-qr-tool/id1506851070)
 
-We also have released two additional mobiles, which demonstrate Gordian principles, but which have not been advanced to full release:
+We also have released two additional mobile apps, which demonstrate Gordian principles, but which have not been advanced to full release:
 
 * GordianCosigner
    * [GordianCosigner-Android](https://github.com/BlockchainCommons/GordianSigner-Android)
