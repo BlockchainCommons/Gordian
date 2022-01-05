@@ -31,21 +31,21 @@ Blockchain Commons has released a number of apps to exemplify the deployment of 
 
 ### Mobile Apps
 
-The following mobile apps are available for compilation, for downloading in testflight, or (in a few cases) for download from the Appstore. They're all available for iOS devices, with some MacOS crossover, and one conversion to Android.
+Our two most advanced reference apps are both available from the Apple App Store for Macs or iOS devices:
 
-* [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS)
-   * [Install in Testflight](https://testflight.apple.com/join/OQHyL0a8)
-* [GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS)
-   * [Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/blob/master/GordianServer-macOS-v0.1.3.dmg)
-   * [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts)
+* [GordianSeedTool-iOS](https://github.com/BlockchainCommons/GordianSeedTool-iOS)
+   * [Download from Appstore](https://apps.apple.com/us/app/gordian-seed-tool/id1545088229)
+* [GordianQRTool-iOS](https://github.com/BlockchainCommons/GordianQRTool-iOS)
+   * [Download from Appstore](https://apps.apple.com/us/app/gordian-qr-tool/id1506851070)
+
+We also have released two additional mobiles, which demonstrate Gordian principles, but which have not been advanced to full release:
+
 * GordianCosigner
    * [GordianCosigner-Android](https://github.com/BlockchainCommons/GordianSigner-Android)
    * [GordianCosigner-catalyst (iOS)](https://github.com/BlockchainCommons/GordianSigner-Catalyst)
    * [GordianCosigner-MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS)
-* [GordianQRTool-iOS](https://github.com/BlockchainCommons/GordianQRTool-iOS)
-   * [Download from Appstore](https://apps.apple.com/us/app/gordian-qr-tool/id1506851070)
-* [GordianSeedTool-iOS](https://github.com/BlockchainCommons/GordianSeedTool-iOS)
-   * [Download from Appstore](https://apps.apple.com/us/app/gordian-seed-tool/id1545088229)
+* [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS)
+   * [Install in Testflight](https://testflight.apple.com/join/OQHyL0a8)
 
 ### CLI Apps
 
@@ -58,6 +58,14 @@ Many of our CLI apps were built to exercise our [crypto-commons libraries](https
 * **[Musign](https://github.com/BlockchainCommons/musign-cli) \(CLI\).** A research project for signing and verifying messages with ECDSA and Schnorr.
 * **[Seedtool](https://github.com/BlockchainCommons/bc-seedtool-cli) \(Rust CLI\).** A tool for generating seeds from a variety of random inputs and for translating seeds among formats.
 * **[Sweeptool](https://github.com/BlockchainCommons/sweeptool-cli) \(Rust CLI\).**  A tool for moving funds out of a descriptor wallet.
+
+### Server Apps
+
+Ultimately, Bitcoin apps require a Bitcoin server. The Gordian Server demonstrates how to set one up and abide by the Gordian Principles, particularly independence and privacy.
+
+* [GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS)
+   * [Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/blob/master/GordianServer-macOS-v0.1.3.dmg)
+   * [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts)
 
 ### Web Microservices
 
@@ -79,7 +87,7 @@ Please see the [SmartCustody repo](https://github.com/BlockchainCommons/SmartCus
 
 The Gordian reference architecture, supporting the Gordian principles, is based on a theory of functional partition. 
 
-Rather than following the design pattern of classic services, which group multiple services into singular applications, Blockchain Commons instead separates services from each other. Doing so improves both privacy and security by reducing the value of honeypots and also improves functional design by ensuring that each application is precisely and concisely able to perform a specific function. 
+Rather than following the design pattern of classic services, which group multiple services into singular applications, Blockchain Commons instead separates both services and confidential data from each other. Doing so improves both privacy and security by reducing the value of honeypots and also improves functional design by ensuring that each application is precisely and concisely able to perform a specific function. 
 
 Many of the Gordian reference apps are actually microservices, intended to perform small and simple but necessary activities as part of the blockchain ecosystem.
 
@@ -108,19 +116,27 @@ The Gordian architecture model is demonstrated through the Gordian reference app
 
 _The core of the Gordian system is our Wallet and Server reference apps:_
 
+### Reference Apps
+
+_Most of our apps demonstrate how to use closely held mobile apps to protect your digital assets by providing specific microservices._
+
+***[Gordian SeedTool](https://github.com/BlockchainCommons/GordianSeedTool-iOS).*** A cryptographic seed manager for your iOS device. Allows the maintenance of seeds in a closely held device and the easy use of those seeds through `crypto-requests` for either specific keys or for the signature of PSBTs. This is our most developed app, and the one that best displays a variety of ways to achieve the Gordian Principles.
+
+***[Gordian QRTool](https://github.com/BlockchainCommons/GordianQRTool-iOS).*** A more general data storage tool that displays how the Gordian Principles can apply to the protection of a variety of digital data that has been encoded as QRs. This is also a fully released app.
+
+***[Gordian Cosigner](https://github.com/BlockchainCommons/GordianSigner-Catalyst).*** An offline PSBT and multi-sig signer. You can import keys and read PSBTs via QR code. After you sign the PSBT, you can then move it back to your Wallet, which will coordinate the broadcast of the transaction. This app has never advanced to a full release, in large part because its functionality, and thus its reference examples, have been superceded by SeedTool
+
 ### Wallet & Server
 
-***[Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS).*** The central reference app for the Gordian system, the Gordian Wallet is a mobile Bitcoin wallet that supports sophisticated [#SmartCustody](https://www.smartcustody.com/) features such as multi-sigs and PSBTs. It acts as: a policy coordinator, determining how you set up your accounts; a transaction coordinator, creating transactions based on your policies; and a broadcast coordinator, determining how to send our your transactions. The Gordian Wallet is also self-sovereign, which fulfills the Gordian Principles by giving you total control over it and how it interacts with the rest of the Bitcoin network, including choosing your full node and your pricing service. (Also see the spotlight on Gordian Wallet, below.)
+_The standard model for accessing cryptocurrencies is through a client-server model utilizing a wallet and server. Demonstrating how to do so while still abiding by the Gordian Principles was one of our earliest releases, and we continue to support Gordian Sovereign as a self-sovereign model for Bitcoin._
 
-***[Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS).*** A full-node server, created by Blockchain Commons' Bitcoin Standup scripts, running on a Mac or Linux machine. It connects to Gordian Wallet via a _torgap_. In the standard Gordian system setup, all transactions are signed with a 2-of-3 multi-sig, with one key secured by Gordian Wallet, one key used by Gordian Server, and one key saved offline. (Of course, since the Gordian system is self-sovereign, you can choose to use any other full-node server.) (Also see the spotlight on Gordian Server, below.)
+***[Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS).*** Gordian Wallet is a mobile Bitcoin wallet that supports sophisticated [#SmartCustody](https://www.smartcustody.com/) features such as multi-sigs and PSBTs. It acts as: a policy coordinator, determining how you set up your accounts; a transaction coordinator, creating transactions based on your policies; and a broadcast coordinator, determining how to send our your transactions.
+
+***[Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS).*** A full-node server, created by Blockchain Commons' Bitcoin Standup scripts, running on a Mac or Linux machine. It connects to Gordian Wallet via a _torgap_. In conjunction with Gordian Wallets, its transactions are signed with a 2-of-3 multi-sig, with one key secured by Gordian Wallet, one key used by Gordian Server, and one key saved offline.
 
 ### Airgapped Services
 
 _For higher security, the Gordian system may optionally be used with airgapped services that ensure that your private keys never touch a network. The following reference apps and hardware devices demonstrate how this high level of Resilience can be created:_
-
-***[Gordian Cosigner](https://github.com/BlockchainCommons/GordianSigner-Catalyst).*** An offline PSBT and multi-sig signer. You can import keys and read PSBTs via QR code. After you sign the PSBT, you can then move it back to your Wallet, which will coordinate the broadcast of the transaction.
-
-***[Gordian SeedTool](https://github.com/BlockchainCommons/GordianSeedTool-iOS).*** A cryptographic seed manager for your iOS device.
 
 ***[LetheKit](https://github.com/BlockchainCommons/bc-lethekit).*** A do-it-yourself hardware kit that can be used to generate secure seeds for Bitcoin. It shares functionality with [Seedtool](https://github.com/BlockchainCommons/bc-seedtool-cli), but functions as airgapped hardware rather than potentially connected software.
 
