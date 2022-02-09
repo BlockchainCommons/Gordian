@@ -23,7 +23,7 @@ Blockchain Commons' interoperable specifications are meant to support four core 
 * **Resilience.** Gordian protects users to decrease the likelihood of them losing their funds via any means.
 * **Openness.** Gordian supports open infrastructure that allows developers to create their own applications.
 
-Look at our individual reference apps for guidance on how each acts as a model for these principles.
+Look at individual Blockchain Commons reference apps for guidance on how each acts as a model for these principles and [#SmartCustody Case Studies](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/Case-Studies-Overview.md) for how professional hardware & software apps do so.
 
 ## Quick Links for Reference Apps
 
