@@ -108,7 +108,7 @@ Roles that can be funtionally partitioned include:
 
 ***Seed Vault.*** Stores seeds securely. [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS) is Blockchain Commons' reference for seed storage. Hardware wallets, both first-generation connected wallets such as Ledger and Trezor and second-generation airgapped wallets such as Keystone and Passport, also provide the service.
 
-***Transaction Coordinator.*** Creates transactions. Though Blockchain Commons' [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS) creates transactions, it role as a transaction coordinator is a bit dated. Instead, we suggest the Sparrow wallet as a released software wallet that can act as a transaction coordinator, interacting with a variety of Cosigners and Seed Vaults.  
+***Transaction Coordinator.*** Creates transactions. Though Blockchain Commons' [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS) creates transactions, its role as a transaction coordinator is a bit dated. Instead, we suggest the Sparrow wallet as a released software wallet that can act as a transaction coordinator, interacting with a variety of Cosigners and Seed Vaults. (The difference between a "software wallet" and a pure "transaction coordinator", is that a "software wallet" can also hold keys, though proper partitioning moves keys to other devices.)
 
 ### Gordian Architecture Gaps
 
