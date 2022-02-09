@@ -137,22 +137,22 @@ The Gordian architecture model is demonstrated through the Gordian reference app
 
 _The current generation of Blockchain Commons reference apps demonstrate how services can be both partitioned and airgapped (most of them on closely held networked devices), but still act as easy-to-use members of a blockchain ecosystem._
 
-**[Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS)**
+**[Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS)**<br>
 **Roles:** Cosigner, Seed Generator, Seed Vault
 
 A cryptographic seed manager for your iOS device. Allows the maintenance of seeds in a closely held device and the easy use of those seeds through `crypto-requests` for either specific keys or for the signature of PSBTs. This is our most developed app, and the one that best displays a variety of ways to achieve the Gordian Principles.
 
-**[Gordian QRTool](https://github.com/BlockchainCommons/GordianQRTool-iOS)** 
+**[Gordian QRTool](https://github.com/BlockchainCommons/GordianQRTool-iOS)** <br>
 **Roles:** Seed Vault
 
 A more general data storage tool that displays how the Gordian Principles can apply to the protection of a variety of digital data that has been encoded as QRs. It also shows the tightest partitioning, allowing secure seed storage and nothing else. This is also a fully released app.
 
-**[Gordian Cosigner](https://github.com/BlockchainCommons/GordianSigner-Catalyst).** 
+**[Gordian Cosigner](https://github.com/BlockchainCommons/GordianSigner-Catalyst).** <br>
 **Roles:** Cosigner, Seed Vault
 
 An offline PSBT and multi-sig signer. You can import keys and read PSBTs via QR code. After you sign the PSBT, you can then transfer it back to your Wallet across an airgap, which will coordinate the broadcast of the transaction. The current iteration supports Seed Generation, but the plan was to remove it to better partition the services. This app has never advanced to a full release, in large part because its functionality, and thus its reference examples, have been superceded by Seed Tool.
 
-**[LetheKit](https://github.com/BlockchainCommons/bc-lethekit)**
+**[LetheKit](https://github.com/BlockchainCommons/bc-lethekit)**<br>
 **Roles:** Seed Generator
 
 A do-it-yourself hardware kit that can be used to generate secure seeds for Bitcoin. It shares functionality with Seed Tool, but functions as fully airgapped hardware rather than software on a closely held but potentially connected device. It's also more tightly partitioned, focusing exclusively on seed generation.
@@ -161,7 +161,7 @@ A do-it-yourself hardware kit that can be used to generate secure seeds for Bitc
 
 _Blockchain Commons also produces reference apps to demonstrate microservices within its architecture._
 
-**[SpotBit](https://github.com/BlockchainCommons/spotbit)** 
+**[SpotBit](https://github.com/BlockchainCommons/spotbit)** <br>
 **Roles:** Pricing Calculator
 
 A price-info microservice, used by Gordian Wallet (and potentially other paritioned services) through a _torgap_. Spotbit can be used to aggregate Bitcoin pricing information from a variety of exchanges and to store that data.
@@ -170,12 +170,12 @@ A price-info microservice, used by Gordian Wallet (and potentially other paritio
 
 _The first generation of Blockchain Commons reference apps focused on partitioning of wallet and server services and creating a first model for a self-sovereign multisig. The Wallet design has been superceded by better partitioned services, but remains as a reference. The server remains a crucial element of our infrastructure, usable by any properly partitioned Transaction Coordinator, whether it be Gordian Wallet or Sparrow._
 
-**[Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS)** 
+**[Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS)** <br>
 **Roles:** Cosigner, Policy Coordinator, Seed Vault (partial), Transaction Coordinator
 
 Gordian Wallet is a mobile Bitcoin wallet that supports sophisticated [#SmartCustody](https://www.smartcustody.com/) features such as multi-sigs and PSBTs. It acts as: a policy coordinator, determining how you set up your accounts; a transaction coordinator, creating transactions based on your policies; and a broadcast coordinator, determining how to send our your transactions. Note that the Seed role of Gordian Wallet is limited because its multisig design shares Seeds with the linked [Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS).
 
-**[Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS).**
+**[Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS).**<br>
 **Roles:** Cosigner, Network Server, Seed Generator, Seed Vault (partial)
 
 A full-node server, created by Blockchain Commons' Bitcoin Standup scripts, running on a Mac or Linux machine. It connects to Gordian Wallet via a _torgap_. In conjunction with Gordian Wallets, its transactions are signed with a 2-of-3 multi-sig, with one key secured by Gordian Wallet, one key used by Gordian Server, and one key saved offline.
