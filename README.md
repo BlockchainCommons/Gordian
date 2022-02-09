@@ -86,7 +86,7 @@ Please see the [SmartCustody repo](https://github.com/BlockchainCommons/SmartCus
 
 The Gordian reference architecture, supporting the Gordian principles, is based on a theory of functional partition. 
 
-Rather than following the design pattern of classic services, which group multiple services into singular applications, Blockchain Commons instead separates both services and confidential data from each other, paritioning them with airgaps and torgaps. Doing so improves privacy and security by reducing the value of honeypots and also improves functional design by ensuring that each application is precisely and concisely able to perform a specific function.  Many of the Gordian reference apps are actually microservices, intended to perform small and simple but necessary activities as part of the blockchain ecosystem. 
+Rather than following the design pattern of classic services, which group multiple services into singular applications, Blockchain Commons instead separates both services and confidential data from each other, paritioning them with airgaps and torgaps. Doing so improves privacy and security by reducing the value of honeypots and also improves functional design by ensuring that each application is precisely and concisely able to perform a specific function. Many of the Gordian reference apps are actually microservices, intended to perform small and simple but necessary activities as part of the blockchain ecosystem. 
 
 Using functionally partitioned services, linked by airgaps and torgaps, the Gordian architecture creates a powerful and safe new methodology for financial, data, and information operations on the internet. It also creates an interoperable market for cooperative competition, where various creators can introduce their own services, improving the overall architecture through their competitive designs and ensuring survivability of the model as a whole.
 
@@ -94,27 +94,27 @@ Using functionally partitioned services, linked by airgaps and torgaps, the Gord
 
 Roles that can be funtionally partitioned include:
 
-***Cosigner.*** Accepts PSBTs and signs them, either as part of a single-sig or multisig transaction. This typically means that the _Cosigner_ is also a _Seed Vault_, but this is not required: seeds could be hand-entered or scanned from another source whenever a signature is requested. This role was first demonstrated at Blockchain Commons in [Gordian Cosigner](https://github.com/BlockchainCommons/GordianCosigner-iOS) and is now part of the more fully feature [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS). Second-generation wallets, which are airgapped, such as Foundation Devices Passport and Keystone Pro also support the functionality. 
+***Cosigner.*** Accepts partially signed or unsigned transactions (typically PSBTs on the Bitcoin network) and signs them, either as part of a single-sig or multisig transaction. This typically means that the _Cosigner_ is also a _Seed Vault_, but this is not required: seeds could be hand-entered or scanned from another source whenever a signature is requested. This role was first demonstrated at Blockchain Commons in [Gordian Cosigner](https://github.com/BlockchainCommons/GordianCosigner-iOS) and is now part of the more fully feature [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS). Second-generation wallets, which are airgapped, such as Foundation Devices Passport and Keystone Pro also support the functionality. 
 
 ***Fee Calculator.*** Determines appropriate fees for uses of a blockchain network. There is no Blockchain Commons reference for fee calculation services. Sources such as `bitcoinfees.earn.com` and `mempool.space` provide the service, which is also often supported by a _Network Server_.
 
 ***Network Server.*** Talks directly to a cryptocurrency network, accepting inputs of blocks and enabling transmission of new transactions. Typically a full node. De facto, also a _Broadcast Coordinator_, and so the role is not separated out. At Blockchain Commons, this is [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS). In a self-sovereign scenario, a Bitcoin Core or Electrum server could also fulfill the role.
 
-***Policy Coordinator.*** Manages the creation of multisigs. Blockchain Commons' [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS) was an early example, but at this point we lean toward Sparrow as a more fully featured piecde of software.
+***Policy Coordinator.*** Manages the creation of multisigs. Blockchain Commons' [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS) was an early example, but at this point we lean toward Sparrow as a more fully featured piece of software.
 
 ***Pricing Calculator.*** Determines current values of cryptocurrencies, usually in fiat currencies. Blockchain offers the [Spotbit](https://github.com/BlockchainCommons/spotbit) microservice to fulfill this role.
 
 ***Seed Generator.*** Creates new seeds. This typically means that the _Seed Generator_ is also a _Seed Vault_, but this is not required: a highly partitioned architecture could separate out the functions for increased security. The prime examples that Blockchain Commons offers for partitioned seed generation are [LetheKit](https://github.com/BlockchainCommons/lethekit) and [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS). Most hardware and software wallets also support seed generation, but in a non-partitioned way.
 
-***Seed Vault.*** Stores seeds securely. [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS) is Blockchain Commons' reference for seed storage. Hardware wallets, both first-generation connected wallets and second-generation airgapped wallets, also provide the service.
+***Seed Vault.*** Stores seeds securely. [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS) is Blockchain Commons' reference for seed storage. Hardware wallets, both first-generation connected wallets such as Ledger and Trezor and second-generation airgapped wallets such as Keystone and Passport, also provide the service.
 
-***Transaction Coordinator.*** Creates transactions. Though Blockchain Commons' [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS) creates transactions, it's not fully featured as a transaction coordinator. Instead, we suggest the Sparrow wallet as a released software wallet that can act as a transaction coordinator, interacting with a variety of Cosigner/Seed-Vaults.  
+***Transaction Coordinator.*** Creates transactions. Though Blockchain Commons' [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS) creates transactions, it role as a transaction coordinator is a bit dated. Instead, we suggest the Sparrow wallet as a released software wallet that can act as a transaction coordinator, interacting with a variety of Cosigners and Seed Vaults.  
 
 ### Gordian Architecture Gaps
 
 In order to maximize the utility of its functional partitions, the Gordian architecture introduces gaps between services, which further the privacy and security capabilities of the architectural model.
 
-<img src="https://raw.githubusercontent.com/BlockchainCommons/Gordian/master/Images/airgap.png" width=30> ***Airgaps.***  The traditional manner for partitioning services within a cryptographic network is to use an airgap. This is a physical gap that keeps the partitioned services from talking via any sort of connected network. Instead, data flow between the services occurs via QR codes, MicroSD cards, or other methods of small-scale data-only transfer. An airgap is often used to protect private keys on a non-networked device. The [UR specification](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-1-overview.md) was built explicitly to enable safe, secure airgapping. Airgaps are built into some of Blockchain Commons' reference apps, but are optional.
+<img src="https://raw.githubusercontent.com/BlockchainCommons/Gordian/master/Images/airgap.png" width=30> ***Airgaps.***  The traditional manner for partitioning services within a cryptographic network is to use an airgap. This is a physical gap that keeps the partitioned services from talking via any sort of connected network. Instead, data flow between the services occurs via QR codes, MicroSD cards, or other methods of small-scale data-only transfer. An airgap is often used to protect private keys on a non-networked device, but it can also be used with closely held devices such as phones to carefully control data flow and keep it off the network. The [UR specification](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-1-overview.md) was built explicitly to enable safe, secure airgapping. Airgaps are built into some of Blockchain Commons' reference apps, but are optional.
 
 <img src="https://raw.githubusercontent.com/BlockchainCommons/Gordian/master/Images/torgap.png"  width=30>***Torgaps.***  This is a new methodology for partitioning cryptographic services, used when the services must be networked. As the name suggests, it places an onion link between the two services, enabling privacy and security while still allowing connectivity. Its power can be increased further with quorum computing, which aggregates services across different providers.
 
@@ -133,11 +133,9 @@ The Gordian architecture model is demonstrated through the Gordian reference app
 
 ![](https://raw.githubusercontent.com/BlockchainCommons/Gordian/master/Images/appmap.png)
 
-_The core of the Gordian system is our Wallet and Server reference apps:_
-
 ### Airgapped Apps
 
-_Our current generation of reference apps demonstrate how services can be both partitioned and airgapped (most of them on closely held networked devices), but still act as easy-to-use members of a blockchain ecosystem._
+_The current generation of Blockchain Commons reference apps demonstrate how services can be both partitioned and airgapped (most of them on closely held networked devices), but still act as easy-to-use members of a blockchain ecosystem._
 
 **[Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS)**
 **Roles:** Cosigner, Seed Generator, Seed Vault
@@ -147,36 +145,35 @@ A cryptographic seed manager for your iOS device. Allows the maintenance of seed
 **[Gordian QRTool](https://github.com/BlockchainCommons/GordianQRTool-iOS)** 
 **Roles:** Seed Vault
 
-A more general data storage tool that displays how the Gordian Principles can apply to the protection of a variety of digital data that has been encoded as QRs. It also shows the tightest partitioning, allowing seed storage and nothing else. This is also a fully released app.
+A more general data storage tool that displays how the Gordian Principles can apply to the protection of a variety of digital data that has been encoded as QRs. It also shows the tightest partitioning, allowing secure seed storage and nothing else. This is also a fully released app.
 
 **[Gordian Cosigner](https://github.com/BlockchainCommons/GordianSigner-Catalyst).** 
 **Roles:** Cosigner, Seed Vault
 
-An offline PSBT and multi-sig signer. You can import keys and read PSBTs via QR code. After you sign the PSBT, you can then move it back to your Wallet, which will coordinate the broadcast of the transaction. The current iteration support Seed Generation, but the plan was to remove it to better partition the services. This app has never advanced to a full release, in large part because its functionality, and thus its reference examples, have been superceded by Seed Tool.
+An offline PSBT and multi-sig signer. You can import keys and read PSBTs via QR code. After you sign the PSBT, you can then transfer it back to your Wallet across an airgap, which will coordinate the broadcast of the transaction. The current iteration supports Seed Generation, but the plan was to remove it to better partition the services. This app has never advanced to a full release, in large part because its functionality, and thus its reference examples, have been superceded by Seed Tool.
 
 **[LetheKit](https://github.com/BlockchainCommons/bc-lethekit)**
 **Roles:** Seed Generator
 
-A do-it-yourself hardware kit that can be used to generate secure seeds for Bitcoin. It shares functionality with Seed Gool, but functions as fully airgapped hardware rather than software on a closely held but potentially connect device.
+A do-it-yourself hardware kit that can be used to generate secure seeds for Bitcoin. It shares functionality with Seed Tool, but functions as fully airgapped hardware rather than software on a closely held but potentially connected device. It's also more tightly partitioned, focusing exclusively on seed generation.
 
 ### Microservices
 
-_Blockchain Commons also also produced reference apps to demonstrate microservices within its architecture:_
+_Blockchain Commons also produces reference apps to demonstrate microservices within its architecture._
 
 **[SpotBit](https://github.com/BlockchainCommons/spotbit)** 
 **Roles:** Pricing Calculator
 
-A price-info microservice, used by Gordian Wallet (and potentially other Gordian services) through a _torgap_. Spotbit can be used to aggregate Bitcoin pricing information from a variety of exchanges and to store that data.
+A price-info microservice, used by Gordian Wallet (and potentially other paritioned services) through a _torgap_. Spotbit can be used to aggregate Bitcoin pricing information from a variety of exchanges and to store that data.
 
 ### Wallet & Server
 
-_Our first generation of reference apps focused on partitioning of wallet and server services and creating a first model for a self-sovereign multisig. The Wallet design has been superceded by better partitioned services, but remains as a reference. The server remains a crucial element of our infrastructure, usable by any properly partitioned Transaction Coordinator, whether it be Gordian Wallet or Sparrow._
+_The first generation of Blockchain Commons reference apps focused on partitioning of wallet and server services and creating a first model for a self-sovereign multisig. The Wallet design has been superceded by better partitioned services, but remains as a reference. The server remains a crucial element of our infrastructure, usable by any properly partitioned Transaction Coordinator, whether it be Gordian Wallet or Sparrow._
 
 **[Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS)** 
 **Roles:** Cosigner, Policy Coordinator, Seed Vault (partial), Transaction Coordinator
 
-
-Gordian Wallet is a mobile Bitcoin wallet that supports sophisticated [#SmartCustody](https://www.smartcustody.com/) features such as multi-sigs and PSBTs. It acts as: a policy coordinator, determining how you set up your accounts; a transaction coordinator, creating transactions based on your policies; and a broadcast coordinator, determining how to send our your transactions. Note that the Seed functionality of Gordian Wallet is limited because its multisig design shares Seeds with the linked [Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS).
+Gordian Wallet is a mobile Bitcoin wallet that supports sophisticated [#SmartCustody](https://www.smartcustody.com/) features such as multi-sigs and PSBTs. It acts as: a policy coordinator, determining how you set up your accounts; a transaction coordinator, creating transactions based on your policies; and a broadcast coordinator, determining how to send our your transactions. Note that the Seed role of Gordian Wallet is limited because its multisig design shares Seeds with the linked [Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS).
 
 **[Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS).**
 **Roles:** Cosigner, Network Server, Seed Generator, Seed Vault (partial)
@@ -185,7 +182,7 @@ A full-node server, created by Blockchain Commons' Bitcoin Standup scripts, runn
 
 ## Overview: Gordian Specifications
 
-The Gordian system of course uses standard protocols for Bitcoin, to interact with the trustless network. We are also developing specifications of our own and expanding those created for other technology categories, to better fulfill the Gordian Principles. These specifications are demonstrated in many of our reference apps, to show how they can be used to full Gordian's requirements for Independent, Privacy, Resilience, and Openness. 
+The Gordian system of course uses standard protocols for Bitcoin, to interact with the trustless network. Blockchain Commons has also developed specifications of its own and expanded those created for other technology categories, to better fulfill the Gordian Principles. These specifications are demonstrated in many of the Blockchain Commons reference apps, to show how they can be used to full Gordian's requirements for Independent, Privacy, Resilience, and Openness. 
 
 ***[Bytewords](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md).*** Blockchain Commons developed its own binary-to-text format because of flaws in current ones, such as the variants that exist for base-64, and the fact that none of them convert efficiently to the QR codes used widely in Bitcoin applications. Bytewords stay within the 31 characters that are well supported by QR codes (that's letters plus numbers minus URL-breaking characters), allowing more efficient and safe usage.
 
