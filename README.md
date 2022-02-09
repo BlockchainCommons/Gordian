@@ -94,21 +94,21 @@ Using functionally partitioned services, linked by airgaps and torgaps, the Gord
 
 Roles that can be funtionally partitioned include:
 
-***Cosigner.*** Accepts partially signed or unsigned transactions (typically PSBTs on the Bitcoin network) and signs them, either as part of a single-sig or multisig transaction. This typically means that the _Cosigner_ is also a _Seed Vault_, but this is not required: seeds could be hand-entered or scanned from another source whenever a signature is requested. This role was first demonstrated at Blockchain Commons in [Gordian Cosigner](https://github.com/BlockchainCommons/GordianCosigner-iOS) and is now part of the more fully feature [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS). Second-generation wallets, which are airgapped, such as Foundation Devices Passport and Keystone Pro also support the functionality. 
+***Cosigner.*** Accepts partially signed or unsigned transactions (typically PSBTs on the Bitcoin network) and signs them, either as part of a single-sig or multisig transaction. This typically means that the _Cosigner_ is also a _Seed Vault_, but this is not required: seeds could be hand-entered or scanned from another source whenever a signature is requested. This role was first demonstrated at Blockchain Commons in [Gordian Cosigner](https://github.com/BlockchainCommons/GordianCosigner-iOS) and is now part of the more fully feature [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS). Second-generation wallets, which are airgapped, such as the [Foundation Devices Passport](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/Case-Study-Passport.md) and the Keystone Pro also support the functionality. 
 
 ***Fee Calculator.*** Determines appropriate fees for uses of a blockchain network. There is no Blockchain Commons reference for fee calculation services. Sources such as `bitcoinfees.earn.com` and `mempool.space` provide the service, which is also often supported by a _Network Server_.
 
 ***Network Server.*** Talks directly to a cryptocurrency network, accepting inputs of blocks and enabling transmission of new transactions. Typically a full node. De facto, also a _Broadcast Coordinator_, and so the role is not separated out. At Blockchain Commons, this is [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS). In a self-sovereign scenario, a Bitcoin Core or Electrum server could also fulfill the role.
 
-***Policy Coordinator.*** Manages the creation of multisigs. Blockchain Commons' [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS) was an early example, but at this point we lean toward Sparrow as a more fully featured piece of software.
+***Policy Coordinator.*** Manages the creation of multisigs. Blockchain Commons' [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS) was an early example, but at this point we lean toward [Sparrow](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/Case-Study-Sparrow.md) as a more fully featured piece of software.
 
 ***Pricing Calculator.*** Determines current values of cryptocurrencies, usually in fiat currencies. Blockchain offers the [Spotbit](https://github.com/BlockchainCommons/spotbit) microservice to fulfill this role.
 
 ***Seed Generator.*** Creates new seeds. This typically means that the _Seed Generator_ is also a _Seed Vault_, but this is not required: a highly partitioned architecture could separate out the functions for increased security. The prime examples that Blockchain Commons offers for partitioned seed generation are [LetheKit](https://github.com/BlockchainCommons/lethekit) and [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS). Most hardware and software wallets also support seed generation, but in a non-partitioned way.
 
-***Seed Vault.*** Stores seeds securely. [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS) is Blockchain Commons' reference for seed storage. Hardware wallets, both first-generation connected wallets such as Ledger and Trezor and second-generation airgapped wallets such as Keystone and Passport, also provide the service.
+***Seed Vault.*** Stores seeds securely. [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS) is Blockchain Commons' reference for seed storage. Hardware wallets, both first-generation connected wallets such as Ledger and Trezor and second-generation airgapped wallets such as Keystone and [Passport](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/Case-Study-Passport.md), also provide the service.
 
-***Transaction Coordinator.*** Creates transactions. Though Blockchain Commons' [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS) creates transactions, its role as a transaction coordinator is a bit dated. Instead, we suggest the Sparrow wallet as a released software wallet that can act as a transaction coordinator, interacting with a variety of Cosigners and Seed Vaults. (The difference between a "software wallet" and a pure "transaction coordinator", is that a "software wallet" can also hold keys, though proper partitioning moves keys to other devices.)
+***Transaction Coordinator.*** Creates transactions. Though Blockchain Commons' [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS) creates transactions, its role as a transaction coordinator is a bit dated. Instead, we suggest the [Sparrow wallet](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/Case-Study-Sparrow.md) as a released software wallet that can act as a transaction coordinator, interacting with a variety of Cosigners and Seed Vaults. (The difference between a "software wallet" and a pure "transaction coordinator", is that a "software wallet" can also hold keys, though proper partitioning moves keys to other devices.)
 
 ### Gordian Architecture Gaps
 
@@ -168,7 +168,7 @@ A price-info microservice, used by Gordian Wallet (and potentially other paritio
 
 ### Wallet & Server
 
-_The first generation of Blockchain Commons reference apps focused on partitioning of wallet and server services and creating a first model for a self-sovereign multisig. The Wallet design has been superceded by better partitioned services, but remains as a reference. The server remains a crucial element of our infrastructure, usable by any properly partitioned Transaction Coordinator, whether it be Gordian Wallet or Sparrow._
+_The first generation of Blockchain Commons reference apps focused on partitioning of wallet and server services and creating a first model for a self-sovereign multisig. The Wallet design has been superceded by better partitioned services, but remains as a reference. The server remains a crucial element of our infrastructure, usable by any properly partitioned Transaction Coordinator, whether it be Gordian Wallet or [Sparrow](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/Case-Study-Sparrow.md)._
 
 **[Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS)** <br>
 **Roles:** Cosigner, Policy Coordinator, Seed Vault (partial), Transaction Coordinator
@@ -227,7 +227,8 @@ Gordian SeedTool:
 
 ## Spotlight: Gordian Server on MacOS
 
-**Roles:** Cosigner, Network Server, Seed Generator, Seed Vault (partial)
+**Roles:** Cosigner, Network Server, Seed Generator, Seed Vault (partial)<br>
+**#SmartCustody** [Case Study](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/Case-Study-SeedTool.md)
 
 [GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS) provides personal one-click installation for Bitcoin Core and Tor. It's built on Bitcoin Standup technology that presents a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3. If you want to have your own, independent and self-sovereign Bitcoin node, this is all you need. [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts) achieves the same thing as GordianServer-macOS, but comes in the form of Linux scripts rather than a central app.
 
