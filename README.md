@@ -35,8 +35,6 @@ Our two most advanced reference apps are both available from the Apple App Store
 
 * [GordianSeedTool-iOS](https://github.com/BlockchainCommons/GordianSeedTool-iOS)
    * [Download from Appstore](https://apps.apple.com/us/app/gordian-seed-tool/id1545088229)
-* [GordianQRTool-iOS](https://github.com/BlockchainCommons/GordianQRTool-iOS)
-   * [Download from Appstore](https://apps.apple.com/us/app/gordian-qr-tool/id1506851070)
 
 We also have released two additional mobile apps, which demonstrate Gordian principles, but which have not been advanced to full release:
 
