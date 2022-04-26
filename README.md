@@ -61,7 +61,7 @@ Many of our CLI apps were built to exercise our [crypto-commons libraries](https
 Ultimately, Bitcoin apps require a Bitcoin server. The Gordian Server demonstrates how to set one up and abide by the Gordian Principles, particularly independence and privacy.
 
 * [GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS)
-   * [Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/blob/master/GordianServer-macOS-v0.1.3.dmg)
+   * [Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/releases)
    * [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts)
 
 ### Web Microservices
