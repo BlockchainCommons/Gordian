@@ -1,6 +1,7 @@
-# 🛠 Gordian Products & Technologies
+# 🛠 Gordian System
 
-### **Architect:** _[Christopher Allen](https://github.com/ChristopherA)_<br/>**Developers:** _[Peter Denton](https://github.com/Fonta1n3) and [Wolf McNally](https:github.com/WolfMcNally)_
+### **Architect:** _[Christopher Allen](https://github.com/ChristopherA)_<br/>
+**Developer:** _[Wolf McNally](https:github.com/WolfMcNally)_
 * <img src="https://github.com/BlockchainCommons/Gordian/blob/master/Images/logos/gordian-icon.png" width=16 valign="bottom"> ***uses [gordian](https://github.com/BlockchainCommons/gordian/blob/master/README.md) technology***
 * <img src="https://raw.githubusercontent.com/BlockchainCommons/torgap/master/images/logos/torgap.png" width=30 valign="bottom"> ***uses [torgap](https://github.com/BlockchainCommons/torgap/blob/master/README.md) technology***
 
