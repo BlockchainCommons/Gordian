@@ -32,7 +32,7 @@ With a properly partitioned ecosystem, the transport & communication methodology
 
 * **AirGap.** A physical gap between services or microservices, where either side might not even be networked. This improves the security of the non-networked side of the communication, as it will not be vulnerable to network attacks. A service protected by an AirGap communicates through the reading of QR Codes or through transmission of data on MicroSD cards, NFC tags, or other removable media.
 
-* **TorGap.** A link between services or microservices that connect via [Tor](https://www.torproject.org/). Though both services likely remain fully networked, they are anonymous to each other. This improves privacy and also deters network attacks due to the anonymity.
+* **TorGap.** A link between services or microservices that connect via [Tor](https://www.torproject.org/). Though both services likely remain fully networked, they are anonymous to each other. This improves privacy and also deters network attacks due to the anonymity. See our [Torgap Overview](https://github.com/BlockchainCommons/torgap/blob/master/README.md).
  
 ## Data Formats
 
