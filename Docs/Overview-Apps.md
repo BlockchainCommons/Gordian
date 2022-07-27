@@ -1,4 +1,4 @@
-## Overview: The Gordian Apps
+# Overview: The Gordian Apps
 
 The Gordian Reference Apps demonstrate the usage of the Gordian Reference Libraries to fulfill the Gordian Principles. They may also be combined into an ecosystem that demonstrates the Gordian Marco-Architecture and its theory of functional partition:
 
@@ -6,7 +6,7 @@ The Gordian Reference Apps demonstrate the usage of the Gordian Reference Librar
 
 The Gordian Reference Apps are all linked by airgaps and torgaps, to demonstrate how privacy and security can be maximized while still maintaining a very usable ecosystem. However, transport specifics become less important when using the Gordian Architecture as a whole, and so in a real-life ecosystem, apps may be normally Networked.
 
-### Networked Services
+## Networked Services
 
 _Gordian Reference Apps can be fully networked if services are correctly partitioned:_
 
@@ -15,7 +15,7 @@ _Gordian Reference Apps can be fully networked if services are correctly partiti
 
 A full-node server, created by Blockchain Commons' Bitcoin Standup scripts, running on a Mac or Linux machine. It connects to Gordian Wallet via a _torgap_. In conjunction with Gordian Wallets, its transactions are signed with a 2-of-3 multi-sig, with one key secured by Gordian Wallet, one key used by Gordian Server, and one key saved offline.
 
-### Airgapped Apps
+## Airgapped Apps
 
 _Closely held devices allow users to protect their confidential data with Airgaps. Gordian Seed Tool is our prime Reference App for demonstrating this functionality, while LetheKit offers another style of secure seed generation:_
 
@@ -47,7 +47,7 @@ A more general data storage tool that displays how the Gordian Principles can ap
 
 Gordian Wallet is a mobile Bitcoin wallet that supports sophisticated [#SmartCustody](https://www.smartcustody.com/) features such as multi-sigs and PSBTs. It acts as: a policy coordinator, determining how you set up your accounts; a transaction coordinator, creating transactions based on your policies; and a broadcast coordinator, determining how to send our your transactions. Note that the Seed role of Gordian Wallet is limited because its multisig design shares Seeds with the linked [Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS).
 
-### Microservices
+## Microservices
 
 _Blockchain Commons microservices demonstrate how services can be built for very specific functionality within the Gordian Architecture._
 
@@ -55,3 +55,15 @@ _Blockchain Commons microservices demonstrate how services can be built for very
 **Roles:** Pricing Calculator
 
 A price-info microservice, used by Gordian Wallet (and potentially other paritioned services) through a _torgap_. Spotbit can be used to aggregate Bitcoin pricing information from a variety of exchanges and to store that data.
+
+## CLI Apps
+
+_Many of our CLI apps were built to exercise our [Gordian Reference Libraries](https://github.com/BlockchainCommons/crypto-commons) but they also serve as references for the Gordian Principles, the UNIX/command-line equivalent of some of our mobile apps and network services._
+
+* **[Bytewords](https://github.com/BlockchainCommons/bc-bytewords-cli) \(CLI\).** A tool for testing bytewords.
+* **[Keytool](https://github.com/BlockchainCommons/bc-keytool-cli) \(CLI\).** A tool for deriving keys and addresses from seeds. 
+* **[LifeHashTool](https://github.com/BlockchainCommons/LifeHashTool) \(Swift CLI\).** A tool for generating Lifehash PNGs from the command line.
+* **[Mori](https://github.com/BlockchainCommons/mori-cli) \(CLI\).** A timelock tool to make sure your assets aren't lost.
+* **[Musign](https://github.com/BlockchainCommons/musign-cli) \(CLI\).** A research project for signing and verifying messages with ECDSA and Schnorr.
+* **[Seedtool](https://github.com/BlockchainCommons/bc-seedtool-cli) \(Rust CLI\).** A tool for generating seeds from a variety of random inputs and for translating seeds among formats.
+* **[Sweeptool](https://github.com/BlockchainCommons/sweeptool-cli) \(Rust CLI\).**  A tool for moving funds out of a descriptor wallet.
