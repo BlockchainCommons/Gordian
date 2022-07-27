@@ -1,4 +1,4 @@
-# 🛠 Gordian System
+# 🛠 The Gordian System
 
 ### **Architect:** _[Christopher Allen](https://github.com/ChristopherA)_<br/>
 **Developer:** _[Wolf McNally](https:github.com/WolfMcNally)_
@@ -7,18 +7,14 @@
 
 ![](Images/logos/gordian-overview-screen.png)
 
-The heart of the Gordian system is user agency & security. It's intended to support the self-sovereign control of digital assets in a way that's safe, secure, and private by enabling responsible key management. The following elements are part of the Gordian system:
+The Gordian system is all about user agency & security. It's intended to support the self-sovereign control of digital assets in a way that's safe, secure, and private by enabling responsible key management, [cutting through a traditionally knotty problem in Bitcoin development.](Docs/Why-Gordian.md). The Gordian system is built on a foundation of Principles that have been fulfilled in an Architecture that is embodied in Reference Apps and supported by Reference Libraries.
 
-* **Gordian Principles.** A mission statement of four core principles supported by the Gordian Architecture.
-* **Gordian Architecture.** The system design for both the overall architecture and the individual specifications that make it possible.
-* **Gordian Reference Apps.**
-* **Gordian Reference Libraries.**
+* **Gordian Principles.** A mission statement of four core principles that support self-sovereign control of digital assets.
+* **Gordian Architecture.** The design for both the overall architecture and the individual specifications that make it possible.
+* **Gordian Reference Apps.** A set of applications that demonstrate the Gordian Architecture, its Principles, its specifications, and its Libraries.
+* **Gordian Reference Libraries.** A set of libraries that allow developers to incorporate Gordian specifications and expand the Gordian ecosystem.
 
-Gordian offers a new approach to managing digital assets based on a set of principles and best practices that put the user first. It enhances independence and resilience by granting users the ability to robustly control their own digital assets using responsible key management and creates openness so that users won't be locked into anyone else's system. ([It's meant to cut through a traditionally knotty problem in Bitcoin development.](Docs/Why-Gordian.md))
-
-The Gordian system supports these principles with a number of interoperable specifications such as [Bytewords](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md), [Lifehash](https://github.com/BlockchainCommons/LifeHash), [SSKR](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/README.md#sharded-secret-key-reconstruction-sskr), and [UR](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-1-overview.md) as well architectural elements such as Airgaps and [Torgaps](https://github.com/BlockchainCommons/torgap). 
-
-Blockchain Commons provides a number of reference libraries and reference implementations intended as examples for these specifications and architectures that display how they can be used in real-life. We invite developers to use these references based on our open licenses, as detailed in our individual repos, as guides for creating your own software that will support the Gordian Principles.
+The ultimate goal of the Gordian System is to create a community of developers who have followed the examples of the Gordian Reference Apps and used the Gordian Reference Libraries to build their own applications that embody the GOrdian Architecture and fulfill the Gordian Principles.
 
 *This repo contains a table of contents for various the Gordian system projects and features. Please see individual repos and pages for more information.*
 
@@ -32,6 +28,24 @@ Blockchain Commons' interoperable specifications are meant to support four core 
 * **Openness.** Gordian supports open infrastructure that allows developers to create their own applications.
 
 Look at individual Blockchain Commons reference apps for guidance on how each acts as a model for these principles and [#SmartCustody Case Studies](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/Case-Studies-Overview.md) for how professional hardware & software apps do so.
+
+## Gordian Architecture
+
+The Gordian Architecture puts the Gordian Principles into use through an overall design that covers everything that from the high-level architecture of a Gordian ecosystem through the specification and UX best practices that make it possible.
+
+* **Gordian Macro-Architecture.** The ecosystem architecture depends on functional partition, separating services and confidential data.
+* **Data Format.** CBOR is used as the canonical data structure for the Gordian Architecture.
+* **Encoding Specifications.** Bytewords, URs, and (optionally) QR Codes ensure that Gordian services are interoperable.
+* **Backup Specifications.** UR specifications make it easy to backup confidential data, creating Resilience.
+* **Communication Specifications.** Further UR specifications such as envelopes and request/responses aid interoperable communication.
+* **Secure UX Designs.** UX best practices form another layer of support for the Gordian Principles.
+
+Please see [The Gordian Architecture](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md) for more in-depth discussion of all the architectural elements.
+
+## Gordian Reference Apps
+
+## Gordian Reference Libraries
+
 
 ## Quick Links for Reference Apps
 
