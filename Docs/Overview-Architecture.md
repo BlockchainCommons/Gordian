@@ -57,9 +57,11 @@ UR encoding can be used for all sorts of transmissions between servers. It can a
 
 ### UR Specifications
 
-* **Crypto-Envelopes.**
+Though UR can be used to encoded a variety of digital data, there are three specific types that are of particular importance because of their ability to further expand the UR spec to support authentication and communication.
 
-* **Crypto-Request** & **Crypto-Response.**
+* **Crypto-Envelopes.** The crypto-envelope is a container structure for URs that allows data to be encoded and encrypted and then through a permit system supports decryption via a variety of methods, including SSKR. Prime features include the ability to effectively shard much larger amounts of data than possible through standard SSKR and to create permits that allow data to be decrypted in a variety of ways. It's the foundation of `crypto-request` and a core element of CSR. See [BCSwiftSecureComponents Docs](https://github.com/BlockchainCommons/BCSwiftSecureComponents/tree/master/Docs).
+ 
+* **Crypto-Request** & **Crypto-Response.** Communication is also a crucial part of the Gordian Architecture. The `crypto-request` and `crypto-response` UR types allow one service to request data such a seed or key from another service. This enables true automation, minimizing the need for users to understand the specifics of what's going on (while stile entirely preserving their agency by requiring their confirmation for responses). See [BCR-2021-01: UR Type Definitions for Transactions Between Airgapped Devices](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2021-001-request.md). Also see [A Guide to Using UR Request & Response](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-99-request-response.md).
 
 ## Visual Specifications
 
