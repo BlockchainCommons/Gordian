@@ -2,7 +2,7 @@
 
 The Gordian architecture is an overall plan for interoperable specifications and design patterns that support the [Gordian Principles](https://github.com/BlockchainCommons/Gordian#gordian-principles), ensuring the independence, privacy, resilience, and openness of digital assets. The ultimate goal is to prevent vendor lock-in and to remove the threats of single points of compromise, failure, and denial so that users can personally protect their self-sovereign digital assets without the fear of loss.
 
-We suggest the use of our Macro-Architecture when designing applications, including Key Management Services, and the use of our Visual Specifications to support users in their recognition of seeds and other digital objects. However, it's our encoding specifications, including URs, that may be the most critical because they're what ensure interoperability among applications, so that they may easily talk to each other and exchange data, and so that in the future Gordian data may be recovered even if the application that generated it is no longer operable.
+_As Above, So Below:_ the Gordian Architecture ultimately comes in two parts. At the high level, the _Macro-Architecture_ and specific services such as the _Key Management Services_, are designed and built to fulfill the Gordian Principles. However, in order for the Macro-Architecture to interoperate, its participates must agree on a series of _Encoding Specifications_, the heart of which is the self-describing, self-certifying UR system. Orthogonal to this, _Visual Specifications_ offer additional ways to fulfill the Gordian Principles.
 
 ## Macro-Architecture
 
@@ -38,17 +38,28 @@ Visual Specifications are intended to improve the usability of digital assets by
 
 ## Encoding Specifications
 
-* **ByteWords.**
+The interoperability of the Gordian Macro-Architecture is only made possible if the individual servers speak the same language. That's where Encoding Specifications come into play: they standardize communication, not only so that current servers can communicate, but also so that future servers can recognize messages (or more importantly: digital assets) archived in the past.
 
-* **CBOR.**
+The most common pattern for data encoding in the Gordian Architecture is:
 
-* **QR Codes.**
+1. Data is encoded in CBOR.
+2. CBOR is converted to minimal bytewords.
+3. Minimal bytewords are prefixed with a UR type to generate a URI.
+4. (Optionally) UR is encoded in a QR code.
+
+* **CBOR.** Concise Binary Object Representation, or CBOR, is a data format that Blockchain Commons has adopted as its lowest level format. It's a stable, concise binary encoding method that allows typing of data. See [CBOR.io](https://cbor.io/) and [RFC 8949](https://www.rfc-editor.org/rfc/rfc8949.html).
+
+* **Bytewords.** Bytewords are a method for encoding binary data as English words, with special care taken to ensure that the words are unique and recognizable. Bytewords can be used to encode any data, allowing users to etch or write out English-language representations of their digital-asset keys, so they're harder to confuse. However, in the Gordian Architecture the most important purpose of Bytewords is to encode binary CBOR as alphabetic characters. This is done with a "minimal" representation of Byteowrds, which uses just the first and last letter of each word (e.g., "tuna" becomes "ta", "acid" becomes "ad", etc.). See [BCR-2020-12: Bytewords](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md).
+
+* **URs.** A UR wraps and tags data that is encoded with CBOR and then translated into minimal Bytewords. In doing so, it ensures that the data is self-describing and self-certifying. This is what enables the interoperability of the Gordian Architecture, including the ability to examine data in some future app other than the one that created it. URs also include a method for sequencing larger data. See [BCR-2020-05: UR](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-005-ur.md) and [BCR-2020-06: Registry of UR Types](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-006-urtypes.md). Also see [Introduction: How Are URs Encoded?](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-1-overview.md#how-are-urs-encoded) for the precise process of converting data to CBOR, Bytewords, and ultimately URs, as well as our [UR Docs Overview Page](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-overview.md).
+ 
+* **QR Codes.** Part of the design of URs was to ensure that they could be efficienctly stored as QR codes. The sequencing design of URs also allows for the creation of animated QRs. Though QRs are not required for the Gordian Architecture, they're crucial if Airgaps are introduced into the Macro-Architecture.
+
+### Sharding Specifications
 
 * **SSKR.**
 
-* **UR.**
-
-## UR Specifications
+### UR Specifications
 
 * **Crypto-Envelopes.**
 
