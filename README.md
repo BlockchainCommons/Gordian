@@ -44,6 +44,14 @@ Please see [The Gordian Architecture](https://github.com/BlockchainCommons/Gordi
 
 ## Gordian Reference Apps
 
+Gordian Reference Apps demonstrate the elements of how the Gordian Architecture and how they can be used to fulfill the Gordian Principles. Our Gordian Reference Apps undergoing the most development currently include:
+
+* **Gordian Coordinator.** A Networked transaction coordinator.
+* **Gordian Seed Tool.** An Airgapped seed vault & signing device.
+* **SpotBit.** A Micro-pricing service.
+
+Please see [The Gordian Reference Apps](https://github.com/BlockchainCommons/Gordian/blob/shannona-gordian-revision/Docs/Overview-Apps.md) for a complete list of past and present reference apps, links to their repos, and an example of how they can be combined into a Macro-Architecture.
+
 ## Gordian Reference Libraries
 
 
