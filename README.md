@@ -7,6 +7,13 @@
 
 ![](Images/logos/gordian-overview-screen.png)
 
+The heart of the Gordian system is user agency & security. It's intended to support the self-sovereign control of digital assets in a way that's safe, secure, and private by enabling responsible key management. The following elements are part of the Gordian system:
+
+* **Gordian Principles.** A mission statement of four core principles supported by the Gordian Architecture.
+* **Gordian Architecture.** The system design for both the overall architecture and the individual specifications that make it possible.
+* **Gordian Reference Apps.**
+* **Gordian Reference Libraries.**
+
 Gordian offers a new approach to managing digital assets based on a set of principles and best practices that put the user first. It enhances independence and resilience by granting users the ability to robustly control their own digital assets using responsible key management and creates openness so that users won't be locked into anyone else's system. ([It's meant to cut through a traditionally knotty problem in Bitcoin development.](Docs/Why-Gordian.md))
 
 The Gordian system supports these principles with a number of interoperable specifications such as [Bytewords](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md), [Lifehash](https://github.com/BlockchainCommons/LifeHash), [SSKR](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/README.md#sharded-secret-key-reconstruction-sskr), and [UR](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-1-overview.md) as well architectural elements such as Airgaps and [Torgaps](https://github.com/BlockchainCommons/torgap). 
