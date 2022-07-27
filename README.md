@@ -50,7 +50,7 @@ Gordian Reference Apps demonstrate the elements of how the Gordian Architecture 
 * **Gordian Seed Tool.** An Airgapped seed vault & signing device.
 * **SpotBit.** A Micro-pricing service.
 
-Please see [The Gordian Reference Apps](https://github.com/BlockchainCommons/Gordian/blob/shannona-gordian-revision/Docs/Overview-Apps.md) for a complete list of past and present reference apps, links to their repos, and an example of how they can be combined into a Macro-Architecture.
+Please see [The Gordian Reference Apps](https://github.com/BlockchainCommons/Gordian/blob/shannona-gordian-revision/Docs/Overview-Apps.md) for a complete list of past and present reference apps, links to their repos, and an example of how they can be combined into a Macro-Architecture. Links to CLI apps are also included.
 
 ## Gordian Reference Libraries
 
@@ -59,52 +59,6 @@ Please see [The Gordian Reference Apps](https://github.com/BlockchainCommons/Gor
 
 Blockchain Commons has released a number of apps to exemplify the deployment of Gordian Principles
 
-### Mobile Apps
-
-Our two most advanced reference apps are both available from the Apple App Store for Macs or iOS devices:
-
-* [GordianSeedTool-iOS](https://github.com/BlockchainCommons/GordianSeedTool-iOS)
-   * [Download from Appstore](https://apps.apple.com/us/app/gordian-seed-tool/id1545088229)
-
-We also have released two additional mobile apps, which demonstrate Gordian principles, but which have not been advanced to full release:
-
-* GordianCosigner
-   * [GordianCosigner-Android](https://github.com/BlockchainCommons/GordianSigner-Android)
-   * [GordianCosigner-catalyst (iOS)](https://github.com/BlockchainCommons/GordianSigner-Catalyst)
-   * [GordianCosigner-MacOS](https://github.com/BlockchainCommons/GordianSigner-macOS)
-* [GordianWallet-iOS](https://github.com/BlockchainCommons/GordianWallet-iOS)
-
-### CLI Apps
-
-Many of our CLI apps were built to exercise our [crypto-commons libraries](https://github.com/BlockchainCommons/crypto-commons) but they also serve as references for the Gordian Principles, the UNIX/command-line equivalent of some of our mobile apps.
-
-* **[Bytewords](https://github.com/BlockchainCommons/bc-bytewords-cli) \(CLI\).** A tool for testing bytewords.
-* **[Keytool](https://github.com/BlockchainCommons/bc-keytool-cli) \(CLI\).** A tool for deriving keys and addresses from seeds. 
-* **[LifeHashTool](https://github.com/BlockchainCommons/LifeHashTool) \(Swift CLI\).** A tool for generating Lifehash PNGs from the command line.
-* **[Mori](https://github.com/BlockchainCommons/mori-cli) \(CLI\).** A timelock tool to make sure your assets aren't lost.
-* **[Musign](https://github.com/BlockchainCommons/musign-cli) \(CLI\).** A research project for signing and verifying messages with ECDSA and Schnorr.
-* **[Seedtool](https://github.com/BlockchainCommons/bc-seedtool-cli) \(Rust CLI\).** A tool for generating seeds from a variety of random inputs and for translating seeds among formats.
-* **[Sweeptool](https://github.com/BlockchainCommons/sweeptool-cli) \(Rust CLI\).**  A tool for moving funds out of a descriptor wallet.
-
-### Server Apps
-
-Ultimately, Bitcoin apps require a Bitcoin server. The Gordian Server demonstrates how to set one up and abide by the Gordian Principles, particularly independence and privacy.
-
-* [GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS)
-   * [Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/releases)
-   * [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts)
-
-### Web Microservices
-
-Web microservices are meant to support mobile or CLI apps by providing specific, small-scale services, such as price-lookups.
-
-* [SpotBit](https://github.com/BlockchainCommons/spotbit)
-
-### Hardware Apps
-
-We've also produced one DIY hardware app that you can build to demonstrate the Gordian Principles.
-
-* [LetheKit](https://github.com/BlockchainCommons/bc-lethekit)
 
 ## Quick Links for #SmartCustody Articles
 
