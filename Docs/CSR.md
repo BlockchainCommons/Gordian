@@ -58,7 +58,7 @@ CSR will:
 
 CSR will:
 
-* Automate recovery in the baseline storage cases, with information of additional shares stored with the foundational share. 
+* Automate recovery in the baseline storage cases, with information of additional shares stored with the foundational share.
 * Ensure the security of seeds (and other secrets) as they are recovered.
 * Require authentication for the recovery of shares.
 * Support a variety of authentication options.
@@ -89,7 +89,7 @@ Choice points then occur when a user decides to expand or modify their usage of 
 
 CSR is built on the following technical underpinnings:
 
-**Crypto-Envelope.** Holder of secure data. A crypto-envelope consists of two parts: the payload data, which typically consists of one or more encrypted objects (originally focused on seeds, but possibly also containing web tokens and/or other secret digital data); and the permit, which decrypts the payload data if the proper key or other data is applied and which may include hints about how to enable the decryption. 
+**Crypto-Envelope.** Holder of secure data. A crypto-envelope consists of two parts: the payload data, which typically consists of one or more encrypted objects (originally focused on seeds, but possibly also containing web tokens and/or other secret digital data); and the permit, which decrypts the payload data if the proper key or other data is applied and which may include hints about how to enable the decryption.
 
 **URs.** Uniform Resources. A standardized methodology for storing information that is self-identifying and self-certifying. Data held in Crypto-Envelopes is encoded as URs to ensure ability to restore. See [BCR-2020-05](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-005-ur.md). URs are in turn encoded as CBOR. See [CBOR Overview](https://cbor.io/).
 
@@ -182,7 +182,7 @@ The name "Collaborative Seed Recovery" was carefully selected for this project:
    * The CSR architecture is designed & focuses on the recovery of secrets, in particular SEEDS, not KEYS (though keys may also be recovered along with metadata).
    * This is to support a larger ecosystem, to include scenarios beyond cryptocurrencies such as Bitcoin and Ethereum seeds. It also provides resilience in the recovery of seeds for any app that uses persistent keys, such as U2F or Signal, and is future proofed to support recovery of seeds that can generate future curves or Zero-knowledge proofs, such as Chia's unique keys, BBS+ keys, and much more.
 * **Recovery**
-   * The goal is the resilience and recovery of a seed that the holder has lost, along with metadata, which then allows them to restore wallet functionality. It is NOT intended as a mechanism for the recovery of a seed or key that is compromised. Instead, the architecture is designed as the foundation of future Collaborative Key Management (~2023) multi-party cryptography techniques and features, which also allow for no single points of compromise. 
+   * The goal is the resilience and recovery of a seed that the holder has lost, along with metadata, which then allows them to restore wallet functionality. It is NOT intended as a mechanism for the recovery of a seed or key that is compromised. Instead, the architecture is designed as the foundation of future Collaborative Key Management (~2023) multi-party cryptography techniques and features, which also allow for no single points of compromise.
 
 ## Appendix II: Defining SSKR
 
@@ -194,7 +194,7 @@ One change has been made to the definitions from that paper: whereas it uses "sh
 
 **Deck identifier.** The public key derived from the sharded secret, unmodified, with no derivation and no other modification. It uniquely identifies a deck. This key can sign each share.
 
-**Derived Secret.** The private key derived from a sharded secret. It is used to decrypt the private data associated with each share. 
+**Derived Secret.** The private key derived from a sharded secret. It is used to decrypt the private data associated with each share.
 
 **Private Data.** Encrypted data transferred with each share. The decryption key, or derived secret, can be computed by recombining all the shares, producing the sharded secret. Alternatively: encrypted blob or deck blob.
 
@@ -221,3 +221,11 @@ One change has been made to the definitions from that paper: whereas it uses "sh
 **Threshold.** The number of shares required to reconstruct a sharded secret.
 
 **Unencrypted Metadata.**  Data associated with a shares that describes the share and the deck, among other things. This data can include birthdate, deck identifier information, and so on. Alternatively: public metadata.
+
+## Appendix III: Crypto-Envelope
+
+Blockchain Commons has designed a next-generation container structure called Crypto-Envelope. It is part of the [Secure Components](https://github.com/BlockchainCommons/BCSwiftSecureComponents) library, with a draft reference implementation in Swift. The [Documentation](https://github.com/BlockchainCommons/BCSwiftSecureComponents/tree/master/Docs) directory is a good place to start understanding what this library, and particularly Crypto-Envelope, is capable of.
+
+Although Crypto-Envelope has many potential uses, a primary application of it relevant to CSR is the ability to shard payloads much larger than SSKR can handle. To assist implementors on other platforms, blockchain Commons has published [test vectors](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/8-ENVELOPE-SSKR-TEST-VECTORS.md) that show several different views of SSKR splits created using Crypto-Envelope.
+
+**NOTE**: The Secure Components library, including Crypto-Envelope, is still in DRAFT stage and subject to change. Implementors should not yet release any products based on our reference implementation in Swift or based on their own implementations yet. Please contribute to our efforts to move these specifications toward an actual public release.
