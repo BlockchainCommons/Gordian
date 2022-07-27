@@ -222,10 +222,10 @@ One change has been made to the definitions from that paper: whereas it uses "sh
 
 **Unencrypted Metadata.**  Data associated with a shares that describes the share and the deck, among other things. This data can include birthdate, deck identifier information, and so on. Alternatively: public metadata.
 
-## Appendix III: Crypto-Envelope
+## Appendix III: Detailing Crypto-Envelope
 
-Blockchain Commons has designed a next-generation container structure called Crypto-Envelope. It is part of the [Secure Components](https://github.com/BlockchainCommons/BCSwiftSecureComponents) library, with a draft reference implementation in Swift. The [Documentation](https://github.com/BlockchainCommons/BCSwiftSecureComponents/tree/master/Docs) directory is a good place to start understanding what this library, and particularly Crypto-Envelope, is capable of.
+Blockchain Commons has designed a next-generation container structure called Crypto-Envelope. It is part of the [Secure Components](https://github.com/BlockchainCommons/BCSwiftSecureComponents) library, with a draft reference implementation in Swift. The [Documentation](https://github.com/BlockchainCommons/BCSwiftSecureComponents/tree/master/Docs) directory is a good place to start understanding what this library is capable of — particularly Crypto-Envelope.
 
-Although Crypto-Envelope has many potential uses, a primary application of it relevant to CSR is the ability to shard payloads much larger than SSKR can handle. To assist implementors on other platforms, blockchain Commons has published [test vectors](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/8-ENVELOPE-SSKR-TEST-VECTORS.md) that show several different views of SSKR splits created using Crypto-Envelope.
+Although Crypto-Envelope has many potential uses, a primary application of it relevant to CSR is the ability to shard payloads much larger than SSKR can handle. To assist implementors on other platforms, Blockchain Commons has published [test vectors](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/8-ENVELOPE-SSKR-TEST-VECTORS.md) that show several different views of SSKR splits created using Crypto-Envelope.
 
-**NOTE**: The Secure Components library, including Crypto-Envelope, is still in DRAFT stage and subject to change. Implementors should not yet release any products based on our reference implementation in Swift or based on their own implementations yet. Please contribute to our efforts to move these specifications toward an actual public release.
+**NOTE**: The Secure Components library, including Crypto-Envelope, is still in DRAFT stage and subject to change. Implementors should not release any products based on our reference implementation in Swift or based on their own implementations yet. Please contribute to our efforts to move these specifications toward an actual public release.
