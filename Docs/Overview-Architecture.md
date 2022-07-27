@@ -34,7 +34,7 @@ Visual Specifications are intended to improve the usability of digital assets by
 
 * **Object Identity Block.** An Object Identity Block (OIB) is a collection of readable data and images which together make it easy to recognize the digital object being described. See [BCR-2021-02: Digests for Digital Objects](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2021-002-digest.md).
 
-* **Lifehash.** The Lifehash ...
+* **Lifehash.** A Lifehash appears as part of an OIB. It's a visual hash of a digital object that is intended to make it possible to recognize an object at a glance thanks to the patterning and coloring. See [Lifehash.info](https://lifehash.info/) and the [Lifehash.info README](https://github.com/BlockchainCommons/lifehash.info#lifehash-beautiful-visual-hashes).
 
 ## Encoding Specifications
 
