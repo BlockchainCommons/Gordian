@@ -1,4 +1,4 @@
-# Overview: The Gordian Apps
+# The Gordian Reference Apps
 
 The Gordian Reference Apps demonstrate the usage of the Gordian Reference Libraries to fulfill the Gordian Principles. They may also be combined into an ecosystem that demonstrates the Gordian Marco-Architecture and its theory of functional partition:
 
