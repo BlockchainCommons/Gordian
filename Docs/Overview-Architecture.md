@@ -28,14 +28,6 @@ Traditionally, digital-asset architectures have focused on multi-function wallet
 
 * **Collaborative Key Management.** CKM is a future technology that will introduce key-management servers that generate and use secrets without those secrets ever existing prior to their usage. It continues the pattern of resilience introduced by CSR but takes it to the next step by also offering strong protections against compromise.
 
-## Visual Specifications
-
-Visual Specifications are intended to improve the usability of digital assets by making it easy for the user to recognize one without having to memorize a long hex code.
-
-* **Object Identity Block.** An Object Identity Block (OIB) is a collection of readable data and images which together make it easy to recognize the digital object being described. See [BCR-2021-02: Digests for Digital Objects](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2021-002-digest.md).
-
-* **Lifehash.** A Lifehash appears as part of an OIB. It's a visual hash of a digital object that is intended to make it possible to recognize an object at a glance thanks to the patterning and coloring. See [Lifehash.info](https://lifehash.info/) and the [Lifehash.info README](https://github.com/BlockchainCommons/lifehash.info#lifehash-beautiful-visual-hashes).
-
 ## Encoding Specifications
 
 The interoperability of the Gordian Macro-Architecture is only made possible if the individual servers speak the same language. That's where Encoding Specifications come into play: they standardize communication, not only so that current servers can communicate, but also so that future servers can recognize messages (or more importantly: digital assets) archived in the past.
@@ -55,12 +47,26 @@ The most common pattern for data encoding in the Gordian Architecture is:
  
 * **QR Codes.** Part of the design of URs was to ensure that they could be efficienctly stored as QR codes. The sequencing design of URs also allows for the creation of animated QRs. Though QRs are not required for the Gordian Architecture, they're crucial if Airgaps are introduced into the Macro-Architecture.
 
-### Sharding Specifications
+### Backup Specifications
 
-* **SSKR.**
+UR encoding can be used for all sorts of transmissions between servers. It can also be used to encode data, which helps ensure the Resilience of the Gordian Architecture because the self-describing and self-certifying data can be retrieved by other apps in the future.
+
+* **Keys & Seeds.** Key material can be encoded as `ur:crypto-seed`, `ur:bip39`, and `ur:hdkey`, allowing for the storage of a bare seed, a BIP-39–encoded seed, or a derived key. See [BCR-2020-06: Registry of UR Types](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-006-urtypes.md) for [`crypto-seed`](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-006-urtypes.md#cryptographic-seed-crypto-seed) and [`crypto-bip39`](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-006-urtypes.md#bip-39-encoded-seed-crypto-bip39) and [BCR-2020-07: UR Type Definition for HD Keys](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-007-hdkey.md) for `crypto-hdkey`. Also see [A Guide to Using URs for Key Material](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-2-keys.md).
+
+* **SSKR.** Shamir's Secret Sharing ensures that backed-up keys and seeds aren't as susceptible to compromise by sharding the secret and then storing shares separately. The Gordian Architecture enables this through the "SSKR" definition for URs, which allows for the UR-encoding of individual shares. The specific methodology and the C reference library for SSKR have been security reviewed. The plan is to expand SSKR in the future to support other sharding algorithms. See [BCR-2020-11: UR Type Definition for SSKR](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-011-sskr.md) and [SSKR Security Review](https://github.com/BlockchainCommons/bc-sskr/blob/master/SECURITY-REVIEW.md). Also see [A Guide to Using URs for SSKR](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-3-sskrs.md) and our [SSKR Docs Overview Page](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/sskr-overview.md).  
 
 ### UR Specifications
 
 * **Crypto-Envelopes.**
 
 * **Crypto-Request** & **Crypto-Response.**
+
+## Visual Specifications
+
+Visual Specifications are intended to improve the usability of digital assets by making it easy for the user to recognize one without having to memorize a long hex code. They can help servers and services in the Gordian Architecture to better fulfill the Gordian Principles by protecting assets (and thus ensuring privacy and resilience).
+
+* **Object Identity Block.** An Object Identity Block (OIB) is a collection of readable data and images which together make it easy to recognize the digital object being described. See [BCR-2021-02: Digests for Digital Objects](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2021-002-digest.md).
+
+* **Lifehash.** A Lifehash appears as part of an OIB. It's a visual hash of a digital object that is intended to make it possible to recognize an object at a glance thanks to the patterning and coloring. See [Lifehash.info](https://lifehash.info/) and the [Lifehash.info README](https://github.com/BlockchainCommons/lifehash.info#lifehash-beautiful-visual-hashes).
+
+
