@@ -1,16 +1,19 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
 # Contributor License Agreement
 
 Version 1.0
 
-Name: `$name`
+Name: `Wolf McNally`
 
-E-Mail: `$email`
+E-Mail: `wolf@wolfmcnally.com`
 
 Legal Jurisdiction: Wyoming, United States of America
 
 Project: https://github.com/BlockchainCommons/Gordian
 
-Date: `$date`
+Date: `July 27, 2022`
 
 ## Purpose
 
@@ -49,7 +52,19 @@ I promise not to offer contributions that contain or depend on the work of other
 ## Disclaimers
 
 ***As far as the law allows, my contributions come as is, without any warranty or condition.  Other than under [Copyright Guarantee](#copyright-guarantee), [Patent Guarantee](#patent-guarantee), or [Open Source Guarantee](#open-source-guarantee), I will not be liable to anyone for any damages related to my contributions or this contributor license agreement, under any kind of legal claim.***
+-----BEGIN PGP SIGNATURE-----
 
----
-
-To sign this Contributor License Agreement, fill in `$name`, `$email`, and `$date` above. Then sign using GPG using the following command `gpg --armor --clearsign --output cla.YOURGITHUBNAME.YOURGPGFINGERPRINT.asc CLA.md`, then either submit your signed Contributor License Agreement to this repo as a GPG signed Pull Request or email it to [ChristopherA@BlockchainCommons.com](mailto:ChristopherA@BlockchainCommons.com).
+iQIzBAEBCAAdFiEElDZS7jhEF2DD3DU2S2wvz4lHgK4FAmLhAAMACgkQS2wvz4lH
+gK5JgRAAhEbcrM1+AyrpHMJKa36D5fvdWgs9OsMgGMvv+2yMVKOU50bbEDLA925N
+WzgppiIVgxxdhsA53akjJLD+f0VMUY9Dvtf6aeZNFcUjgr4OlNuhF8R1puAA2oqU
+J77/774CTz4pQZZUA60Om6necyvrho0mXplS4qZNdqjQlULrrL5pjknSEw1Z+gMa
+NSKn9y0RLZ+4aDVgOgTVI49CKWHte0lJfarBC3CvjRPuGEVhic+AZyysuKczR3SL
+/B5muh3qdo3vseQ6tVGbq2z/FW18NwFasu08+HnsLiNn1y4nq9z8Jc976jkP6DiO
+BRpN/Sy21Pn2P7dOTV6NpUTW7KjH8515ZHX8+EcaMixE1rlTYu9wYg+GU36mFJ+v
+XbN1dNhwBY8yQYFfLfG4w0g0y7+fABSRDb7aJ6M5GGtQDTe9DsWjpIBbPU0gvcJV
+ypKtKdLeDCcMHvBsB+qHaLX2OFM2RDKQrEC3MIatWPh99ObMTu/nYMxxukCxiwj2
+kI6JEN2S5Q8h0yqTWNndEDIPDb6s6bFjY8lZ/PuBzoj+PvRlfQM1r96dQi74Am1t
+Ii/HY9DSvvIZdOMiTSIoD9VO/IblrjO74hOLTAmQm0L3yF3UoqHjqaiw9qu3tlph
+mGwCImFWXcs6SL8D8QR9K0gZ0FiyR4vm/Bmi2sQJjsMngG7PyHM=
+=Kb48
+-----END PGP SIGNATURE-----
