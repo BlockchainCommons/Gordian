@@ -63,7 +63,12 @@ _Many of our CLI apps were built to exercise our [Gordian Reference Libraries](h
 * **[Bytewords](https://github.com/BlockchainCommons/bc-bytewords-cli) \(CLI\).** A tool for testing bytewords.
 * **[Keytool](https://github.com/BlockchainCommons/bc-keytool-cli) \(CLI\).** A tool for deriving keys and addresses from seeds. 
 * **[LifeHashTool](https://github.com/BlockchainCommons/LifeHashTool) \(Swift CLI\).** A tool for generating Lifehash PNGs from the command line.
+* **[Seedtool](https://github.com/BlockchainCommons/bc-seedtool-cli) \(Rust CLI\).** A tool for generating seeds from a variety of random inputs and for translating seeds among formats.
+
+### Research Apps
+
+_Additional CLI Apps were written for research purposes and are not as complete or polished._
+
 * **[Mori](https://github.com/BlockchainCommons/mori-cli) \(CLI\).** A timelock tool to make sure your assets aren't lost.
 * **[Musign](https://github.com/BlockchainCommons/musign-cli) \(CLI\).** A research project for signing and verifying messages with ECDSA and Schnorr.
-* **[Seedtool](https://github.com/BlockchainCommons/bc-seedtool-cli) \(Rust CLI\).** A tool for generating seeds from a variety of random inputs and for translating seeds among formats.
 * **[Sweeptool](https://github.com/BlockchainCommons/sweeptool-cli) \(Rust CLI\).**  A tool for moving funds out of a descriptor wallet.
