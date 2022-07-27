@@ -67,7 +67,7 @@ UR encoding can be used for all sorts of transmissions between servers. It can a
 
 * **SSKR.** Shamir's Secret Sharing can be used to ensure that backed-up keys and seeds aren't as susceptible to compromise by sharding the secret and then storing shares separately. The Gordian Architecture enables this through the "SSKR" definition for URs, which allows for the UR-encoding of individual shares. The specific methodology and the C reference library for SSKR have been security reviewed. See [BCR-2020-11: UR Type Definition for SSKR](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-011-sskr.md) and [SSKR Security Review](https://github.com/BlockchainCommons/bc-sskr/blob/master/SECURITY-REVIEW.md). Also see [A Guide to Using URs for SSKR](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-3-sskrs.md) and our [SSKR Docs Overview Page](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/sskr-overview.md). In the future, SSKR will be expanded to support other sharding algorithms such as VSS.
 
-### UR Specifications
+### Communication Specifications
 
 Though UR can be used to encoded a variety of digital data, there are three specific UR types that are of particular importance because of their ability to further expand the UR spec to support authentication and communication.
 
