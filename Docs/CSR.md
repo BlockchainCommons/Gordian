@@ -1,5 +1,4 @@
 # Collaborative Seed Recovery (CSR)
-###### tags: `article / in process`
 
 Collaborative Seed Recovery, or CSR, is a new system intended to automate the recovery of seeds and other sensitive digital data in a way that is safe, secure, and simple to use. It is not a methodology to prevent compromise, but simply to add resilience to recovery in the case of failure or loss.
 
