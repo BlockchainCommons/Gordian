@@ -71,77 +71,6 @@ Please see [The Gordian Reference Libraries](https://github.com/BlockchainCommon
 Please see the [SmartCustody repo](https://github.com/BlockchainCommons/SmartCustody) for articles on Multisigs, Timelocks, and other SmartCustody topics.
 
 
-
-
-## Overview: Gordian Specifications
-
-The Gordian system of course uses standard protocols for Bitcoin, to interact with the trustless network. Blockchain Commons has also developed specifications of its own and expanded those created for other technology categories, to better fulfill the Gordian Principles. These specifications are demonstrated in many of the Blockchain Commons reference apps, to show how they can be used to full Gordian's requirements for Independent, Privacy, Resilience, and Openness. 
-
-***[Bytewords](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md).*** Blockchain Commons developed its own binary-to-text format because of flaws in current ones, such as the variants that exist for base-64, and the fact that none of them convert efficiently to the QR codes used widely in Bitcoin applications. Bytewords stay within the 31 characters that are well supported by QR codes (that's letters plus numbers minus URL-breaking characters), allowing more efficient and safe usage.
-
-***[CBOR](https://cbor.io/).*** Blockchain Commons represents binary data as CBOR, or Concise Binary Object Representation, which is RFC 7049. We feel that this self-descriptive language overcomes some of the flaws in pure JSON, while still retaining solid compatibility.
-
-***[LifeHash](https://github.com/BlockchainCommons/lifehash.info#readme).*** A visual hashing algorithm that allows users to recognize seeds and other digital data by sight.
-
-***[Quick Connect API](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Quick-Connect-API.md).*** A spec for a deep link URI and a scannable QR Code, used to connect a wallet and server across a gap.
-
-***[SSKR](9https://github.com/BlockchainCommons/bc-sskr).*** A replacement for SLIP-39 to resolve issues where SLIP-39 and BIP-39 do not round-trip.
-
-***[URs](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-005-ur.md).*** The objective of many of our protocol expansions was to create a more robust system for encoding PSBTs, which were otherwise limited by the maximimum size of QR codes and the inefficient ways in which current text formats interacted with them. Much of that comes together in our Uniform Resource (UR) encoding, which is built upon Byteword and CBOR structures. It creates a methodology for encoding PSBTs as QR codes, either using sequential or animated QRs.
-
-Please see the [Airgapped Wallet repo](https://github.com/BlockchainCommons/Airgapped-Wallet-Community), especially its [discussions](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions), for more on our work with the community to advance wallet state of the art.
-
-## Overview: Gordian Crypto Commons
-
-To further support Gordian's principles and best practices, Blockchain Commons has created a number of Gordian reference libraries, which embody our specifications, as well as reference apps and command-line programs. 
-
-These are fully described in the [Crypto Commons Overview](https://github.com/BlockchainCommons/crypto-commons/blob/master/README.md).
-
-Blockchain Commons is also happy to use libraries from other sources, if they're stabled and well-supported.
-
-## Spotlight: Gordian SeedTool on iOS (and macOS)
-
-**Roles:** Cosigner, Seed Generator, Seed Vault
-
-[Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS) for iOS And MacOS is Blockchain Commons' most sophisticated reference tool for demonstrating the usage of Blockchain Commons specifications and the Gordian principles.
-
-Gordian SeedTool:
-
-* Allows the storage of seeds in a protected, closely held device.
-* Derives Keys that can be sent to other devices.
-* Signs PSBTs for seeds that it holds.
-* Answers `crypto-requests` with `crypto-responses`.
-* Demonstrates other UR, SSKR, ByteWord, and LifeHash functionality.
-
-![](https://raw.githubusercontent.com/BlockchainCommons/GordianSeedTool-iOS/master/images/logos/gordian-seedtool-screen.jpg)
-
-* **[Download from the Apple App Store](https://apps.apple.com/us/app/gordian-seed-tool/id1545088229).**
-* **[Visit the Repo](https://github.com/BlockchainCommons/GordianSeedTool-iOS).**
-
-## Spotlight: Gordian Server on MacOS
-
-**Roles:** Cosigner, Network Server, Seed Generator, Seed Vault (partial)<br>
-**#SmartCustody** [Case Study](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/Case-Study-SeedTool.md)
-
-[GordianServer-macOS.app](https://github.com/BlockchainCommons/GordianServer-macOS) provides personal one-click installation for Bitcoin Core and Tor. It's built on Bitcoin Standup technology that presents a QuickConnect QR code that can be used to pair mobile wallets for remote use over Tor V3. If you want to have your own, independent and self-sovereign Bitcoin node, this is all you need. [Linux Bitcoin-StandUp-Scripts](https://github.com/BlockchainCommons/Bitcoin-StandUp-Scripts) achieves the same thing as GordianServer-macOS, but comes in the form of Linux scripts rather than a central app.
-
-![](https://raw.githubusercontent.com/BlockchainCommons/GordianServer-macOS/master/Images/logos/gordian-server-screen.jpg)
-
-*GordianServer-macOS* has been developed for Macs using Catalina or better; it can be installed via a DMG or an Xcode compilation
-
-* **[Install from DMG](https://github.com/BlockchainCommons/GordianServer-macOS/releases).**
-* **[Visit the Repo](https://github.com/BlockchainCommons/GordianServer-macOS).**
-
-## Additional Information
-
-### Further Docs
-
-More information about the purpose and design of the Gordian architecture can be found in the following documents:
-
-1. [Why Run a Full Node?](Docs/Why-Full.md) Why would you want to run a full node in the first place? There are advantages in validation, privacy, security, liquidity, and education.
-2. [Security for Your Gordian system](Docs/Security.md). Notes on ensuring the security of your GordianServer.
-3. [Why Gordian?](Docs/Why-Gordian.md) What the Gordian name means to us.
-
 ### Discussions
 
 The best place to talk about Blockchain Commons and its projects is in our GitHub Discussions areas.
@@ -149,12 +78,6 @@ The best place to talk about Blockchain Commons and its projects is in our GitHu
 [**Gordian System Discussions**](https://github.com/BlockchainCommons/Gordian/discussions). For users and developers of the Gordian system, including the Gordian Server, Bitcoin Standup technology, QuickConnect, and the Gordian Wallet. If you want to talk about our linked full-node and wallet technology, suggest new additions to our Bitcoin Standup standards, or discuss the implementation our standalone wallet, the Discussions area of the [main Gordian repo](https://github.com/BlockchainCommons/Gordian) is the place.
 
 [**Blockchain Commons Discussions**](https://github.com/BlockchainCommons/Community/discussions). For developers, interns, and patrons of Blockchain Commons, please use the discussions area of the [Community repo](https://github.com/BlockchainCommons/Community) to talk about general Blockchain Commons issues, the intern program, or topics other than the [Gordian System](https://github.com/BlockchainCommons/Gordian/discussions) or the [wallet standards](https://github.com/BlockchainCommons/AirgappedSigning/discussions), each of which have their own discussion areas.
-
-### Related Projects
-
-The full node created by the Gordian system can also be interlinked with other projects from Blockchain Commons.
-
-1. [Learning Bitcoin from the Command Line](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line) is a tutorial for programming the `bitcoin-cli`, which can be run using a full node such as the one created by the Gordian system.
 
 ## Status - Varied
 
@@ -205,7 +128,6 @@ The following people directly contributed to this repository. You can add your n
 | Name              | Role                | Github                                            | Email                                 | GPG Fingerprint                                    |
 | ----------------- | ------------------- | ------------------------------------------------- | ------------------------------------- | -------------------------------------------------- |
 | Christopher Allen | Principal Architect | [@ChristopherA](https://github.com/ChristopherA) | \<ChristopherA@LifeWithAlacrity.com\> | FDFE 14A5 4ECB 30FC 5D22  74EF F8D3 6C91 3574 05ED |
-| Peter Denton      | Project Lead        | [@Fonta1n3](https://github.com/Fonta1n3)          | <[FontaineDenton@gmail.com](mailto:FontaineDenton@gmail.com)> | 1C72 2776 3647 A221 6E02  E539 025E 9AD2 D3AC 0FCA  |
 
 ## Responsible Disclosure
 
