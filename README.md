@@ -41,7 +41,7 @@ The Gordian Architecture puts the Gordian Principles into use through an overall
 * **Communication Specifications.** Further UR specifications such as envelopes and request/responses aid interoperable communication.
 * **Secure UX Designs.** UX best practices form another layer of support for the Gordian Principles.
 
-Please see [The Gordian Architecture](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md) for more in-depth discussion of all the architectural elements.
+Please see [The Gordian Architecture](Overview-Architecture.md) for more in-depth discussion of all the architectural elements and [Gordian Architecture Roles](Overview-Roles.md) for examples of functions that can be partitioned within the Macro-architecture.
 
 ## Gordian Reference Apps
 
