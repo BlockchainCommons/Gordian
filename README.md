@@ -71,15 +71,6 @@ Please see [The Gordian Reference Libraries](https://github.com/BlockchainCommon
 Please see the [SmartCustody repo](https://github.com/BlockchainCommons/SmartCustody) for articles on Multisigs, Timelocks, and other SmartCustody topics.
 
 
-### Enabling the Gordian Principles with the Gordian Architecture
-
-As a reference architecture, the Gordian Architecture also demonstrates the Gordian Principles.
-
-* **Independence.** Users can choose which applications to use within an open ecosystem.
-* **Privacy.** Airgaps create strong data protection, while torgaps do the same for networked interactions.
-* **Resilience.** The paritioned design minimizes Single Points of Compromise.
-* **Openness.** Airgaps and torgaps are connected via standard specifications such as URs, which allow anyone to add apps to the ecosystem.
-
 
 
 ## Overview: Gordian Specifications
