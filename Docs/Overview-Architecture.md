@@ -84,3 +84,14 @@ Between Data Formats (at the bottom of the architecture) and Macro-Architure (at
 * **Object Identity Block (OIB).** A collection of readable data and images which together make it easy to recognize the digital object being described. See [BCR-2021-02: Digests for Digital Objects](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2021-002-digest.md).
 
 * **Lifehash.** Part of an OIB: a visual hash of a digital object that is intended to make it possible to recognize an object at a glance thanks to the patterning and coloring. See [Lifehash.info](https://lifehash.info/) and the [Lifehash.info README](https://github.com/BlockchainCommons/lifehash.info#lifehash-beautiful-visual-hashes).
+
+## Enabling the Gordian Principles with the Gordian Architecture
+
+As a reference architecture, the Gordian Architecture also demonstrates the Gordian Principles.
+
+* **Independence.** Users can choose which applications to use within an open ecosystem.
+* **Privacy.** The partioning of services reduces data collation. Even stronger protections can be created by Airgaps and Torgaps.
+* **Resilience.** The paritioned design minimizes Single Points of Compromise.
+* **Openness.** Standard specifications such as UR allow anyone to connect to the ecosystem.
+
+
