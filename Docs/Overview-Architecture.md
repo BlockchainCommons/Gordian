@@ -77,6 +77,8 @@ Though UR can be used to encoded a variety of digital data, there are three spec
  
 * **Crypto-Request** & **Crypto-Response.** A method to enable two-way communication between servers, a crucial element in the Gordian Architecture. The `crypto-request` and `crypto-response` UR types allow one service to request data such a seed or key from another service. This enables true automation, minimizing the need for users to understand the specifics of what's going on (while stile entirely preserving their agency by requiring their confirmation for responses). See [BCR-2021-01: UR Type Definitions for Transactions Between Airgapped Devices](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2021-001-request.md). Also see [A Guide to Using UR Request & Response](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-99-request-response.md).
 
+* **QuickConnect.** This is an older spec for a deep link URI and a scannable QR Code, used to connect a wallet and server across a gap. It's still in use on our Gordian Wallet and Server reference apps. See [Quick Connect API](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Quick-Connect-API.md).
+
 ## Secure UX Designs
 
 Between Data Formats (at the bottom of the architecture) and Macro-Architure (at the top of the architecture) lies the UX that guides users through their daily usage of their digital-asset tools. Excellent designs of UXes that follow industry best practices can either insure adherance to the Gordian Principles or cause users to ignore them entirely. The following specifications begin to codify UX-design best practices in the Gordian Architecture.
