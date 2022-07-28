@@ -71,7 +71,7 @@ Please see [The Gordian Reference Libraries](https://github.com/BlockchainCommon
 Please see the [SmartCustody repo](https://github.com/BlockchainCommons/SmartCustody) for articles on Multisigs, Timelocks, and other SmartCustody topics.
 
 
-### Discussions
+## Discussions
 
 The best place to talk about Blockchain Commons and its projects is in our GitHub Discussions areas.
 
