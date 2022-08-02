@@ -43,6 +43,8 @@ The Gordian Architecture puts the Gordian Principles into use through an overall
 
 Please see [The Gordian Architecture](Overview-Architecture.md) for more in-depth discussion of all the architectural elements and [Gordian Architecture Roles](Overview-Roles.md) for examples of functions that can be partitioned within the Macro-architecture.
 
+Together, these elements (in particular: a network coordinator such as Gordian Coordinator; a signing device such as Gordian Seed Tool; encoding specifications such URs; and communication specifications such as envelope, request, and response) comprise what we consider a Minimal Viable Architecture (MVA) for Gordian, and thus for safe, self-sovereign architecture. They're the minimum that's needed to properly support users.
+
 ## Gordian Reference Apps
 
 Gordian Reference Apps demonstrate the elements of how the Gordian Architecture and how they can be used to fulfill the Gordian Principles. Our Gordian Reference Apps undergoing the most development currently include:
