@@ -49,7 +49,7 @@ Together, these elements (in particular: a network coordinator such as Gordian C
 
 This video overview covers many of the technologies found in the Gordian Architecture:
 <center>
-  <a href="https://www.youtube.com/watch?v=RYgOFSdUqWY"><img src="images/video-tech-overview.png"></a>
+  <a href="https://www.youtube.com/watch?v=RYgOFSdUqWY"><img src="/Images/video-tech-overview.png"></a>
 </center>
 
 ## Gordian Reference Apps
