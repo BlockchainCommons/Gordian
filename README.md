@@ -15,7 +15,7 @@ The Gordian system is all about user agency & security. It's intended to support
 * **Gordian Reference Libraries.** A set of libraries that allow developers to incorporate Gordian specifications and expand the Gordian ecosystem.
 * **#SmartCustody.** Educational programs meant to support the Gordian Principles.
 
-The ultimate goal of the Gordian System is to create a community of developers who have followed the examples of the Gordian Reference Apps and used the Gordian Reference Libraries to build their own applications that embody the GOrdian Architecture and fulfill the Gordian Principles.
+The ultimate goal of the Gordian System is to create a community of developers who have followed the examples of the Gordian Reference Apps and used the Gordian Reference Libraries to build their own applications that embody the Gordian Architecture and fulfill the Gordian Principles.
 
 *This repo contains a table of contents for various the Gordian system projects and features. Please see individual repos and pages for more information.*
 
