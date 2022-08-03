@@ -41,7 +41,7 @@ The Gordian Architecture puts the Gordian Principles into use through an overall
 * **Communication Specifications.** Further UR specifications such as envelopes and request/responses aid interoperable communication.
 * **Secure UX Designs.** UX best practices form another layer of support for the Gordian Principles.
 
-Please see [The Gordian Architecture](Overview-Architecture.md) for more in-depth discussion of all the architectural elements and [Gordian Architecture Roles](Overview-Roles.md) for examples of functions that can be partitioned within the Macro-architecture.
+Please see [The Gordian Architecture](/Docs/Overview-Architecture.md) for more in-depth discussion of all the architectural elements and [Gordian Architecture Roles](/Docs/Overview-Roles.md) for examples of functions that can be partitioned within the Macro-architecture.
 
 Together, these elements (in particular: a network coordinator such as Gordian Coordinator; a signing device such as Gordian Seed Tool; encoding specifications such URs; and communication specifications such as envelope, request, and response) comprise what we consider a Minimal Viable Architecture (MVA) for Gordian, and thus for safe, self-sovereign architecture. They're the minimum that's needed to properly support users.
 
@@ -60,7 +60,7 @@ Gordian Reference Apps demonstrate the elements of how the Gordian Architecture 
 * **Gordian Seed Tool.** An Airgapped seed vault & signing device.
 * **SpotBit.** A Micro-pricing service.
 
-Please see [The Gordian Reference Apps](https://github.com/BlockchainCommons/Gordian/blob/shannona-gordian-revision/Docs/Overview-Apps.md) for a complete list of past and present reference apps, links to their repos, and an example of how they can be combined into a Macro-Architecture. Links to CLI apps are also included.
+Please see [The Gordian Reference Apps](/Docs/Overview-Apps.md) for a complete list of past and present reference apps, links to their repos, and an example of how they can be combined into a Macro-Architecture. Links to CLI apps are also included.
 
 ## Gordian Reference Libraries
 
