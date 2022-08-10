@@ -16,6 +16,8 @@ Using functionally partitioned services, the Gordian architecture creates a powe
 
 * **Microservice.** A service that fulfills a small need in the overall Gordian ecosystem such as price lookups. *Examples:* [SpotBit](https://github.com/BlockchainCommons/spotbit).
 
+Please see [Gordian Architure Roles](Overview-Roles.md) for examples of what functions can be partitioned as part of the Gordian Macro-architecture.
+
 ### Key Management Services
 
 Traditionally, digital-asset architectures have focused on multi-function wallets that act as both transaction coordinators and signing devices. Breaking apart these features through the design pattern of functional partition creates a new paradigm that reveals the possibility of many new and different services. The Collaborative Seed Recovery (CSR) service and the future Collaborative Key Management (CKM) service are two such innovations: they demonstrate how new services can purposefully fulfill the Gordian Principles of independence, privacy, resilience, and openness.
@@ -75,6 +77,8 @@ Though UR can be used to encoded a variety of digital data, there are three spec
  
 * **Crypto-Request** & **Crypto-Response.** A method to enable two-way communication between servers, a crucial element in the Gordian Architecture. The `crypto-request` and `crypto-response` UR types allow one service to request data such a seed or key from another service. This enables true automation, minimizing the need for users to understand the specifics of what's going on (while stile entirely preserving their agency by requiring their confirmation for responses). See [BCR-2021-01: UR Type Definitions for Transactions Between Airgapped Devices](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2021-001-request.md). Also see [A Guide to Using UR Request & Response](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-99-request-response.md).
 
+* **QuickConnect.** This is an older spec for a deep link URI and a scannable QR Code, used to connect a wallet and server across a gap. It's still in use on our Gordian Wallet and Server reference apps. See [Quick Connect API](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Quick-Connect-API.md).
+
 ## Secure UX Designs
 
 Between Data Formats (at the bottom of the architecture) and Macro-Architure (at the top of the architecture) lies the UX that guides users through their daily usage of their digital-asset tools. Excellent designs of UXes that follow industry best practices can either insure adherance to the Gordian Principles or cause users to ignore them entirely. The following specifications begin to codify UX-design best practices in the Gordian Architecture.
@@ -82,5 +86,14 @@ Between Data Formats (at the bottom of the architecture) and Macro-Architure (at
 * **Object Identity Block (OIB).** A collection of readable data and images which together make it easy to recognize the digital object being described. See [BCR-2021-02: Digests for Digital Objects](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2021-002-digest.md).
 
 * **Lifehash.** Part of an OIB: a visual hash of a digital object that is intended to make it possible to recognize an object at a glance thanks to the patterning and coloring. See [Lifehash.info](https://lifehash.info/) and the [Lifehash.info README](https://github.com/BlockchainCommons/lifehash.info#lifehash-beautiful-visual-hashes).
+
+## Enabling the Gordian Principles with the Gordian Architecture
+
+As a reference architecture, the Gordian Architecture also demonstrates the Gordian Principles.
+
+* **Independence.** Users can choose which applications to use within an open ecosystem.
+* **Privacy.** The partioning of services reduces data collation. Even stronger protections can be created by Airgaps and Torgaps.
+* **Resilience.** The paritioned design minimizes Single Points of Compromise.
+* **Openness.** Standard specifications such as UR allow anyone to connect to the ecosystem.
 
 
