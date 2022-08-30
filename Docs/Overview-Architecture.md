@@ -69,15 +69,19 @@ UR encoding can be used for all sorts of transmissions between servers. It can a
 
 * **SSKR.** Shamir's Secret Sharing can be used to ensure that backed-up keys and seeds aren't as susceptible to compromise by sharding the secret and then storing shares separately. The Gordian Architecture enables this through the "SSKR" definition for URs, which allows for the UR-encoding of individual shares. The specific methodology and the C reference library for SSKR have been security reviewed. See [BCR-2020-11: UR Type Definition for SSKR](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-011-sskr.md) and [SSKR Security Review](https://github.com/BlockchainCommons/bc-sskr/blob/master/SECURITY-REVIEW.md). Also see [A Guide to Using URs for SSKR](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-3-sskrs.md) and our [SSKR Docs Overview Page](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/sskr-overview.md). In the future, SSKR will be expanded to support other sharding algorithms such as VSS.
 
+**Test Vectors:** Test vectors are available for both [ur:crypto-seed](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/crypto-seed-test-vectors.md) and [SSKR](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/sskr-test-vector.md).
+
 ### Communication Specifications
 
 Though UR can be used to encoded a variety of digital data, there are three specific UR types that are of particular importance because of their ability to further expand the UR spec to support authentication and communication.
 
-* **Crypto-Envelopes.** Acontainer structure for URs that allows data to be encoded and encrypted; through a permit system it then supports decryption via a variety of methods, including SSKR. Prime features include the ability to effectively shard much larger amounts of data than possible through standard SSKR and to create permits that allow data to be decrypted in a variety of ways. It's the foundation of `crypto-request` and a core element of CSR. See [BCSwiftSecureComponents Docs](https://github.com/BlockchainCommons/BCSwiftSecureComponents/tree/master/Docs).
+* **Envelopes.** A smart container structure for URs that allows data to be encoded and encrypted; through a permit system it then supports decryption via a variety of methods, including SSKR. Prime features include the ability to effectively shard much larger amounts of data than possible through standard SSKR and to create permits that allow data to be decrypted in a variety of ways. It's the foundation of `crypto-request` and a core element of CSR. See [BCSwiftSecureComponents Docs](https://github.com/BlockchainCommons/BCSwiftSecureComponents/tree/master/Docs).
  
 * **Crypto-Request** & **Crypto-Response.** A method to enable two-way communication between servers, a crucial element in the Gordian Architecture. The `crypto-request` and `crypto-response` UR types allow one service to request data such a seed or key from another service. This enables true automation, minimizing the need for users to understand the specifics of what's going on (while stile entirely preserving their agency by requiring their confirmation for responses). See [BCR-2021-01: UR Type Definitions for Transactions Between Airgapped Devices](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2021-001-request.md). Also see [A Guide to Using UR Request & Response](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-99-request-response.md).
 
 * **QuickConnect.** This is an older spec for a deep link URI and a scannable QR Code, used to connect a wallet and server across a gap. It's still in use on our Gordian Wallet and Server reference apps. See [Quick Connect API](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Quick-Connect-API.md).
+
+**Test Vectors:** Test vectors are also available for [ur: crypto-request](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/crypto-request-test-vectors.md).
 
 ## Secure UX Designs
 
