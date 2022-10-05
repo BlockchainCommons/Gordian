@@ -79,7 +79,7 @@ Please see [The Gordian Reference Libraries](https://github.com/BlockchainCommon
 
 Please see the [SmartCustody repo](https://github.com/BlockchainCommons/SmartCustody) for articles on Multisigs, Timelocks, and other SmartCustody topics.
 
-### Gordian Discussions
+## Gordian Discussions
 
 All of these Gordian topics can be discussed in our two Gordian discussion areas:
 
