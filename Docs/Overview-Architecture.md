@@ -24,7 +24,7 @@ Traditionally, digital-asset architectures have focused on multi-function wallet
 
 * **Collaborative Seed Recovery (CSR).** A service that improves the resilience of seeds and other secrets by using SSKR to distribute shares of the secret to a variety of Share Servers. The goal is to automate the backup and reconstruction of secrets in order to protect the self-sovereign control of digital assets. See [Collaborative Seed Recovery Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/CSR.md).
 
-* **Collaborative Key Management.** A future technology that will introduce key-management servers that generate and use secrets without those secrets ever existing prior to their usage. It continues the pattern of resilience introduced by CSR but takes it to the next step by also offering strong protections against not just loss but also compromise.
+* **Collaborative Key Management (CKM).** A future technology that will introduce key-management servers that generate and use secrets without those secrets ever existing prior to their usage. It continues the pattern of resilience introduced by CSR but takes it to the next step by also offering strong protections against not just loss but also compromise. See [Collaborative Key Management Overview](CKM.md), but be aware it's more tentative and mainly intended to help us future-proof our work on CSR.
 
 ### Macro-Architectural Transport
 
