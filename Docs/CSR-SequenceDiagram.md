@@ -6,6 +6,21 @@ This set of exemplar sequence diagrams for a CSR Share Servers assumes the sampl
 
 The standard data flow for a share server involves the storage of data and the later retrieval of that data.
 
+**Depicted API:**
+```
+func storeShare(publicKey: PublicKeyBase, payload: Data) throws -> Receipt
+/// This is a Trust-On-First-Use (TOFU) function. If the provided public key is not
+/// recognized, then a new account is created and the provided payload is stored in
+/// it. It is also used to add additional shares to an existing account. Adding an
+/// already existing share to an account is idempotent.
+
+func retrieveShares(publicKey: PublicKeyBase, receipts: Set<Receipt>) throws -> [Receipt: Data]
+/// Returns a dictionary of `[Receipt: Payload]` corresponding to the set of
+/// input receipts, or corresponding to all the controlled shares if no input
+/// receipts are provided. Attempting to retrieve nonexistent receipts or receipts
+/// from the wrong account is an error.
+```
+
 ```mermaid
 sequenceDiagram
 actor Alice
@@ -40,6 +55,32 @@ localAPI->>Alice: response(ID, data)
 One of the [Gordian Principles](https://github.com/BlockchainCommons/Gordian#gordian-principles) is "resilience". In particular, making it hard for a user to lose their data is a core architectural requirement. For our CSR model, this is done via a fallback. This creates an additional data flow: the user may establish a fallback, and if they do and later lose their keypair, they may use the fallback to reset the keypair. 
 
 It's vitally important that a user establish a fallback shortly after storing their initial data, because until they do, their keypair remains a Single Point of Failure (SPOF). Requiring a fallback, though technically optional, should thus be considered a step in the Data Flow immediately after Data Storage.
+
+**Depicted API:**
+```
+func updateFallback(publicKey: PublicKeyBase, fallback: String?) throws
+/// Updates an account's fallback contact method, which could be a phone
+/// number, email address, or similar. The fallback is used to give users a way to
+/// change their public key in the event they lose it. It is up to ExampleStore's
+/// owner to validate the fallback contact method before letting the public key be
+/// changed.
+
+func retrieveFallback(publicKey: PublicKeyBase) throws -> String?
+/// Retrieves an account's fallback contact method, if any.
+
+func fallbackTransfer(fallback: String, new: PublicKeyBase) throws
+/// Requests a reset of the account's public key without knowing the current one.
+/// The account must have a validated fallback contact method that matches the one
+/// provided. The Store owner needs to then contact the user via their fallback
+/// contact method to confirm the change. If the request is not confirmed by a set
+/// amount of time, then the change is not made.
+
+func updatePublicKey(old: PublicKeyBase, new: PublicKeyBase) throws
+/// Changes the public key used as the account identifier. It could be invoked
+/// specifically because a user requests it, in which case they will need to know
+/// their old public key, or it could be invoked because they used their fallback
+/// contact method to request a transfer token that encodes their old public key.
+``` 
 
 ```mermaid
 sequenceDiagram
@@ -125,6 +166,19 @@ localAPI->>Alice: response(ID,OK)
 ## IIIb. Data Flow: Deleting an Account
 
 Alternatively, a user might decide to delete their account with a share server entirely.
+
+**Depicted API:**
+```    
+func deleteShares(publicKey: PublicKeyBase, receipts: Set<Receipt>?) throws
+/// Deletes either a subset of shares a user controls, or all the shares if a
+/// subset of receipts is not provided. Deletes are idempotent; in other words,
+/// deleting nonexistent shares is not an error.
+
+func deleteAccount(publicKey: PublicKeyBase)
+/// Deletes all the shares of an account and any other data associated with it, such
+/// as the fallback contact method. Deleting an account is idempotent; in other words,
+/// deleting a nonexistent account is not an error.
+```
 
 ```mermaid
 sequenceDiagram
