@@ -2,6 +2,9 @@
 
 This set of exemplar sequence diagrams for a CSR Share Servers assumes the sample API from [ExampleStore](https://github.com/BlockchainCommons/BCSwiftFoundation/blob/d355f0847d8bea9bac5fba8ddfdb8c29c281f9f7/Tests/BCFoundationTests/ExampleStore/ExampleStore.swift). It is not necessarily the only way to construct the flow of similar functions.
 
+**Associated Video:**
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mpCEGUiCwFg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## I. Data Flow: Storing & Retrieving a Share
 
 The standard data flow for a share server involves the storage of data and the later retrieval of that data.
