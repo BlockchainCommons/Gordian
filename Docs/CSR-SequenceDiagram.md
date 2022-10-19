@@ -52,8 +52,8 @@ Alice->>localAPI: request(ID,keyPair,updateFallback,fallback)
 localAPI->>storeShare: updateFallback(fallback,pubKey,signature)
 storeShare->>storage: addFallback(pubKey,fallback)
 storage->>storeShare: OK
-storeshare->>localAPI: OK
-localAPI->>Alice: response(OK)
+storeShare->>localAPI: OK
+localAPI->>Alice: response(ID,OK)
 
 Note over Alice,auth: Fallback Retrieval
 Alice->>localAPI: request(ID,keyPair,retrieveFallback)
@@ -73,8 +73,8 @@ auth-->>storeShare: verifyFallback
 storeShare->>storeShare: updatePublicKey(newPubKey,pubKey)
 storeShare->>storage: updateAccount(pubKey,newPubKey)
 storage->>storeShare: OK
-storeshare->>localAPI: OK
-localAPI->>Alice: response(OK)
+storeShare->>localAPI: OK
+localAPI->>Alice: response(ID,OK)
 ```
 The `updatePublicKey` function can also be triggered directly by a user.
 
@@ -90,8 +90,8 @@ Alice->>localAPI: request(ID,keyPair,updatePublicKey,newPubKey)
 localAPI->>storeShare: updatePublicKey(newPubKey,pubKey,signature)
 storeShare->>storage: updateAccount(pubKey,newPubKey)
 storage->>storeShare: OK
-storeshare->>localAPI: OK
-localAPI->>Alice: response(OK)
+storeShare->>localAPI: OK
+localAPI->>Alice: response(ID,OK)
 ```
 
 ## IIIa. Data Flow: Deleting a Share
@@ -115,8 +115,8 @@ storeShare->>storage: deleteData(pubKey,receipts)
 else Receipts? No
 storeShare->>storage: deleteData(pubKey,ALL)
 storage->>storeShare: OK
-storeshare->>localAPI: OK
-localAPI->>Alice: response(OK)
+storeShare->>localAPI: OK
+localAPI->>Alice: response(ID,OK)
 end    
 ```
 
@@ -136,8 +136,8 @@ Alice->>localAPI: request(ID,keyPair,deleteAccount)
 localAPI->>storeShare: deleteAccount(pubKey,signature)
 storeShare->>storage: deleteAccount(pubKey)
 storage->>storeShare: OK
-storeshare->>localAPI: OK
-localAPI->>Alice: response(OK)
+storeShare->>localAPI: OK
+localAPI->>Alice: response(ID,OK)
 ```
 
 
