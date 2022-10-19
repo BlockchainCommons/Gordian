@@ -114,10 +114,10 @@ alt Receipts? Yes
 storeShare->>storage: deleteData(pubKey,receipts)
 else Receipts? No
 storeShare->>storage: deleteData(pubKey,ALL)
+end    
 storage->>storeShare: OK
 storeShare->>localAPI: OK
 localAPI->>Alice: response(ID,OK)
-end    
 ```
 
 ## IIIb. Data Flow: Deleting an Account
