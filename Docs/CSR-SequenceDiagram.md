@@ -41,10 +41,6 @@ It's vitally important that a user establish a fallback shortly after storing th
 
 [Q1: is there any response for requests that generate no result, such as updateFallback?]
 
-[Q2: based on the current API, the public key is required for all commands. That feels like a Single Point of Failure.]
-
-[Q3: I assume that the requests for retrieveFallback and fallbackTransfer don't actually require a signature, like the others.]
-
 ```mermaid
 sequenceDiagram
 actor Alice
@@ -52,20 +48,23 @@ participant localAPI
 participant storeShare
 participant storage
 participant auth
+
 Note over Alice,auth: Fallback Creation
 Alice->>localAPI: request(ID,keyPair,updateFallback,fallback)
 localAPI->>storeShare: updateFallback(fallback,pubKey,signature)
 storeShare->>storage: addFallback(pubKey,fallback)
+
 Note over Alice,auth: Fallback Retrieval
-Alice->>localAPI: request(ID,pubKey,retrieveFallback)
-localAPI->>storeShare: retrieveFallback(pubKey)
+Alice->>localAPI: request(ID,keyPair,retrieveFallback)
+localAPI->>storeShare: retrieveFallback(pubKey,signature)
 storeShare->>storage: retrieveFallback(pubKey)
 storage->>storeShare: fallback
 storeShare->>localAPI: fallback
 localAPI->>Alice: response(ID,fallback)
+
 Note over Alice,auth: Fallback Usage
-Alice->>localAPI: request(ID,pubKey,fallbackTransfer,fallback,newPubKey)
-localAPI->>storeShare: fallbackTransfer(fallback,pubKey,newPubKey)
+Alice->>localAPI: request(ID,newKeyPair,fallbackTransfer,fallback)
+localAPI->>storeShare: fallbackTransfer(fallback,newPubKey,newSignature)
 storeShare-->>auth: initiateFallback
 auth-->>Alice: requestFallbackVerification
 Alice-->>auth: verifyFallback
