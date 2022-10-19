@@ -1,6 +1,6 @@
 # Sequence Diagrams for CSR Share Servers
 
-This set of exemplar sequence diagrams for a CSR Share Servers assumes the sample commands in [ExampleStore](https://github.com/BlockchainCommons/BCSwiftFoundation/blob/d355f0847d8bea9bac5fba8ddfdb8c29c281f9f7/Tests/BCFoundationTests/ExampleStore/ExampleStore.swift). It is not necessarily the only way to construct the flow of similar functions.
+This set of exemplar sequence diagrams for a CSR Share Servers assumes the sample API from [ExampleStore](https://github.com/BlockchainCommons/BCSwiftFoundation/blob/d355f0847d8bea9bac5fba8ddfdb8c29c281f9f7/Tests/BCFoundationTests/ExampleStore/ExampleStore.swift). It is not necessarily the only way to construct the flow of similar functions.
 
 ## I. Data Flow: Storing & Retrieving a Share
 
