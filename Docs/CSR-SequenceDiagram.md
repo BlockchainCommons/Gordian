@@ -143,6 +143,14 @@ The lifecycle of a share in a share server usually ends with a deletion command.
 
 This might be a deletion of some or all shares, which might occur prior to re-entry into the system with a new `storeShare` request.
 
+**Depicted API:**
+```    
+func deleteShares(publicKey: PublicKeyBase, receipts: Set<Receipt>?) throws
+/// Deletes either a subset of shares a user controls, or all the shares if a
+/// subset of receipts is not provided. Deletes are idempotent; in other words,
+/// deleting nonexistent shares is not an error.
+```
+
 ```mermaid
 sequenceDiagram
 actor Alice
@@ -169,11 +177,6 @@ Alternatively, a user might decide to delete their account with a share server e
 
 **Depicted API:**
 ```    
-func deleteShares(publicKey: PublicKeyBase, receipts: Set<Receipt>?) throws
-/// Deletes either a subset of shares a user controls, or all the shares if a
-/// subset of receipts is not provided. Deletes are idempotent; in other words,
-/// deleting nonexistent shares is not an error.
-
 func deleteAccount(publicKey: PublicKeyBase)
 /// Deletes all the shares of an account and any other data associated with it, such
 /// as the fallback contact method. Deleting an account is idempotent; in other words,
