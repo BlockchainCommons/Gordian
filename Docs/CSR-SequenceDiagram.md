@@ -39,8 +39,6 @@ One of the [Gordian Principles](https://github.com/BlockchainCommons/Gordian#gor
 
 It's vitally important that a user establish a fallback shortly after storing their initial data, because until they do, their keypair remains a Single Point of Failure (SPOF). Requiring a fallback, though technically optional, should thus be considered a step in the Data Flow immediately after Data Storage.
 
-[Q1: is there any response for requests that generate no result, such as updateFallback?]
-
 ```mermaid
 sequenceDiagram
 actor Alice
@@ -53,6 +51,9 @@ Note over Alice,auth: Fallback Creation
 Alice->>localAPI: request(ID,keyPair,updateFallback,fallback)
 localAPI->>storeShare: updateFallback(fallback,pubKey,signature)
 storeShare->>storage: addFallback(pubKey,fallback)
+storage->>storeShare: OK
+storeshare->>localAPI: OK
+localAPI->>Alice: response(OK)
 
 Note over Alice,auth: Fallback Retrieval
 Alice->>localAPI: request(ID,keyPair,retrieveFallback)
@@ -71,6 +72,9 @@ Alice-->>auth: verifyFallback
 auth-->>storeShare: verifyFallback
 storeShare->>storeShare: updatePublicKey(newPubKey,pubKey)
 storeShare->>storage: updateAccount(pubKey,newPubKey)
+storage->>storeShare: OK
+storeshare->>localAPI: OK
+localAPI->>Alice: response(OK)
 ```
 The `updatePublicKey` function can also be triggered directly by a user.
 
@@ -80,10 +84,14 @@ actor Alice
 participant localAPI
 participant storeShare
 participant storage
+
 Note over Alice,storage: Key Update
 Alice->>localAPI: request(ID,keyPair,updatePublicKey,newPubKey)
 localAPI->>storeShare: updatePublicKey(newPubKey,pubKey,signature)
 storeShare->>storage: updateAccount(pubKey,newPubKey)
+storage->>storeShare: OK
+storeshare->>localAPI: OK
+localAPI->>Alice: response(OK)
 ```
 
 ## IIIa. Data Flow: Deleting a Share
@@ -98,6 +106,7 @@ actor Alice
 participant localAPI
 participant storeShare
 participant storage
+
 Note over Alice,storage: Data Deletion
 Alice->>localAPI: request(ID,keyPair,deleteShares,receipts)
 localAPI->>storeShare: deleteShares(receipts,pubKey,signature)
@@ -105,6 +114,9 @@ alt Receipts? Yes
 storeShare->>storage: deleteData(pubKey,receipts)
 else Receipts? No
 storeShare->>storage: deleteData(pubKey,ALL)
+storage->>storeShare: OK
+storeshare->>localAPI: OK
+localAPI->>Alice: response(OK)
 end    
 ```
 
@@ -118,10 +130,14 @@ actor Alice
 participant localAPI
 participant storeShare
 participant storage
+
 Note over Alice,storage: Data Deletion
 Alice->>localAPI: request(ID,keyPair,deleteAccount)
 localAPI->>storeShare: deleteAccount(pubKey,signature)
 storeShare->>storage: deleteAccount(pubKey)
+storage->>storeShare: OK
+storeshare->>localAPI: OK
+localAPI->>Alice: response(OK)
 ```
 
 
