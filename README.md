@@ -79,6 +79,43 @@ Please see [The Gordian Reference Libraries](https://github.com/BlockchainCommon
 
 Please see the [SmartCustody repo](https://github.com/BlockchainCommons/SmartCustody) for articles on Multisigs, Timelocks, and other SmartCustody topics.
 
+## Gordian Lexicon
+
+The following words & phrased are used in Gordian documents:
+
+* **AirGap.**
+* **ByteWords.** 
+* **CBOR.** 
+* **Closely Held Device.** 
+* **Collaborative Key Management (CKM).**
+* **Collaborative Seed Recovery (CSR).**
+* **Data Format.** The data structures used to store data.
+* **Encoding.** 
+* **Envelope.**
+* **Functional Partition.** The philosophy of separating different functions as different parts of an interoperable ecosystem, and also dividing data up into different locations, all to improve _Resilience_.
+* **Gordian Architecture.** The suggested design of a data-asset ecosystem using _The Gordian System_. It incudes _Macro-Architecture_, _Data Formats_, _Specifications_, and _UX Designs_.
+* **Gordian Macro-Architecture.** The interoperable design of a system of services, applications, and hardware devices using the _Gordian System_ to build upon the _Bordian Principles_. The macro-architectural is built upon a foundational idea of _functional partition_.
+* **Gordian Principles.** Four fundamental precepts at the heart of the _Gordian System_: _Independence_, _Privacy_, _Resilience_, and _Openness_.
+   * **Independence.** The ability to work in a self-sovereign way without centralization. A _Gordian Principle_.
+   * **Privacy.** Protection of personal data and usage against correlation and censorship. A _Gordian Principle_.
+   * **Resilience.** The ability to prevent loss of assets or data, including resilience against theft and resilience against accidental loss. A _Gordian Principle_.
+   * **Openness.** Interoperability of systems and easy portability of data. A _Gordian Principle_.
+* **Gordian System.** An overall design that includes _Architecture_, _Reference Apps_, _Libraries_, and _Specifications_ intended to support the _Gordian Principles_.
+* **Lifehash.**
+* **Microservice.** A _Service_ that provides a capability which is very specific and/or infrequently used.
+* **Networked.**
+* **Object Identity Block (OIB).** 
+* **Quick Connect.**
+* **Quick Response (QR) Code.**
+* **Reference App.** An application that shows an example of the usage of a _Specification_, usually built with a _Reference Library_.
+* **Reference Library.** A library that provides an API for using a _Specification_.
+* **Service.** An application providing a specific capability as part of the _Functional Partition_ of a digital-asset ecosystem. Includes _Microservices_.
+* **SmartCustody.** Documents, instructions, and _Specifications_ intended to improve the _Resilience_ of digital assets, either at the personal or the ecosystem level.
+* **Specification.** A specific design intended to support communication and data encoding and backup, to ensure interoperability, and/or to support UX design, to ensure other _Gordian Principles_.
+* **TorGap.** 
+* **Uniform Resources (URs).**  
+* **UX Design.** 
+
 ## Gordian Discussions
 
 All of these Gordian topics can be discussed in our two Gordian discussion areas:
