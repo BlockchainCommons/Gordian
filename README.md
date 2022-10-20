@@ -87,7 +87,7 @@ The core libraries are:
 
 * **bc-bytewords.** A library for encoding binary data into Bytewords. A Gordian _Encoding Specification_.
 * **bc-lifehash.** A library for creating Lifehash visual hashes. A Gordian _UX Design_.
-* **bc-sskr.** A library for sharding a secret and converting it to Bytewords or URs. A Gordian _Backup Specification.
+* **bc-sskr.** A library for sharding a secret and converting it to Bytewords or URs. A Gordian _Backup Specification_.
 * **bc-ur.** A library for encoding binary data as URs. A Gordian _Encoding Specification_.
 
 Please see [The Gordian Reference Libraries](https://github.com/BlockchainCommons/crypto-commons#gordian-reference-libraries) for a complete list of libraries in a variety of languages.
