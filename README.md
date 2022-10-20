@@ -35,11 +35,19 @@ Look at individual Blockchain Commons reference apps for guidance on how each ac
 The Gordian Architecture puts the Gordian Principles into use through an overall design that covers everything that from the high-level architecture of a Gordian ecosystem through the specification and UX best practices that make it possible.
 
 * **Gordian Macro-Architecture.** The ecosystem architecture depends on functional partition, separating services and confidential data.
+   * It is built primarily to support _Privacy_ through this functionality.
+   * It is also built on a concept of _Openness_ where different Services from different developers will interoperate freely.
 * **Data Format.** CBOR is used as the canonical data structure for the Gordian Architecture.
 * **Encoding Specifications.** Bytewords, URs, and (optionally) QR Codes ensure that Gordian services are interoperable.
-* **Backup Specifications.** UR specifications make it easy to backup confidential data, creating Resilience.
+   * The Encoding Specifications are how the Gordian System ensures _Openness_ in its Macro-Architure.
+* **Backup Specifications.** UR specifications make it easy to backup confidential data.
+  * Ensuring backups of data is a prime way to ensure the _Resilience_ of that data.
 * **Communication Specifications.** Further UR specifications such as envelopes and request/responses aid interoperable communication.
+   * Like the Encoding Specifications, these help to suport the _Openness_ of the architecture.
+   * They also ensure _Independence_ because they assure the portability of data.
 * **Secure UX Designs.** UX best practices form another layer of support for the Gordian Principles.
+   * Good UX designs help _Resilience_ by proofing a user against mistake or con-men attacks of various sorts.
+   * They also improve _Independence by making it easier for a user to control their own destiny.
 
 Please see [The Gordian Architecture](/Docs/Overview-Architecture.md) for more in-depth discussion of all the architectural elements and [Gordian Architecture Roles](/Docs/Overview-Roles.md) for examples of functions that can be partitioned within the Macro-architecture. Also see [Collaborative Seed Recovery (CSR) Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/CSR.md) for our largest current architectual project in 2022 and [Collaborative Key Management (CKM) Overview](Docs/CKM.md) for our planned next step in 2023-2024.
 
