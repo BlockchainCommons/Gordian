@@ -84,39 +84,40 @@ Please see the [SmartCustody repo](https://github.com/BlockchainCommons/SmartCus
 The following words & phrased are used in Gordian documents:
 
 * **Airgap.** A _Partition_ between two _Services_, such that they are not _Networked_ on the same network. (Often, at least one _Service_ is not _Networked_ at all).
-* **ByteWords.** An _Encoding Specification_ that represents binary data as English words. Used in the _Gordian System_ primarily to represent _CBOR_.
-* **CBOR.** An _Encoding Specification_ for representing data in a binary format. Supported by [RFC 8949](https://cbor.io/). The canonical data representation for the _Gordian System_.
+* **ByteWords.** An _Encoding Specification_ that represents binary data as English words. Used in the _Gordian System_ primarily to represent _CBOR_ in _URs_.
+* **CBOR.** A _Data Format_, the canonical data representation for the _Gordian System_. It represents data in a binary format. Supported by [RFC 8949](https://cbor.io/). 
 * **Closely Held Device.** A hardware device such as a phone or a hardware wallet that is privately held by an individual, that has a small attack surface due to careful and consistent sandboxing, and that is not constantly _Networked_ in the way that a full computer tends to be.
-* **Collaborative Key Management (CKM).** A _Service_ for collaboratively generating and using keys.
-* **Collaborative Seed Recovery (CSR).** A _Service_ to improve _Resilience_ by storing _Shares_ of keys created by _Sharding_.
+* **Collaborative Key Management (CKM).** A _Service_ for the collaborative generation and usage of keys.
+* **Collaborative Seed Recovery (CSR).** A _Service_ to improve _Resilience_ by storing _Shares_ of keys or seeds that are created by _Sharding_.
 * **Data Format.** A _Specification_ for a structure to store data.
 * **Encoding.** A conversion of data into a specific form.
+* **Encoding Specification.** A _Specification_ for _Encoding_.
 * **Envelope.** A communication _Specification_ for a Smart Document that supports the storage, backup, encryption & authentication of data, with explicit support for Merkle-based selective disclosure.
 * **Functional Partition.** The philosophy of separating different functions as different parts of an interoperable ecosystem, and also dividing data up into different locations, all to improve _Resilience_. This is done with _Partitions_ and could include _Airgaps_ or _Torgaps_.
-* **Gordian Architecture.** The suggested design of a data-asset ecosystem using _The Gordian System_. It incudes _Macro-Architecture_, _Data Formats_, _Specifications_, and _UX Designs_.
-* **Gordian Macro-Architecture.** The interoperable design of a system of services, applications, and hardware devices using the _Gordian System_ to build upon the _Bordian Principles_. The macro-architectural is built upon a foundational idea of _functional partition_.
+* **Gordian Architecture.** A suggested design for a data-asset ecosystem using _The Gordian System_. It incudes _Macro-Architecture_, _Data Formats_, _Specifications_, and _UX Designs_.
+* **Gordian Macro-Architecture.** The interoperable design of a system of _Services_, applications, and hardware devices that builds upon the _Gordian Principles_. The macro-architectural is built upon a foundational idea of _Functional Partition_. Part of teh _Gordian System_.
 * **Gordian Principles.** Four fundamental precepts at the heart of the _Gordian System_: _Independence_, _Privacy_, _Resilience_, and _Openness_.
    * **Independence.** The ability to work in a self-sovereign way without centralization. A _Gordian Principle_.
    * **Privacy.** Protection of personal data and usage against correlation and censorship. A _Gordian Principle_.
    * **Resilience.** The ability to prevent loss of assets or data, including resilience against theft and resilience against accidental loss. A _Gordian Principle_.
    * **Openness.** Interoperability of systems and easy portability of data. A _Gordian Principle_.
-* **Gordian System.** An overall design that includes _Architecture_, _Reference Apps_, _Libraries_, and _Specifications_ intended to support the _Gordian Principles_.
+* **Gordian System.** An overall design for a data ecosystem that includes _Architecture_, _Reference Apps_, _Libraries_, and _Specifications_ that are intended to support the _Gordian Principles_.
 * **Lifehash.** A _UX Design_ that creates a visual hash as part of an _OIB_ to allow for visual identification of data.
 * **Microservice.** A _Service_ that provides a capability which is very specific and/or infrequently used.
 * **Networked.** Directly connected to an online network.
 * **Object Identity Block (OIB).** A _UX Design_ for an array of data that can together allow a user to easily and uniquely identify data. Can include a _Lifehash_.
-* **Partition.** A division between two or more _Services_. This could be as simple as ensuring they are on different machines, but can also include an _Airgap_ or _Torgap_.
-* **Quick Connect.** A _UX Design_ for a _URI_ or _QR Code_ that can be used to securely connect together two devices that are either _Networked_ or separated by a _Partition_.
-* **Quick Response (QR) Code.**
-* **Reference App.** An application that shows an example of the usage of a _Specification_, usually built with a _Reference Library_.
-* **Reference Library.** A library that provides an API for using a _Specification_.
+* **Partition.** A division between two or more _Services_. A partition could be as simple as ensuring those _Services_ are on different machines, but can also include an _Airgap_ or _Torgap_.
+* **Quick Connect.** A _UX Design_ for a _URI_ or _QR Code_ that can be used to securely connect together two devices that are separated by a _Partition_.
+* **Quick Response (QR) Code.** An _Encoding Specification_ that represents data in a graphical format. _URs_ are built to allow for efficient encoding as a QR Code.
+* **Reference App.** An application that shows an example of the usage of a _Specification_, usually built with a _Reference Library_. Gordian Reference Apps are part of the _Gordian System_.
+* **Reference Library.** A library that provides an API for using a _Specification_. Gordian Reference Libraries are part of the _Gordian System_.
 * **Service.** An application providing a specific capability as part of the _Functional Partition_ of a digital-asset ecosystem. Includes _Microservices_.
-* **Share.** A fraction of a seed or a key created for backups by an algorithm such as Shamir's Secret Sharing or VSS.
+* **Share.** A fraction of a seed or a key created by an algorithm such as Shamir's Secret Sharing or VSS. Intended to improve _Resilience_ of data.
 * **Sharding.** The process of creating _Shares_ from seeds or keys.
 * **SmartCustody.** Documents, instructions, and _Specifications_ intended to improve the _Resilience_ of digital assets, either at the personal or the ecosystem level.
-* **Specification.** A specific design intended to support communication and data encoding and backup, to ensure interoperability, and/or to support UX design, to ensure other _Gordian Principles_.
-* **Torgap.** A _Partition_ between two _Services_, such that they are anonymous to each other. 
-* **Uniform Resources (URs).** An _Encoding Specification_ for data. It is created by representating data as _CBOR_ and then encoding it with minimal _Bytewords_. It allows for interoperable communication.
+* **Specification.** A specific design intended to support communication, data, or backup _Encoding_ and backup, to ensure the _Openness_ of interoperability, to support _UX Design_, or to ensure other _Gordian Principles_. Part of the _Gordian System_.
+* **Torgap.** A _Partition_ between two _Services_, created to ensure that they are anonymous to each other. 
+* **Uniform Resources (URs).** An _Encoding Specification_ of a _URI_ for data. It is created by representating data as _CBOR_ and then encoding it with minimal _Bytewords_. URs are also built to allow efficient _Encoding_ as _QR Codes_. URs allow for interoperable communication.
 * **Uniform Resource Identifier (URI).** A unique sequence for identifying a resource. A _UR_ is a URI.
 * **UX Design.** A methodology for presenting data to a user.
 
