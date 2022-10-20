@@ -35,19 +35,19 @@ Look at individual Blockchain Commons reference apps for guidance on how each ac
 The Gordian Architecture puts the Gordian Principles into use through an overall design that covers everything that from the high-level architecture of a Gordian ecosystem through the specification and UX best practices that make it possible.
 
 * **Gordian Macro-Architecture.** The ecosystem architecture depends on functional partition, separating services and confidential data.
-   * It is built primarily to support _Privacy_ through this functionality.
+   * The Macro-Architecture is built primarily to support _Privacy_ through these features.
    * It is also built on a concept of _Openness_ where different Services from different developers will interoperate freely.
 * **Data Format.** CBOR is used as the canonical data structure for the Gordian Architecture.
 * **Encoding Specifications.** Bytewords, URs, and (optionally) QR Codes ensure that Gordian services are interoperable.
    * The Encoding Specifications are how the Gordian System ensures _Openness_ in its Macro-Architure.
 * **Backup Specifications.** UR specifications make it easy to backup confidential data.
-  * Ensuring backups of data is a prime way to ensure the _Resilience_ of that data.
+  * Supporting backups of data improves the _Resilience_ of that data.
 * **Communication Specifications.** Further UR specifications such as envelopes and request/responses aid interoperable communication.
-   * Like the Encoding Specifications, these help to suport the _Openness_ of the architecture.
+   * Like the Encoding Specifications, Communication Specifications help to suport the _Openness_ of the architecture.
    * They also ensure _Independence_ because they assure the portability of data.
 * **Secure UX Designs.** UX best practices form another layer of support for the Gordian Principles.
    * Good UX designs help _Resilience_ by proofing a user against mistake or con-men attacks of various sorts.
-   * They also improve _Independence by making it easier for a user to control their own destiny.
+   * They also improve _Independence_ by making it easier for a user to control their own destiny.
 
 Please see [The Gordian Architecture](/Docs/Overview-Architecture.md) for more in-depth discussion of all the architectural elements and [Gordian Architecture Roles](/Docs/Overview-Roles.md) for examples of functions that can be partitioned within the Macro-architecture. Also see [Collaborative Seed Recovery (CSR) Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/CSR.md) for our largest current architectual project in 2022 and [Collaborative Key Management (CKM) Overview](Docs/CKM.md) for our planned next step in 2023-2024.
 
@@ -65,9 +65,18 @@ This video overview covers many of the technologies found in the Gordian Archite
 Gordian Reference Apps demonstrate the elements of how the Gordian Architecture and how they can be used to fulfill the Gordian Principles. Our Gordian Reference Apps undergoing the most development currently include:
 
 * **Gordian Coordinator.** A Networked transaction coordinator.
+   * Demonstrates _Independence_ and _Privacy_ by empowering users to create their own transactions, potentially in a non-Networked way.
+   * Demonstrates _Openness_ through use of Communication Specifications such as URs.
+   * Improves _Resilience_ through support for multi-sigs.
 * **Gordian Seed Tool.** An Airgapped seed vault & signing device.
+   * Allows for _Independence_ and _Resilience_ by storing user assets in a Closely Held device.
+   * Demonstrates _Openness_ through the use of Communication Specifications such as URs.
+   * Improves _Resilience_ through Sharding and Backup Specifications.
 * **SpotBit.** A Micro-pricing service.
-
+   * Demonstrates the _Openness_ of a digital-asset ecosystem that supports Microservices.
+   * Improves _Privacy_ through the user of a Torgap.
+   * Improves _Independence_ by removing centralization of price-lookups.
+  
 Please see [The Gordian Reference Apps](/Docs/Overview-Apps.md) for a complete list of past and present reference apps, links to their repos, and an example of how they can be combined into a Macro-Architecture. Links to CLI apps are also included.
 
 ## Gordian Reference Libraries
@@ -76,10 +85,10 @@ The Gordian Reference Libraries allow you to easily use many of the specificatio
 
 The core libraries are:
 
-* **bc-bytewords.** A library for encoding binary data into Bytewords.
-* **bc-lifehash.** A library for creating Lifehash visual hashes.
-* **bc-sskr.** A library for sharding a secret and converting it to Bytewords or URs.
-* **bc-ur.** A library for encoding binrary data as URs.
+* **bc-bytewords.** A library for encoding binary data into Bytewords. A Gordian _Encoding Specification_.
+* **bc-lifehash.** A library for creating Lifehash visual hashes. A Gordian _UX Design_.
+* **bc-sskr.** A library for sharding a secret and converting it to Bytewords or URs. A Gordian _Backup Specification.
+* **bc-ur.** A library for encoding binary data as URs. A Gordian _Encoding Specification_.
 
 Please see [The Gordian Reference Libraries](https://github.com/BlockchainCommons/crypto-commons#gordian-reference-libraries) for a complete list of libraries in a variety of languages.
 
