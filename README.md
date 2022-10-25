@@ -133,10 +133,10 @@ The following words & phrased are used in Gordian documents:
 * **Sharding.** The process of creating _Shares_ from seeds or keys. See [UR Definition for SSKR](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-011-sskr.md).
 * **SmartCustody.** Documents, instructions, and _Specifications_ intended to improve the _Resilience_ of digital assets, either at the personal or the ecosystem level. See [SmartCustody Repo](https://github.com/BlockchainCommons/SmartCustody/blob/master/README.md).
 * **Specification.** A specific design intended to support communication, data, or backup _Encoding_ and backup, to ensure the _Openness_ of interoperability, to support _UX Design_, or to ensure other _Gordian Principles_. Part of the _Gordian System_. See Gordian Specifications in [Blockchain Commons Research Repo](https://github.com/BlockchainCommons/Research/blob/master/README.md) & [Crypto Commons Docs](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/README.md).
-* **Torgap.** A _Partition_ between two _Services_, created to ensure that they are anonymous to each other. 
-* **Uniform Resources (URs).** An _Encoding Specification_ of a _URI_ for data. It is created by representating data as _CBOR_ and then encoding it with minimal _Bytewords_. URs are also built to allow efficient _Encoding_ as _QR Codes_. URs allow for interoperable communication.
-* **Uniform Resource Identifier (URI).** A unique sequence for identifying a resource. A _UR_ is a URI.
-* **UX Design.** A methodology for presenting data to a user.
+* **Torgap.** A _Partition_ between two _Services_, created to ensure that they are anonymous to each other. See [Torgap Repo](https://github.com/BlockchainCommons/torgap#readme).
+* **Uniform Resources (URs).** An _Encoding Specification_ of a _URI_ for data. It is created by representating data as _CBOR_ and then encoding it with minimal _Bytewords_. URs are also built to allow efficient _Encoding_ as _QR Codes_. URs allow for interoperable communication. See [UR Spec](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-005-ur.md).
+* **Uniform Resource Identifier (URI).** A unique sequence for identifying a resource. A _UR_ is a URI. See [URI (Wikipedia)](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier).
+* **UX Design.** A methodology for presenting data to a user. See [Secure UX Designs](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md#secure-ux-designs).
 
 ## Gordian Discussions
 
