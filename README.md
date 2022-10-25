@@ -100,27 +100,27 @@ Please see the [SmartCustody repo](https://github.com/BlockchainCommons/SmartCus
 
 The following words & phrased are used in Gordian documents:
 
-* **Airgap.** A _Partition_ between two _Services_, such that they are not _Networked_ on the same network. (Often, at least one _Service_ is not _Networked_ at all).
-* **ByteWords.** An _Encoding Specification_ that represents binary data as English words. Used in the _Gordian System_ primarily to represent _CBOR_ in _URs_.
-* **CBOR.** A _Data Format_, the canonical data representation for the _Gordian System_. It represents data in a binary format. Supported by [RFC 8949](https://cbor.io/). 
+* **Airgap.** A _Partition_ between two _Services_, such that they are not _Networked_ on the same network. (Often, at least one _Service_ is not _Networked_ at all). See [Airgap (Wikpedia)](https://en.wikipedia.org/wiki/Air_gap_(networking)).
+* **ByteWords.** An _Encoding Specification_ that represents binary data as English words. Used in the _Gordian System_ primarily to represent _CBOR_ in _URs_. See [ByteWords Spec](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md).
+* **CBOR.** A _Data Format_, the canonical data representation for the _Gordian System_. It represents data in a binary format. See [RFC 8949](https://cbor.io/). 
 * **Closely Held Device.** A hardware device such as a phone or a hardware wallet that is privately held by an individual, that has a small attack surface due to careful and consistent sandboxing, and that is not constantly _Networked_ in the way that a full computer tends to be.
-* **Collaborative Key Management (CKM).** A _Service_ for the collaborative generation and usage of keys.
-* **Collaborative Seed Recovery (CSR).** A _Service_ to improve _Resilience_ by storing _Shares_ of keys or seeds that are created by _Sharding_.
+* **Collaborative Key Management (CKM).** A _Service_ for the collaborative generation and usage of keys. See [CKM Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/CKM.md).
+* **Collaborative Seed Recovery (CSR).** A _Service_ to improve _Resilience_ by storing _Shares_ of keys or seeds that are created by _Sharding_. See [CSR Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/CSR.md).
 * **Data Format.** A _Specification_ for a structure to store data.
-* **Encoding.** A conversion of data into a specific form.
-* **Encoding Specification.** A _Specification_ for _Encoding_.
+* **Encoding.** A conversion of data into a specific form. See [Encoding (Techopedia)](https://www.techopedia.com/definition/948/encoding).
+* **Encoding Specification.** A _Specification_ for _Encoding_. See [Gordian Encoding Specifications](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md#encoding-specifications).
 * **Envelope.** A communication _Specification_ for a Smart Document that supports the storage, backup, encryption & authentication of data, with explicit support for Merkle-based selective disclosure.
 * **Functional Partition.** The philosophy of separating different functions as different parts of an interoperable ecosystem, and also dividing data up into different locations, all to improve _Resilience_. This is done with _Partitions_ and could include _Airgaps_ or _Torgaps_.
-* **Gordian Architecture.** A suggested design for a data-asset ecosystem using _The Gordian System_. It incudes _Macro-Architecture_, _Data Formats_, _Specifications_, and _UX Designs_.
-* **Gordian Macro-Architecture.** The interoperable design of a system of _Services_, applications, and hardware devices that builds upon the _Gordian Principles_. The macro-architectural is built upon a foundational idea of _Functional Partition_. Part of teh _Gordian System_.
-* **Gordian Principles.** Four fundamental precepts at the heart of the _Gordian System_: _Independence_, _Privacy_, _Resilience_, and _Openness_.
+* **Gordian Architecture.** A suggested design for a data-asset ecosystem using _The Gordian System_. It incudes _Macro-Architecture_, _Data Formats_, _Specifications_, and _UX Designs_. See [Gordian Architecture Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md).
+* **Gordian Macro-Architecture.** The interoperable design of a system of _Services_, applications, and hardware devices that builds upon the _Gordian Principles_. The macro-architectural is built upon a foundational idea of _Functional Partition_. Part of teh _Gordian System_. See [Gordian Macro-Architecture Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md#macro-architecture).
+* **Gordian Principles.** Four fundamental precepts at the heart of the _Gordian System_: _Independence_, _Privacy_, _Resilience_, and _Openness_. See [Gordian Principles Overview (Above)](https://github.com/BlockchainCommons/Gordian#gordian-principles).
    * **Independence.** The ability to work in a self-sovereign way without centralization. A _Gordian Principle_.
    * **Privacy.** Protection of personal data and usage against correlation and censorship. A _Gordian Principle_.
    * **Resilience.** The ability to prevent loss of assets or data, including resilience against theft and resilience against accidental loss. A _Gordian Principle_.
    * **Openness.** Interoperability of systems and easy portability of data. A _Gordian Principle_.
-* **Gordian System.** An overall design for a data ecosystem that includes _Architecture_, _Reference Apps_, _Libraries_, and _Specifications_ that are intended to support the _Gordian Principles_.
-* **Lifehash.** A _UX Design_ that creates a visual hash as part of an _OIB_ to allow for visual identification of data.
-* **Microservice.** A _Service_ that provides a capability which is very specific and/or infrequently used.
+* **Gordian System.** An overall design for a data ecosystem that includes _Architecture_, _Reference Apps_, _Libraries_, and _Specifications_ that are intended to support the _Gordian Principles_. See [Gordian System Overview (This Page)](https://github.com/BlockchainCommons/Gordian#-the-gordian-system).
+* **Lifehash.** A _UX Design_ that creates a visual hash as part of an _OIB_ to allow for visual identification of data. See [Lifehash.info](https://lifehash.info/).
+* **Microservice.** A _Service_ that provides a capability which is very specific and/or infrequently used. See [Gordian Macro-Architecture Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md#macro-architecture).
 * **Networked.** Directly connected to an online network.
 * **Object Identity Block (OIB).** A _UX Design_ for an array of data that can together allow a user to easily and uniquely identify data. Can include a _Lifehash_.
 * **Partition.** A division between two or more _Services_. A partition could be as simple as ensuring those _Services_ are on different machines, but can also include an _Airgap_ or _Torgap_.
