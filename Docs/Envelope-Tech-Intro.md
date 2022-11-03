@@ -501,7 +501,7 @@ Here we see that the core Alice-knows-Bob information has been wrapped and `veri
 
 (Obviously, care still needs to be taken, with the verifier having a high degree of responsibility: they need to make sure the verifierInfo is correct to know that the signature is meaningful! A `trustedSource` has been suggested as a root of truth, but even that needs to be taken with a grain of salt!)
 
-> _Further examples of Signing, including Multi-Signing, can be found in the [Examples of the Envelope Docs](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/07-EXAMPLES.md#example-2-signed-plaintext) and the [Examples of the Envelope-CLI Docs](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/2-BASIC-EXAMPLES.md#example-2-signed-plaintext).
+> _Further examples of Signing, including Multi-Signing, can be found in the [Examples of the Envelope Docs](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/07-EXAMPLES.md#example-2-signed-plaintext) and the [Examples of the Envelope-CLI Docs](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/2-BASIC-EXAMPLES.md#example-2-signed-plaintext)._
 
 ## Hashing Envelopes
 
@@ -861,7 +861,7 @@ Which is probably what was intended in the first place!
 There is a change in the hash from the standard Alice-Knows-Bob envelope, but that's because we're now seeing the hash of the wrapped envelope:
 
 
-An wrapped, encrypted envelope can continue to be layered, for example by signing the encrypted data:
+A wrapped, encrypted envelope can continue to be layered, for example by signing the encrypted data:
 ```
 ENCRYPTED [
     verifiedBy: Signature
