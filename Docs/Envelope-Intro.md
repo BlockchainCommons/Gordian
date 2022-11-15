@@ -35,12 +35,15 @@ However, new features of Gordian Envelope not available in JWT or JSON-LD offer 
 * **Sematic Triples.** Gordian Envelopes are built on powerful semantic triples, sometimes known as semantic graphs. (Semantic graphs are a feature of JSON-LD.)
 * **Known Values.** A set of "known values" for regularly used predicates can reduce the size of content within a Gordian Envelope.
 * **Structured Merkle Tree.** All parts of a Gordian Envelope can be hashed, creating a tree of digests that forms a structured Merkle Tree. (In this variant of Merkle Trees, all nodes contain both semantic content _and_ digests, rather than semantic content being limited to leaves.)
+* **Bottom-Up Support.** Support for elision, privacy, and authentication is a fundamental element of Gordian Envelope, not an add-on.
 
 ***Elision Support:***
 
 * **Elision of All Elements.** Gordian Envelopes innately support elision for all the elements of their triples: subjects, predicates, and objects.
 * **Redaction, Compression, and Encryption.** Elision can be used for a variety of purposes including redaction (removing information), compression (removing duplicate information), and encryption (enciphering information).
 * **Holder-initiated Redaction.** Elision can be performed by the Holder of a Gordian Envelope, not just the Issuer (which is a large advance over most redaction designs to date).
+* **Granular Holder Control.** Elision can not only be performed by any Holder, but also for any data, allowing each entity to elide data as is appropriate for themselves or the rules of their business.
+* **Progressive Trust.** The elision mechanics in Gordian Envelopes allow for progressive trust, where increasing amounts of data are revealed over time. It can even be combined with encryption to escrow data to later be revealed.
 * **Consistent Hashing.** Even when elided or encrypted, hashes for those parts of the Gordian Envelope remain the same.
 
 ***Privacy Support:***
