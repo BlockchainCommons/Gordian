@@ -952,7 +952,7 @@ graph LR
     linkStyle 7 stroke:green,stroke-width:2.0px
     linkStyle 8 stroke:#55f,stroke-width:2.0px
 ```
-The standard hash of "Alice", `27840350`, is now replaced with a wrapped Envelope hash of `c0f5df62` thanks to the inclusion of salt. Where a brute-force search might be able to determine that Alice were `27840350` even when Alice was elided or encrypted, the same would not be true for the salted hash of `c0f5df62`.
+The standard hash of "Alice", `27840350`, is now replaced with a wrapped Envelope hash of `b2878630` thanks to the inclusion of salt. Where a brute-force search might be able to determine that Alice were `27840350` even when Alice was elided or encrypted, the same would not be true for the salted hash of `b2878630`.
 
 Different use cases might require that selective correlation should either be used or foiled; salt is what makes the latter happen.
 
