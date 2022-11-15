@@ -909,20 +909,19 @@ The following example shows a salt of the subject "Alice":
         salt: Salt
     ]
 } [
-    "Knows": "Bob"
-]
+    "knows": "Bob"
 ```
 ```mermaid
 graph LR
-    1(("e7b5293b<br/>NODE"))
-    2[/"c0f5df62<br/>WRAPPED"\]
-    3(("0b81b3d9<br/>NODE"))
+    1(("f528392b<br/>NODE"))
+    2[/"b2878630<br/>WRAPPED"\]
+    3(("747c7893<br/>NODE"))
     4["27840350<br/>#quot;Alice#quot;"]
-    5(["879c3638<br/>ASSERTION"])
-    6[/"4c4449d4<br/>salt"/]
-    7["2437567c<br/>Salt"]
-    8(["d92e28a0<br/>ASSERTION"])
-    9["d215588d<br/>#quot;Knows#quot;"]
+    5(["ed1f2a9b<br/>ASSERTION"])
+    6[/"3fb4814d<br/>salt"/]
+    7["ef62bb64<br/>Salt"]
+    8(["55560bdf<br/>ASSERTION"])
+    9["7092d620<br/>#quot;knows#quot;"]
     10["9a771715<br/>#quot;Bob#quot;"]
     1 -->|subj| 2
     2 -->|subj| 3
@@ -952,7 +951,6 @@ graph LR
     linkStyle 6 stroke-width:2.0px
     linkStyle 7 stroke:green,stroke-width:2.0px
     linkStyle 8 stroke:#55f,stroke-width:2.0px
-
 ```
 The standard hash of "Alice", `27840350`, is now replaced with a wrapped Envelope hash of `c0f5df62` thanks to the inclusion of salt. Where a brute-force search might be able to determine that Alice were `27840350` even when Alice was elided or encrypted, the same would not be true for the salted hash of `c0f5df62`.
 
