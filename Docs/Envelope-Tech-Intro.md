@@ -910,6 +910,7 @@ The following example shows a salt of the subject "Alice":
     ]
 } [
     "knows": "Bob"
+]
 ```
 ```mermaid
 graph LR
