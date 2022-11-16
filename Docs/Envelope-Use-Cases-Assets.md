@@ -4,6 +4,9 @@ The following set of use cases demonstrates how Gordian Envelopes can protect di
 
 Gordian Envelopes are powerful for the self-sovereign control of assets because they provide storage that is both resilient and secure. The security comes from the use of encryption in Envelopes while the resilience comes from Gordian Envelope's versatility in deciding what's encrypted and what's not, its ability to store high amounts of metadata, and its system of permits, which allow Envelopes to be opened in a wide variety of ways.
 
+* [Part One: Simple Storage of Secrets](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#part-one-simple-storage-of-secrets)
+* [Part Two: Raising Resilience of Restricted Results](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#part-two-raising-resilience-of-restricted-results)
+
 ## Part One: Simple Storage of Secrets
 
 This first set of progressive use cases demonstrates how to store secret information, how to improve resilience with metadata, how to improve privacy with salting, and how to improve security with wrapped encryption.
