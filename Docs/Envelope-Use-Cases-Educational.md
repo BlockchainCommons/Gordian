@@ -4,13 +4,22 @@ The following set of use cases demonstrate the use of Gordian Envelopes to store
 
 Gordian Envelopes are useful for credentials in large part because of their ability to support advanced features such as elision, peer-based attestation, and herd privacy. They go far beyond just presenting validatable credentials to allowing the individual holders to decide what gets credentialed, what gets shown, how, and in what context. They thus add self-sovereign control to the standard rubric of Verifiable Credentials.
 
+* [Part One: Official Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-one-official-credentials)
+   * #1: [Danika Proves Her Worth (Credentials, Signature)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#1-danika-proves-her-worth-credential-signature)
+   * #2: [Danika Restricts Her Revelations (Elision)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#2-danika-restricts-her-revelations-elision)
+   * #3: [Thunder & Lightning Spotlights Danika (Third-Party Repackaging)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#3-thunder--lightning-spotlights-danika-third-party--repackaging)
+* [Part Two: Web of Trust Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-two-web-of-trust-credentials)
+   * #4: [Omar Offers an Open Badge (Web of Trust Credentials)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#4-omar-offers-an-open-badge-web-of-trust-credentials)
+* [Part Three: Herd Privacy Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-three-herd-privacy-credentials)
+   * #5: [Paul Private Proves Proficiency (Herd Privacy)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#5-paul-privately-proves-proficiency-herd-privacy)
+
 _The Danika Kaschak examples in #1 through #3 are drawn directly from [07-Elision-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/7-VC-ELISION-EXAMPLE.md), one of the documents for the [Envelope-CLI app](https://github.com/BlockchainCommons/envelope-cli-swift)._
 
 ## Part One: Official Credentials
 
 This first set of use cases demonstrates how to create (and sign) simple credentials, how the subject can elide data, how another holder can elide data, and how additional parties can add data and even new signatures to a credential.
 
-### #1. Danika Proves Her Worth (Credential, Signature)
+### #1. Danika Proves Her Worth (Credentials, Signature)
 
 > _Problem Solved:_ Danika needs to be able to prove her credentials as an electrical engineer without depending on a centralized authority.
 
