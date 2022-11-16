@@ -1,4 +1,4 @@
-# Self-Sovereign Control of Assets
+# Gordian Envelope Use Case: Self-Sovereign Control of Assets
 
 The following set of use cases demonstrates how Gordian Envelopes can protect digital assets controlled in an individual, self-sovereign way. They are presented progressively: each use case builds on the previous one by demonstrating a new capability. They all refer to the same user (Sam) with the same self-sovereign storage needs.
 
