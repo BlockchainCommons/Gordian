@@ -2281,3 +2281,8 @@ Mind you, because the tree is partially redacted, and because no particular atte
 3.) Finally, Blockchain Commons could choose to salt every CID in the Envelope. They would then have to supply Paul with his salt. (The twin limitations here are that salting everything dramatically increases the size of the Envelope and that Paul has a piece of data that he can't lose).
 
 _Herd privacy is one of the strong, unique features of Gordian Envelope. We plan to extend these Educational examples with a few more looks at it, either extending the alternative methodologies discussed here or offering other features._
+
+### Related Files
+
+* [Other Envelope Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Intro.md#usage-of-envelopes)
+
