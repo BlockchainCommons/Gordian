@@ -78,14 +78,17 @@ Currently, it's being used in two major Blockchain Commons projects.
 
 There are a broad swath of additional use cases, some of which can be found in our [Use Case Overview of Envelopes] (PENDING). These include:
 
-* **Self-Sovereign Control of Assets.** There are many different use cases for helping users to resiliently control their digital assets, going beyond the specific design of CSR. These include the inclusion of metadata for resilience, the usage of salts to block correlation, and the creation of variable-use permits to allow multiple ways to open an envelope.
-* **Educational Credential.** All sorts of credentials can be created in Gordian Envelopes, but certifications and other educational credentials are likely to be some of the most popular. These can be credentials signed by accredited institutions or by Web of Trust peers. Elision and third-party manipulation can allow these credentials to be safely passed around for a variety of purposes. Herd privacy features can create even greater anonymity.
-* **Source-Control Signing.** The standardization of Gordian Envelopes is another of their strengths. Case studies involving source-control signing demonstrate how a field that is currently managed in a variety of different ways could allow for real improvements in security.
+* **Educational Credential.** All sorts of credentials can be created in Gordian Envelopes, but certifications and other educational credentials are likely to be some of the most popular. These can be credentials signed by accredited institutions or by Web of Trust peers. Elision and third-party manipulation can allow these credentials to be safely passed around for a variety of purposes. Herd privacy features can create even greater anonymity. _(See [Educational Use Case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md))_
+* **Self-Sovereign Control of Assets.** There are many different use cases for helping users to resiliently control their digital assets, going beyond the specific design of CSR. These include the inclusion of metadata for resilience, the usage of salts to block correlation, and the creation of variable-use permits to allow multiple ways to open an envelope. _(See [Assets Use Case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md))_
+* **Source-Control Signing.** The standardization of Gordian Envelopes is another of their strengths. Case studies involving source-control signing demonstrate how a field that is currently managed in a variety of different ways could allow for real improvements in security. _(See Use Case PENDING)_
 
 ## Envelope Links
 
 * [Doc: A Technical Overview of Envelopes](Envelope-Tech-Intro.md)
-* Doc: A Use Case Overview of Envelopes (PENDING)
+* Doc: Overview of Envelope Use Cases (PENDING)
+  * [Doc: Educational Use Case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md)
+  * [Doc: Assets Use Case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md)
+  * Doc: Source-Control Use Case (PENDING)
 * [Video: Introduction to Envelopes](https://www.youtube.com/watch?v=tQ9SPek0mnI)
 * [Video: Envelope MVA & Cipher Choices](https://www.youtube.com/watch?v=S0deyIHXukk)
 * [Reference App: Envelope-CLI](https://github.com/BlockchainCommons/envelope-cli-swift)
