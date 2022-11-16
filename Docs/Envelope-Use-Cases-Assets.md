@@ -5,7 +5,12 @@ The following set of use cases demonstrates how Gordian Envelopes can protect di
 Gordian Envelopes are powerful for the self-sovereign control of assets because they provide storage that is both resilient and secure. The security comes from the use of encryption in Envelopes while the resilience comes from Gordian Envelope's versatility in deciding what's encrypted and what's not, its ability to store high amounts of metadata, and its system of permits, which allow Envelopes to be opened in a wide variety of ways.
 
 * [Part One: Simple Storage of Secrets](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#part-one-simple-storage-of-secrets)
+   * #1: [Sam Stores a Secret (Secure Storage with Metadata)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#1-sam-stores-a-secret-secure-storage-with-metadata)
+   * #2: [Sam is Salty about Compliance (Non-Correlation)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#2-sam-is-salty-about-compliance-non-correlation)
+   * #3: [Sam Gets Paranoid about Privacy (Wrapped Encryption)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#3-sam-gets-paranoid-about-privacy-wrapped-encryption)
 * [Part Two: Raising Resilience of Restricted Results](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#part-two-raising-resilience-of-restricted-results)
+   * #4: [Sam Gets Rigorous about Resilience (SSKR Permit)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#4-sam-gets-rigorous-about-resilience-sskr-permit)
+   * #5: [Sam Promotes a Partner (Multi-Permit)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#5-sam-promotes-a-partner-multi-permit)
 
 ## Part One: Simple Storage of Secrets
 
