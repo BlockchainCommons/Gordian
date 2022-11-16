@@ -5,7 +5,7 @@ The following set of use cases demonstrate the use of Gordian Envelopes to store
 Gordian Envelopes are useful for credentials in large part because of their ability to support advanced features such as elision, peer-based attestation, and herd privacy. They go far beyond just presenting validatable credentials to allowing the individual holders to decide what gets credentialed, what gets shown, how, and in what context. They thus add self-sovereign control to the standard rubric of Verifiable Credentials.
 
 * [Part One: Official Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-one-official-credentials)
-   * #1: [Danika Proves Her Worth (Credentials, Signature)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#1-danika-proves-her-worth-credential-signature)
+   * #1: [Danika Proves Her Worth (Credentials, Signature)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#1-danika-proves-her-worth-credentials-signature)
    * #2: [Danika Restricts Her Revelations (Elision)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#2-danika-restricts-her-revelations-elision)
    * #3: [Thunder & Lightning Spotlights Danika (Third-Party Repackaging)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#3-thunder--lightning-spotlights-danika-third-party--repackaging)
 * [Part Two: Web of Trust Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-two-web-of-trust-credentials)
