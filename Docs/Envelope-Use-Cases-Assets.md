@@ -700,4 +700,8 @@ It's the usage of a nonce in each encryption that causes the `SealedMessage` for
 
 Now, Sam can feel increasingly comfortable about the resilience of his envelope, knowing that not only can he recover it by putting together SSKR shares, but that his wife can recover it as well, using her private key (which presumably is protected from both compromise and failure using its own #SmartCustody methodology).
 
-_Again see [02-SSKR-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/3-SSKR-EXAMPLE.md) in the Envelope-CLI docs for an example of how to produce SSKR shared Envelopes with the CLI. The example includes a multi-permit envelope._
+### Related
+
+* [02-SSKR-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/3-SSKR-EXAMPLE.md) in the Envelope-CLI docs for an example of how to produce SSKR shared Envelopes with the CLI. The example includes a multi-permit envelope.
+* [Other Envelope Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Intro.md#usage-of-envelopes)
+
