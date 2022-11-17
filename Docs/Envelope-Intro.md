@@ -82,6 +82,15 @@ There are a broad swath of additional use cases, some of which can be found in o
 * **Self-Sovereign Control of Assets.** There are many different use cases for helping users to resiliently control their digital assets, going beyond the specific design of CSR. These include the inclusion of metadata for resilience, the usage of salts to block correlation, and the creation of variable-use permits to allow multiple ways to open an envelope. _(See [Assets Use Case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md))_
 * **Source-Control Signing.** The standardization of Gordian Envelopes is another of their strengths. Case studies involving source-control signing demonstrate how a field that is currently managed in a variety of different ways could allow for real improvements in security. _(See Use Case PENDING)_
 
+--
+* Privacy-Focused Data Transfer: structured data can be publicly released; data can be authenticated through signatures and validation; data can be differently elided for different sorts of queries; data can be released through a model of progressive trust by slowly reducing elision; data can be entirely elided so that it's only visible to queries that know to ask for the data; data can be entirely elided so that it's only visible to queries if someone provides a hash and a proof that allows them to verify the data.
+
+
+* User-centric Educational Certification: institutions can issue centralized credentials; individuals can issue peer-to-peer credentials using metadata to assist validation; subjects can elide credentials to preserve privacy or prevent discrimination; third-party holders can further elide credentials based on their own risk models; all parties can repackage credentials with signatures or additional information; issuers can create large batches of credentials and issue individual proofs to credential holders, allowing them to either reveal their credentials or maintain herd privacy.
+* Resilient Asset Control: users can store private keys, seeds, or other vulnerable data using encryption; users can improve the resilience of data with unencrypted metadata; users can alternatively wrap envelopes to encrypt their data entirety; users can use Shamir's Secret Sharing or other sharding technologies to resiliently lock data so that it can be restored by bringing together multiple envelopes, each of which contains a share and the encrypted data; users can create multi-permits that further improve resilience by allowing their data to be recovered in multiple ways, such as either with sharded shares or a private key.
+* Structured Software Release: structured data can standardize software releases and ensure that all validation data is in one place; multiple signatures can allow verification by multiple sources; releases can be chained, so that once a user trusts one software release, they know to trust all future software releases; changes in release signers can be introduced through chained releases in an automated way that maintains trust.
+--
+
 ## Envelope Links
 
 * [Doc: A Technical Overview of Envelopes](Envelope-Tech-Intro.md)
