@@ -30,36 +30,41 @@ However, new features of Gordian Envelope not available in JWT or JSON-LD offer 
 
 ![](https://raw.githubusercontent.com/BlockchainCommons/Gordian/master/Images/Envelope-Examples-DO.jpg)
 
-***Fundamental Structure:*** 
+### Fundamental Design
 
-* **Sematic Triples.** Gordian Envelopes are built on powerful semantic triples, sometimes known as semantic graphs. (Semantic graphs are a feature of JSON-LD.)
-* **Known Values.** A set of "known values" for regularly used predicates can reduce the size of content within a Gordian Envelope.
-* **Structured Merkle Tree.** All parts of a Gordian Envelope can be hashed, creating a tree of digests that forms a structured Merkle Tree. (In this variant of Merkle Trees, all nodes contain both semantic content _and_ digests, rather than semantic content being limited to leaves.)
-* **Bottom-Up Support.** Support for elision, privacy, and authentication is a fundamental element of Gordian Envelope, not an add-on.
+Gordian Envelope was designed with two key goals in mind: to be _Structure-Ready_, allowing for the reliable and interopable storage of information; and to be _Privacy-Ready_, ensuring that transmission of that data can occur in a privacy-protecting manner.
 
-***Elision Support:***
+* **Structure-Ready.** Gordian Envelope is designed as a Smart Document, meant to store information about a subject. More than that, it's a meta-document that can contain or refer to other documents. It can support multiple data formats, from simple hierarchical structures to labeled property graphs, semantic triples, and other forms of structured graphs. Though its fundamental structure is a tree, it can even be used to create DAGs through references between Envelopes.
+* **Privacy-Ready.** Gordian Envelope protects the privacy of its data through progressive trust, allowing for holders to minimally disclose information by using elision or encryption, and then to optionally increase that disclosure over time. The fact that a holder can control data revelation, not just an issuer, creates a new level of privacy for all stakeholders. The progressive trust in Gordian Envelopes is accomplished through hashing of all elements, which creates foundational support for cryptographic functions such as signing and encryption, without actually defining which cryptographic functions must be used. 
 
-* **Elision of All Elements.** Gordian Envelopes innately support elision for all the elements of their triples: subjects, predicates, and objects.
+The following structural decisions support these goals:
+
+* **Structured Merkle Tree.** A variant of the Merkle Tree structure is created by forming the hashing of  the elements in the Envelope into a tree of digests. (In this "structured Merkele Tree", all nodes contain both semantic content _and_ digests, rather than semantic content being limited to leaves.)
+* **Deterministic Representation.** There is only one way to encode any semantic representation within a Gordian Envelope. This is accomplished through the use of [Deterministic CBOR](Why-CBOR.md) and the sorting of the Envelope by hashes to create a lexicographic order. Any Envelope that doesn't follow these strict rules can be rejected; as a result, there's no need to worry about different people adding the assertions in a different order or at different times: if two Envelopes contain the same data, they will be encoded the same way.
+
+### Elision Support
+
+* **Elision of All Elements.** Gordian Envelopes innately support elision for any part of its data, including subjects, predicates, and objects.
 * **Redaction, Compression, and Encryption.** Elision can be used for a variety of purposes including redaction (removing information), compression (removing duplicate information), and encryption (enciphering information).
-* **Holder-initiated Redaction.** Elision can be performed by the Holder of a Gordian Envelope, not just the Issuer (which is a large advance over most redaction designs to date).
+* **Holder-initiated Redaction.** Elision can be performed by the Holder of a Gordian Envelope, not just the Issuer.
 * **Granular Holder Control.** Elision can not only be performed by any Holder, but also for any data, allowing each entity to elide data as is appropriate for the management of their personal (or business) risk.
 * **Progressive Trust.** The elision mechanics in Gordian Envelopes allow for progressive trust, where increasing amounts of data are revealed over time. It can even be combined with encryption to escrow data to later be revealed.
 * **Consistent Hashing.** Even when elided or encrypted, hashes for those parts of the Gordian Envelope remain the same.
 
-***Privacy Support:***
+### Privacy Support
 
 * **Proof of Inclusion.** As an alternative to presenting redactive structures, proofs of inclusion can be included in top-level hashes.
 * **Herd Privacy.** Proofs of inclusion allow for herd privacy where all members of a class can share data such as a VC or DID without revealing individual information.
 * **Non-Correlation.** Encrypted Gordian Envelope data can optionally be made less correlatable with the addition of salt.
 
-***Authentication Support:***
+### Authentication Support
 
 * **Symmetric Key Permits.** Gordian Envelopes can be locked ("closed") using a symmetric key.
-* **SSKR Permits.** Gordian Envelopes can alternatively be locked ("closed") using a symmetric key sharded with Shamir's Secret Sharing, with the shares stored with copies of the Envelope, and the whole enveloped thus openable if sufficient  copies of the Envelope with a quorum of different shares are gathered.
+* **SSKR Permits.** Gordian Envelopes can alternatively be locked ("closed") using a symmetric key sharded with Shamir's Secret Sharing, with the shares stored with copies of the Envelope, and the whole enveloped thus openable if  copies of the Envelope with a quorum of different shares are gathered.
 * **Public Key Permits.** Gordian Envelopes can alternatively be locked ("closed") with a public key and then be opened with the associated private key, or vice versa.
 * **Multiple Permits.** Gordian Envelopes can simultaneously be locked ("closed") via a variety of means and then openable by any appropriate individual method, with different methods likely held by different people.
  
- ***Future Looking:***
+### Future Looking
 
 * **Data Storage.** The initial inspiration for Gordian Envelopes was for secure data storage.
 * **Credentials & Presentations** The usage of Gordian Envelope signing techniques allows for the creation of credentials and the ability to present them to different verifiers in different ways.
