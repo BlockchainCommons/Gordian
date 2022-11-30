@@ -8,6 +8,10 @@ Gordian Envelopes are useful for signing applications in large part because of t
 * #2: [Casey Chains His Software Releases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#2-casey-chains-his-software-releases-chained-data)
 * #3: [Casey Changes Up His Software Releases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#3-casey-changes-up-his-software-releases-chained-changes)
 
+## Software Signing
+
+This set of use cases describes how a user can structure and sign data, how he can chain envelopes of data over time, and how he can change up signers over time. They demonstrate how well-structured envelopes can decrease validation costs and improve trust.
+
 ### 1. Casey Codifies Software Releases [Multiple Signatures, Structured Data]
 
 > _Problem:_ Casey needs to produce multi-signed software releases using structured files that are easily checkable by automated means.
