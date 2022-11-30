@@ -1,8 +1,8 @@
 ## Gordian Envelope Use Case: Software Signing
 
-Envelopes can be used in a variety of collaborative forms. Following are examples of collaborative signing, where a group of individuals jointly declare the validity of an envelope to ensure the trustworthiness of a software release. 
+Envelopes can be used in a variety of collaborative forms. Following are examples of collaborative signing, where a group of individuals jointly declare the validity of an envelope to ensure the trustworthiness of a software release.  The three use cases are presented progressively, demonstrating how a group of users can jointly validate the contents of an envelope, even as the group evolves over time.
 
-The three use cases are presented progressively, demonstrating how a group of users can jointly validate the contents of an envelope, even as the group evolves over time.
+Gordian Envelopes are useful for signing applications in large part because of their ability to combine signatures with metadata and to chain that information over time through multiple signed documents. This allows for the creation of a history of signatures, which can have a variety of applications.
 
 ### 1. Casey Codifies Software Releases [Multiple Signatures, Structured Data]
 
