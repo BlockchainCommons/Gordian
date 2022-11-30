@@ -37,21 +37,33 @@ The Gordian Architecture puts the Gordian Principles into use through an overall
 * **Gordian Macro-Architecture.** The ecosystem architecture depends on functional partition, separating services and confidential data.
    * The Macro-Architecture is built primarily to support _Privacy_ through these features.
    * It is also built on a concept of _Openness_ where different Services from different developers will interoperate freely.
-* **Data Format.** CBOR is used as the canonical data structure for the Gordian Architecture.
+* **Data Format.** [CBOR](Docs/Why-CBOR.md) is used as the canonical data structure for the Gordian Architecture.
 * **Encoding Specifications.** Bytewords, URs, and (optionally) QR Codes ensure that Gordian services are interoperable.
    * The Encoding Specifications are how the Gordian System ensures _Openness_ in its Macro-Architure.
 * **Backup Specifications.** UR specifications make it easy to backup confidential data.
   * Supporting backups of data improves the _Resilience_ of that data.
-* **Communication Specifications.** Further UR specifications such as envelopes and request/responses aid interoperable communication.
+* **Communication Specifications.** Further UR specifications such as [Gordian Envelope](Docs/Envelope-Intro.md) and request/responses aid interoperable communication.
    * Like the Encoding Specifications, Communication Specifications help to suport the _Openness_ of the architecture.
    * They also ensure _Independence_ because they assure the portability of data.
 * **Secure UX Designs.** UX best practices form another layer of support for the Gordian Principles.
    * Good UX designs help _Resilience_ by proofing a user against mistake or con-men attacks of various sorts.
    * They also improve _Independence_ by making it easier for a user to control their own destiny.
 
-Please see [The Gordian Architecture](/Docs/Overview-Architecture.md) for more in-depth discussion of all the architectural elements and [Gordian Architecture Roles](/Docs/Overview-Roles.md) for examples of functions that can be partitioned within the Macro-architecture. Also see [Collaborative Seed Recovery (CSR) Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/CSR.md) for our largest current architectual project in 2022 and [Collaborative Key Management (CKM) Overview](Docs/CKM.md) for our planned next step in 2023-2024, as well as the [Gordian Envelope intro](Docs/Envelope-Intro.md) for the structure that these projects rests upon.
+Please see [The Gordian Architecture](/Docs/Overview-Architecture.md) for more in-depth discussion of all the architectural elements and [Gordian Architecture Roles](/Docs/Overview-Roles.md) for examples of functions that can be partitioned within the Macro-architecture. Also see [Collaborative Seed Recovery (CSR) Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/CSR.md) for our largest current architectual project in 2022 and [Collaborative Key Management (CKM) Overview](Docs/CKM.md) for our planned next step in 2023-2024.
 
 Together, these elements (in particular: a network coordinator such as Gordian Coordinator; a signing device such as Gordian Seed Tool; encoding specifications such URs; and communication specifications such as envelope, request, and response) comprise what we consider a Minimal Viable Architecture (MVA) for Gordian, and thus for safe, self-sovereign architecture. They're the minimum that's needed to properly support users.
+
+### Use Cases
+
+Use Cases further describe the intent of Blockchain Commons' architecture.
+
+**Gordian Envelope:**
+* [**Educational Credentials**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md) — Using Envelopes to store & transmit credentials.
+* [**Self-Sovereign Control of Assets**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md) — Using Envelopes to store assets.
+**Collaborative Seed Recovery:**
+* [**Use Cases**](https://hackmd.io/ZbRiwvUfQSy-1RKM15bM8Q#CSR-Focused-Use-Cases) — A short listing of CSR-focused use cases.
+**Collaborative Key Management:**
+* [**Use Cases**](https://hackmd.io/ZbRiwvUfQSy-1RKM15bM8Q#Secret-Sharing-Use-Cases) — More future-looking use cases that span CSR and CKM.
 
 ### Video Overview
 
