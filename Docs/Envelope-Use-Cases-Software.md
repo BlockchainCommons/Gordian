@@ -914,7 +914,6 @@ graph LR
     linkStyle 36 stroke-width:2.0px
     linkStyle 37 stroke:green,stroke-width:2.0px
     linkStyle 38 stroke:#55f,stroke-width:2.0px
-
 ```
 
 If the validator kept the envelope that he previously validated, now all that he has to do is see that the users and public keys in this new envelope match the old one, and then validate the signature. It should be entirely automatable.
@@ -923,7 +922,7 @@ More complexity is required only if the previous envelope were not kept. In this
 
 ### 3. Casey Changes Up His Software Releases [Chained Changes]
 
-> _Problem Solved:_ Casey wants to change up signers over time in a way that's organic and continue to allow for simple validation.
+> _Problem Solved:_ Casey wants to change signers over time in a way that's organic and continues to allow for simple validation.
 
 A few years on, Bill leaves software programming for a lucrative career in television and lectures. Though Omar is maintaining the software on his own at this point, Casey wants to ensure that the software still is signed by multiple parties to allow for more robust validation. So he takes over as release manager, checking the software prior to release and adding his own signature.
  
