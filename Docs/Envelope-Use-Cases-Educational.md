@@ -600,7 +600,7 @@ graph LR
     linkStyle 19 stroke:green,stroke-width:2.0px
     linkStyle 20 str
 ```
-Danika can now get a prejudice-free review of her credentials while still verifying that they're hers by proving ownership of her CID.
+Danika can now get a prejudice-free review of her credentials while still verifying that they're hers, by proving ownership of her CID.
 
 Note that all of the hashes in the Structured Merkle Tree stay the same despite the elision. That means that the certification board's signature remains valid as well.
 
@@ -610,7 +610,7 @@ Danika supplements her certification with excellent scores in a third-party proc
 
 > _Problem Solved:_ Thunder & Lightning Inc. needs to repackage Danika's credentials for their customers.
 
-Thunder & Lightning Inc. is ready to send Danika to a job site! To do so they must both reveal and affirm her credentials to the job-site supervisors. Even though they are neither the issuer nor the holder of Danika's educational credentials, Thunder & Lightning is able to produce their own version of Danika's credentials.
+Thunder & Lightning Inc. is ready to send Danika to a job site! To do so they must both reveal and affirm her credentials to the job-site supervisors. Even though they are neither the issuer nor the subject of Danika's educational credentials, Thunder & Lightning is able to produce their own version of those credentials.
 
 They want Danika's name in the credentials, so they must ask her for a new copy, but then they elide the rest of the information just like she did. This is one of the strengths of Gordian Envelope: each party who holds the Envelope (or even an already-elided form of the Envelope) can choose how to further elide it to match their own requirements and their own risk models.
 ```
@@ -1362,7 +1362,7 @@ It can be relatively easy to validate official credentials from centralized auth
 
 > _Problem Solved:_ Jonathan wants to prove his expertise in blockchain tech writing, but there are no official credentials. 
 
-Jonathan has been doing technical writing on blockchains for a few years and wants to extend that into a freelance career. Unfortunately, most of his extant writing has been internal documents and so he can't point potential employers to them. 
+Jonathan has been doing technical writing on blockchains for a few years and wants to extend that into a freelance career. Unfortunately, most of his extant writing has been internal documents, and so he can't point potential employers to them. 
 
 Omar, an expert in blockchain technical writing, has GitHub repos that are filled with examples of his own excellent writing, and that's led him to offer Open Badges for other people whose writing he thinks is up to spec. He creates credentials for them signed with his GitHub private key.
 
@@ -1708,7 +1708,7 @@ Paul wants to get a credential showing proficiency in Gordian Envelope from Bloc
 
 Paul can take an online test in either Basic form (automated Q&A with a time limit) or Advanced form (Q&A with a live proctor on Zoom). He chooses the former, again for privacy reasons. After he succeeds at the test (50 out of 50, of course!), he needs to get his credential.
 
-At this point, more credential issuers would require Paul to give up an email address and then mail them the personal credential, but Blockchain Commons' privacy preserving methodology simply requires Paul to give them a DID (for which he presumably controls the private key). They'll then embed that DID in a very large Envelope with the credentials of everyone who succeeded at the test that month. (Paul must wait until the Envelope is generated before he can prove anything!)
+At this point, most credential issuers would require Paul to give up an email address and then mail them the personal credential, but Blockchain Commons' privacy preserving methodology simply requires Paul to give them a DID (for which he presumably controls the private key). They'll then embed that DID in a very large Envelope with the credentials of everyone who succeeded at the test that month. (Paul must wait until the Envelope is generated before he can prove anything!)
 
 At the end of the month, Blockchain Commons creates a large Gordian Envelope that contains the DIDs of everyone who passed their test that month, with a statement as to whether each DID `isBasic` or `isAdvanced`.
 
@@ -2258,7 +2258,7 @@ graph LR
     linkStyle 0 stroke:green,stroke-width:2.0px
     linkStyle 1 stroke:#55f,stroke-width:2.0px
 ```
-He then creates the digest of that credential:
+He then creates the hashed digest of that credential:
 ```
 ur:crypto-digest/hdcxhdwnsntebthnrhzmzsjpvazttpzctlmhcwrffnlthhgdkptscsayzmcxndpdessabzjekbur
 ```
@@ -2270,18 +2270,493 @@ As can be seen, that matches the third redacted hash in the Mermaid diagram abov
 
 Now, Paul can point to Blockchain Common's partially redacted tree of November 2022 certifications, reveal his CID, acknowledge that he passed the basic testing, and show his digest. Together these facts prove that the CID is part of the tree. 
 
-More notably, Paul can decide never to reveal his CID, and then it's more difficult to prove that it's a member of this group.
+More notably, Paul can decide never to reveal his CID, in which case it is at least somewhat difficult for anyone else to prove that Paul is a member of the group. 
 
-Mind you, because the tree is partially redacted, and because no particular attempt has been made to prevent correlation, its possible that CIDs in the Envelope could be guessed. There are several ways this could be prevented. They all require Blockchain Commons to provide additional information to Paul, increasing the communication requirements (and thus potentially impacting privacy), but they add strong non-correlation defenses.
+Mind you, because the tree is partially redacted, and because no particular attempt has been made to prevent correlation, it's possible that CIDs in the Envelope could be guessed. There are several ways this could be prevented. They all require Blockchain Commons to provide additional information to Paul, increasing the communication requirements (and thus potentially impacting privacy), but they add strong non-correlation defenses.
 
 1.) Blockchain Commons could choose to fully redact the Envelope, publishing only a top-level hash. They would then supply Paul with a path to his lower-level hash by partially redacting the tree when he supplied them with his CID. Paul could then prove his presence in the Envelope with his digest and that path. If that path were to be more widely released, there would be the same correlation problems, but obviously they'd be lesser because it probably would never be widely published.
 
-2.) Alternatively, Blockchain Commons could restructure the Envelope so that every 5 or 10 or 20 CIDs are placed in a subenvelope. Their publicly published proof would only show the hashes of these subenvelopes, which will be relatively impossible to correlate. Paul would then be able to request a path to his own subenvelope. Even if this path were more widely released, there would only be a possibility of correlation for the other CIDs that happen to be in that subenvelope.
+2.) Alternatively, Blockchain Commons could restructure the Envelope so that every 5 or 10 or 20 CIDs are placed in a subenvelope. Their publicly published proof would only show the hashes of these subenvelopes, which will be relatively impossible to correlate. Paul would then be able to request a path to his own subenvelope. Even if this path were more widely released, there would only be a possibility of correlation for the other CIDs that happen to be in that subenvelope. (This example is shown in the next use case.)
 
-3.) Finally, Blockchain Commons could choose to salt every CID in the Envelope. They would then have to supply Paul with his salt. (The twin limitations here are that salting everything dramatically increases the size of the Envelope and that Paul has a piece of data that he can't lose).
+3.) Finally, Blockchain Commons could choose to salt every CID in the Envelope. They would then have to supply Paul with his salt. (The twin limitations here are that salting everything dramatically increases the size of the Envelope and that Paul then has a piece of data that he can't lose).
 
-_Herd privacy is one of the strong, unique features of Gordian Envelope. We plan to extend these Educational examples with a few more looks at it, either extending the alternative methodologies discussed here or offering other features._
+### 6. Paul Proves Proficiency with Better Privacy [Herd Privacy with Non-Correlation]
 
+> _Problem Solved:_ Blockchain Commons wants to improve the herd privacy of its test takers by reducing correlation.
+
+Blockchain Commons is aware of the correlation possibilities in their test-result Envelopes. They choose a middle road to dramatically reduce correlation: they store every 5 CIDs in a separate sub-Envelope. (A real-life example might instead have clumps of 10 or 20 CIDs, but again this one is reduced in size to make it manageable.)
+
+```
+"Blockchain Commons Certifactions #13A" [
+    "certifiedBy": "Blockchain Commons" [
+        "pubkeyURL": "https://www.blockchaincommons.com/certification.keys"
+    ]
+    "date": "11-01-2022"
+    "isBundle": "13A-001" [
+        "isAdvanced": "ur:crypto-cid/hdcxbetimuglwppshfqdsahsktgmnelsjnbdcanspmnshkpecxcfztlkiohgenytntmkaxjngadt"
+        "isAdvanced": "ur:crypto-cid/hdcxjsdwaegrpfwmbkehhscwmshpchlnhhayadadwszcghhtmnzcgomhutcmytldfwpadmdlcwfe"
+        "isAdvanced": "ur:crypto-cid/hdcxmhtnnlcshsjzhywyhgttsrgulstdwdnezesekosndnfxswzezolrfdcwlulacxeopdkghnht"
+        "isBasic": "ur:crypto-cid/hdcxaepthffshppabkgydawmlftbpfrnaefzrdjehybwtskgmwveenwzntpyhdrpsfqzsgqdftnb"
+        "isBasic": "ur:crypto-cid/hdcxdkmhpfathyyltnnboypsemehkimudnkgeyosgolncfmdnboypsecpsghtefzetkndpeylrfz"
+    ]
+    "isBundle": "13A-002" [
+        "isBasic": "ur:crypto-cid/hdcxfnmdsrgdkbvekoecwevystbaztbwcshpqdbzkeatjlndlywepyctlkvwemhkiyhtenwnghda"
+        "isBasic": "ur:crypto-cid/hdcxhnutcyktgtfxotvegrhllypakenlgoetmnnlimsktppkssloghpahsdeparktbkerebatyce"
+        "isBasic": "ur:crypto-cid/hdcxiadtuowtsrynlfbslgplynrlonpfbaeolkbzztsngtasjpenwmdevojsgmplishhurkebnts"
+        "isBasic": "ur:crypto-cid/hdcxmnktvdgeettlfmbklytaseayoeplwynbsawdurmuuelbbsfxbbaxkkpsemjovybzswqdssva"
+        "isBasic": "ur:crypto-cid/hdcxuykblalfdalsvaplrfzsoxqdvdclstmdtssfdatkmecwnsbzmseohswldaytdmsfbwaxvewp"
+    ]
+]
+```
+```mermaid
+graph LR
+    1(("27953cfd<br/>NODE"))
+    2["88b3ff17<br/>#quot;Blockchain Commons Certifactions #13A#quot;"]
+    3(["0e421d2e<br/>ASSERTION"])
+    4["127a2386<br/>#quot;date#quot;"]
+    5["c666f06c<br/>#quot;11-01-2022#quot;"]
+    6(["12b89490<br/>ASSERTION"])
+    7["2969c9d5<br/>#quot;isBundle#quot;"]
+    8(("f51ac46f<br/>NODE"))
+    9["c2719309<br/>#quot;13A-002#quot;"]
+    10(["58f1cdd3<br/>ASSERTION"])
+    11["2100a83d<br/>#quot;isBasic#quot;"]
+    12["478112c2<br/>#quot;ur:crypto-cid/hdcxiadtuowtsrynlfbslgplynrlonpfbaeolkbzztsngtasjpenwmdevojsgmplishhurkebnts#quot;"]
+    13(["5b278116<br/>ASSERTION"])
+    14["2100a83d<br/>#quot;isBasic#quot;"]
+    15["262db130<br/>#quot;ur:crypto-cid/hdcxhnutcyktgtfxotvegrhllypakenlgoetmnnlimsktppkssloghpahsdeparktbkerebatyce#quot;"]
+    16(["92f71067<br/>ASSERTION"])
+    17["2100a83d<br/>#quot;isBasic#quot;"]
+    18["37a1d85a<br/>#quot;ur:crypto-cid/hdcxfnmdsrgdkbvekoecwevystbaztbwcshpqdbzkeatjlndlywepyctlkvwemhkiyhtenwnghda#quot;"]
+    19(["c2f3fe78<br/>ASSERTION"])
+    20["2100a83d<br/>#quot;isBasic#quot;"]
+    21["950f78c1<br/>#quot;ur:crypto-cid/hdcxuykblalfdalsvaplrfzsoxqdvdclstmdtssfdatkmecwnsbzmseohswldaytdmsfbwaxvewp#quot;"]
+    22(["c3bd8189<br/>ASSERTION"])
+    23["2100a83d<br/>#quot;isBasic#quot;"]
+    24["a3c3105c<br/>#quot;ur:crypto-cid/hdcxmnktvdgeettlfmbklytaseayoeplwynbsawdurmuuelbbsfxbbaxkkpsemjovybzswqdssva#quot;"]
+    25(["64e8fe1e<br/>ASSERTION"])
+    26["7eb11472<br/>#quot;certifiedBy#quot;"]
+    27(("55378d51<br/>NODE"))
+    28["8ae1d503<br/>#quot;Blockchain Commons#quot;"]
+    29(["b0a1cbca<br/>ASSERTION"])
+    30["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    31["04d0d649<br/>#quot;https://www.blockchaincommons.com/certification.keys#quot;"]
+    32(["bf0d2ed8<br/>ASSERTION"])
+    33["2969c9d5<br/>#quot;isBundle#quot;"]
+    34(("e60bed3c<br/>NODE"))
+    35["6ded4d4c<br/>#quot;13A-001#quot;"]
+    36(["0d31bdce<br/>ASSERTION"])
+    37["2100a83d<br/>#quot;isBasic#quot;"]
+    38["03e7479a<br/>#quot;ur:crypto-cid/hdcxdkmhpfathyyltnnboypsemehkimudnkgeyosgolncfmdnboypsecpsghtefzetkndpeylrfz#quot;"]
+    39(["336f50d3<br/>ASSERTION"])
+    40["d68d0704<br/>#quot;isAdvanced#quot;"]
+    41["9fb97d91<br/>#quot;ur:crypto-cid/hdcxjsdwaegrpfwmbkehhscwmshpchlnhhayadadwszcghhtmnzcgomhutcmytldfwpadmdlcwfe#quot;"]
+    42(["b22278f9<br/>ASSERTION"])
+    43["d68d0704<br/>#quot;isAdvanced#quot;"]
+    44["3410120d<br/>#quot;ur:crypto-cid/hdcxmhtnnlcshsjzhywyhgttsrgulstdwdnezesekosndnfxswzezolrfdcwlulacxeopdkghnht#quot;"]
+    45(["ca13e82f<br/>ASSERTION"])
+    46["2100a83d<br/>#quot;isBasic#quot;"]
+    47["eb9d612b<br/>#quot;ur:crypto-cid/hdcxaepthffshppabkgydawmlftbpfrnaefzrdjehybwtskgmwveenwzntpyhdrpsfqzsgqdftnb#quot;"]
+    48(["e67d3bb2<br/>ASSERTION"])
+    49["d68d0704<br/>#quot;isAdvanced#quot;"]
+    50["a285aabe<br/>#quot;ur:crypto-cid/hdcxbetimuglwppshfqdsahsktgmnelsjnbdcanspmnshkpecxcfztlkiohgenytntmkaxjngadt#quot;"]
+    1 -->|subj| 2
+    1 --> 3
+    3 -->|pred| 4
+    3 -->|obj| 5
+    1 --> 6
+    6 -->|pred| 7
+    6 -->|obj| 8
+    8 -->|subj| 9
+    8 --> 10
+    10 -->|pred| 11
+    10 -->|obj| 12
+    8 --> 13
+    13 -->|pred| 14
+    13 -->|obj| 15
+    8 --> 16
+    16 -->|pred| 17
+    16 -->|obj| 18
+    8 --> 19
+    19 -->|pred| 20
+    19 -->|obj| 21
+    8 --> 22
+    22 -->|pred| 23
+    22 -->|obj| 24
+    1 --> 25
+    25 -->|pred| 26
+    25 -->|obj| 27
+    27 -->|subj| 28
+    27 --> 29
+    29 -->|pred| 30
+    29 -->|obj| 31
+    1 --> 32
+    32 -->|pred| 33
+    32 -->|obj| 34
+    34 -->|subj| 35
+    34 --> 36
+    36 -->|pred| 37
+    36 -->|obj| 38
+    34 --> 39
+    39 -->|pred| 40
+    39 -->|obj| 41
+    34 --> 42
+    42 -->|pred| 43
+    42 -->|obj| 44
+    34 --> 45
+    45 -->|pred| 46
+    45 -->|obj| 47
+    34 --> 48
+    48 -->|pred| 49
+    48 -->|obj| 50
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:#55f,stroke-width:3.0px
+    style 6 stroke:red,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:red,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:red,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:red,stroke-width:3.0px
+    style 14 stroke:#55f,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:red,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:red,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:#55f,stroke-width:3.0px
+    style 22 stroke:red,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px
+    style 24 stroke:#55f,stroke-width:3.0px
+    style 25 stroke:red,stroke-width:3.0px
+    style 26 stroke:#55f,stroke-width:3.0px
+    style 27 stroke:red,stroke-width:3.0px
+    style 28 stroke:#55f,stroke-width:3.0px
+    style 29 stroke:red,stroke-width:3.0px
+    style 30 stroke:#55f,stroke-width:3.0px
+    style 31 stroke:#55f,stroke-width:3.0px
+    style 32 stroke:red,stroke-width:3.0px
+    style 33 stroke:#55f,stroke-width:3.0px
+    style 34 stroke:red,stroke-width:3.0px
+    style 35 stroke:#55f,stroke-width:3.0px
+    style 36 stroke:red,stroke-width:3.0px
+    style 37 stroke:#55f,stroke-width:3.0px
+    style 38 stroke:#55f,stroke-width:3.0px
+    style 39 stroke:red,stroke-width:3.0px
+    style 40 stroke:#55f,stroke-width:3.0px
+    style 41 stroke:#55f,stroke-width:3.0px
+    style 42 stroke:red,stroke-width:3.0px
+    style 43 stroke:#55f,stroke-width:3.0px
+    style 44 stroke:#55f,stroke-width:3.0px
+    style 45 stroke:red,stroke-width:3.0px
+    style 46 stroke:#55f,stroke-width:3.0px
+    style 47 stroke:#55f,stroke-width:3.0px
+    style 48 stroke:red,stroke-width:3.0px
+    style 49 stroke:#55f,stroke-width:3.0px
+    style 50 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke-width:2.0px
+    linkStyle 2 stroke:green,stroke-width:2.0px
+    linkStyle 3 stroke:#55f,stroke-width:2.0px
+    linkStyle 4 stroke-width:2.0px
+    linkStyle 5 stroke:green,stroke-width:2.0px
+    linkStyle 6 stroke:#55f,stroke-width:2.0px
+    linkStyle 7 stroke:red,stroke-width:2.0px
+    linkStyle 8 stroke-width:2.0px
+    linkStyle 9 stroke:green,stroke-width:2.0px
+    linkStyle 10 stroke:#55f,stroke-width:2.0px
+    linkStyle 11 stroke-width:2.0px
+    linkStyle 12 stroke:green,stroke-width:2.0px
+    linkStyle 13 stroke:#55f,stroke-width:2.0px
+    linkStyle 14 stroke-width:2.0px
+    linkStyle 15 stroke:green,stroke-width:2.0px
+    linkStyle 16 stroke:#55f,stroke-width:2.0px
+    linkStyle 17 stroke-width:2.0px
+    linkStyle 18 stroke:green,stroke-width:2.0px
+    linkStyle 19 stroke:#55f,stroke-width:2.0px
+    linkStyle 20 stroke-width:2.0px
+    linkStyle 21 stroke:green,stroke-width:2.0px
+    linkStyle 22 stroke:#55f,stroke-width:2.0px
+    linkStyle 23 stroke-width:2.0px
+    linkStyle 24 stroke:green,stroke-width:2.0px
+    linkStyle 25 stroke:#55f,stroke-width:2.0px
+    linkStyle 26 stroke:red,stroke-width:2.0px
+    linkStyle 27 stroke-width:2.0px
+    linkStyle 28 stroke:green,stroke-width:2.0px
+    linkStyle 29 stroke:#55f,stroke-width:2.0px
+    linkStyle 30 stroke-width:2.0px
+    linkStyle 31 stroke:green,stroke-width:2.0px
+    linkStyle 32 stroke:#55f,stroke-width:2.0px
+    linkStyle 33 stroke:red,stroke-width:2.0px
+    linkStyle 34 stroke-width:2.0px
+    linkStyle 35 stroke:green,stroke-width:2.0px
+    linkStyle 36 stroke:#55f,stroke-width:2.0px
+    linkStyle 37 stroke-width:2.0px
+    linkStyle 38 stroke:green,stroke-width:2.0px
+    linkStyle 39 stroke:#55f,stroke-width:2.0px
+    linkStyle 40 stroke-width:2.0px
+    linkStyle 41 stroke:green,stroke-width:2.0px
+    linkStyle 42 stroke:#55f,stroke-width:2.0px
+    linkStyle 43 stroke-width:2.0px
+    linkStyle 44 stroke:green,stroke-width:2.0px
+    linkStyle 45 stroke:#55f,stroke-width:2.0px
+    linkStyle 46 stroke-width:2.0px
+    linkStyle 47 stroke:green,stroke-width:2.0px
+    linkStyle 48 stroke:#55f,stroke-width:2.0px
+```
+This example uses a different signing key (primarily because the former example key was no longer available due to a reboot resetting shell variables; practice #SmartCustody & keep your keys safe!).
+```
+{
+    "Blockchain Commons Certifactions #13A" [
+        "certifiedBy": "Blockchain Commons" [
+            "pubkeyURL": "https://www.blockchaincommons.com/certification.keys"
+        ]
+        "date": "11-01-2022"
+        "isBundle": "13A-001" [
+            "isAdvanced": "ur:crypto-cid/hdcxbetimuglwppshfqdsahsktgmnelsjnbdcanspmnshkpecxcfztlkiohgenytntmkaxjngadt"
+            "isAdvanced": "ur:crypto-cid/hdcxjsdwaegrpfwmbkehhscwmshpchlnhhayadadwszcghhtmnzcgomhutcmytldfwpadmdlcwfe"
+            "isAdvanced": "ur:crypto-cid/hdcxmhtnnlcshsjzhywyhgttsrgulstdwdnezesekosndnfxswzezolrfdcwlulacxeopdkghnht"
+            "isBasic": "ur:crypto-cid/hdcxaepthffshppabkgydawmlftbpfrnaefzrdjehybwtskgmwveenwzntpyhdrpsfqzsgqdftnb"
+            "isBasic": "ur:crypto-cid/hdcxdkmhpfathyyltnnboypsemehkimudnkgeyosgolncfmdnboypsecpsghtefzetkndpeylrfz"
+        ]
+        "isBundle": "13A-002" [
+            "isBasic": "ur:crypto-cid/hdcxfnmdsrgdkbvekoecwevystbaztbwcshpqdbzkeatjlndlywepyctlkvwemhkiyhtenwnghda"
+            "isBasic": "ur:crypto-cid/hdcxhnutcyktgtfxotvegrhllypakenlgoetmnnlimsktppkssloghpahsdeparktbkerebatyce"
+            "isBasic": "ur:crypto-cid/hdcxiadtuowtsrynlfbslgplynrlonpfbaeolkbzztsngtasjpenwmdevojsgmplishhurkebnts"
+            "isBasic": "ur:crypto-cid/hdcxmnktvdgeettlfmbklytaseayoeplwynbsawdurmuuelbbsfxbbaxkkpsemjovybzswqdssva"
+            "isBasic": "ur:crypto-cid/hdcxuykblalfdalsvaplrfzsoxqdvdclstmdtssfdatkmecwnsbzmseohswldaytdmsfbwaxvewp"
+        ]
+    ]
+} [
+    verifiedBy: Signature
+]
+```
+```mermaid
+graph LR
+    1(("63be8b49<br/>NODE"))
+    2[/"c5b7e587<br/>WRAPPED"\]
+    3(("27953cfd<br/>NODE"))
+    4["88b3ff17<br/>#quot;Blockchain Commons Certifactions #13A#quot;"]
+    5(["0e421d2e<br/>ASSERTION"])
+    6["127a2386<br/>#quot;date#quot;"]
+    7["c666f06c<br/>#quot;11-01-2022#quot;"]
+    8(["12b89490<br/>ASSERTION"])
+    9["2969c9d5<br/>#quot;isBundle#quot;"]
+    10(("f51ac46f<br/>NODE"))
+    11["c2719309<br/>#quot;13A-002#quot;"]
+    12(["58f1cdd3<br/>ASSERTION"])
+    13["2100a83d<br/>#quot;isBasic#quot;"]
+    14["478112c2<br/>#quot;ur:crypto-cid/hdcxiadtuowtsrynlfbslgplynrlonpfbaeolkbzztsngtasjpenwmdevojsgmplishhurkebnts#quot;"]
+    15(["5b278116<br/>ASSERTION"])
+    16["2100a83d<br/>#quot;isBasic#quot;"]
+    17["262db130<br/>#quot;ur:crypto-cid/hdcxhnutcyktgtfxotvegrhllypakenlgoetmnnlimsktppkssloghpahsdeparktbkerebatyce#quot;"]
+    18(["92f71067<br/>ASSERTION"])
+    19["2100a83d<br/>#quot;isBasic#quot;"]
+    20["37a1d85a<br/>#quot;ur:crypto-cid/hdcxfnmdsrgdkbvekoecwevystbaztbwcshpqdbzkeatjlndlywepyctlkvwemhkiyhtenwnghda#quot;"]
+    21(["c2f3fe78<br/>ASSERTION"])
+    22["2100a83d<br/>#quot;isBasic#quot;"]
+    23["950f78c1<br/>#quot;ur:crypto-cid/hdcxuykblalfdalsvaplrfzsoxqdvdclstmdtssfdatkmecwnsbzmseohswldaytdmsfbwaxvewp#quot;"]
+    24(["c3bd8189<br/>ASSERTION"])
+    25["2100a83d<br/>#quot;isBasic#quot;"]
+    26["a3c3105c<br/>#quot;ur:crypto-cid/hdcxmnktvdgeettlfmbklytaseayoeplwynbsawdurmuuelbbsfxbbaxkkpsemjovybzswqdssva#quot;"]
+    27(["64e8fe1e<br/>ASSERTION"])
+    28["7eb11472<br/>#quot;certifiedBy#quot;"]
+    29(("55378d51<br/>NODE"))
+    30["8ae1d503<br/>#quot;Blockchain Commons#quot;"]
+    31(["b0a1cbca<br/>ASSERTION"])
+    32["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    33["04d0d649<br/>#quot;https://www.blockchaincommons.com/certification.keys#quot;"]
+    34(["bf0d2ed8<br/>ASSERTION"])
+    35["2969c9d5<br/>#quot;isBundle#quot;"]
+    36(("e60bed3c<br/>NODE"))
+    37["6ded4d4c<br/>#quot;13A-001#quot;"]
+    38(["0d31bdce<br/>ASSERTION"])
+    39["2100a83d<br/>#quot;isBasic#quot;"]
+    40["03e7479a<br/>#quot;ur:crypto-cid/hdcxdkmhpfathyyltnnboypsemehkimudnkgeyosgolncfmdnboypsecpsghtefzetkndpeylrfz#quot;"]
+    41(["336f50d3<br/>ASSERTION"])
+    42["d68d0704<br/>#quot;isAdvanced#quot;"]
+    43["9fb97d91<br/>#quot;ur:crypto-cid/hdcxjsdwaegrpfwmbkehhscwmshpchlnhhayadadwszcghhtmnzcgomhutcmytldfwpadmdlcwfe#quot;"]
+    44(["b22278f9<br/>ASSERTION"])
+    45["d68d0704<br/>#quot;isAdvanced#quot;"]
+    46["3410120d<br/>#quot;ur:crypto-cid/hdcxmhtnnlcshsjzhywyhgttsrgulstdwdnezesekosndnfxswzezolrfdcwlulacxeopdkghnht#quot;"]
+    47(["ca13e82f<br/>ASSERTION"])
+    48["2100a83d<br/>#quot;isBasic#quot;"]
+    49["eb9d612b<br/>#quot;ur:crypto-cid/hdcxaepthffshppabkgydawmlftbpfrnaefzrdjehybwtskgmwveenwzntpyhdrpsfqzsgqdftnb#quot;"]
+    50(["e67d3bb2<br/>ASSERTION"])
+    51["d68d0704<br/>#quot;isAdvanced#quot;"]
+    52["a285aabe<br/>#quot;ur:crypto-cid/hdcxbetimuglwppshfqdsahsktgmnelsjnbdcanspmnshkpecxcfztlkiohgenytntmkaxjngadt#quot;"]
+    53(["90f9cd74<br/>ASSERTION"])
+    54[/"d59f8c0f<br/>verifiedBy"/]
+    55["b9f2cc21<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    3 --> 5
+    5 -->|pred| 6
+    5 -->|obj| 7
+    3 --> 8
+    8 -->|pred| 9
+    8 -->|obj| 10
+    10 -->|subj| 11
+    10 --> 12
+    12 -->|pred| 13
+    12 -->|obj| 14
+    10 --> 15
+    15 -->|pred| 16
+    15 -->|obj| 17
+    10 --> 18
+    18 -->|pred| 19
+    18 -->|obj| 20
+    10 --> 21
+    21 -->|pred| 22
+    21 -->|obj| 23
+    10 --> 24
+    24 -->|pred| 25
+    24 -->|obj| 26
+    3 --> 27
+    27 -->|pred| 28
+    27 -->|obj| 29
+    29 -->|subj| 30
+    29 --> 31
+    31 -->|pred| 32
+    31 -->|obj| 33
+    3 --> 34
+    34 -->|pred| 35
+    34 -->|obj| 36
+    36 -->|subj| 37
+    36 --> 38
+    38 -->|pred| 39
+    38 -->|obj| 40
+    36 --> 41
+    41 -->|pred| 42
+    41 -->|obj| 43
+    36 --> 44
+    44 -->|pred| 45
+    44 -->|obj| 46
+    36 --> 47
+    47 -->|pred| 48
+    47 -->|obj| 49
+    36 --> 50
+    50 -->|pred| 51
+    50 -->|obj| 52
+    1 --> 53
+    53 -->|pred| 54
+    53 -->|obj| 55
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:red,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:red,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px
+    style 12 stroke:red,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:#55f,stroke-width:3.0px
+    style 15 stroke:red,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    style 18 stroke:red,stroke-width:3.0px
+    style 19 stroke:#55f,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:red,stroke-width:3.0px
+    style 22 stroke:#55f,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px
+    style 24 stroke:red,stroke-width:3.0px
+    style 25 stroke:#55f,stroke-width:3.0px
+    style 26 stroke:#55f,stroke-width:3.0px
+    style 27 stroke:red,stroke-width:3.0px
+    style 28 stroke:#55f,stroke-width:3.0px
+    style 29 stroke:red,stroke-width:3.0px
+    style 30 stroke:#55f,stroke-width:3.0px
+    style 31 stroke:red,stroke-width:3.0px
+    style 32 stroke:#55f,stroke-width:3.0px
+    style 33 stroke:#55f,stroke-width:3.0px
+    style 34 stroke:red,stroke-width:3.0px
+    style 35 stroke:#55f,stroke-width:3.0px
+    style 36 stroke:red,stroke-width:3.0px
+    style 37 stroke:#55f,stroke-width:3.0px
+    style 38 stroke:red,stroke-width:3.0px
+    style 39 stroke:#55f,stroke-width:3.0px
+    style 40 stroke:#55f,stroke-width:3.0px
+    style 41 stroke:red,stroke-width:3.0px
+    style 42 stroke:#55f,stroke-width:3.0px
+    style 43 stroke:#55f,stroke-width:3.0px
+    style 44 stroke:red,stroke-width:3.0px
+    style 45 stroke:#55f,stroke-width:3.0px
+    style 46 stroke:#55f,stroke-width:3.0px
+    style 47 stroke:red,stroke-width:3.0px
+    style 48 stroke:#55f,stroke-width:3.0px
+    style 49 stroke:#55f,stroke-width:3.0px
+    style 50 stroke:red,stroke-width:3.0px
+    style 51 stroke:#55f,stroke-width:3.0px
+    style 52 stroke:#55f,stroke-width:3.0px
+    style 53 stroke:red,stroke-width:3.0px
+    style 54 stroke:#55f,stroke-width:3.0px
+    style 55 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke:green,stroke-width:2.0px
+    linkStyle 5 stroke:#55f,stroke-width:2.0px
+    linkStyle 6 stroke-width:2.0px
+    linkStyle 7 stroke:green,stroke-width:2.0px
+    linkStyle 8 stroke:#55f,stroke-width:2.0px
+    linkStyle 9 stroke:red,stroke-width:2.0px
+    linkStyle 10 stroke-width:2.0px
+    linkStyle 11 stroke:green,stroke-width:2.0px
+    linkStyle 12 stroke:#55f,stroke-width:2.0px
+    linkStyle 13 stroke-width:2.0px
+    linkStyle 14 stroke:green,stroke-width:2.0px
+    linkStyle 15 stroke:#55f,stroke-width:2.0px
+    linkStyle 16 stroke-width:2.0px
+    linkStyle 17 stroke:green,stroke-width:2.0px
+    linkStyle 18 stroke:#55f,stroke-width:2.0px
+    linkStyle 19 stroke-width:2.0px
+    linkStyle 20 stroke:green,stroke-width:2.0px
+    linkStyle 21 stroke:#55f,stroke-width:2.0px
+    linkStyle 22 stroke-width:2.0px
+    linkStyle 23 stroke:green,stroke-width:2.0px
+    linkStyle 24 stroke:#55f,stroke-width:2.0px
+    linkStyle 25 stroke-width:2.0px
+    linkStyle 26 stroke:green,stroke-width:2.0px
+    linkStyle 27 stroke:#55f,stroke-width:2.0px
+    linkStyle 28 stroke:red,stroke-width:2.0px
+    linkStyle 29 stroke-width:2.0px
+    linkStyle 30 stroke:green,stroke-width:2.0px
+    linkStyle 31 stroke:#55f,stroke-width:2.0px
+    linkStyle 32 stroke-width:2.0px
+    linkStyle 33 stroke:green,stroke-width:2.0px
+    linkStyle 34 stroke:#55f,stroke-width:2.0px
+    linkStyle 35 stroke:red,stroke-width:2.0px
+    linkStyle 36 stroke-width:2.0px
+    linkStyle 37 stroke:green,stroke-width:2.0px
+    linkStyle 38 stroke:#55f,stroke-width:2.0px
+    linkStyle 39 stroke-width:2.0px
+    linkStyle 40 stroke:green,stroke-width:2.0px
+    linkStyle 41 stroke:#55f,stroke-width:2.0px
+    linkStyle 42 stroke-width:2.0px
+    linkStyle 43 stroke:green,stroke-width:2.0px
+    linkStyle 44 stroke:#55f,stroke-width:2.0px
+    linkStyle 45 stroke-width:2.0px
+    linkStyle 46 stroke:green,stroke-width:2.0px
+    linkStyle 47 stroke:#55f,stroke-width:2.0px
+    linkStyle 48 stroke-width:2.0px
+    linkStyle 49 stroke:green,stroke-width:2.0px
+    linkStyle 50 stroke:#55f,stroke-width:2.0px
+    linkStyle 51 stroke-width:2.0px
+    linkStyle 52 stroke:green,stroke-width:2.0px
+    linkStyle 53 stroke:#55f,stroke-width:2.0px
+```
 ### Related Files
 
 * [Other Envelope Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Intro.md#usage-of-envelopes)
