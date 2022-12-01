@@ -12,6 +12,7 @@ Gordian Envelopes are useful for credentials in large part because of their abil
    * #4: [Omar Offers an Open Badge (Web of Trust Credentials)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#4-omar-offers-an-open-badge-web-of-trust-credentials)
 * [Part Three: Herd Privacy Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-three-herd-privacy-credentials)
    * #5: [Paul Private Proves Proficiency (Herd Privacy)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#5-paul-privately-proves-proficiency-herd-privacy)
+   * #6: [Paul Proves His Proficiency with Improved Privacy (Herd Privacy with Non-Correlation)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#6-paul-proves-proficiency-with-improved-privacy-herd-privacy-with-non-correlation)
 
 _The Danika Kaschak examples in #1 through #3 are drawn directly from [07-Elision-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/7-VC-ELISION-EXAMPLE.md), one of the documents for the [Envelope-CLI app](https://github.com/BlockchainCommons/envelope-cli-swift)._
 
@@ -2757,7 +2758,7 @@ graph LR
     linkStyle 52 stroke:green,stroke-width:2.0px
     linkStyle 53 stroke:#55f,stroke-width:2.0px
 ```
-Blockchain Commons would, as before, publish a partially elided Envelope:
+As before, Blockchain Commons publishes a partially elided Envelope with the foundational information on the test results.
 ```
 {
     "Blockchain Commons Certifactions #13A" [
@@ -2850,7 +2851,7 @@ graph LR
 ```
 This time there's zero chance of correlation because the two remaining `ELIDED` elements each contain several (5) DIDs, drawn from the set of all DIDs. There's no practical way to figure out what is in each bundle.
 
-Paul can still create his assertion, just like before:
+In order to prove his participation, Paul creates an assertion, just like before:
 ```
 "isBasic": "ur:crypto-cid/hdcxiadtuowtsrynlfbslgplynrlonpfbaeolkbzztsngtasjpenwmdevojsgmplishhurkebnts"
 ```
@@ -2867,9 +2868,9 @@ graph LR
     linkStyle 0 stroke:green,stroke-width:2.0px
     linkStyle 1 stroke:#55f,stroke-width:2.0px
 ```
-However, due to the fact that the bundles of DIDs remain hidden, that's not enough. He needs to hand his assertion to Blockchain Commons, and then they need to send back a proof when unelides just enough of the Envelope structure to open up the bundle that contains his DID. Though this is more back-and-forth than in the previous Use Case, it can still be done in a privacy preserving way, such as Paul requesting the Proof over a Tor connection.
+However, due to the fact that the bundles of DIDs remain hidden, that's not enough. He needs to hand his assertion to Blockchain Commons, and then they need to send back a proof when reveals just enough of the Envelope structure to open up the bundle that contains his DID. Though this is more back-and-forth than in the previous Use Case, it can still be done in a privacy preserving way, such as Paul requesting the Proof over a Tor connection.
 
-Here's what the proof looks like:
+Here's what the proof looks like. 
 ```
 {
     ELIDED [
@@ -2951,9 +2952,11 @@ graph LR
     linkStyle 14 stroke-width:2.0px
     linkStyle 15 stroke-width:2.0px
 ```
-Just enough of the Envelope has been opened up in the proof to again reveal Paul's hash (`58F1CDD30D60B9FFFA72E6FCD8FDD5901BBC3C875C5075D71808FF209BA839C2`). To prove his inclusion, Paul would now have to reveal his assertion, the "proof" from Blockchain Commons, and the original publication from Blockchain Commons.
+As can be seen, one of the bundles (`f51ac46f`) has now been opened up. That reveals Paul's hash (`58F1CDD3`). A proof is the minimum path needed to reveal the hash that a user requires to demonstrate the existence of his assertion.
 
-The correlation is also much reduced. Only the proofs contain hashes that could theoretically be correlated if someone knew what to look for. They're not meant to be published, which greatly reduces their danger, but even if they were, only the other DIDs in the same bundle are subject to potential correlation.
+To prove his inclusion, Paul would now have to reveal his assertion digest, the "proof" from Blockchain Commons, and the original publication from Blockchain Commons.
+
+Through this methodology, the correlation is much reduced. The proof is the only thing that contains a hash that could theoretically be correlated if someone knew what to look for. They're not meant to be published, which greatly reduces their danger, but even if they were, only the other DIDs in the same bundle are subject to potential correlation. (Salted assertions still offer better correlation protection, but as noted previously, only at a cost in space, complexity, and required secrets. The bundled assertions of this example offer an excellent middle ground.)
 
 ### Related Files
 
