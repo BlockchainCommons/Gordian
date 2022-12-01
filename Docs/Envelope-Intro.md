@@ -95,7 +95,7 @@ There are a broad swath of additional use cases, some of which can be found in o
 ## Envelope Links
 
 * [Doc: A Technical Overview of Envelopes](Envelope-Tech-Intro.md)
-* Doc: Overview of Envelope Use Cases (PENDING)
+* [Doc: Overview of Envelope Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases.md)
   * [Doc: Educational Use Case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md)
   * [Doc: Asset Control Use Case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md)
   * [Doc: Software Release Use Case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md)
