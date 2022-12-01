@@ -2757,6 +2757,204 @@ graph LR
     linkStyle 52 stroke:green,stroke-width:2.0px
     linkStyle 53 stroke:#55f,stroke-width:2.0px
 ```
+Blockchain Commons would, as before, publish a partially elided Envelope:
+```
+{
+    "Blockchain Commons Certifactions #13A" [
+        "certifiedBy": "Blockchain Commons" [
+            "pubkeyURL": "https://www.blockchaincommons.com/certification.keys"
+        ]
+        "date": "11-01-2022"
+        ELIDED (2)
+    ]
+} [
+    verifiedBy: Signature
+]
+```
+```mermaid
+graph LR
+    1(("a356dca2<br/>NODE"))
+    2[/"c5b7e587<br/>WRAPPED"\]
+    3(("27953cfd<br/>NODE"))
+    4["88b3ff17<br/>#quot;Blockchain Commons Certifactions #13A#quot;"]
+    5(["0e421d2e<br/>ASSERTION"])
+    6["127a2386<br/>#quot;date#quot;"]
+    7["c666f06c<br/>#quot;11-01-2022#quot;"]
+    8{{"12b89490<br/>ELIDED"}}
+    9(["64e8fe1e<br/>ASSERTION"])
+    10["7eb11472<br/>#quot;certifiedBy#quot;"]
+    11(("55378d51<br/>NODE"))
+    12["8ae1d503<br/>#quot;Blockchain Commons#quot;"]
+    13(["b0a1cbca<br/>ASSERTION"])
+    14["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    15["04d0d649<br/>#quot;https://www.blockchaincommons.com/certification.keys#quot;"]
+    16{{"bf0d2ed8<br/>ELIDED"}}
+    17(["59ab0d7d<br/>ASSERTION"])
+    18[/"d59f8c0f<br/>verifiedBy"/]
+    19["76510b9f<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    3 --> 5
+    5 -->|pred| 6
+    5 -->|obj| 7
+    3 --> 8
+    3 --> 9
+    9 -->|pred| 10
+    9 -->|obj| 11
+    11 -->|subj| 12
+    11 --> 13
+    13 -->|pred| 14
+    13 -->|obj| 15
+    3 --> 16
+    1 --> 17
+    17 -->|pred| 18
+    17 -->|obj| 19
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 9 stroke:red,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:red,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:red,stroke-width:3.0px
+    style 14 stroke:#55f,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 17 stroke:red,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke:green,stroke-width:2.0px
+    linkStyle 5 stroke:#55f,stroke-width:2.0px
+    linkStyle 6 stroke-width:2.0px
+    linkStyle 7 stroke-width:2.0px
+    linkStyle 8 stroke:green,stroke-width:2.0px
+    linkStyle 9 stroke:#55f,stroke-width:2.0px
+    linkStyle 10 stroke:red,stroke-width:2.0px
+    linkStyle 11 stroke-width:2.0px
+    linkStyle 12 stroke:green,stroke-width:2.0px
+    linkStyle 13 stroke:#55f,stroke-width:2.0px
+    linkStyle 14 stroke-width:2.0px
+    linkStyle 15 stroke-width:2.0px
+    linkStyle 16 stroke:green,stroke-width:2.0px
+    linkStyle 17 stroke:#55f,stroke-width:2.0px
+```
+This time there's zero chance of correlation because the two remaining `ELIDED` elements each contain several (5) DIDs, drawn from the set of all DIDs. There's no practical way to figure out what is in each bundle.
+
+Paul can still create his assertion, just like before:
+```
+"isBasic": "ur:crypto-cid/hdcxiadtuowtsrynlfbslgplynrlonpfbaeolkbzztsngtasjpenwmdevojsgmplishhurkebnts"
+```
+```mermaid
+graph LR
+    1(["58f1cdd3<br/>ASSERTION"])
+    2["2100a83d<br/>#quot;isBasic#quot;"]
+    3["478112c2<br/>#quot;ur:crypto-cid/hdcxiadtuowtsrynlfbslgplynrlonpfbaeolkbzztsngtasjpenwmdevojsgmplishhurkebnts#quot;"]
+    1 -->|pred| 2
+    1 -->|obj| 3
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px
+    style 3 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:green,stroke-width:2.0px
+    linkStyle 1 stroke:#55f,stroke-width:2.0px
+```
+However, due to the fact that the bundles of DIDs remain hidden, that's not enough. He needs to hand his assertion to Blockchain Commons, and then they need to send back a proof when unelides just enough of the Envelope structure to open up the bundle that contains his DID. Though this is more back-and-forth than in the previous Use Case, it can still be done in a privacy preserving way, such as Paul requesting the Proof over a Tor connection.
+
+Here's what the proof looks like:
+```
+{
+    ELIDED [
+        ELIDED: ELIDED [
+            ELIDED (5)
+        ]
+        ELIDED (3)
+    ]
+} [
+    ELIDED
+]
+```
+```mermaid
+graph LR
+    1(("a356dca2<br/>NODE"))
+    2[/"c5b7e587<br/>WRAPPED"\]
+    3(("27953cfd<br/>NODE"))
+    4{{"88b3ff17<br/>ELIDED"}}
+    5{{"0e421d2e<br/>ELIDED"}}
+    6(["12b89490<br/>ASSERTION"])
+    7{{"2969c9d5<br/>ELIDED"}}
+    8(("f51ac46f<br/>NODE"))
+    9{{"c2719309<br/>ELIDED"}}
+    10{{"58f1cdd3<br/>ELIDED"}}
+    11{{"5b278116<br/>ELIDED"}}
+    12{{"92f71067<br/>ELIDED"}}
+    13{{"c2f3fe78<br/>ELIDED"}}
+    14{{"c3bd8189<br/>ELIDED"}}
+    15{{"64e8fe1e<br/>ELIDED"}}
+    16{{"bf0d2ed8<br/>ELIDED"}}
+    17{{"59ab0d7d<br/>ELIDED"}}
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    3 --> 5
+    3 --> 6
+    6 -->|pred| 7
+    6 -->|obj| 8
+    8 -->|subj| 9
+    8 --> 10
+    8 --> 11
+    8 --> 12
+    8 --> 13
+    8 --> 14
+    3 --> 15
+    3 --> 16
+    1 --> 17
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 5 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 6 stroke:red,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 8 stroke:red,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 10 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 11 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 12 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 13 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 14 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 15 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 16 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 17 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke-width:2.0px
+    linkStyle 5 stroke:green,stroke-width:2.0px
+    linkStyle 6 stroke:#55f,stroke-width:2.0px
+    linkStyle 7 stroke:red,stroke-width:2.0px
+    linkStyle 8 stroke-width:2.0px
+    linkStyle 9 stroke-width:2.0px
+    linkStyle 10 stroke-width:2.0px
+    linkStyle 11 stroke-width:2.0px
+    linkStyle 12 stroke-width:2.0px
+    linkStyle 13 stroke-width:2.0px
+    linkStyle 14 stroke-width:2.0px
+    linkStyle 15 stroke-width:2.0px
+```
+Just enough of the Envelope has been opened up in the proof to again reveal Paul's hash (`58F1CDD30D60B9FFFA72E6FCD8FDD5901BBC3C875C5075D71808FF209BA839C2`). To prove his inclusion, Paul would now have to reveal his assertion, the "proof" from Blockchain Commons, and the original publication from Blockchain Commons.
+
+The correlation is also much reduced. Only the proofs contain hashes that could theoretically be correlated if someone knew what to look for. They're not meant to be published, which greatly reduces their danger, but even if they were, only the other DIDs in the same bundle are subject to potential correlation.
+
 ### Related Files
 
 * [Other Envelope Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Intro.md#usage-of-envelopes)
