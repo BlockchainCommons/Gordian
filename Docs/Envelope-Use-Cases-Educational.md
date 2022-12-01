@@ -2280,7 +2280,7 @@ Mind you, because the tree is partially redacted, and because no particular atte
 
 3.) Finally, Blockchain Commons could choose to salt every CID in the Envelope. They would then have to supply Paul with his salt. (The twin limitations here are that salting everything dramatically increases the size of the Envelope and that Paul then has a piece of data that he can't lose).
 
-### 6. Paul Proves Proficiency with Better Privacy [Herd Privacy with Non-Correlation]
+### 6. Paul Proves Proficiency with Improved Privacy [Herd Privacy with Non-Correlation]
 
 > _Problem Solved:_ Blockchain Commons wants to improve the herd privacy of its test takers by reducing correlation.
 
