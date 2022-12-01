@@ -5,9 +5,9 @@ Envelopes can be used in a variety of collaborative forms. Following are example
 Gordian Envelopes are useful for signing applications in large part because of their ability to combine signatures with metadata and to chain that information over time through multiple signed documents. This allows for the creation of a history of signatures, which can have a variety of applications.
 
 * [Software Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#software-signing)
-   * #1: [Casey Codifies Software Releases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#1-casey-codifies-software-releases-multiple-signatures-structured-data)
-   * #2: [Casey Chains His Software Releases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#2-casey-chains-his-software-releases-chained-data)
-   * #3: [Casey Changes Up His Software Releases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#3-casey-changes-up-his-software-releases-chained-changes)
+   * #1: [Casey Codifies Software Releases (Multiple Signatures, Structured Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#1-casey-codifies-software-releases-multiple-signatures-structured-data)
+   * #2: [Casey Chains His Software Releases (Chained Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#2-casey-chains-his-software-releases-chained-data)
+   * #3: [Casey Changes Up His Software Releases (Chained Changes)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#3-casey-changes-up-his-software-releases-chained-changes)
 
 ## Software Signing
 
