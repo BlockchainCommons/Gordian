@@ -13,7 +13,8 @@ Gordian Envelopes are useful for credentials in large part because of their abil
 * [Part Three: Herd Privacy Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-three-herd-privacy-credentials)
    * #5: [Paul Private Proves Proficiency (Herd Privacy)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#5-paul-privately-proves-proficiency-herd-privacy)
    * #6: [Paul Proves His Proficiency with Improved Privacy (Herd Privacy with Non-Correlation)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#6-paul-proves-proficiency-with-improved-privacy-herd-privacy-with-non-correlation)
-
+   * #7: [Berkley Bank Avoids Toxicity (Herd Privacy with Selective Disclosure)]()
+ 
 _The Danika Kaschak examples in #1 through #3 are drawn directly from [07-Elision-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/7-VC-ELISION-EXAMPLE.md), one of the documents for the [Envelope-CLI app](https://github.com/BlockchainCommons/envelope-cli-swift)._
 
 ## Part One: Official Credentials
@@ -1703,7 +1704,7 @@ graph LR
 
 ## Part Three: Herd Privacy Credentials
 
-Educational credentials are usually presumed to be packaged in discrete Envelopes that identify a single user. However, some situations may benefit from conglomerating thousands of credentials in a single Envelope, giving each of those users privacy — even from the credential issuer!
+Educational credentials are usually presumed to be packaged in discrete Envelopes that identify a single user. However, some situations may benefit from conglomerating thousands of credentials in a single Envelope, giving each of those users privacy — even from the credential issuer! The following examples include a pair of progressive use cases showing how an internet user can benefit from herd privacy and then a single example demonstrating how a company can do so.
 
 ### 5. Paul Privately Proves Proficiency [Herd Privacy]
 
@@ -2962,6 +2963,410 @@ A proof is the minimum path needed to reveal the hash that a user requires to de
 To prove his inclusion, Paul would now have to reveal his assertion digest, the "proof" from Blockchain Commons, and the original publication from Blockchain Commons.
 
 Through this methodology, the possibility of correlation is much reduced. The proof is the only thing that contains a hash that could theoretically be correlated if someone knew what to look for. They're not meant to be published, which greatly reduces their danger, but even if they were, only the other DIDs in the same bundle are subject to potential correlation. (Salted assertions still offer better correlation protection, but as noted previously, only at a cost in space, complexity, and required secrets. The bundled assertions of this example offer an excellent middle ground.)
+
+### 7. Burton Bank Avoids Toxicity (Herd Privacy with Selective Disclosure)
+
+> _Problem Solved:_ Burton Bank needs to verify the success of its student loans without acquiring toxic data while doing so!
+
+Personal data can be toxic! It can be a major liability for companies holding the data, especially in an age where online data breaches are becoming increasingly common and where laws such the GDPR and the CCPA are providing increasing protections to users (while simultaneously punishing companies who do not successfully protect user information).
+
+Despite that, companies still need to work with personal information, and that's the case for Burton Bank. They fund student loans based on government backing, and as a result they have to follow a variety of regulations. One of them states that they may only offer funds to educational institutes whose loan holders maintain an 80% graduation rate within two years for professional schools and within four years for colleges. As a result, Burton Bank needs to receive information on the graduation of its loan holders, but this can be tricky as they sometimes buy loans from other banks or sell them to other banks: no one but Burton knows what loans they hold!
+
+Acme Professional School thus prepares a general report on graduation for all of their students three times a year. To protect the recipients, they elide it so that no toxic data is transmitted. Burton Bank can then purposefully correlate the elided data using the personal data they already have on hand, but without accepting any new responsibility for the data of students not associated with the bank!
+
+Acme's yearly report lists the identifiers for their students, plus enough additional information to allow verification, all signed by Acme.
+```
+{
+    "Acme Professional School 2022-12-24 Graduation" [
+        "freedoniaID": "fasa-marx-1" [
+            "dateOfBirth": "2002-12-06"
+            "lastName": "Elsher"
+        ]
+        "socialSecurity": "000345678" [
+            "dateOfBirth": "2001-07-04"
+            "lastName": "Hansley"
+        ]
+        "socialSecurity": "078051120" [
+            "dateOfBirth": "1984-03-21"
+            "lastName": "Dawson"
+        ]
+        "socialSecurity": "123004567" [
+            "dateOfBirth": "1999-12-31"
+            "lastName": "Hayes"
+        ]
+        "socialSecurity": "123456789" [
+            "dateOfBirth": "2004-02-29"
+            "lastName": "Gray"
+        ]
+        "socialSecurity": "567890000" [
+            "dateOfBirth": "2002-06-06"
+            "lastName": "Wang"
+        ]
+        "socialSecurity": "666786543" [
+            "dateOfBirth": "2001-10-31"
+            "lastName": "Liu"
+        ]
+        "wakandaID": "W6368616420626f73656d616e" [
+            "dateOfBirth": "1997-08-28"
+            "lastName": "Challa"
+        ]
+    ]
+} [
+    verifiedBy: Signature
+]
+```
+```mermaid
+graph LR
+    1(("5a5a7655<br/>NODE"))
+    2[/"6d68c797<br/>WRAPPED"\]
+    3(("441bc0d3<br/>NODE"))
+    4["1c42df20<br/>#quot;Acme Professional School 2022-12-24 Graduation#quot;"]
+    5(["0fbe062c<br/>ASSERTION"])
+    6["32f06bb1<br/>#quot;socialSecurity#quot;"]
+    7(("68b165ed<br/>NODE"))
+    8["3e7d4a32<br/>#quot;123456789#quot;"]
+    9(["0d206284<br/>ASSERTION"])
+    10["eb62836d<br/>#quot;lastName#quot;"]
+    11["c8027fab<br/>#quot;Gray#quot;"]
+    12(["e3ff7458<br/>ASSERTION"])
+    13["06d2aaa3<br/>#quot;dateOfBirth#quot;"]
+    14["c246b6c0<br/>#quot;2004-02-29#quot;"]
+    15(["1a9d204c<br/>ASSERTION"])
+    16["32f06bb1<br/>#quot;socialSecurity#quot;"]
+    17(("db478b2f<br/>NODE"))
+    18["71734aec<br/>#quot;666786543#quot;"]
+    19(["71acbb68<br/>ASSERTION"])
+    20["06d2aaa3<br/>#quot;dateOfBirth#quot;"]
+    21["18886fb7<br/>#quot;2001-10-31#quot;"]
+    22(["94f521bc<br/>ASSERTION"])
+    23["eb62836d<br/>#quot;lastName#quot;"]
+    24["a4304222<br/>#quot;Liu#quot;"]
+    25(["1ccceace<br/>ASSERTION"])
+    26["32f06bb1<br/>#quot;socialSecurity#quot;"]
+    27(("2df44dd7<br/>NODE"))
+    28["d436d93f<br/>#quot;078051120#quot;"]
+    29(["19436235<br/>ASSERTION"])
+    30["eb62836d<br/>#quot;lastName#quot;"]
+    31["b0c5165e<br/>#quot;Dawson#quot;"]
+    32(["dcd91ac9<br/>ASSERTION"])
+    33["06d2aaa3<br/>#quot;dateOfBirth#quot;"]
+    34["3b23c99a<br/>#quot;1984-03-21#quot;"]
+    35(["301cb6f4<br/>ASSERTION"])
+    36["0308a0ff<br/>#quot;wakandaID#quot;"]
+    37(("986dfa41<br/>NODE"))
+    38["a9d35651<br/>#quot;W6368616420626f73656d616e#quot;"]
+    39(["4a7c4b11<br/>ASSERTION"])
+    40["eb62836d<br/>#quot;lastName#quot;"]
+    41["12184656<br/>#quot;Challa#quot;"]
+    42(["4ef16b62<br/>ASSERTION"])
+    43["06d2aaa3<br/>#quot;dateOfBirth#quot;"]
+    44["e1636bfc<br/>#quot;1997-08-28#quot;"]
+    45(["40e63258<br/>ASSERTION"])
+    46["32f06bb1<br/>#quot;socialSecurity#quot;"]
+    47(("40221b32<br/>NODE"))
+    48["0e5442a4<br/>#quot;123004567#quot;"]
+    49(["491aa1a4<br/>ASSERTION"])
+    50["eb62836d<br/>#quot;lastName#quot;"]
+    51["2168c1a1<br/>#quot;Hayes#quot;"]
+    52(["f9436c96<br/>ASSERTION"])
+    53["06d2aaa3<br/>#quot;dateOfBirth#quot;"]
+    54["aa912b0c<br/>#quot;1999-12-31#quot;"]
+    55(["8136bd53<br/>ASSERTION"])
+    56["32f06bb1<br/>#quot;socialSecurity#quot;"]
+    57(("a21cb4f5<br/>NODE"))
+    58["c1e8e7c4<br/>#quot;000345678#quot;"]
+    59(["4b5e029d<br/>ASSERTION"])
+    60["06d2aaa3<br/>#quot;dateOfBirth#quot;"]
+    61["1da89ba1<br/>#quot;2001-07-04#quot;"]
+    62(["b0716075<br/>ASSERTION"])
+    63["eb62836d<br/>#quot;lastName#quot;"]
+    64["c658c290<br/>#quot;Hansley#quot;"]
+    65(["df10fd36<br/>ASSERTION"])
+    66["32f06bb1<br/>#quot;socialSecurity#quot;"]
+    67(("8222c8ae<br/>NODE"))
+    68["40d32d37<br/>#quot;567890000#quot;"]
+    69(["07d1947b<br/>ASSERTION"])
+    70["eb62836d<br/>#quot;lastName#quot;"]
+    71["8e45fffa<br/>#quot;Wang#quot;"]
+    72(["169cfb83<br/>ASSERTION"])
+    73["06d2aaa3<br/>#quot;dateOfBirth#quot;"]
+    74["901adfac<br/>#quot;2002-06-06#quot;"]
+    75(["e79e2110<br/>ASSERTION"])
+    76["a16163df<br/>#quot;freedoniaID#quot;"]
+    77(("6bcbca2d<br/>NODE"))
+    78["a4465da4<br/>#quot;fasa-marx-1#quot;"]
+    79(["1852d5ed<br/>ASSERTION"])
+    80["eb62836d<br/>#quot;lastName#quot;"]
+    81["dd94ae7a<br/>#quot;Elsher#quot;"]
+    82(["ba154096<br/>ASSERTION"])
+    83["06d2aaa3<br/>#quot;dateOfBirth#quot;"]
+    84["93eda65a<br/>#quot;2002-12-06#quot;"]
+    85(["c24b8eb1<br/>ASSERTION"])
+    86[/"d59f8c0f<br/>verifiedBy"/]
+    87["ccfdbcc7<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    3 --> 5
+    5 -->|pred| 6
+    5 -->|obj| 7
+    7 -->|subj| 8
+    7 --> 9
+    9 -->|pred| 10
+    9 -->|obj| 11
+    7 --> 12
+    12 -->|pred| 13
+    12 -->|obj| 14
+    3 --> 15
+    15 -->|pred| 16
+    15 -->|obj| 17
+    17 -->|subj| 18
+    17 --> 19
+    19 -->|pred| 20
+    19 -->|obj| 21
+    17 --> 22
+    22 -->|pred| 23
+    22 -->|obj| 24
+    3 --> 25
+    25 -->|pred| 26
+    25 -->|obj| 27
+    27 -->|subj| 28
+    27 --> 29
+    29 -->|pred| 30
+    29 -->|obj| 31
+    27 --> 32
+    32 -->|pred| 33
+    32 -->|obj| 34
+    3 --> 35
+    35 -->|pred| 36
+    35 -->|obj| 37
+    37 -->|subj| 38
+    37 --> 39
+    39 -->|pred| 40
+    39 -->|obj| 41
+    37 --> 42
+    42 -->|pred| 43
+    42 -->|obj| 44
+    3 --> 45
+    45 -->|pred| 46
+    45 -->|obj| 47
+    47 -->|subj| 48
+    47 --> 49
+    49 -->|pred| 50
+    49 -->|obj| 51
+    47 --> 52
+    52 -->|pred| 53
+    52 -->|obj| 54
+    3 --> 55
+    55 -->|pred| 56
+    55 -->|obj| 57
+    57 -->|subj| 58
+    57 --> 59
+    59 -->|pred| 60
+    59 -->|obj| 61
+    57 --> 62
+    62 -->|pred| 63
+    62 -->|obj| 64
+    3 --> 65
+    65 -->|pred| 66
+    65 -->|obj| 67
+    67 -->|subj| 68
+    67 --> 69
+    69 -->|pred| 70
+    69 -->|obj| 71
+    67 --> 72
+    72 -->|pred| 73
+    72 -->|obj| 74
+    3 --> 75
+    75 -->|pred| 76
+    75 -->|obj| 77
+    77 -->|subj| 78
+    77 --> 79
+    79 -->|pred| 80
+    79 -->|obj| 81
+    77 --> 82
+    82 -->|pred| 83
+    82 -->|obj| 84
+    1 --> 85
+    85 -->|pred| 86
+    85 -->|obj| 87
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:red,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px
+    style 12 stroke:red,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:#55f,stroke-width:3.0px
+    style 15 stroke:red,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    style 17 stroke:red,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:red,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:#55f,stroke-width:3.0px
+    style 22 stroke:red,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px
+    style 24 stroke:#55f,stroke-width:3.0px
+    style 25 stroke:red,stroke-width:3.0px
+    style 26 stroke:#55f,stroke-width:3.0px
+    style 27 stroke:red,stroke-width:3.0px
+    style 28 stroke:#55f,stroke-width:3.0px
+    style 29 stroke:red,stroke-width:3.0px
+    style 30 stroke:#55f,stroke-width:3.0px
+    style 31 stroke:#55f,stroke-width:3.0px
+    style 32 stroke:red,stroke-width:3.0px
+    style 33 stroke:#55f,stroke-width:3.0px
+    style 34 stroke:#55f,stroke-width:3.0px
+    style 35 stroke:red,stroke-width:3.0px
+    style 36 stroke:#55f,stroke-width:3.0px
+    style 37 stroke:red,stroke-width:3.0px
+    style 38 stroke:#55f,stroke-width:3.0px
+    style 39 stroke:red,stroke-width:3.0px
+    style 40 stroke:#55f,stroke-width:3.0px
+    style 41 stroke:#55f,stroke-width:3.0px
+    style 42 stroke:red,stroke-width:3.0px
+    style 43 stroke:#55f,stroke-width:3.0px
+    style 44 stroke:#55f,stroke-width:3.0px
+    style 45 stroke:red,stroke-width:3.0px
+    style 46 stroke:#55f,stroke-width:3.0px
+    style 47 stroke:red,stroke-width:3.0px
+    style 48 stroke:#55f,stroke-width:3.0px
+    style 49 stroke:red,stroke-width:3.0px
+    style 50 stroke:#55f,stroke-width:3.0px
+    style 51 stroke:#55f,stroke-width:3.0px
+    style 52 stroke:red,stroke-width:3.0px
+    style 53 stroke:#55f,stroke-width:3.0px
+    style 54 stroke:#55f,stroke-width:3.0px
+    style 55 stroke:red,stroke-width:3.0px
+    style 56 stroke:#55f,stroke-width:3.0px
+    style 57 stroke:red,stroke-width:3.0px
+    style 58 stroke:#55f,stroke-width:3.0px
+    style 59 stroke:red,stroke-width:3.0px
+    style 60 stroke:#55f,stroke-width:3.0px
+    style 61 stroke:#55f,stroke-width:3.0px
+    style 62 stroke:red,stroke-width:3.0px
+    style 63 stroke:#55f,stroke-width:3.0px
+    style 64 stroke:#55f,stroke-width:3.0px
+    style 65 stroke:red,stroke-width:3.0px
+    style 66 stroke:#55f,stroke-width:3.0px
+    style 67 stroke:red,stroke-width:3.0px
+    style 68 stroke:#55f,stroke-width:3.0px
+    style 69 stroke:red,stroke-width:3.0px
+    style 70 stroke:#55f,stroke-width:3.0px
+    style 71 stroke:#55f,stroke-width:3.0px
+    style 72 stroke:red,stroke-width:3.0px
+    style 73 stroke:#55f,stroke-width:3.0px
+    style 74 stroke:#55f,stroke-width:3.0px
+    style 75 stroke:red,stroke-width:3.0px
+    style 76 stroke:#55f,stroke-width:3.0px
+    style 77 stroke:red,stroke-width:3.0px
+    style 78 stroke:#55f,stroke-width:3.0px
+    style 79 stroke:red,stroke-width:3.0px
+    style 80 stroke:#55f,stroke-width:3.0px
+    style 81 stroke:#55f,stroke-width:3.0px
+    style 82 stroke:red,stroke-width:3.0px
+    style 83 stroke:#55f,stroke-width:3.0px
+    style 84 stroke:#55f,stroke-width:3.0px
+    style 85 stroke:red,stroke-width:3.0px
+    style 86 stroke:#55f,stroke-width:3.0px
+    style 87 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke:green,stroke-width:2.0px
+    linkStyle 5 stroke:#55f,stroke-width:2.0px
+    linkStyle 6 stroke:red,stroke-width:2.0px
+    linkStyle 7 stroke-width:2.0px
+    linkStyle 8 stroke:green,stroke-width:2.0px
+    linkStyle 9 stroke:#55f,stroke-width:2.0px
+    linkStyle 10 stroke-width:2.0px
+    linkStyle 11 stroke:green,stroke-width:2.0px
+    linkStyle 12 stroke:#55f,stroke-width:2.0px
+    linkStyle 13 stroke-width:2.0px
+    linkStyle 14 stroke:green,stroke-width:2.0px
+    linkStyle 15 stroke:#55f,stroke-width:2.0px
+    linkStyle 16 stroke:red,stroke-width:2.0px
+    linkStyle 17 stroke-width:2.0px
+    linkStyle 18 stroke:green,stroke-width:2.0px
+    linkStyle 19 stroke:#55f,stroke-width:2.0px
+    linkStyle 20 stroke-width:2.0px
+    linkStyle 21 stroke:green,stroke-width:2.0px
+    linkStyle 22 stroke:#55f,stroke-width:2.0px
+    linkStyle 23 stroke-width:2.0px
+    linkStyle 24 stroke:green,stroke-width:2.0px
+    linkStyle 25 stroke:#55f,stroke-width:2.0px
+    linkStyle 26 stroke:red,stroke-width:2.0px
+    linkStyle 27 stroke-width:2.0px
+    linkStyle 28 stroke:green,stroke-width:2.0px
+    linkStyle 29 stroke:#55f,stroke-width:2.0px
+    linkStyle 30 stroke-width:2.0px
+    linkStyle 31 stroke:green,stroke-width:2.0px
+    linkStyle 32 stroke:#55f,stroke-width:2.0px
+    linkStyle 33 stroke-width:2.0px
+    linkStyle 34 stroke:green,stroke-width:2.0px
+    linkStyle 35 stroke:#55f,stroke-width:2.0px
+    linkStyle 36 stroke:red,stroke-width:2.0px
+    linkStyle 37 stroke-width:2.0px
+    linkStyle 38 stroke:green,stroke-width:2.0px
+    linkStyle 39 stroke:#55f,stroke-width:2.0px
+    linkStyle 40 stroke-width:2.0px
+    linkStyle 41 stroke:green,stroke-width:2.0px
+    linkStyle 42 stroke:#55f,stroke-width:2.0px
+    linkStyle 43 stroke-width:2.0px
+    linkStyle 44 stroke:green,stroke-width:2.0px
+    linkStyle 45 stroke:#55f,stroke-width:2.0px
+    linkStyle 46 stroke:red,stroke-width:2.0px
+    linkStyle 47 stroke-width:2.0px
+    linkStyle 48 stroke:green,stroke-width:2.0px
+    linkStyle 49 stroke:#55f,stroke-width:2.0px
+    linkStyle 50 stroke-width:2.0px
+    linkStyle 51 stroke:green,stroke-width:2.0px
+    linkStyle 52 stroke:#55f,stroke-width:2.0px
+    linkStyle 53 stroke-width:2.0px
+    linkStyle 54 stroke:green,stroke-width:2.0px
+    linkStyle 55 stroke:#55f,stroke-width:2.0px
+    linkStyle 56 stroke:red,stroke-width:2.0px
+    linkStyle 57 stroke-width:2.0px
+    linkStyle 58 stroke:green,stroke-width:2.0px
+    linkStyle 59 stroke:#55f,stroke-width:2.0px
+    linkStyle 60 stroke-width:2.0px
+    linkStyle 61 stroke:green,stroke-width:2.0px
+    linkStyle 62 stroke:#55f,stroke-width:2.0px
+    linkStyle 63 stroke-width:2.0px
+    linkStyle 64 stroke:green,stroke-width:2.0px
+    linkStyle 65 stroke:#55f,stroke-width:2.0px
+    linkStyle 66 stroke:red,stroke-width:2.0px
+    linkStyle 67 stroke-width:2.0px
+    linkStyle 68 stroke:green,stroke-width:2.0px
+    linkStyle 69 stroke:#55f,stroke-width:2.0px
+    linkStyle 70 stroke-width:2.0px
+    linkStyle 71 stroke:green,stroke-width:2.0px
+    linkStyle 72 stroke:#55f,stroke-width:2.0px
+    linkStyle 73 stroke-width:2.0px
+    linkStyle 74 stroke:green,stroke-width:2.0px
+    linkStyle 75 stroke:#55f,stroke-width:2.0px
+    linkStyle 76 stroke:red,stroke-width:2.0px
+    linkStyle 77 stroke-width:2.0px
+    linkStyle 78 stroke:green,stroke-width:2.0px
+    linkStyle 79 stroke:#55f,stroke-width:2.0px
+    linkStyle 80 stroke-width:2.0px
+    linkStyle 81 stroke:green,stroke-width:2.0px
+    linkStyle 82 stroke:#55f,stroke-width:2.0px
+    linkStyle 83 stroke-width:2.0px
+    linkStyle 84 stroke:green,stroke-width:2.0px
+    linkStyle 85 stroke:#55f,stroke-width:2.0px
+```
+Obviously, this is highly toxic information. Social security numbers are so toxic that a [reference](https://www.lexjansen.com/nesug/nesug07/ap/ap19.pdf) was used to verify that invalid numbers were used in this example. Names and birthdates could aid in identity theft, especially if associated with a social security number (or other identifer). As a result, Acme doesn't want to transmit this bare information, and Burton Bank doesn't want to receive information on students not associated with the bank. But, a full set of information must be transmitted to support the governmental regulations!
+
+
 
 ### Related Files
 
