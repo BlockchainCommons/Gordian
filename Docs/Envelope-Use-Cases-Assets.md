@@ -20,8 +20,9 @@ This first set of progressive use cases demonstrates how to store secret informa
 
 > _Problem Solved:_ Sam wants to securely and resiliently store data that he personally controls.
 
-Sam has too many keys! In order to organize them in a secure way, he places each private key in an encrypted Gordian Envelope, indexed by the pubkey. But, he'll go beyond that to also add metadata to the secure storage mechanism that will allow him to rebuild the private key if he loses the key he used to encrypt the Envelope!
+Sam has too many keys! In order to organize them in a secure way, he plans to place each private key in an encrypted Gordian Envelope, indexed by the pubkey. But, he'll go beyond that and also add metadata to the secure storage mechanism; this will allow him to rebuild the private key if he loses the symmetric key he used to encrypt the Envelope!
 
+The basic Gordian Envelope just combines the key's `xpub` as its subject with its `xprv` as an object:
 ```
 "xpub6CiXsHfXkeXW2GBijsfihd64i8nebEWgxTxEq7j2ntT3GpyGKrP4v6dnz7ZNiZufVavY6pPwLTvdiUWSFD7tbCMpb3dvkpUqPiMdh4BRrso" [
     "xprv": "xprv9yjBTn8dvGyCon7Fdr8iLV9LA6xABmnqbF2e2jKREYv4Q2e7nK4pNJKK8qrLMJNKHrNTyHUatP7TepCeTHPWv64HQShKfy6eNxUzDgStSBg"
@@ -49,8 +50,7 @@ graph LR
     linkStyle 3 stroke:#55f,stroke-width:2.0px
 
 ```
-
-Sam is planning to encrypt his private-key information with a single symmetric-encryption key, and he's aware of the dangers that causes for resilience: the symmetric key is a Single Point of Failure. 
+Sam is planning to encrypt this private-key information with a single symmetric-encryption key, and he's aware of the dangers that causes for resilience: the symmetric key becomes a Single Point of Failure. 
 
 He can't get around that (yet) but he can use the structure of the Envelope to offer _other_ ways to rebuild his private keys. He adds a metadata hint to each Envelope: the `derivationPath` and the `seedDigest` of the seed used to create the keys. He does this by turning the `xprv` object into a new envelope containing the additional information as assertions.
 
@@ -176,9 +176,9 @@ Now, Sam can rapidly look up his many `xprvs` through their `xpubs` while storin
 
 > _Problem Solved:_ Sam needs to avoid potential correlation of his data through hashes when selective disclosure is required.
 
-Sam foresees a near-future where compliance regulations will require him to prove ownership of his private key. This will likely require selective disclosure. Sam is worried about the possibility of correlation for the additional data he's stored in his Gordian Envelope, even when its elided.
+Sam foresees a near-future where compliance regulations will require him to prove ownership of his private key. This will likely require selective disclosure. Sam is worried about the possibility of correlation for the additional data he's stored in his Gordian Envelope, even when it's elided.
 
-The problem is that standard word like "derivationPath" or "seedDigest" or "m/44h/0h/0h" might be guessable by brute-forcing against the hash of the data. As a result, Sam adds salt to those three elements. Even if their hashes need to be revealed as part of a compliance disclosure, their contents will remain secret.
+The problem is that standard word like "derivationPath" or "seedDigest" or "m/44h/0h/0h" might be guessable by brute-forcing against the hash of the data. Fortunately, the problem is solvable by adding salt to those three elements. This adds a large random number as an assertion for each standard words. They can no longer be guessed. Even if their hashes need to be revealed as part of a compliance disclosure, the contents will remain secret.
 
 ```
 "xpub6CiXsHfXkeXW2GBijsfihd64i8nebEWgxTxEq7j2ntT3GpyGKrP4v6dnz7ZNiZufVavY6pPwLTvdiUWSFD7tbCMpb3dvkpUq…" [
@@ -298,10 +298,22 @@ graph LR
 
 > _Problem Solved:_ Sam wants to add additional security and privacy, even if there is a cost.
 
-SmartCustody is a constant battle between resilience and security. A few years later, Sam is rolling in the cryptocurrency earnings and decides that maybe he doesn't want his key derivation information sitting in plain sight. So, he rerolls all of his Gordian Envelopes such that the     `xprv` information is now wrapped.
+SmartCustody is a constant battle between resilience and security. A few years later, Sam is rolling in the cryptocurrency earnings and decides that maybe he doesn't want his key derivation information sitting in plain sight. So, he adjusts all of his envelopes to allow the encryption of _everything_. 
 
-(In the process, Sam also removes the salts he previously added, since eliding of the additional data is no longer an issue, and it makes the example clearer.)
+This requires "wrapping" the `xprv` information from the previous envelope, which means encapsulating it, and storing it as the subject of a new envelope. Encryption is an assertion, which means that it applies only to a subject. Previously that subject was just the `xprv`, but now it's the `xprv` and its subsidiary information.
 
+(In the process of this adjusment, Sam also removes the salts he previously added, since eliding of the additional data is no longer an issue, and it makes the example clearer.)
+
+Here's what the Gordian Envelope looked like originally:
+```
+"xpub6CiXsHfXkeXW2GBijsfihd64i8nebEWgxTxEq7j2ntT3GpyGKrP4v6dnz7ZNiZufVavY6pPwLTvdiUWSFD7tbCMpb3dvkpUq…" [
+    "xprv": "xprv9yjBTn8dvGyCon7Fdr8iLV9LA6xABmnqbF2e2jKREYv4Q2e7nK4pNJKK8qrLMJNKHrNTyHUatP7TepCeTHPWv64HQShKfy6e…" [
+        "derivationPath": "m/44h/0h/0h"
+        "seedDigest": "d5377c9d8a2d064dc8e83d6c3557c6b0"
+    ]
+]
+```
+Here it is with the `xprv` information wrapped:
 ```
 "xpub6CiXsHfXkeXW2GBijsfihd64i8nebEWgxTxEq7j2ntT3GpyGKrP4v6dnz7ZNiZufVavY6pPwLTvdiUWSFD7tbCMpb3dvkpUq…" [
     "xprv": {
@@ -366,7 +378,7 @@ graph LR
     linkStyle 11 stroke:#55f,stroke-width:2.0px
 
 ```
-Now, when he encrypts his data, Sam can choose to encrypt everything inside the envelope, not just the `xprv` itself.
+Now, when Sam encrypts his data, he will encrypt everything within the envelope, not just the `xprv` itself.
 
 ```
 "xpub6CiXsHfXkeXW2GBijsfihd64i8nebEWgxTxEq7j2ntT3GpyGKrP4v6dnz7ZNiZufVavY6pPwLTvdiUWSFD7tbCMpb3dvkpUq…" [
