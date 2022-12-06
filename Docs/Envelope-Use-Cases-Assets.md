@@ -20,7 +20,7 @@ This first set of progressive use cases demonstrates how to store secret informa
 
 > _Problem Solved:_ Sam wants to securely and resiliently store data that he personally controls.
 
-Sam has too many keys! In order to organize them in a secure way, he places each private key in a Gordian Envelope indexed by the pubkey.
+Sam has too many keys! In order to organize them in a secure way, he places each private key in an encrypted Gordian Envelope, indexed by the pubkey. But, he'll go beyond that to also add metadata to the secure storage mechanism that will allow him to rebuild the private key if he loses the key he used to encrypt the Envelope!
 
 ```
 "xpub6CiXsHfXkeXW2GBijsfihd64i8nebEWgxTxEq7j2ntT3GpyGKrP4v6dnz7ZNiZufVavY6pPwLTvdiUWSFD7tbCMpb3dvkpUqPiMdh4BRrso" [
