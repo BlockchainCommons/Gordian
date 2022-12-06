@@ -13,9 +13,9 @@ Gordian Envelopes are useful for credentials in large part because of their abil
 * [Part Three: Herd Privacy Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-three-herd-privacy-credentials)
    * #5: [Paul Private Proves Proficiency (Herd Privacy)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#5-paul-privately-proves-proficiency-herd-privacy)
    * #6: [Paul Proves His Proficiency with Improved Privacy (Herd Privacy with Non-Correlation)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#6-paul-proves-proficiency-with-improved-privacy-herd-privacy-with-non-correlation)
-   * #7: [Berkley Bank Avoids Toxicity (Herd Privacy with Selective Disclosure)]()
+   * #7: [Burton Bank Avoids Toxicity (Herd Privacy with Selective Disclosure)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#7-burton-bank-avoids-toxicity-herd-privacy-with-selective-disclosure)
  
-_The Danika Kaschak examples in #1 through #3 are drawn directly from [07-Elision-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/7-VC-ELISION-EXAMPLE.md), one of the documents for the [Envelope-CLI app](https://github.com/BlockchainCommons/envelope-cli-swift)._
+_The Danika Kaschak examples in #1 through #3 are drawn directly from [07-Elision-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/7-VC-ELISION-EXAMPLE.md), one of the documents for the [Envelope-CLI app](https://github.com/BlockchainCommons/envelope-cli-swift). The Burton Bank example is drawn from a use case in a [Selective Disclosure white paper](https://github.com/WebOfTrustInfo/rwot11-the-hague/blob/master/draft-documents/selective-correlation.md) in process from Rebooting the Web of Trust XI._
 
 ## Part One: Official Credentials
 
@@ -3017,7 +3017,7 @@ Acme's yearly report lists the identifiers for their students, plus enough addit
 ```
 ```mermaid
 graph LR
-    1(("5a5a7655<br/>NODE"))
+    1(("38e3f10e<br/>NODE"))
     2[/"6d68c797<br/>WRAPPED"\]
     3(("441bc0d3<br/>NODE"))
     4["1c42df20<br/>#quot;Acme Professional School 2022-12-24 Graduation#quot;"]
@@ -3101,9 +3101,9 @@ graph LR
     82(["ba154096<br/>ASSERTION"])
     83["06d2aaa3<br/>#quot;dateOfBirth#quot;"]
     84["93eda65a<br/>#quot;2002-12-06#quot;"]
-    85(["c24b8eb1<br/>ASSERTION"])
+    85(["42815a8c<br/>ASSERTION"])
     86[/"d59f8c0f<br/>verifiedBy"/]
-    87["ccfdbcc7<br/>Signature"]
+    87["0376c2bc<br/>Signature"]
     1 -->|subj| 2
     2 -->|subj| 3
     3 -->|subj| 4
@@ -3364,7 +3364,80 @@ graph LR
     linkStyle 84 stroke:green,stroke-width:2.0px
     linkStyle 85 stroke:#55f,stroke-width:2.0px
 ```
-Obviously, this is highly toxic information. Social security numbers are so toxic that a [reference](https://www.lexjansen.com/nesug/nesug07/ap/ap19.pdf) was used to verify that invalid numbers were used in this example. Names and birthdates could aid in identity theft, especially if associated with a social security number (or other identifer). As a result, Acme doesn't want to transmit this bare information, and Burton Bank doesn't want to receive information on students not associated with the bank. But, a full set of information must be transmitted to support the governmental regulations!
+Obviously, this is highly toxic information. Social security numbers are so toxic that a [reference](https://www.lexjansen.com/nesug/nesug07/ap/ap19.pdf) was used just to verify that invalid numbers were being used in this example. Names and birthdates could aid in identity theft, especially if associated with a social security number (or other identifer). As a result, Acme doesn't want to transmit this bare information, and Burton Bank doesn't want to receive information on students not associated with the bank. But, a full set of information must be transmitted to support the governmental regulations!
+
+Acme thus sends out the following elided information:
+```
+{
+    "Acme Professional School 2022-12-24 Graduation" [
+        ELIDED (8)
+    ]
+} [
+    verifiedBy: Signature
+]
+```
+```
+graph LR
+    1(("38e3f10e<br/>NODE"))
+    2[/"6d68c797<br/>WRAPPED"\]
+    3(("441bc0d3<br/>NODE"))
+    4["1c42df20<br/>#quot;Acme Professional School 2022-12-24 Graduation#quot;"]
+    5{{"0fbe062c<br/>ELIDED"}}
+    6{{"1a9d204c<br/>ELIDED"}}
+    7{{"1ccceace<br/>ELIDED"}}
+    8{{"301cb6f4<br/>ELIDED"}}
+    9{{"40e63258<br/>ELIDED"}}
+    10{{"8136bd53<br/>ELIDED"}}
+    11{{"df10fd36<br/>ELIDED"}}
+    12{{"e79e2110<br/>ELIDED"}}
+    13(["42815a8c<br/>ASSERTION"])
+    14[/"d59f8c0f<br/>verifiedBy"/]
+    15["0376c2bc<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    3 --> 5
+    3 --> 6
+    3 --> 7
+    3 --> 8
+    3 --> 9
+    3 --> 10
+    3 --> 11
+    3 --> 12
+    1 --> 13
+    13 -->|pred| 14
+    13 -->|obj| 15
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 6 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 7 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 8 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 9 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 10 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 11 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 12 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 13 stroke:red,stroke-width:3.0px
+    style 14 stroke:#55f,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke-width:2.0px
+    linkStyle 5 stroke-width:2.0px
+    linkStyle 6 stroke-width:2.0px
+    linkStyle 7 stroke-width:2.0px
+    linkStyle 8 stroke-width:2.0px
+    linkStyle 9 stroke-width:2.0px
+    linkStyle 10 stroke-width:2.0px
+    linkStyle 11 stroke-width:2.0px
+    linkStyle 12 stroke:green,stroke-width:2.0px
+    linkStyle 13 stroke:#55f,stroke-width:2.0px
+```
+They also include precise information on how to form the elided assertions, with examples:
 
 
 
