@@ -28,7 +28,7 @@ Danika is a credentialed electrical engineer who maintains her certification thr
 
 Enter the new world of digital credentials. The certification board can now produce a signed version of Danika's credentials that lists all of her professional development and continuing employment using a Gordian Envelope. There's no need to contact the cerification board afterward because Danika can produce the credential and it can be validated by compared the signature to the board's public key, stored in Public Key Infrastructure (PKI). Danika can also prove that the credential belongs to her by signing something with the private key linked to the public key stored in the Envelope.
 
-To create the credential, Danika submits information to the Electrical Engineering Board listing her credentials:
+To create the credential, Danika submits information to the Electrical Engineering Board listing her experience:
 
 ```
 CID(4676635a) [
@@ -226,7 +226,7 @@ graph LR
     linkStyle 42 stroke:#55f,stroke-width:2.0px
 
 ```
-The certification board validates the information submitted by Danika, and then wraps the Envelope and signs it before returning it to Danika. This is what gives the Envelope its power. Because it's signed, no one now needs to contact the board (as long as their public key is indeed stored in a PKI or at some other well-known site, to allow for validation).
+The certification board validates the information submitted by Danika, and then wraps the Envelope and signs it before returning it to Danika. This is what gives the Envelope its power. Because it's signed, no one now needs to contact the board (as long as their public key is indeed stored in a PKI, or at some other well-known site, to allow for validation).
 ```
 {
     CID(4676635a) [
@@ -469,7 +469,7 @@ To make the validation process easier, additional hints for public-key look up c
 
 Danika is very confident in her prowess as an electrical engineer, but she fears prejudice when she seeks employment. Primarily, she is concerned about prejudice over her Eastern Europe name, but she also fears prejudice over the recent date of her certification. As a result, she wants to elide (omit) that information in her credential, as well as other details that she considers irrelevent to her application.
 
-Gordian Envelope gives any holder of a credential the ability to elide information from a credential. Danika simply needs to use an application such as `envelope-cli` that removes the information. Gordian Envelope is designed so that this removal of information doesn't affect any of the digital hashes within the Envelope. As a result, the signature on the Envelope remains valid. Danika can still present the information and someone examining it can then assess the remaining information and verify that it's been signed, in this case by the certification board.
+Gordian Envelope gives any holder of a credential the ability to elide information from a credential. Danika simply needs to use an application such as `envelope-cli` that removes specific content. Gordian Envelope is designed so that this removal of information doesn't affect any of the digital hashes within the Envelope. As a result, the signature on the Envelope remains valid. Danika can still present the information and someone examining it can then assess the remaining information and verify that it's been signed, in this case by the certification board.
 
 When Danika elides her envelope, it shows that information has been removed:
 ```
@@ -611,9 +611,13 @@ After submitting her credentials, Danika supplements them with excellent scores 
 
 > _Problem Solved:_ Thunder & Lightning Inc. needs to repackage Danika's credentials for their customers.
 
-Thunder & Lightning Inc. is ready to send Danika to a job site! To do so they must both reveal and affirm her credentials to the job-site supervisors. Even though they are neither the issuer nor the subject of Danika's educational credentials, Thunder & Lightning is able to produce their own version of those credentials.
+Thunder & Lightning Inc. is ready to send Danika to a job site! To do so they must both reveal and affirm her credentials to the job-site supervisors. Even though they are neither the issuer nor the subject of Danika's educational credentials, Thunder & Lightning is able to produce their own version of those credentials based on the copy of the Gordian Envelope that they hold.
 
-They want Danika's name in the credentials, so they must ask her for a new copy, but then they elide the rest of the information just like she did. This is one of the strengths of Gordian Envelope: each party who holds the Envelope (or even an already-elided form of the Envelope) can choose how to further elide it to match their own requirements and their own risk models.
+They want Danika's name in the credentials, so they must ask her for a copy of the credentials containing that information, but then they elide the rest of the information just like she did, using an application such as `envelope-cli`. This is one of the strengths of Gordian Envelope: each party who holds the Envelope (or even an already-elided form of the Envelope) can choose how to further elide it to match their own requirements and their own risk models.
+
+But a holder can do more than that: they can also add information. In this case, Thunder & Lightning wants to add details about Danika's work with them. They can do so by wrapping the original, signed information, adding content, and then putting another signature on top of that. The original certification information remains verified by the certification board, and the new employment information is verified by Thunder & Lightning.
+
+Thunder & Lightning's elided version of Danika's certification reveals slightly different information than the previous version:
 ```
 {
     CID(4676635a) [
@@ -775,7 +779,7 @@ graph LR
     linkStyle 33 stroke:green,stroke-width:2.0px
     linkStyle 34 stroke:#55f,stroke-width:2.0px
 ```
-However, Thunder & Lightning Inc. also needs to add details of Danika's work with them. They do that by wrapping the original envelope and adding information on Danika's employment.
+Thunder & Lightning Inc. wraps that envelope (to preserve the original signature) and then adds additional data on Danika's work with them:
 ```
 {
     {
@@ -1211,7 +1215,7 @@ graph LR
     linkStyle 50 stroke:#55f,stroke-width:2.0px
 ```
 
-In case the checksums have gotten too small to read, here's a look at the three stages of this use case using the `--tree` function from `envelope-cli`:
+In case the hashes have gotten too small to read, here's a look at the three stages of this use case using the `--tree` function from `envelope-cli`:
 
 **Redacted Credential:**
 ```
@@ -1365,9 +1369,9 @@ It can be relatively easy to validate official credentials from centralized auth
 
 Jonathan has been doing technical writing on blockchains for a few years and wants to extend that into a freelance career. Unfortunately, most of his extant writing has been internal documents, and so he can't point potential employers to them. 
 
-Omar, an expert in blockchain technical writing, has GitHub repos that are filled with examples of his own excellent writing, and that's led him to offer Open Badges for other people whose writing he thinks is up to spec. He creates credentials for them signed with his GitHub private key.
+Omar, an expert in blockchain technical writing, has GitHub repos that are filled with examples of his own excellent writing, and that's led him to offer Open Badges for other people whose writing he thinks is up to spec. Omar can create a badge for Jonathan by writing a credential and signing it with his GitHub private key. Validators can then assess the validity of that peer-to-peer credential by looking at the contents of Omar's own GitHub and determining whether he has sufficient expertise to provide that credential.
 
-After positively assessing Jonath's tech writing, Omar creates a credential that identifies Jonathan and certifies his expertise.
+After positively assessing Jonath's tech writing, Omar thus creates a credential that identifies Jonathan and certifies his expertise:
 ```
 "Jonathan Jakes" [
     "certificate": "2022-037" [
@@ -1439,7 +1443,7 @@ graph LR
     linkStyle 13 stroke:#55f,stroke-width:2.0px
 
 ```
-Omar then adds on information to identify himself by using a `certifiedBy` predicate that he places in the `certificate`:
+While creating the credential, Omar adds on information to identify himself by using a `certifiedBy` predicate that he places in the `certificate`:
 ```
 "Jonathan Jakes" [
     "certificate": "2022-037" [
@@ -1555,7 +1559,7 @@ graph LR
     linkStyle 23 stroke:#55f,stroke-width:2.0px
 
 ```
-The `githubID` acts as Omar's own credentials. Validators can view it to decide the worth of Omar's certification, as is traditional in a web of trust. `pubkeyURL` is meant as a hint so that validators don't have to figure out where to look up the public key associated with the GitHub-ID, but obviously any validator will need to thoughtfully consider whether the hint is proper and links to the ID shown.
+The `githubID` is what acts as Omar's own credential. Validators can view it to decide the worth of Omar's certification, as is traditional in a web of trust. `pubkeyURL` is meant as a hint so that validators don't have to figure out where to look up the public key associated with the GitHub-ID, but obviously any validator will need to thoughtfully consider whether the hint is proper and links to the ID shown.
 
 To finalize the Open Badge, Omar must then wrap the envelope and sign it with the private key associated with the public key he has registered on GitHub.
 ```
