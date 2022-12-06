@@ -3376,7 +3376,7 @@ Acme thus sends out the following elided information:
     verifiedBy: Signature
 ]
 ```
-```mermaid
+```
 graph LR
     1(("38e3f10e<br/>NODE"))
     2[/"6d68c797<br/>WRAPPED"\]
@@ -3437,9 +3437,71 @@ graph LR
     linkStyle 12 stroke:green,stroke-width:2.0px
     linkStyle 13 stroke:#55f,stroke-width:2.0px
 ```
-They also include precise information on how to form the elided assertions, with examples:
+They also include precise information on how to form the elided assertions, with examples.
 
+Using a tool such as `envelope-cli`, Burton can now use the exact format specified by Acme to form an assertion for each of their loan holders that combines their identifier, their last name, and their date of birth:
+```
+"socialSecurity": "123456789" [
+    "dateOfBirth": "2004-02-29"
+    "lastName": "Gray"
+]
+```
+```
+0fbe062c ASSERTION
+    32f06bb1 pred "socialSecurity"
+    68b165ed obj NODE
+        3e7d4a32 subj "123456789"
+        0d206284 ASSERTION
+            eb62836d pred "lastName"
+            c8027fab obj "Gray"
+        e3ff7458 ASSERTION
+            06d2aaa3 pred "dateOfBirth"
+            c246b6c0 obj "2004-02-29"
+```
+```
+graph LR
+    1(["0fbe062c<br/>ASSERTION"])
+    2["32f06bb1<br/>#quot;socialSecurity#quot;"]
+    3(("68b165ed<br/>NODE"))
+    4["3e7d4a32<br/>#quot;123456789#quot;"]
+    5(["0d206284<br/>ASSERTION"])
+    6["eb62836d<br/>#quot;lastName#quot;"]
+    7["c8027fab<br/>#quot;Gray#quot;"]
+    8(["e3ff7458<br/>ASSERTION"])
+    9["06d2aaa3<br/>#quot;dateOfBirth#quot;"]
+    10["c246b6c0<br/>#quot;2004-02-29#quot;"]
+    1 -->|pred| 2
+    1 -->|obj| 3
+    3 -->|subj| 4
+    3 --> 5
+    5 -->|pred| 6
+    5 -->|obj| 7
+    3 --> 8
+    8 -->|pred| 9
+    8 -->|obj| 10
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:red,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:green,stroke-width:2.0px
+    linkStyle 1 stroke:#55f,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke:green,stroke-width:2.0px
+    linkStyle 5 stroke:#55f,stroke-width:2.0px
+    linkStyle 6 stroke-width:2.0px
+    linkStyle 7 stroke:green,stroke-width:2.0px
+    linkStyle 8 stroke:#55f,stroke-width:2.0px
+```
+If the hash for the assertion (`0fbe062c` for `Gray`), then the Bank knows that they can update their records to show that loan holder has graduated.
 
+And, this was all done without exchanging toxic information, but instead _depending_ on selective correlation. Only someone who already held the information could possibly correlate the hash back to its original data!
 
 ### Related Files
 
