@@ -1713,11 +1713,11 @@ Paul wants to get a credential showing proficiency in Gordian Envelope from Bloc
 
 Paul can take an online test in either Basic form (automated Q&A with a time limit) or Advanced form (Q&A with a live proctor on Zoom). He chooses the former, again for privacy reasons. After he succeeds at the test (50 out of 50, of course!), he needs to get his credential.
 
-At this point, most credential issuers would require Paul to give up an email address and then mail them the personal credential, but Blockchain Commons' privacy preserving methodology simply requires Paul to give them a DID (for which he presumably controls the private key). They'll then embed that DID in a very large Envelope with the credentials of everyone who succeeded at the test that month. (Paul must wait until the Envelope is generated before he can prove anything!)
+At this point, most credential issuers would require Paul to give up an email address and then mail them the personal credential, but Blockchain Commons' privacy preserving methodology simply requires Paul to give them a self certifying identifier or some sort (for which he presumably controls the private key). They'll then embed that identifier in a very large Envelope with the credentials of everyone who succeeded at the test that month. (Paul must wait until the Envelope is generated before he can prove anything!)
 
-At the end of the month, Blockchain Commons creates a large Gordian Envelope that contains the DIDs of everyone who passed their test that month, with a statement as to whether each DID `isBasic` or `isAdvanced`.
+At the end of the month, Blockchain Commons will create a large Gordian Envelope that contains the identifiers of everyone who passed their test that month, with a statement as to whether each DID `isBasic` or `isAdvanced`. However, it will be largely elided to protect everyone's privacy! Paul will then be able to create a simple proof that shows he's a member of the class ... but remains relatively anonymous until he does so.
 
-(An actual example would likely have hundreds of entries to ensure herd privacy. The following examples notably reduce that for readability.)
+The following example shows a credential for a number of different participants. A real-life example would likely have hundreds of entries to ensure herd privacy, but that's reduced here for readability:
 ```
 "Blockchain Commons Certifactions #13" [
     "certifiedBy": "Blockchain Commons" [
@@ -2242,9 +2242,9 @@ graph LR
     linkStyle 24 stroke:green,stroke-width:2.0px
     linkStyle 25 stroke:#55f,stroke-width:2.0px
 ```
-Note that each elided entry of certification still has its prior hash. All that Paul needs to do is prove that he can generate one of those hashes with his CID, and he proves his certification!
+Note that each elided entry of certification still has its prior hash. All that Paul needs to do to prove participation in the class is to show that he can generate one of those hashes with his identifier. That will prove his certification!
 
-Blockchain Commons publishes instructions for how to do so. Test takers just need to create an assertion with either the "isBasic" predicate or the "isAdvanced" predicate and their portable `ur:crypto-cid`. When they hash that assertion with BLAKE3, they can then prove that the digest is part of the partially redacted list of credentials.
+Blockchain Commons publishes instructions for how to do so. Test takers just need to create an assertion with either the "isBasic" predicate or the "isAdvanced" predicate and their portable `ur:crypto-cid` identifier. When they hash that assertion with BLAKE3, they can then prove that the digest is part of the partially redacted list of credentials.
 
 Paul creates his assertion based on the instructions:
 ```
@@ -2273,15 +2273,15 @@ That's the Blake3 hash of his assertion in UR form. If converted to hex, it is:
 ```
 As can be seen, that matches the third redacted hash in the Mermaid diagram above, which was the `isBasic` assertion for `ur:crypto-cid/hdcxiadtuowtsrynlfbslgplynrlonpfbaeolkbzztsngtasjpenwmdevojsgmplishhurkebnts`.
 
-Now, Paul can point to Blockchain Common's partially redacted tree of November 2022 certifications, reveal his CID, acknowledge that he passed the basic testing, and show his digest. Together these facts prove that the CID is part of the tree. 
+Now, Paul can point to Blockchain Common's partially redacted tree of November 2022 certifications, reveal his CID, acknowledge that he passed the basic testing, and show his digest. Together these facts prove that his identifier is part of the tree. 
 
 More notably, Paul can decide never to reveal his CID, in which case it is at least somewhat difficult for anyone else to prove that Paul is a member of the group. 
 
-Mind you, because the tree is partially redacted, and because no particular attempt has been made to prevent correlation, it's possible that CIDs in the Envelope could be guessed. There are several ways this could be prevented. They all require Blockchain Commons to provide additional information to Paul, increasing the communication requirements (and thus potentially impacting privacy), but they add strong non-correlation defenses.
+Mind you, because the tree is partially redacted, and because no particular attempt has been made to prevent correlation, it's possible that identifiers in the Envelope could be guessed (though someone would have to know a precise identifier to look for). There are several ways this could be prevented. They all require Blockchain Commons to provide additional information to Paul, increasing the communication requirements (and thus potentially impacting privacy), but they add strong non-correlation defenses.
 
 1.) Blockchain Commons could choose to fully redact the Envelope, publishing only a top-level hash. They would then supply Paul with a path to his lower-level hash by partially redacting the tree when he supplied them with his CID. Paul could then prove his presence in the Envelope with his digest and that path. If that path were to be more widely released, there would be the same correlation problems, but obviously they'd be lesser because it probably would never be widely published.
 
-2.) Alternatively, Blockchain Commons could restructure the Envelope so that every 5 or 10 or 20 CIDs are placed in a subenvelope. Their publicly published proof would only show the hashes of these subenvelopes, which will be relatively impossible to correlate. Paul would then be able to request a path to his own subenvelope. Even if this path were more widely released, there would only be a possibility of correlation for the other CIDs that happen to be in that subenvelope. (This example is shown in the next use case.)
+2.) Alternatively, Blockchain Commons could restructure the Envelope so that every 5 or 10 or 20 CIDs were placed in a subenvelope. Their publicly published proof would only show the hashes of these subenvelopes, which will be relatively impossible to correlate. Paul would then be able to request a path to his own subenvelope. Even if this path were more widely released, there would only be a possibility of correlation for the other CIDs that happen to be in that subenvelope. (This example is shown in the next use case.)
 
 3.) Finally, Blockchain Commons could choose to salt every CID in the Envelope. They would then have to supply Paul with his salt. (The twin limitations here are that salting everything dramatically increases the size of the Envelope and that Paul then has a piece of data that he can't lose).
 
@@ -2289,8 +2289,9 @@ Mind you, because the tree is partially redacted, and because no particular atte
 
 > _Problem Solved:_ Blockchain Commons wants to improve the herd privacy of its test takers by reducing correlation.
 
-Blockchain Commons is aware of the correlation possibilities in their test-result Envelopes. They choose a middle road to dramatically reduce correlation: they store every 5 CIDs in a separate sub-Envelope. (A real-life example might instead have clumps of 10 or 20 CIDs, but again this one is reduced in size to make it manageable.)
+Blockchain Commons is aware of the correlation possibilities in their test-result Envelopes. They choose a middle road to dramatically reduce correlation: they store every 5 CIDs in a separate sub-Envelope. (A real-life example might instead have clumps of 10 or 20 CIDs, but again this one is reduced in size to make it manageable.) Paul will then be able to request a path to his specific envelope, which he can combine with an assertion and the published top-level hashes of the envelope to, once more, show his participation. However the published hashes, which just contain the subenvelope, are more-or-less impossible to correlate.
 
+The envelope of certifications is bundled in a new, hierarchical manner:
 ```
 "Blockchain Commons Certifactions #13A" [
     "certifiedBy": "Blockchain Commons" [
@@ -2514,7 +2515,7 @@ graph LR
     linkStyle 47 stroke:green,stroke-width:2.0px
     linkStyle 48 stroke:#55f,stroke-width:2.0px
 ```
-This example uses a different signing key (primarily because the former example key was no longer available due to a reboot resetting shell variables; practice #SmartCustody & keep your keys safe!).
+Of course, it must still be signed. (This example uses a different signing key primarily because the former example key was no longer available due to a reboot resetting shell variables; practice #SmartCustody & keep your keys safe!)
 ```
 {
     "Blockchain Commons Certifactions #13A" [
@@ -2762,7 +2763,7 @@ graph LR
     linkStyle 52 stroke:green,stroke-width:2.0px
     linkStyle 53 stroke:#55f,stroke-width:2.0px
 ```
-As before, Blockchain Commons publishes a partially elided Envelope with the foundational information on the test results.
+As before, Blockchain Commons publishes a partially elided Envelope with the foundational information about the test results.
 ```
 {
     "Blockchain Commons Certifactions #13A" [
@@ -2853,7 +2854,7 @@ graph LR
     linkStyle 16 stroke:green,stroke-width:2.0px
     linkStyle 17 stroke:#55f,stroke-width:2.0px
 ```
-This time there's zero chance of correlation because the two remaining `ELIDED` elements each contain several (5) DIDs, drawn from the set of all DIDs. There's no practical way to figure out what is in each bundle.
+This time there's effectively zero chance of correlation because the two remaining `ELIDED` elements each contain several (5) identifiers, drawn from the set of all identifiers. There's no practical way to figure out what is in each bundle.
 
 In order to prove his participation, Paul creates an assertion, just like before:
 ```
@@ -2872,7 +2873,7 @@ graph LR
     linkStyle 0 stroke:green,stroke-width:2.0px
     linkStyle 1 stroke:#55f,stroke-width:2.0px
 ```
-However, due to the fact that the bundles of DIDs remain hidden, that's not enough. He needs to hand his assertion to Blockchain Commons, and then they need to send back a proof when reveals just enough of the Envelope structure to open up the bundle that contains his DID. Though this is more back-and-forth than in the previous Use Case, it can still be done in a privacy preserving way, such as Paul requesting the Proof over a Tor connection.
+However, due to the fact that the contents of the bundles of identifiers remain hidden, that's not enough. Paul needs to hand his assertion to Blockchain Commons, and then they need to send back a proof that reveals just enough of the Envelope structure to open up the bundle that contains his identifier. Though this is more back-and-forth than in the previous Use Case, it can still be done in a privacy preserving way, such as Paul requesting the Proof over a Tor connection.
 
 Here's what the proof looks like. 
 ```
@@ -2956,11 +2957,11 @@ graph LR
     linkStyle 14 stroke-width:2.0px
     linkStyle 15 stroke-width:2.0px
 ```
-As can be seen, one of the bundles (`f51ac46f`) has now been opened up. That reveals Paul's hash (`58F1CDD3`). A proof is the minimum path needed to reveal the hash that a user requires to demonstrate the existence of his assertion.
+A proof is the minimum path needed to reveal the hash that a user requires to demonstrate the existence of his assertion. As can be seen, one of the bundles (`f51ac46f`) has now been opened up. That reveals Paul's hash (`58F1CDD3`). 
 
 To prove his inclusion, Paul would now have to reveal his assertion digest, the "proof" from Blockchain Commons, and the original publication from Blockchain Commons.
 
-Through this methodology, the correlation is much reduced. The proof is the only thing that contains a hash that could theoretically be correlated if someone knew what to look for. They're not meant to be published, which greatly reduces their danger, but even if they were, only the other DIDs in the same bundle are subject to potential correlation. (Salted assertions still offer better correlation protection, but as noted previously, only at a cost in space, complexity, and required secrets. The bundled assertions of this example offer an excellent middle ground.)
+Through this methodology, the possibility of correlation is much reduced. The proof is the only thing that contains a hash that could theoretically be correlated if someone knew what to look for. They're not meant to be published, which greatly reduces their danger, but even if they were, only the other DIDs in the same bundle are subject to potential correlation. (Salted assertions still offer better correlation protection, but as noted previously, only at a cost in space, complexity, and required secrets. The bundled assertions of this example offer an excellent middle ground.)
 
 ### Related Files
 
