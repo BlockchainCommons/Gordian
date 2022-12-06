@@ -418,9 +418,9 @@ The second set of progressive use cases continues Sam's story, but demonstrates 
   
 Sam's private key envelopes should provide good resilience. Unless he gets paranoid about privacy, they each contain metadata hints on how to regenerate that key from its seed. Even if he loses the symmetric key to an envelope's permit, he has enough information to rebuild the content by other means.
 
-Sam will not have the same luxury with the envelopes that contain his seeds, especially since they must adhere to a very high level of security since they're the ultimate source of all his keys. He needs a new methodology for resilience: he thus chooses to lock his seed envelopes with Shamir's Secret Sharing, using the SSKR library.
+Sam will not have the same luxury with the envelopes that contain his seeds, especially since they must adhere to a very high level of security since they're the ultimate source of all his keys. He needs a new methodology for resilience: he thus chooses to lock his seed envelopes with Shamir's Secret Sharing, using the SSKR library. This will shard the symmetric key used to lock the envelope allowing him to recover it from just some of the shares (2-out-of-3 with the setup that Sam choses).
 
-Sam starts with the following seed:
+Sam wants to store the following seed:
 ```
 HEX: 3f706e65f830bac081faafbb93730d3b
 DIGEST: 651e44509ca8c719d25169f7e5e67d328e15007e171e1df2968b4a806d74984f
@@ -461,7 +461,7 @@ Sam then shards the envelope with SSKR. This is a four-part process:
 1. Wrap the envelope.
 2. Encrypt the envelope.
 3. Shard the encryption key into multiple shares.
-4. Attach each shard to a separate version of the encrypted data as an assertion.
+4. Attach each share to a separate version of the encrypted data as an assertion.
 
 Here is what Sam's wrapped envelope looks like:
 ```
@@ -579,9 +579,9 @@ graph LR
     linkStyle 2 stroke:green,stroke-width:2.0px
     linkStyle 3 stroke:#55f,stroke-width:2.0px
 ```
-Note that all three Gordian Envelopes have the exact same encrypted data, whose hash matches the wrapped information that Sam is storing, but that they each contain a different SSKRshare, as shown by that hash.
+Note that all three Gordian Envelopes have the exact same encrypted data, whose hash matches the wrapped information that Sam is storing, but that they each contains a different SSKRshare, as shown by the varying hashes.
 
-Sam stores one copy of his share at home, one at his bank, and one at work. If he ever loses the seed, he can restore it by bringing any two of these shares together.
+Sam stores one copy of his share at home, one at his bank, and one at work. If he ever loses this seed, he can restore it by bringing any two of these envelope shares together.
 
 _See [02-SSKR-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/3-SSKR-EXAMPLE.md) in the Envelope-CLI docs for an example of how to produce SSKR shared Envelopes with the CLI._
 
@@ -589,7 +589,7 @@ _See [02-SSKR-Example](https://github.com/BlockchainCommons/envelope-cli-swift/b
 
 > _Problem Solved:_ Sam wants to give someone else access to his digital assets, without affecting his current resilient setup.
 
-Sam takes on a partner: his lovely wife, Sophia. He now wants to make it easy for her to recover his funds if something happens to him. To do so, he rerolls his envelope with a second permit. It can still be opened with SSKR shares (which must be regenerated as part of the process), but now the envelope is also locked with Sophia's public key, which allows her to open it with her private key.
+Sam takes on a partner: his super wife, Sophia. He now wants to make it easy for her to recover his funds if something happens to him. To do so, he rerolls his envelope with a second permit. It can still be opened with SSKR shares (which must be regenerated as part of the process), but now the envelope is also locked with Sophia's public key, which allows her to open it with her private key.
 
 The three sharded Envelopes are created in the same way as when Sam just locked them with his SSKR shares, but now when the encryption occurs, a second assertion is added to each envelope, `hasRecipient`:
 ```
@@ -599,7 +599,7 @@ ENCRYPTED [
 ]
 ```
 
-As usual, the Mermaid output shows a bit of actual detail. Not only is the `sskrShare` different for each envelope, but so is each `sealedMessage`.
+As usual, the Mermaid output shows a bit more detail. Not only is the `sskrShare` different for each envelope, but so is each `sealedMessage`.
 ```mermaid
 graph LR
     1(("9ae72792<br/>NODE"))
@@ -706,11 +706,11 @@ That's because the creation of the `SealedMessage` is a multi-part process. The 
 
 1. Randomly generate a nonce.
 2. Encrypt the symmetric key used to encrypt the Envelope using the recipient's public key and the nonce.
-3. Store the encrypted key and the nonce in a `crypto-message`](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2022-001-secure-message.md#cddl-for-secure-message)
+3. Store the encrypted key and the nonce in a [`crypto-message`](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2022-001-secure-message.md#cddl-for-secure-message), stored in `sealedMessage`.
 
-It's the usage of a nonce in each encryption that causes the `SealedMessage` for each share of the Envelope to vary.
+It's the usage of a nonce with each encryption that causes the `SealedMessage` for each share of the Envelope to vary.
 
-Now, Sam can feel increasingly comfortable about the resilience of his envelope, knowing that not only can he recover it by putting together SSKR shares, but that his wife can recover it as well, using her private key (which presumably is protected from both compromise and failure using its own #SmartCustody methodology).
+Now, Sam can feel increasingly comfortable about the resilience of his envelope, knowing that not only can he recover it by putting together SSKR shares, but that his wife can recover it as well, using her private key (which presumably she protects from both compromise and failure using her own #SmartCustody methodology).
 
 ### Related
 
