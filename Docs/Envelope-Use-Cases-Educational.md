@@ -26,7 +26,9 @@ This first set of use cases demonstrates how to create (and sign) simple credent
 
 Danika is a credentialed electrical engineer who maintains her certification through continuing education. In past years she would have listed her credentials and then potential employers would have had to go to the certification board to verify them. This was ideal for no one, because most employers didn't check certifications (leaving them vulnerable), and if they did, the check was beholden to the certification board, who might fail to verify valid credentials for any number of reasons.
 
-Enter the new world of digital credentials. Danika is now able to show a single Gordian Envelope which lists her exact credentials:
+Enter the new world of digital credentials. The certification board can now produce a signed version of Danika's credentials that lists all of her professional development and continuing employment using a Gordian Envelope. There's no need to contact the cerification board afterward because Danika can produce the credential and it can be validated by compared the signature to the board's public key, stored in Public Key Infrastructure (PKI). Danika can also prove that the credential belongs to her by signing something with the private key linked to the public key stored in the Envelope.
+
+To create the credential, Danika submits information to the Electrical Engineering Board listing her credentials:
 
 ```
 CID(4676635a) [
@@ -224,9 +226,7 @@ graph LR
     linkStyle 42 stroke:#55f,stroke-width:2.0px
 
 ```
-Of course a credential like this only has real value if it's signed; this is what ensures that no one has to reach out to the certification board, because they've issued a signed certificate in advance. 
-
-Now, checking Danika's credentials is easy, because the signature just needs to be validated against a PKI, and that shouldn't depend on the certification board responding in a timely and appropriate way.
+The certification board validates the information submitted by Danika, and then wraps the Envelope and signs it before returning it to Danika. This is what gives the Envelope its power. Because it's signed, no one now needs to contact the board (as long as their public key is indeed stored in a PKI or at some other well-known site, to allow for validation).
 ```
 {
     CID(4676635a) [
@@ -461,13 +461,17 @@ graph LR
     linkStyle 50 stroke:#55f,stroke-width:2.0px
 
 ```
-The new envelope wraps the original credentials and both signs them and adds a note describing the signature. Additional hints for PKI to lookup the signature could also have been added.
+To make the validation process easier, additional hints for public-key look up could have been added, though a validator would have then needed to assess whether that information was itself valid or not.
 
 ### #2. Danika Restricts Her Revelations (Elision)
 
 > _Problem Solved:_ Danika wants to avoid prejudice when using her credentials in job applications.
 
-Danika is very confident in her prowess as an electrical engineer, but she fears prejudice when she seeks employment. Primarily, she is concerned about prejudice over her Eastern Europe name, but she also fears prejudice over the recent date of her certification. As a result, she produces a new, elided version of her credential that omits that information as well as other details that she considers irrelevent to her application.
+Danika is very confident in her prowess as an electrical engineer, but she fears prejudice when she seeks employment. Primarily, she is concerned about prejudice over her Eastern Europe name, but she also fears prejudice over the recent date of her certification. As a result, she wants to elide (omit) that information in her credential, as well as other details that she considers irrelevent to her application.
+
+Gordian Envelope gives any holder of a credential the ability to elide information from a credential. Danika simply needs to use an application such as `envelope-cli` that removes the information. Gordian Envelope is designed so that this removal of information doesn't affect any of the digital hashes within the Envelope. As a result, the signature on the Envelope remains valid. Danika can still present the information and someone examining it can then assess the remaining information and verify that it's been signed, in this case by the certification board.
+
+When Danika elides her envelope, it shows that information has been removed:
 ```
 {
     CID(4676635a) [
@@ -601,11 +605,7 @@ graph LR
     linkStyle 19 stroke:green,stroke-width:2.0px
     linkStyle 20 str
 ```
-Danika can now get a prejudice-free review of her credentials while still verifying that they're hers, by proving ownership of her CID.
-
-Note that all of the hashes in the Structured Merkle Tree stay the same despite the elision. That means that the certification board's signature remains valid as well.
-
-Danika supplements her certification with excellent scores in a third-party proctored test (producing another credential), and is hired by Thunder & Lightning Inc.
+After submitting her credentials, Danika supplements them with excellent scores in a third-party proctored test (producing another credential) and is hired by Thunder & Lightning Inc.
 
 ## 3. Thunder & Lightning Spotlights Danika (Third-Party  Repackaging)
 
