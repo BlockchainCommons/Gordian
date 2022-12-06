@@ -2972,7 +2972,7 @@ Personal data can be toxic! It can be a major liability for companies holding th
 
 Despite that, companies still need to work with personal information, and that's the case for Burton Bank. They fund student loans based on government backing, and as a result they have to follow a variety of regulations. One of them states that they may only offer funds to educational institutes whose loan holders maintain an 80% graduation rate within two years for professional schools and within four years for colleges. As a result, Burton Bank needs to receive information on the graduation of its loan holders, but this can be tricky as they sometimes buy loans from other banks or sell them to other banks: no one but Burton knows what loans they hold!
 
-Acme Professional School thus prepares a general report on graduation for all of their students three times a year. To protect the recipients, they elide it so that no toxic data is transmitted. Burton Bank can then purposefully correlate the elided data using the personal data they already have on hand, but without accepting any new responsibility for the data of students not associated with the bank!
+Acme Professional School thus prepares a general report on graduation for all of their students three times a year. To protect the recipients, they elide it so that no toxic data is transmitted. Burton Bank can then selectively correlate the elided data using the personal data they already have on hand, but without accepting any new responsibility for the data of students not associated with the bank!
 
 Acme's yearly report lists the identifiers for their students, plus enough additional information to allow verification, all signed by Acme.
 ```
@@ -3364,9 +3364,9 @@ graph LR
     linkStyle 84 stroke:green,stroke-width:2.0px
     linkStyle 85 stroke:#55f,stroke-width:2.0px
 ```
-Obviously, this is highly toxic information. Social security numbers are so toxic that a [reference](https://www.lexjansen.com/nesug/nesug07/ap/ap19.pdf) was used just to verify that invalid numbers were being used in this example. Names and birthdates could aid in identity theft, especially if associated with a social security number (or other identifer). As a result, Acme doesn't want to transmit this bare information, and Burton Bank doesn't want to receive information on students not associated with the bank. But, a full set of information must be transmitted to support the governmental regulations!
+Obviously, this is highly toxic information. Social security numbers are so toxic that a [reference](https://www.lexjansen.com/nesug/nesug07/ap/ap19.pdf) was used just to verify that invalid numbers were being used in this example. Worse, names and birthdates could aid in identity theft, especially if associated with a social security number (or other identifer). As a result, Acme doesn't want to transmit this bare information, and Burton Bank doesn't want to receive information on students not associated with the bank. But, a full set of information must be transmitted to support the governmental regulations!
 
-Acme thus sends out the following elided information:
+Acme thus sends out the information in a fully elided form:
 ```
 {
     "Acme Professional School 2022-12-24 Graduation" [
@@ -3376,7 +3376,7 @@ Acme thus sends out the following elided information:
     verifiedBy: Signature
 ]
 ```
-```
+```mermaid
 graph LR
     1(("38e3f10e<br/>NODE"))
     2[/"6d68c797<br/>WRAPPED"\]
@@ -3458,7 +3458,7 @@ Using a tool such as `envelope-cli`, Burton can now use the exact format specifi
             06d2aaa3 pred "dateOfBirth"
             c246b6c0 obj "2004-02-29"
 ```
-```
+```mermaid
 graph LR
     1(["0fbe062c<br/>ASSERTION"])
     2["32f06bb1<br/>#quot;socialSecurity#quot;"]
@@ -3499,7 +3499,7 @@ graph LR
     linkStyle 7 stroke:green,stroke-width:2.0px
     linkStyle 8 stroke:#55f,stroke-width:2.0px
 ```
-If the hash for the assertion (`0fbe062c` for `Gray`), then the Bank knows that they can update their records to show that loan holder has graduated.
+If the hash for the assertion (`0fbe062c` for `Gray`) appears in the elided Gordian Envelope, then the Bank knows that they can update their records to show that loan holder has graduated.
 
 And, this was all done without exchanging toxic information, but instead _depending_ on selective correlation. Only someone who already held the information could possibly correlate the hash back to its original data!
 
