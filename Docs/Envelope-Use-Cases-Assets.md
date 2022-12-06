@@ -418,7 +418,7 @@ The second set of progressive use cases continues Sam's story, but demonstrates 
   
 Sam's private key envelopes should provide good resilience. Unless he gets paranoid about privacy, they each contain metadata hints on how to regenerate that key from its seed. Even if he loses the symmetric key to an envelope's permit, he has enough information to rebuild the content by other means.
 
-Sam will not have the same luxury with the envelopes that contain his seeds, especially since they must adhere to a very high level of security since they're the ultimate source of all his keys. He needs a new methodology for resilience: he thus chooses to lock his seed envelopes with Shamir's Secret Sharing, using the SSKR library. This will shard the symmetric key used to lock the envelope allowing him to recover it from just some of the shares (2-out-of-3 with the setup that Sam choses).
+Sam will not have the same luxury with the envelopes that contain his seeds, especially since they must adhere to a very high level of security since they're the ultimate source of all his keys. He needs a new methodology for resilience: he thus chooses to lock his seed envelopes with Shamir's Secret Sharing, using Blockchain Commons' SSKR library. This will shard the symmetric key used to lock the envelope allowing him to recover it from just some of the shares (2-out-of-3 with the setup that Sam choses).
 
 Sam wants to store the following seed:
 ```
