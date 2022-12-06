@@ -3376,7 +3376,7 @@ Acme thus sends out the following elided information:
     verifiedBy: Signature
 ]
 ```
-```
+```mermaid
 graph LR
     1(("38e3f10e<br/>NODE"))
     2[/"6d68c797<br/>WRAPPED"\]
