@@ -3158,7 +3158,7 @@ However for the purpose of software release, she's going to want to largely elid
     verifiedBy: Signature
 ]
 ```
-```
+```mermaid
 graph LR
     1(("aced5fd9<br/>NODE"))
     2[/"1156d33e<br/>WRAPPED"\]
