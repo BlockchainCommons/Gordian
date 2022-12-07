@@ -1,8 +1,18 @@
 # Gordian Envelope Use Case: Educational Credentials
 
-The following set of use cases demonstrate the use of Gordian Envelopes to store educational credentials. Individual categories are presented progressively: each use case builds on the previous one by demonstrating a new capability. The first set refers to Danika Kaschak, an electrical engineer and her official credentials. A standalone use case then focuses on the more ad-hoc credentials possible through a Web of Trust. Finally, another set of use cases demonstrates the distribution of credentials with a different priority: herd privacy.
+Gordian Envelopes can be used in educational credential-issuing industries to encode and transmit sensitive student  information. This allows authorized parties, such as potential employers or other educational institutions, to access only the information they are authorized to view while still preserving the privacy and security of the rest of the data.
 
-Gordian Envelopes are useful for credentials in large part because of their ability to support advanced features such as elision, peer-based attestation, and herd privacy. They go far beyond just presenting validatable credentials to allowing the individual holders to decide what gets credentialed, what gets shown, how, and in what context. They thus add self-sovereign control to the standard rubric of Verifiable Credentials.
+For example, a student's transcript could be encoded and transmitted using a Gordian Envelope, with portions of that data elided, to allow potential employers to verify some of the student's educational qualifications without having access to the student's full transcript or other sensitive information. Similarly, a credential such as a certification or license could be encoded and transmitted using a Gordian Envelope, to allow employers or regulators to verify the credential without having access to irrelevant details.
+
+An Envelope's routing instructions and seals can additionally be used to verify the authenticity and provenance of a student's credentials, ensuring that they have not been tampered with. This adds an extra layer of security and trust to the information transmitted using Gordian Envelopes. 
+
+Overall, Gordian Envelopes offer a flexible and privacy-enhancing solution for the transmission and storage of sensitive educational credential information, creating opportunities to transmit sensitive information in restrictive ways.
+
+## Educational Use Case Table of Contents
+
+The following set of use cases demonstrates the use of Gordian Envelopes to store educational credentials. Individual categories are presented progressively: each use case builds on the previous one by demonstrating a new capability. The first set refers to Danika Kaschak, an electrical engineer, and her official credentials. A standalone use case then focuses on the more ad-hoc credentials possible through a Web of Trust. A final set of use cases then demonstrates the distribution of educational credentials with a different priority: herd privacy.
+
+Gordian Envelopes are useful for credentials in large part because of their ability to support advanced features such as elision, peer-based attestation, and herd privacy. They go far beyond just presenting validatable credentials to allowing the individual holders to decide what gets shown, how, and in what context. They thus add self-sovereign control to the standard rubric of Verifiable Credentials.
 
 * [Part One: Official Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-one-official-credentials)
    * #1: [Danika Proves Her Worth (Credentials, Signature)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#1-danika-proves-her-worth-credentials-signature)
