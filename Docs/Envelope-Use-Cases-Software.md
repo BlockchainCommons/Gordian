@@ -2781,30 +2781,149 @@ Amira starts by creating a thorough infoblock:
 ]
 ```
 ```mermaid
-"bwhacker" [
-    {
-        "aliasGitHub": "amira"
-    } [
-        salt: Salt
-    ]
-    {
-        "email": "amira.khaled.programming@hmail.com"
-    } [
-        salt: Salt
-    ]
-    {
-        "firstName": "Amira"
-    } [
-        salt: Salt
-    ]
-    {
-        "lastName": "Khaled"
-    } [
-        salt: Salt
-    ]
-    "photo": "This is Amira Khaled's photo"
-    "pubkey": "ur:crypto-pubkeys/lftaaosehdcxhsutzstesrpyrldirlglbecxosjoecwffylrpdguchlkonbwjlguryrhlecmkgfptpvahd…"
-]
+graph LR
+    1(("2f90936e<br/>NODE"))
+    2["1b099cac<br/>#quot;bwhacker#quot;"]
+    3(["11310699<br/>ASSERTION"])
+    4["d52596f8<br/>#quot;pubkey#quot;"]
+    5["7cb48a87<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxhsutzstesrpyrldirlglbecxosjoecwffylrpdguchlkonbwjlguryrhlecmkgfptpvahd…#quot;"]
+    6(("4f6903a2<br/>NODE"))
+    7(["5c6fd8b9<br/>ASSERTION"])
+    8["4bcd8772<br/>#quot;aliasGitHub#quot;"]
+    9["4c602907<br/>#quot;amira#quot;"]
+    10(["b76f477f<br/>ASSERTION"])
+    11[/"3fb4814d<br/>salt"/]
+    12["2e7d1c26<br/>Salt"]
+    13(("5cc0b1c8<br/>NODE"))
+    14(["3e54569f<br/>ASSERTION"])
+    15["eb62836d<br/>#quot;lastName#quot;"]
+    16["6c089801<br/>#quot;Khaled#quot;"]
+    17(["d705c5c0<br/>ASSERTION"])
+    18[/"3fb4814d<br/>salt"/]
+    19["f36b1c78<br/>Salt"]
+    20(("64ab7339<br/>NODE"))
+    21(["526084ac<br/>ASSERTION"])
+    22["c4d5323d<br/>#quot;firstName#quot;"]
+    23["3710316b<br/>#quot;Amira#quot;"]
+    24(["4ab0b8e3<br/>ASSERTION"])
+    25[/"3fb4814d<br/>salt"/]
+    26["0336655f<br/>Salt"]
+    27(["b0692f4b<br/>ASSERTION"])
+    28["a791d0c7<br/>#quot;photo#quot;"]
+    29["f74cc03b<br/>#quot;This is Amira Khaled's photo#quot;"]
+    30(("bc8187c9<br/>NODE"))
+    31(["43dc8696<br/>ASSERTION"])
+    32["a9400195<br/>#quot;email#quot;"]
+    33["346da217<br/>#quot;amira.khaled.programming@hmail.com#quot;"]
+    34(["11d4a558<br/>ASSERTION"])
+    35[/"3fb4814d<br/>salt"/]
+    36["955f2fff<br/>Salt"]
+    1 -->|subj| 2
+    1 --> 3
+    3 -->|pred| 4
+    3 -->|obj| 5
+    1 --> 6
+    6 -->|subj| 7
+    7 -->|pred| 8
+    7 -->|obj| 9
+    6 --> 10
+    10 -->|pred| 11
+    10 -->|obj| 12
+    1 --> 13
+    13 -->|subj| 14
+    14 -->|pred| 15
+    14 -->|obj| 16
+    13 --> 17
+    17 -->|pred| 18
+    17 -->|obj| 19
+    1 --> 20
+    20 -->|subj| 21
+    21 -->|pred| 22
+    21 -->|obj| 23
+    20 --> 24
+    24 -->|pred| 25
+    24 -->|obj| 26
+    1 --> 27
+    27 -->|pred| 28
+    27 -->|obj| 29
+    1 --> 30
+    30 -->|subj| 31
+    31 -->|pred| 32
+    31 -->|obj| 33
+    30 --> 34
+    34 -->|pred| 35
+    34 -->|obj| 36
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:#55f,stroke-width:3.0px
+    style 6 stroke:red,stroke-width:3.0px
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:red,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:red,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    style 17 stroke:red,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:#55f,stroke-width:3.0px
+    style 20 stroke:red,stroke-width:3.0px
+    style 21 stroke:red,stroke-width:3.0px
+    style 22 stroke:#55f,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px
+    style 24 stroke:red,stroke-width:3.0px
+    style 25 stroke:#55f,stroke-width:3.0px
+    style 26 stroke:#55f,stroke-width:3.0px
+    style 27 stroke:red,stroke-width:3.0px
+    style 28 stroke:#55f,stroke-width:3.0px
+    style 29 stroke:#55f,stroke-width:3.0px
+    style 30 stroke:red,stroke-width:3.0px
+    style 31 stroke:red,stroke-width:3.0px
+    style 32 stroke:#55f,stroke-width:3.0px
+    style 33 stroke:#55f,stroke-width:3.0px
+    style 34 stroke:red,stroke-width:3.0px
+    style 35 stroke:#55f,stroke-width:3.0px
+    style 36 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke-width:2.0px
+    linkStyle 2 stroke:green,stroke-width:2.0px
+    linkStyle 3 stroke:#55f,stroke-width:2.0px
+    linkStyle 4 stroke-width:2.0px
+    linkStyle 5 stroke:red,stroke-width:2.0px
+    linkStyle 6 stroke:green,stroke-width:2.0px
+    linkStyle 7 stroke:#55f,stroke-width:2.0px
+    linkStyle 8 stroke-width:2.0px
+    linkStyle 9 stroke:green,stroke-width:2.0px
+    linkStyle 10 stroke:#55f,stroke-width:2.0px
+    linkStyle 11 stroke-width:2.0px
+    linkStyle 12 stroke:red,stroke-width:2.0px
+    linkStyle 13 stroke:green,stroke-width:2.0px
+    linkStyle 14 stroke:#55f,stroke-width:2.0px
+    linkStyle 15 stroke-width:2.0px
+    linkStyle 16 stroke:green,stroke-width:2.0px
+    linkStyle 17 stroke:#55f,stroke-width:2.0px
+    linkStyle 18 stroke-width:2.0px
+    linkStyle 19 stroke:red,stroke-width:2.0px
+    linkStyle 20 stroke:green,stroke-width:2.0px
+    linkStyle 21 stroke:#55f,stroke-width:2.0px
+    linkStyle 22 stroke-width:2.0px
+    linkStyle 23 stroke:green,stroke-width:2.0px
+    linkStyle 24 stroke:#55f,stroke-width:2.0px
+    linkStyle 25 stroke-width:2.0px
+    linkStyle 26 stroke:green,stroke-width:2.0px
+    linkStyle 27 stroke:#55f,stroke-width:2.0px
+    linkStyle 28 stroke-width:2.0px
+    linkStyle 29 stroke:red,stroke-width:2.0px
+    linkStyle 30 stroke:green,stroke-width:2.0px
+    linkStyle 31 stroke:#55f,stroke-width:2.0px
+    linkStyle 32 stroke-width:2.0px
+    linkStyle 33 stroke:green,stroke-width:2.0px
+    linkStyle 34 stroke:#55f,stroke-width:2.0px
 
 ```
 Even if she decides to introduce herself to the world at some future time, this may be more information than Amira wants to reveal, but she'll be able to release a partially elided infoblock in the future is she wants. Note that Amira salts most of the assertions to ensure that they can't be accidentally correlated even if she later reveals part of the infoblock.
