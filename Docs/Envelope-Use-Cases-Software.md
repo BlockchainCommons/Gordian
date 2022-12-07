@@ -11,7 +11,7 @@ Gordian Envelopes are useful for signing software releases in large part because
    * #4: [Casey Checks Compliance (Attestation)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#4-casey-check-compliance-attestation-metadata)
    * #5: [Casey Changes Up His Software Releases (Chained Changes)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#5-casey-changes-up-his-software-releases-chained-changes)
 * [Anonymous Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#anonymous-signing)
-   * #6: [Amira Signs Anoymously (Anonymous Signature)]
+   * #6: [Amira Signs Anoymously (Anonymous Signature)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#6-amira-signs-anonymously-anonymous-signature)
 
 ## Chained Signing
 
