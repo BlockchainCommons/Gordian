@@ -3164,6 +3164,7 @@ graph LR
     linkStyle 46 stroke-width:2.0px
     linkStyle 47 stroke:green,stroke-width:2.0px
     linkStyle 48 stroke:#55f,stroke-width:2.0px
+
 ```
 In an alternative scenario, Amira might have presented Ben with her information already elided. This would allow him to sign without knowing who Amira actually is. However, signing elided information is very dangerous. (The `envelope-cli` warns against it, but allows it if the user is insistent.) Since it's not a best practice, that alternative is not utilized in this use case.
 
@@ -3506,7 +3507,7 @@ She starts out by revealing her other GitHub ID, which does use her actual first
     verifiedBy: Signature
 ]
 ```
-```
+```mermaid
 graph LR
     1(("e4925bbe<br/>NODE"))
     2[/"bcdfaec2<br/>WRAPPED"\]
