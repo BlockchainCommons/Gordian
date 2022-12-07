@@ -1,4 +1,16 @@
-## Gordian Envelope Use Case: Software Signing
+## Gordian Envelope Use Case: Software Development & Distribution
+
+Gordian Envelopes can be used to manage the secure development and distribution of open-source software, as well as the development of AI systems. There are a number of possible usages.
+
+Gordian Envelopes can securely and accurately transmit complex data structures such as software source code, AI training sets, and model data between members of the development team and other stakeholders. This helps to ensure that the integrity of the code or models is maintained throughout the software development life-cycle and that only authorized individuals have access to the potentially sensitive data. Though ensuring the validity of software libraries has been a known problem for years, maintaining valid, high-quality AI training sets is a newer problem that requires its own options for independent verification and auditing — options that can be supported by Gordian Envelope.
+
+Gordian Envelopes can also be used to improve the security of the software supply chain. They can be used to securely transmit software packages and updates between different parties such as developers, distributors, and end users. This can help to prevent tampering or other security breaches and ensure that only verified, trustworthy software is distributed. Much of this support comes through robust authentication and signing mechanisms, allowing signing of releases by multiple parties, by dynamically changing parties, and even by anonymous parties.
+
+Finally, Gordian Envelopes can support the reliability and availability of software infrastructure. For example, they can be used to securely transmit configuration data, cryptographic keys, and other information needed to maintain and operate software systems. This can help to ensure that systems are more reliable, properly configured, and that data needed for backup and recovery is securely transmitted and stored.
+
+Overall, Gordian Envelopes offer a range of benefits for the software and AI industry, including improved security, reliability, and support for open-source collaboration and the deployment of AI systems.
+
+## Software Use Cases Table of Contents
 
 Envelopes can be used in a variety of collaborative forms. Following are examples of collaborative signing, where a group of individuals jointly declare the validity of an envelope to ensure the trustworthiness of a software release.  The first set of use cases is presented progressively, demonstrating how a group of users can jointly validate the contents of an envelope, even as the group evolves over time.
 
