@@ -1,17 +1,21 @@
 ## Gordian Envelope Use Case: Software Signing
 
-Envelopes can be used in a variety of collaborative forms. Following are examples of collaborative signing, where a group of individuals jointly declare the validity of an envelope to ensure the trustworthiness of a software release.  The three use cases are presented progressively, demonstrating how a group of users can jointly validate the contents of an envelope, even as the group evolves over time.
+Envelopes can be used in a variety of collaborative forms. Following are examples of collaborative signing, where a group of individuals jointly declare the validity of an envelope to ensure the trustworthiness of a software release.  The first set of use cases is presented progressively, demonstrating how a group of users can jointly validate the contents of an envelope, even as the group evolves over time.
 
-Gordian Envelopes are useful for signing applications in large part because of their ability to combine signatures with metadata and to chain that information over time through multiple signed documents. This allows for the creation of a history of signatures, which can have a variety of applications.
+Gordian Envelopes are useful for signing software releases in large part because of their ability to combine signatures with metadata and to chain that information over time through multiple signed documents. This allows for the creation of a history of signatures, which can have a variety of applications.
 
-* [Software Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#software-signing)
+* [Chained Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#software-signing)
    * #1: [Casey Codifies Software Releases (Multiple Signatures, Structured Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#1-casey-codifies-software-releases-multiple-signatures-structured-data)
-   * #2: [Casey Chains His Software Releases (Chained Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#2-casey-chains-his-software-releases-chained-data)
-   * #3: [Casey Changes Up His Software Releases (Chained Changes)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#3-casey-changes-up-his-software-releases-chained-changes)
+   * #2: [Blockchain Commons Confirms Casey (Repackaging Data, Third-Party Verification)]
+   * #3: [Casey Chains His Software Releases (Chained Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#2-casey-chains-his-software-releases-chained-data)
+   * #4: [Casey Checks Compliance (Attestation)]
+   * #5: [Casey Changes Up His Software Releases (Chained Changes)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#3-casey-changes-up-his-software-releases-chained-changes)
+* [Anonymous Signing]
+   * #6: [Amira Signs Anoymously (Anonymous Signing)]
 
-## Software Signing
+## Chained Signing
 
-This set of use cases describes how a user can structure and sign data, how he can chain envelopes of data over time, and how he can change up signers over time. They demonstrate how well-structured envelopes can decrease validation costs and improve trust.
+This set of progressive use cases describes how a user can structure and sign data, how third-parties can verify that data, how a user can chain envelopes of data over time, how additional metadata can be added to envelopes, and how signers can change over time. They demonstrate how well-structured envelopes can decrease validation costs and improve trust.
 
 ### 1. Casey Codifies Software Releases [Multiple Signatures, Structured Data]
 
@@ -19,7 +23,9 @@ This set of use cases describes how a user can structure and sign data, how he c
 
 The possibility of malicious actors injecting code into software is a [prime attack vector](https://github.com/WebOfTrustInfo/rwot11-the-hague/blob/master/final-documents/taking-out-the-crud-five-fabulous-did-attacks.md#1-create-the-did-creation-switcharoo), especially on the modern internet with its open-source repositories. Thus, checksumming and signing sotware releases has become increasingly important. Unfortunately, it remains very ad hoc, with styles of release varying widely and information often split among many files.
 
-Casey decides on a methodology where he'll store all of the information in a single Gordian Envelope with regularized data. He fills in an Envelope with a list of all the files, a list of all the signers, data on each, and some additional notes:
+Casey is the project head for Blockchain Everyday's Gordian Envelope. He decides on a methodology for releases where he'll store all of the release information in a single Gordian Envelope with regularized data and then have the engineers sign that data. He also wants to do his best to automate validation of the envelope data, since he knows that will make it more likely that the data is actually checked. He'll provide some bootstrap information in the first Envelope to support validation, and then chain later software releases to this initial one, allowing for programmatic validation.
+
+The structure is the foundation of the software-release information. Casey fills in an Envelope with a list of all the files, a list of all the signers, data on each, and some additional notes:
 
 ```
 "Gordian Envelope 1.0.0" [
@@ -588,7 +594,7 @@ graph LR
     linkStyle 49 stroke:#55f,stroke-width:2.0px
 
 ```
-### 2. Casey Chains His Software Releases [Chained Data]
+### 3. Casey Chains His Software Releases [Chained Data]
 
 > _Problem Solved:_ Casey wants to be able to continuously rerelease his software, while reducing validation cost over time.
 
@@ -929,7 +935,7 @@ If the validator kept the envelope that he previously validated, now all that he
 
 More complexity is required only if the previous envelope were not kept. In this case, the validator uses the `previousRelease` metadata to backtrack until he finds the foundational `signerInfo`, which he can validate with more effort (as he did originally).
 
-### 3. Casey Changes Up His Software Releases [Chained Changes]
+### 5. Casey Changes Up His Software Releases [Chained Changes]
 
 > _Problem Solved:_ Casey wants to change signers over time in a way that's organic and continues to allow for simple validation.
 
