@@ -2744,7 +2744,7 @@ Casey is happy that he's achieved his goal: creating software releases that are 
 
 Sometimes signers don't want to reveal information about who they are. That's the case with the [Amira Engagement Model](https://w3c-ccg.github.io/amira/), created at [Rebooting the Web of Trust V in Boston, Massachusetts](https://github.com/WebOfTrustInfo/rwot5-boston/tree/master/final-documents#readme). The following use case utilizes the Amira story to suggest how anonymous signing can be enabled with Gordian Envelope
 
-### 6. Amira Signs Anonymously [Anonymous]
+### 6. Amira Signs Anonymously [Anonymous Signature]
 
 Amira wants to volunteer her programming skills to support activist causes, but is afraid that doing so might impact her daytime job. So she begins working with RISK, which allows her to anonymously support projects. She begins work on SisterSpace, a work contracted by BigBen44. The problem comes of course when Amira needs to release her work. It's not just that she wants to maintain her anonymity, but also that she wants to have the option to reveal her identity in the future, if his activist programming is successful enough that she decides she can turn it into a new career.
 
