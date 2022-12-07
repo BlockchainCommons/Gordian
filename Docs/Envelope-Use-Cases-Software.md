@@ -3798,4 +3798,4 @@ Over time, Amira develops some trust with her new clients and also reveals her e
     linkStyle 33 stroke:green,stroke-width:2.0px
     linkStyle 34 stroke:#55f,stroke-width:2.0px
  ```
- Each time that Amira progressively reveals more information, her clients can go back and check the hashes of that information against the signed hashes in Sister Space. The GitHub revelation matches the `849e2036` elision and the email revelation matches the `58f2d6a5` node. Even though Amira was previously entirely anonymous, now she can easily prove that she's that anonymous person (and take advantage of her past work).
+ Each time that Amira progressively reveals more information, her clients can go back and check the hashes of that information against the signed hashes in Sister Space. The GitHub revelation matches the `877e2490` elision and the email revelation matches the `b073dd8c` node. Even though Amira was previously entirely anonymous, now she can easily prove that she's that anonymous person (and take advantage of her past work).
