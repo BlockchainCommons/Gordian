@@ -390,7 +390,7 @@ In order for those signatures to apply to the entire envelope, the envelope must
 
 ```mermaid
 graph LR
-    1(("6dd37ee9<br/>NODE"))
+    1(("e1c7893d<br/>NODE"))
     2[/"1502aebf<br/>WRAPPED"\]
     3(("d19ef9e7<br/>NODE"))
     4["de7e544e<br/>#quot;Gordian Envelope 1.0.0#quot;"]
@@ -435,12 +435,12 @@ graph LR
     43(["8f4c7eec<br/>ASSERTION"])
     44["29c0cd61<br/>#quot;pubkeyURL#quot;"]
     45["0b240880<br/>#quot;https://github.com/bill-not-the-science-guy.keys#quot;"]
-    46(["10799807<br/>ASSERTION"])
+    46(["272fd26b<br/>ASSERTION"])
     47[/"d59f8c0f<br/>verifiedBy"/]
-    48["a61ca537<br/>Signature"]
-    49(["d491128c<br/>ASSERTION"])
+    48["7b7b88b5<br/>Signature"]
+    49(["8158be67<br/>ASSERTION"])
     50[/"d59f8c0f<br/>verifiedBy"/]
-    51["7720bb5b<br/>Signature"]
+    51["23ec6b65<br/>Signature"]
     1 -->|subj| 2
     2 -->|subj| 3
     3 -->|subj| 4
@@ -592,14 +592,780 @@ graph LR
     linkStyle 47 stroke-width:2.0px
     linkStyle 48 stroke:green,stroke-width:2.0px
     linkStyle 49 stroke:#55f,stroke-width:2.0px
-
 ```
+
+### 2: Blockchain Everyday Confirms Casey [Repackaging Data, Third-Party Verification]
+
+> _Problem Solved:_ Some corporations require more centralized validation; Blockchain Everday can provide that simple by repackaging an existing envelope.
+
+Casey's plan for bootstrapping the validation of Blockchain Everyday's Gordian Envelope should be sufficient for most users of the software. However, Blockchain Everyday soon discovers that there are corporations that aren't willing to use the software just based on the public-key infrastruct6ure (PKI) information derived from individual GitHub accounts. They want the validation of company that they can look up in Dun & Bradstreet.
+
+Blockchain Everyday doesn't want to reissue the existing software information, but Gordian Envelopes can be repackaged by any holder. That allows Blockchain Everyday to take the release information that Casey registered with GitHub, add more information, sign it themselves, and then publish it through their own website. Similarly, if users of Gordian Envelope were incorporating it into software libraries _they too_ could repackage the Envelope and add their own seal to it before passing it on their customers! (It's Envelopes all the way down.)
+
+Blockchain Everday initially produces an Envelope containing their information:
+```
+"Blockchain Everyday" [
+    "dunsID": "000000000"
+    "isoCountryCode": "USA"
+    "pubkey": "ur:crypto-pubkeys/lftaaosehdcximbghsetjliyioztlrgwlegrctcyghrpotdrfxsrhgtojomykenscphsrlcwotvltpvahd…"
+    "pubkeyURL": "https://www.blockchaineveryday.com/pub.key"
+    "webURL": "https://www.blockchaineveryday.com"
+]
+```
+```mermaid
+graph LR
+    1(("c4ffa2a3<br/>NODE"))
+    2["a4ad4289<br/>#quot;Blockchain Everyday#quot;"]
+    3(["27be4bbb<br/>ASSERTION"])
+    4["d52596f8<br/>#quot;pubkey#quot;"]
+    5["700576a7<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbghsetjliyioztlrgwlegrctcyghrpotdrfxsrhgtojomykenscphsrlcwotvltpvahd…#quot;"]
+    6(["6c8c092c<br/>ASSERTION"])
+    7["83f0896b<br/>#quot;webURL#quot;"]
+    8["97b377c9<br/>#quot;https://www.blockchaineveryday.com#quot;"]
+    9(["c7bd878b<br/>ASSERTION"])
+    10["ec387013<br/>#quot;isoCountryCode#quot;"]
+    11["aaa3899b<br/>#quot;USA#quot;"]
+    12(["dae49b12<br/>ASSERTION"])
+    13["97853f5c<br/>#quot;dunsID#quot;"]
+    14["4a00c18c<br/>#quot;000000000#quot;"]
+    15(["fef7ce4b<br/>ASSERTION"])
+    16["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    17["a88ae53e<br/>#quot;https://www.blockchaineveryday.com/pub.key#quot;"]
+    1 -->|subj| 2
+    1 --> 3
+    3 -->|pred| 4
+    3 -->|obj| 5
+    1 --> 6
+    6 -->|pred| 7
+    6 -->|obj| 8
+    1 --> 9
+    9 -->|pred| 10
+    9 -->|obj| 11
+    1 --> 12
+    12 -->|pred| 13
+    12 -->|obj| 14
+    1 --> 15
+    15 -->|pred| 16
+    15 -->|obj| 17
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:#55f,stroke-width:3.0px
+    style 6 stroke:red,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:red,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px
+    style 12 stroke:red,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:#55f,stroke-width:3.0px
+    style 15 stroke:red,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke-width:2.0px
+    linkStyle 2 stroke:green,stroke-width:2.0px
+    linkStyle 3 stroke:#55f,stroke-width:2.0px
+    linkStyle 4 stroke-width:2.0px
+    linkStyle 5 stroke:green,stroke-width:2.0px
+    linkStyle 6 stroke:#55f,stroke-width:2.0px
+    linkStyle 7 stroke-width:2.0px
+    linkStyle 8 stroke:green,stroke-width:2.0px
+    linkStyle 9 stroke:#55f,stroke-width:2.0px
+    linkStyle 10 stroke-width:2.0px
+    linkStyle 11 stroke:green,stroke-width:2.0px
+    linkStyle 12 stroke:#55f,stroke-width:2.0px
+    linkStyle 13 stroke-width:2.0px
+    linkStyle 14 stroke:green,stroke-width:2.0px
+    linkStyle 15 stroke:#55f,stroke-width:2.0px
+```
+They then wrap the 1.0.0 release information and add on their own details:
+```
+{
+    {
+        "Gordian Envelope 1.0.0" [
+            "fileInfo": "gordian-envelope-1.0.0.dm" [
+                "sha256": "6b41b0d9d9bff2c23ad9bd66b054fda36e3494ec"
+                "timestamp": "1668062209"
+            ]
+            "isSigner": "bill-not-the-science-guy" [
+                "pubkey": "ur:crypto-pubkeys/lftaaosehdcxnnvapylszmcwmowzjlkifrktpftnamrdpdjkcfetfskoimeolfcywnloptaswsvltpvahd…"
+            ]
+            "isSigner": "omarc-bc-guy" [
+                "pubkey": "ur:crypto-pubkeys/lftaaosehdcxzojlrltejneykkzcfdaowkcwlbguvtmhsegdwpttwdadrnjtpmchlbrswkbwkivwtpvahd…"
+            ]
+            "signerInfo": "bill-not-the-science-guy" [
+                "pubkeyURL": "https://github.com/bill-not-the-science-guy.keys"
+            ]
+            "signerInfo": "omarc-bc-guy" [
+                "pubkeyURL": "https://github.com/omarc-bc-guy.keys"
+            ]
+            note: "initial release"
+        ]
+    } [
+        verifiedBy: Signature
+        verifiedBy: Signature
+    ]
+} [
+    "certifiedBy": "Blockchain Everyday" [
+        "dunsID": "000000000"
+        "isoCountryCode": "USA"
+        "pubkey": "ur:crypto-pubkeys/lftaaosehdcximbghsetjliyioztlrgwlegrctcyghrpotdrfxsrhgtojomykenscphsrlcwotvltpvahd…"
+        "pubkeyURL": "https://www.blockchaineveryday.com/pub.key"
+        "webURL": "https://www.blockchaineveryday.com"
+    ]
+]
+```
+```mermaid
+graph LR
+    1(("c9d29179<br/>NODE"))
+    2[/"292c57d4<br/>WRAPPED"\]
+    3(("e1c7893d<br/>NODE"))
+    4[/"1502aebf<br/>WRAPPED"\]
+    5(("d19ef9e7<br/>NODE"))
+    6["de7e544e<br/>#quot;Gordian Envelope 1.0.0#quot;"]
+    7(["41db7106<br/>ASSERTION"])
+    8["628ac8d9<br/>#quot;fileInfo#quot;"]
+    9(("10561183<br/>NODE"))
+    10["03c3e8cf<br/>#quot;gordian-envelope-1.0.0.dm#quot;"]
+    11(["26cdea4a<br/>ASSERTION"])
+    12["fd9d5aed<br/>#quot;timestamp#quot;"]
+    13["928e86de<br/>#quot;1668062209#quot;"]
+    14(["b25bf99e<br/>ASSERTION"])
+    15["108dbfb1<br/>#quot;sha256#quot;"]
+    16["b895faae<br/>#quot;6b41b0d9d9bff2c23ad9bd66b054fda36e3494ec#quot;"]
+    17(["484da754<br/>ASSERTION"])
+    18["67d69bd7<br/>#quot;isSigner#quot;"]
+    19(("0ae65c77<br/>NODE"))
+    20["61aece1e<br/>#quot;bill-not-the-science-guy#quot;"]
+    21(["0ad198e4<br/>ASSERTION"])
+    22["d52596f8<br/>#quot;pubkey#quot;"]
+    23["e82d6b98<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxnnvapylszmcwmowzjlkifrktpftnamrdpdjkcfetfskoimeolfcywnloptaswsvltpvahd…#quot;"]
+    24(["4ef0d8f2<br/>ASSERTION"])
+    25["dbc1553d<br/>#quot;signerInfo#quot;"]
+    26(("d77c0291<br/>NODE"))
+    27["34e0c09c<br/>#quot;omarc-bc-guy#quot;"]
+    28(["9bc4beec<br/>ASSERTION"])
+    29["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    30["78d7942e<br/>#quot;https://github.com/omarc-bc-guy.keys#quot;"]
+    31(["72d6fac6<br/>ASSERTION"])
+    32[/"61fb6a6b<br/>note"/]
+    33["fa62ba29<br/>#quot;initial release#quot;"]
+    34(["90e799be<br/>ASSERTION"])
+    35["67d69bd7<br/>#quot;isSigner#quot;"]
+    36(("c833b577<br/>NODE"))
+    37["34e0c09c<br/>#quot;omarc-bc-guy#quot;"]
+    38(["0b8d474f<br/>ASSERTION"])
+    39["d52596f8<br/>#quot;pubkey#quot;"]
+    40["929e99e7<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxzojlrltejneykkzcfdaowkcwlbguvtmhsegdwpttwdadrnjtpmchlbrswkbwkivwtpvahd…#quot;"]
+    41(["b5c9129a<br/>ASSERTION"])
+    42["dbc1553d<br/>#quot;signerInfo#quot;"]
+    43(("67a2f813<br/>NODE"))
+    44["61aece1e<br/>#quot;bill-not-the-science-guy#quot;"]
+    45(["8f4c7eec<br/>ASSERTION"])
+    46["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    47["0b240880<br/>#quot;https://github.com/bill-not-the-science-guy.keys#quot;"]
+    48(["272fd26b<br/>ASSERTION"])
+    49[/"d59f8c0f<br/>verifiedBy"/]
+    50["7b7b88b5<br/>Signature"]
+    51(["8158be67<br/>ASSERTION"])
+    52[/"d59f8c0f<br/>verifiedBy"/]
+    53["23ec6b65<br/>Signature"]
+    54(["baf9b08a<br/>ASSERTION"])
+    55["7eb11472<br/>#quot;certifiedBy#quot;"]
+    56(("c4ffa2a3<br/>NODE"))
+    57["a4ad4289<br/>#quot;Blockchain Everyday#quot;"]
+    58(["27be4bbb<br/>ASSERTION"])
+    59["d52596f8<br/>#quot;pubkey#quot;"]
+    60["700576a7<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbghsetjliyioztlrgwlegrctcyghrpotdrfxsrhgtojomykenscphsrlcwotvltpvahd…#quot;"]
+    61(["6c8c092c<br/>ASSERTION"])
+    62["83f0896b<br/>#quot;webURL#quot;"]
+    63["97b377c9<br/>#quot;https://www.blockchaineveryday.com#quot;"]
+    64(["c7bd878b<br/>ASSERTION"])
+    65["ec387013<br/>#quot;isoCountryCode#quot;"]
+    66["aaa3899b<br/>#quot;USA#quot;"]
+    67(["dae49b12<br/>ASSERTION"])
+    68["97853f5c<br/>#quot;dunsID#quot;"]
+    69["4a00c18c<br/>#quot;000000000#quot;"]
+    70(["fef7ce4b<br/>ASSERTION"])
+    71["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    72["a88ae53e<br/>#quot;https://www.blockchaineveryday.com/pub.key#quot;"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    4 -->|subj| 5
+    5 -->|subj| 6
+    5 --> 7
+    7 -->|pred| 8
+    7 -->|obj| 9
+    9 -->|subj| 10
+    9 --> 11
+    11 -->|pred| 12
+    11 -->|obj| 13
+    9 --> 14
+    14 -->|pred| 15
+    14 -->|obj| 16
+    5 --> 17
+    17 -->|pred| 18
+    17 -->|obj| 19
+    19 -->|subj| 20
+    19 --> 21
+    21 -->|pred| 22
+    21 -->|obj| 23
+    5 --> 24
+    24 -->|pred| 25
+    24 -->|obj| 26
+    26 -->|subj| 27
+    26 --> 28
+    28 -->|pred| 29
+    28 -->|obj| 30
+    5 --> 31
+    31 -->|pred| 32
+    31 -->|obj| 33
+    5 --> 34
+    34 -->|pred| 35
+    34 -->|obj| 36
+    36 -->|subj| 37
+    36 --> 38
+    38 -->|pred| 39
+    38 -->|obj| 40
+    5 --> 41
+    41 -->|pred| 42
+    41 -->|obj| 43
+    43 -->|subj| 44
+    43 --> 45
+    45 -->|pred| 46
+    45 -->|obj| 47
+    3 --> 48
+    48 -->|pred| 49
+    48 -->|obj| 50
+    3 --> 51
+    51 -->|pred| 52
+    51 -->|obj| 53
+    1 --> 54
+    54 -->|pred| 55
+    54 -->|obj| 56
+    56 -->|subj| 57
+    56 --> 58
+    58 -->|pred| 59
+    58 -->|obj| 60
+    56 --> 61
+    61 -->|pred| 62
+    61 -->|obj| 63
+    56 --> 64
+    64 -->|pred| 65
+    64 -->|obj| 66
+    56 --> 67
+    67 -->|pred| 68
+    67 -->|obj| 69
+    56 --> 70
+    70 -->|pred| 71
+    70 -->|obj| 72
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:red,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:red,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:red,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    style 17 stroke:red,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:red,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:red,stroke-width:3.0px
+    style 22 stroke:#55f,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px
+    style 24 stroke:red,stroke-width:3.0px
+    style 25 stroke:#55f,stroke-width:3.0px
+    style 26 stroke:red,stroke-width:3.0px
+    style 27 stroke:#55f,stroke-width:3.0px
+    style 28 stroke:red,stroke-width:3.0px
+    style 29 stroke:#55f,stroke-width:3.0px
+    style 30 stroke:#55f,stroke-width:3.0px
+    style 31 stroke:red,stroke-width:3.0px
+    style 32 stroke:#55f,stroke-width:3.0px
+    style 33 stroke:#55f,stroke-width:3.0px
+    style 34 stroke:red,stroke-width:3.0px
+    style 35 stroke:#55f,stroke-width:3.0px
+    style 36 stroke:red,stroke-width:3.0px
+    style 37 stroke:#55f,stroke-width:3.0px
+    style 38 stroke:red,stroke-width:3.0px
+    style 39 stroke:#55f,stroke-width:3.0px
+    style 40 stroke:#55f,stroke-width:3.0px
+    style 41 stroke:red,stroke-width:3.0px
+    style 42 stroke:#55f,stroke-width:3.0px
+    style 43 stroke:red,stroke-width:3.0px
+    style 44 stroke:#55f,stroke-width:3.0px
+    style 45 stroke:red,stroke-width:3.0px
+    style 46 stroke:#55f,stroke-width:3.0px
+    style 47 stroke:#55f,stroke-width:3.0px
+    style 48 stroke:red,stroke-width:3.0px
+    style 49 stroke:#55f,stroke-width:3.0px
+    style 50 stroke:#55f,stroke-width:3.0px
+    style 51 stroke:red,stroke-width:3.0px
+    style 52 stroke:#55f,stroke-width:3.0px
+    style 53 stroke:#55f,stroke-width:3.0px
+    style 54 stroke:red,stroke-width:3.0px
+    style 55 stroke:#55f,stroke-width:3.0px
+    style 56 stroke:red,stroke-width:3.0px
+    style 57 stroke:#55f,stroke-width:3.0px
+    style 58 stroke:red,stroke-width:3.0px
+    style 59 stroke:#55f,stroke-width:3.0px
+    style 60 stroke:#55f,stroke-width:3.0px
+    style 61 stroke:red,stroke-width:3.0px
+    style 62 stroke:#55f,stroke-width:3.0px
+    style 63 stroke:#55f,stroke-width:3.0px
+    style 64 stroke:red,stroke-width:3.0px
+    style 65 stroke:#55f,stroke-width:3.0px
+    style 66 stroke:#55f,stroke-width:3.0px
+    style 67 stroke:red,stroke-width:3.0px
+    style 68 stroke:#55f,stroke-width:3.0px
+    style 69 stroke:#55f,stroke-width:3.0px
+    style 70 stroke:red,stroke-width:3.0px
+    style 71 stroke:#55f,stroke-width:3.0px
+    style 72 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke:red,stroke-width:2.0px
+    linkStyle 4 stroke:red,stroke-width:2.0px
+    linkStyle 5 stroke-width:2.0px
+    linkStyle 6 stroke:green,stroke-width:2.0px
+    linkStyle 7 stroke:#55f,stroke-width:2.0px
+    linkStyle 8 stroke:red,stroke-width:2.0px
+    linkStyle 9 stroke-width:2.0px
+    linkStyle 10 stroke:green,stroke-width:2.0px
+    linkStyle 11 stroke:#55f,stroke-width:2.0px
+    linkStyle 12 stroke-width:2.0px
+    linkStyle 13 stroke:green,stroke-width:2.0px
+    linkStyle 14 stroke:#55f,stroke-width:2.0px
+    linkStyle 15 stroke-width:2.0px
+    linkStyle 16 stroke:green,stroke-width:2.0px
+    linkStyle 17 stroke:#55f,stroke-width:2.0px
+    linkStyle 18 stroke:red,stroke-width:2.0px
+    linkStyle 19 stroke-width:2.0px
+    linkStyle 20 stroke:green,stroke-width:2.0px
+    linkStyle 21 stroke:#55f,stroke-width:2.0px
+    linkStyle 22 stroke-width:2.0px
+    linkStyle 23 stroke:green,stroke-width:2.0px
+    linkStyle 24 stroke:#55f,stroke-width:2.0px
+    linkStyle 25 stroke:red,stroke-width:2.0px
+    linkStyle 26 stroke-width:2.0px
+    linkStyle 27 stroke:green,stroke-width:2.0px
+    linkStyle 28 stroke:#55f,stroke-width:2.0px
+    linkStyle 29 stroke-width:2.0px
+    linkStyle 30 stroke:green,stroke-width:2.0px
+    linkStyle 31 stroke:#55f,stroke-width:2.0px
+    linkStyle 32 stroke-width:2.0px
+    linkStyle 33 stroke:green,stroke-width:2.0px
+    linkStyle 34 stroke:#55f,stroke-width:2.0px
+    linkStyle 35 stroke:red,stroke-width:2.0px
+    linkStyle 36 stroke-width:2.0px
+    linkStyle 37 stroke:green,stroke-width:2.0px
+    linkStyle 38 stroke:#55f,stroke-width:2.0px
+    linkStyle 39 stroke-width:2.0px
+    linkStyle 40 stroke:green,stroke-width:2.0px
+    linkStyle 41 stroke:#55f,stroke-width:2.0px
+    linkStyle 42 stroke:red,stroke-width:2.0px
+    linkStyle 43 stroke-width:2.0px
+    linkStyle 44 stroke:green,stroke-width:2.0px
+    linkStyle 45 stroke:#55f,stroke-width:2.0px
+    linkStyle 46 stroke-width:2.0px
+    linkStyle 47 stroke:green,stroke-width:2.0px
+    linkStyle 48 stroke:#55f,stroke-width:2.0px
+    linkStyle 49 stroke-width:2.0px
+    linkStyle 50 stroke:green,stroke-width:2.0px
+    linkStyle 51 stroke:#55f,stroke-width:2.0px
+    linkStyle 52 stroke-width:2.0px
+    linkStyle 53 stroke:green,stroke-width:2.0px
+    linkStyle 54 stroke:#55f,stroke-width:2.0px
+    linkStyle 55 stroke:red,stroke-width:2.0px
+    linkStyle 56 stroke-width:2.0px
+    linkStyle 57 stroke:green,stroke-width:2.0px
+    linkStyle 58 stroke:#55f,stroke-width:2.0px
+    linkStyle 59 stroke-width:2.0px
+    linkStyle 60 stroke:green,stroke-width:2.0px
+    linkStyle 61 stroke:#55f,stroke-width:2.0px
+    linkStyle 62 stroke-width:2.0px
+    linkStyle 63 stroke:green,stroke-width:2.0px
+    linkStyle 64 stroke:#55f,stroke-width:2.0px
+    linkStyle 65 stroke-width:2.0px
+    linkStyle 66 stroke:green,stroke-width:2.0px
+    linkStyle 67 stroke:#55f,stroke-width:2.0px
+    linkStyle 68 stroke-width:2.0px
+    linkStyle 69 stroke:green,stroke-width:2.0px
+    linkStyle 70 stroke:#55f,stroke-width:2.0px
+```
+They then wrap that so that they can sign the whole package themselves.
+```
+{
+    {
+        {
+            "Gordian Envelope 1.0.0" [
+                "fileInfo": "gordian-envelope-1.0.0.dm" [
+                    "sha256": "6b41b0d9d9bff2c23ad9bd66b054fda36e3494ec"
+                    "timestamp": "1668062209"
+                ]
+                "isSigner": "bill-not-the-science-guy" [
+                    "pubkey": "ur:crypto-pubkeys/lftaaosehdcxnnvapylszmcwmowzjlkifrktpftnamrdpdjkcfetfskoimeolfcywnloptaswsvltpvahd…"
+                ]
+                "isSigner": "omarc-bc-guy" [
+                    "pubkey": "ur:crypto-pubkeys/lftaaosehdcxzojlrltejneykkzcfdaowkcwlbguvtmhsegdwpttwdadrnjtpmchlbrswkbwkivwtpvahd…"
+                ]
+                "signerInfo": "bill-not-the-science-guy" [
+                    "pubkeyURL": "https://github.com/bill-not-the-science-guy.keys"
+                ]
+                "signerInfo": "omarc-bc-guy" [
+                    "pubkeyURL": "https://github.com/omarc-bc-guy.keys"
+                ]
+                note: "initial release"
+            ]
+        } [
+            verifiedBy: Signature
+            verifiedBy: Signature
+        ]
+    } [
+        "certifiedBy": "Blockchain Everyday" [
+            "dunsID": "000000000"
+            "isoCountryCode": "USA"
+            "pubkey": "ur:crypto-pubkeys/lftaaosehdcximbghsetjliyioztlrgwlegrctcyghrpotdrfxsrhgtojomykenscphsrlcwotvltpvahd…"
+            "pubkeyURL": "https://www.blockchaineveryday.com/pub.key"
+            "webURL": "https://www.blockchaineveryday.com"
+        ]
+    ]
+} [
+    verifiedBy: Signature
+]
+```
+```mermaid
+graph LR
+    1(("5b13374c<br/>NODE"))
+    2[/"6f46ec73<br/>WRAPPED"\]
+    3(("c9d29179<br/>NODE"))
+    4[/"292c57d4<br/>WRAPPED"\]
+    5(("e1c7893d<br/>NODE"))
+    6[/"1502aebf<br/>WRAPPED"\]
+    7(("d19ef9e7<br/>NODE"))
+    8["de7e544e<br/>#quot;Gordian Envelope 1.0.0#quot;"]
+    9(["41db7106<br/>ASSERTION"])
+    10["628ac8d9<br/>#quot;fileInfo#quot;"]
+    11(("10561183<br/>NODE"))
+    12["03c3e8cf<br/>#quot;gordian-envelope-1.0.0.dm#quot;"]
+    13(["26cdea4a<br/>ASSERTION"])
+    14["fd9d5aed<br/>#quot;timestamp#quot;"]
+    15["928e86de<br/>#quot;1668062209#quot;"]
+    16(["b25bf99e<br/>ASSERTION"])
+    17["108dbfb1<br/>#quot;sha256#quot;"]
+    18["b895faae<br/>#quot;6b41b0d9d9bff2c23ad9bd66b054fda36e3494ec#quot;"]
+    19(["484da754<br/>ASSERTION"])
+    20["67d69bd7<br/>#quot;isSigner#quot;"]
+    21(("0ae65c77<br/>NODE"))
+    22["61aece1e<br/>#quot;bill-not-the-science-guy#quot;"]
+    23(["0ad198e4<br/>ASSERTION"])
+    24["d52596f8<br/>#quot;pubkey#quot;"]
+    25["e82d6b98<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxnnvapylszmcwmowzjlkifrktpftnamrdpdjkcfetfskoimeolfcywnloptaswsvltpvahd…#quot;"]
+    26(["4ef0d8f2<br/>ASSERTION"])
+    27["dbc1553d<br/>#quot;signerInfo#quot;"]
+    28(("d77c0291<br/>NODE"))
+    29["34e0c09c<br/>#quot;omarc-bc-guy#quot;"]
+    30(["9bc4beec<br/>ASSERTION"])
+    31["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    32["78d7942e<br/>#quot;https://github.com/omarc-bc-guy.keys#quot;"]
+    33(["72d6fac6<br/>ASSERTION"])
+    34[/"61fb6a6b<br/>note"/]
+    35["fa62ba29<br/>#quot;initial release#quot;"]
+    36(["90e799be<br/>ASSERTION"])
+    37["67d69bd7<br/>#quot;isSigner#quot;"]
+    38(("c833b577<br/>NODE"))
+    39["34e0c09c<br/>#quot;omarc-bc-guy#quot;"]
+    40(["0b8d474f<br/>ASSERTION"])
+    41["d52596f8<br/>#quot;pubkey#quot;"]
+    42["929e99e7<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxzojlrltejneykkzcfdaowkcwlbguvtmhsegdwpttwdadrnjtpmchlbrswkbwkivwtpvahd…#quot;"]
+    43(["b5c9129a<br/>ASSERTION"])
+    44["dbc1553d<br/>#quot;signerInfo#quot;"]
+    45(("67a2f813<br/>NODE"))
+    46["61aece1e<br/>#quot;bill-not-the-science-guy#quot;"]
+    47(["8f4c7eec<br/>ASSERTION"])
+    48["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    49["0b240880<br/>#quot;https://github.com/bill-not-the-science-guy.keys#quot;"]
+    50(["272fd26b<br/>ASSERTION"])
+    51[/"d59f8c0f<br/>verifiedBy"/]
+    52["7b7b88b5<br/>Signature"]
+    53(["8158be67<br/>ASSERTION"])
+    54[/"d59f8c0f<br/>verifiedBy"/]
+    55["23ec6b65<br/>Signature"]
+    56(["baf9b08a<br/>ASSERTION"])
+    57["7eb11472<br/>#quot;certifiedBy#quot;"]
+    58(("c4ffa2a3<br/>NODE"))
+    59["a4ad4289<br/>#quot;Blockchain Everyday#quot;"]
+    60(["27be4bbb<br/>ASSERTION"])
+    61["d52596f8<br/>#quot;pubkey#quot;"]
+    62["700576a7<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbghsetjliyioztlrgwlegrctcyghrpotdrfxsrhgtojomykenscphsrlcwotvltpvahd…#quot;"]
+    63(["6c8c092c<br/>ASSERTION"])
+    64["83f0896b<br/>#quot;webURL#quot;"]
+    65["97b377c9<br/>#quot;https://www.blockchaineveryday.com#quot;"]
+    66(["c7bd878b<br/>ASSERTION"])
+    67["ec387013<br/>#quot;isoCountryCode#quot;"]
+    68["aaa3899b<br/>#quot;USA#quot;"]
+    69(["dae49b12<br/>ASSERTION"])
+    70["97853f5c<br/>#quot;dunsID#quot;"]
+    71["4a00c18c<br/>#quot;000000000#quot;"]
+    72(["fef7ce4b<br/>ASSERTION"])
+    73["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    74["a88ae53e<br/>#quot;https://www.blockchaineveryday.com/pub.key#quot;"]
+    75(["ae90ab4e<br/>ASSERTION"])
+    76[/"d59f8c0f<br/>verifiedBy"/]
+    77["b782a795<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    4 -->|subj| 5
+    5 -->|subj| 6
+    6 -->|subj| 7
+    7 -->|subj| 8
+    7 --> 9
+    9 -->|pred| 10
+    9 -->|obj| 11
+    11 -->|subj| 12
+    11 --> 13
+    13 -->|pred| 14
+    13 -->|obj| 15
+    11 --> 16
+    16 -->|pred| 17
+    16 -->|obj| 18
+    7 --> 19
+    19 -->|pred| 20
+    19 -->|obj| 21
+    21 -->|subj| 22
+    21 --> 23
+    23 -->|pred| 24
+    23 -->|obj| 25
+    7 --> 26
+    26 -->|pred| 27
+    26 -->|obj| 28
+    28 -->|subj| 29
+    28 --> 30
+    30 -->|pred| 31
+    30 -->|obj| 32
+    7 --> 33
+    33 -->|pred| 34
+    33 -->|obj| 35
+    7 --> 36
+    36 -->|pred| 37
+    36 -->|obj| 38
+    38 -->|subj| 39
+    38 --> 40
+    40 -->|pred| 41
+    40 -->|obj| 42
+    7 --> 43
+    43 -->|pred| 44
+    43 -->|obj| 45
+    45 -->|subj| 46
+    45 --> 47
+    47 -->|pred| 48
+    47 -->|obj| 49
+    5 --> 50
+    50 -->|pred| 51
+    50 -->|obj| 52
+    5 --> 53
+    53 -->|pred| 54
+    53 -->|obj| 55
+    3 --> 56
+    56 -->|pred| 57
+    56 -->|obj| 58
+    58 -->|subj| 59
+    58 --> 60
+    60 -->|pred| 61
+    60 -->|obj| 62
+    58 --> 63
+    63 -->|pred| 64
+    63 -->|obj| 65
+    58 --> 66
+    66 -->|pred| 67
+    66 -->|obj| 68
+    58 --> 69
+    69 -->|pred| 70
+    69 -->|obj| 71
+    58 --> 72
+    72 -->|pred| 73
+    72 -->|obj| 74
+    1 --> 75
+    75 -->|pred| 76
+    75 -->|obj| 77
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:red,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:red,stroke-width:3.0px
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:red,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:red,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:red,stroke-width:3.0px
+    style 14 stroke:#55f,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:red,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:red,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:red,stroke-width:3.0px
+    style 22 stroke:#55f,stroke-width:3.0px
+    style 23 stroke:red,stroke-width:3.0px
+    style 24 stroke:#55f,stroke-width:3.0px
+    style 25 stroke:#55f,stroke-width:3.0px
+    style 26 stroke:red,stroke-width:3.0px
+    style 27 stroke:#55f,stroke-width:3.0px
+    style 28 stroke:red,stroke-width:3.0px
+    style 29 stroke:#55f,stroke-width:3.0px
+    style 30 stroke:red,stroke-width:3.0px
+    style 31 stroke:#55f,stroke-width:3.0px
+    style 32 stroke:#55f,stroke-width:3.0px
+    style 33 stroke:red,stroke-width:3.0px
+    style 34 stroke:#55f,stroke-width:3.0px
+    style 35 stroke:#55f,stroke-width:3.0px
+    style 36 stroke:red,stroke-width:3.0px
+    style 37 stroke:#55f,stroke-width:3.0px
+    style 38 stroke:red,stroke-width:3.0px
+    style 39 stroke:#55f,stroke-width:3.0px
+    style 40 stroke:red,stroke-width:3.0px
+    style 41 stroke:#55f,stroke-width:3.0px
+    style 42 stroke:#55f,stroke-width:3.0px
+    style 43 stroke:red,stroke-width:3.0px
+    style 44 stroke:#55f,stroke-width:3.0px
+    style 45 stroke:red,stroke-width:3.0px
+    style 46 stroke:#55f,stroke-width:3.0px
+    style 47 stroke:red,stroke-width:3.0px
+    style 48 stroke:#55f,stroke-width:3.0px
+    style 49 stroke:#55f,stroke-width:3.0px
+    style 50 stroke:red,stroke-width:3.0px
+    style 51 stroke:#55f,stroke-width:3.0px
+    style 52 stroke:#55f,stroke-width:3.0px
+    style 53 stroke:red,stroke-width:3.0px
+    style 54 stroke:#55f,stroke-width:3.0px
+    style 55 stroke:#55f,stroke-width:3.0px
+    style 56 stroke:red,stroke-width:3.0px
+    style 57 stroke:#55f,stroke-width:3.0px
+    style 58 stroke:red,stroke-width:3.0px
+    style 59 stroke:#55f,stroke-width:3.0px
+    style 60 stroke:red,stroke-width:3.0px
+    style 61 stroke:#55f,stroke-width:3.0px
+    style 62 stroke:#55f,stroke-width:3.0px
+    style 63 stroke:red,stroke-width:3.0px
+    style 64 stroke:#55f,stroke-width:3.0px
+    style 65 stroke:#55f,stroke-width:3.0px
+    style 66 stroke:red,stroke-width:3.0px
+    style 67 stroke:#55f,stroke-width:3.0px
+    style 68 stroke:#55f,stroke-width:3.0px
+    style 69 stroke:red,stroke-width:3.0px
+    style 70 stroke:#55f,stroke-width:3.0px
+    style 71 stroke:#55f,stroke-width:3.0px
+    style 72 stroke:red,stroke-width:3.0px
+    style 73 stroke:#55f,stroke-width:3.0px
+    style 74 stroke:#55f,stroke-width:3.0px
+    style 75 stroke:red,stroke-width:3.0px
+    style 76 stroke:#55f,stroke-width:3.0px
+    style 77 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke:red,stroke-width:2.0px
+    linkStyle 4 stroke:red,stroke-width:2.0px
+    linkStyle 5 stroke:red,stroke-width:2.0px
+    linkStyle 6 stroke:red,stroke-width:2.0px
+    linkStyle 7 stroke-width:2.0px
+    linkStyle 8 stroke:green,stroke-width:2.0px
+    linkStyle 9 stroke:#55f,stroke-width:2.0px
+    linkStyle 10 stroke:red,stroke-width:2.0px
+    linkStyle 11 stroke-width:2.0px
+    linkStyle 12 stroke:green,stroke-width:2.0px
+    linkStyle 13 stroke:#55f,stroke-width:2.0px
+    linkStyle 14 stroke-width:2.0px
+    linkStyle 15 stroke:green,stroke-width:2.0px
+    linkStyle 16 stroke:#55f,stroke-width:2.0px
+    linkStyle 17 stroke-width:2.0px
+    linkStyle 18 stroke:green,stroke-width:2.0px
+    linkStyle 19 stroke:#55f,stroke-width:2.0px
+    linkStyle 20 stroke:red,stroke-width:2.0px
+    linkStyle 21 stroke-width:2.0px
+    linkStyle 22 stroke:green,stroke-width:2.0px
+    linkStyle 23 stroke:#55f,stroke-width:2.0px
+    linkStyle 24 stroke-width:2.0px
+    linkStyle 25 stroke:green,stroke-width:2.0px
+    linkStyle 26 stroke:#55f,stroke-width:2.0px
+    linkStyle 27 stroke:red,stroke-width:2.0px
+    linkStyle 28 stroke-width:2.0px
+    linkStyle 29 stroke:green,stroke-width:2.0px
+    linkStyle 30 stroke:#55f,stroke-width:2.0px
+    linkStyle 31 stroke-width:2.0px
+    linkStyle 32 stroke:green,stroke-width:2.0px
+    linkStyle 33 stroke:#55f,stroke-width:2.0px
+    linkStyle 34 stroke-width:2.0px
+    linkStyle 35 stroke:green,stroke-width:2.0px
+    linkStyle 36 stroke:#55f,stroke-width:2.0px
+    linkStyle 37 stroke:red,stroke-width:2.0px
+    linkStyle 38 stroke-width:2.0px
+    linkStyle 39 stroke:green,stroke-width:2.0px
+    linkStyle 40 stroke:#55f,stroke-width:2.0px
+    linkStyle 41 stroke-width:2.0px
+    linkStyle 42 stroke:green,stroke-width:2.0px
+    linkStyle 43 stroke:#55f,stroke-width:2.0px
+    linkStyle 44 stroke:red,stroke-width:2.0px
+    linkStyle 45 stroke-width:2.0px
+    linkStyle 46 stroke:green,stroke-width:2.0px
+    linkStyle 47 stroke:#55f,stroke-width:2.0px
+    linkStyle 48 stroke-width:2.0px
+    linkStyle 49 stroke:green,stroke-width:2.0px
+    linkStyle 50 stroke:#55f,stroke-width:2.0px
+    linkStyle 51 stroke-width:2.0px
+    linkStyle 52 stroke:green,stroke-width:2.0px
+    linkStyle 53 stroke:#55f,stroke-width:2.0px
+    linkStyle 54 stroke-width:2.0px
+    linkStyle 55 stroke:green,stroke-width:2.0px
+    linkStyle 56 stroke:#55f,stroke-width:2.0px
+    linkStyle 57 stroke:red,stroke-width:2.0px
+    linkStyle 58 stroke-width:2.0px
+    linkStyle 59 stroke:green,stroke-width:2.0px
+    linkStyle 60 stroke:#55f,stroke-width:2.0px
+    linkStyle 61 stroke-width:2.0px
+    linkStyle 62 stroke:green,stroke-width:2.0px
+    linkStyle 63 stroke:#55f,stroke-width:2.0px
+    linkStyle 64 stroke-width:2.0px
+    linkStyle 65 stroke:green,stroke-width:2.0px
+    linkStyle 66 stroke:#55f,stroke-width:2.0px
+    linkStyle 67 stroke-width:2.0px
+    linkStyle 68 stroke:green,stroke-width:2.0px
+    linkStyle 69 stroke:#55f,stroke-width:2.0px
+    linkStyle 70 stroke-width:2.0px
+    linkStyle 71 stroke:green,stroke-width:2.0px
+    linkStyle 72 stroke:#55f,stroke-width:2.0px
+    linkStyle 73 stroke-width:2.0px
+    linkStyle 74 stroke:green,stroke-width:2.0px
+    linkStyle 75 stroke:#55f,stroke-width:2.0px
+```
+By signing Casey's release, Blockchain Everyday has created a new root of trust for corporations (or individuals) who mandate a link to a D&B number. These companies with more stringent regulations will still be able to chain forward to new releases, just with a different root of trust from companies (or individuals) who were willing to trust on the GitHub IDs alone.
+
 ### 3. Casey Chains His Software Releases [Chained Data]
 
 > _Problem Solved:_ Casey wants to be able to continuously rerelease his software, while reducing validation cost over time.
 
-Because Casey has now established a root of trust with his initial release he can make a new release without having to reestablish his signers. 
+Because Casey (and/or Blockchain Everyday) has established a root of trust with the initial release of Gordian Envelope, future releases can now be published without the need to reestablish the signers. This is done by incorporating links to previous releases in each envelope. As long as users stored previous envelopes and recorded their validation, they will know that they can trust the new envelope because it continues to contain the public keys that they had previous checked.
 
+The Gordian Envelope for a new release looks much like that for a previous release, with the addition of a `previousRelease` link and the removal of the `signerInfo` (which appeared when the signers debuted in Gordian Envelope 1.0.0).
 ```
 "Gordian Envelope 1.0.1" [
     "fileInfo": "gordian-envelope-1.0.1.dm" [
@@ -933,7 +1699,7 @@ graph LR
 
 If the validator kept the envelope that he previously validated, now all that he has to do is see that the users and public keys in this new envelope match the old one, and then validate the signature. It should be entirely automatable.
 
-More complexity is required only if the previous envelope were not kept. In this case, the validator uses the `previousRelease` metadata to backtrack until he finds the foundational `signerInfo`, which he can validate with more effort (as he did originally).
+More complexity is required only if the previous envelope were not kept. In this case, the validator uses the `previousRelease` metadata to backtrack until he finds the foundational `signerInfo`, which he can validate with more effort (as he did originally). A company with more stringent policies might have to make an orthogonal trip out to Blockchain Everday's website, to see the additional verification there.
 
 ### 5. Casey Changes Up His Software Releases [Chained Changes]
 
