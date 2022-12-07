@@ -2739,3 +2739,507 @@ graph LR
 ```
 
 Casey is happy that he's achieved his goal: creating software releases that are easily validatable in automated ways, even as engineers change over time.
+
+## Anonymous Signing
+
+Sometimes signers don't want to reveal information about who they are. That's the case with the [Amira Engagement Model](https://w3c-ccg.github.io/amira/), created at [Rebooting the Web of Trust V in Boston, Massachusetts](https://github.com/WebOfTrustInfo/rwot5-boston/tree/master/final-documents#readme). The following use case utilizes the Amira story to suggest how anonymous signing can be enabled with Gordian Envelope
+
+### 6. Amira Signs Anonymously [Anonymous]
+
+Amira wants to volunteer her programming skills to support activist causes, but is afraid that doing so might impact her daytime job. So she begins working with RISK, which allows her to anonymously support projects. She begins work on SisterSpace, a work contracted by BigBen44. The problem comes of course when Amira needs to release her work. It's not just that she wants to maintain her anonymity, but also that she wants to have the option to reveal her identity in the future, if his activist programming is successful enough that she decides she can turn it into a new career.
+
+To solve this problem, Amira creates a block of `signerInfo` for her new alter-ego `bwhacker` (or "Better World Hacker"), just like she saw in the Gordian Envelope project and has BigBen44 sign it. But she then entirely elides it before attaching it to the project! Any validator can decide to trust Amira's signature (or not) based on the Web of Trust created by Ben's signature. Meanwhile, if Amira wants to reveal her identity at some time in the future she can do so by revealing the envelope that matches the elided assertion.
+
+Amira starts by creating a thorough infoblock:
+```
+"bwhacker" [
+    {
+        "aliasGitHub": "amira"
+    } [
+        salt: Salt
+    ]
+    {
+        "email": "amira.khaled.programming@hmail.com"
+    } [
+        salt: Salt
+    ]
+    {
+        "firstName": "Amira"
+    } [
+        salt: Salt
+    ]
+    {
+        "lastName": "Khaled"
+    } [
+        salt: Salt
+    ]
+    "photo": "This is Amira Khaled's photo"
+]
+```
+```mermaid
+graph LR
+    1(("278e44b4<br/>NODE"))
+    2["1b099cac<br/>#quot;bwhacker#quot;"]
+    3(("55787117<br/>NODE"))
+    4(["5c6fd8b9<br/>ASSERTION"])
+    5["4bcd8772<br/>#quot;aliasGitHub#quot;"]
+    6["4c602907<br/>#quot;amira#quot;"]
+    7(["7b9afe7b<br/>ASSERTION"])
+    8[/"3fb4814d<br/>salt"/]
+    9["eff54222<br/>Salt"]
+    10(("897ff8cb<br/>NODE"))
+    11(["43dc8696<br/>ASSERTION"])
+    12["a9400195<br/>#quot;email#quot;"]
+    13["346da217<br/>#quot;amira.khaled.programming@hmail.com#quot;"]
+    14(["481f52d4<br/>ASSERTION"])
+    15[/"3fb4814d<br/>salt"/]
+    16["6d03abc2<br/>Salt"]
+    17(("8afb1306<br/>NODE"))
+    18(["526084ac<br/>ASSERTION"])
+    19["c4d5323d<br/>#quot;firstName#quot;"]
+    20["3710316b<br/>#quot;Amira#quot;"]
+    21(["b4f7320c<br/>ASSERTION"])
+    22[/"3fb4814d<br/>salt"/]
+    23["659ec153<br/>Salt"]
+    24(("9457bc95<br/>NODE"))
+    25(["3e54569f<br/>ASSERTION"])
+    26["eb62836d<br/>#quot;lastName#quot;"]
+    27["6c089801<br/>#quot;Khaled#quot;"]
+    28(["0dc14940<br/>ASSERTION"])
+    29[/"3fb4814d<br/>salt"/]
+    30["52a83c55<br/>Salt"]
+    31(["b0692f4b<br/>ASSERTION"])
+    32["a791d0c7<br/>#quot;photo#quot;"]
+    33["f74cc03b<br/>#quot;This is Amira Khaled's photo#quot;"]
+    1 -->|subj| 2
+    1 --> 3
+    3 -->|subj| 4
+    4 -->|pred| 5
+    4 -->|obj| 6
+    3 --> 7
+    7 -->|pred| 8
+    7 -->|obj| 9
+    1 --> 10
+    10 -->|subj| 11
+    11 -->|pred| 12
+    11 -->|obj| 13
+    10 --> 14
+    14 -->|pred| 15
+    14 -->|obj| 16
+    1 --> 17
+    17 -->|subj| 18
+    18 -->|pred| 19
+    18 -->|obj| 20
+    17 --> 21
+    21 -->|pred| 22
+    21 -->|obj| 23
+    1 --> 24
+    24 -->|subj| 25
+    25 -->|pred| 26
+    25 -->|obj| 27
+    24 --> 28
+    28 -->|pred| 29
+    28 -->|obj| 30
+    1 --> 31
+    31 -->|pred| 32
+    31 -->|obj| 33
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:red,stroke-width:3.0px
+    style 5 stroke:#55f,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:red,stroke-width:3.0px
+    style 11 stroke:red,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    style 17 stroke:red,stroke-width:3.0px
+    style 18 stroke:red,stroke-width:3.0px
+    style 19 stroke:#55f,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:red,stroke-width:3.0px
+    style 22 stroke:#55f,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px
+    style 24 stroke:red,stroke-width:3.0px
+    style 25 stroke:red,stroke-width:3.0px
+    style 26 stroke:#55f,stroke-width:3.0px
+    style 27 stroke:#55f,stroke-width:3.0px
+    style 28 stroke:red,stroke-width:3.0px
+    style 29 stroke:#55f,stroke-width:3.0px
+    style 30 stroke:#55f,stroke-width:3.0px
+    style 31 stroke:red,stroke-width:3.0px
+    style 32 stroke:#55f,stroke-width:3.0px
+    style 33 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke:green,stroke-width:2.0px
+    linkStyle 4 stroke:#55f,stroke-width:2.0px
+    linkStyle 5 stroke-width:2.0px
+    linkStyle 6 stroke:green,stroke-width:2.0px
+    linkStyle 7 stroke:#55f,stroke-width:2.0px
+    linkStyle 8 stroke-width:2.0px
+    linkStyle 9 stroke:red,stroke-width:2.0px
+    linkStyle 10 stroke:green,stroke-width:2.0px
+    linkStyle 11 stroke:#55f,stroke-width:2.0px
+    linkStyle 12 stroke-width:2.0px
+    linkStyle 13 stroke:green,stroke-width:2.0px
+    linkStyle 14 stroke:#55f,stroke-width:2.0px
+    linkStyle 15 stroke-width:2.0px
+    linkStyle 16 stroke:red,stroke-width:2.0px
+    linkStyle 17 stroke:green,stroke-width:2.0px
+    linkStyle 18 stroke:#55f,stroke-width:2.0px
+    linkStyle 19 stroke-width:2.0px
+    linkStyle 20 stroke:green,stroke-width:2.0px
+    linkStyle 21 stroke:#55f,stroke-width:2.0px
+    linkStyle 22 stroke-width:2.0px
+    linkStyle 23 stroke:red,stroke-width:2.0px
+    linkStyle 24 stroke:green,stroke-width:2.0px
+    linkStyle 25 stroke:#55f,stroke-width:2.0px
+    linkStyle 26 stroke-width:2.0px
+    linkStyle 27 stroke:green,stroke-width:2.0px
+    linkStyle 28 stroke:#55f,stroke-width:2.0px
+    linkStyle 29 stroke-width:2.0px
+    linkStyle 30 stroke:green,stroke-width:2.0px
+    linkStyle 31 stroke:#55f,stroke-width:2.0px
+```
+Even if she decides to introduce herself to the world at some future time, this may be more information than Amira wants to reveal, but she'll be able to release a partially elided infoblock in the future is she wants. Note that Amira salts most of the assertions to ensure that they can't be accidentally correlated even if she later reveals part of the infoblock.
+
+Ben takes Amira's envelope, adds on information about himself, then signs it all:
+```
+{
+    {
+        "bwhacker" [
+            {
+                "aliasGitHub": "amira"
+            } [
+                salt: Salt
+            ]
+            {
+                "email": "amira.khaled.programming@hmail.com"
+            } [
+                salt: Salt
+            ]
+            {
+                "firstName": "Amira"
+            } [
+                salt: Salt
+            ]
+            {
+                "lastName": "Khaled"
+            } [
+                salt: Salt
+            ]
+            "photo": "This is Amira Khaled's photo"
+        ]
+    } [
+        "verifierInfo": "bigben44" [
+            "pubkeyURL": "https://github.com/bigben44.keys"
+        ]
+    ]
+} [
+    verifiedBy: Signature
+]
+```
+```mermaid
+graph LR
+    1(("aced5fd9<br/>NODE"))
+    2[/"1156d33e<br/>WRAPPED"\]
+    3(("7d320634<br/>NODE"))
+    4[/"be913f36<br/>WRAPPED"\]
+    5(("085fae4d<br/>NODE"))
+    6["1b099cac<br/>#quot;bwhacker#quot;"]
+    7(("24f24158<br/>NODE"))
+    8(["526084ac<br/>ASSERTION"])
+    9["c4d5323d<br/>#quot;firstName#quot;"]
+    10["3710316b<br/>#quot;Amira#quot;"]
+    11(["5af374be<br/>ASSERTION"])
+    12[/"3fb4814d<br/>salt"/]
+    13["7d82375c<br/>Salt"]
+    14(("58f2d6a5<br/>NODE"))
+    15(["43dc8696<br/>ASSERTION"])
+    16["a9400195<br/>#quot;email#quot;"]
+    17["346da217<br/>#quot;amira.khaled.programming@hmail.com#quot;"]
+    18(["8c333681<br/>ASSERTION"])
+    19[/"3fb4814d<br/>salt"/]
+    20["6129f425<br/>Salt"]
+    21(("849e2036<br/>NODE"))
+    22(["5c6fd8b9<br/>ASSERTION"])
+    23["4bcd8772<br/>#quot;aliasGitHub#quot;"]
+    24["4c602907<br/>#quot;amira#quot;"]
+    25(["89424620<br/>ASSERTION"])
+    26[/"3fb4814d<br/>salt"/]
+    27["ed34f524<br/>Salt"]
+    28(["b0692f4b<br/>ASSERTION"])
+    29["a791d0c7<br/>#quot;photo#quot;"]
+    30["f74cc03b<br/>#quot;This is Amira Khaled's photo#quot;"]
+    31(("f6a1a0eb<br/>NODE"))
+    32(["3e54569f<br/>ASSERTION"])
+    33["eb62836d<br/>#quot;lastName#quot;"]
+    34["6c089801<br/>#quot;Khaled#quot;"]
+    35(["dd678131<br/>ASSERTION"])
+    36[/"3fb4814d<br/>salt"/]
+    37["57497ab6<br/>Salt"]
+    38(["a45ab5f0<br/>ASSERTION"])
+    39["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    40(("eeab1852<br/>NODE"))
+    41["c3f77745<br/>#quot;bigben44#quot;"]
+    42(["e2a29393<br/>ASSERTION"])
+    43["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    44["2a90fca7<br/>#quot;https://github.com/bigben44.keys#quot;"]
+    45(["1974aab9<br/>ASSERTION"])
+    46[/"d59f8c0f<br/>verifiedBy"/]
+    47["ee6f804a<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    4 -->|subj| 5
+    5 -->|subj| 6
+    5 --> 7
+    7 -->|subj| 8
+    8 -->|pred| 9
+    8 -->|obj| 10
+    7 --> 11
+    11 -->|pred| 12
+    11 -->|obj| 13
+    5 --> 14
+    14 -->|subj| 15
+    15 -->|pred| 16
+    15 -->|obj| 17
+    14 --> 18
+    18 -->|pred| 19
+    18 -->|obj| 20
+    5 --> 21
+    21 -->|subj| 22
+    22 -->|pred| 23
+    22 -->|obj| 24
+    21 --> 25
+    25 -->|pred| 26
+    25 -->|obj| 27
+    5 --> 28
+    28 -->|pred| 29
+    28 -->|obj| 30
+    5 --> 31
+    31 -->|subj| 32
+    32 -->|pred| 33
+    32 -->|obj| 34
+    31 --> 35
+    35 -->|pred| 36
+    35 -->|obj| 37
+    3 --> 38
+    38 -->|pred| 39
+    38 -->|obj| 40
+    40 -->|subj| 41
+    40 --> 42
+    42 -->|pred| 43
+    42 -->|obj| 44
+    1 --> 45
+    45 -->|pred| 46
+    45 -->|obj| 47
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:red,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:red,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:red,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:red,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    style 18 stroke:red,stroke-width:3.0px
+    style 19 stroke:#55f,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:red,stroke-width:3.0px
+    style 22 stroke:red,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px
+    style 24 stroke:#55f,stroke-width:3.0px
+    style 25 stroke:red,stroke-width:3.0px
+    style 26 stroke:#55f,stroke-width:3.0px
+    style 27 stroke:#55f,stroke-width:3.0px
+    style 28 stroke:red,stroke-width:3.0px
+    style 29 stroke:#55f,stroke-width:3.0px
+    style 30 stroke:#55f,stroke-width:3.0px
+    style 31 stroke:red,stroke-width:3.0px
+    style 32 stroke:red,stroke-width:3.0px
+    style 33 stroke:#55f,stroke-width:3.0px
+    style 34 stroke:#55f,stroke-width:3.0px
+    style 35 stroke:red,stroke-width:3.0px
+    style 36 stroke:#55f,stroke-width:3.0px
+    style 37 stroke:#55f,stroke-width:3.0px
+    style 38 stroke:red,stroke-width:3.0px
+    style 39 stroke:#55f,stroke-width:3.0px
+    style 40 stroke:red,stroke-width:3.0px
+    style 41 stroke:#55f,stroke-width:3.0px
+    style 42 stroke:red,stroke-width:3.0px
+    style 43 stroke:#55f,stroke-width:3.0px
+    style 44 stroke:#55f,stroke-width:3.0px
+    style 45 stroke:red,stroke-width:3.0px
+    style 46 stroke:#55f,stroke-width:3.0px
+    style 47 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke:red,stroke-width:2.0px
+    linkStyle 4 stroke:red,stroke-width:2.0px
+    linkStyle 5 stroke-width:2.0px
+    linkStyle 6 stroke:red,stroke-width:2.0px
+    linkStyle 7 stroke:green,stroke-width:2.0px
+    linkStyle 8 stroke:#55f,stroke-width:2.0px
+    linkStyle 9 stroke-width:2.0px
+    linkStyle 10 stroke:green,stroke-width:2.0px
+    linkStyle 11 stroke:#55f,stroke-width:2.0px
+    linkStyle 12 stroke-width:2.0px
+    linkStyle 13 stroke:red,stroke-width:2.0px
+    linkStyle 14 stroke:green,stroke-width:2.0px
+    linkStyle 15 stroke:#55f,stroke-width:2.0px
+    linkStyle 16 stroke-width:2.0px
+    linkStyle 17 stroke:green,stroke-width:2.0px
+    linkStyle 18 stroke:#55f,stroke-width:2.0px
+    linkStyle 19 stroke-width:2.0px
+    linkStyle 20 stroke:red,stroke-width:2.0px
+    linkStyle 21 stroke:green,stroke-width:2.0px
+    linkStyle 22 stroke:#55f,stroke-width:2.0px
+    linkStyle 23 stroke-width:2.0px
+    linkStyle 24 stroke:green,stroke-width:2.0px
+    linkStyle 25 stroke:#55f,stroke-width:2.0px
+    linkStyle 26 stroke-width:2.0px
+    linkStyle 27 stroke:green,stroke-width:2.0px
+    linkStyle 28 stroke:#55f,stroke-width:2.0px
+    linkStyle 29 stroke-width:2.0px
+    linkStyle 30 stroke:red,stroke-width:2.0px
+    linkStyle 31 stroke:green,stroke-width:2.0px
+    linkStyle 32 stroke:#55f,stroke-width:2.0px
+    linkStyle 33 stroke-width:2.0px
+    linkStyle 34 stroke:green,stroke-width:2.0px
+    linkStyle 35 stroke:#55f,stroke-width:2.0px
+    linkStyle 36 stroke-width:2.0px
+    linkStyle 37 stroke:green,stroke-width:2.0px
+    linkStyle 38 stroke:#55f,stroke-width:2.0px
+    linkStyle 39 stroke:red,stroke-width:2.0px
+    linkStyle 40 stroke-width:2.0px
+    linkStyle 41 stroke:green,stroke-width:2.0px
+    linkStyle 42 stroke:#55f,stroke-width:2.0px
+    linkStyle 43 stroke-width:2.0px
+    linkStyle 44 stroke:green,stroke-width:2.0px
+    linkStyle 45 stroke:#55f,stroke-width:2.0px
+```
+In an alternative scenario, Amira might have presented Ben with her information already elided. This would allow him to sign without knowing who Amira actually is. However, signing elided information is very dangerous. (The `envelope-cli` warns against it, but allows it if the user is insistent.) Since it's not a best practice, that alternative is not used in this example.
+
+Amira should keep her unelided, signed envelope somewhere very safe. It can be simply stored in `ur:envelope` form.
+```
+ur:envelope/lftpsptpvtlftpsptpvtlntpsptpcsisidktishsiajeihjptpsplftpsptputlftpsptpcsiniyinjpjkjyglhsjnihtpsptpcsihfpjninjphstpsptputlftpsptpurbstpsptpcstaaossfdjtehhnhgfmcwaysbtpsplftpsptputlftpsptpcsihihjnhsinjztpsptpcskscphsjninjphsdmjeishsjzihiedmjojpjliojphsjnjninjtiofzisjnhsinjzdmiajljntpsptputlftpsptpurbstpsptpcstaaossgdcsvsaemyhlmtrsfpvljkhppkkseydtnltpsplftpsptputlftpsptpcsjehsjzinhsjkflinjyfdkpidtpsptpcsihhsjninjphstpsptputlftpsptpurbstpsptpcstaaossgsonimnerocxvasoiafttbtalutpsptputlftpsptpcsihjoisjljyjltpsptpcsksceghisinjkcxinjkcxfpjninjphscxgrishsjzihiedijkcxjoisjljyjltpsplftpsptputlftpsptpcsisjzhsjkjyglhsjnihtpsptpcsiygrishsjzihietpsptputlftpsptpurbstpsptpcstaaossgrbtnbmhtdindkspaxierlhftpsptputlftpsptpcsjzkoihjpiniyinihjpgajtiyjltpsplftpsptpcsisidinioidihjteeeetpsptputlftpsptpcsinjokpidjeihkkgogmgstpsptpcskscxisjyjyjojkftdldlioinjyiskpiddmiajljndlidinioidihjteeeedmjeihkkjktpsptputlftpsptpuraxtpsptpcstpuehdfzmtwlvwfsbamsvdgmtkolpebwgymtcmuyzsghsgadatrehhpkvaglfnfxpabnstcnatbgcapefnlowstittnbehjoneqdbspadnwssewkoxpavoidtsaofspaamlorpgydntbpygo
+```
+However for the purpose of software release, she's going to want to largely elide it.
+```
+{
+    {
+        "bwhacker" [
+            ELIDED (5)
+        ]
+    } [
+        "verifierInfo": "bigben44" [
+            "pubkeyURL": "https://github.com/bigben44.keys"
+        ]
+    ]
+} [
+    verifiedBy: Signature
+]
+```
+```
+graph LR
+    1(("aced5fd9<br/>NODE"))
+    2[/"1156d33e<br/>WRAPPED"\]
+    3(("7d320634<br/>NODE"))
+    4[/"be913f36<br/>WRAPPED"\]
+    5(("085fae4d<br/>NODE"))
+    6["1b099cac<br/>#quot;bwhacker#quot;"]
+    7{{"24f24158<br/>ELIDED"}}
+    8{{"58f2d6a5<br/>ELIDED"}}
+    9{{"849e2036<br/>ELIDED"}}
+    10{{"b0692f4b<br/>ELIDED"}}
+    11{{"f6a1a0eb<br/>ELIDED"}}
+    12(["a45ab5f0<br/>ASSERTION"])
+    13["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    14(("eeab1852<br/>NODE"))
+    15["c3f77745<br/>#quot;bigben44#quot;"]
+    16(["e2a29393<br/>ASSERTION"])
+    17["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    18["2a90fca7<br/>#quot;https://github.com/bigben44.keys#quot;"]
+    19(["1974aab9<br/>ASSERTION"])
+    20[/"d59f8c0f<br/>verifiedBy"/]
+    21["ee6f804a<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    4 -->|subj| 5
+    5 -->|subj| 6
+    5 --> 7
+    5 --> 8
+    5 --> 9
+    5 --> 10
+    5 --> 11
+    3 --> 12
+    12 -->|pred| 13
+    12 -->|obj| 14
+    14 -->|subj| 15
+    14 --> 16
+    16 -->|pred| 17
+    16 -->|obj| 18
+    1 --> 19
+    19 -->|pred| 20
+    19 -->|obj| 21
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:red,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 8 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 9 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 10 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 11 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 12 stroke:red,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:red,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:red,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke:red,stroke-width:2.0px
+    linkStyle 4 stroke:red,stroke-width:2.0px
+    linkStyle 5 stroke-width:2.0px
+    linkStyle 6 stroke-width:2.0px
+    linkStyle 7 stroke-width:2.0px
+    linkStyle 8 stroke-width:2.0px
+    linkStyle 9 stroke-width:2.0px
+    linkStyle 10 stroke-width:2.0px
+    linkStyle 11 stroke:green,stroke-width:2.0px
+    linkStyle 12 stroke:#55f,stroke-width:2.0px
+    linkStyle 13 stroke:red,stroke-width:2.0px
+    linkStyle 14 stroke-width:2.0px
+    linkStyle 15 stroke:green,stroke-width:2.0px
+    linkStyle 16 stroke:#55f,stroke-width:2.0px
+    linkStyle 17 stroke-width:2.0px
+    linkStyle 18 stroke:green,stroke-width:2.0px
+    linkStyle 19 stroke:#55f,stroke-width:2.0px
+```
