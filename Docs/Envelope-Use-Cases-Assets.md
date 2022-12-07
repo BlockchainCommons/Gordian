@@ -1,10 +1,20 @@
-# Gordian Envelope Use Case: Self-Sovereign Control of Assets
+# Gordian Envelope Use Case: Financial Control of Assets
 
-The following set of use cases demonstrates how Gordian Envelopes can protect digital assets controlled in an individual, self-sovereign way. They are presented progressively: each use case builds on the previous one by demonstrating a new capability. They all refer to the same user (Sam) with the same self-sovereign storage needs.
+In the financial industry, Gordian Envelopes can be used to encode and transmit sensitive financial information while preserving their complex data structures and ensuring privacy. This can include personally controlled (self-sovereign) assets such as seeds and keys as well as corporate assets such as contracts, transaction records, and audit reports. Gordian Envelopes offer protection for these assets not just through their ability to encrypt data, but also through their ability to elide or externally reference only certain parts of the Envelope. This can support both fair competition and cooperation in the financial industry through the use of progressive trust and selective disclosure. 
+
+For example, two financial institutions collaborating on a project could use Gordian Envelopes to share the information they need for the project, while still protecting their competitive advantage and keeping their data secure. Alternatively, an individual could encrypt his most sensitive information (such as a seed) while maintaining other referential data unencrypted.
+
+The ability of Gordian Envelopes to have different recipients open them in different ways is also useful in the financial industry, because it allows different parties to access the information for different purposes. For example, financial institutions could share data with aligned partners, each of whom have their own private keys, while an individual protecting their personal assets could back it up himself with a secret sharding scheming while also giving a secondary key to his attorney.
+
+Overall, Gordian Envelopes offer a flexible and privacy-enhancing solution for the transmission and storage of sensitive financial information.
+
+## Financal Use Cases Table of Contents
+
+The following set of use cases currently focuses on using Gordian Envelopes to protect digital assets controlled in an individual, self-sovereign way. They are presented progressively: each use case builds on the previous one by demonstrating a new capability. They all refer to the same user (Sam) with the same self-sovereign storage needs.
 
 Gordian Envelopes are powerful for the self-sovereign control of assets because they provide storage that is both resilient and secure. The security comes from the use of encryption in Envelopes while the resilience comes from Gordian Envelope's versatility in deciding what's encrypted and what's not, its ability to store high amounts of metadata, and its system of permits, which allow Envelopes to be opened in a wide variety of ways.
 
-* [Part One: Simple Storage of Secrets](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#part-one-simple-storage-of-secrets)
+* [Part One: Self-Sovereign Storage of Secrets](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#part-one-simple-storage-of-secrets)
    * #1: [Sam Stores a Secret (Secure Storage with Metadata)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#1-sam-stores-a-secret-secure-storage-with-metadata)
    * #2: [Sam is Salty about Compliance (Non-Correlation)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#2-sam-is-salty-about-compliance-non-correlation)
    * #3: [Sam Gets Paranoid about Privacy (Wrapped Encryption)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#3-sam-gets-paranoid-about-privacy-wrapped-encryption)
@@ -12,7 +22,7 @@ Gordian Envelopes are powerful for the self-sovereign control of assets because 
    * #4: [Sam Gets Rigorous about Resilience (SSKR Permit)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#4-sam-gets-rigorous-about-resilience-sskr-permit)
    * #5: [Sam Promotes a Partner (Multi-Permit)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#5-sam-promotes-a-partner-multi-permit)
 
-## Part One: Simple Storage of Secrets
+## Part One: Self-Sovereign Storage of Secrets
 
 This first set of progressive use cases demonstrates how to store secret information, how to improve resilience with metadata, how to improve privacy with salting, and how to improve security with wrapped encryption.
 
