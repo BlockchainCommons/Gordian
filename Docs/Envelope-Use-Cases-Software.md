@@ -2749,11 +2749,11 @@ Sometimes signers don't want to reveal information about who they are. That's th
 
 > _Problem Solved:_ Amira wants to release software without revealing her identity, while maintaining the option to do so in the future.
 
-Amira wants to volunteer her programming skills to support activist causes, but doesn't want her boss at the bank to know she's doing so, lest it impact her daytime job. So she begins working with RISK, which allows her to anonymously support activist projects. Amira begins work on SisterSpace, an app contracted by BigBen44. The problem comes of course when Amira needs to release SisterSpace 1.0. It's not just that she wants to maintain her anonymity, but also that she wants to have the option to reveal her identity in the future, if his activist programming is successful enough that she decides she can turn it into a new career.
+Amira wants to volunteer her programming skills to support activist causes, but doesn't want her boss at the bank to know she's doing so, lest it impact her daytime job. So she begins working with RISK, which allows her to anonymously support activist projects. Amira is contracted to produce the SisterSpace app by BigBen44. The problem comes of course when Amira needs to release SisterSpace 1.0, which she'll need to sign. It's not just that she wants to maintain her anonymity, but also that she wants to have the option to reveal her identity in the future, if his activist programming is successful enough that she decides she can turn it into a new career.
 
 To solve this problem, Amira creates a block of `signerInfo` for her new alter-ego `bwhacker` (or "Better World Hacker"), just like she saw in the Gordian Envelope project, and has BigBen44 sign it. But she then largely elides her information before attaching the envelope to the project! Any validator can decide to trust Amira's signature (or not) based on the Web of Trust created by Ben's signature. Meanwhile, if Amira wants to reveal her identity at some time in the future she can do so by revealing the envelope that matches the elided assertion.
 
-Amira starts by creating a thorough infoblock:
+Amira starts by creating a thorough infoblock envelope:
 ```
 "bwhacker" [
     {
@@ -2926,7 +2926,7 @@ graph LR
     linkStyle 34 stroke:#55f,stroke-width:2.0px
 
 ```
-Even if she decides to introduce herself to the world at some future time, this may be more information than Amira wants to reveal, but she'll be able to release a partially elided infoblock in the future is she wants. Note that Amira salts most of the assertions to ensure that they can't be accidentally correlated even if she later reveals part of the infoblock.
+Even if she decides to introduce herself to the world at some future time, this may be more information than Amira wants to reveal, but she'll be able to release a partially elided infoblock in the future is she prefers. Note that Amira salts most of the assertions to ensure that they can't be accidentally correlated even if she later reveals part of the information.
 
 Ben takes Amira's envelope, adds on information about himself, then signs it all:
 ```
@@ -3480,11 +3480,11 @@ Validators can choose to trust Amira's signature (or not!) based on Ben's verifi
 
 ### 7. Amira Reveals Her Identity [Progressive Trust]
 
-> _Problem Solved:_ Amira now wants to reveal her personal information to take advantage of her programming expertise.
+> _Problem Solved:_ Amira now wants to reveal her personal information to take advantage of her programming success.
 
 Amira receives considerable acclaim for her work on SisterSpace, especially as she expands the app over the new few years. She eventually decides that could leave behind her stodgy bank career to do activist programming full time, but to do so, she must prove she's `bwhacker`! She's prepared to start the process by revealing her identity to a few additional activist-focused clients.
 
-Fortunately, she planned for this from the start. Her `signerInfo` actually contains considerable personally identifying information, she just salted and elided it so that it couldn't be correlated. All she needs to do now is either produce a partially or entirely unelided version of her signed `signerInfo` envelope or just offer up the unelided assertions for indivual parts of the envelopes. Either will allow a validator to check the hashes and see that Amira's information matches what Ben signed off on in the original envelope.
+Fortunately, she planned for this from the start. Her `signerInfo` actually contains considerable personally identifying information, she just salted and elided it so that it couldn't be correlated. All she needs to do now is either produce a partially or entirely unelided version of her signed `signerInfo` envelope or just offer up the unelided assertions for individual parts of the envelopes. Either will allow a validator to check the hashes and see that Amira's information matches what Ben signed off on in the original envelope.
 
 She starts out by revealing her other GitHub ID, which does use her actual first name, but which doesn't have any other connections to her identity:
 ```
@@ -3801,4 +3801,9 @@ graph LR
     linkStyle 33 stroke:green,stroke-width:2.0px
     linkStyle 34 stroke:#55f,stroke-width:2.0px
  ```
- Each time that Amira progressively reveals more information, her clients can go back and check the hashes of that information against the signed hashes in Sister Space. The GitHub revelation matches the `877e2490` elision and the email revelation matches the `b073dd8c` node. Even though Amira was previously entirely anonymous, now she can easily prove that she's that anonymous person (and take advantage of her past work).
+ Each time that Amira progressively reveals more information, her clients can go back and check the hashes of that information against the signed hashes in Sister Space. The GitHub revelation matches the `4f6903a2` elision and the email revelation matches the `bc8187c9` elision. Even though Amira was previously entirely anonymous, now she can easily prove that she's that anonymous person (and take advantage of her past work).
+ 
+ ### Related Files
+
+* [Other Envelope Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Intro.md#usage-of-envelopes)
+
