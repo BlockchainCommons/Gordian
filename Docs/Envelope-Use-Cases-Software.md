@@ -1701,6 +1701,26 @@ If the validator kept the envelope that he previously validated, now all that he
 
 More complexity is required only if the previous envelope were not kept. In this case, the validator uses the `previousRelease` metadata to backtrack until he finds the foundational `signerInfo`, which he can validate with more effort (as he did originally). A company with more stringent policies might have to make an orthogonal trip out to Blockchain Everday's website, to see the additional verification there.
 
+### 4. Casey Check Compliance [Attestation, Metadata]
+
+> _Problem Solved:_ Casey needs to affirm compliance with a consent resolution in each release.
+
+The massive success of Gordian Envelope allows Blockchain Everyday to purchase GoodGossip. Unfortunately, GoodGossip was under a consent resolution with the FTC due to a previous privacy breach. Because Envelope incorporates a bit of GoodGossip's technology, that means that Blockchain Everday must now attest to compliance with the resolution for each of their Gordian Envelope releases for the next year (at which point the resolution comes to an end!).
+
+This is easy to do with Gordian Envelope, because metadata can be added to any envelope as new attestations. As compliance officer, Casey will just need to verify compliance for each release and then attest to it; he'll then ask for that attestation to be added to the Gordian Envelope for the release. It'll then be cleanly incorporated into the structured release information, along with everything else.
+
+Casey creates a sub-envelope that affirms that he believes that the release complies with the resolution:
+
+[affirmation]
+
+He also must sign it:
+
+[signed]
+
+The sub-envelope is then incorporated into the full envelope for the release.
+
+[fullenvelope.
+
 ### 5. Casey Changes Up His Software Releases [Chained Changes]
 
 > _Problem Solved:_ Casey wants to change signers over time in a way that's organic and continues to allow for simple validation.
