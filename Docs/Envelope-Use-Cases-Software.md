@@ -23,9 +23,9 @@ This set of progressive use cases describes how a user can structure and sign da
 
 The possibility of malicious actors injecting code into software is a [prime attack vector](https://github.com/WebOfTrustInfo/rwot11-the-hague/blob/master/final-documents/taking-out-the-crud-five-fabulous-did-attacks.md#1-create-the-did-creation-switcharoo), especially on the modern internet with its open-source repositories. Thus, checksumming and signing sotware releases has become increasingly important. Unfortunately, it remains very ad hoc, with styles of release varying widely and information often split among many files.
 
-Casey is the project head for Blockchain Everyday's Gordian Envelope. He decides on a methodology for releases where he'll store all of the release information in a single Gordian Envelope with regularized data and then have the engineers sign that data. He also wants to do his best to automate validation of the envelope data, since he knows that will make it more likely that the data is actually checked. He'll provide some bootstrap information in the first Envelope to support validation, and then chain later software releases to this initial one, allowing for programmatic validation.
+Casey is the project head for Blockchain Everyday's Gordian Envelope. He decides on a methodology for releases where he'll store all of the release information in a single Gordian Envelope with regularized data and then have the engineers sign that data. He also wants to do his best to automate validation of the envelope data, since he knows that will make it more likely that the data is actually checked. He'll provide some bootstrapping information in the first Envelope to support validation, and then link later software releases to this initial one, allowing for programmatic validation.
 
-The structure is the foundation of the software-release information. Casey fills in an Envelope with a list of all the files, a list of all the signers, data on each, and some additional notes:
+A precise and carefully considered structure is the foundation of the software-release information. Casey fills in an Envelope with a list of all the files, a list of all the signers, data on each, and some additional notes:
 
 ```
 "Gordian Envelope 1.0.0" [
@@ -358,7 +358,7 @@ graph LR
     linkStyle 40 stroke:green,stroke-width:2.0px
     linkStyle 41 stroke:#55f,stroke-width:2.0px
 ```
-Of course, one more thing is necessary to make the `fileInfo` trustworthy: the envelope must be signed. Casey's lead developers, Bill and Omar, each provide a signature, creating a group verification that can be checked against either signature (or both).
+Of course, one more thing is necessary to make the `fileInfo` trustworthy: the Envelope must be signed. Casey's lead developers, Bill and Omar, each provide a signature, creating a group verification that can be checked against either signature (or both).
 
 In order for those signatures to apply to the entire envelope, the envelope must first be wrapped; because signatures are assertions, they'd otherwise just apply to the subject, "Gordian Envelope 1.0.0", which wouldn't be that useful! After wrapping the envelope, both Bill and Omar can sign.
 ```
@@ -596,11 +596,11 @@ graph LR
 
 ### 2: Blockchain Everyday Confirms Casey [Repackaging Data, Third-Party Verification]
 
-> _Problem Solved:_ Some corporations require more centralized validation; Blockchain Everday can provide that simple by repackaging an existing envelope.
+> _Problem Solved:_ Some corporations require more centralized validation; Blockchain Everday can provide that simply by repackaging an existing envelope.
 
-Casey's plan for bootstrapping the validation of Blockchain Everyday's Gordian Envelope should be sufficient for most users of the software. However, Blockchain Everyday soon discovers that there are corporations that aren't willing to use the software just based on the public-key infrastruct6ure (PKI) information derived from individual GitHub accounts. They want the validation of company that they can look up in Dun & Bradstreet.
+Casey's plan for bootstrapping the validation of Blockchain Everyday's Gordian Envelope should be sufficient for most users of the software. However, Blockchain Everyday soon discovers that there are corporations that aren't willing to use the software based solely on the public-key-infrastructure (PKI) information derived from individual GitHub accounts. They want the validation of a company that they can look up in Dun & Bradstreet.
 
-Blockchain Everyday doesn't want to reissue the existing software information, but Gordian Envelopes can be repackaged by any holder. That allows Blockchain Everyday to take the release information that Casey registered with GitHub, add more information, sign it themselves, and then publish it through their own website. Similarly, if users of Gordian Envelope were incorporating it into software libraries _they too_ could repackage the Envelope and add their own seal to it before passing it on their customers! (It's Envelopes all the way down.)
+Blockchain Everyday doesn't want to reissue the existing release information, but Gordian Envelopes can be repackaged by any holder. That allows Blockchain Everyday to take the release information that Casey registered with GitHub, add more data, sign it themselves, and then publish it through their own website. Similarly, if users of Gordian Envelope were incorporating the software into software libraries _they too_ could repackage either Casey or Blockchain Everyday's Envelope and add their own seal to it before passing it on their customers! (It's Envelopes all the way down.)
 
 Blockchain Everday initially produces an Envelope containing their information:
 ```
@@ -681,7 +681,7 @@ graph LR
     linkStyle 14 stroke:green,stroke-width:2.0px
     linkStyle 15 stroke:#55f,stroke-width:2.0px
 ```
-They then wrap the 1.0.0 release information and add on their own details:
+They then wrap the 1.0.0 release information and add on the Envelope with their details using a `certifiedBy` predicate.
 ```
 {
     {
@@ -1007,7 +1007,7 @@ graph LR
     linkStyle 69 stroke:green,stroke-width:2.0px
     linkStyle 70 stroke:#55f,stroke-width:2.0px
 ```
-They then wrap that so that they can sign the whole package themselves.
+Finally, they wrap that so that they can sign the whole package themselves.
 ```
 {
     {
@@ -1357,15 +1357,15 @@ graph LR
     linkStyle 74 stroke:green,stroke-width:2.0px
     linkStyle 75 stroke:#55f,stroke-width:2.0px
 ```
-By signing Casey's release, Blockchain Everyday has created a new root of trust for corporations (or individuals) who mandate a link to a D&B number. These companies with more stringent regulations will still be able to chain forward to new releases, just with a different root of trust from companies (or individuals) who were willing to trust on the GitHub IDs alone.
+By signing Casey's release, Blockchain Everyday has created a new root of trust for corporations (or individuals) who mandate a link to a D&B number. These companies with more stringent regulations will still be able to chain forward to new releases, just with a different root of trust than those companies (or individuals) who were willing to trust on the GitHub IDs alone.
 
 ### 3. Casey Chains His Software Releases [Chained Data]
 
 > _Problem Solved:_ Casey wants to be able to continuously rerelease his software, while reducing validation cost over time.
 
-Because Casey (and/or Blockchain Everyday) has established a root of trust with the initial release of Gordian Envelope, future releases can now be published without the need to reestablish the signers. This is done by incorporating links to previous releases in each envelope. As long as users stored previous envelopes and recorded their validation, they will know that they can trust the new envelope because it continues to contain the public keys that they had previous checked.
+Because Casey (and/or Blockchain Everyday) has established a root of trust with the initial release of Gordian Envelope, future releases can now be published without the need to reestablish the signers. This is done by including links to previous releases in each envelope. As long as users stored previous envelopes and recorded their validation, they will know that they can trust the new envelope because its still being signed with the private keys linked to the pubkeys from that initial release.
 
-The Gordian Envelope for a new release looks much like that for a previous release, with the addition of a `previousRelease` link and the removal of the `signerInfo` (which appeared when the signers debuted in Gordian Envelope 1.0.0).
+The Gordian Envelope for a new release looks much like that for a previous release, with the addition of a `previousRelease` link and the removal of the `signerInfo` (which appeared when the signers debuted in Gordian Envelope 1.0.0) and can be rediscovered by chaining `previousRelease` links.
 ```
 "Gordian Envelope 1.0.1" [
     "fileInfo": "gordian-envelope-1.0.1.dm" [
@@ -1534,7 +1534,6 @@ After wrapping and signing, the final envelope is:
     verifiedBy: Signature
 ]
 ```
-
 ```mermaid
 graph LR
     1(("f6336886<br/>NODE"))
