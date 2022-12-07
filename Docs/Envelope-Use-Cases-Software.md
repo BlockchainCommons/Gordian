@@ -7,9 +7,9 @@ Gordian Envelopes are useful for signing software releases in large part because
 * [Chained Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#software-signing)
    * #1: [Casey Codifies Software Releases (Multiple Signatures, Structured Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#1-casey-codifies-software-releases-multiple-signatures-structured-data)
    * #2: [Blockchain Commons Confirms Casey (Repackaging Data, Third-Party Verification)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#2-blockchain-everyday-confirms-casey-repackaging-data-third-party-verification)
-   * #3: [Casey Chains His Software Releases (Chained Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#2-casey-chains-his-software-releases-chained-data)
+   * #3: [Casey Chains His Software Releases (Chained Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#3-casey-chains-his-software-releases-chained-data)
    * #4: [Casey Checks Compliance (Attestation)]
-   * #5: [Casey Changes Up His Software Releases (Chained Changes)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#3-casey-changes-up-his-software-releases-chained-changes)
+   * #5: [Casey Changes Up His Software Releases (Chained Changes)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#5-casey-changes-up-his-software-releases-chained-changes)
 * [Anonymous Signing]
    * #6: [Amira Signs Anoymously (Anonymous Signing)]
 
