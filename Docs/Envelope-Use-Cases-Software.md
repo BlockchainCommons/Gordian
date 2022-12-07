@@ -1945,7 +1945,7 @@ The sub-envelope is then incorporated into the full envelope for the release.
     note: "defenestration option"
 ]
 ```
-```
+```mermaid
 graph LR
     1(("8cb10a3f<br/>NODE"))
     2["5a1b50ef<br/>#quot;Gordian Envelope 1.1.0#quot;"]
