@@ -1706,7 +1706,7 @@ More complexity is required only if the previous envelope were not kept. In this
 
 The massive success of Gordian Envelope allows Blockchain Everyday to purchase GoodGossip. Unfortunately, GoodGossip was under a consent decree with the FTC due to a previous privacy breach. Because Envelope incorporates a bit of GoodGossip's technology, that means that Blockchain Everday must now attest to compliance with the consent decree within each of their Gordian Envelope releases for the next year (at which point the resolution comes to an end!).
 
-This is easy to do with Gordian Envelope because metadata can be added to any envelope as new attestations. As compliance officer, Casey will just need to verify compliance for each release and then attest to it; he'll then ask for that attestation to be added to the Gordian Envelope for the release. It'll then be cleanly incorporated into the structured release information.
+This is easy to do with Gordian Envelope because metadata such as attestations can be added to any new envelope. As compliance officer, Casey will just need to verify compliance for each release and then attest to it through the creation of a signed envelope; he'll then ask for that attestation to be added to the main Gordian Envelope for the release. It can then be cleanly incorporated into the structured release information.
 
 Casey creates a sub-envelope that notes the existence of the FTC consent decree:
 ```
@@ -1812,7 +1812,7 @@ graph LR
     linkStyle 13 stroke:green,stroke-width:2.0px
     linkStyle 14 stroke:#55f,stroke-width:2.0px
 ```
-It's important that the subenvelope contain specific details on the software release that Casey is verifying. That's because envelopes can be added to envelopes. This statement could be added to anything! So Casey wants to ensure it's cleaer what he's verifying before he signs it!
+It's important that the subenvelope contain specific details on the software release that Casey is verifying. That's because envelopes can be added to envelopes by anyone at anytime. So Casey wants to ensure it's clear what he's verifying before he signs it!
 
 When Casey is comfortable with the contents of the subenvelope, he can wrap it and sign:
 ```
@@ -2166,7 +2166,7 @@ graph LR
     linkStyle 52 stroke:green,stroke-width:2.0px
     linkStyle 53 stroke:#55f,stroke-width:2.0px
 ```
-Note the use of the predicate `complianceCheck` to incorporate Casey's attestation. This is a purposefully neutral phrase so as not to mislead readers. The only thing that's actually signed is the subenvelope. If a predicate like `isCompliant` were instead used, that might mislead readers into thinking that Casey stated something that he didn't. 
+Note the use of the predicate `complianceCheck` to incorporate Casey's attestation. This is a purposefully neutral phrase so as not to mislead readers. The only thing that's actually signed is the subenvelope:
 ```
 {
     "FTC Consent #9213-1283-9172-1737-2016-C" [
@@ -2178,7 +2178,7 @@ Note the use of the predicate `complianceCheck` to incorporate Casey's attestati
     "verifierInfo": "Casey C. Case"
 ]
 ```
-Casey basically attested to knowledge of the FTC Consent, that he was the verifier, and that it was `verifiedFor` a specific image, designated by a SHA hash.
+If a predicate like `isCompliant` were instead used, that might mislead readers into thinking that Casey stated something that he didn't. All that Casey attested to is knowledge of the FTC Consent, that he was the verifier, and that he `verifiedFor` a specific image, designated by a SHA hash.
 
 Attestations can be tricky: an Envelope creator must carefully think about what's getting signed and what's not!
 
@@ -2476,6 +2476,10 @@ graph LR
 
 A few years on, Bill leaves software programming for a lucrative career in television and lectures. Though Omar is maintaining the software on his own at this point, Casey wants to ensure that the software still is signed by multiple parties to allow for more robust validation. So he takes over as release manager, checking the software prior to release and adding his own signature.
  
+An ordinary validator will be able to verify that one of the signatures matches a public key he has in his saved Envelope from release 1.7.2. Automatic validation! This will then allow for a continued chain of validation going forward. If Casey produces 1.7.4 on his own, because Omar is out sick, validators can see that Casey's public key was in 1.7.3, signed by Omar, so they know the new release is safe.
+
+A more strict validator might instead validate the `signerInfo` for Casey themselves. Even if they miss 1.7.3, they'll be able to chain back from any later release until they find the initial one with the `signerInfo`.
+
 ```
 {
     "Gordian Envelope 1.7.3" [
@@ -2733,8 +2737,5 @@ graph LR
     linkStyle 54 stroke:green,stroke-width:2.0px
     linkStyle 55 stroke:#55f,stroke-width:2.0px
 ```
-An ordinary validator can now verify that one of the signatures matches a public key he has in his saved Envelope from release 1.7.2. Automatic validation! This will then allow for a continued chain of validation going forward. If Casey produces 1.7.4 on his own, because Omar is out sick, validators can see that Casey's public key was in 1.7.3, signed by Omar, so they know the new release is safe.
-
-A more strict validator might instead validate the `signerInfo` for Casey themselves. Even if they miss 1.7.3, they'll be able to chain back from any later release until they find the initial one with the `signerInfo`.
 
 Casey is happy that he's achieved his goal: creating software releases that are easily validatable in automated ways, even as engineers change over time.
