@@ -1704,22 +1704,772 @@ More complexity is required only if the previous envelope were not kept. In this
 
 > _Problem Solved:_ Casey needs to affirm compliance with a consent resolution in each release.
 
-The massive success of Gordian Envelope allows Blockchain Everyday to purchase GoodGossip. Unfortunately, GoodGossip was under a consent resolution with the FTC due to a previous privacy breach. Because Envelope incorporates a bit of GoodGossip's technology, that means that Blockchain Everday must now attest to compliance with the resolution for each of their Gordian Envelope releases for the next year (at which point the resolution comes to an end!).
+The massive success of Gordian Envelope allows Blockchain Everyday to purchase GoodGossip. Unfortunately, GoodGossip was under a consent decree with the FTC due to a previous privacy breach. Because Envelope incorporates a bit of GoodGossip's technology, that means that Blockchain Everday must now attest to compliance with the consent decree within each of their Gordian Envelope releases for the next year (at which point the resolution comes to an end!).
 
-This is easy to do with Gordian Envelope, because metadata can be added to any envelope as new attestations. As compliance officer, Casey will just need to verify compliance for each release and then attest to it; he'll then ask for that attestation to be added to the Gordian Envelope for the release. It'll then be cleanly incorporated into the structured release information, along with everything else.
+This is easy to do with Gordian Envelope because metadata can be added to any envelope as new attestations. As compliance officer, Casey will just need to verify compliance for each release and then attest to it; he'll then ask for that attestation to be added to the Gordian Envelope for the release. It'll then be cleanly incorporated into the structured release information.
 
-Casey creates a sub-envelope that affirms that he believes that the release complies with the resolution:
+Casey creates a sub-envelope that notes the existence of the FTC consent decree:
+```
+"FTC Consent #9213-1283-9172-1737-2016-C" [
+    "consentURL": "https://www.ftc-consent-resolutions.gov/#9213-1283-9172-1737-2016-C/"
+]
+```
+```mermaid
+graph LR
+    1(("76c7d72a<br/>NODE"))
+    2["15389e10<br/>#quot;FTC Consent #9213-1283-9172-1737-2016-C#quot;"]
+    3(["cff77d98<br/>ASSERTION"])
+    4["d14b45dc<br/>#quot;consentURL#quot;"]
+    5["dd9ec4a0<br/>#quot;https://www.ftc-consent-resolutions.gov/#9213-1283-9172-1737-2016-C/#quot;"]
+    1 -->|subj| 2
+    1 --> 3
+    3 -->|pred| 4
+    3 -->|obj| 5
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke-width:2.0px
+    linkStyle 2 stroke:green,stroke-width:2.0px
+    linkStyle 3 stroke:#55f,stroke-width:2.0px
+```
+He wraps it with Verifier Info:
+```
+{
+    "FTC Consent #9213-1283-9172-1737-2016-C" [
+        "consentURL": "https://www.ftc-consent-resolutions.gov/#9213-1283-9172-1737-2016-C/"
+    ]
+} [
+    "verifiedFor": "gordian-envelope-1.1.0.dm"
+    "verifiedSha": "6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7"
+    "verifierInfo": "Casey C. Case"
+]
+```
+```mermaid
+graph LR
+    1(("6a2827c7<br/>NODE"))
+    2[/"2e8c60e1<br/>WRAPPED"\]
+    3(("76c7d72a<br/>NODE"))
+    4["15389e10<br/>#quot;FTC Consent #9213-1283-9172-1737-2016-C#quot;"]
+    5(["cff77d98<br/>ASSERTION"])
+    6["d14b45dc<br/>#quot;consentURL#quot;"]
+    7["dd9ec4a0<br/>#quot;https://www.ftc-consent-resolutions.gov/#9213-1283-9172-1737-2016-C/#quot;"]
+    8(["599a98bb<br/>ASSERTION"])
+    9["2392e782<br/>#quot;verifiedFor#quot;"]
+    10["4a509a5a<br/>#quot;gordian-envelope-1.1.0.dm#quot;"]
+    11(["6f65d92f<br/>ASSERTION"])
+    12["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    13["5810917f<br/>#quot;Casey C. Case#quot;"]
+    14(["8061d9f9<br/>ASSERTION"])
+    15["38906e66<br/>#quot;verifiedSha#quot;"]
+    16["2dc8e526<br/>#quot;6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7#quot;"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    3 --> 5
+    5 -->|pred| 6
+    5 -->|obj| 7
+    1 --> 8
+    8 -->|pred| 9
+    8 -->|obj| 10
+    1 --> 11
+    11 -->|pred| 12
+    11 -->|obj| 13
+    1 --> 14
+    14 -->|pred| 15
+    14 -->|obj| 16
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:red,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:red,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke:green,stroke-width:2.0px
+    linkStyle 5 stroke:#55f,stroke-width:2.0px
+    linkStyle 6 stroke-width:2.0px
+    linkStyle 7 stroke:green,stroke-width:2.0px
+    linkStyle 8 stroke:#55f,stroke-width:2.0px
+    linkStyle 9 stroke-width:2.0px
+    linkStyle 10 stroke:green,stroke-width:2.0px
+    linkStyle 11 stroke:#55f,stroke-width:2.0px
+    linkStyle 12 stroke-width:2.0px
+    linkStyle 13 stroke:green,stroke-width:2.0px
+    linkStyle 14 stroke:#55f,stroke-width:2.0px
+```
+It's important that the subenvelope contain specific details on the software release that Casey is verifying. That's because envelopes can be added to envelopes. This statement could be added to anything! So Casey wants to ensure it's cleaer what he's verifying before he signs it!
 
-[affirmation]
-
-He also must sign it:
-
-[signed]
-
+When Casey is comfortable with the contents of the subenvelope, he can wrap it and sign:
+```
+{
+    {
+        "FTC Consent #9213-1283-9172-1737-2016-C" [
+            "consentURL": "https://www.ftc-consent-resolutions.gov/#9213-1283-9172-1737-2016-C/"
+        ]
+    } [
+        "verifiedFor": "gordian-envelope-1.1.0.dm"
+        "verifiedSha": "6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7"
+        "verifierInfo": "Casey C. Case"
+    ]
+} [
+    verifiedBy: Signature
+]
+```
+```mermaid
+graph LR
+    1(("447a24d7<br/>NODE"))
+    2[/"a91c3392<br/>WRAPPED"\]
+    3(("6a2827c7<br/>NODE"))
+    4[/"2e8c60e1<br/>WRAPPED"\]
+    5(("76c7d72a<br/>NODE"))
+    6["15389e10<br/>#quot;FTC Consent #9213-1283-9172-1737-2016-C#quot;"]
+    7(["cff77d98<br/>ASSERTION"])
+    8["d14b45dc<br/>#quot;consentURL#quot;"]
+    9["dd9ec4a0<br/>#quot;https://www.ftc-consent-resolutions.gov/#9213-1283-9172-1737-2016-C/#quot;"]
+    10(["599a98bb<br/>ASSERTION"])
+    11["2392e782<br/>#quot;verifiedFor#quot;"]
+    12["4a509a5a<br/>#quot;gordian-envelope-1.1.0.dm#quot;"]
+    13(["6f65d92f<br/>ASSERTION"])
+    14["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    15["5810917f<br/>#quot;Casey C. Case#quot;"]
+    16(["8061d9f9<br/>ASSERTION"])
+    17["38906e66<br/>#quot;verifiedSha#quot;"]
+    18["2dc8e526<br/>#quot;6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7#quot;"]
+    19(["7b806854<br/>ASSERTION"])
+    20[/"d59f8c0f<br/>verifiedBy"/]
+    21["9301115f<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    4 -->|subj| 5
+    5 -->|subj| 6
+    5 --> 7
+    7 -->|pred| 8
+    7 -->|obj| 9
+    3 --> 10
+    10 -->|pred| 11
+    10 -->|obj| 12
+    3 --> 13
+    13 -->|pred| 14
+    13 -->|obj| 15
+    3 --> 16
+    16 -->|pred| 17
+    16 -->|obj| 18
+    1 --> 19
+    19 -->|pred| 20
+    19 -->|obj| 21
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:red,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:red,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:red,stroke-width:3.0px
+    style 14 stroke:#55f,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:red,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:red,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke:red,stroke-width:2.0px
+    linkStyle 4 stroke:red,stroke-width:2.0px
+    linkStyle 5 stroke-width:2.0px
+    linkStyle 6 stroke:green,stroke-width:2.0px
+    linkStyle 7 stroke:#55f,stroke-width:2.0px
+    linkStyle 8 stroke-width:2.0px
+    linkStyle 9 stroke:green,stroke-width:2.0px
+    linkStyle 10 stroke:#55f,stroke-width:2.0px
+    linkStyle 11 stroke-width:2.0px
+    linkStyle 12 stroke:green,stroke-width:2.0px
+    linkStyle 13 stroke:#55f,stroke-width:2.0px
+    linkStyle 14 stroke-width:2.0px
+    linkStyle 15 stroke:green,stroke-width:2.0px
+    linkStyle 16 stroke:#55f,stroke-width:2.0px
+    linkStyle 17 stroke-width:2.0px
+    linkStyle 18 stroke:green,stroke-width:2.0px
+    linkStyle 19 stroke:#55f,stroke-width:2.0px
+```
 The sub-envelope is then incorporated into the full envelope for the release.
+```
+"Gordian Envelope 1.1.0" [
+    "complianceCheck": {
+        {
+            "FTC Consent #9213-1283-9172-1737-2016-C" [
+                "consentURL": "https://www.ftc-consent-resolutions.gov/#9213-1283-9172-1737-2016-C/"
+            ]
+        } [
+            "verifiedFor": "gordian-envelope-1.1.0.dm"
+            "verifiedSha": "6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7"
+            "verifierInfo": "Casey C. Case"
+        ]
+    } [
+        verifiedBy: Signature
+    ]
+    "fileInfo": "gordian-envelope-1.1.0.dm" [
+        "sha256": "6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7"
+        "timestamp": "1668026219"
+    ]
+    "isSigner": "bill-not-the-science-guy" [
+        "pubkey": "ur:crypto-pubkeys/lftaaosehdcxnnvapylszmcwmowzjlkifrktpftnamrdpdjkcfetfskoimeolfcywnloptaswsvltpvahd…"
+    ]
+    "isSigner": "omarc-bc-guy" [
+        "pubkey": "ur:crypto-pubkeys/lftaaosehdcxzojlrltejneykkzcfdaowkcwlbguvtmhsegdwpttwdadrnjtpmchlbrswkbwkivwtpvahd…"
+    ]
+    "previousRelease": "https://github.com/BlockchainCommons/GordianEnvelope-Experiment/releases/download/v1.0.7/gordian-env…"
+    note: "defenestration option"
+]
+```
+```
+graph LR
+    1(("8cb10a3f<br/>NODE"))
+    2["5a1b50ef<br/>#quot;Gordian Envelope 1.1.0#quot;"]
+    3(["484da754<br/>ASSERTION"])
+    4["67d69bd7<br/>#quot;isSigner#quot;"]
+    5(("0ae65c77<br/>NODE"))
+    6["61aece1e<br/>#quot;bill-not-the-science-guy#quot;"]
+    7(["0ad198e4<br/>ASSERTION"])
+    8["d52596f8<br/>#quot;pubkey#quot;"]
+    9["e82d6b98<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxnnvapylszmcwmowzjlkifrktpftnamrdpdjkcfetfskoimeolfcywnloptaswsvltpvahd…#quot;"]
+    10(["7769dae6<br/>ASSERTION"])
+    11["e1a064a8<br/>#quot;complianceCheck#quot;"]
+    12(("447a24d7<br/>NODE"))
+    13[/"a91c3392<br/>WRAPPED"\]
+    14(("6a2827c7<br/>NODE"))
+    15[/"2e8c60e1<br/>WRAPPED"\]
+    16(("76c7d72a<br/>NODE"))
+    17["15389e10<br/>#quot;FTC Consent #9213-1283-9172-1737-2016-C#quot;"]
+    18(["cff77d98<br/>ASSERTION"])
+    19["d14b45dc<br/>#quot;consentURL#quot;"]
+    20["dd9ec4a0<br/>#quot;https://www.ftc-consent-resolutions.gov/#9213-1283-9172-1737-2016-C/#quot;"]
+    21(["599a98bb<br/>ASSERTION"])
+    22["2392e782<br/>#quot;verifiedFor#quot;"]
+    23["4a509a5a<br/>#quot;gordian-envelope-1.1.0.dm#quot;"]
+    24(["6f65d92f<br/>ASSERTION"])
+    25["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    26["5810917f<br/>#quot;Casey C. Case#quot;"]
+    27(["8061d9f9<br/>ASSERTION"])
+    28["38906e66<br/>#quot;verifiedSha#quot;"]
+    29["2dc8e526<br/>#quot;6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7#quot;"]
+    30(["7b806854<br/>ASSERTION"])
+    31[/"d59f8c0f<br/>verifiedBy"/]
+    32["9301115f<br/>Signature"]
+    33(["8e1f2877<br/>ASSERTION"])
+    34["10d67046<br/>#quot;previousRelease#quot;"]
+    35["c0b0b7e1<br/>#quot;https://github.com/BlockchainCommons/GordianEnvelope-Experiment/releases/download/v1.0.7/gordian-env…#quot;"]
+    36(["90e799be<br/>ASSERTION"])
+    37["67d69bd7<br/>#quot;isSigner#quot;"]
+    38(("c833b577<br/>NODE"))
+    39["34e0c09c<br/>#quot;omarc-bc-guy#quot;"]
+    40(["0b8d474f<br/>ASSERTION"])
+    41["d52596f8<br/>#quot;pubkey#quot;"]
+    42["929e99e7<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxzojlrltejneykkzcfdaowkcwlbguvtmhsegdwpttwdadrnjtpmchlbrswkbwkivwtpvahd…#quot;"]
+    43(["f9ce156a<br/>ASSERTION"])
+    44[/"61fb6a6b<br/>note"/]
+    45["8c6d932c<br/>#quot;defenestration option#quot;"]
+    46(["fea3fcfd<br/>ASSERTION"])
+    47["628ac8d9<br/>#quot;fileInfo#quot;"]
+    48(("2466ba25<br/>NODE"))
+    49["4a509a5a<br/>#quot;gordian-envelope-1.1.0.dm#quot;"]
+    50(["012b600a<br/>ASSERTION"])
+    51["fd9d5aed<br/>#quot;timestamp#quot;"]
+    52["b383633a<br/>#quot;1668026219#quot;"]
+    53(["15e12f13<br/>ASSERTION"])
+    54["108dbfb1<br/>#quot;sha256#quot;"]
+    55["2dc8e526<br/>#quot;6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7#quot;"]
+    1 -->|subj| 2
+    1 --> 3
+    3 -->|pred| 4
+    3 -->|obj| 5
+    5 -->|subj| 6
+    5 --> 7
+    7 -->|pred| 8
+    7 -->|obj| 9
+    1 --> 10
+    10 -->|pred| 11
+    10 -->|obj| 12
+    12 -->|subj| 13
+    13 -->|subj| 14
+    14 -->|subj| 15
+    15 -->|subj| 16
+    16 -->|subj| 17
+    16 --> 18
+    18 -->|pred| 19
+    18 -->|obj| 20
+    14 --> 21
+    21 -->|pred| 22
+    21 -->|obj| 23
+    14 --> 24
+    24 -->|pred| 25
+    24 -->|obj| 26
+    14 --> 27
+    27 -->|pred| 28
+    27 -->|obj| 29
+    12 --> 30
+    30 -->|pred| 31
+    30 -->|obj| 32
+    1 --> 33
+    33 -->|pred| 34
+    33 -->|obj| 35
+    1 --> 36
+    36 -->|pred| 37
+    36 -->|obj| 38
+    38 -->|subj| 39
+    38 --> 40
+    40 -->|pred| 41
+    40 -->|obj| 42
+    1 --> 43
+    43 -->|pred| 44
+    43 -->|obj| 45
+    1 --> 46
+    46 -->|pred| 47
+    46 -->|obj| 48
+    48 -->|subj| 49
+    48 --> 50
+    50 -->|pred| 51
+    50 -->|obj| 52
+    48 --> 53
+    53 -->|pred| 54
+    53 -->|obj| 55
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:red,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px
+    style 12 stroke:red,stroke-width:3.0px
+    style 13 stroke:red,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:red,stroke-width:3.0px
+    style 16 stroke:red,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    style 18 stroke:red,stroke-width:3.0px
+    style 19 stroke:#55f,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:red,stroke-width:3.0px
+    style 22 stroke:#55f,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px
+    style 24 stroke:red,stroke-width:3.0px
+    style 25 stroke:#55f,stroke-width:3.0px
+    style 26 stroke:#55f,stroke-width:3.0px
+    style 27 stroke:red,stroke-width:3.0px
+    style 28 stroke:#55f,stroke-width:3.0px
+    style 29 stroke:#55f,stroke-width:3.0px
+    style 30 stroke:red,stroke-width:3.0px
+    style 31 stroke:#55f,stroke-width:3.0px
+    style 32 stroke:#55f,stroke-width:3.0px
+    style 33 stroke:red,stroke-width:3.0px
+    style 34 stroke:#55f,stroke-width:3.0px
+    style 35 stroke:#55f,stroke-width:3.0px
+    style 36 stroke:red,stroke-width:3.0px
+    style 37 stroke:#55f,stroke-width:3.0px
+    style 38 stroke:red,stroke-width:3.0px
+    style 39 stroke:#55f,stroke-width:3.0px
+    style 40 stroke:red,stroke-width:3.0px
+    style 41 stroke:#55f,stroke-width:3.0px
+    style 42 stroke:#55f,stroke-width:3.0px
+    style 43 stroke:red,stroke-width:3.0px
+    style 44 stroke:#55f,stroke-width:3.0px
+    style 45 stroke:#55f,stroke-width:3.0px
+    style 46 stroke:red,stroke-width:3.0px
+    style 47 stroke:#55f,stroke-width:3.0px
+    style 48 stroke:red,stroke-width:3.0px
+    style 49 stroke:#55f,stroke-width:3.0px
+    style 50 stroke:red,stroke-width:3.0px
+    style 51 stroke:#55f,stroke-width:3.0px
+    style 52 stroke:#55f,stroke-width:3.0px
+    style 53 stroke:red,stroke-width:3.0px
+    style 54 stroke:#55f,stroke-width:3.0px
+    style 55 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke-width:2.0px
+    linkStyle 2 stroke:green,stroke-width:2.0px
+    linkStyle 3 stroke:#55f,stroke-width:2.0px
+    linkStyle 4 stroke:red,stroke-width:2.0px
+    linkStyle 5 stroke-width:2.0px
+    linkStyle 6 stroke:green,stroke-width:2.0px
+    linkStyle 7 stroke:#55f,stroke-width:2.0px
+    linkStyle 8 stroke-width:2.0px
+    linkStyle 9 stroke:green,stroke-width:2.0px
+    linkStyle 10 stroke:#55f,stroke-width:2.0px
+    linkStyle 11 stroke:red,stroke-width:2.0px
+    linkStyle 12 stroke:red,stroke-width:2.0px
+    linkStyle 13 stroke:red,stroke-width:2.0px
+    linkStyle 14 stroke:red,stroke-width:2.0px
+    linkStyle 15 stroke:red,stroke-width:2.0px
+    linkStyle 16 stroke-width:2.0px
+    linkStyle 17 stroke:green,stroke-width:2.0px
+    linkStyle 18 stroke:#55f,stroke-width:2.0px
+    linkStyle 19 stroke-width:2.0px
+    linkStyle 20 stroke:green,stroke-width:2.0px
+    linkStyle 21 stroke:#55f,stroke-width:2.0px
+    linkStyle 22 stroke-width:2.0px
+    linkStyle 23 stroke:green,stroke-width:2.0px
+    linkStyle 24 stroke:#55f,stroke-width:2.0px
+    linkStyle 25 stroke-width:2.0px
+    linkStyle 26 stroke:green,stroke-width:2.0px
+    linkStyle 27 stroke:#55f,stroke-width:2.0px
+    linkStyle 28 stroke-width:2.0px
+    linkStyle 29 stroke:green,stroke-width:2.0px
+    linkStyle 30 stroke:#55f,stroke-width:2.0px
+    linkStyle 31 stroke-width:2.0px
+    linkStyle 32 stroke:green,stroke-width:2.0px
+    linkStyle 33 stroke:#55f,stroke-width:2.0px
+    linkStyle 34 stroke-width:2.0px
+    linkStyle 35 stroke:green,stroke-width:2.0px
+    linkStyle 36 stroke:#55f,stroke-width:2.0px
+    linkStyle 37 stroke:red,stroke-width:2.0px
+    linkStyle 38 stroke-width:2.0px
+    linkStyle 39 stroke:green,stroke-width:2.0px
+    linkStyle 40 stroke:#55f,stroke-width:2.0px
+    linkStyle 41 stroke-width:2.0px
+    linkStyle 42 stroke:green,stroke-width:2.0px
+    linkStyle 43 stroke:#55f,stroke-width:2.0px
+    linkStyle 44 stroke-width:2.0px
+    linkStyle 45 stroke:green,stroke-width:2.0px
+    linkStyle 46 stroke:#55f,stroke-width:2.0px
+    linkStyle 47 stroke:red,stroke-width:2.0px
+    linkStyle 48 stroke-width:2.0px
+    linkStyle 49 stroke:green,stroke-width:2.0px
+    linkStyle 50 stroke:#55f,stroke-width:2.0px
+    linkStyle 51 stroke-width:2.0px
+    linkStyle 52 stroke:green,stroke-width:2.0px
+    linkStyle 53 stroke:#55f,stroke-width:2.0px
+```
+Note the use of the predicate `complianceCheck` to incorporate Casey's attestation. This is a purposefully neutral phrase so as not to mislead readers. The only thing that's actually signed is the subenvelope. If a predicate like `isCompliant` were instead used, that might mislead readers into thinking that Casey stated something that he didn't. 
+```
+{
+    "FTC Consent #9213-1283-9172-1737-2016-C" [
+        "consentURL": "https://www.ftc-consent-resolutions.gov/#9213-1283-9172-1737-2016-C/"
+    ]
+} [
+    "verifiedFor": "gordian-envelope-1.1.0.dm"
+    "verifiedSha": "6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7"
+    "verifierInfo": "Casey C. Case"
+]
+```
+Casey basically attested to knowledge of the FTC Consent, that he was the verifier, and that it was `verifiedFor` a specific image, designated by a SHA hash.
 
-[fullenvelope.
+Attestations can be tricky: an Envelope creator must carefully think about what's getting signed and what's not!
 
+A final version of the Envelope will also include the normal signatures by Bill and Omar:
+```
+{
+    "Gordian Envelope 1.1.0" [
+        "complianceCheck": {
+            {
+                "FTC Consent #9213-1283-9172-1737-2016-C" [
+                    "consentURL": "https://www.ftc-consent-resolutions.gov/#9213-1283-9172-1737-2016-C/"
+                ]
+            } [
+                "verifiedFor": "gordian-envelope-1.1.0.dm"
+                "verifiedSha": "6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7"
+                "verifierInfo": "Casey C. Case"
+            ]
+        } [
+            verifiedBy: Signature
+        ]
+        "fileInfo": "gordian-envelope-1.1.0.dm" [
+            "sha256": "6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7"
+            "timestamp": "1668026219"
+        ]
+        "isSigner": "bill-not-the-science-guy" [
+            "pubkey": "ur:crypto-pubkeys/lftaaosehdcxnnvapylszmcwmowzjlkifrktpftnamrdpdjkcfetfskoimeolfcywnloptaswsvltpvahd…"
+        ]
+        "isSigner": "omarc-bc-guy" [
+            "pubkey": "ur:crypto-pubkeys/lftaaosehdcxzojlrltejneykkzcfdaowkcwlbguvtmhsegdwpttwdadrnjtpmchlbrswkbwkivwtpvahd…"
+        ]
+        "previousRelease": "https://github.com/BlockchainCommons/GordianEnvelope-Experiment/releases/download/v1.0.7/gordian-env…"
+        note: "defenestration option"
+    ]
+} [
+    verifiedBy: Signature
+    verifiedBy: Signature
+]
+```
+```mermaid
+graph LR
+    1(("819dc8e4<br/>NODE"))
+    2[/"324e4abf<br/>WRAPPED"\]
+    3(("8cb10a3f<br/>NODE"))
+    4["5a1b50ef<br/>#quot;Gordian Envelope 1.1.0#quot;"]
+    5(["484da754<br/>ASSERTION"])
+    6["67d69bd7<br/>#quot;isSigner#quot;"]
+    7(("0ae65c77<br/>NODE"))
+    8["61aece1e<br/>#quot;bill-not-the-science-guy#quot;"]
+    9(["0ad198e4<br/>ASSERTION"])
+    10["d52596f8<br/>#quot;pubkey#quot;"]
+    11["e82d6b98<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxnnvapylszmcwmowzjlkifrktpftnamrdpdjkcfetfskoimeolfcywnloptaswsvltpvahd…#quot;"]
+    12(["7769dae6<br/>ASSERTION"])
+    13["e1a064a8<br/>#quot;complianceCheck#quot;"]
+    14(("447a24d7<br/>NODE"))
+    15[/"a91c3392<br/>WRAPPED"\]
+    16(("6a2827c7<br/>NODE"))
+    17[/"2e8c60e1<br/>WRAPPED"\]
+    18(("76c7d72a<br/>NODE"))
+    19["15389e10<br/>#quot;FTC Consent #9213-1283-9172-1737-2016-C#quot;"]
+    20(["cff77d98<br/>ASSERTION"])
+    21["d14b45dc<br/>#quot;consentURL#quot;"]
+    22["dd9ec4a0<br/>#quot;https://www.ftc-consent-resolutions.gov/#9213-1283-9172-1737-2016-C/#quot;"]
+    23(["599a98bb<br/>ASSERTION"])
+    24["2392e782<br/>#quot;verifiedFor#quot;"]
+    25["4a509a5a<br/>#quot;gordian-envelope-1.1.0.dm#quot;"]
+    26(["6f65d92f<br/>ASSERTION"])
+    27["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    28["5810917f<br/>#quot;Casey C. Case#quot;"]
+    29(["8061d9f9<br/>ASSERTION"])
+    30["38906e66<br/>#quot;verifiedSha#quot;"]
+    31["2dc8e526<br/>#quot;6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7#quot;"]
+    32(["7b806854<br/>ASSERTION"])
+    33[/"d59f8c0f<br/>verifiedBy"/]
+    34["9301115f<br/>Signature"]
+    35(["8e1f2877<br/>ASSERTION"])
+    36["10d67046<br/>#quot;previousRelease#quot;"]
+    37["c0b0b7e1<br/>#quot;https://github.com/BlockchainCommons/GordianEnvelope-Experiment/releases/download/v1.0.7/gordian-env…#quot;"]
+    38(["90e799be<br/>ASSERTION"])
+    39["67d69bd7<br/>#quot;isSigner#quot;"]
+    40(("c833b577<br/>NODE"))
+    41["34e0c09c<br/>#quot;omarc-bc-guy#quot;"]
+    42(["0b8d474f<br/>ASSERTION"])
+    43["d52596f8<br/>#quot;pubkey#quot;"]
+    44["929e99e7<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxzojlrltejneykkzcfdaowkcwlbguvtmhsegdwpttwdadrnjtpmchlbrswkbwkivwtpvahd…#quot;"]
+    45(["f9ce156a<br/>ASSERTION"])
+    46[/"61fb6a6b<br/>note"/]
+    47["8c6d932c<br/>#quot;defenestration option#quot;"]
+    48(["fea3fcfd<br/>ASSERTION"])
+    49["628ac8d9<br/>#quot;fileInfo#quot;"]
+    50(("2466ba25<br/>NODE"))
+    51["4a509a5a<br/>#quot;gordian-envelope-1.1.0.dm#quot;"]
+    52(["012b600a<br/>ASSERTION"])
+    53["fd9d5aed<br/>#quot;timestamp#quot;"]
+    54["b383633a<br/>#quot;1668026219#quot;"]
+    55(["15e12f13<br/>ASSERTION"])
+    56["108dbfb1<br/>#quot;sha256#quot;"]
+    57["2dc8e526<br/>#quot;6814fe0bf2981f820ef9595c2c1eab649dfd9508f09f0024d8ce2871207097c7#quot;"]
+    58(["17c3a040<br/>ASSERTION"])
+    59[/"d59f8c0f<br/>verifiedBy"/]
+    60["f3073261<br/>Signature"]
+    61(["cb58d9fb<br/>ASSERTION"])
+    62[/"d59f8c0f<br/>verifiedBy"/]
+    63["7eef0d49<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    3 --> 5
+    5 -->|pred| 6
+    5 -->|obj| 7
+    7 -->|subj| 8
+    7 --> 9
+    9 -->|pred| 10
+    9 -->|obj| 11
+    3 --> 12
+    12 -->|pred| 13
+    12 -->|obj| 14
+    14 -->|subj| 15
+    15 -->|subj| 16
+    16 -->|subj| 17
+    17 -->|subj| 18
+    18 -->|subj| 19
+    18 --> 20
+    20 -->|pred| 21
+    20 -->|obj| 22
+    16 --> 23
+    23 -->|pred| 24
+    23 -->|obj| 25
+    16 --> 26
+    26 -->|pred| 27
+    26 -->|obj| 28
+    16 --> 29
+    29 -->|pred| 30
+    29 -->|obj| 31
+    14 --> 32
+    32 -->|pred| 33
+    32 -->|obj| 34
+    3 --> 35
+    35 -->|pred| 36
+    35 -->|obj| 37
+    3 --> 38
+    38 -->|pred| 39
+    38 -->|obj| 40
+    40 -->|subj| 41
+    40 --> 42
+    42 -->|pred| 43
+    42 -->|obj| 44
+    3 --> 45
+    45 -->|pred| 46
+    45 -->|obj| 47
+    3 --> 48
+    48 -->|pred| 49
+    48 -->|obj| 50
+    50 -->|subj| 51
+    50 --> 52
+    52 -->|pred| 53
+    52 -->|obj| 54
+    50 --> 55
+    55 -->|pred| 56
+    55 -->|obj| 57
+    1 --> 58
+    58 -->|pred| 59
+    58 -->|obj| 60
+    1 --> 61
+    61 -->|pred| 62
+    61 -->|obj| 63
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:red,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px
+    style 12 stroke:red,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:red,stroke-width:3.0px
+    style 16 stroke:red,stroke-width:3.0px
+    style 17 stroke:red,stroke-width:3.0px
+    style 18 stroke:red,stroke-width:3.0px
+    style 19 stroke:#55f,stroke-width:3.0px
+    style 20 stroke:red,stroke-width:3.0px
+    style 21 stroke:#55f,stroke-width:3.0px
+    style 22 stroke:#55f,stroke-width:3.0px
+    style 23 stroke:red,stroke-width:3.0px
+    style 24 stroke:#55f,stroke-width:3.0px
+    style 25 stroke:#55f,stroke-width:3.0px
+    style 26 stroke:red,stroke-width:3.0px
+    style 27 stroke:#55f,stroke-width:3.0px
+    style 28 stroke:#55f,stroke-width:3.0px
+    style 29 stroke:red,stroke-width:3.0px
+    style 30 stroke:#55f,stroke-width:3.0px
+    style 31 stroke:#55f,stroke-width:3.0px
+    style 32 stroke:red,stroke-width:3.0px
+    style 33 stroke:#55f,stroke-width:3.0px
+    style 34 stroke:#55f,stroke-width:3.0px
+    style 35 stroke:red,stroke-width:3.0px
+    style 36 stroke:#55f,stroke-width:3.0px
+    style 37 stroke:#55f,stroke-width:3.0px
+    style 38 stroke:red,stroke-width:3.0px
+    style 39 stroke:#55f,stroke-width:3.0px
+    style 40 stroke:red,stroke-width:3.0px
+    style 41 stroke:#55f,stroke-width:3.0px
+    style 42 stroke:red,stroke-width:3.0px
+    style 43 stroke:#55f,stroke-width:3.0px
+    style 44 stroke:#55f,stroke-width:3.0px
+    style 45 stroke:red,stroke-width:3.0px
+    style 46 stroke:#55f,stroke-width:3.0px
+    style 47 stroke:#55f,stroke-width:3.0px
+    style 48 stroke:red,stroke-width:3.0px
+    style 49 stroke:#55f,stroke-width:3.0px
+    style 50 stroke:red,stroke-width:3.0px
+    style 51 stroke:#55f,stroke-width:3.0px
+    style 52 stroke:red,stroke-width:3.0px
+    style 53 stroke:#55f,stroke-width:3.0px
+    style 54 stroke:#55f,stroke-width:3.0px
+    style 55 stroke:red,stroke-width:3.0px
+    style 56 stroke:#55f,stroke-width:3.0px
+    style 57 stroke:#55f,stroke-width:3.0px
+    style 58 stroke:red,stroke-width:3.0px
+    style 59 stroke:#55f,stroke-width:3.0px
+    style 60 stroke:#55f,stroke-width:3.0px
+    style 61 stroke:red,stroke-width:3.0px
+    style 62 stroke:#55f,stroke-width:3.0px
+    style 63 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke:green,stroke-width:2.0px
+    linkStyle 5 stroke:#55f,stroke-width:2.0px
+    linkStyle 6 stroke:red,stroke-width:2.0px
+    linkStyle 7 stroke-width:2.0px
+    linkStyle 8 stroke:green,stroke-width:2.0px
+    linkStyle 9 stroke:#55f,stroke-width:2.0px
+    linkStyle 10 stroke-width:2.0px
+    linkStyle 11 stroke:green,stroke-width:2.0px
+    linkStyle 12 stroke:#55f,stroke-width:2.0px
+    linkStyle 13 stroke:red,stroke-width:2.0px
+    linkStyle 14 stroke:red,stroke-width:2.0px
+    linkStyle 15 stroke:red,stroke-width:2.0px
+    linkStyle 16 stroke:red,stroke-width:2.0px
+    linkStyle 17 stroke:red,stroke-width:2.0px
+    linkStyle 18 stroke-width:2.0px
+    linkStyle 19 stroke:green,stroke-width:2.0px
+    linkStyle 20 stroke:#55f,stroke-width:2.0px
+    linkStyle 21 stroke-width:2.0px
+    linkStyle 22 stroke:green,stroke-width:2.0px
+    linkStyle 23 stroke:#55f,stroke-width:2.0px
+    linkStyle 24 stroke-width:2.0px
+    linkStyle 25 stroke:green,stroke-width:2.0px
+    linkStyle 26 stroke:#55f,stroke-width:2.0px
+    linkStyle 27 stroke-width:2.0px
+    linkStyle 28 stroke:green,stroke-width:2.0px
+    linkStyle 29 stroke:#55f,stroke-width:2.0px
+    linkStyle 30 stroke-width:2.0px
+    linkStyle 31 stroke:green,stroke-width:2.0px
+    linkStyle 32 stroke:#55f,stroke-width:2.0px
+    linkStyle 33 stroke-width:2.0px
+    linkStyle 34 stroke:green,stroke-width:2.0px
+    linkStyle 35 stroke:#55f,stroke-width:2.0px
+    linkStyle 36 stroke-width:2.0px
+    linkStyle 37 stroke:green,stroke-width:2.0px
+    linkStyle 38 stroke:#55f,stroke-width:2.0px
+    linkStyle 39 stroke:red,stroke-width:2.0px
+    linkStyle 40 stroke-width:2.0px
+    linkStyle 41 stroke:green,stroke-width:2.0px
+    linkStyle 42 stroke:#55f,stroke-width:2.0px
+    linkStyle 43 stroke-width:2.0px
+    linkStyle 44 stroke:green,stroke-width:2.0px
+    linkStyle 45 stroke:#55f,stroke-width:2.0px
+    linkStyle 46 stroke-width:2.0px
+    linkStyle 47 stroke:green,stroke-width:2.0px
+    linkStyle 48 stroke:#55f,stroke-width:2.0px
+    linkStyle 49 stroke:red,stroke-width:2.0px
+    linkStyle 50 stroke-width:2.0px
+    linkStyle 51 stroke:green,stroke-width:2.0px
+    linkStyle 52 stroke:#55f,stroke-width:2.0px
+    linkStyle 53 stroke-width:2.0px
+    linkStyle 54 stroke:green,stroke-width:2.0px
+    linkStyle 55 stroke:#55f,stroke-width:2.0px
+    linkStyle 56 stroke-width:2.0px
+    linkStyle 57 stroke:green,stroke-width:2.0px
+    linkStyle 58 stroke:#55f,stroke-width:2.0px
+    linkStyle 59 stroke-width:2.0px
+    linkStyle 60 stroke:green,stroke-width:2.0px
+    linkStyle 61 stroke:#55f,stroke-width:2.0px
+```
 ### 5. Casey Changes Up His Software Releases [Chained Changes]
 
 > _Problem Solved:_ Casey wants to change signers over time in a way that's organic and continues to allow for simple validation.
