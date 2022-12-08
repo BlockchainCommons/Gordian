@@ -1,4 +1,4 @@
-# Gordian Envelope Use Case: Educational Credentials
+# Gordian Envelope Use Case: Educational & Credential Industries
 
 Gordian Envelopes can be used in educational credential-issuing industries to encode and transmit sensitive student  information. This allows authorized parties, such as potential employers or other educational institutions, to access only the information they are authorized to view while still preserving the privacy and security of the rest of the data.
 
