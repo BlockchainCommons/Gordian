@@ -30,7 +30,7 @@ The following signing & release advantages are demonstrated in software use case
 * Envelopes can incorporate signer changes into their data chains, again reducing validation costs.
 * Envelopes can be signed anonymously, depending on a Web of Trust for validation.
 * Anonymous signers can later provably come forward with thoughtful Envelope design.
-* 
+
 See the [Software Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md) for illustrated examples of these advantages.
 
 ## Financial Industry Use Cases
