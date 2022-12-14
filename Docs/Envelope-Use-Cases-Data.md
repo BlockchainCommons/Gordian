@@ -48,33 +48,6 @@ When a user wants to find out information about `carmen@cryptfinger.com` they co
 ]
 ```
 ```mermaid
-"carmen@cryptfinger.com" [
-    "alias": "admin@cryptfinger.com"
-    "alias": "carmen@blockchaincommons.com"
-    "alias": "carmen@mycarmentsite.com"
-    "cid": "ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfmynylnecwldpapafskphsgwfgmdgwmusthlzecfltiosskorers"
-    "hasPublication": "Cryptfinger Design Notes" [
-        "pubdate": "2022-10-11"
-        "url": "https://blockchaincommons.com/design-notes/cryptfinger.html"
-        "version": "1.3.1"
-        isA: "non-fiction article"
-    ]
-    "hasPublication": "Zen and the Art of Cryptfinger Design" [
-        "ISBN-13": "978-1-04-876475-8"
-        "hasTranslation": "Zen y el arte del diseño Cryptfinger" [
-            "ISBN-13": "978-0-421-94892-1"
-            "language": "es"
-            "pubDate": "2022-02-22"
-            isA: "non-fiction book"
-        ]
-        "language": "en"
-        "pubDate": "2022-01-17"
-        isA: "non-fiction book"
-    ]
-    "phoneNumber": "510-555-0143"
-    "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahd…"
-]
-shannona@Mac-mini ~ % envelope subject "carmen@cryptfinger.com" | envelope assertion cid $CARMEN_CID | envelope assertion alias "carmen@blockchaincommons.com" | envelope assertion alias "carmen@mycarmentsite.com" | envelope assertion alias "admin@cryptfinger.com" | envelope assertion "pubkey" $CARMEN_PUBKEYS | envelope assertion --string hasPublication --envelope $ZEN_EN | envelope assertion --string hasPublication --envelope $CF_DESIGN | envelope assertion "phoneNumber" 510-555-0143  | envelope --mermaid
 graph LR
     1(("f5bea12d<br/>NODE"))
     2["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
