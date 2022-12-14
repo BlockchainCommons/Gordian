@@ -320,11 +320,13 @@ graph LR
     linkStyle 65 stroke:green,stroke-width:2.0px
     linkStyle 66 stroke:#55f,stroke-width:2.0px
 ```
-
-
-structured data can be publicly released
+More innovations will come as Carmen adds on privacy-preserving features from Gordian Envelope.
 
 ### #2: Carmen Makes Crypt-Finger Verifiable (Signatures)
+
+> _Problem Solved:_ Carmen wants to make user information verifiable.
+
+Carmen's first expansion of her CryptFinger design is to make it verifiable. This will have some limited utility when data is initially accessed. Users can check the signature of the CryptFinger results against a public key, and verify that it matches the public key. If the public key is hosted on the same URL as the CryptFinger data, then it proves that the CryptFinger app hasn't been compromised. If it's hosted on a Public-Key Infrastructure (PKI) server, it may offer different assurances. (For any validation of this sort, the validator is the one responsible for figuring out how strong any assurances are and what the implicit dangers are.)
 
 data can be authenticated through signatures and validation
 
