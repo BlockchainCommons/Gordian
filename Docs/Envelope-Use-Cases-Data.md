@@ -6,7 +6,7 @@
 
 ...
 
-## Part One: Public Crypt-Finger
+## Part One: Public CryptFinger
 
 This first set of use cases lays out entirely public use cases of Gordian Envelope for data distribution, where everything is seen by all parties. It includes: how to create basic (structured) information, how to make that data verifiable, and how to timestamp that data.
 
@@ -322,7 +322,7 @@ graph LR
 ```
 More innovations will come as Carmen adds on privacy-preserving features from Gordian Envelope.
 
-### #2: Carmen Makes Crypt-Finger Verifiable (Signatures)
+### #2: Carmen Makes CryptFinger Verifiable (Signatures)
 
 > _Problem Solved:_ Carmen wants to make user information verifiable.
 
@@ -359,18 +359,17 @@ Here's Carmen's CryptFinger results with the validation info:
             isA: "non-fiction book"
         ]
         "phoneNumber": "510-555-0143"
-        "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahd…"
+        "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
     ]
 } [
     "validatedBy": "cryptfinger.com" [
-        "pubkeyURL": "ur:crypto-pubkeys/lftaaosehdcximbbhfzscptyrdptctdiykhskekgpmashheslnfdrepfrljonnglaevoasremulytpvahd…"
-        "validationDate": "2022-12-14"
+        "pubkeyURL": "ur:crypto-pubkeys/lftaaosehdcximbbhfzscptyrdptctdiykhskekgpmashheslnfdrepfrljonnglaevoasremulytpvahdcxfxlssfkiaogyeyrtaszeluzmgedkcppdwyfdzcdryntdtplkinlbmkskjkrlnnjngsbemhne"
     ]
 ]
 ```
 ```mermaid
 graph LR
-    1(("03f58adc<br/>NODE"))
+    1(("227f1102<br/>NODE"))
     2[/"2db1de5d<br/>WRAPPED"\]
     3(("f5bea12d<br/>NODE"))
     4["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
@@ -427,29 +426,26 @@ graph LR
     55["8c645acc<br/>#quot;non-fiction article#quot;"]
     56(["da22ca9e<br/>ASSERTION"])
     57["7fce2d08<br/>#quot;url#quot;"]
-    58["fda96fd7<br/>#quot;https://blockchaincommons.com/design-notes/cryptfinger.html#quot;"]
+    58["fda96fd7<br/>#quot;https://blockchaincommons.com/design-not…#quot;"]
     59(["58711216<br/>ASSERTION"])
     60["97dc30c5<br/>#quot;cid#quot;"]
-    61["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfmynylnecwldpapafskphsgwfgmdgwmusthlzecfltiosskorers#quot;"]
+    61["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
     62(["77c587c5<br/>ASSERTION"])
     63["d52596f8<br/>#quot;pubkey#quot;"]
-    64["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahd…#quot;"]
+    64["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
     65(["aff1bb37<br/>ASSERTION"])
     66["4e7cdd69<br/>#quot;alias#quot;"]
     67["3bc0d518<br/>#quot;admin@cryptfinger.com#quot;"]
     68(["ba480823<br/>ASSERTION"])
     69["4e7cdd69<br/>#quot;alias#quot;"]
     70["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
-    71(["ad17bcfe<br/>ASSERTION"])
+    71(["070ff15a<br/>ASSERTION"])
     72["31e61f2a<br/>#quot;validatedBy#quot;"]
-    73(("6672ae6a<br/>NODE"))
+    73(("de057405<br/>NODE"))
     74["7067ea88<br/>#quot;cryptfinger.com#quot;"]
-    75(["1feceed7<br/>ASSERTION"])
-    76["64a87b79<br/>#quot;validationDate#quot;"]
-    77["8b48befe<br/>#quot;2022-12-14#quot;"]
-    78(["221b8c49<br/>ASSERTION"])
-    79["29c0cd61<br/>#quot;pubkeyURL#quot;"]
-    80["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscptyrdptctdiykhskekgpmashheslnfdrepfrljonnglaevoasremulytpvahd…#quot;"]
+    75(["221b8c49<br/>ASSERTION"])
+    76["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    77["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
     1 -->|subj| 2
     2 -->|subj| 3
     3 -->|subj| 4
@@ -526,9 +522,6 @@ graph LR
     73 --> 75
     75 -->|pred| 76
     75 -->|obj| 77
-    73 --> 78
-    78 -->|pred| 79
-    78 -->|obj| 80
     style 1 stroke:red,stroke-width:3.0px
     style 2 stroke:red,stroke-width:3.0px
     style 3 stroke:red,stroke-width:3.0px
@@ -606,9 +599,6 @@ graph LR
     style 75 stroke:red,stroke-width:3.0px
     style 76 stroke:#55f,stroke-width:3.0px
     style 77 stroke:#55f,stroke-width:3.0px
-    style 78 stroke:red,stroke-width:3.0px
-    style 79 stroke:#55f,stroke-width:3.0px
-    style 80 stroke:#55f,stroke-width:3.0px
     linkStyle 0 stroke:red,stroke-width:2.0px
     linkStyle 1 stroke:red,stroke-width:2.0px
     linkStyle 2 stroke:red,stroke-width:2.0px
@@ -685,9 +675,6 @@ graph LR
     linkStyle 73 stroke-width:2.0px
     linkStyle 74 stroke:green,stroke-width:2.0px
     linkStyle 75 stroke:#55f,stroke-width:2.0px
-    linkStyle 76 stroke-width:2.0px
-    linkStyle 77 stroke:green,stroke-width:2.0px
-    linkStyle 78 stroke:#55f,stroke-width:2.0px
 ```
 Here it is signed:
 ```
@@ -717,12 +704,11 @@ Here it is signed:
                 isA: "non-fiction book"
             ]
             "phoneNumber": "510-555-0143"
-            "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahd…"
+            "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
         ]
     } [
         "validatedBy": "cryptfinger.com" [
-            "pubkeyURL": "ur:crypto-pubkeys/lftaaosehdcximbbhfzscptyrdptctdiykhskekgpmashheslnfdrepfrljonnglaevoasremulytpvahd…"
-            "validationDate": "2022-12-14"
+            "pubkeyURL": "ur:crypto-pubkeys/lftaaosehdcximbbhfzscptyrdptctdiykhskekgpmashheslnfdrepfrljonnglaevoasremulytpvahdcxfxlssfkiaogyeyrtaszeluzmgedkcppdwyfdzcdryntdtplkinlbmkskjkrlnnjngsbemhne"
         ]
     ]
 } [
@@ -731,9 +717,9 @@ Here it is signed:
 ```
 ```mermaid
 graph LR
-    1(("f55b72c2<br/>NODE"))
-    2[/"1e43d7c3<br/>WRAPPED"\]
-    3(("03f58adc<br/>NODE"))
+    1(("f6b40714<br/>NODE"))
+    2[/"ba738c65<br/>WRAPPED"\]
+    3(("227f1102<br/>NODE"))
     4[/"2db1de5d<br/>WRAPPED"\]
     5(("f5bea12d<br/>NODE"))
     6["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
@@ -790,32 +776,29 @@ graph LR
     57["8c645acc<br/>#quot;non-fiction article#quot;"]
     58(["da22ca9e<br/>ASSERTION"])
     59["7fce2d08<br/>#quot;url#quot;"]
-    60["fda96fd7<br/>#quot;https://blockchaincommons.com/design-notes/cryptfinger.html#quot;"]
+    60["fda96fd7<br/>#quot;https://blockchaincommons.com/design-not…#quot;"]
     61(["58711216<br/>ASSERTION"])
     62["97dc30c5<br/>#quot;cid#quot;"]
-    63["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfmynylnecwldpapafskphsgwfgmdgwmusthlzecfltiosskorers#quot;"]
+    63["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
     64(["77c587c5<br/>ASSERTION"])
     65["d52596f8<br/>#quot;pubkey#quot;"]
-    66["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahd…#quot;"]
+    66["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
     67(["aff1bb37<br/>ASSERTION"])
     68["4e7cdd69<br/>#quot;alias#quot;"]
     69["3bc0d518<br/>#quot;admin@cryptfinger.com#quot;"]
     70(["ba480823<br/>ASSERTION"])
     71["4e7cdd69<br/>#quot;alias#quot;"]
     72["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
-    73(["ad17bcfe<br/>ASSERTION"])
+    73(["070ff15a<br/>ASSERTION"])
     74["31e61f2a<br/>#quot;validatedBy#quot;"]
-    75(("6672ae6a<br/>NODE"))
+    75(("de057405<br/>NODE"))
     76["7067ea88<br/>#quot;cryptfinger.com#quot;"]
-    77(["1feceed7<br/>ASSERTION"])
-    78["64a87b79<br/>#quot;validationDate#quot;"]
-    79["8b48befe<br/>#quot;2022-12-14#quot;"]
-    80(["221b8c49<br/>ASSERTION"])
-    81["29c0cd61<br/>#quot;pubkeyURL#quot;"]
-    82["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscptyrdptctdiykhskekgpmashheslnfdrepfrljonnglaevoasremulytpvahd…#quot;"]
-    83(["9ab0bd10<br/>ASSERTION"])
-    84[/"d59f8c0f<br/>verifiedBy"/]
-    85["7b64bc6b<br/>Signature"]
+    77(["221b8c49<br/>ASSERTION"])
+    78["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    79["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
+    80(["6bcff8b4<br/>ASSERTION"])
+    81[/"d59f8c0f<br/>verifiedBy"/]
+    82["8ea717f5<br/>Signature"]
     1 -->|subj| 2
     2 -->|subj| 3
     3 -->|subj| 4
@@ -894,12 +877,9 @@ graph LR
     75 --> 77
     77 -->|pred| 78
     77 -->|obj| 79
-    75 --> 80
+    1 --> 80
     80 -->|pred| 81
     80 -->|obj| 82
-    1 --> 83
-    83 -->|pred| 84
-    83 -->|obj| 85
     style 1 stroke:red,stroke-width:3.0px
     style 2 stroke:red,stroke-width:3.0px
     style 3 stroke:red,stroke-width:3.0px
@@ -982,9 +962,6 @@ graph LR
     style 80 stroke:red,stroke-width:3.0px
     style 81 stroke:#55f,stroke-width:3.0px
     style 82 stroke:#55f,stroke-width:3.0px
-    style 83 stroke:red,stroke-width:3.0px
-    style 84 stroke:#55f,stroke-width:3.0px
-    style 85 stroke:#55f,stroke-width:3.0px
     linkStyle 0 stroke:red,stroke-width:2.0px
     linkStyle 1 stroke:red,stroke-width:2.0px
     linkStyle 2 stroke:red,stroke-width:2.0px
@@ -1066,9 +1043,6 @@ graph LR
     linkStyle 78 stroke-width:2.0px
     linkStyle 79 stroke:green,stroke-width:2.0px
     linkStyle 80 stroke:#55f,stroke-width:2.0px
-    linkStyle 81 stroke-width:2.0px
-    linkStyle 82 stroke:green,stroke-width:2.0px
-    linkStyle 83 stroke:#55f,stroke-width:2.0px
 ```
 
 ### #3: Carmen Add Timestamps to Crypt-Finger (Timestamp)
