@@ -16,17 +16,17 @@ Envelopes can be used in a variety of collaborative forms. Following are example
 
 Gordian Envelopes are useful for signing software releases in large part because of their ability to combine signatures with metadata and to chain that information over time through multiple signed documents. This allows for the creation of a history of signatures, which can have a variety of applications. Elision can also add powerful privacy enhancements to traditional signing methodologies.
 
-* [Chained Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#software-signing)
+* [Part One: Chained Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#part-one-chained-signing)
    * #1: [Casey Codifies Software Releases (Multiple Signatures, Structured Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#1-casey-codifies-software-releases-multiple-signatures-structured-data)
    * #2: [Blockchain Commons Confirms Casey (Repackaging Data, Third-Party Verification)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#2-blockchain-everyday-confirms-casey-repackaging-data-third-party-verification)
    * #3: [Casey Chains His Software Releases (Chained Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#3-casey-chains-his-software-releases-chained-data)
    * #4: [Casey Checks Compliance (Attestation)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#4-casey-check-compliance-attestation-metadata)
    * #5: [Casey Changes Up His Software Releases (Chained Changes)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#5-casey-changes-up-his-software-releases-chained-changes)
-* [Anonymous Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#anonymous-signing)
+* [Part Two: Anonymous Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#part-two-anonymous-signing)
    * #6: [Amira Signs Anoymously (Anonymous Signature, Web of Trust)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#6-amira-signs-anonymously-anonymous-signature-web-of-trust)
    * #7: [Amira Reveals Her Identity (Progressive Trust)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#7-amira-reveals-her-identity-progressive-trust)
 
-## Chained Signing
+## Part One: Chained Signing
 
 This set of progressive use cases describes how a user can structure and sign data, how third-parties can verify that data, how a user can chain envelopes of data over time, how additional metadata can be added to envelopes, and how signers can change over time. They demonstrate how well-structured envelopes can decrease validation costs and improve trust.
 
@@ -2753,7 +2753,7 @@ graph LR
 
 Casey is happy that he's achieved his goal: creating software releases that are easily validatable in automated ways, even as engineers change over time.
 
-## Anonymous Signing
+## Part Two: Anonymous Signing
 
 Sometimes signers don't want to reveal information about who they are. That's the case in the [Amira Engagement Model](https://w3c-ccg.github.io/amira/), created at [Rebooting the Web of Trust V in Boston, Massachusetts](https://github.com/WebOfTrustInfo/rwot5-boston/tree/master/final-documents#readme). The following progressive use cases utilize the Amira story to suggest how anonymous signing can be enabled with Gordian Envelope, while still allowing the anonymous signer to come forward in the future if they desire.
 
