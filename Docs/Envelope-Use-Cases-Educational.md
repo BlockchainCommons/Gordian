@@ -1,6 +1,6 @@
 # Gordian Envelope Use Cases: Educational & Credential Industries
 
-Gordian Envelopes can be used in educational credential-issuing industries to encode and transmit sensitive student  information. This allows authorized parties, such as potential employers or other educational institutions, to access only the information they are authorized to view while still preserving the privacy and security of the rest of the data.
+Gordian Envelopes can be used in educational credential-issuing industries to encode and transmit sensitive student information. This allows authorized parties, such as potential employers or other educational institutions, to access only the information they are authorized to view while still preserving the privacy and security of the rest of the data.
 
 For example, a student's transcript could be encoded and transmitted using a Gordian Envelope, with portions of that data elided, to allow potential employers to verify some of the student's educational qualifications without having access to the student's full transcript or other sensitive information. Similarly, a credential such as a certification or license could be encoded and transmitted using a Gordian Envelope, to allow employers or regulators to verify the credential without having access to irrelevant details.
 
@@ -37,7 +37,7 @@ This first set of use cases demonstrates how to create (and sign) simple credent
 
 Danika is a credentialed electrical engineer who maintains her certification through continuing education. In past years she would have listed her credentials and then potential employers would have had to go to the certification board to verify them. This was ideal for no one, because most employers didn't check certifications (leaving them vulnerable), and if they did, the check was beholden to the certification board, who might fail to verify valid credentials for any number of reasons.
 
-Enter the new world of digital credentials. The certification board can now produce a signed version of Danika's credentials that lists all of her professional development and continuing employment using a Gordian Envelope. There's no need to contact the cerification board afterward because Danika can produce the credential and it can be validated by compared the signature to the board's public key, stored in Public Key Infrastructure (PKI). Danika can also prove that the credential belongs to her by signing something with the private key linked to the public key stored in the Envelope.
+Enter the new world of digital credentials. The certification board can now produce a signed version of Danika's credentials that lists all of her professional development and continuing employment using a Gordian Envelope. There's no need to contact the certification board afterward because Danika can produce the credential and it can be validated by comparing the signature to the board's public key, stored in Public Key Infrastructure (PKI). Danika can also prove that the credential belongs to her by signing something with the private key linked to the public key stored in the Envelope.
 
 To create the credential, Danika submits information to the Electrical Engineering Board listing her experience:
 
