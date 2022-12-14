@@ -58,10 +58,15 @@ Together, these elements (in particular: a network coordinator such as Gordian C
 Use Cases further describe the intent of Blockchain Commons' architecture.
 
 **Gordian Envelope:**
-* [**Educational Credentials**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md) — Using Envelopes to store & transmit credentials.
-* [**Self-Sovereign Control of Assets**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md) — Using Envelopes to store assets.
+
+* [**Use Case Overview**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases.md)
+   * [**Educational & Credential Industry Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md) — Using Envelopes to store & transmit credentials.
+   * [**Software & AI Industry Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases.md#software--ai-industry-use-cases) — Using Gordian Envelopes to release software.
+   * [**Financial Industry Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md) — Using Envelopes to store assets.
+
 **Collaborative Seed Recovery:**
 * [**Use Cases**](https://hackmd.io/ZbRiwvUfQSy-1RKM15bM8Q#CSR-Focused-Use-Cases) — A short listing of CSR-focused use cases.
+
 **Collaborative Key Management:**
 * [**Use Cases**](https://hackmd.io/ZbRiwvUfQSy-1RKM15bM8Q#Secret-Sharing-Use-Cases) — More future-looking use cases that span CSR and CKM.
 
