@@ -8,7 +8,7 @@
    * [#1: Carmen Makes Basic Info Available (Structured Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#1-carmen-makes-basic-info-available-structured-data)
    * [#2: Carmen Makes CryptFinger Verifiable (Signatures)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#2-carmen-makes-cryptfinger-verifiable-signatures)
    * [#3: Carmen Add Chronology to CryptFinger (Timestamp)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#3-carmen-add-chronology-to-cryptfinger-timestamp)
-* [Part Two: Private CryptFinger](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-two-private-crypt-finger)
+* [Part Two: Private CryptFinger](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-two-private-cryptfinger)
 
 ...
 
@@ -1447,18 +1447,169 @@ The result would like something like this:
 ]
 ```
 
-## Part Two: Private Crypt-Finger
+## Part Two: Private CryptFinger
 
-### #4: Carmen Protects Crypt-Finger (Elision)
+Authentication can create strong advantages for data lookup, for verifying data, for creating portable data, and for adding additional data such as timestamps. However, the biggest advantages in CryptFinger come with the usage of elision. Now, data can be displayed dynamically so that different things are shown to different people, all without the core authentication of an Envelope or the registration of its hash in other places, such as a timestamping blockchain. Specific use cases reveal: how to elide data; how to progressively reveal data; and how to allow data proof without explicit revelation.
 
-data can be differently elided for different sorts of queries (inside/outside firewall)
+### #4: Carmen Protects CryptFinger (Elision)
 
+> _Problem Solved:_ Carmen doesn't want to make all of her data available to everyone.
 
-### #5: Carmen Makes Crypt-Finger Progressive (Progressive Trust)
+Not all of Carmen's data is appropriate for everyone to see. In particular, she'd like for her phone number to be available to members of her company but not to the general public. This is easy enough to do on the internet: the phone number can be given out to people who access Carmen's CryptFinger from a company network but not to those who access from outside the company network.
+
+How to display that info is a totally different question. A classic data retrieval program would just issue different responses. Unfortunately in situations where data is authenticated and even timestamped, that becomes increasingly problem. Do you resign for every variation of the CryptFinger? Do you add a new timestamp, even if the underlying data is not expired? If you don't, how do you determine which data response is canonical, especially in situations where multiple responses are all subsets of the original data set, but not necessarily subsets of each other.
+
+Fortunately, Gordian Envelope offers an answer to this: data can be elided. Its hash remains, so that users can see something has been removed, but authentication remains valid. More notably, multiple elided trees are still obviously parallel, leaving them all canonical (but some with partial data sets). Multiple subsets of the same data could even be merged together! However, when data is elided, the underlying data can not be determined (unless it proves correlatable, either purposefully, as in one of the following examples, or accidentally, as a result of poor design).
+
+Ultimately, Carmen decides that the public should only see the most minimal version of CryptFinger, containing a `cid` and a `pubkey` and nothing more:
+```
+{
+    {
+        "carmen@cryptfinger.com" [
+            "cid": "ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfmynylnecwldpapafskphsgwfgmdgwmusthlzecfltiosskorers"
+            "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
+            ELIDED (6)
+        ]
+    } [
+        "verifierInfo": "cryptfinger.com" [
+            "pubkeyURL": "ur:crypto-pubkeys/lftaaosehdcximbbhfzscptyrdptctdiykhskekgpmashheslnfdrepfrljonnglaevoasremulytpvahdcxfxlssfkiaogyeyrtaszeluzmgedkcppdwyfdzcdryntdtplkinlbmkskjkrlnnjngsbemhne"
+            "timeStamp": "1671062936"
+        ]
+    ]
+} [
+    verifiedBy: Signature
+]
+```
+```mermaid
+graph LR
+    1(("7e69d51b<br/>NODE"))
+    2[/"70e3d59b<br/>WRAPPED"\]
+    3(("fce50527<br/>NODE"))
+    4[/"2db1de5d<br/>WRAPPED"\]
+    5(("f5bea12d<br/>NODE"))
+    6["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
+    7{{"0595bb3a<br/>ELIDED"}}
+    8{{"152f509c<br/>ELIDED"}}
+    9{{"320d0c70<br/>ELIDED"}}
+    10{{"366c06f1<br/>ELIDED"}}
+    11(["58711216<br/>ASSERTION"])
+    12["97dc30c5<br/>#quot;cid#quot;"]
+    13["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
+    14(["77c587c5<br/>ASSERTION"])
+    15["d52596f8<br/>#quot;pubkey#quot;"]
+    16["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
+    17{{"aff1bb37<br/>ELIDED"}}
+    18{{"ba480823<br/>ELIDED"}}
+    19(["093f17ab<br/>ASSERTION"])
+    20["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    21(("7b64b5b2<br/>NODE"))
+    22["7067ea88<br/>#quot;cryptfinger.com#quot;"]
+    23(["221b8c49<br/>ASSERTION"])
+    24["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    25["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
+    26(["4001d133<br/>ASSERTION"])
+    27["fb07d301<br/>#quot;timeStamp#quot;"]
+    28["fd5a507f<br/>#quot;1671062936#quot;"]
+    29(["668bb32b<br/>ASSERTION"])
+    30[/"d59f8c0f<br/>verifiedBy"/]
+    31["50bb6a91<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    4 -->|subj| 5
+    5 -->|subj| 6
+    5 --> 7
+    5 --> 8
+    5 --> 9
+    5 --> 10
+    5 --> 11
+    11 -->|pred| 12
+    11 -->|obj| 13
+    5 --> 14
+    14 -->|pred| 15
+    14 -->|obj| 16
+    5 --> 17
+    5 --> 18
+    3 --> 19
+    19 -->|pred| 20
+    19 -->|obj| 21
+    21 -->|subj| 22
+    21 --> 23
+    23 -->|pred| 24
+    23 -->|obj| 25
+    21 --> 26
+    26 -->|pred| 27
+    26 -->|obj| 28
+    1 --> 29
+    29 -->|pred| 30
+    29 -->|obj| 31
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:red,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 8 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 9 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 10 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 11 stroke:red,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 18 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 19 stroke:red,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:red,stroke-width:3.0px
+    style 22 stroke:#55f,stroke-width:3.0px
+    style 23 stroke:red,stroke-width:3.0px
+    style 24 stroke:#55f,stroke-width:3.0px
+    style 25 stroke:#55f,stroke-width:3.0px
+    style 26 stroke:red,stroke-width:3.0px
+    style 27 stroke:#55f,stroke-width:3.0px
+    style 28 stroke:#55f,stroke-width:3.0px
+    style 29 stroke:red,stroke-width:3.0px
+    style 30 stroke:#55f,stroke-width:3.0px
+    style 31 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke:red,stroke-width:2.0px
+    linkStyle 4 stroke:red,stroke-width:2.0px
+    linkStyle 5 stroke-width:2.0px
+    linkStyle 6 stroke-width:2.0px
+    linkStyle 7 stroke-width:2.0px
+    linkStyle 8 stroke-width:2.0px
+    linkStyle 9 stroke-width:2.0px
+    linkStyle 10 stroke:green,stroke-width:2.0px
+    linkStyle 11 stroke:#55f,stroke-width:2.0px
+    linkStyle 12 stroke-width:2.0px
+    linkStyle 13 stroke:green,stroke-width:2.0px
+    linkStyle 14 stroke:#55f,stroke-width:2.0px
+    linkStyle 15 stroke-width:2.0px
+    linkStyle 16 stroke-width:2.0px
+    linkStyle 17 stroke-width:2.0px
+    linkStyle 18 stroke:green,stroke-width:2.0px
+    linkStyle 19 stroke:#55f,stroke-width:2.0px
+    linkStyle 20 stroke:red,stroke-width:2.0px
+    linkStyle 21 stroke-width:2.0px
+    linkStyle 22 stroke:green,stroke-width:2.0px
+    linkStyle 23 stroke:#55f,stroke-width:2.0px
+    linkStyle 24 stroke-width:2.0px
+    linkStyle 25 stroke:green,stroke-width:2.0px
+    linkStyle 26 stroke:#55f,stroke-width:2.0px
+    linkStyle 27 stroke-width:2.0px
+    linkStyle 28 stroke:green,stroke-width:2.0px
+    linkStyle 29 stroke:#55f,stroke-width:2.0px
+```
+### #5: Carmen Makes CryptFinger Progressive (Progressive Trust)
 
 data can be entirely elided so that it's only visible to queries that know to ask for the data
 data can be released through a model of progressive trust by slowly reducing elision
 
-### #6: Carmen Makes Crypt-Finger Provable (Inclusion Proof)
+### #6: Carmen Makes CryptFinger Provable (Inclusion Proof)
 
 data can be entirely elided so that it's only visible to queries if someone provides a hash and a proof that allows them to verify the data
