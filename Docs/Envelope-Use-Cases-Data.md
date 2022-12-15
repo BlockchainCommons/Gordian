@@ -1616,7 +1616,27 @@ Anyone inside of Carmen's company who can see the complete CryptFinger results w
 Carmen does not want to publish info on her aliases such as `carmen@blockchaincommons.com` because doing so would just increase the amount of spam that she receives at those accounts. However, she does want to make those aliases verifiable. If someone wants to know if `carmen@blockchaincommons.com` is also `carmen@cryptfinger.com` she wants to allow them to verify that in an easily automatable way that doesn't require her to do anything. Fortunately, this is trivial given the CryptFinger structure that she has created.
 
 All that Carmen needs to do is reveal the structure of aliases. Once she has, anyone can create an assertion for `alias anyaddress@anysite`, properly lower casing the address per Carmen's specification.
+```
+"alias": "carmen@blockchaincommons.com"
+```
+```mermaid
+graph LR
+    1(["ba480823<br/>ASSERTION"])
+    2["4e7cdd69<br/>#quot;alias#quot;"]
+    3["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
+    1 -->|pred| 2
+    1 -->|obj| 3
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px
+    style 3 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:green,stroke-width:2.0px
+    linkStyle 1 stroke:#55f,stroke-width:2.0px
+```
+Once they've done so, they can compare the hash of the assertion (`ba480823`) to the `ELIDED` assertions in Carmen's CryptFinger. They'll discover that one of the `ELIDED` assertions hashes to `ba480823`. This verifies their knowledge of Carmen's alias without anyone ever publishing it!
 
+Keep in mind, this [selective correlation](https://github.com/WebOfTrustInfo/rwot11-the-hague/blob/master/draft-documents/selective-correlation.md) should always be a choice. Carmen chose to make her information correlatable to people who already knew it (or at the least were willing to search for the information) by publishing the format of her assertion and by not making any attempts to hide that correlation.
+
+If Carmen instead wanted to block correlation, for example if she _didn't_ want people to be able to guess her phone number, which they could theoretically do by going through every phone number in America (or maybe just in her local area), she could easily _select_ to avoid that _correlation_ by adding salt to an assertion, as in the ["Sam is Salty about Correlation" use case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#2-sam-is-salty-about-compliance-non-correlation). Other methodologies are also possible, such as restructuring data into bundles so that singular hashes do not refer to singular assertions without the revelation of additional data, an example of which is provided in the ["Paul Proves Proficiency with Improved Privacy" use case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#6-paul-proves-proficiency-with-improved-privacy-herd-privacy-with-non-correlation).
 data can be entirely elided so that it's only visible to queries if someone provides a hash and a proof that allows them to verify the data
 
 ### #6: Carmen Makes CryptFinger Progressive (Progressive Trust)
