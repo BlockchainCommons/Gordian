@@ -9,7 +9,7 @@
    * [#2: Carmen Makes CryptFinger Verifiable (Signatures)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#2-carmen-makes-cryptfinger-verifiable-signatures)
    * [#3: Carmen Add Chronology to CryptFinger (Timestamp)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#3-carmen-add-chronology-to-cryptfinger-timestamp)
 * [Part Two: Private CryptFinger](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-two-private-cryptfinger)
-
+   * [#4: Carmen Protects CryptFinger (Elision)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#4-carmen-protects-cryptfinger-elision)
 ...
 
 ## Part One: Public CryptFinger
