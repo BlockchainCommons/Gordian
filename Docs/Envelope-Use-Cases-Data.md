@@ -1432,10 +1432,14 @@ graph LR
 ```
 If a simpler method of timestamping was required, possibly without any internet access, then a simple incrementing number could be used: each time the CryptFinger data was updated, the value would go up by one. This wouldn't allow a CryptFinger to be dated, but it would allow for the newest result from any pair of results to always be determined.
 
-If a less-centralized method of timestamping was required, that didn't depend on the verification of a single party, then a result could be stored on a blockchain with strong write-only properties. The identifier and the hash of the signed Envelope could be stored together (e.g. "
+If a less-centralized method of timestamping was required, that didn't depend on the verification of a single party, then a result could be stored on a blockchain with strong write-only properties. The identifier and the hash of the signed Envelope could be stored together (e.g. "carmen@cryptfinger.com: 7e69d51b"). For even more assurance, the signed envelope could be wrapped, and a pointer to the block entry could be added to that wrapped envelope as a new assertion.
+The result would like something like this:
 
-
-data can be timestamped
+```
+"SIGNED ENVELOPE" [
+    "blockchainTimestamp": "https://www.blockchainenvelopetimestamp.com/198123"
+]
+```
 
 ## Part Two: Private Crypt-Finger
 
