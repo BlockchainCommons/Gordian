@@ -1605,6 +1605,10 @@ graph LR
     linkStyle 28 stroke:green,stroke-width:2.0px
     linkStyle 29 stroke:#55f,stroke-width:2.0px
 ```
+Note that the overall hash of the Merkle-tree used by Gordian Envelope remains the same: `7e69d51b`. In addition, the signature remains valid, even though information has been elided _and_ the data has _not_ been resigned.
+
+Anyone inside of Carmen's company who can see the complete CryptFinger results will know that this response is the same as a response that they have that contains the same hash, and that there's no need to determine is one is newer than the other!
+
 ### #5: Carmen Makes CryptFinger Progressive (Progressive Trust)
 
 data can be entirely elided so that it's only visible to queries that know to ask for the data
