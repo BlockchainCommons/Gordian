@@ -1449,7 +1449,7 @@ The result would like something like this:
 
 ## Part Two: Private CryptFinger
 
-Authentication can create strong advantages for data lookup, for verifying data, for creating portable data, and for adding additional data such as timestamps. However, the biggest advantages in CryptFinger come with the usage of elision. Now, data can be displayed dynamically so that different things are shown to different people, all without the core authentication of an Envelope or the registration of its hash in other places, such as a timestamping blockchain. Specific use cases reveal: how to elide data; how to progressively reveal data; and how to allow data proof without explicit revelation.
+Authentication can create strong advantages for data lookup, for verifying data, for creating portable data, and for adding additional data such as timestamps. However, the biggest advantages in CryptFinger come with the usage of elision. Now, data can be displayed dynamically so that different things are shown to different people, all without the core authentication of an Envelope or the registration of its hash in other places, such as a timestamping blockchain. Specific use cases reveal: how to elide data; how to allow data proof without explicit revelation; and how to progressively reveal data.
 
 ### #4: Carmen Protects CryptFinger (Elision)
 
@@ -1609,11 +1609,18 @@ Note that the overall hash of the Merkle-tree used by Gordian Envelope remains t
 
 Anyone inside of Carmen's company who can see the complete CryptFinger results will know that this response is the same as a response that they have that contains the same hash, and that there's no need to determine is one is newer than the other!
 
-### #5: Carmen Makes CryptFinger Progressive (Progressive Trust)
+### #5: Carmen Makes CryptFinger Provable (Inclusion Proof)
+
+> _Problem Solved:_ Carmen wants to make her aliases verifiable.
+
+Carmen does not want to publish info on her aliases such as `carmen@blockchaincommons.com` because doing so would just increase the amount of spam that she receives at those accounts. However, she does want to make those aliases verifiable. If someone wants to know if `carmen@blockchaincommons.com` is also `carmen@cryptfinger.com` she wants to allow them to verify that in an easily automatable way that doesn't require her to do anything. Fortunately, this is trivial given the CryptFinger structure that she has created.
+
+All that Carmen needs to do is reveal the structure of aliases. Once she has, anyone can create an assertion for `alias anyaddress@anysite`, properly lower casing the address per Carmen's specification.
+
+data can be entirely elided so that it's only visible to queries if someone provides a hash and a proof that allows them to verify the data
+
+### #6: Carmen Makes CryptFinger Progressive (Progressive Trust)
 
 data can be entirely elided so that it's only visible to queries that know to ask for the data
 data can be released through a model of progressive trust by slowly reducing elision
 
-### #6: Carmen Makes CryptFinger Provable (Inclusion Proof)
-
-data can be entirely elided so that it's only visible to queries if someone provides a hash and a proof that allows them to verify the data
