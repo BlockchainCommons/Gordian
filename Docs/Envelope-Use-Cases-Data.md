@@ -4,6 +4,12 @@
 
 ## Data Use Case Table of Contents
 
+* [Part One: Public CryptFinger](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-one-public-cryptfinger)
+   * [#1: Carmen Makes Basic Info Available (Structured Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#1-carmen-makes-basic-info-available-structured-data)
+   * [#2: Carmen Makes CryptFinger Verifiable (Signatures)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#2-carmen-makes-cryptfinger-verifiable-signatures)
+   * [#3: Carmen Add Chronology to CryptFinger (Timestamp)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#3-carmen-add-chronology-to-cryptfinger-timestamp)
+* [Part Two: Private CryptFinger](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-two-private-crypt-finger)
+
 ...
 
 ## Part One: Public CryptFinger
@@ -1045,7 +1051,7 @@ graph LR
     linkStyle 80 stroke:#55f,stroke-width:2.0px
 ```
 
-### #3: Carmen Add Timestamps to CryptFinger (Timestamp)
+### #3: Carmen Add Chronology to CryptFinger (Timestamp)
 
 > _Problem Solved:_ Carmen wants to be able to be able to verify CryptFinger results in time.
 
