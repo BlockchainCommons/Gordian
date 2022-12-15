@@ -1642,6 +1642,27 @@ data can be entirely elided so that it's only visible to queries if someone prov
 
 ### #6: Carmen Makes CryptFinger Progressive (Progressive Trust)
 
+> _Problem Solved:_ Carmen wants to progressively reveal information over time.
+
+Though Carmen is initially limiting CryptFinger information released outside of her company, she wants to be able to progressively release additional information as she gains trust with external users. This model of [progressive trust](https://www.blockchaincommons.com/musings/musings-progressive-trust/) is how trust works in the real-world, when we meet people, introduce ourselves, and slowly give them more information about ourselves. It makes sense for CryptFinger to follow that same methodology.
+
+This could be done by hand, based on growing connection to another person. She could introduce her publications quite early, as they're pretty public information. She might prioritize her aliases and introduce them as someone else introduces themselves. She might save her phone number to only be given to someone who she's created a real connection with, and perhaps even met in person. The other user can meanwhile continue to verify this is all of Carmen's actual information, as any new Gordian Envelopes will match the signatures and hashes of existing Gordian Envelopes (presuming they're just revelations of a previously elided Envelope).
+
+However, progressive-trust algorithms could be even more powerful, as they'd allow Carmen to automatically reveal more information from her CryptFinger without having to make a decision at every stage. One methodology might be for a user to use an inclusion proof to reveal that they know something about Carmen, and then to receive additional data related to that revelation.
+
+-- So add some "isA" ... author, programmer, etc.
+-- and then check against one of those
+-- and show revealed info
+
+[this requires going back, adding in the isA, but should hopefully be easy with my scripts]
+
+
+---
+
+#7? Herd Privacy of Users?
+Some way to differentiate it meaningfully from Educational example?
+
+
 data can be entirely elided so that it's only visible to queries that know to ask for the data
 data can be released through a model of progressive trust by slowly reducing elision
 
