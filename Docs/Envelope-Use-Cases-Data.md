@@ -1049,7 +1049,391 @@ graph LR
 
 > _Problem Solved:_ Carmen wants to be able to be able to verify CryptFinger results in time.
 
-Because Gordian Envelopes can be saved, stored, and resent, dating them suddenly becomes an issue. Fortunately, adding verifiable dates is very simple. They just need to 
+Because Gordian Envelopes can be saved, stored, and resent, dating them suddenly becomes an issue. It's vital to know whether CryptFinger results are relatively new or grossly out of date. Fortunately, adding verifiable dates is very simple as long as authentication is already being used. A date just needs to be added to `verifierInfo`. Since that information is already signed, the date can be trusted — or at least it can be trusted to the level that a validator trusts the verifier.
+```
+{
+    {
+        "carmen@cryptfinger.com" [
+            "alias": "admin@cryptfinger.com"
+            "alias": "carmen@blockchaincommons.com"
+            "alias": "carmen@mycarmentsite.com"
+            "cid": "ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfmynylnecwldpapafskphsgwfgmdgwmusthlzecfltiosskorers"
+            "hasPublication": "Cryptfinger Design Notes" [
+                "pubdate": "2022-10-11"
+                "url": "https://blockchaincommons.com/design-notes/cryptfinger.html"
+                "version": "1.3.1"
+                isA: "non-fiction article"
+            ]
+            "hasPublication": "Zen and the Art of Cryptfinger Design" [
+                "ISBN-13": "978-1-04-876475-8"
+                "hasTranslation": "Zen y el arte del diseño Cryptfinger" [
+                    "ISBN-13": "978-0-421-94892-1"
+                    "language": "es"
+                    "pubDate": "2022-02-22"
+                    isA: "non-fiction book"
+                ]
+                "language": "en"
+                "pubDate": "2022-01-17"
+                isA: "non-fiction book"
+            ]
+            "phoneNumber": "510-555-0143"
+            "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
+        ]
+    } [
+        "verifierInfo": "cryptfinger.com" [
+            "pubkeyURL": "ur:crypto-pubkeys/lftaaosehdcximbbhfzscptyrdptctdiykhskekgpmashheslnfdrepfrljonnglaevoasremulytpvahdcxfxlssfkiaogyeyrtaszeluzmgedkcppdwyfdzcdryntdtplkinlbmkskjkrlnnjngsbemhne"
+            "timeStamp": "1671062936"
+        ]
+    ]
+} [
+    verifiedBy: Signature
+]
+```
+```mermaid
+graph LR
+    1(("7e69d51b<br/>NODE"))
+    2[/"70e3d59b<br/>WRAPPED"\]
+    3(("fce50527<br/>NODE"))
+    4[/"2db1de5d<br/>WRAPPED"\]
+    5(("f5bea12d<br/>NODE"))
+    6["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
+    7(["0595bb3a<br/>ASSERTION"])
+    8["4e7cdd69<br/>#quot;alias#quot;"]
+    9["09cfa295<br/>#quot;carmen@mycarmentsite.com#quot;"]
+    10(["152f509c<br/>ASSERTION"])
+    11["7ed9572e<br/>#quot;hasPublication#quot;"]
+    12(("2c51cecb<br/>NODE"))
+    13["14dce19e<br/>#quot;Zen and the Art of Cryptfinger Design#quot;"]
+    14(["18048890<br/>ASSERTION"])
+    15["c91b36b2<br/>#quot;pubDate#quot;"]
+    16["ae96f205<br/>#quot;2022-01-17#quot;"]
+    17(["76f63c9c<br/>ASSERTION"])
+    18["0846979e<br/>#quot;language#quot;"]
+    19["409b5893<br/>#quot;en#quot;"]
+    20(["7c4c63e7<br/>ASSERTION"])
+    21["d41c6a7e<br/>#quot;hasTranslation#quot;"]
+    22(("8dc1f383<br/>NODE"))
+    23["91ee71f8<br/>#quot;Zen y el arte del diseño Cryptfinger#quot;"]
+    24(["23335db9<br/>ASSERTION"])
+    25["c91b36b2<br/>#quot;pubDate#quot;"]
+    26["c4f05fb4<br/>#quot;2022-02-22#quot;"]
+    27(["2c5d3a5f<br/>ASSERTION"])
+    28["10a46e16<br/>#quot;ISBN-13#quot;"]
+    29["4ed1acab<br/>#quot;978-0-421-94892-1#quot;"]
+    30(["9db68d01<br/>ASSERTION"])
+    31["0846979e<br/>#quot;language#quot;"]
+    32["dd2f866d<br/>#quot;es#quot;"]
+    33(["bcf92721<br/>ASSERTION"])
+    34[/"8982354d<br/>isA"/]
+    35["fde87c34<br/>#quot;non-fiction book#quot;"]
+    36(["bcf92721<br/>ASSERTION"])
+    37[/"8982354d<br/>isA"/]
+    38["fde87c34<br/>#quot;non-fiction book#quot;"]
+    39(["e0afce84<br/>ASSERTION"])
+    40["10a46e16<br/>#quot;ISBN-13#quot;"]
+    41["18e2fcf5<br/>#quot;978-1-04-876475-8#quot;"]
+    42(["320d0c70<br/>ASSERTION"])
+    43["bf9638d1<br/>#quot;phoneNumber#quot;"]
+    44["48af8880<br/>#quot;510-555-0143#quot;"]
+    45(["366c06f1<br/>ASSERTION"])
+    46["7ed9572e<br/>#quot;hasPublication#quot;"]
+    47(("3b6cf8f0<br/>NODE"))
+    48["8edf5b50<br/>#quot;Cryptfinger Design Notes#quot;"]
+    49(["3a9a5b75<br/>ASSERTION"])
+    50["0e0066da<br/>#quot;pubdate#quot;"]
+    51["54ac7f35<br/>#quot;2022-10-11#quot;"]
+    52(["4514d304<br/>ASSERTION"])
+    53["b22687d9<br/>#quot;version#quot;"]
+    54["b94ba9a2<br/>#quot;1.3.1#quot;"]
+    55(["87b4fe55<br/>ASSERTION"])
+    56[/"8982354d<br/>isA"/]
+    57["8c645acc<br/>#quot;non-fiction article#quot;"]
+    58(["da22ca9e<br/>ASSERTION"])
+    59["7fce2d08<br/>#quot;url#quot;"]
+    60["fda96fd7<br/>#quot;https://blockchaincommons.com/design-not…#quot;"]
+    61(["58711216<br/>ASSERTION"])
+    62["97dc30c5<br/>#quot;cid#quot;"]
+    63["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
+    64(["77c587c5<br/>ASSERTION"])
+    65["d52596f8<br/>#quot;pubkey#quot;"]
+    66["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
+    67(["aff1bb37<br/>ASSERTION"])
+    68["4e7cdd69<br/>#quot;alias#quot;"]
+    69["3bc0d518<br/>#quot;admin@cryptfinger.com#quot;"]
+    70(["ba480823<br/>ASSERTION"])
+    71["4e7cdd69<br/>#quot;alias#quot;"]
+    72["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
+    73(["093f17ab<br/>ASSERTION"])
+    74["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    75(("7b64b5b2<br/>NODE"))
+    76["7067ea88<br/>#quot;cryptfinger.com#quot;"]
+    77(["221b8c49<br/>ASSERTION"])
+    78["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    79["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
+    80(["4001d133<br/>ASSERTION"])
+    81["fb07d301<br/>#quot;timeStamp#quot;"]
+    82["fd5a507f<br/>#quot;1671062936#quot;"]
+    83(["668bb32b<br/>ASSERTION"])
+    84[/"d59f8c0f<br/>verifiedBy"/]
+    85["50bb6a91<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    4 -->|subj| 5
+    5 -->|subj| 6
+    5 --> 7
+    7 -->|pred| 8
+    7 -->|obj| 9
+    5 --> 10
+    10 -->|pred| 11
+    10 -->|obj| 12
+    12 -->|subj| 13
+    12 --> 14
+    14 -->|pred| 15
+    14 -->|obj| 16
+    12 --> 17
+    17 -->|pred| 18
+    17 -->|obj| 19
+    12 --> 20
+    20 -->|pred| 21
+    20 -->|obj| 22
+    22 -->|subj| 23
+    22 --> 24
+    24 -->|pred| 25
+    24 -->|obj| 26
+    22 --> 27
+    27 -->|pred| 28
+    27 -->|obj| 29
+    22 --> 30
+    30 -->|pred| 31
+    30 -->|obj| 32
+    22 --> 33
+    33 -->|pred| 34
+    33 -->|obj| 35
+    12 --> 36
+    36 -->|pred| 37
+    36 -->|obj| 38
+    12 --> 39
+    39 -->|pred| 40
+    39 -->|obj| 41
+    5 --> 42
+    42 -->|pred| 43
+    42 -->|obj| 44
+    5 --> 45
+    45 -->|pred| 46
+    45 -->|obj| 47
+    47 -->|subj| 48
+    47 --> 49
+    49 -->|pred| 50
+    49 -->|obj| 51
+    47 --> 52
+    52 -->|pred| 53
+    52 -->|obj| 54
+    47 --> 55
+    55 -->|pred| 56
+    55 -->|obj| 57
+    47 --> 58
+    58 -->|pred| 59
+    58 -->|obj| 60
+    5 --> 61
+    61 -->|pred| 62
+    61 -->|obj| 63
+    5 --> 64
+    64 -->|pred| 65
+    64 -->|obj| 66
+    5 --> 67
+    67 -->|pred| 68
+    67 -->|obj| 69
+    5 --> 70
+    70 -->|pred| 71
+    70 -->|obj| 72
+    3 --> 73
+    73 -->|pred| 74
+    73 -->|obj| 75
+    75 -->|subj| 76
+    75 --> 77
+    77 -->|pred| 78
+    77 -->|obj| 79
+    75 --> 80
+    80 -->|pred| 81
+    80 -->|obj| 82
+    1 --> 83
+    83 -->|pred| 84
+    83 -->|obj| 85
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:red,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:red,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px
+    style 12 stroke:red,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    style 17 stroke:red,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:#55f,stroke-width:3.0px
+    style 20 stroke:red,stroke-width:3.0px
+    style 21 stroke:#55f,stroke-width:3.0px
+    style 22 stroke:red,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px
+    style 24 stroke:red,stroke-width:3.0px
+    style 25 stroke:#55f,stroke-width:3.0px
+    style 26 stroke:#55f,stroke-width:3.0px
+    style 27 stroke:red,stroke-width:3.0px
+    style 28 stroke:#55f,stroke-width:3.0px
+    style 29 stroke:#55f,stroke-width:3.0px
+    style 30 stroke:red,stroke-width:3.0px
+    style 31 stroke:#55f,stroke-width:3.0px
+    style 32 stroke:#55f,stroke-width:3.0px
+    style 33 stroke:red,stroke-width:3.0px
+    style 34 stroke:#55f,stroke-width:3.0px
+    style 35 stroke:#55f,stroke-width:3.0px
+    style 36 stroke:red,stroke-width:3.0px
+    style 37 stroke:#55f,stroke-width:3.0px
+    style 38 stroke:#55f,stroke-width:3.0px
+    style 39 stroke:red,stroke-width:3.0px
+    style 40 stroke:#55f,stroke-width:3.0px
+    style 41 stroke:#55f,stroke-width:3.0px
+    style 42 stroke:red,stroke-width:3.0px
+    style 43 stroke:#55f,stroke-width:3.0px
+    style 44 stroke:#55f,stroke-width:3.0px
+    style 45 stroke:red,stroke-width:3.0px
+    style 46 stroke:#55f,stroke-width:3.0px
+    style 47 stroke:red,stroke-width:3.0px
+    style 48 stroke:#55f,stroke-width:3.0px
+    style 49 stroke:red,stroke-width:3.0px
+    style 50 stroke:#55f,stroke-width:3.0px
+    style 51 stroke:#55f,stroke-width:3.0px
+    style 52 stroke:red,stroke-width:3.0px
+    style 53 stroke:#55f,stroke-width:3.0px
+    style 54 stroke:#55f,stroke-width:3.0px
+    style 55 stroke:red,stroke-width:3.0px
+    style 56 stroke:#55f,stroke-width:3.0px
+    style 57 stroke:#55f,stroke-width:3.0px
+    style 58 stroke:red,stroke-width:3.0px
+    style 59 stroke:#55f,stroke-width:3.0px
+    style 60 stroke:#55f,stroke-width:3.0px
+    style 61 stroke:red,stroke-width:3.0px
+    style 62 stroke:#55f,stroke-width:3.0px
+    style 63 stroke:#55f,stroke-width:3.0px
+    style 64 stroke:red,stroke-width:3.0px
+    style 65 stroke:#55f,stroke-width:3.0px
+    style 66 stroke:#55f,stroke-width:3.0px
+    style 67 stroke:red,stroke-width:3.0px
+    style 68 stroke:#55f,stroke-width:3.0px
+    style 69 stroke:#55f,stroke-width:3.0px
+    style 70 stroke:red,stroke-width:3.0px
+    style 71 stroke:#55f,stroke-width:3.0px
+    style 72 stroke:#55f,stroke-width:3.0px
+    style 73 stroke:red,stroke-width:3.0px
+    style 74 stroke:#55f,stroke-width:3.0px
+    style 75 stroke:red,stroke-width:3.0px
+    style 76 stroke:#55f,stroke-width:3.0px
+    style 77 stroke:red,stroke-width:3.0px
+    style 78 stroke:#55f,stroke-width:3.0px
+    style 79 stroke:#55f,stroke-width:3.0px
+    style 80 stroke:red,stroke-width:3.0px
+    style 81 stroke:#55f,stroke-width:3.0px
+    style 82 stroke:#55f,stroke-width:3.0px
+    style 83 stroke:red,stroke-width:3.0px
+    style 84 stroke:#55f,stroke-width:3.0px
+    style 85 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke:red,stroke-width:2.0px
+    linkStyle 4 stroke:red,stroke-width:2.0px
+    linkStyle 5 stroke-width:2.0px
+    linkStyle 6 stroke:green,stroke-width:2.0px
+    linkStyle 7 stroke:#55f,stroke-width:2.0px
+    linkStyle 8 stroke-width:2.0px
+    linkStyle 9 stroke:green,stroke-width:2.0px
+    linkStyle 10 stroke:#55f,stroke-width:2.0px
+    linkStyle 11 stroke:red,stroke-width:2.0px
+    linkStyle 12 stroke-width:2.0px
+    linkStyle 13 stroke:green,stroke-width:2.0px
+    linkStyle 14 stroke:#55f,stroke-width:2.0px
+    linkStyle 15 stroke-width:2.0px
+    linkStyle 16 stroke:green,stroke-width:2.0px
+    linkStyle 17 stroke:#55f,stroke-width:2.0px
+    linkStyle 18 stroke-width:2.0px
+    linkStyle 19 stroke:green,stroke-width:2.0px
+    linkStyle 20 stroke:#55f,stroke-width:2.0px
+    linkStyle 21 stroke:red,stroke-width:2.0px
+    linkStyle 22 stroke-width:2.0px
+    linkStyle 23 stroke:green,stroke-width:2.0px
+    linkStyle 24 stroke:#55f,stroke-width:2.0px
+    linkStyle 25 stroke-width:2.0px
+    linkStyle 26 stroke:green,stroke-width:2.0px
+    linkStyle 27 stroke:#55f,stroke-width:2.0px
+    linkStyle 28 stroke-width:2.0px
+    linkStyle 29 stroke:green,stroke-width:2.0px
+    linkStyle 30 stroke:#55f,stroke-width:2.0px
+    linkStyle 31 stroke-width:2.0px
+    linkStyle 32 stroke:green,stroke-width:2.0px
+    linkStyle 33 stroke:#55f,stroke-width:2.0px
+    linkStyle 34 stroke-width:2.0px
+    linkStyle 35 stroke:green,stroke-width:2.0px
+    linkStyle 36 stroke:#55f,stroke-width:2.0px
+    linkStyle 37 stroke-width:2.0px
+    linkStyle 38 stroke:green,stroke-width:2.0px
+    linkStyle 39 stroke:#55f,stroke-width:2.0px
+    linkStyle 40 stroke-width:2.0px
+    linkStyle 41 stroke:green,stroke-width:2.0px
+    linkStyle 42 stroke:#55f,stroke-width:2.0px
+    linkStyle 43 stroke-width:2.0px
+    linkStyle 44 stroke:green,stroke-width:2.0px
+    linkStyle 45 stroke:#55f,stroke-width:2.0px
+    linkStyle 46 stroke:red,stroke-width:2.0px
+    linkStyle 47 stroke-width:2.0px
+    linkStyle 48 stroke:green,stroke-width:2.0px
+    linkStyle 49 stroke:#55f,stroke-width:2.0px
+    linkStyle 50 stroke-width:2.0px
+    linkStyle 51 stroke:green,stroke-width:2.0px
+    linkStyle 52 stroke:#55f,stroke-width:2.0px
+    linkStyle 53 stroke-width:2.0px
+    linkStyle 54 stroke:green,stroke-width:2.0px
+    linkStyle 55 stroke:#55f,stroke-width:2.0px
+    linkStyle 56 stroke-width:2.0px
+    linkStyle 57 stroke:green,stroke-width:2.0px
+    linkStyle 58 stroke:#55f,stroke-width:2.0px
+    linkStyle 59 stroke-width:2.0px
+    linkStyle 60 stroke:green,stroke-width:2.0px
+    linkStyle 61 stroke:#55f,stroke-width:2.0px
+    linkStyle 62 stroke-width:2.0px
+    linkStyle 63 stroke:green,stroke-width:2.0px
+    linkStyle 64 stroke:#55f,stroke-width:2.0px
+    linkStyle 65 stroke-width:2.0px
+    linkStyle 66 stroke:green,stroke-width:2.0px
+    linkStyle 67 stroke:#55f,stroke-width:2.0px
+    linkStyle 68 stroke-width:2.0px
+    linkStyle 69 stroke:green,stroke-width:2.0px
+    linkStyle 70 stroke:#55f,stroke-width:2.0px
+    linkStyle 71 stroke-width:2.0px
+    linkStyle 72 stroke:green,stroke-width:2.0px
+    linkStyle 73 stroke:#55f,stroke-width:2.0px
+    linkStyle 74 stroke:red,stroke-width:2.0px
+    linkStyle 75 stroke-width:2.0px
+    linkStyle 76 stroke:green,stroke-width:2.0px
+    linkStyle 77 stroke:#55f,stroke-width:2.0px
+    linkStyle 78 stroke-width:2.0px
+    linkStyle 79 stroke:green,stroke-width:2.0px
+    linkStyle 80 stroke:#55f,stroke-width:2.0px
+    linkStyle 81 stroke-width:2.0px
+    linkStyle 82 stroke:green,stroke-width:2.0px
+    linkStyle 83 stroke:#55f,stroke-width:2.0px
+```
+If a simpler method of timestamping was required, possibly without any internet access, then a simple incrementing number could be used: each time the CryptFinger data was updated, the value would go up by one. This wouldn't allow a CryptFinger to be dated, but it would allow for the newest result from any pair of results to always be determined.
+
+If a less-centralized method of timestamping was required, that didn't depend on the verification of a single party, then a result could be stored on a blockchain with strong write-only properties. The identifier and the hash of the signed Envelope could be stored together (e.g. "
+
 
 data can be timestamped
 
