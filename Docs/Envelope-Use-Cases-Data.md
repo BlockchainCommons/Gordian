@@ -362,14 +362,14 @@ Here's Carmen's CryptFinger results with the validation info:
         "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
     ]
 } [
-    "validatedBy": "cryptfinger.com" [
+    "verifierInfo": "cryptfinger.com" [
         "pubkeyURL": "ur:crypto-pubkeys/lftaaosehdcximbbhfzscptyrdptctdiykhskekgpmashheslnfdrepfrljonnglaevoasremulytpvahdcxfxlssfkiaogyeyrtaszeluzmgedkcppdwyfdzcdryntdtplkinlbmkskjkrlnnjngsbemhne"
     ]
 ]
 ```
 ```mermaid
 graph LR
-    1(("227f1102<br/>NODE"))
+    1(("a6d3acd5<br/>NODE"))
     2[/"2db1de5d<br/>WRAPPED"\]
     3(("f5bea12d<br/>NODE"))
     4["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
@@ -439,8 +439,8 @@ graph LR
     68(["ba480823<br/>ASSERTION"])
     69["4e7cdd69<br/>#quot;alias#quot;"]
     70["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
-    71(["070ff15a<br/>ASSERTION"])
-    72["31e61f2a<br/>#quot;validatedBy#quot;"]
+    71(["cf57039c<br/>ASSERTION"])
+    72["7e84d1a9<br/>#quot;verifierInfo#quot;"]
     73(("de057405<br/>NODE"))
     74["7067ea88<br/>#quot;cryptfinger.com#quot;"]
     75(["221b8c49<br/>ASSERTION"])
@@ -707,7 +707,7 @@ Here it is signed:
             "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
         ]
     } [
-        "validatedBy": "cryptfinger.com" [
+        "verifierInfo": "cryptfinger.com" [
             "pubkeyURL": "ur:crypto-pubkeys/lftaaosehdcximbbhfzscptyrdptctdiykhskekgpmashheslnfdrepfrljonnglaevoasremulytpvahdcxfxlssfkiaogyeyrtaszeluzmgedkcppdwyfdzcdryntdtplkinlbmkskjkrlnnjngsbemhne"
         ]
     ]
@@ -717,9 +717,9 @@ Here it is signed:
 ```
 ```mermaid
 graph LR
-    1(("f6b40714<br/>NODE"))
-    2[/"ba738c65<br/>WRAPPED"\]
-    3(("227f1102<br/>NODE"))
+    1(("7fec7c2b<br/>NODE"))
+    2[/"2bbf7a6c<br/>WRAPPED"\]
+    3(("a6d3acd5<br/>NODE"))
     4[/"2db1de5d<br/>WRAPPED"\]
     5(("f5bea12d<br/>NODE"))
     6["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
@@ -789,16 +789,16 @@ graph LR
     70(["ba480823<br/>ASSERTION"])
     71["4e7cdd69<br/>#quot;alias#quot;"]
     72["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
-    73(["070ff15a<br/>ASSERTION"])
-    74["31e61f2a<br/>#quot;validatedBy#quot;"]
+    73(["cf57039c<br/>ASSERTION"])
+    74["7e84d1a9<br/>#quot;verifierInfo#quot;"]
     75(("de057405<br/>NODE"))
     76["7067ea88<br/>#quot;cryptfinger.com#quot;"]
     77(["221b8c49<br/>ASSERTION"])
     78["29c0cd61<br/>#quot;pubkeyURL#quot;"]
     79["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
-    80(["6bcff8b4<br/>ASSERTION"])
+    80(["29408927<br/>ASSERTION"])
     81[/"d59f8c0f<br/>verifiedBy"/]
-    82["8ea717f5<br/>Signature"]
+    82["16bb28d0<br/>Signature"]
     1 -->|subj| 2
     2 -->|subj| 3
     3 -->|subj| 4
@@ -1045,7 +1045,11 @@ graph LR
     linkStyle 80 stroke:#55f,stroke-width:2.0px
 ```
 
-### #3: Carmen Add Timestamps to Crypt-Finger (Timestamp)
+### #3: Carmen Add Timestamps to CryptFinger (Timestamp)
+
+> _Problem Solved:_ Carmen wants to be able to be able to verify CryptFinger results in time.
+
+Because Gordian Envelopes can be saved, stored, and resent, dating them suddenly becomes an issue. Fortunately, adding verifiable dates is very simple. They just need to 
 
 data can be timestamped
 
