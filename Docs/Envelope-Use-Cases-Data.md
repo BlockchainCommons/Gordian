@@ -1455,7 +1455,7 @@ That new version of the Envelope could even be signed by the original Verifier!
 
 ## Part Two: Private CryptFinger
 
-Authentication can create strong advantages for data lookup, for verifying data, for creating portable data, and for adding additional data such as timestamps. However, the biggest advantages in CryptFinger come with the usage of elision. Now, data can be displayed dynamically so that different things are shown to different people, all without the core authentication of an Envelope or the registration of its hash in other places, such as a timestamping blockchain. Specific use cases reveal: how to elide data; how to allow data proof without explicit revelation; and how to progressively reveal data.
+Authentication can create strong advantages for data lookup, for verifying data, for creating portable data, and for adding additional data such as timestamps. However, the biggest advantages in CryptFinger come with the usage of elision. Now, data can be displayed dynamically so that different things are shown to different people, all without changing either the core authentication of an Envelope or its hash — which might be registered in other places such as a timestamping blockchain. Specific use cases reveal: how to elide data; how to allow data proof without explicit revelation; and how to progressively reveal data.
 
 ### #4: Carmen Protects CryptFinger (Elision)
 
@@ -1463,9 +1463,11 @@ Authentication can create strong advantages for data lookup, for verifying data,
 
 Not all of Carmen's data is appropriate for everyone to see. In particular, she'd like for her phone number to be available to members of her company but not to the general public. This is easy enough to do on the internet: the phone number can be given out to people who access Carmen's CryptFinger from a company network but not to those who access from outside the company network.
 
-How to display that info is a totally different question. A classic data retrieval program would just issue different responses. Unfortunately in situations where data is authenticated and even timestamped, that becomes increasingly problem. Do you resign for every variation of the CryptFinger? Do you add a new timestamp, even if the underlying data is not expired? If you don't, how do you determine which data response is canonical, especially in situations where multiple responses are all subsets of the original data set, but not necessarily subsets of each other.
+How to display that info is a totally different question. A classic data retrieval program would just issue different responses in different situations. Unfortunately when data is authenticated and even timestamped, doing so becomes increasingly problematic. Do you repeatedly sign every variation of the CryptFinger? Do you add a new timestamp, even if the underlying data has not changed? If you don't, how do you determine which data response is canonical, especially in situations where multiple responses are all subsets of the original data set, but not necessarily subsets of each other?
 
-Fortunately, Gordian Envelope offers an answer to this: data can be elided. Its hash remains, so that users can see something has been removed, but authentication remains valid. More notably, multiple elided trees are still obviously parallel, leaving them all canonical (but some with partial data sets). Multiple subsets of the same data could even be merged together! However, when data is elided, the underlying data can not be determined (unless it proves correlatable, either purposefully, as in one of the following examples, or accidentally, as a result of poor design).
+Fortunately, Gordian Envelope offers an answer to this: data can be elided. Its hashes remain consistent, so that users can see something has been removed, and authentication remains valid. More notably, multiple elided trees are still obviously parallel, leaving them all canonical (but some with partial data sets). Multiple subsets of the same data could even be merged together! 
+
+However, when data has been elided, the underlying data can not be determined (unless it proves correlatable, either purposefully, as in one of the following examples, or accidentally, as a result of poor design).
 
 Ultimately, Carmen decides that the public should only see the most minimal version of CryptFinger, containing a `cid` and a `pubkey` and nothing more:
 ```
@@ -1611,17 +1613,17 @@ graph LR
     linkStyle 28 stroke:green,stroke-width:2.0px
     linkStyle 29 stroke:#55f,stroke-width:2.0px
 ```
-Note that the overall hash of the Merkle-tree used by Gordian Envelope remains the same: `7e69d51b`. In addition, the signature remains valid, even though information has been elided _and_ the data has _not_ been resigned.
+Note that the overall hash of the Merkle-tree used by Gordian Envelope remains the same: `7e69d51b`. In addition, the signature remains valid, even though information has been elided _and_ the data has _not_ been signed again.
 
-Anyone inside of Carmen's company who can see the complete CryptFinger results will know that this response is the same as a response that they have that contains the same hash, and that there's no need to determine is one is newer than the other!
+Anyone inside of Carmen's company who can see the complete CryptFinger results will know that it matches this external result because it contains the same hash. As a result, there's no need to determine is one is newer than the other!
 
 ### #5: Carmen Makes CryptFinger Provable (Inclusion Proof)
 
 > _Problem Solved:_ Carmen wants to make her aliases verifiable.
 
-Carmen does not want to publish info on her aliases such as `carmen@blockchaincommons.com` because doing so would just increase the amount of spam that she receives at those accounts. However, she does want to make those aliases verifiable. If someone wants to know if `carmen@blockchaincommons.com` is also `carmen@cryptfinger.com` she wants to allow them to verify that in an easily automatable way that doesn't require her to do anything. Fortunately, this is trivial given the CryptFinger structure that she has created.
+Carmen does not want to publish info on her aliases, such as `carmen@blockchaincommons.com`, because doing so would just increase the amount of spam that she receives at those accounts. However, she does want to make those aliases verifiable. If someone wants to know if `carmen@blockchaincommons.com` is also `carmen@cryptfinger.com` she wants to allow them to verify that in an easily automatable way that doesn't require her to do anything. Fortunately, this is trivial given the CryptFinger structure that she has created.
 
-All that Carmen needs to do is reveal the structure of aliases. Once she has, anyone can create an assertion for `alias anyaddress@anysite`, properly lower casing the address per Carmen's specification.
+All that Carmen needs to do is reveal how aliases are stored within her WebFinger structure. Once she has, anyone can create an assertion for `alias anyaddress@anysite`, properly lower casing the address per Carmen's specification.
 ```
 "alias": "carmen@blockchaincommons.com"
 ```
@@ -1640,10 +1642,9 @@ graph LR
 ```
 Once they've done so, they can compare the hash of the assertion (`ba480823`) to the `ELIDED` assertions in Carmen's CryptFinger. They'll discover that one of the `ELIDED` assertions hashes to `ba480823`. This verifies their knowledge of Carmen's alias without anyone ever publishing it!
 
-Keep in mind, this [selective correlation](https://github.com/WebOfTrustInfo/rwot11-the-hague/blob/master/draft-documents/selective-correlation.md) should always be a choice. Carmen chose to make her information correlatable to people who already knew it (or at the least were willing to search for the information) by publishing the format of her assertion and by not making any attempts to hide that correlation.
+Keep in mind, this sort of [selective correlation](https://github.com/WebOfTrustInfo/rwot11-the-hague/blob/master/draft-documents/selective-correlation.md) should always be a choice. Carmen chose to make her information correlatable to people who already knew it (or at the least were willing to search for the information) by publishing the format of her assertion and by not making any attempts to hide that correlation.
 
-If Carmen instead wanted to block correlation, for example if she _didn't_ want people to be able to guess her phone number, which they could theoretically do by going through every phone number in America (or maybe just in her local area), she could easily _select_ to avoid that _correlation_ by adding salt to an assertion, as in the ["Sam is Salty about Correlation" use case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#2-sam-is-salty-about-compliance-non-correlation). Other methodologies are also possible, such as restructuring data into bundles so that singular hashes do not refer to singular assertions without the revelation of additional data, an example of which is provided in the ["Paul Proves Proficiency with Improved Privacy" use case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#6-paul-proves-proficiency-with-improved-privacy-herd-privacy-with-non-correlation).
-data can be entirely elided so that it's only visible to queries if someone provides a hash and a proof that allows them to verify the data
+If Carmen instead wanted to block correlation, for example if she _didn't_ want people to be able to guess her phone number, which they could theoretically do if they knew the data format by going through every phone number in America (or maybe just in her local area), she could easily _select_ to avoid that _correlation_ by adding salt to an assertion, as in the ["Sam is Salty about Correlation" use case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md#2-sam-is-salty-about-compliance-non-correlation). Other methodologies are also possible, such as restructuring data into bundles so that singular hashes do not refer to singular assertions without the revelation of additional data, an example of which is provided in the ["Paul Proves Proficiency with Improved Privacy" use case](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#6-paul-proves-proficiency-with-improved-privacy-herd-privacy-with-non-correlation).
 
 ### #6: Carmen Makes CryptFinger Progressive (Progressive Trust)
 
