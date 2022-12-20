@@ -1580,7 +1580,7 @@ Ultimately, Carmen decides that the public should only see the most minimal vers
         "carmen@cryptfinger.com" [
             "cid": "ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfmynylnecwldpapafskphsgwfgmdgwmusthlzecfltiosskorers"
             "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
-            ELIDED (6)
+            ELIDED (8)
         ]
     } [
         "verifierInfo": "cryptfinger.com" [
@@ -1594,11 +1594,11 @@ Ultimately, Carmen decides that the public should only see the most minimal vers
 ```
 ```mermaid
 graph LR
-    1(("7e69d51b<br/>NODE"))
-    2[/"70e3d59b<br/>WRAPPED"\]
-    3(("fce50527<br/>NODE"))
-    4[/"2db1de5d<br/>WRAPPED"\]
-    5(("f5bea12d<br/>NODE"))
+    1(("0fdbc99e<br/>NODE"))
+    2[/"e5cfa3bc<br/>WRAPPED"\]
+    3(("b9833f36<br/>NODE"))
+    4[/"db8ea56e<br/>WRAPPED"\]
+    5(("5c6ec4a2<br/>NODE"))
     6["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
     7{{"0595bb3a<br/>ELIDED"}}
     8{{"152f509c<br/>ELIDED"}}
@@ -1612,19 +1612,21 @@ graph LR
     16["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
     17{{"aff1bb37<br/>ELIDED"}}
     18{{"ba480823<br/>ELIDED"}}
-    19(["093f17ab<br/>ASSERTION"])
-    20["7e84d1a9<br/>#quot;verifierInfo#quot;"]
-    21(("7b64b5b2<br/>NODE"))
-    22["7067ea88<br/>#quot;cryptfinger.com#quot;"]
-    23(["221b8c49<br/>ASSERTION"])
-    24["29c0cd61<br/>#quot;pubkeyURL#quot;"]
-    25["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
-    26(["4001d133<br/>ASSERTION"])
-    27["fb07d301<br/>#quot;timeStamp#quot;"]
-    28["fd5a507f<br/>#quot;1671062936#quot;"]
-    29(["668bb32b<br/>ASSERTION"])
-    30[/"d59f8c0f<br/>verifiedBy"/]
-    31["50bb6a91<br/>Signature"]
+    19{{"c1a9c8a1<br/>ELIDED"}}
+    20{{"fa6f4cc6<br/>ELIDED"}}
+    21(["093f17ab<br/>ASSERTION"])
+    22["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    23(("7b64b5b2<br/>NODE"))
+    24["7067ea88<br/>#quot;cryptfinger.com#quot;"]
+    25(["221b8c49<br/>ASSERTION"])
+    26["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    27["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
+    28(["4001d133<br/>ASSERTION"])
+    29["fb07d301<br/>#quot;timeStamp#quot;"]
+    30["fd5a507f<br/>#quot;1671062936#quot;"]
+    31(["be666d13<br/>ASSERTION"])
+    32[/"d59f8c0f<br/>verifiedBy"/]
+    33["67d8c52d<br/>Signature"]
     1 -->|subj| 2
     2 -->|subj| 3
     3 -->|subj| 4
@@ -1642,19 +1644,21 @@ graph LR
     14 -->|obj| 16
     5 --> 17
     5 --> 18
-    3 --> 19
-    19 -->|pred| 20
-    19 -->|obj| 21
-    21 -->|subj| 22
-    21 --> 23
-    23 -->|pred| 24
-    23 -->|obj| 25
-    21 --> 26
-    26 -->|pred| 27
-    26 -->|obj| 28
-    1 --> 29
-    29 -->|pred| 30
-    29 -->|obj| 31
+    5 --> 19
+    5 --> 20
+    3 --> 21
+    21 -->|pred| 22
+    21 -->|obj| 23
+    23 -->|subj| 24
+    23 --> 25
+    25 -->|pred| 26
+    25 -->|obj| 27
+    23 --> 28
+    28 -->|pred| 29
+    28 -->|obj| 30
+    1 --> 31
+    31 -->|pred| 32
+    31 -->|obj| 33
     style 1 stroke:red,stroke-width:3.0px
     style 2 stroke:red,stroke-width:3.0px
     style 3 stroke:red,stroke-width:3.0px
@@ -1673,19 +1677,21 @@ graph LR
     style 16 stroke:#55f,stroke-width:3.0px
     style 17 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
     style 18 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
-    style 19 stroke:red,stroke-width:3.0px
-    style 20 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 20 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
     style 21 stroke:red,stroke-width:3.0px
     style 22 stroke:#55f,stroke-width:3.0px
     style 23 stroke:red,stroke-width:3.0px
     style 24 stroke:#55f,stroke-width:3.0px
-    style 25 stroke:#55f,stroke-width:3.0px
-    style 26 stroke:red,stroke-width:3.0px
+    style 25 stroke:red,stroke-width:3.0px
+    style 26 stroke:#55f,stroke-width:3.0px
     style 27 stroke:#55f,stroke-width:3.0px
-    style 28 stroke:#55f,stroke-width:3.0px
-    style 29 stroke:red,stroke-width:3.0px
+    style 28 stroke:red,stroke-width:3.0px
+    style 29 stroke:#55f,stroke-width:3.0px
     style 30 stroke:#55f,stroke-width:3.0px
-    style 31 stroke:#55f,stroke-width:3.0px
+    style 31 stroke:red,stroke-width:3.0px
+    style 32 stroke:#55f,stroke-width:3.0px
+    style 33 stroke:#55f,stroke-width:3.0px
     linkStyle 0 stroke:red,stroke-width:2.0px
     linkStyle 1 stroke:red,stroke-width:2.0px
     linkStyle 2 stroke:red,stroke-width:2.0px
@@ -1704,20 +1710,22 @@ graph LR
     linkStyle 15 stroke-width:2.0px
     linkStyle 16 stroke-width:2.0px
     linkStyle 17 stroke-width:2.0px
-    linkStyle 18 stroke:green,stroke-width:2.0px
-    linkStyle 19 stroke:#55f,stroke-width:2.0px
-    linkStyle 20 stroke:red,stroke-width:2.0px
-    linkStyle 21 stroke-width:2.0px
-    linkStyle 22 stroke:green,stroke-width:2.0px
-    linkStyle 23 stroke:#55f,stroke-width:2.0px
-    linkStyle 24 stroke-width:2.0px
-    linkStyle 25 stroke:green,stroke-width:2.0px
-    linkStyle 26 stroke:#55f,stroke-width:2.0px
-    linkStyle 27 stroke-width:2.0px
-    linkStyle 28 stroke:green,stroke-width:2.0px
-    linkStyle 29 stroke:#55f,stroke-width:2.0px
+    linkStyle 18 stroke-width:2.0px
+    linkStyle 19 stroke-width:2.0px
+    linkStyle 20 stroke:green,stroke-width:2.0px
+    linkStyle 21 stroke:#55f,stroke-width:2.0px
+    linkStyle 22 stroke:red,stroke-width:2.0px
+    linkStyle 23 stroke-width:2.0px
+    linkStyle 24 stroke:green,stroke-width:2.0px
+    linkStyle 25 stroke:#55f,stroke-width:2.0px
+    linkStyle 26 stroke-width:2.0px
+    linkStyle 27 stroke:green,stroke-width:2.0px
+    linkStyle 28 stroke:#55f,stroke-width:2.0px
+    linkStyle 29 stroke-width:2.0px
+    linkStyle 30 stroke:green,stroke-width:2.0px
+    linkStyle 31 stroke:#55f,stroke-width:2.0px
 ```
-Note that the overall hash of the Merkle-tree used by Gordian Envelope remains the same: `7e69d51b`. In addition, the signature remains valid, even though information has been elided _and_ the data has _not_ been signed again.
+Note that the overall hash of the Merkle-tree used by Gordian Envelope remains the same: `0fdbc99e`. In addition, the signature remains valid, even though information has been elided _and_ the data has _not_ been signed again.
 
 Anyone inside of Carmen's company who can see the complete CryptFinger results will know that it matches this external result because it contains the same hash. As a result, there's no need to determine is one is newer than the other!
 
