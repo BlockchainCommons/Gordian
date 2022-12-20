@@ -15,7 +15,7 @@
 
 ## Part One: Public CryptFinger
 
-This first set of use cases lays out entirely public use cases of Gordian Envelope for data distribution, where everything is seen by all parties. It includes: how to create basic (structured) information, how to make that data verifiable, and how to timestamp that data.
+This first set of use cases lays out Gordian Envelope use cases for public data distribution, where everything is seen by all parties. It includes: how to create basic (structured) information, how to make that data verifiable, and how to timestamp that data.
 
 ### #1: Carmen Makes Basic Info Available (Structured Data)
 
@@ -23,9 +23,10 @@ This first set of use cases lays out entirely public use cases of Gordian Envelo
 
 Carmen has used the internet long enough that she used to `finger` internet users to find basic information about them. Now she uses [WebFinger](https://www.rfc-editor.org/rfc/rfc7033) for even more details. However, she wants to be able to release her information in a more modular, privacy-preserving way. Thus, she begins to design "CryptFinger".
 
-The foundational design of CryptFinger isn't that different from WebFinger. It will allow her to reveal data about a user in a structured way. The benefits of using CryptFinger over WebFinger will come as she begins to use privacy-preserving techniques of authentication, elision, and proofs.
+When a user wants to find out information about `carmen@cryptfinger.com` they contact the `cryptfinger.com` cryptfinger server and request information about her.
 
-When a user wants to find out information about `carmen@cryptfinger.com` they contact the `cryptfinger.com` cryptfinger server and request information about here:
+The foundational design of CryptFinger isn't that different from WebFinger. It will allow a user to reveal their data in a structured way. The benefits of using CryptFinger over WebFinger will come as Carmen begins to use privacy-preserving techniques of authentication, elision, and proofs. But in the meantime, here's what a foundational CryptFinger response might look like:
+
 ```
 "carmen@cryptfinger.com" [
     "alias": "admin@cryptfinger.com"
@@ -333,13 +334,13 @@ More innovations will come as Carmen adds on privacy-preserving features from Go
 
 > _Problem Solved:_ Carmen wants to make user information verifiable.
 
-Carmen's first expansion of her CryptFinger design is to make it verifiable. This will have some limited utility when data is initially accessed. Users can check the signature of the CryptFinger results against a public key, and verify that it matches the public key. If the public key is hosted on the same URL as the CryptFinger data, then it proves that the CryptFinger app hasn't been compromised. If it's hosted on a Public-Key Infrastructure (PKI) server, it may offer different assurances. (For any validation of this sort, the validator is the one responsible for figuring out how strong any assurances are and what the implicit dangers are.)
+Carmen's first expansion of her CryptFinger design is to make it verifiable. This will have some limited utility when data is initially accessed. Users can check the signature of the CryptFinger results against a public key, and verify that the signature matches that public key. If the public key is hosted on the same URL as the CryptFinger data, then it proves that the CryptFinger app hasn't been compromised. If it's hosted on a Public-Key Infrastructure (PKI) server, it may offer assurances about thes server itself. (For any validation of this sort, the validator is the one responsible for figuring out how strong any assurances are and what the implicit dangers are.)
 
-However, making CryptFinger verifiable offers a more powerful expansion: the Envelopes containing CryptFinger results can now be passed around, and those Envelopes can be validated at any time by any holder. Any changes will show up in the Envelope no longer being verifiable. An Envelope could even be verified far in the future if there's some remaining proof of ht epublic key that was used to sign the Envelope!
+However, making CryptFinger verifiable offers a more powerful expansion: the Envelopes containing CryptFinger results can now be passed around, and those Envelopes can be validated at any time by any holder. An Envelope could even be verified far in the future if there's some remaining proof of the public key that was used to sign the Envelope! If a third-party ever tries to make changes to a CryptFinger Envelope's content, the Envelope will no longer be verifiable! 
 
-In order to add authentication to CryptFinger results, Carmen wraps it, adds validation data, then wraps that, and signs it. The result is a signature that applies to the validation data and the original CryptFinger data alike.
+In order to add authentication to CryptFinger results, Carmen wraps them, adds verifier data, then wraps that and signs it. The result is a signature that applies to the verifier data and the original CryptFinger data alike.
 
-Here's Carmen's CryptFinger results with the validation info:
+Here's Carmen's CryptFinger results with the verifier info:
 ```
 {
     "carmen@cryptfinger.com" [
@@ -1054,9 +1055,9 @@ graph LR
 
 ### #3: Carmen Add Chronology to CryptFinger (Timestamp)
 
-> _Problem Solved:_ Carmen wants to be able to be able to verify CryptFinger results in time.
+> _Problem Solved:_ Carmen wants to make the release time of CryptFinger results verifiable as well.
 
-Because Gordian Envelopes can be saved, stored, and resent, dating them suddenly becomes an issue. It's vital to know whether CryptFinger results are relatively new or grossly out of date. Fortunately, adding verifiable dates is very simple as long as authentication is already being used. A date just needs to be added to `verifierInfo`. Since that information is already signed, the date can be trusted — or at least it can be trusted to the level that a validator trusts the verifier.
+Because Gordian Envelopes can be saved, stored, and resent, dating them becomes an issue. It's vital to know whether CryptFinger results are relatively new or grossly out of date. Fortunately, adding verifiable dates is very simple as long as authentication is already being used. A date just needs to be included in `verifierInfo`. Since that information is afterward signed, the date can be trusted — or at least it can be trusted to the level that a validator trusts the verifier.
 ```
 {
     {
@@ -1437,16 +1438,20 @@ graph LR
     linkStyle 82 stroke:green,stroke-width:2.0px
     linkStyle 83 stroke:#55f,stroke-width:2.0px
 ```
-If a simpler method of timestamping was required, possibly without any internet access, then a simple incrementing number could be used: each time the CryptFinger data was updated, the value would go up by one. This wouldn't allow a CryptFinger to be dated, but it would allow for the newest result from any pair of results to always be determined.
+This is just one option for timestamping Gordian Envelopes.
 
-If a less-centralized method of timestamping was required, that didn't depend on the verification of a single party, then a result could be stored on a blockchain with strong write-only properties. The identifier and the hash of the signed Envelope could be stored together (e.g. "carmen@cryptfinger.com: 7e69d51b"). For even more assurance, the signed envelope could be wrapped, and a pointer to the block entry could be added to that wrapped envelope as a new assertion.
-The result would like something like this:
+If a simpler method of timestamping was required, possibly without any internet access, then an incrementing number could be included: each time the CryptFinger data was updated, the value would go up by one. This wouldn't allow a CryptFinger to be dated, but it would allow for the determination of the newest result from any pair of results.
+
+If a less-centralized method of timestamping was required, that didn't depend on the verification of a single party, then a result could be stored on a blockchain with strong write-only properties. The identifier and the hash of the signed Envelope could be stored together (e.g. "carmen@cryptfinger.com: 7e69d51b"), allowing the block's timestamp to be absolutely tied to a specific version of an Envelope. 
+
+To make it easier to lookup the timestamp, the signed envelope could be wrapped, and a pointer to the block entry could be added to that wrapped envelope as a new assertion. In pseudo-code, the result would like something like this:
 
 ```
 "SIGNED ENVELOPE" [
     "blockchainTimestamp": "https://www.blockchainenvelopetimestamp.com/198123"
 ]
 ```
+That new version of the Envelope could even be signed by the original Verifier!
 
 ## Part Two: Private CryptFinger
 
