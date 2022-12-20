@@ -1546,7 +1546,7 @@ This is just one option for timestamping Gordian Envelopes.
 
 If a simpler method of timestamping was required, possibly without any internet access, then an incrementing number could be included: each time the CryptFinger data was updated, the value would go up by one. This wouldn't allow a CryptFinger to be dated, but it would allow for the determination of the newest result from any pair of results.
 
-If a less-centralized method of timestamping was required, that didn't depend on the verification of a single party, then a result could be stored on a blockchain with strong write-only properties. The identifier and the hash of the signed Envelope could be stored together (e.g. "carmen@cryptfinger.com: 7e69d51b"), allowing the block's timestamp to be absolutely tied to a specific version of an Envelope. 
+If a less-centralized method of timestamping was required, that didn't depend on the verification of a single party, then a result could be stored on a blockchain with strong write-only properties. The identifier and the hash of the signed Envelope could be stored together (e.g. "carmen@cryptfinger.com: 0fdbc99e"), allowing the block's timestamp to be absolutely tied to a specific version of an Envelope. 
 
 To make it easier to lookup the timestamp, the signed envelope could be wrapped, and a pointer to the block entry could be added to that wrapped envelope as a new assertion. In pseudo-code, the result would like something like this:
 
