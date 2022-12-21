@@ -2037,7 +2037,7 @@ graph LR
     linkStyle 32 stroke:green,stroke-width:2.0px
     linkStyle 33 stroke:#55f,stroke-width:2.0px
 ```
-Note that the overall hash of the Merkle-tree used by Gordian Envelope remains the same: `0fdbc99e`. In addition, the signature remains valid, even though information has been elided _and_ the data has _not_ been signed again.
+Note that the overall hash of the Merkle-tree used by Gordian Envelope remains the same: `3c1cc7e5`. In addition, the signature remains valid, even though information has been elided _and_ the data has _not_ been signed again.
 
 Anyone inside of Carmen's company who can see the complete CryptFinger results will know that it matches this external result because it contains the same hash. As a result, there's no need to determine is one is newer than the other!
 
@@ -2076,7 +2076,7 @@ If Carmen instead wanted to block correlation, for example if she _didn't_ want 
 
 Though Carmen is initially limiting CryptFinger information released outside of her company, she wants to be able to progressively release additional information as she gains trust with external users. This model of [progressive trust](https://www.blockchaincommons.com/musings/musings-progressive-trust/) is how trust works in the real-world, when we meet people, introduce ourselves, and slowly give them more information about ourselves. It makes sense for CryptFinger to follow that same methodology.
 
-This could be done by hand, based on growing connection to another person. Less elided Envelopes would be released over time. Carmen could introduce her publications quite early, as they're pretty public information. She might next prioritize her aliases and introduce them as someone else introduces themselves. She might save her phone number to only be given to someone who she's created a real connection with, and perhaps even met in person. The other user can meanwhile continue to verify that the information all links to Carmen, as any new Gordian Envelopes will match the signatures and hashes of existing Gordian Envelopes (presuming they're just revelations of a previously elided Envelope).
+This could be done by hand, based on growing connection to another person. Less elided Envelopes would be released over time. Carmen could introduce her publications quite early, as they're pretty public information. She might next prioritize her aliases and introduce them as someone else introduces themselves. The resume link might only go to people she's affirmed are potential employers. She might save her phone number to only be given to someone who she's created a real connection with, and perhaps even met in person. The other user can meanwhile continue to verify that the information all links to Carmen, as any new Gordian Envelopes will match the signatures and hashes of existing Gordian Envelopes (presuming they're just revelations of a previously elided Envelope).
 
 However, algorithmic progressive-trust designs could be even more powerful, as they could allow Carmen to automatically reveal more information from her CryptFinger without having to make a decision at every stage. One methodology might be for a user to use an inclusion proof to reveal that they know something about Carmen, and then to receive additional data related to that revelation. This would be easy to automate, as a configuration file could list what inclusions-proofs would lead to what additional revelations.
 
@@ -2111,7 +2111,7 @@ The assertion is visible as the hash of one of the elisions: `c1a9c8a1`. Seeing 
             ]
             "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
             isA: "programmer"
-            ELIDED (6)
+            ELIDED (8)
         ]
     } [
         "verifierInfo": "cryptfinger.com" [
@@ -2125,11 +2125,11 @@ The assertion is visible as the hash of one of the elisions: `c1a9c8a1`. Seeing 
 ```
 ```mermaid
 graph LR
-    1(("0fdbc99e<br/>NODE"))
-    2[/"e5cfa3bc<br/>WRAPPED"\]
-    3(("b9833f36<br/>NODE"))
-    4[/"db8ea56e<br/>WRAPPED"\]
-    5(("5c6ec4a2<br/>NODE"))
+    1(("3c1cc7e5<br/>NODE"))
+    2[/"4facf50f<br/>WRAPPED"\]
+    3(("4a6d0203<br/>NODE"))
+    4[/"59b76ff6<br/>WRAPPED"\]
+    5(("8ebf197c<br/>NODE"))
     6["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
     7{{"0595bb3a<br/>ELIDED"}}
     8{{"152f509c<br/>ELIDED"}}
@@ -2150,31 +2150,33 @@ graph LR
     23(["da22ca9e<br/>ASSERTION"])
     24["7fce2d08<br/>#quot;url#quot;"]
     25["fda96fd7<br/>#quot;https://blockchaincommons.com/design-not…#quot;"]
-    26(["58711216<br/>ASSERTION"])
-    27["97dc30c5<br/>#quot;cid#quot;"]
-    28["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
-    29(["77c587c5<br/>ASSERTION"])
-    30["d52596f8<br/>#quot;pubkey#quot;"]
-    31["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
-    32{{"aff1bb37<br/>ELIDED"}}
-    33{{"ba480823<br/>ELIDED"}}
-    34(["c1a9c8a1<br/>ASSERTION"])
-    35[/"8982354d<br/>isA"/]
-    36["73fca274<br/>#quot;programmer#quot;"]
-    37{{"fa6f4cc6<br/>ELIDED"}}
-    38(["093f17ab<br/>ASSERTION"])
-    39["7e84d1a9<br/>#quot;verifierInfo#quot;"]
-    40(("7b64b5b2<br/>NODE"))
-    41["7067ea88<br/>#quot;cryptfinger.com#quot;"]
-    42(["221b8c49<br/>ASSERTION"])
-    43["29c0cd61<br/>#quot;pubkeyURL#quot;"]
-    44["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
-    45(["4001d133<br/>ASSERTION"])
-    46["fb07d301<br/>#quot;timeStamp#quot;"]
-    47["fd5a507f<br/>#quot;1671062936#quot;"]
-    48(["be666d13<br/>ASSERTION"])
-    49[/"d59f8c0f<br/>verifiedBy"/]
-    50["67d8c52d<br/>Signature"]
+    26{{"46b8918d<br/>ELIDED"}}
+    27(["58711216<br/>ASSERTION"])
+    28["97dc30c5<br/>#quot;cid#quot;"]
+    29["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
+    30(["77c587c5<br/>ASSERTION"])
+    31["d52596f8<br/>#quot;pubkey#quot;"]
+    32["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
+    33{{"aff1bb37<br/>ELIDED"}}
+    34{{"ba480823<br/>ELIDED"}}
+    35(["c1a9c8a1<br/>ASSERTION"])
+    36[/"8982354d<br/>isA"/]
+    37["73fca274<br/>#quot;programmer#quot;"]
+    38{{"f78f6b55<br/>ELIDED"}}
+    39{{"fa6f4cc6<br/>ELIDED"}}
+    40(["093f17ab<br/>ASSERTION"])
+    41["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    42(("7b64b5b2<br/>NODE"))
+    43["7067ea88<br/>#quot;cryptfinger.com#quot;"]
+    44(["221b8c49<br/>ASSERTION"])
+    45["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    46["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
+    47(["4001d133<br/>ASSERTION"])
+    48["fb07d301<br/>#quot;timeStamp#quot;"]
+    49["fd5a507f<br/>#quot;1671062936#quot;"]
+    50(["36371f98<br/>ASSERTION"])
+    51[/"d59f8c0f<br/>verifiedBy"/]
+    52["ce83e4c5<br/>Signature"]
     1 -->|subj| 2
     2 -->|subj| 3
     3 -->|subj| 4
@@ -2200,30 +2202,32 @@ graph LR
     23 -->|pred| 24
     23 -->|obj| 25
     5 --> 26
-    26 -->|pred| 27
-    26 -->|obj| 28
-    5 --> 29
-    29 -->|pred| 30
-    29 -->|obj| 31
-    5 --> 32
+    5 --> 27
+    27 -->|pred| 28
+    27 -->|obj| 29
+    5 --> 30
+    30 -->|pred| 31
+    30 -->|obj| 32
     5 --> 33
     5 --> 34
-    34 -->|pred| 35
-    34 -->|obj| 36
-    5 --> 37
-    3 --> 38
-    38 -->|pred| 39
-    38 -->|obj| 40
-    40 -->|subj| 41
-    40 --> 42
-    42 -->|pred| 43
-    42 -->|obj| 44
-    40 --> 45
-    45 -->|pred| 46
-    45 -->|obj| 47
-    1 --> 48
-    48 -->|pred| 49
-    48 -->|obj| 50
+    5 --> 35
+    35 -->|pred| 36
+    35 -->|obj| 37
+    5 --> 38
+    5 --> 39
+    3 --> 40
+    40 -->|pred| 41
+    40 -->|obj| 42
+    42 -->|subj| 43
+    42 --> 44
+    44 -->|pred| 45
+    44 -->|obj| 46
+    42 --> 47
+    47 -->|pred| 48
+    47 -->|obj| 49
+    1 --> 50
+    50 -->|pred| 51
+    50 -->|obj| 52
     style 1 stroke:red,stroke-width:3.0px
     style 2 stroke:red,stroke-width:3.0px
     style 3 stroke:red,stroke-width:3.0px
@@ -2249,31 +2253,33 @@ graph LR
     style 23 stroke:red,stroke-width:3.0px
     style 24 stroke:#55f,stroke-width:3.0px
     style 25 stroke:#55f,stroke-width:3.0px
-    style 26 stroke:red,stroke-width:3.0px
-    style 27 stroke:#55f,stroke-width:3.0px
+    style 26 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 27 stroke:red,stroke-width:3.0px
     style 28 stroke:#55f,stroke-width:3.0px
-    style 29 stroke:red,stroke-width:3.0px
-    style 30 stroke:#55f,stroke-width:3.0px
+    style 29 stroke:#55f,stroke-width:3.0px
+    style 30 stroke:red,stroke-width:3.0px
     style 31 stroke:#55f,stroke-width:3.0px
-    style 32 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 32 stroke:#55f,stroke-width:3.0px
     style 33 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
-    style 34 stroke:red,stroke-width:3.0px
-    style 35 stroke:#55f,stroke-width:3.0px
+    style 34 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 35 stroke:red,stroke-width:3.0px
     style 36 stroke:#55f,stroke-width:3.0px
-    style 37 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
-    style 38 stroke:red,stroke-width:3.0px
-    style 39 stroke:#55f,stroke-width:3.0px
+    style 37 stroke:#55f,stroke-width:3.0px
+    style 38 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 39 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
     style 40 stroke:red,stroke-width:3.0px
     style 41 stroke:#55f,stroke-width:3.0px
     style 42 stroke:red,stroke-width:3.0px
     style 43 stroke:#55f,stroke-width:3.0px
-    style 44 stroke:#55f,stroke-width:3.0px
-    style 45 stroke:red,stroke-width:3.0px
+    style 44 stroke:red,stroke-width:3.0px
+    style 45 stroke:#55f,stroke-width:3.0px
     style 46 stroke:#55f,stroke-width:3.0px
-    style 47 stroke:#55f,stroke-width:3.0px
-    style 48 stroke:red,stroke-width:3.0px
+    style 47 stroke:red,stroke-width:3.0px
+    style 48 stroke:#55f,stroke-width:3.0px
     style 49 stroke:#55f,stroke-width:3.0px
-    style 50 stroke:#55f,stroke-width:3.0px
+    style 50 stroke:red,stroke-width:3.0px
+    style 51 stroke:#55f,stroke-width:3.0px
+    style 52 stroke:#55f,stroke-width:3.0px
     linkStyle 0 stroke:red,stroke-width:2.0px
     linkStyle 1 stroke:red,stroke-width:2.0px
     linkStyle 2 stroke:red,stroke-width:2.0px
@@ -2299,30 +2305,32 @@ graph LR
     linkStyle 22 stroke:green,stroke-width:2.0px
     linkStyle 23 stroke:#55f,stroke-width:2.0px
     linkStyle 24 stroke-width:2.0px
-    linkStyle 25 stroke:green,stroke-width:2.0px
-    linkStyle 26 stroke:#55f,stroke-width:2.0px
-    linkStyle 27 stroke-width:2.0px
-    linkStyle 28 stroke:green,stroke-width:2.0px
-    linkStyle 29 stroke:#55f,stroke-width:2.0px
-    linkStyle 30 stroke-width:2.0px
+    linkStyle 25 stroke-width:2.0px
+    linkStyle 26 stroke:green,stroke-width:2.0px
+    linkStyle 27 stroke:#55f,stroke-width:2.0px
+    linkStyle 28 stroke-width:2.0px
+    linkStyle 29 stroke:green,stroke-width:2.0px
+    linkStyle 30 stroke:#55f,stroke-width:2.0px
     linkStyle 31 stroke-width:2.0px
     linkStyle 32 stroke-width:2.0px
-    linkStyle 33 stroke:green,stroke-width:2.0px
-    linkStyle 34 stroke:#55f,stroke-width:2.0px
-    linkStyle 35 stroke-width:2.0px
+    linkStyle 33 stroke-width:2.0px
+    linkStyle 34 stroke:green,stroke-width:2.0px
+    linkStyle 35 stroke:#55f,stroke-width:2.0px
     linkStyle 36 stroke-width:2.0px
-    linkStyle 37 stroke:green,stroke-width:2.0px
-    linkStyle 38 stroke:#55f,stroke-width:2.0px
-    linkStyle 39 stroke:red,stroke-width:2.0px
-    linkStyle 40 stroke-width:2.0px
-    linkStyle 41 stroke:green,stroke-width:2.0px
-    linkStyle 42 stroke:#55f,stroke-width:2.0px
-    linkStyle 43 stroke-width:2.0px
-    linkStyle 44 stroke:green,stroke-width:2.0px
-    linkStyle 45 stroke:#55f,stroke-width:2.0px
-    linkStyle 46 stroke-width:2.0px
-    linkStyle 47 stroke:green,stroke-width:2.0px
-    linkStyle 48 stroke:#55f,stroke-width:2.0px
+    linkStyle 37 stroke-width:2.0px
+    linkStyle 38 stroke-width:2.0px
+    linkStyle 39 stroke:green,stroke-width:2.0px
+    linkStyle 40 stroke:#55f,stroke-width:2.0px
+    linkStyle 41 stroke:red,stroke-width:2.0px
+    linkStyle 42 stroke-width:2.0px
+    linkStyle 43 stroke:green,stroke-width:2.0px
+    linkStyle 44 stroke:#55f,stroke-width:2.0px
+    linkStyle 45 stroke-width:2.0px
+    linkStyle 46 stroke:green,stroke-width:2.0px
+    linkStyle 47 stroke:#55f,stroke-width:2.0px
+    linkStyle 48 stroke-width:2.0px
+    linkStyle 49 stroke:green,stroke-width:2.0px
+    linkStyle 50 stroke:#55f,stroke-width:2.0px
 ```
 Revelation that Carmen `isA` author could similarly reveal information on her book, while revelation of Carmen's phone number could be enough to reveal everything else! The exact design of progressive trust can vary from sitaution to situation, but the automated back-and-forth of increasing information exchange should always stay the same.
 
