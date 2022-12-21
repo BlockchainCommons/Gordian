@@ -30,13 +30,16 @@ Carmen has used the internet long enough that she used to `finger` internet user
 
 When a user wants to find out information about `carmen@cryptfinger.com` they contact the `cryptfinger.com` cryptfinger server and request information about her.
 
-The foundational design of CryptFinger isn't that different from WebFinger. It will allow a user to reveal their data in a structured way. The benefits of using CryptFinger over WebFinger will come as Carmen begins to use privacy-preserving techniques of authentication, elision, and proofs. But in the meantime, here's what a foundational CryptFinger response might look like:
+The foundational design of CryptFinger isn't that different from WebFinger. It will allow a user to reveal their data in a structured way, including aliases of various sorts, links, keys, and other information. The benefits of using CryptFinger over WebFinger will come as Carmen begins to use privacy-preserving techniques of authentication, elision, and proofs. But in the meantime, here's what a foundational CryptFinger response might look like:
 
 ```
 "carmen@cryptfinger.com" [
     "alias": "admin@cryptfinger.com"
     "alias": "carmen@blockchaincommons.com"
     "alias": "carmen@mycarmentsite.com"
+    "alias": "@carmen@mycarmentsite.com" [
+        "mastodon": "https://mastodon.social/@CarmenT"
+    ]
     "cid": "ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfmynylnecwldpapafskphsgwfgmdgwmusthlzecfltiosskorers"
     "hasPublication": "Cryptfinger Design Notes" [
         "pubdate": "2022-10-11"
@@ -56,6 +59,10 @@ The foundational design of CryptFinger isn't that different from WebFinger. It w
         "pubDate": "2022-01-17"
         isA: "non-fiction book"
     ]
+    "link": "https://www.mycarmentsite.com/docs/resume2022.html" [
+        "rel": "resume"
+        "type": "text/html"
+    ]
     "phoneNumber": "510-555-0143"
     "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
     isA: "programmer"
@@ -64,7 +71,7 @@ The foundational design of CryptFinger isn't that different from WebFinger. It w
 ```
 ```mermaid
 graph LR
-    1(("5c6ec4a2<br/>NODE"))
+    1(("8ebf197c<br/>NODE"))
     2["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
     3(["0595bb3a<br/>ASSERTION"])
     4["4e7cdd69<br/>#quot;alias#quot;"]
@@ -120,24 +127,41 @@ graph LR
     54(["da22ca9e<br/>ASSERTION"])
     55["7fce2d08<br/>#quot;url#quot;"]
     56["fda96fd7<br/>#quot;https://blockchaincommons.com/design-not…#quot;"]
-    57(["58711216<br/>ASSERTION"])
-    58["97dc30c5<br/>#quot;cid#quot;"]
-    59["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
-    60(["77c587c5<br/>ASSERTION"])
-    61["d52596f8<br/>#quot;pubkey#quot;"]
-    62["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
-    63(["aff1bb37<br/>ASSERTION"])
-    64["4e7cdd69<br/>#quot;alias#quot;"]
-    65["3bc0d518<br/>#quot;admin@cryptfinger.com#quot;"]
-    66(["ba480823<br/>ASSERTION"])
-    67["4e7cdd69<br/>#quot;alias#quot;"]
-    68["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
-    69(["c1a9c8a1<br/>ASSERTION"])
-    70[/"8982354d<br/>isA"/]
-    71["73fca274<br/>#quot;programmer#quot;"]
-    72(["fa6f4cc6<br/>ASSERTION"])
-    73[/"8982354d<br/>isA"/]
-    74["7b82b07e<br/>#quot;writer#quot;"]
+    57(["46b8918d<br/>ASSERTION"])
+    58["4e7cdd69<br/>#quot;alias#quot;"]
+    59(("115429bb<br/>NODE"))
+    60["261fc42b<br/>#quot;@carmen@mycarmentsite.com#quot;"]
+    61(["ee5b6f69<br/>ASSERTION"])
+    62["c0276d43<br/>#quot;mastodon#quot;"]
+    63["a2cc6589<br/>#quot;https://mastodon.social/@CarmenT#quot;"]
+    64(["58711216<br/>ASSERTION"])
+    65["97dc30c5<br/>#quot;cid#quot;"]
+    66["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
+    67(["77c587c5<br/>ASSERTION"])
+    68["d52596f8<br/>#quot;pubkey#quot;"]
+    69["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
+    70(["aff1bb37<br/>ASSERTION"])
+    71["4e7cdd69<br/>#quot;alias#quot;"]
+    72["3bc0d518<br/>#quot;admin@cryptfinger.com#quot;"]
+    73(["ba480823<br/>ASSERTION"])
+    74["4e7cdd69<br/>#quot;alias#quot;"]
+    75["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
+    76(["c1a9c8a1<br/>ASSERTION"])
+    77[/"8982354d<br/>isA"/]
+    78["73fca274<br/>#quot;programmer#quot;"]
+    79(["f78f6b55<br/>ASSERTION"])
+    80["63a81883<br/>#quot;link#quot;"]
+    81(("4678aa0e<br/>NODE"))
+    82["2be32270<br/>#quot;https://www.mycarmentsite.com/docs/resum…#quot;"]
+    83(["a3d08cc8<br/>ASSERTION"])
+    84["29e6e5e3<br/>#quot;rel#quot;"]
+    85["f4f47e81<br/>#quot;resume#quot;"]
+    86(["ee227143<br/>ASSERTION"])
+    87["0725fe16<br/>#quot;type#quot;"]
+    88["f79da2a8<br/>#quot;text/html#quot;"]
+    89(["fa6f4cc6<br/>ASSERTION"])
+    90[/"8982354d<br/>isA"/]
+    91["7b82b07e<br/>#quot;writer#quot;"]
     1 -->|subj| 2
     1 --> 3
     3 -->|pred| 4
@@ -196,21 +220,38 @@ graph LR
     1 --> 57
     57 -->|pred| 58
     57 -->|obj| 59
-    1 --> 60
-    60 -->|pred| 61
-    60 -->|obj| 62
-    1 --> 63
-    63 -->|pred| 64
-    63 -->|obj| 65
-    1 --> 66
-    66 -->|pred| 67
-    66 -->|obj| 68
-    1 --> 69
-    69 -->|pred| 70
-    69 -->|obj| 71
-    1 --> 72
-    72 -->|pred| 73
-    72 -->|obj| 74
+    59 -->|subj| 60
+    59 --> 61
+    61 -->|pred| 62
+    61 -->|obj| 63
+    1 --> 64
+    64 -->|pred| 65
+    64 -->|obj| 66
+    1 --> 67
+    67 -->|pred| 68
+    67 -->|obj| 69
+    1 --> 70
+    70 -->|pred| 71
+    70 -->|obj| 72
+    1 --> 73
+    73 -->|pred| 74
+    73 -->|obj| 75
+    1 --> 76
+    76 -->|pred| 77
+    76 -->|obj| 78
+    1 --> 79
+    79 -->|pred| 80
+    79 -->|obj| 81
+    81 -->|subj| 82
+    81 --> 83
+    83 -->|pred| 84
+    83 -->|obj| 85
+    81 --> 86
+    86 -->|pred| 87
+    86 -->|obj| 88
+    1 --> 89
+    89 -->|pred| 90
+    89 -->|obj| 91
     style 1 stroke:red,stroke-width:3.0px
     style 2 stroke:#55f,stroke-width:3.0px
     style 3 stroke:red,stroke-width:3.0px
@@ -269,22 +310,39 @@ graph LR
     style 56 stroke:#55f,stroke-width:3.0px
     style 57 stroke:red,stroke-width:3.0px
     style 58 stroke:#55f,stroke-width:3.0px
-    style 59 stroke:#55f,stroke-width:3.0px
-    style 60 stroke:red,stroke-width:3.0px
-    style 61 stroke:#55f,stroke-width:3.0px
+    style 59 stroke:red,stroke-width:3.0px
+    style 60 stroke:#55f,stroke-width:3.0px
+    style 61 stroke:red,stroke-width:3.0px
     style 62 stroke:#55f,stroke-width:3.0px
-    style 63 stroke:red,stroke-width:3.0px
-    style 64 stroke:#55f,stroke-width:3.0px
+    style 63 stroke:#55f,stroke-width:3.0px
+    style 64 stroke:red,stroke-width:3.0px
     style 65 stroke:#55f,stroke-width:3.0px
-    style 66 stroke:red,stroke-width:3.0px
-    style 67 stroke:#55f,stroke-width:3.0px
+    style 66 stroke:#55f,stroke-width:3.0px
+    style 67 stroke:red,stroke-width:3.0px
     style 68 stroke:#55f,stroke-width:3.0px
-    style 69 stroke:red,stroke-width:3.0px
-    style 70 stroke:#55f,stroke-width:3.0px
+    style 69 stroke:#55f,stroke-width:3.0px
+    style 70 stroke:red,stroke-width:3.0px
     style 71 stroke:#55f,stroke-width:3.0px
-    style 72 stroke:red,stroke-width:3.0px
-    style 73 stroke:#55f,stroke-width:3.0px
+    style 72 stroke:#55f,stroke-width:3.0px
+    style 73 stroke:red,stroke-width:3.0px
     style 74 stroke:#55f,stroke-width:3.0px
+    style 75 stroke:#55f,stroke-width:3.0px
+    style 76 stroke:red,stroke-width:3.0px
+    style 77 stroke:#55f,stroke-width:3.0px
+    style 78 stroke:#55f,stroke-width:3.0px
+    style 79 stroke:red,stroke-width:3.0px
+    style 80 stroke:#55f,stroke-width:3.0px
+    style 81 stroke:red,stroke-width:3.0px
+    style 82 stroke:#55f,stroke-width:3.0px
+    style 83 stroke:red,stroke-width:3.0px
+    style 84 stroke:#55f,stroke-width:3.0px
+    style 85 stroke:#55f,stroke-width:3.0px
+    style 86 stroke:red,stroke-width:3.0px
+    style 87 stroke:#55f,stroke-width:3.0px
+    style 88 stroke:#55f,stroke-width:3.0px
+    style 89 stroke:red,stroke-width:3.0px
+    style 90 stroke:#55f,stroke-width:3.0px
+    style 91 stroke:#55f,stroke-width:3.0px
     linkStyle 0 stroke:red,stroke-width:2.0px
     linkStyle 1 stroke-width:2.0px
     linkStyle 2 stroke:green,stroke-width:2.0px
@@ -343,21 +401,37 @@ graph LR
     linkStyle 55 stroke-width:2.0px
     linkStyle 56 stroke:green,stroke-width:2.0px
     linkStyle 57 stroke:#55f,stroke-width:2.0px
-    linkStyle 58 stroke-width:2.0px
-    linkStyle 59 stroke:green,stroke-width:2.0px
-    linkStyle 60 stroke:#55f,stroke-width:2.0px
-    linkStyle 61 stroke-width:2.0px
-    linkStyle 62 stroke:green,stroke-width:2.0px
-    linkStyle 63 stroke:#55f,stroke-width:2.0px
-    linkStyle 64 stroke-width:2.0px
-    linkStyle 65 stroke:green,stroke-width:2.0px
-    linkStyle 66 stroke:#55f,stroke-width:2.0px
-    linkStyle 67 stroke-width:2.0px
-    linkStyle 68 stroke:green,stroke-width:2.0px
-    linkStyle 69 stroke:#55f,stroke-width:2.0px
-    linkStyle 70 stroke-width:2.0px
-    linkStyle 71 stroke:green,stroke-width:2.0px
-    linkStyle 72 stroke:#55f,stroke-width:2.0px
+    linkStyle 58 stroke:red,stroke-width:2.0px
+    linkStyle 59 stroke-width:2.0px
+    linkStyle 60 stroke:green,stroke-width:2.0px
+    linkStyle 61 stroke:#55f,stroke-width:2.0px
+    linkStyle 62 stroke-width:2.0px
+    linkStyle 63 stroke:green,stroke-width:2.0px
+    linkStyle 64 stroke:#55f,stroke-width:2.0px
+    linkStyle 65 stroke-width:2.0px
+    linkStyle 66 stroke:green,stroke-width:2.0px
+    linkStyle 67 stroke:#55f,stroke-width:2.0px
+    linkStyle 68 stroke-width:2.0px
+    linkStyle 69 stroke:green,stroke-width:2.0px
+    linkStyle 70 stroke:#55f,stroke-width:2.0px
+    linkStyle 71 stroke-width:2.0px
+    linkStyle 72 stroke:green,stroke-width:2.0px
+    linkStyle 73 stroke:#55f,stroke-width:2.0px
+    linkStyle 74 stroke-width:2.0px
+    linkStyle 75 stroke:green,stroke-width:2.0px
+    linkStyle 76 stroke:#55f,stroke-width:2.0px
+    linkStyle 77 stroke-width:2.0px
+    linkStyle 78 stroke:green,stroke-width:2.0px
+    linkStyle 79 stroke:#55f,stroke-width:2.0px
+    linkStyle 80 stroke:red,stroke-width:2.0px
+    linkStyle 81 stroke-width:2.0px
+    linkStyle 82 stroke:green,stroke-width:2.0px
+    linkStyle 83 stroke:#55f,stroke-width:2.0px
+    linkStyle 84 stroke-width:2.0px
+    linkStyle 85 stroke:green,stroke-width:2.0px
+    linkStyle 86 stroke:#55f,stroke-width:2.0px
+    linkStyle 87 stroke-width:2.0px
+    linkStyle 88 stroke:green,stroke-width:2.0px
 ```
 More innovations will come as Carmen adds on privacy-preserving features from Gordian Envelope.
 
@@ -378,6 +452,9 @@ Here's Carmen's CryptFinger results with the verifier info:
         "alias": "admin@cryptfinger.com"
         "alias": "carmen@blockchaincommons.com"
         "alias": "carmen@mycarmentsite.com"
+        "alias": "@carmen@mycarmentsite.com" [
+            "mastodon": "https://mastodon.social/@CarmenT"
+        ]
         "cid": "ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfmynylnecwldpapafskphsgwfgmdgwmusthlzecfltiosskorers"
         "hasPublication": "Cryptfinger Design Notes" [
             "pubdate": "2022-10-11"
@@ -397,6 +474,10 @@ Here's Carmen's CryptFinger results with the verifier info:
             "pubDate": "2022-01-17"
             isA: "non-fiction book"
         ]
+        "link": "https://www.mycarmentsite.com/docs/resume2022.html" [
+            "rel": "resume"
+            "type": "text/html"
+        ]
         "phoneNumber": "510-555-0143"
         "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
         isA: "programmer"
@@ -410,9 +491,9 @@ Here's Carmen's CryptFinger results with the verifier info:
 ```
 ```mermaid
 graph LR
-    1(("a32da170<br/>NODE"))
-    2[/"db8ea56e<br/>WRAPPED"\]
-    3(("5c6ec4a2<br/>NODE"))
+    1(("97b6298b<br/>NODE"))
+    2[/"59b76ff6<br/>WRAPPED"\]
+    3(("8ebf197c<br/>NODE"))
     4["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
     5(["0595bb3a<br/>ASSERTION"])
     6["4e7cdd69<br/>#quot;alias#quot;"]
@@ -468,31 +549,48 @@ graph LR
     56(["da22ca9e<br/>ASSERTION"])
     57["7fce2d08<br/>#quot;url#quot;"]
     58["fda96fd7<br/>#quot;https://blockchaincommons.com/design-not…#quot;"]
-    59(["58711216<br/>ASSERTION"])
-    60["97dc30c5<br/>#quot;cid#quot;"]
-    61["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
-    62(["77c587c5<br/>ASSERTION"])
-    63["d52596f8<br/>#quot;pubkey#quot;"]
-    64["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
-    65(["aff1bb37<br/>ASSERTION"])
-    66["4e7cdd69<br/>#quot;alias#quot;"]
-    67["3bc0d518<br/>#quot;admin@cryptfinger.com#quot;"]
-    68(["ba480823<br/>ASSERTION"])
-    69["4e7cdd69<br/>#quot;alias#quot;"]
-    70["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
-    71(["c1a9c8a1<br/>ASSERTION"])
-    72[/"8982354d<br/>isA"/]
-    73["73fca274<br/>#quot;programmer#quot;"]
-    74(["fa6f4cc6<br/>ASSERTION"])
-    75[/"8982354d<br/>isA"/]
-    76["7b82b07e<br/>#quot;writer#quot;"]
-    77(["cf57039c<br/>ASSERTION"])
-    78["7e84d1a9<br/>#quot;verifierInfo#quot;"]
-    79(("de057405<br/>NODE"))
-    80["7067ea88<br/>#quot;cryptfinger.com#quot;"]
-    81(["221b8c49<br/>ASSERTION"])
-    82["29c0cd61<br/>#quot;pubkeyURL#quot;"]
-    83["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
+    59(["46b8918d<br/>ASSERTION"])
+    60["4e7cdd69<br/>#quot;alias#quot;"]
+    61(("115429bb<br/>NODE"))
+    62["261fc42b<br/>#quot;@carmen@mycarmentsite.com#quot;"]
+    63(["ee5b6f69<br/>ASSERTION"])
+    64["c0276d43<br/>#quot;mastodon#quot;"]
+    65["a2cc6589<br/>#quot;https://mastodon.social/@CarmenT#quot;"]
+    66(["58711216<br/>ASSERTION"])
+    67["97dc30c5<br/>#quot;cid#quot;"]
+    68["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
+    69(["77c587c5<br/>ASSERTION"])
+    70["d52596f8<br/>#quot;pubkey#quot;"]
+    71["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
+    72(["aff1bb37<br/>ASSERTION"])
+    73["4e7cdd69<br/>#quot;alias#quot;"]
+    74["3bc0d518<br/>#quot;admin@cryptfinger.com#quot;"]
+    75(["ba480823<br/>ASSERTION"])
+    76["4e7cdd69<br/>#quot;alias#quot;"]
+    77["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
+    78(["c1a9c8a1<br/>ASSERTION"])
+    79[/"8982354d<br/>isA"/]
+    80["73fca274<br/>#quot;programmer#quot;"]
+    81(["f78f6b55<br/>ASSERTION"])
+    82["63a81883<br/>#quot;link#quot;"]
+    83(("4678aa0e<br/>NODE"))
+    84["2be32270<br/>#quot;https://www.mycarmentsite.com/docs/resum…#quot;"]
+    85(["a3d08cc8<br/>ASSERTION"])
+    86["29e6e5e3<br/>#quot;rel#quot;"]
+    87["f4f47e81<br/>#quot;resume#quot;"]
+    88(["ee227143<br/>ASSERTION"])
+    89["0725fe16<br/>#quot;type#quot;"]
+    90["f79da2a8<br/>#quot;text/html#quot;"]
+    91(["fa6f4cc6<br/>ASSERTION"])
+    92[/"8982354d<br/>isA"/]
+    93["7b82b07e<br/>#quot;writer#quot;"]
+    94(["cf57039c<br/>ASSERTION"])
+    95["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    96(("de057405<br/>NODE"))
+    97["7067ea88<br/>#quot;cryptfinger.com#quot;"]
+    98(["221b8c49<br/>ASSERTION"])
+    99["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    100["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
     1 -->|subj| 2
     2 -->|subj| 3
     3 -->|subj| 4
@@ -553,28 +651,45 @@ graph LR
     3 --> 59
     59 -->|pred| 60
     59 -->|obj| 61
-    3 --> 62
-    62 -->|pred| 63
-    62 -->|obj| 64
-    3 --> 65
-    65 -->|pred| 66
-    65 -->|obj| 67
-    3 --> 68
-    68 -->|pred| 69
-    68 -->|obj| 70
-    3 --> 71
-    71 -->|pred| 72
-    71 -->|obj| 73
-    3 --> 74
-    74 -->|pred| 75
-    74 -->|obj| 76
-    1 --> 77
-    77 -->|pred| 78
-    77 -->|obj| 79
-    79 -->|subj| 80
-    79 --> 81
+    61 -->|subj| 62
+    61 --> 63
+    63 -->|pred| 64
+    63 -->|obj| 65
+    3 --> 66
+    66 -->|pred| 67
+    66 -->|obj| 68
+    3 --> 69
+    69 -->|pred| 70
+    69 -->|obj| 71
+    3 --> 72
+    72 -->|pred| 73
+    72 -->|obj| 74
+    3 --> 75
+    75 -->|pred| 76
+    75 -->|obj| 77
+    3 --> 78
+    78 -->|pred| 79
+    78 -->|obj| 80
+    3 --> 81
     81 -->|pred| 82
     81 -->|obj| 83
+    83 -->|subj| 84
+    83 --> 85
+    85 -->|pred| 86
+    85 -->|obj| 87
+    83 --> 88
+    88 -->|pred| 89
+    88 -->|obj| 90
+    3 --> 91
+    91 -->|pred| 92
+    91 -->|obj| 93
+    1 --> 94
+    94 -->|pred| 95
+    94 -->|obj| 96
+    96 -->|subj| 97
+    96 --> 98
+    98 -->|pred| 99
+    98 -->|obj| 100
     style 1 stroke:red,stroke-width:3.0px
     style 2 stroke:red,stroke-width:3.0px
     style 3 stroke:red,stroke-width:3.0px
@@ -635,29 +750,46 @@ graph LR
     style 58 stroke:#55f,stroke-width:3.0px
     style 59 stroke:red,stroke-width:3.0px
     style 60 stroke:#55f,stroke-width:3.0px
-    style 61 stroke:#55f,stroke-width:3.0px
-    style 62 stroke:red,stroke-width:3.0px
-    style 63 stroke:#55f,stroke-width:3.0px
+    style 61 stroke:red,stroke-width:3.0px
+    style 62 stroke:#55f,stroke-width:3.0px
+    style 63 stroke:red,stroke-width:3.0px
     style 64 stroke:#55f,stroke-width:3.0px
-    style 65 stroke:red,stroke-width:3.0px
-    style 66 stroke:#55f,stroke-width:3.0px
+    style 65 stroke:#55f,stroke-width:3.0px
+    style 66 stroke:red,stroke-width:3.0px
     style 67 stroke:#55f,stroke-width:3.0px
-    style 68 stroke:red,stroke-width:3.0px
-    style 69 stroke:#55f,stroke-width:3.0px
+    style 68 stroke:#55f,stroke-width:3.0px
+    style 69 stroke:red,stroke-width:3.0px
     style 70 stroke:#55f,stroke-width:3.0px
-    style 71 stroke:red,stroke-width:3.0px
-    style 72 stroke:#55f,stroke-width:3.0px
+    style 71 stroke:#55f,stroke-width:3.0px
+    style 72 stroke:red,stroke-width:3.0px
     style 73 stroke:#55f,stroke-width:3.0px
-    style 74 stroke:red,stroke-width:3.0px
-    style 75 stroke:#55f,stroke-width:3.0px
+    style 74 stroke:#55f,stroke-width:3.0px
+    style 75 stroke:red,stroke-width:3.0px
     style 76 stroke:#55f,stroke-width:3.0px
-    style 77 stroke:red,stroke-width:3.0px
-    style 78 stroke:#55f,stroke-width:3.0px
-    style 79 stroke:red,stroke-width:3.0px
+    style 77 stroke:#55f,stroke-width:3.0px
+    style 78 stroke:red,stroke-width:3.0px
+    style 79 stroke:#55f,stroke-width:3.0px
     style 80 stroke:#55f,stroke-width:3.0px
     style 81 stroke:red,stroke-width:3.0px
     style 82 stroke:#55f,stroke-width:3.0px
-    style 83 stroke:#55f,stroke-width:3.0px
+    style 83 stroke:red,stroke-width:3.0px
+    style 84 stroke:#55f,stroke-width:3.0px
+    style 85 stroke:red,stroke-width:3.0px
+    style 86 stroke:#55f,stroke-width:3.0px
+    style 87 stroke:#55f,stroke-width:3.0px
+    style 88 stroke:red,stroke-width:3.0px
+    style 89 stroke:#55f,stroke-width:3.0px
+    style 90 stroke:#55f,stroke-width:3.0px
+    style 91 stroke:red,stroke-width:3.0px
+    style 92 stroke:#55f,stroke-width:3.0px
+    style 93 stroke:#55f,stroke-width:3.0px
+    style 94 stroke:red,stroke-width:3.0px
+    style 95 stroke:#55f,stroke-width:3.0px
+    style 96 stroke:red,stroke-width:3.0px
+    style 97 stroke:#55f,stroke-width:3.0px
+    style 98 stroke:red,stroke-width:3.0px
+    style 99 stroke:#55f,stroke-width:3.0px
+    style 100 stroke:#55f,stroke-width:3.0px
     linkStyle 0 stroke:red,stroke-width:2.0px
     linkStyle 1 stroke:red,stroke-width:2.0px
     linkStyle 2 stroke:red,stroke-width:2.0px
@@ -718,28 +850,45 @@ graph LR
     linkStyle 57 stroke-width:2.0px
     linkStyle 58 stroke:green,stroke-width:2.0px
     linkStyle 59 stroke:#55f,stroke-width:2.0px
-    linkStyle 60 stroke-width:2.0px
-    linkStyle 61 stroke:green,stroke-width:2.0px
-    linkStyle 62 stroke:#55f,stroke-width:2.0px
-    linkStyle 63 stroke-width:2.0px
-    linkStyle 64 stroke:green,stroke-width:2.0px
-    linkStyle 65 stroke:#55f,stroke-width:2.0px
-    linkStyle 66 stroke-width:2.0px
-    linkStyle 67 stroke:green,stroke-width:2.0px
-    linkStyle 68 stroke:#55f,stroke-width:2.0px
-    linkStyle 69 stroke-width:2.0px
-    linkStyle 70 stroke:green,stroke-width:2.0px
-    linkStyle 71 stroke:#55f,stroke-width:2.0px
-    linkStyle 72 stroke-width:2.0px
-    linkStyle 73 stroke:green,stroke-width:2.0px
-    linkStyle 74 stroke:#55f,stroke-width:2.0px
-    linkStyle 75 stroke-width:2.0px
-    linkStyle 76 stroke:green,stroke-width:2.0px
-    linkStyle 77 stroke:#55f,stroke-width:2.0px
-    linkStyle 78 stroke:red,stroke-width:2.0px
+    linkStyle 60 stroke:red,stroke-width:2.0px
+    linkStyle 61 stroke-width:2.0px
+    linkStyle 62 stroke:green,stroke-width:2.0px
+    linkStyle 63 stroke:#55f,stroke-width:2.0px
+    linkStyle 64 stroke-width:2.0px
+    linkStyle 65 stroke:green,stroke-width:2.0px
+    linkStyle 66 stroke:#55f,stroke-width:2.0px
+    linkStyle 67 stroke-width:2.0px
+    linkStyle 68 stroke:green,stroke-width:2.0px
+    linkStyle 69 stroke:#55f,stroke-width:2.0px
+    linkStyle 70 stroke-width:2.0px
+    linkStyle 71 stroke:green,stroke-width:2.0px
+    linkStyle 72 stroke:#55f,stroke-width:2.0px
+    linkStyle 73 stroke-width:2.0px
+    linkStyle 74 stroke:green,stroke-width:2.0px
+    linkStyle 75 stroke:#55f,stroke-width:2.0px
+    linkStyle 76 stroke-width:2.0px
+    linkStyle 77 stroke:green,stroke-width:2.0px
+    linkStyle 78 stroke:#55f,stroke-width:2.0px
     linkStyle 79 stroke-width:2.0px
     linkStyle 80 stroke:green,stroke-width:2.0px
     linkStyle 81 stroke:#55f,stroke-width:2.0px
+    linkStyle 82 stroke:red,stroke-width:2.0px
+    linkStyle 83 stroke-width:2.0px
+    linkStyle 84 stroke:green,stroke-width:2.0px
+    linkStyle 85 stroke:#55f,stroke-width:2.0px
+    linkStyle 86 stroke-width:2.0px
+    linkStyle 87 stroke:green,stroke-width:2.0px
+    linkStyle 88 stroke:#55f,stroke-width:2.0px
+    linkStyle 89 stroke-width:2.0px
+    linkStyle 90 stroke:green,stroke-width:2.0px
+    linkStyle 91 stroke:#55f,stroke-width:2.0px
+    linkStyle 92 stroke-width:2.0px
+    linkStyle 93 stroke:green,stroke-width:2.0px
+    linkStyle 94 stroke:#55f,stroke-width:2.0px
+    linkStyle 95 stroke:red,stroke-width:2.0px
+    linkStyle 96 stroke-width:2.0px
+    linkStyle 97 stroke:green,stroke-width:2.0px
+    linkStyle 98 stroke:#55f,stroke-width:2.0px
 ```
 Here it is signed:
 ```
@@ -749,6 +898,9 @@ Here it is signed:
             "alias": "admin@cryptfinger.com"
             "alias": "carmen@blockchaincommons.com"
             "alias": "carmen@mycarmentsite.com"
+            "alias": "@carmen@mycarmentsite.com" [
+                "mastodon": "https://mastodon.social/@CarmenT"
+            ]
             "cid": "ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfmynylnecwldpapafskphsgwfgmdgwmusthlzecfltiosskorers"
             "hasPublication": "Cryptfinger Design Notes" [
                 "pubdate": "2022-10-11"
@@ -768,6 +920,10 @@ Here it is signed:
                 "pubDate": "2022-01-17"
                 isA: "non-fiction book"
             ]
+            "link": "https://www.mycarmentsite.com/docs/resume2022.html" [
+                "rel": "resume"
+                "type": "text/html"
+            ]
             "phoneNumber": "510-555-0143"
             "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
             isA: "programmer"
@@ -784,11 +940,11 @@ Here it is signed:
 ```
 ```mermaid
 graph LR
-    1(("0558b5ab<br/>NODE"))
-    2[/"70e25996<br/>WRAPPED"\]
-    3(("a32da170<br/>NODE"))
-    4[/"db8ea56e<br/>WRAPPED"\]
-    5(("5c6ec4a2<br/>NODE"))
+    1(("4c7e8a6a<br/>NODE"))
+    2[/"3ab70d6b<br/>WRAPPED"\]
+    3(("97b6298b<br/>NODE"))
+    4[/"59b76ff6<br/>WRAPPED"\]
+    5(("8ebf197c<br/>NODE"))
     6["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
     7(["0595bb3a<br/>ASSERTION"])
     8["4e7cdd69<br/>#quot;alias#quot;"]
@@ -844,34 +1000,51 @@ graph LR
     58(["da22ca9e<br/>ASSERTION"])
     59["7fce2d08<br/>#quot;url#quot;"]
     60["fda96fd7<br/>#quot;https://blockchaincommons.com/design-not…#quot;"]
-    61(["58711216<br/>ASSERTION"])
-    62["97dc30c5<br/>#quot;cid#quot;"]
-    63["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
-    64(["77c587c5<br/>ASSERTION"])
-    65["d52596f8<br/>#quot;pubkey#quot;"]
-    66["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
-    67(["aff1bb37<br/>ASSERTION"])
-    68["4e7cdd69<br/>#quot;alias#quot;"]
-    69["3bc0d518<br/>#quot;admin@cryptfinger.com#quot;"]
-    70(["ba480823<br/>ASSERTION"])
-    71["4e7cdd69<br/>#quot;alias#quot;"]
-    72["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
-    73(["c1a9c8a1<br/>ASSERTION"])
-    74[/"8982354d<br/>isA"/]
-    75["73fca274<br/>#quot;programmer#quot;"]
-    76(["fa6f4cc6<br/>ASSERTION"])
-    77[/"8982354d<br/>isA"/]
-    78["7b82b07e<br/>#quot;writer#quot;"]
-    79(["cf57039c<br/>ASSERTION"])
-    80["7e84d1a9<br/>#quot;verifierInfo#quot;"]
-    81(("de057405<br/>NODE"))
-    82["7067ea88<br/>#quot;cryptfinger.com#quot;"]
-    83(["221b8c49<br/>ASSERTION"])
-    84["29c0cd61<br/>#quot;pubkeyURL#quot;"]
-    85["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
-    86(["0559d5bc<br/>ASSERTION"])
-    87[/"d59f8c0f<br/>verifiedBy"/]
-    88["0bda9def<br/>Signature"]
+    61(["46b8918d<br/>ASSERTION"])
+    62["4e7cdd69<br/>#quot;alias#quot;"]
+    63(("115429bb<br/>NODE"))
+    64["261fc42b<br/>#quot;@carmen@mycarmentsite.com#quot;"]
+    65(["ee5b6f69<br/>ASSERTION"])
+    66["c0276d43<br/>#quot;mastodon#quot;"]
+    67["a2cc6589<br/>#quot;https://mastodon.social/@CarmenT#quot;"]
+    68(["58711216<br/>ASSERTION"])
+    69["97dc30c5<br/>#quot;cid#quot;"]
+    70["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
+    71(["77c587c5<br/>ASSERTION"])
+    72["d52596f8<br/>#quot;pubkey#quot;"]
+    73["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
+    74(["aff1bb37<br/>ASSERTION"])
+    75["4e7cdd69<br/>#quot;alias#quot;"]
+    76["3bc0d518<br/>#quot;admin@cryptfinger.com#quot;"]
+    77(["ba480823<br/>ASSERTION"])
+    78["4e7cdd69<br/>#quot;alias#quot;"]
+    79["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
+    80(["c1a9c8a1<br/>ASSERTION"])
+    81[/"8982354d<br/>isA"/]
+    82["73fca274<br/>#quot;programmer#quot;"]
+    83(["f78f6b55<br/>ASSERTION"])
+    84["63a81883<br/>#quot;link#quot;"]
+    85(("4678aa0e<br/>NODE"))
+    86["2be32270<br/>#quot;https://www.mycarmentsite.com/docs/resum…#quot;"]
+    87(["a3d08cc8<br/>ASSERTION"])
+    88["29e6e5e3<br/>#quot;rel#quot;"]
+    89["f4f47e81<br/>#quot;resume#quot;"]
+    90(["ee227143<br/>ASSERTION"])
+    91["0725fe16<br/>#quot;type#quot;"]
+    92["f79da2a8<br/>#quot;text/html#quot;"]
+    93(["fa6f4cc6<br/>ASSERTION"])
+    94[/"8982354d<br/>isA"/]
+    95["7b82b07e<br/>#quot;writer#quot;"]
+    96(["cf57039c<br/>ASSERTION"])
+    97["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    98(("de057405<br/>NODE"))
+    99["7067ea88<br/>#quot;cryptfinger.com#quot;"]
+    100(["221b8c49<br/>ASSERTION"])
+    101["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    102["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
+    103(["dc20d009<br/>ASSERTION"])
+    104[/"d59f8c0f<br/>verifiedBy"/]
+    105["d24356f7<br/>Signature"]
     1 -->|subj| 2
     2 -->|subj| 3
     3 -->|subj| 4
@@ -934,31 +1107,48 @@ graph LR
     5 --> 61
     61 -->|pred| 62
     61 -->|obj| 63
-    5 --> 64
-    64 -->|pred| 65
-    64 -->|obj| 66
-    5 --> 67
-    67 -->|pred| 68
-    67 -->|obj| 69
-    5 --> 70
-    70 -->|pred| 71
-    70 -->|obj| 72
-    5 --> 73
-    73 -->|pred| 74
-    73 -->|obj| 75
-    5 --> 76
-    76 -->|pred| 77
-    76 -->|obj| 78
-    3 --> 79
-    79 -->|pred| 80
-    79 -->|obj| 81
-    81 -->|subj| 82
-    81 --> 83
+    63 -->|subj| 64
+    63 --> 65
+    65 -->|pred| 66
+    65 -->|obj| 67
+    5 --> 68
+    68 -->|pred| 69
+    68 -->|obj| 70
+    5 --> 71
+    71 -->|pred| 72
+    71 -->|obj| 73
+    5 --> 74
+    74 -->|pred| 75
+    74 -->|obj| 76
+    5 --> 77
+    77 -->|pred| 78
+    77 -->|obj| 79
+    5 --> 80
+    80 -->|pred| 81
+    80 -->|obj| 82
+    5 --> 83
     83 -->|pred| 84
     83 -->|obj| 85
-    1 --> 86
-    86 -->|pred| 87
-    86 -->|obj| 88
+    85 -->|subj| 86
+    85 --> 87
+    87 -->|pred| 88
+    87 -->|obj| 89
+    85 --> 90
+    90 -->|pred| 91
+    90 -->|obj| 92
+    5 --> 93
+    93 -->|pred| 94
+    93 -->|obj| 95
+    3 --> 96
+    96 -->|pred| 97
+    96 -->|obj| 98
+    98 -->|subj| 99
+    98 --> 100
+    100 -->|pred| 101
+    100 -->|obj| 102
+    1 --> 103
+    103 -->|pred| 104
+    103 -->|obj| 105
     style 1 stroke:red,stroke-width:3.0px
     style 2 stroke:red,stroke-width:3.0px
     style 3 stroke:red,stroke-width:3.0px
@@ -1021,32 +1211,49 @@ graph LR
     style 60 stroke:#55f,stroke-width:3.0px
     style 61 stroke:red,stroke-width:3.0px
     style 62 stroke:#55f,stroke-width:3.0px
-    style 63 stroke:#55f,stroke-width:3.0px
-    style 64 stroke:red,stroke-width:3.0px
-    style 65 stroke:#55f,stroke-width:3.0px
+    style 63 stroke:red,stroke-width:3.0px
+    style 64 stroke:#55f,stroke-width:3.0px
+    style 65 stroke:red,stroke-width:3.0px
     style 66 stroke:#55f,stroke-width:3.0px
-    style 67 stroke:red,stroke-width:3.0px
-    style 68 stroke:#55f,stroke-width:3.0px
+    style 67 stroke:#55f,stroke-width:3.0px
+    style 68 stroke:red,stroke-width:3.0px
     style 69 stroke:#55f,stroke-width:3.0px
-    style 70 stroke:red,stroke-width:3.0px
-    style 71 stroke:#55f,stroke-width:3.0px
+    style 70 stroke:#55f,stroke-width:3.0px
+    style 71 stroke:red,stroke-width:3.0px
     style 72 stroke:#55f,stroke-width:3.0px
-    style 73 stroke:red,stroke-width:3.0px
-    style 74 stroke:#55f,stroke-width:3.0px
+    style 73 stroke:#55f,stroke-width:3.0px
+    style 74 stroke:red,stroke-width:3.0px
     style 75 stroke:#55f,stroke-width:3.0px
-    style 76 stroke:red,stroke-width:3.0px
-    style 77 stroke:#55f,stroke-width:3.0px
+    style 76 stroke:#55f,stroke-width:3.0px
+    style 77 stroke:red,stroke-width:3.0px
     style 78 stroke:#55f,stroke-width:3.0px
-    style 79 stroke:red,stroke-width:3.0px
-    style 80 stroke:#55f,stroke-width:3.0px
-    style 81 stroke:red,stroke-width:3.0px
+    style 79 stroke:#55f,stroke-width:3.0px
+    style 80 stroke:red,stroke-width:3.0px
+    style 81 stroke:#55f,stroke-width:3.0px
     style 82 stroke:#55f,stroke-width:3.0px
     style 83 stroke:red,stroke-width:3.0px
     style 84 stroke:#55f,stroke-width:3.0px
-    style 85 stroke:#55f,stroke-width:3.0px
-    style 86 stroke:red,stroke-width:3.0px
-    style 87 stroke:#55f,stroke-width:3.0px
+    style 85 stroke:red,stroke-width:3.0px
+    style 86 stroke:#55f,stroke-width:3.0px
+    style 87 stroke:red,stroke-width:3.0px
     style 88 stroke:#55f,stroke-width:3.0px
+    style 89 stroke:#55f,stroke-width:3.0px
+    style 90 stroke:red,stroke-width:3.0px
+    style 91 stroke:#55f,stroke-width:3.0px
+    style 92 stroke:#55f,stroke-width:3.0px
+    style 93 stroke:red,stroke-width:3.0px
+    style 94 stroke:#55f,stroke-width:3.0px
+    style 95 stroke:#55f,stroke-width:3.0px
+    style 96 stroke:red,stroke-width:3.0px
+    style 97 stroke:#55f,stroke-width:3.0px
+    style 98 stroke:red,stroke-width:3.0px
+    style 99 stroke:#55f,stroke-width:3.0px
+    style 100 stroke:red,stroke-width:3.0px
+    style 101 stroke:#55f,stroke-width:3.0px
+    style 102 stroke:#55f,stroke-width:3.0px
+    style 103 stroke:red,stroke-width:3.0px
+    style 104 stroke:#55f,stroke-width:3.0px
+    style 105 stroke:#55f,stroke-width:3.0px
     linkStyle 0 stroke:red,stroke-width:2.0px
     linkStyle 1 stroke:red,stroke-width:2.0px
     linkStyle 2 stroke:red,stroke-width:2.0px
@@ -1109,31 +1316,48 @@ graph LR
     linkStyle 59 stroke-width:2.0px
     linkStyle 60 stroke:green,stroke-width:2.0px
     linkStyle 61 stroke:#55f,stroke-width:2.0px
-    linkStyle 62 stroke-width:2.0px
-    linkStyle 63 stroke:green,stroke-width:2.0px
-    linkStyle 64 stroke:#55f,stroke-width:2.0px
-    linkStyle 65 stroke-width:2.0px
-    linkStyle 66 stroke:green,stroke-width:2.0px
-    linkStyle 67 stroke:#55f,stroke-width:2.0px
-    linkStyle 68 stroke-width:2.0px
-    linkStyle 69 stroke:green,stroke-width:2.0px
-    linkStyle 70 stroke:#55f,stroke-width:2.0px
-    linkStyle 71 stroke-width:2.0px
-    linkStyle 72 stroke:green,stroke-width:2.0px
-    linkStyle 73 stroke:#55f,stroke-width:2.0px
-    linkStyle 74 stroke-width:2.0px
-    linkStyle 75 stroke:green,stroke-width:2.0px
-    linkStyle 76 stroke:#55f,stroke-width:2.0px
-    linkStyle 77 stroke-width:2.0px
-    linkStyle 78 stroke:green,stroke-width:2.0px
-    linkStyle 79 stroke:#55f,stroke-width:2.0px
-    linkStyle 80 stroke:red,stroke-width:2.0px
+    linkStyle 62 stroke:red,stroke-width:2.0px
+    linkStyle 63 stroke-width:2.0px
+    linkStyle 64 stroke:green,stroke-width:2.0px
+    linkStyle 65 stroke:#55f,stroke-width:2.0px
+    linkStyle 66 stroke-width:2.0px
+    linkStyle 67 stroke:green,stroke-width:2.0px
+    linkStyle 68 stroke:#55f,stroke-width:2.0px
+    linkStyle 69 stroke-width:2.0px
+    linkStyle 70 stroke:green,stroke-width:2.0px
+    linkStyle 71 stroke:#55f,stroke-width:2.0px
+    linkStyle 72 stroke-width:2.0px
+    linkStyle 73 stroke:green,stroke-width:2.0px
+    linkStyle 74 stroke:#55f,stroke-width:2.0px
+    linkStyle 75 stroke-width:2.0px
+    linkStyle 76 stroke:green,stroke-width:2.0px
+    linkStyle 77 stroke:#55f,stroke-width:2.0px
+    linkStyle 78 stroke-width:2.0px
+    linkStyle 79 stroke:green,stroke-width:2.0px
+    linkStyle 80 stroke:#55f,stroke-width:2.0px
     linkStyle 81 stroke-width:2.0px
     linkStyle 82 stroke:green,stroke-width:2.0px
     linkStyle 83 stroke:#55f,stroke-width:2.0px
-    linkStyle 84 stroke-width:2.0px
-    linkStyle 85 stroke:green,stroke-width:2.0px
-    linkStyle 86 stroke:#55f,stroke-width:2.0px
+    linkStyle 84 stroke:red,stroke-width:2.0px
+    linkStyle 85 stroke-width:2.0px
+    linkStyle 86 stroke:green,stroke-width:2.0px
+    linkStyle 87 stroke:#55f,stroke-width:2.0px
+    linkStyle 88 stroke-width:2.0px
+    linkStyle 89 stroke:green,stroke-width:2.0px
+    linkStyle 90 stroke:#55f,stroke-width:2.0px
+    linkStyle 91 stroke-width:2.0px
+    linkStyle 92 stroke:green,stroke-width:2.0px
+    linkStyle 93 stroke:#55f,stroke-width:2.0px
+    linkStyle 94 stroke-width:2.0px
+    linkStyle 95 stroke:green,stroke-width:2.0px
+    linkStyle 96 stroke:#55f,stroke-width:2.0px
+    linkStyle 97 stroke:red,stroke-width:2.0px
+    linkStyle 98 stroke-width:2.0px
+    linkStyle 99 stroke:green,stroke-width:2.0px
+    linkStyle 100 stroke:#55f,stroke-width:2.0px
+    linkStyle 101 stroke-width:2.0px
+    linkStyle 102 stroke:green,stroke-width:2.0px
+    linkStyle 103 stroke:#55f,stroke-width:2.0px
 ```
 
 ### #3: Carmen Add Chronology to CryptFinger (Timestamp)
@@ -1148,6 +1372,9 @@ Because Gordian Envelopes can be saved, stored, and resent, dating them becomes 
             "alias": "admin@cryptfinger.com"
             "alias": "carmen@blockchaincommons.com"
             "alias": "carmen@mycarmentsite.com"
+            "alias": "@carmen@mycarmentsite.com" [
+                "mastodon": "https://mastodon.social/@CarmenT"
+            ]
             "cid": "ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfmynylnecwldpapafskphsgwfgmdgwmusthlzecfltiosskorers"
             "hasPublication": "Cryptfinger Design Notes" [
                 "pubdate": "2022-10-11"
@@ -1166,6 +1393,10 @@ Because Gordian Envelopes can be saved, stored, and resent, dating them becomes 
                 "language": "en"
                 "pubDate": "2022-01-17"
                 isA: "non-fiction book"
+            ]
+            "link": "https://www.mycarmentsite.com/docs/resume2022.html" [
+                "rel": "resume"
+                "type": "text/html"
             ]
             "phoneNumber": "510-555-0143"
             "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
@@ -1184,11 +1415,11 @@ Because Gordian Envelopes can be saved, stored, and resent, dating them becomes 
 ```
 ```mermaid
 graph LR
-    1(("0fdbc99e<br/>NODE"))
-    2[/"e5cfa3bc<br/>WRAPPED"\]
-    3(("b9833f36<br/>NODE"))
-    4[/"db8ea56e<br/>WRAPPED"\]
-    5(("5c6ec4a2<br/>NODE"))
+    1(("3c1cc7e5<br/>NODE"))
+    2[/"4facf50f<br/>WRAPPED"\]
+    3(("4a6d0203<br/>NODE"))
+    4[/"59b76ff6<br/>WRAPPED"\]
+    5(("8ebf197c<br/>NODE"))
     6["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
     7(["0595bb3a<br/>ASSERTION"])
     8["4e7cdd69<br/>#quot;alias#quot;"]
@@ -1244,37 +1475,54 @@ graph LR
     58(["da22ca9e<br/>ASSERTION"])
     59["7fce2d08<br/>#quot;url#quot;"]
     60["fda96fd7<br/>#quot;https://blockchaincommons.com/design-not…#quot;"]
-    61(["58711216<br/>ASSERTION"])
-    62["97dc30c5<br/>#quot;cid#quot;"]
-    63["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
-    64(["77c587c5<br/>ASSERTION"])
-    65["d52596f8<br/>#quot;pubkey#quot;"]
-    66["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
-    67(["aff1bb37<br/>ASSERTION"])
-    68["4e7cdd69<br/>#quot;alias#quot;"]
-    69["3bc0d518<br/>#quot;admin@cryptfinger.com#quot;"]
-    70(["ba480823<br/>ASSERTION"])
-    71["4e7cdd69<br/>#quot;alias#quot;"]
-    72["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
-    73(["c1a9c8a1<br/>ASSERTION"])
-    74[/"8982354d<br/>isA"/]
-    75["73fca274<br/>#quot;programmer#quot;"]
-    76(["fa6f4cc6<br/>ASSERTION"])
-    77[/"8982354d<br/>isA"/]
-    78["7b82b07e<br/>#quot;writer#quot;"]
-    79(["093f17ab<br/>ASSERTION"])
-    80["7e84d1a9<br/>#quot;verifierInfo#quot;"]
-    81(("7b64b5b2<br/>NODE"))
-    82["7067ea88<br/>#quot;cryptfinger.com#quot;"]
-    83(["221b8c49<br/>ASSERTION"])
-    84["29c0cd61<br/>#quot;pubkeyURL#quot;"]
-    85["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
-    86(["4001d133<br/>ASSERTION"])
-    87["fb07d301<br/>#quot;timeStamp#quot;"]
-    88["fd5a507f<br/>#quot;1671062936#quot;"]
-    89(["be666d13<br/>ASSERTION"])
-    90[/"d59f8c0f<br/>verifiedBy"/]
-    91["67d8c52d<br/>Signature"]
+    61(["46b8918d<br/>ASSERTION"])
+    62["4e7cdd69<br/>#quot;alias#quot;"]
+    63(("115429bb<br/>NODE"))
+    64["261fc42b<br/>#quot;@carmen@mycarmentsite.com#quot;"]
+    65(["ee5b6f69<br/>ASSERTION"])
+    66["c0276d43<br/>#quot;mastodon#quot;"]
+    67["a2cc6589<br/>#quot;https://mastodon.social/@CarmenT#quot;"]
+    68(["58711216<br/>ASSERTION"])
+    69["97dc30c5<br/>#quot;cid#quot;"]
+    70["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
+    71(["77c587c5<br/>ASSERTION"])
+    72["d52596f8<br/>#quot;pubkey#quot;"]
+    73["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
+    74(["aff1bb37<br/>ASSERTION"])
+    75["4e7cdd69<br/>#quot;alias#quot;"]
+    76["3bc0d518<br/>#quot;admin@cryptfinger.com#quot;"]
+    77(["ba480823<br/>ASSERTION"])
+    78["4e7cdd69<br/>#quot;alias#quot;"]
+    79["37f5a7a1<br/>#quot;carmen@blockchaincommons.com#quot;"]
+    80(["c1a9c8a1<br/>ASSERTION"])
+    81[/"8982354d<br/>isA"/]
+    82["73fca274<br/>#quot;programmer#quot;"]
+    83(["f78f6b55<br/>ASSERTION"])
+    84["63a81883<br/>#quot;link#quot;"]
+    85(("4678aa0e<br/>NODE"))
+    86["2be32270<br/>#quot;https://www.mycarmentsite.com/docs/resum…#quot;"]
+    87(["a3d08cc8<br/>ASSERTION"])
+    88["29e6e5e3<br/>#quot;rel#quot;"]
+    89["f4f47e81<br/>#quot;resume#quot;"]
+    90(["ee227143<br/>ASSERTION"])
+    91["0725fe16<br/>#quot;type#quot;"]
+    92["f79da2a8<br/>#quot;text/html#quot;"]
+    93(["fa6f4cc6<br/>ASSERTION"])
+    94[/"8982354d<br/>isA"/]
+    95["7b82b07e<br/>#quot;writer#quot;"]
+    96(["093f17ab<br/>ASSERTION"])
+    97["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    98(("7b64b5b2<br/>NODE"))
+    99["7067ea88<br/>#quot;cryptfinger.com#quot;"]
+    100(["221b8c49<br/>ASSERTION"])
+    101["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    102["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
+    103(["4001d133<br/>ASSERTION"])
+    104["fb07d301<br/>#quot;timeStamp#quot;"]
+    105["fd5a507f<br/>#quot;1671062936#quot;"]
+    106(["36371f98<br/>ASSERTION"])
+    107[/"d59f8c0f<br/>verifiedBy"/]
+    108["ce83e4c5<br/>Signature"]
     1 -->|subj| 2
     2 -->|subj| 3
     3 -->|subj| 4
@@ -1337,34 +1585,51 @@ graph LR
     5 --> 61
     61 -->|pred| 62
     61 -->|obj| 63
-    5 --> 64
-    64 -->|pred| 65
-    64 -->|obj| 66
-    5 --> 67
-    67 -->|pred| 68
-    67 -->|obj| 69
-    5 --> 70
-    70 -->|pred| 71
-    70 -->|obj| 72
-    5 --> 73
-    73 -->|pred| 74
-    73 -->|obj| 75
-    5 --> 76
-    76 -->|pred| 77
-    76 -->|obj| 78
-    3 --> 79
-    79 -->|pred| 80
-    79 -->|obj| 81
-    81 -->|subj| 82
-    81 --> 83
+    63 -->|subj| 64
+    63 --> 65
+    65 -->|pred| 66
+    65 -->|obj| 67
+    5 --> 68
+    68 -->|pred| 69
+    68 -->|obj| 70
+    5 --> 71
+    71 -->|pred| 72
+    71 -->|obj| 73
+    5 --> 74
+    74 -->|pred| 75
+    74 -->|obj| 76
+    5 --> 77
+    77 -->|pred| 78
+    77 -->|obj| 79
+    5 --> 80
+    80 -->|pred| 81
+    80 -->|obj| 82
+    5 --> 83
     83 -->|pred| 84
     83 -->|obj| 85
-    81 --> 86
-    86 -->|pred| 87
-    86 -->|obj| 88
-    1 --> 89
-    89 -->|pred| 90
-    89 -->|obj| 91
+    85 -->|subj| 86
+    85 --> 87
+    87 -->|pred| 88
+    87 -->|obj| 89
+    85 --> 90
+    90 -->|pred| 91
+    90 -->|obj| 92
+    5 --> 93
+    93 -->|pred| 94
+    93 -->|obj| 95
+    3 --> 96
+    96 -->|pred| 97
+    96 -->|obj| 98
+    98 -->|subj| 99
+    98 --> 100
+    100 -->|pred| 101
+    100 -->|obj| 102
+    98 --> 103
+    103 -->|pred| 104
+    103 -->|obj| 105
+    1 --> 106
+    106 -->|pred| 107
+    106 -->|obj| 108
     style 1 stroke:red,stroke-width:3.0px
     style 2 stroke:red,stroke-width:3.0px
     style 3 stroke:red,stroke-width:3.0px
@@ -1427,35 +1692,52 @@ graph LR
     style 60 stroke:#55f,stroke-width:3.0px
     style 61 stroke:red,stroke-width:3.0px
     style 62 stroke:#55f,stroke-width:3.0px
-    style 63 stroke:#55f,stroke-width:3.0px
-    style 64 stroke:red,stroke-width:3.0px
-    style 65 stroke:#55f,stroke-width:3.0px
+    style 63 stroke:red,stroke-width:3.0px
+    style 64 stroke:#55f,stroke-width:3.0px
+    style 65 stroke:red,stroke-width:3.0px
     style 66 stroke:#55f,stroke-width:3.0px
-    style 67 stroke:red,stroke-width:3.0px
-    style 68 stroke:#55f,stroke-width:3.0px
+    style 67 stroke:#55f,stroke-width:3.0px
+    style 68 stroke:red,stroke-width:3.0px
     style 69 stroke:#55f,stroke-width:3.0px
-    style 70 stroke:red,stroke-width:3.0px
-    style 71 stroke:#55f,stroke-width:3.0px
+    style 70 stroke:#55f,stroke-width:3.0px
+    style 71 stroke:red,stroke-width:3.0px
     style 72 stroke:#55f,stroke-width:3.0px
-    style 73 stroke:red,stroke-width:3.0px
-    style 74 stroke:#55f,stroke-width:3.0px
+    style 73 stroke:#55f,stroke-width:3.0px
+    style 74 stroke:red,stroke-width:3.0px
     style 75 stroke:#55f,stroke-width:3.0px
-    style 76 stroke:red,stroke-width:3.0px
-    style 77 stroke:#55f,stroke-width:3.0px
+    style 76 stroke:#55f,stroke-width:3.0px
+    style 77 stroke:red,stroke-width:3.0px
     style 78 stroke:#55f,stroke-width:3.0px
-    style 79 stroke:red,stroke-width:3.0px
-    style 80 stroke:#55f,stroke-width:3.0px
-    style 81 stroke:red,stroke-width:3.0px
+    style 79 stroke:#55f,stroke-width:3.0px
+    style 80 stroke:red,stroke-width:3.0px
+    style 81 stroke:#55f,stroke-width:3.0px
     style 82 stroke:#55f,stroke-width:3.0px
     style 83 stroke:red,stroke-width:3.0px
     style 84 stroke:#55f,stroke-width:3.0px
-    style 85 stroke:#55f,stroke-width:3.0px
-    style 86 stroke:red,stroke-width:3.0px
-    style 87 stroke:#55f,stroke-width:3.0px
+    style 85 stroke:red,stroke-width:3.0px
+    style 86 stroke:#55f,stroke-width:3.0px
+    style 87 stroke:red,stroke-width:3.0px
     style 88 stroke:#55f,stroke-width:3.0px
-    style 89 stroke:red,stroke-width:3.0px
-    style 90 stroke:#55f,stroke-width:3.0px
+    style 89 stroke:#55f,stroke-width:3.0px
+    style 90 stroke:red,stroke-width:3.0px
     style 91 stroke:#55f,stroke-width:3.0px
+    style 92 stroke:#55f,stroke-width:3.0px
+    style 93 stroke:red,stroke-width:3.0px
+    style 94 stroke:#55f,stroke-width:3.0px
+    style 95 stroke:#55f,stroke-width:3.0px
+    style 96 stroke:red,stroke-width:3.0px
+    style 97 stroke:#55f,stroke-width:3.0px
+    style 98 stroke:red,stroke-width:3.0px
+    style 99 stroke:#55f,stroke-width:3.0px
+    style 100 stroke:red,stroke-width:3.0px
+    style 101 stroke:#55f,stroke-width:3.0px
+    style 102 stroke:#55f,stroke-width:3.0px
+    style 103 stroke:red,stroke-width:3.0px
+    style 104 stroke:#55f,stroke-width:3.0px
+    style 105 stroke:#55f,stroke-width:3.0px
+    style 106 stroke:red,stroke-width:3.0px
+    style 107 stroke:#55f,stroke-width:3.0px
+    style 108 stroke:#55f,stroke-width:3.0px
     linkStyle 0 stroke:red,stroke-width:2.0px
     linkStyle 1 stroke:red,stroke-width:2.0px
     linkStyle 2 stroke:red,stroke-width:2.0px
@@ -1518,34 +1800,51 @@ graph LR
     linkStyle 59 stroke-width:2.0px
     linkStyle 60 stroke:green,stroke-width:2.0px
     linkStyle 61 stroke:#55f,stroke-width:2.0px
-    linkStyle 62 stroke-width:2.0px
-    linkStyle 63 stroke:green,stroke-width:2.0px
-    linkStyle 64 stroke:#55f,stroke-width:2.0px
-    linkStyle 65 stroke-width:2.0px
-    linkStyle 66 stroke:green,stroke-width:2.0px
-    linkStyle 67 stroke:#55f,stroke-width:2.0px
-    linkStyle 68 stroke-width:2.0px
-    linkStyle 69 stroke:green,stroke-width:2.0px
-    linkStyle 70 stroke:#55f,stroke-width:2.0px
-    linkStyle 71 stroke-width:2.0px
-    linkStyle 72 stroke:green,stroke-width:2.0px
-    linkStyle 73 stroke:#55f,stroke-width:2.0px
-    linkStyle 74 stroke-width:2.0px
-    linkStyle 75 stroke:green,stroke-width:2.0px
-    linkStyle 76 stroke:#55f,stroke-width:2.0px
-    linkStyle 77 stroke-width:2.0px
-    linkStyle 78 stroke:green,stroke-width:2.0px
-    linkStyle 79 stroke:#55f,stroke-width:2.0px
-    linkStyle 80 stroke:red,stroke-width:2.0px
+    linkStyle 62 stroke:red,stroke-width:2.0px
+    linkStyle 63 stroke-width:2.0px
+    linkStyle 64 stroke:green,stroke-width:2.0px
+    linkStyle 65 stroke:#55f,stroke-width:2.0px
+    linkStyle 66 stroke-width:2.0px
+    linkStyle 67 stroke:green,stroke-width:2.0px
+    linkStyle 68 stroke:#55f,stroke-width:2.0px
+    linkStyle 69 stroke-width:2.0px
+    linkStyle 70 stroke:green,stroke-width:2.0px
+    linkStyle 71 stroke:#55f,stroke-width:2.0px
+    linkStyle 72 stroke-width:2.0px
+    linkStyle 73 stroke:green,stroke-width:2.0px
+    linkStyle 74 stroke:#55f,stroke-width:2.0px
+    linkStyle 75 stroke-width:2.0px
+    linkStyle 76 stroke:green,stroke-width:2.0px
+    linkStyle 77 stroke:#55f,stroke-width:2.0px
+    linkStyle 78 stroke-width:2.0px
+    linkStyle 79 stroke:green,stroke-width:2.0px
+    linkStyle 80 stroke:#55f,stroke-width:2.0px
     linkStyle 81 stroke-width:2.0px
     linkStyle 82 stroke:green,stroke-width:2.0px
     linkStyle 83 stroke:#55f,stroke-width:2.0px
-    linkStyle 84 stroke-width:2.0px
-    linkStyle 85 stroke:green,stroke-width:2.0px
-    linkStyle 86 stroke:#55f,stroke-width:2.0px
-    linkStyle 87 stroke-width:2.0px
-    linkStyle 88 stroke:green,stroke-width:2.0px
-    linkStyle 89 stroke:#55f,stroke-width:2.0px
+    linkStyle 84 stroke:red,stroke-width:2.0px
+    linkStyle 85 stroke-width:2.0px
+    linkStyle 86 stroke:green,stroke-width:2.0px
+    linkStyle 87 stroke:#55f,stroke-width:2.0px
+    linkStyle 88 stroke-width:2.0px
+    linkStyle 89 stroke:green,stroke-width:2.0px
+    linkStyle 90 stroke:#55f,stroke-width:2.0px
+    linkStyle 91 stroke-width:2.0px
+    linkStyle 92 stroke:green,stroke-width:2.0px
+    linkStyle 93 stroke:#55f,stroke-width:2.0px
+    linkStyle 94 stroke-width:2.0px
+    linkStyle 95 stroke:green,stroke-width:2.0px
+    linkStyle 96 stroke:#55f,stroke-width:2.0px
+    linkStyle 97 stroke:red,stroke-width:2.0px
+    linkStyle 98 stroke-width:2.0px
+    linkStyle 99 stroke:green,stroke-width:2.0px
+    linkStyle 100 stroke:#55f,stroke-width:2.0px
+    linkStyle 101 stroke-width:2.0px
+    linkStyle 102 stroke:green,stroke-width:2.0px
+    linkStyle 103 stroke:#55f,stroke-width:2.0px
+    linkStyle 104 stroke-width:2.0px
+    linkStyle 105 stroke:green,stroke-width:2.0px
+    linkStyle 106 stroke:#55f,stroke-width:2.0px
 ```
 This is just one option for timestamping Gordian Envelopes.
 
