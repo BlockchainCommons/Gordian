@@ -11,6 +11,8 @@
 * [Part Two: Private CryptFinger](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-two-private-cryptfinger)
    * [#4: Carmen Protects CryptFinger (Elision)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#4-carmen-protects-cryptfinger-elision)
    * [#5: Carmen Makes CryptFinger Provable (Inclusion Proof)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#5-carmen-makes-cryptfinger-provable-inclusion-proof)
+   * [#6: Carmen Makes CryptFinger Progressive (Progressive Trust)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#6-carmen-makes-cryptfinger-progressive-progressive-trust)
+   
 ...
 
 ## Part One: Public CryptFinger
