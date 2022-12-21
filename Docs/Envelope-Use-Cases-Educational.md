@@ -23,7 +23,7 @@ Gordian Envelopes are useful for credentials in large part because of their abil
 * [Part Three: Herd Privacy Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-three-herd-privacy-credentials)
    * #5: [Paul Private Proves Proficiency (Herd Privacy)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#5-paul-privately-proves-proficiency-herd-privacy)
    * #6: [Paul Proves His Proficiency with Improved Privacy (Herd Privacy with Non-Correlation)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#6-paul-proves-proficiency-with-improved-privacy-herd-privacy-with-non-correlation)
-   * #7: [Burton Bank Avoids Toxicity (Herd Privacy with Selective Disclosure)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#7-burton-bank-avoids-toxicity-herd-privacy-with-selective-disclosure)
+   * #7: [Burton Bank Avoids Toxicity (Herd Privacy with Selective Correlation)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#7-burton-bank-avoids-toxicity-herd-privacy-with-selective-correlation)
  
 _The Danika Kaschak examples in #1 through #3 are drawn directly from [07-Elision-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/7-VC-ELISION-EXAMPLE.md), one of the documents for the [Envelope-CLI app](https://github.com/BlockchainCommons/envelope-cli-swift). The Burton Bank example is drawn from a use case in a [Selective Disclosure white paper](https://github.com/WebOfTrustInfo/rwot11-the-hague/blob/master/draft-documents/selective-correlation.md) in process from Rebooting the Web of Trust XI._
 
@@ -2974,7 +2974,7 @@ To prove his inclusion, Paul would now have to reveal his assertion digest, the 
 
 Through this methodology, the possibility of correlation is much reduced. The proof is the only thing that contains a hash that could theoretically be correlated if someone knew what to look for. They're not meant to be published, which greatly reduces their danger, but even if they were, only the other DIDs in the same bundle are subject to potential correlation. (Salted assertions still offer better correlation protection, but as noted previously, only at a cost in space, complexity, and required secrets. The bundled assertions of this example offer an excellent middle ground.)
 
-### 7. Burton Bank Avoids Toxicity (Herd Privacy with Selective Disclosure)
+### 7. Burton Bank Avoids Toxicity (Herd Privacy with Selective Correlation)
 
 > _Problem Solved:_ Burton Bank needs to verify the success of its student loans without acquiring toxic data while doing so!
 
