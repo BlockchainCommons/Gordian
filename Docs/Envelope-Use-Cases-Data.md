@@ -1,8 +1,13 @@
 # Gordian Envelope Use Cases: Data Distribution
 
-...
+Gordian Envelopes can be used to support a wide variety of data-distribution use cases, covering everything from agriculture and supply chain to healthcare and telecommunication. They are the most useful when there is data that should be used in different ways by different people with different permissions, different needs, and different regulations. For example, healthcare records are extreme sensitive and contain a large amount of personally identifiable information. A patient will want to have complete records of everything, as will a primary care physician. A pharmacist would need to see a much smaller set of information, related only to prescriptions; for a prescription that has no drug-interaction dangers, they might only need to see a single prescription.
 
 ## Data Use Case Table of Contents
+
+The following use cases 
+
+Gordian Envelope can be used in data use cases to reveal structured information, but the privacy-prospecting aspects of the Envelope can offer considerable expansion beyond simple display of information. Signatures allow data to be authenticated, even if it's removed from the original source. They can also allow additional metadata introduced by the server to be authenticated. 
+
 
 * [Part One: Public CryptFinger](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-one-public-cryptfinger)
    * [#1: Carmen Makes Basic Info Available (Structured Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#1-carmen-makes-basic-info-available-structured-data)
@@ -12,6 +17,7 @@
    * [#4: Carmen Protects CryptFinger (Elision)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#4-carmen-protects-cryptfinger-elision)
    * [#5: Carmen Makes CryptFinger Provable (Inclusion Proof)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#5-carmen-makes-cryptfinger-provable-inclusion-proof)
    * [#6: Carmen Makes CryptFinger Progressive (Progressive Trust)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#6-carmen-makes-cryptfinger-progressive-progressive-trust)
+* [Part Three: Herd Private CryptFinger](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-three-herd-private-cryptfinger)
    
 ...
 
@@ -2015,13 +2021,3 @@ graph LR
     linkStyle 48 stroke:#55f,stroke-width:2.0px
 ```
 Revelation that Carmen `isA` author could similarly reveal information on her book, while revelation of Carmen's phone number could be enough to reveal everything else! The exact design of progressive trust can vary from sitaution to situation, but the automated back-and-forth of increasing information exchange should always stay the same.
-
----
-
-#7? Herd Privacy of Users?
-Some way to differentiate it meaningfully from Educational example?
-
-
-data can be entirely elided so that it's only visible to queries that know to ask for the data
-data can be released through a model of progressive trust by slowly reducing elision
-
