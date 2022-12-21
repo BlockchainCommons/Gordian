@@ -2336,4 +2336,31 @@ Revelation that Carmen `isA` author could similarly reveal information on her bo
 
 ## Part Three: Herd Private CryptFinger
 
+A variant of CryptFinger might support herd privacy. This would allow individuals to reveal or hide their membership in a group based on their personal preferences.
+
+In this variant, the CryptFinger server might create a list of everyone on the server, active or inactive. It's the most basic use of a `finger` command:
+```
+"cryptfinger.com" [
+    "active": "admin"
+    "active": "carmen"
+    "active": "elmer"
+    "active": "gary"
+    "active": "lucy"
+    "active": "mango"
+    "inactive": "donnie"
+    "inactive": "karen"
+    "inactive": "sheena"
+    "inactive": "sianora"
+]
+```
+It would then entirely elide that list:
+```
+"cryptfinger.com" [
+    ELIDED (10)
+]
+```
+Individual users could then use inclusion proofs to demonstrate that those `ELIDED` entries match their `active` (or `inactive`) accounts on `cryptfinger.com`, but if they didn't they could stay largely anonymous in the herd of accounts listed.
+
+See the [Educational Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-three-herd-privacy-credentials) for more precise examples of how herd privacy can be supported with long listings of this sort, and how that can be improved with techniques such as salting and restructing entries.
+
 []
