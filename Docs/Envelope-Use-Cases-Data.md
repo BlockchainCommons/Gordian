@@ -1764,9 +1764,29 @@ If Carmen instead wanted to block correlation, for example if she _didn't_ want 
 
 Though Carmen is initially limiting CryptFinger information released outside of her company, she wants to be able to progressively release additional information as she gains trust with external users. This model of [progressive trust](https://www.blockchaincommons.com/musings/musings-progressive-trust/) is how trust works in the real-world, when we meet people, introduce ourselves, and slowly give them more information about ourselves. It makes sense for CryptFinger to follow that same methodology.
 
-This could be done by hand, based on growing connection to another person. She could introduce her publications quite early, as they're pretty public information. She might prioritize her aliases and introduce them as someone else introduces themselves. She might save her phone number to only be given to someone who she's created a real connection with, and perhaps even met in person. The other user can meanwhile continue to verify this is all of Carmen's actual information, as any new Gordian Envelopes will match the signatures and hashes of existing Gordian Envelopes (presuming they're just revelations of a previously elided Envelope).
+This could be done by hand, based on growing connection to another person. Carmen could introduce her publications quite early, as they're pretty public information. She might next prioritize her aliases and introduce them as someone else introduces themselves. She might save her phone number to only be given to someone who she's created a real connection with, and perhaps even met in person. The other user can meanwhile continue to verify this is all of Carmen's actual information, as any new Gordian Envelopes will match the signatures and hashes of existing Gordian Envelopes (presuming they're just revelations of a previously elided Envelope).
 
-However, progressive-trust algorithms could be even more powerful, as they'd allow Carmen to automatically reveal more information from her CryptFinger without having to make a decision at every stage. One methodology might be for a user to use an inclusion proof to reveal that they know something about Carmen, and then to receive additional data related to that revelation.
+However, algorithmic progressive-trust designs could be even more powerful, as they'd allow Carmen to automatically reveal more information from her CryptFinger without having to make a decision at every stage. One methodology might be for a user to use an inclusion proof to reveal that they know something about Carmen, and then to receive additional data related to that revelation. This would be easy to automate, as a configuration file could list what revelations lead to what additional revelations.
+
+For example, another user might prove that they know Carmen `isA programmer`:
+```
+isA: "programmer"
+```
+```mermaid
+graph LR
+    1(["c1a9c8a1<br/>ASSERTION"])
+    2[/"8982354d<br/>isA"/]
+    3["73fca274<br/>#quot;programmer#quot;"]
+    1 -->|pred| 2
+    1 -->|obj| 3
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px
+    style 3 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:green,stroke-width:2.0px
+    linkStyle 1 stroke:#55f,stroke-width:2.0px
+```
+The assertion is visible as the hash of one of the elisions: `c1a9c8a1`.
+
 
 -- So add some "isA" ... author, programmer, etc.
 -- and then check against one of those
