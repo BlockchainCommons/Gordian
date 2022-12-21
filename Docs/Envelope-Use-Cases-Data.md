@@ -1,13 +1,12 @@
 # Gordian Envelope Use Cases: Data Distribution
 
-Gordian Envelopes can be used to support a wide variety of data-distribution use cases, covering everything from agriculture and supply chain to healthcare and telecommunication. They are the most useful when there is data that should be used in different ways by different people with different permissions, different needs, and different regulations. For example, healthcare records are extreme sensitive and contain a large amount of personally identifiable information. A patient will want to have complete records of everything, as will a primary care physician. A pharmacist would need to see a much smaller set of information, related only to prescriptions; for a prescription that has no drug-interaction dangers, they might only need to see a single prescription. Meanwhile, laws such as HIPAA (in the US) and GDPR (in the EU) make various data toxic: no one will want to have access to it unless they must. Gordian Envelopes can use elision to minimize everyone's views of their data while simultaneously using authentication to assure everyone that the entirety of the data is unchanged.
+Gordian Envelopes can be used to support [a wide variety of data-distribution use cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases.md#other-data-distribution-use-cases), covering everything from agriculture and supply chain to healthcare and telecommunication. They are the most useful when there is data that should be used in different ways by different people who have different permissions, different needs, and/or different regulations. 
+
+For example, healthcare records are extremely sensitive and contain a large amount of personally identifiable information. A patient will want to have complete records of everything, as will a primary care physician. A pharmacist would need to see a much smaller set of information, related only to prescriptions; for a prescription that has no drug-interaction dangers, they might only need to see a single prescription. Meanwhile, laws such as HIPAA (in the US) and GDPR (in the EU) make various data toxic: no one will want to have access to it unless they must. Gordian Envelopes can use elision to minimize everyone's views of their data while simultaneously using authentication to assure everyone that the entirety of the data is valid and unchanged.
 
 ## Data Use Case Table of Contents
 
-The following use cases 
-
-Gordian Envelope can be used in data use cases to reveal structured information, but the privacy-prospecting aspects of the Envelope can offer considerable expansion beyond simple display of information. Signatures allow data to be authenticated, even if it's removed from the original source. They can also allow additional metadata introduced by the server to be authenticated. 
-
+The following use cases focus on a fundamentally simple idea: the distribution of user-information data on the internet. In doing so, they imagine a next-generation privacy-protection data-distribution app that builds on projects such as [Finger](https://datatracker.ietf.org/doc/html/rfc1288) and [WebFinger](https://www.rfc-editor.org/rfc/rfc7033). The use cases are all progressive, building on top of each other. The first set focuses on public data, but demonstrates the advantage of authentication. The second focuses on private data that is partially or entirely elided. A final section then discusses how herd privacy use cases from other sections could equally be applied here.
 
 * [Part One: Public CryptFinger](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-one-public-cryptfinger)
    * [#1: Carmen Makes Basic Info Available (Structured Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#1-carmen-makes-basic-info-available-structured-data)
@@ -19,8 +18,6 @@ Gordian Envelope can be used in data use cases to reveal structured information,
    * [#6: Carmen Makes CryptFinger Progressive (Progressive Trust)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#6-carmen-makes-cryptfinger-progressive-progressive-trust)
 * [Part Three: Herd Private CryptFinger](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-three-herd-private-cryptfinger)
    
-...
-
 ## Part One: Public CryptFinger
 
 This first set of use cases lays out Gordian Envelope use cases for public data distribution, where everything is seen by all parties. It includes: how to create basic (structured) information, how to make that data verifiable, and how to timestamp that data.
@@ -1772,9 +1769,9 @@ If Carmen instead wanted to block correlation, for example if she _didn't_ want 
 
 Though Carmen is initially limiting CryptFinger information released outside of her company, she wants to be able to progressively release additional information as she gains trust with external users. This model of [progressive trust](https://www.blockchaincommons.com/musings/musings-progressive-trust/) is how trust works in the real-world, when we meet people, introduce ourselves, and slowly give them more information about ourselves. It makes sense for CryptFinger to follow that same methodology.
 
-This could be done by hand, based on growing connection to another person. Carmen could introduce her publications quite early, as they're pretty public information. She might next prioritize her aliases and introduce them as someone else introduces themselves. She might save her phone number to only be given to someone who she's created a real connection with, and perhaps even met in person. The other user can meanwhile continue to verify this is all of Carmen's actual information, as any new Gordian Envelopes will match the signatures and hashes of existing Gordian Envelopes (presuming they're just revelations of a previously elided Envelope).
+This could be done by hand, based on growing connection to another person. Less elided Envelopes would be released over time. Carmen could introduce her publications quite early, as they're pretty public information. She might next prioritize her aliases and introduce them as someone else introduces themselves. She might save her phone number to only be given to someone who she's created a real connection with, and perhaps even met in person. The other user can meanwhile continue to verify that the information all links to Carmen, as any new Gordian Envelopes will match the signatures and hashes of existing Gordian Envelopes (presuming they're just revelations of a previously elided Envelope).
 
-However, algorithmic progressive-trust designs could be even more powerful, as they'd allow Carmen to automatically reveal more information from her CryptFinger without having to make a decision at every stage. One methodology might be for a user to use an inclusion proof to reveal that they know something about Carmen, and then to receive additional data related to that revelation. This would be easy to automate, as a configuration file could list what revelations lead to what additional revelations.
+However, algorithmic progressive-trust designs could be even more powerful, as they could allow Carmen to automatically reveal more information from her CryptFinger without having to make a decision at every stage. One methodology might be for a user to use an inclusion proof to reveal that they know something about Carmen, and then to receive additional data related to that revelation. This would be easy to automate, as a configuration file could list what inclusions-proofs would lead to what additional revelations.
 
 For example, another user might prove that they know Carmen `isA programmer`:
 ```
@@ -1793,7 +1790,7 @@ graph LR
     linkStyle 0 stroke:green,stroke-width:2.0px
     linkStyle 1 stroke:#55f,stroke-width:2.0px
 ```
-The assertion is visible as the hash of one of the elisions: `c1a9c8a1`. Seeing that the user knew that fact, WebFinger would then be authorized to release a new (less elided) version of the Envelope which includes information on Carmen's technical article:
+The assertion is visible as the hash of one of the elisions: `c1a9c8a1`. Seeing that the user knew that fact, WebFinger would then be authorized to release a new (less elided) version of the Envelope that includes information on Carmen's technical article:
 ```
 {
     {
@@ -2021,3 +2018,7 @@ graph LR
     linkStyle 48 stroke:#55f,stroke-width:2.0px
 ```
 Revelation that Carmen `isA` author could similarly reveal information on her book, while revelation of Carmen's phone number could be enough to reveal everything else! The exact design of progressive trust can vary from sitaution to situation, but the automated back-and-forth of increasing information exchange should always stay the same.
+
+## Part Three: Herd Private CryptFinger
+
+[]
