@@ -6,7 +6,9 @@ For example, healthcare records are extremely sensitive and contain a large amou
 
 ## Data Use Case Table of Contents
 
-The following use cases focus on a fundamentally simple idea: the distribution of user-information data on the internet. In doing so, they imagine a next-generation privacy-protection data-distribution app that builds on projects such as [Finger](https://datatracker.ietf.org/doc/html/rfc1288) and [WebFinger](https://www.rfc-editor.org/rfc/rfc7033). The use cases are all progressive, building on top of each other. The first set focuses on public data, but demonstrates the advantage of authentication. The second focuses on private data that is partially or entirely elided. A final section then discusses how herd privacy use cases from other sections could equally be applied here.
+The following use cases focus on a fundamentally simple idea: the distribution of user-information data on the internet. In doing so, they imagine a next-generation privacy-protection data-distribution app that builds on projects such as [Finger](https://datatracker.ietf.org/doc/html/rfc1288) and [WebFinger](https://www.rfc-editor.org/rfc/rfc7033). They brainstorm how a successful protocol on the internet could be improved for a next generation, how the extant value could be replicated while improving its privacy.
+
+The use cases are all progressive, building on top of each other. The first set focuses on public data, but demonstrates the advantage of authentication. The second focuses on private data that is partially or entirely elided. A final section then discusses how herd privacy use cases from other sections could equally be applied here.
 
 * [Part One: Public CryptFinger](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-one-public-cryptfinger)
    * [#1: Carmen Makes Basic Info Available (Structured Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#1-carmen-makes-basic-info-available-structured-data)
@@ -17,7 +19,10 @@ The following use cases focus on a fundamentally simple idea: the distribution o
    * [#5: Carmen Makes CryptFinger Provable (Inclusion Proof)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#5-carmen-makes-cryptfinger-provable-inclusion-proof)
    * [#6: Carmen Makes CryptFinger Progressive (Progressive Trust)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#6-carmen-makes-cryptfinger-progressive-progressive-trust)
 * [Part Three: Herd Private CryptFinger](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-three-herd-private-cryptfinger)
-   
+* [Part Four: Data Distribution Advancements](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md#part-four-data-distribution-advancements)
+
+As these progressive use cases advance, they reveal a new perspective on data distribution that's not about automated discovery by search engines, but instead about purposeful, personal distribution of information, in the exact manner that the user desires.
+
 ## Part One: Public CryptFinger
 
 This first set of use cases lays out Gordian Envelope use cases for public data distribution, where everything is seen by all parties. It includes: how to create basic (structured) information, how to make that data verifiable, and how to timestamp that data.
@@ -2363,4 +2368,12 @@ Individual users could then use inclusion proofs to demonstrate that those `ELID
 
 See the [Educational Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-three-herd-privacy-credentials) for more precise examples of how herd privacy can be supported with long listings of this sort, and how that can be improved with techniques such as salting and restructing entries.
 
-[]
+## Part Four: Data Distribution Advancements
+
+There are many other ways that the "CryptFinger" user-data system could be expanded, building on the benefits of cryptographic elements. These include:
+
+* **Signed Metadata.** Data elements could be individually signed. The user might sign aliases and links, to verify their authenticity; or other parties might sign data to offer their own verification of the data.
+* **Provable Metadata.** Aggregate data could be published, with the individual data elements being elided, but those data elements could then be proven through inclusion proofs. For example, a user might include a list of 10,000 elided followers, and any of those followers could prove who they are by matching the elision hash; or a professor working on a paper might maintain an elided list of references while his paper is in process, only revealing it when he publishes.
+* **Repackaged Metadata.** Because the sample CryptFinger is signed, its content can be used in other venues. For example, a publisher printing a new article by Carmen could capture her CryptFinger data, elide out anything that's irrelevent, and publish it as an "About the Author" that contains provable information known to have originated the `carmen@cryptfinger.com` account.
+
+There are many more possibilities.
