@@ -6,7 +6,7 @@ For example, healthcare records are extremely sensitive and contain a large amou
 
 ## Data Use Case Table of Contents
 
-The following use cases focus on a fundamentally simple idea: the distribution of user-information data on the internet. In doing so, they imagine a next-generation privacy-protection data-distribution app that builds on projects such as [Finger](https://datatracker.ietf.org/doc/html/rfc1288) and [WebFinger](https://www.rfc-editor.org/rfc/rfc7033). They brainstorm how a successful protocol on the internet could be improved for a next generation, how the extant value could be replicated while improving its privacy.
+The following use cases focus on a fundamentally simple idea: the distribution of user-information data on the internet. In doing so, they imagine a next-generation privacy-protection data-distribution app that builds on projects such as [Finger](https://datatracker.ietf.org/doc/html/rfc1288) and [WebFinger](https://www.rfc-editor.org/rfc/rfc7033), protocols which continue to be actively used for strong benefits in apps like [Mastodon](https://docs.joinmastodon.org/spec/webfinger/) and many others. These use cases brainstorm how a existing and successful protocol on the internet could be improved for a next generation: how the extant value could be replicated while improving its privacy.
 
 The use cases are all progressive, building on top of each other. The first set focuses on public data, but demonstrates the advantage of authentication. The second focuses on private data that is partially or entirely elided. A final section then discusses how herd privacy use cases from other sections could equally be applied here.
 
@@ -438,7 +438,9 @@ graph LR
     linkStyle 87 stroke-width:2.0px
     linkStyle 88 stroke:green,stroke-width:2.0px
 ```
-More innovations will come as Carmen adds on privacy-preserving features from Gordian Envelope.
+A look at the contents of CryptFinger is worthy of some further discussions. The most important element may be its inclusion of what are essentially `rel=me` equivalencies. The CryptFinger server at cryptfinger.com claims that `carmen` at that site is equivalent to "admin@cryptfinger.com", "carmen@blockchaincommons.com", and "carmen@mycarmentsite.com"; with additional metadata it can even describe the alias "@carmen@mycarmentsite.com" with its Mastodon equivalence. Besides that, it can also offer the equivalence of powerful identifiers such as CIDs and public keys and powerful communication mechanisms, such as phone numbers. Finally, it can offer other informational tidbits such as what Carmen does and what she's published. If there's data about a person, CryptFinger can be structured to contain it, even if its multilevel data, such as Carmen's book _Zen and the Art of Cryptfinger Design_, which has also been translated.
+
+But structured data is just the start. More innovations will come as Carmen adds on privacy-preserving features from Gordian Envelope.
 
 ### #2: Carmen Makes CryptFinger Verifiable (Signatures)
 
