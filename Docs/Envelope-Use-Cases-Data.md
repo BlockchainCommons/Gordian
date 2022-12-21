@@ -1884,7 +1884,7 @@ Ultimately, Carmen decides that the public should only see the most minimal vers
         "carmen@cryptfinger.com" [
             "cid": "ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfmynylnecwldpapafskphsgwfgmdgwmusthlzecfltiosskorers"
             "pubkey": "ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbdbbnlmdpsvtrllpchlomeutbzrhcxdputiarhlrtpfhsaiygdayzswetpvahdcxsfmocxiarketgeoemyaawmiogyftjyfwvaolndimuolgwlsrdyoyhddwgwjyjefylylnpdoe"
-            ELIDED (8)
+            ELIDED (10)
         ]
     } [
         "verifierInfo": "cryptfinger.com" [
@@ -1898,39 +1898,41 @@ Ultimately, Carmen decides that the public should only see the most minimal vers
 ```
 ```mermaid
 graph LR
-    1(("0fdbc99e<br/>NODE"))
-    2[/"e5cfa3bc<br/>WRAPPED"\]
-    3(("b9833f36<br/>NODE"))
-    4[/"db8ea56e<br/>WRAPPED"\]
-    5(("5c6ec4a2<br/>NODE"))
+    1(("3c1cc7e5<br/>NODE"))
+    2[/"4facf50f<br/>WRAPPED"\]
+    3(("4a6d0203<br/>NODE"))
+    4[/"59b76ff6<br/>WRAPPED"\]
+    5(("8ebf197c<br/>NODE"))
     6["4f59e396<br/>#quot;carmen@cryptfinger.com#quot;"]
     7{{"0595bb3a<br/>ELIDED"}}
     8{{"152f509c<br/>ELIDED"}}
     9{{"320d0c70<br/>ELIDED"}}
     10{{"366c06f1<br/>ELIDED"}}
-    11(["58711216<br/>ASSERTION"])
-    12["97dc30c5<br/>#quot;cid#quot;"]
-    13["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
-    14(["77c587c5<br/>ASSERTION"])
-    15["d52596f8<br/>#quot;pubkey#quot;"]
-    16["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
-    17{{"aff1bb37<br/>ELIDED"}}
-    18{{"ba480823<br/>ELIDED"}}
-    19{{"c1a9c8a1<br/>ELIDED"}}
-    20{{"fa6f4cc6<br/>ELIDED"}}
-    21(["093f17ab<br/>ASSERTION"])
-    22["7e84d1a9<br/>#quot;verifierInfo#quot;"]
-    23(("7b64b5b2<br/>NODE"))
-    24["7067ea88<br/>#quot;cryptfinger.com#quot;"]
-    25(["221b8c49<br/>ASSERTION"])
-    26["29c0cd61<br/>#quot;pubkeyURL#quot;"]
-    27["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
-    28(["4001d133<br/>ASSERTION"])
-    29["fb07d301<br/>#quot;timeStamp#quot;"]
-    30["fd5a507f<br/>#quot;1671062936#quot;"]
-    31(["be666d13<br/>ASSERTION"])
-    32[/"d59f8c0f<br/>verifiedBy"/]
-    33["67d8c52d<br/>Signature"]
+    11{{"46b8918d<br/>ELIDED"}}
+    12(["58711216<br/>ASSERTION"])
+    13["97dc30c5<br/>#quot;cid#quot;"]
+    14["601a1a59<br/>#quot;ur:crypto-cid/hdcxrtgorddsrnfmryleehhnfm…#quot;"]
+    15(["77c587c5<br/>ASSERTION"])
+    16["d52596f8<br/>#quot;pubkey#quot;"]
+    17["a1163580<br/>#quot;ur:crypto-pubkeys/lftaaosehdcxwpjnrpftbd…#quot;"]
+    18{{"aff1bb37<br/>ELIDED"}}
+    19{{"ba480823<br/>ELIDED"}}
+    20{{"c1a9c8a1<br/>ELIDED"}}
+    21{{"f78f6b55<br/>ELIDED"}}
+    22{{"fa6f4cc6<br/>ELIDED"}}
+    23(["093f17ab<br/>ASSERTION"])
+    24["7e84d1a9<br/>#quot;verifierInfo#quot;"]
+    25(("7b64b5b2<br/>NODE"))
+    26["7067ea88<br/>#quot;cryptfinger.com#quot;"]
+    27(["221b8c49<br/>ASSERTION"])
+    28["29c0cd61<br/>#quot;pubkeyURL#quot;"]
+    29["fc7df80f<br/>#quot;ur:crypto-pubkeys/lftaaosehdcximbbhfzscp…#quot;"]
+    30(["4001d133<br/>ASSERTION"])
+    31["fb07d301<br/>#quot;timeStamp#quot;"]
+    32["fd5a507f<br/>#quot;1671062936#quot;"]
+    33(["36371f98<br/>ASSERTION"])
+    34[/"d59f8c0f<br/>verifiedBy"/]
+    35["ce83e4c5<br/>Signature"]
     1 -->|subj| 2
     2 -->|subj| 3
     3 -->|subj| 4
@@ -1941,28 +1943,30 @@ graph LR
     5 --> 9
     5 --> 10
     5 --> 11
-    11 -->|pred| 12
-    11 -->|obj| 13
-    5 --> 14
-    14 -->|pred| 15
-    14 -->|obj| 16
-    5 --> 17
+    5 --> 12
+    12 -->|pred| 13
+    12 -->|obj| 14
+    5 --> 15
+    15 -->|pred| 16
+    15 -->|obj| 17
     5 --> 18
     5 --> 19
     5 --> 20
-    3 --> 21
-    21 -->|pred| 22
-    21 -->|obj| 23
-    23 -->|subj| 24
-    23 --> 25
-    25 -->|pred| 26
-    25 -->|obj| 27
-    23 --> 28
-    28 -->|pred| 29
-    28 -->|obj| 30
-    1 --> 31
-    31 -->|pred| 32
-    31 -->|obj| 33
+    5 --> 21
+    5 --> 22
+    3 --> 23
+    23 -->|pred| 24
+    23 -->|obj| 25
+    25 -->|subj| 26
+    25 --> 27
+    27 -->|pred| 28
+    27 -->|obj| 29
+    25 --> 30
+    30 -->|pred| 31
+    30 -->|obj| 32
+    1 --> 33
+    33 -->|pred| 34
+    33 -->|obj| 35
     style 1 stroke:red,stroke-width:3.0px
     style 2 stroke:red,stroke-width:3.0px
     style 3 stroke:red,stroke-width:3.0px
@@ -1973,29 +1977,31 @@ graph LR
     style 8 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
     style 9 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
     style 10 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
-    style 11 stroke:red,stroke-width:3.0px
-    style 12 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 12 stroke:red,stroke-width:3.0px
     style 13 stroke:#55f,stroke-width:3.0px
-    style 14 stroke:red,stroke-width:3.0px
-    style 15 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:#55f,stroke-width:3.0px
+    style 15 stroke:red,stroke-width:3.0px
     style 16 stroke:#55f,stroke-width:3.0px
-    style 17 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 17 stroke:#55f,stroke-width:3.0px
     style 18 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
     style 19 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
     style 20 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
-    style 21 stroke:red,stroke-width:3.0px
-    style 22 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 22 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
     style 23 stroke:red,stroke-width:3.0px
     style 24 stroke:#55f,stroke-width:3.0px
     style 25 stroke:red,stroke-width:3.0px
     style 26 stroke:#55f,stroke-width:3.0px
-    style 27 stroke:#55f,stroke-width:3.0px
-    style 28 stroke:red,stroke-width:3.0px
+    style 27 stroke:red,stroke-width:3.0px
+    style 28 stroke:#55f,stroke-width:3.0px
     style 29 stroke:#55f,stroke-width:3.0px
-    style 30 stroke:#55f,stroke-width:3.0px
-    style 31 stroke:red,stroke-width:3.0px
+    style 30 stroke:red,stroke-width:3.0px
+    style 31 stroke:#55f,stroke-width:3.0px
     style 32 stroke:#55f,stroke-width:3.0px
-    style 33 stroke:#55f,stroke-width:3.0px
+    style 33 stroke:red,stroke-width:3.0px
+    style 34 stroke:#55f,stroke-width:3.0px
+    style 35 stroke:#55f,stroke-width:3.0px
     linkStyle 0 stroke:red,stroke-width:2.0px
     linkStyle 1 stroke:red,stroke-width:2.0px
     linkStyle 2 stroke:red,stroke-width:2.0px
@@ -2006,28 +2012,30 @@ graph LR
     linkStyle 7 stroke-width:2.0px
     linkStyle 8 stroke-width:2.0px
     linkStyle 9 stroke-width:2.0px
-    linkStyle 10 stroke:green,stroke-width:2.0px
-    linkStyle 11 stroke:#55f,stroke-width:2.0px
-    linkStyle 12 stroke-width:2.0px
-    linkStyle 13 stroke:green,stroke-width:2.0px
-    linkStyle 14 stroke:#55f,stroke-width:2.0px
-    linkStyle 15 stroke-width:2.0px
+    linkStyle 10 stroke-width:2.0px
+    linkStyle 11 stroke:green,stroke-width:2.0px
+    linkStyle 12 stroke:#55f,stroke-width:2.0px
+    linkStyle 13 stroke-width:2.0px
+    linkStyle 14 stroke:green,stroke-width:2.0px
+    linkStyle 15 stroke:#55f,stroke-width:2.0px
     linkStyle 16 stroke-width:2.0px
     linkStyle 17 stroke-width:2.0px
     linkStyle 18 stroke-width:2.0px
     linkStyle 19 stroke-width:2.0px
-    linkStyle 20 stroke:green,stroke-width:2.0px
-    linkStyle 21 stroke:#55f,stroke-width:2.0px
-    linkStyle 22 stroke:red,stroke-width:2.0px
-    linkStyle 23 stroke-width:2.0px
-    linkStyle 24 stroke:green,stroke-width:2.0px
-    linkStyle 25 stroke:#55f,stroke-width:2.0px
-    linkStyle 26 stroke-width:2.0px
-    linkStyle 27 stroke:green,stroke-width:2.0px
-    linkStyle 28 stroke:#55f,stroke-width:2.0px
-    linkStyle 29 stroke-width:2.0px
-    linkStyle 30 stroke:green,stroke-width:2.0px
-    linkStyle 31 stroke:#55f,stroke-width:2.0px
+    linkStyle 20 stroke-width:2.0px
+    linkStyle 21 stroke-width:2.0px
+    linkStyle 22 stroke:green,stroke-width:2.0px
+    linkStyle 23 stroke:#55f,stroke-width:2.0px
+    linkStyle 24 stroke:red,stroke-width:2.0px
+    linkStyle 25 stroke-width:2.0px
+    linkStyle 26 stroke:green,stroke-width:2.0px
+    linkStyle 27 stroke:#55f,stroke-width:2.0px
+    linkStyle 28 stroke-width:2.0px
+    linkStyle 29 stroke:green,stroke-width:2.0px
+    linkStyle 30 stroke:#55f,stroke-width:2.0px
+    linkStyle 31 stroke-width:2.0px
+    linkStyle 32 stroke:green,stroke-width:2.0px
+    linkStyle 33 stroke:#55f,stroke-width:2.0px
 ```
 Note that the overall hash of the Merkle-tree used by Gordian Envelope remains the same: `0fdbc99e`. In addition, the signature remains valid, even though information has been elided _and_ the data has _not_ been signed again.
 
