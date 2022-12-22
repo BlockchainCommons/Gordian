@@ -17,6 +17,21 @@ The following privacy-preserving advantages are demonstrated in educational use 
 
 See the [Educational & Credential Industry Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md) for illustrated examples of these advantages.
 
+## Data Distribution Use Cases
+
+Because of their focus on privacy, Gordian Envelopes can be used to store data that requires security and might be revealed to different people in different ways under different circumstances. The data distribution use cases focus on how a simple user-data program such as `finger` could benefit from this new paradigm.
+
+The following data distribution advantages are demonstrated in use cases:
+
+* Envelope data can be structured.
+* Envelope data can be made verifiable through signatures.
+* Envelope data can include additional metadata, such as timestamps, which itself can be verified.
+* Elision can allow envelopes to be released in different ways to different viewers.
+* Selective correlation can enable data lookup without widespread release.
+* Selective correlation can automate progressive releases of data.
+
+See the [Data Distribution Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md) for illustrated examples of these advantages.
+
 ## Software & AI Industry Use Cases
 
 Gordian Envelopes can be used in the software and AI industry to securely and privately transmit complex data structures such as software source code, AI training sets, and model data. This helps to ensure the integrity of the code or models is maintained throughout the software development life-cycle. Gordian Envelopes can also improve the security of the software supply chain by securely transmitting software packages and updates between different parties. This can be particularly useful for the signing of software releases, with Gordian Envelopes supporting multiple signatures, dynamically changing signatures, and even anonymous signatures. Finally, Gordian Envelopes can support the reliability and availability of software infrastructure by securely transmitting configuration data and cryptographic keys.
@@ -51,9 +66,7 @@ See the [Financial Industry Use Cases](https://github.com/BlockchainCommons/Gord
 
 ## Other Data Distribution Use Cases
 
-Because of their focus on privacy, Gordian Envelopes can be used to store data that requires security and might be revealed to different people in different ways under different circumstances.
-
-This will aid a number of industries:
+A number of additional industries can benefit from the data-distribution possibilities of Gordian Envelopes.
 
 **Agriculture Industry Use Cases.** Gordian Envelopes could be used to securely transmit data related to agriculture such as crop yields, soil quality data, and weather data, between different parties. This could help to prevent tampering or other security breaches, and ensure that only verified, trustworthy data is transmitted.
 
