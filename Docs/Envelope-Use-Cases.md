@@ -94,5 +94,3 @@ Supporting data that is complex and sensitive is another particular strength of 
 
 Finally, Envelopes are particularly strong when they are protecting human rights. The core value proposition of the privacy features of Gordian Envelopes cannot be overstated: through its support for selective disclosure and [progressive trust](https://www.blockchaincommons.com/musings/musings-progressive-trust/), Gordian Envelopes allow for disclosure of only specific parts of the data, and only to only authorized parties, enforcing that the privacy rights of individuals are respected.
 
-
-
