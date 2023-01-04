@@ -3515,5 +3515,5 @@ And, this was all done without exchanging toxic information, but instead _depend
 
 ### Related Files
 
-* [Other Envelope Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Intro.md#usage-of-envelopes)
+* [Other Envelope Use Cases](https://www.blockchaincommons.com/introduction/Envelope-Intro/#usage-of-envelopes)
 
