@@ -37,7 +37,7 @@ The Gordian Architecture puts the Gordian Principles into use through an overall
 * **Gordian Macro-Architecture.** The ecosystem architecture depends on functional partition, separating services and confidential data.
    * The Macro-Architecture is built primarily to support _Privacy_ through these features.
    * It is also built on a concept of _Openness_ where different Services from different developers will interoperate freely.
-* **Data Format.** [CBOR](Docs/Why-CBOR.md) is used as the canonical data structure for the Gordian Architecture.
+* **Data Format.** [CBOR](https://www.blockchaincommons.com/introduction/Why-CBOR/) is used as the canonical data structure for the Gordian Architecture.
 * **Encoding Specifications.** Bytewords, URs, and (optionally) QR Codes ensure that Gordian services are interoperable.
    * The Encoding Specifications are how the Gordian System ensures _Openness_ in its Macro-Architure.
 * **Backup Specifications.** UR specifications make it easy to backup confidential data.
