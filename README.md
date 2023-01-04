@@ -42,7 +42,7 @@ The Gordian Architecture puts the Gordian Principles into use through an overall
    * The Encoding Specifications are how the Gordian System ensures _Openness_ in its Macro-Architure.
 * **Backup Specifications.** UR specifications make it easy to backup confidential data.
   * Supporting backups of data improves the _Resilience_ of that data.
-* **Communication Specifications.** Further UR specifications such as [Gordian Envelope](Docs/Envelope-Intro.md) and request/responses aid interoperable communication.
+* **Communication Specifications.** Further UR specifications such as [Gordian Envelope](https://www.blockchaincommons.com/introduction/Envelope-Intro/) and request/responses aid interoperable communication.
    * Like the Encoding Specifications, Communication Specifications help to suport the _Openness_ of the architecture.
    * They also ensure _Independence_ because they assure the portability of data.
 * **Secure UX Designs.** UX best practices form another layer of support for the Gordian Principles.
