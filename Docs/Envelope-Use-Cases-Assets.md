@@ -725,5 +725,5 @@ Now, Sam can feel increasingly comfortable about the resilience of his envelope,
 ### Related
 
 * [02-SSKR-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/3-SSKR-EXAMPLE.md) in the Envelope-CLI docs for an example of how to produce SSKR shared Envelopes with the CLI. The example includes a multi-permit envelope.
-* [Other Envelope Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Intro.md#usage-of-envelopes)
+* [Other Envelope Use Cases](https://www.blockchaincommons.com/introduction/Envelope-Intro/#usage-of-envelopes)
 
