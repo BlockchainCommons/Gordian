@@ -14,16 +14,16 @@ The following set of use cases demonstrates the use of Gordian Envelopes to stor
 
 Gordian Envelopes are useful for credentials in large part because of their ability to support advanced features such as elision, peer-based attestation, and herd privacy. They go far beyond just presenting validatable credentials to allowing the individual holders to decide what gets shown, how, and in what context. They thus add self-sovereign control to the standard rubric of Verifiable Credentials.
 
-* [Part One: Official Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-one-official-credentials)
-   * #1: [Danika Proves Her Worth (Credentials, Signature)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#1-danika-proves-her-worth-credentials-signature)
-   * #2: [Danika Restricts Her Revelations (Elision)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#2-danika-restricts-her-revelations-elision)
-   * #3: [Thunder & Lightning Spotlights Danika (Third-Party Repackaging)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#3-thunder--lightning-spotlights-danika-third-party--repackaging)
-* [Part Two: Web of Trust Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-two-web-of-trust-credentials)
-   * #4: [Omar Offers an Open Badge (Web of Trust Credentials)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#4-omar-offers-an-open-badge-web-of-trust-credentials)
-* [Part Three: Herd Privacy Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#part-three-herd-privacy-credentials)
-   * #5: [Paul Private Proves Proficiency (Herd Privacy)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#5-paul-privately-proves-proficiency-herd-privacy)
-   * #6: [Paul Proves His Proficiency with Improved Privacy (Herd Privacy with Non-Correlation)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#6-paul-proves-proficiency-with-improved-privacy-herd-privacy-with-non-correlation)
-   * #7: [Burton Bank Avoids Toxicity (Herd Privacy with Selective Correlation)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md#7-burton-bank-avoids-toxicity-herd-privacy-with-selective-correlation)
+* [Part One: Official Credentials](Educational.md#part-one-official-credentials)
+   * #1: [Danika Proves Her Worth (Credentials, Signature)](Educational.md#1-danika-proves-her-worth-credentials-signature)
+   * #2: [Danika Restricts Her Revelations (Elision)](Educational.md#2-danika-restricts-her-revelations-elision)
+   * #3: [Thunder & Lightning Spotlights Danika (Third-Party Repackaging)](Educational.md#3-thunder--lightning-spotlights-danika-third-party--repackaging)
+* [Part Two: Web of Trust Credentials](Educational.md#part-two-web-of-trust-credentials)
+   * #4: [Omar Offers an Open Badge (Web of Trust Credentials)](Educational.md#4-omar-offers-an-open-badge-web-of-trust-credentials)
+* [Part Three: Herd Privacy Credentials](Educational.md#part-three-herd-privacy-credentials)
+   * #5: [Paul Private Proves Proficiency (Herd Privacy)](Educational.md#5-paul-privately-proves-proficiency-herd-privacy)
+   * #6: [Paul Proves His Proficiency with Improved Privacy (Herd Privacy with Non-Correlation)](Educational.md#6-paul-proves-proficiency-with-improved-privacy-herd-privacy-with-non-correlation)
+   * #7: [Burton Bank Avoids Toxicity (Herd Privacy with Selective Correlation)](Educational.md#7-burton-bank-avoids-toxicity-herd-privacy-with-selective-correlation)
  
 _The Danika Kaschak examples in #1 through #3 are drawn directly from [07-Elision-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/7-VC-ELISION-EXAMPLE.md), one of the documents for the [Envelope-CLI app](https://github.com/BlockchainCommons/envelope-cli-swift). The Burton Bank example is drawn from a use case in a [Selective Disclosure white paper](https://github.com/WebOfTrustInfo/rwot11-the-hague/blob/master/draft-documents/selective-correlation.md) in process from Rebooting the Web of Trust XI._
 

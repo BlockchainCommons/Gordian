@@ -4,7 +4,7 @@ Please see our [Introduction to Gordian Envelopes](https://www.blockchaincommons
 
 > Gordian Envelope is a specification for the achitecture of a “smart document". It supports the storage, backup, encryption, authentication, and transmission of data, with natively supported cryptography and explicit support for Merkle-based selective disclosure. It's designed to protect digital assets including seeds, keys, Decentralized Identifiers (DIDs), Verifiable Credentials (VCs), and Verifiable Presentations (VPs).
 
-This document outlines the most important technical features of Gordian Envelopes in abstract Alice and Bob form. See our [Use Case Intro](Envelope-Use-Case-Intro.md) for more real-world focused designs.
+This document outlines the most important technical features of Gordian Envelopes in abstract Alice and Bob form. See our [Use Case Intro](Use-Cases/README.md) for more real-world focused designs.
 
 ## Envelope Structure
 

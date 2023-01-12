@@ -7,7 +7,7 @@
 
 ![](/Images/logos/gordian-logo-white.png)
 
-The Gordian system is all about user agency & security. It's intended to support the self-sovereign control of digital assets in a way that's safe, secure, and private by enabling responsible key management, [cutting through a traditionally knotty problem in Bitcoin development.](Docs/Why-Gordian.md). The Gordian system is built on a foundation of Principles that have been fulfilled in an Architecture that is embodied in Reference Apps and supported by Reference Libraries.
+The Gordian system is all about user agency & security. It's intended to support the self-sovereign control of digital assets in a way that's safe, secure, and private by enabling responsible key management, [cutting through a traditionally knotty problem in Bitcoin development.](Architecture/Why-Gordian.md). The Gordian system is built on a foundation of Principles that have been fulfilled in an Architecture that is embodied in Reference Apps and supported by Reference Libraries.
 
 * **Gordian Principles.** A mission statement of four core principles that support self-sovereign control of digital assets.
 * **Gordian Architecture.** The design for both the overall architecture and the individual specifications that make it possible.
@@ -49,7 +49,7 @@ The Gordian Architecture puts the Gordian Principles into use through an overall
    * Good UX designs help _Resilience_ by proofing a user against mistake or con-men attacks of various sorts.
    * They also improve _Independence_ by making it easier for a user to control their own destiny.
 
-Please see [The Gordian Architecture](/Docs/Overview-Architecture.md) for more in-depth discussion of all the architectural elements and [Gordian Architecture Roles](/Docs/Overview-Roles.md) for examples of functions that can be partitioned within the Macro-architecture. Also see [Collaborative Seed Recovery (CSR) Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/CSR.md) for our largest current architectual project in 2022 and [Collaborative Key Management (CKM) Overview](Docs/CKM.md) for our planned next step in 2023-2024.
+Please see [The Gordian Architecture](/Architecture/README.md) for more in-depth discussion of all the architectural elements and [Gordian Architecture Roles](/Architecture/Roles.md) for examples of functions that can be partitioned within the Macro-architecture. Also see [Collaborative Seed Recovery (CSR) Overview](CSR/README.md) for our largest current architectual project in 2022 and [Collaborative Key Management (CKM) Overview](CKM/README.md) for our planned next step in 2023-2024.
 
 Together, these elements (in particular: a network coordinator such as Gordian Coordinator; a signing device such as Gordian Seed Tool; encoding specifications such URs; and communication specifications such as envelope, request, and response) comprise what we consider a Minimal Viable Architecture (MVA) for Gordian, and thus for safe, self-sovereign architecture. They're the minimum that's needed to properly support users.
 
@@ -59,11 +59,11 @@ Use Cases further describe the intent of Blockchain Commons' architecture.
 
 **Gordian Envelope:**
 
-* [**Use Case Overview**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases.md)
-   * [**Educational & Credential Industry Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md) — Using Envelopes to store & transmit credentials.
-   * [**Data Distribution Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md) — Using Envelopes for user-related data releases.
-   * [**Software & AI Industry Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases.md#software--ai-industry-use-cases) — Using Gordian Envelopes to release software.
-   * [**Financial Industry Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md) — Using Envelopes to store assets.
+* [**Use Case Overview**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/README.md)
+   * [**Educational & Credential Industry Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md) — Using Envelopes to store & transmit credentials.
+   * [**Data Distribution Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md) — Using Envelopes for user-related data releases.
+   * [**Software & AI Industry Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md) — Using Gordian Envelopes to release software.
+   * [**Financial Industry Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Financial.md) — Using Envelopes to store assets.
 
 **Collaborative Seed Recovery:**
 * [**Use Cases**](https://hackmd.io/ZbRiwvUfQSy-1RKM15bM8Q#CSR-Focused-Use-Cases) — A short listing of CSR-focused use cases.
@@ -95,7 +95,7 @@ Gordian Reference Apps demonstrate the elements of how the Gordian Architecture 
    * Improves _Privacy_ through the user of a Torgap.
    * Improves _Independence_ by removing centralization of price-lookups.
   
-Please see [The Gordian Reference Apps](/Docs/Overview-Apps.md) for a complete list of past and present reference apps, links to their repos, and an example of how they can be combined into a Macro-Architecture. Links to CLI apps are also included.
+Please see [The Gordian Reference Apps](/Architecture/Apps.md) for a complete list of past and present reference apps, links to their repos, and an example of how they can be combined into a Macro-Architecture. Links to CLI apps are also included.
 
 ## Gordian Reference Libraries
 
@@ -122,15 +122,15 @@ The following words & phrased are used in Gordian documents:
 * **ByteWords.** An _Encoding Specification_ that represents binary data as English words. Used in the _Gordian System_ primarily to represent _CBOR_ in _URs_. See [ByteWords Spec](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md).
 * **CBOR.** A _Data Format_, the canonical data representation for the _Gordian System_. It represents data in a binary format. See [RFC 8949](https://cbor.io/). 
 * **Closely Held Device.** A hardware device such as a phone or a hardware wallet that is privately held by an individual, that has a small attack surface due to careful and consistent sandboxing, and that is not constantly _Networked_ in the way that a full computer tends to be.
-* **Collaborative Key Management (CKM).** A _Service_ for the collaborative generation and usage of keys. See [CKM Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/CKM.md).
-* **Collaborative Seed Recovery (CSR).** A _Service_ to improve _Resilience_ by storing _Shares_ of keys or seeds that are created by _Sharding_. See [CSR Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/CSR.md).
+* **Collaborative Key Management (CKM).** A _Service_ for the collaborative generation and usage of keys. See [CKM Overview](CKM/README.md).
+* **Collaborative Seed Recovery (CSR).** A _Service_ to improve _Resilience_ by storing _Shares_ of keys or seeds that are created by _Sharding_. See [CSR Overview](CSR/README.md).
 * **Data Format.** A _Specification_ for a structure to store data.
 * **Encoding.** A conversion of data into a specific form. See [Encoding (Techopedia)](https://www.techopedia.com/definition/948/encoding).
-* **Encoding Specification.** A _Specification_ for _Encoding_. See [Gordian Encoding Specifications](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md#encoding-specifications).
+* **Encoding Specification.** A _Specification_ for _Encoding_. See [Gordian Encoding Specifications](https://github.com/BlockchainCommons/Gordian/blob/master/Architecture/README.md#encoding-specifications).
 * **Envelope.** A communication _Specification_ for a Smart Document that supports the storage, backup, encryption & authentication of data, with explicit support for Merkle-based selective disclosure.
 * **Functional Partition.** The philosophy of separating different functions as different parts of an interoperable ecosystem, and also dividing data up into different locations, all to improve _Resilience_. This is done with _Partitions_ and could include _Airgaps_ or _Torgaps_.
-* **Gordian Architecture.** A suggested design for a data-asset ecosystem using _The Gordian System_. It incudes _Macro-Architecture_, _Data Formats_, _Specifications_, and _UX Designs_. See [Gordian Architecture Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md).
-* **Gordian Macro-Architecture.** The interoperable design of a system of _Services_, applications, and hardware devices that builds upon the _Gordian Principles_. The macro-architectural is built upon a foundational idea of _Functional Partition_. Part of teh _Gordian System_. See [Gordian Macro-Architecture Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md#macro-architecture).
+* **Gordian Architecture.** A suggested design for a data-asset ecosystem using _The Gordian System_. It incudes _Macro-Architecture_, _Data Formats_, _Specifications_, and _UX Designs_. See [Gordian Architecture Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Architecture/README.md).
+* **Gordian Macro-Architecture.** The interoperable design of a system of _Services_, applications, and hardware devices that builds upon the _Gordian Principles_. The macro-architectural is built upon a foundational idea of _Functional Partition_. Part of teh _Gordian System_. See [Gordian Macro-Architecture Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Architecture/README.md#macro-architecture).
 * **Gordian Principles.** Four fundamental precepts at the heart of the _Gordian System_: _Independence_, _Privacy_, _Resilience_, and _Openness_. See [Gordian Principles Overview (Above)](https://github.com/BlockchainCommons/Gordian#gordian-principles).
    * **Independence.** The ability to work in a self-sovereign way without centralization. A _Gordian Principle_.
    * **Privacy.** Protection of personal data and usage against correlation and censorship. A _Gordian Principle_.
@@ -138,14 +138,14 @@ The following words & phrased are used in Gordian documents:
    * **Openness.** Interoperability of systems and easy portability of data. A _Gordian Principle_.
 * **Gordian System.** An overall design for a data ecosystem that includes _Architecture_, _Reference Apps_, _Libraries_, and _Specifications_ that are intended to support the _Gordian Principles_. See [Gordian System Overview (This Page)](https://github.com/BlockchainCommons/Gordian#-the-gordian-system).
 * **Lifehash.** A _UX Design_ that creates a visual hash as part of an _OIB_ to allow for visual identification of data. See [Lifehash.info](https://lifehash.info/).
-* **Microservice.** A _Service_ that provides a capability which is very specific and/or infrequently used. See [Gordian Macro-Architecture Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md#macro-architecture).
+* **Microservice.** A _Service_ that provides a capability which is very specific and/or infrequently used. See [Gordian Macro-Architecture Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Architecture/README.md#macro-architecture).
 * **Networked.** Directly connected to an online network.
 * **Object Identity Block (OIB).** A _UX Design_ for an array of data that can together allow a user to easily and uniquely identify data. Can include a _Lifehash_. See [Digests for Digital Objects Paper](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2021-002-digest.md).
 * **Partition.** A division between two or more _Services_. A partition could be as simple as ensuring those _Services_ are on different machines, but can also include an _Airgap_ or _Torgap_.
 * **Progressive Trust.** The concept of gradually building trust over time. See [Musings of a Trust Architect: Progressive Trust](https://www.blockchaincommons.com/musings/musings-progressive-trust/).
-* **Quick Connect.** A _UX Design_ for a _URI_ or _QR Code_ that can be used to securely connect together two devices that are separated by a _Partition_. See [Quick Connect API](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Quick-Connect-API.md).
+* **Quick Connect.** A _UX Design_ for a _URI_ or _QR Code_ that can be used to securely connect together two devices that are separated by a _Partition_. See [Quick Connect API](https://github.com/BlockchainCommons/Gordian/blob/master/QuickConnect/README.md).
 * **Quick Response (QR) Code.** An _Encoding Specification_ that represents data in a graphical format. _URs_ are built to allow for efficient encoding as a QR Code. With them, Gordian QR Codes can support animation of larger data sets using foundation codes. See [QR Code (Wikipedia)](https://en.wikipedia.org/wiki/QR_code) & [UR Spec](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-005-ur.md)
-* **Reference App.** An application that shows an example of the usage of a _Specification_, usually built with a _Reference Library_. Gordian Reference Apps are part of the _Gordian System_. See [Gordian Reference Apps](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Apps.md).
+* **Reference App.** An application that shows an example of the usage of a _Specification_, usually built with a _Reference Library_. Gordian Reference Apps are part of the _Gordian System_. See [Gordian Reference Apps](https://github.com/BlockchainCommons/Gordian/blob/master/Architecture/Apps.md).
 * **Reference Library.** A library that provides an API for using a _Specification_. Gordian Reference Libraries are part of the _Gordian System_. See [Gordian Reference Libraries](https://github.com/BlockchainCommons/crypto-commons#gordian-reference-libraries).
 * **Service.** An application providing a specific capability as part of the _Functional Partition_ of a digital-asset ecosystem. Includes _Microservices_.
 * **Share.** A fraction of a seed or a key created by an algorithm such as Shamir's Secret Sharing or VSS. Intended to improve _Resilience_ of data. See [UR Definition for SSKR](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-011-sskr.md).
@@ -155,15 +155,15 @@ The following words & phrased are used in Gordian documents:
 * **Torgap.** A _Partition_ between two _Services_, created to ensure that they are anonymous to each other. See [Torgap Repo](https://github.com/BlockchainCommons/torgap#readme).
 * **Uniform Resources (URs).** An _Encoding Specification_ of a _URI_ for data. It is created by representating data as _CBOR_ and then encoding it with minimal _Bytewords_. URs are also built to allow efficient _Encoding_ as _QR Codes_. URs allow for interoperable communication. See [UR Spec](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-005-ur.md).
 * **Uniform Resource Identifier (URI).** A unique sequence for identifying a resource. A _UR_ is a URI. See [URI (Wikipedia)](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier).
-* **UX Design.** A methodology for presenting data to a user. See [Secure UX Designs](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md#secure-ux-designs).
+* **UX Design.** A methodology for presenting data to a user. See [Secure UX Designs](https://github.com/BlockchainCommons/Gordian/blob/master/Architecture/README.md#secure-ux-designs).
 
 ## Gordian Discussions
 
 All of these Gordian topics can be discussed in our two Gordian discussion areas:
 
-[**Gordian Developer Community**](https://github.com/BlockchainCommons/Gordian-Developer-Community/discussions). For standards and open-source developers who want to talk about interoperable wallet specifications, please use the Discussions area of the [Gordian Developer Community repo](https://github.com/BlockchainCommons/Gordian-Developer-Community/discussions). This is where you talk about Gordian specifications such as [Gordian Envelope](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/00-INTRODUCTION.md), [bc-shamir](https://github.com/BlockchainCommons/bc-shamir), [Sharded Secret Key Reconstruction](https://github.com/BlockchainCommons/bc-sskr), and [bc-ur](https://github.com/BlockchainCommons/bc-ur) as well as the larger [Gordian Architecture](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Architecture.md), its [Principles](https://github.com/BlockchainCommons/Gordian#gordian-principles) of independence, privacy, resilience, and openness, and its macro-architectural ideas such as functional partition (including airgapping, the original name of this community).
+[**Gordian Developer Community**](https://github.com/BlockchainCommons/Gordian-Developer-Community/discussions). For standards and open-source developers who want to talk about interoperable wallet specifications, please use the Discussions area of the [Gordian Developer Community repo](https://github.com/BlockchainCommons/Gordian-Developer-Community/discussions). This is where you talk about Gordian specifications such as [Gordian Envelope](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/00-INTRODUCTION.md), [bc-shamir](https://github.com/BlockchainCommons/bc-shamir), [Sharded Secret Key Reconstruction](https://github.com/BlockchainCommons/bc-sskr), and [bc-ur](https://github.com/BlockchainCommons/bc-ur) as well as the larger [Gordian Architecture](https://github.com/BlockchainCommons/Gordian/blob/master/Architecture/README.md), its [Principles](https://github.com/BlockchainCommons/Gordian#gordian-principles) of independence, privacy, resilience, and openness, and its macro-architectural ideas such as functional partition (including airgapping, the original name of this community).
 
-[**Gordian User Community**](https://github.com/BlockchainCommons/Gordian/discussions). For users of the Gordian reference apps, including [Gordian Coordinator](https://github.com/BlockchainCommons/iOS-GordianCoordinator), [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS), [Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS), [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS), and [SpotBit](https://github.com/BlockchainCommons/spotbit) as well as our whole series of [CLI apps](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Overview-Apps.md#cli-apps). This is a place to talk about bug reports and feature requests as well as to explore how our reference apps embody the [Gordian Principles](https://github.com/BlockchainCommons/Gordian#gordian-principles).
+[**Gordian User Community**](https://github.com/BlockchainCommons/Gordian/discussions). For users of the Gordian reference apps, including [Gordian Coordinator](https://github.com/BlockchainCommons/iOS-GordianCoordinator), [Gordian Seed Tool](https://github.com/BlockchainCommons/GordianSeedTool-iOS), [Gordian Server](https://github.com/BlockchainCommons/GordianServer-macOS), [Gordian Wallet](https://github.com/BlockchainCommons/GordianWallet-iOS), and [SpotBit](https://github.com/BlockchainCommons/spotbit) as well as our whole series of [CLI apps](https://github.com/BlockchainCommons/Gordian/blob/master/Architecture/Apps.md#cli-apps). This is a place to talk about bug reports and feature requests as well as to explore how our reference apps embody the [Gordian Principles](https://github.com/BlockchainCommons/Gordian#gordian-principles).
 
 ## Status - Varied
 

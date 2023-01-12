@@ -16,15 +16,15 @@ Envelopes can be used in a variety of collaborative forms. Following are example
 
 Gordian Envelopes are useful for signing software releases in large part because of their ability to combine signatures with metadata and to chain that information over time through multiple signed documents. This allows for the creation of a history of signatures, which can have a variety of applications. Elision can also add powerful privacy enhancements to traditional signing methodologies.
 
-* [Part One: Chained Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#part-one-chained-signing)
-   * #1: [Casey Codifies Software Releases (Multiple Signatures, Structured Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#1-casey-codifies-software-releases-multiple-signatures-structured-data)
-   * #2: [Blockchain Commons Confirms Casey (Repackaging Data, Third-Party Verification)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#2-blockchain-everyday-confirms-casey-repackaging-data-third-party-verification)
-   * #3: [Casey Chains His Software Releases (Chained Data)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#3-casey-chains-his-software-releases-chained-data)
-   * #4: [Casey Checks Compliance (Attestation)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#4-casey-check-compliance-attestation-metadata)
-   * #5: [Casey Changes Up His Software Releases (Chained Changes)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#5-casey-changes-up-his-software-releases-chained-changes)
-* [Part Two: Anonymous Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#part-two-anonymous-signing)
-   * #6: [Amira Signs Anoymously (Anonymous Signature, Web of Trust)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#6-amira-signs-anonymously-anonymous-signature-web-of-trust)
-   * #7: [Amira Reveals Her Identity (Progressive Trust)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md#7-amira-reveals-her-identity-progressive-trust)
+* [Part One: Chained Signing](Software.md#part-one-chained-signing)
+   * #1: [Casey Codifies Software Releases (Multiple Signatures, Structured Data)](Software.md#1-casey-codifies-software-releases-multiple-signatures-structured-data)
+   * #2: [Blockchain Commons Confirms Casey (Repackaging Data, Third-Party Verification)](Software.md#2-blockchain-everyday-confirms-casey-repackaging-data-third-party-verification)
+   * #3: [Casey Chains His Software Releases (Chained Data)](Software.md#3-casey-chains-his-software-releases-chained-data)
+   * #4: [Casey Checks Compliance (Attestation)](Software.md#4-casey-check-compliance-attestation-metadata)
+   * #5: [Casey Changes Up His Software Releases (Chained Changes)](Software.md#5-casey-changes-up-his-software-releases-chained-changes)
+* [Part Two: Anonymous Signing](Software.md#part-two-anonymous-signing)
+   * #6: [Amira Signs Anoymously (Anonymous Signature, Web of Trust)](Software.md#6-amira-signs-anonymously-anonymous-signature-web-of-trust)
+   * #7: [Amira Reveals Her Identity (Progressive Trust)](Software.md#7-amira-reveals-her-identity-progressive-trust)
 
 ## Part One: Chained Signing
 
@@ -3817,5 +3817,5 @@ graph LR
  
  ### Related Files
 
-* [Other Envelope Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Intro.md#usage-of-envelopes)
+* [Other Envelope Use Cases](README.md#usage-of-envelopes)
 

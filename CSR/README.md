@@ -6,6 +6,7 @@ This document outlines the core structures and principles of a first iteration o
 
 * **CSR Project:** [https://github.com/BlockchainCommons/Community/issues/149](https://github.com/BlockchainCommons/Community/issues/149)
 * **CSR Use Cases:** [https://hackmd.io/ZbRiwvUfQSy-1RKM15bM8Q](https://hackmd.io/ZbRiwvUfQSy-1RKM15bM8Q#CSR-Focused-Use-Cases)
+* **CSR Sequence Diagram:** [SequenceDiagram.md](SequenceDiagram.md)
 
 ## Overview
 

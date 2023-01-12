@@ -4,7 +4,7 @@
 
 Collaborative Key Management (CKM) is a Blockchain Commons architecture for generating, storing, and using keys in a collaborative way, where several different devices or entities come together and use their individual secrets to generate and regenerate keys solely for the brief instant that they're needed. Our roadmap target for deployment of solutions leveraging this CKM architecture is 2023-24.
 
-CKM expands upon [Collaborative Seed Recovery (CSR)](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/CSR.md), our existing architecture (begun in 2019 with SSKR), which supports the resilience and recovery of seeds (not keys) using well-reviewed cryptographic code and which is thus deployable in 2022. 
+CKM expands upon [Collaborative Seed Recovery (CSR)](/CSR/README.md), our existing architecture (begun in 2019 with SSKR), which supports the resilience and recovery of seeds (not keys) using well-reviewed cryptographic code and which is thus deployable in 2022. 
 
 One of the main purposes of releasing this document at this time is to create a touchstone for CSR work, so that it's appropriately future-proofed against prospective CKM development.
 
@@ -237,7 +237,7 @@ The CKM architecture is built upon the following major elements:
 * **Scripting.** A permit-scripting system to support more complex authentication in the future.
 * **SCIDs.** A DID-like identifier integrated with CKMs.
 
-The Crypto-Envelopes and derivative systems are already present in [CSR](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/CSR.md), but will continue to expand and mature as CSR is completed and development begins on CKM.
+The Crypto-Envelopes and derivative systems are already present in [CSR](/CSR/README.md), but will continue to expand and mature as CSR is completed and development begins on CKM.
 
 The following offers a broad overview of these architectural points:
 

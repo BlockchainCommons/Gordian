@@ -15,7 +15,7 @@ The following privacy-preserving advantages are demonstrated in educational use 
 * Bundled credentials can be carefully organized to reduce correlation.
 * Entities can use selective correlation of bundled credential to verify known information without acquiring new, toxic data.
 
-See the [Educational & Credential Industry Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Educational.md) for illustrated examples of these advantages.
+See the [Educational & Credential Industry Use Cases](Educational.md) for illustrated examples of these advantages.
 
 ## Data Distribution Use Cases
 
@@ -30,7 +30,7 @@ The following data distribution advantages are demonstrated in use cases:
 * Selective correlation can enable data lookup without widespread release.
 * Selective correlation can automate progressive releases of data.
 
-See the [Data Distribution Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Data.md) for illustrated examples of these advantages.
+See the [Data Distribution Use Cases](Data.md) for illustrated examples of these advantages.
 
 ## Software & AI Industry Use Cases
 
@@ -47,7 +47,7 @@ The following signing & release advantages are demonstrated in software use case
 * Envelopes can be signed anonymously, depending on a Web of Trust for validation.
 * Anonymous signers can later provably come forward, if thoughtful Envelope design was used from the start.
 
-See the [Software Industry Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Software.md) for illustrated examples of these advantages.
+See the [Software Industry Use Cases](Software.md) for illustrated examples of these advantages.
 
 ## Financial Industry Use Cases
 
@@ -62,7 +62,7 @@ The following privacy advantages are demonstrated in financial use cases, which 
 * Encrypted data can be locked with sharded keys to further improve resilience.
 * Encrypted data can be locked via multiple methods to even` further improve resilience.
 
-See the [Financial Industry Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Docs/Envelope-Use-Cases-Assets.md) for illustrated examples of these advantages.
+See the [Financial Industry Use Cases](Financial.md) for illustrated examples of these advantages.
 
 ## Other Data Distribution Use Cases
 
