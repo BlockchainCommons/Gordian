@@ -6,11 +6,11 @@ The envelope protocol specifies a structured format for hierarchical binary data
 
 ## Implementations
 
-Language|Type|Repo|API Docs
--|-|-|-
-Swift|Reference|[BCSwiftEnvelope](https://github.com/blockchaincommons/BCSwiftEnvelope)|[📔](https://blockchaincommons.github.io/BCSwiftEnvelope/documentation/envelope/)
-Rust|Reference|Forthcoming
-Python|Reference|Forthcoming
+Language|Type|Repo|Status|API Docs
+-|-|-|-|-
+Swift|Reference|[BCSwiftEnvelope](https://github.com/blockchaincommons/BCSwiftEnvelope)|Experimental|[📔](https://blockchaincommons.github.io/BCSwiftEnvelope/documentation/envelope/)
+Rust|Reference|[bc-envelope-rust](https://github.com/blockchaincommons/bc-envelope-rust)|Planning
+Python|Reference|[bc-envelope-python](https://github.com/blockchaincommons/bc-envelope-python)|Planning
 
 ## Resources
 
@@ -19,7 +19,7 @@ Python|Reference|Forthcoming
 - [Video: Gordian Architecture: Why CBOR?](https://www.youtube.com/watch?v=uoD5_Vr6qzw)
 - [Video: Diffing with Gordian Envelope](https://www.youtube.com/watch?v=kXk_XTACqh8)
 
-## Topics
+## Articles
 
 * [Overview](Overview.md)
 * [Examples](Examples.md)
