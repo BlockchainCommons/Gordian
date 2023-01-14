@@ -28,12 +28,10 @@ Combining the `subject` of an `Envelope` with the `predicate` and `object` of an
 
 This assertion-predicate-object triplet may be more easily understood by considering its linguistic usage:
 
-![Alice knows bob.](overview1)
-
-<!--```mermaid-->
-<!--graph LR-->
-<!--    subject:Alice --> |predicate:knows| object:Bob-->
-<!--```-->
+```mermaid
+graph LR
+    subject:Alice --> |predicate:knows| object:Bob
+```
 
 ```
 "Alice knows Bob."
@@ -41,13 +39,11 @@ This assertion-predicate-object triplet may be more easily understood by conside
 
 There can be any number assertions associated with each subject:
 
-![Alice knows bob and dislikes Carol.](overview2)
-
-<!--```mermaid-->
-<!--graph LR-->
-<!--    subject:Alice --> |predicate:knows| object:Bob-->
-<!--    subject:Alice --> |predicate:dislikes| object:Carol-->
-<!--```-->
+```mermaid
+graph LR
+    subject:Alice --> |predicate:knows| object:Bob
+    subject:Alice --> |predicate:dislikes| object:Carol
+```
 
 ```
 "Alice knows Bob and dislikes Carol."
