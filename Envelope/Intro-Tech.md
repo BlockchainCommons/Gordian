@@ -98,7 +98,7 @@ graph LR
 ```
 However the abstract examples in this techinical overview will largely constrain themselves to a simple single-assertion envelope.
 
-> _See the [Envelope Docs](https://github.com/BlockchainCommons/BCSwiftSecureComponents/tree/master/Docs) for more information on basic envelope structure, especially [02-Envelope](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/02-ENVELOPE.md) and [03-Envelope-Notation](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/03-ENVELOPE-NOTATION.md). Also see the [Envelope-CLI Docs](https://github.com/BlockchainCommons/envelope-cli-swift/tree/master/Docs), especially [01-Overview](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/1-OVERVIEW.md)._
+> _See the [Envelope Docs](https://github.com/BlockchainCommons/Gordian/tree/master/Envelope#articles) for more information on basic envelope structure, especially [Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Overview.md), [Examples](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Examples.md), and [Envelope Notation](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Notation.md). Also see the [Envelope-CLI Docs](https://github.com/BlockchainCommons/envelope-cli-swift/tree/master/Docs#readme), especially [01-Overview](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/1-OVERVIEW.md)._
 
 ## Sub Envelopes
 
@@ -230,7 +230,7 @@ graph LR
     linkStyle 24 stroke:#55f,stroke-width:2.0px
 ```
 
-> _Complex metadata offers the best examples of sub-envelopes. See [the Metadata Example in the Envelope Docs](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/07-EXAMPLES.md#example-10-complex-metadata) and [04-Metadata-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/4-METADATA-EXAMPLE.md) in the Envelope-CLI docs._
+> _Complex metadata offers the best examples of sub-envelopes. See [the Metadata Example in the Envelope Docs](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Examples.md#example-10-complex-metadata) and [04-Metadata-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/4-METADATA-EXAMPLE.md) in the Envelope-CLI docs._
 
 ## Wrapped Envelopes
 
@@ -501,7 +501,7 @@ Here we see that the core Alice-knows-Bob information has been wrapped and `veri
 
 (Obviously, care still needs to be taken, with the verifier having a high degree of responsibility: they need to make sure the verifierInfo is correct to know that the signature is meaningful! A `trustedSource` has been suggested as a root of truth, but even that needs to be taken with a grain of salt!)
 
-> _Further examples of Signing, including Multi-Signing, can be found in the [Examples of the Envelope Docs](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/07-EXAMPLES.md#example-2-signed-plaintext) and the [Examples of the Envelope-CLI Docs](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/2-BASIC-EXAMPLES.md#example-2-signed-plaintext)._
+> _Further examples of Signing, including Multi-Signing, can be found in the [Examples of the Envelope Docs](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Examples.md#example-2-signed-plaintext) and the [Examples of the Envelope-CLI Docs](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/2-BASIC-EXAMPLES.md#example-2-signed-plaintext)._
 
 ## Hashing Envelopes
 
@@ -749,7 +749,7 @@ Again, note that all the hashes have stayed the same, even for the Elided branch
 
 To make this abstract example even more realistic, in the case of credentials the Holder could choose which credentials to share and which not to.
 
-> _Further examples of redaction may be found in [09-Elision-Redaction](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/09-ELISION-REDACTION.md) in the Envelope Docs and [07-VC-Elision-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/7-VC-ELISION-EXAMPLE.md) in the Envelope-CLI docs._
+> _Further examples of redaction may be found in [Elision/Redaction](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Elision.md) in the Envelope Docs and [07-VC-Elision-Example](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/7-VC-ELISION-EXAMPLE.md) in the Envelope-CLI docs._
 
 ## Encrypting Envelopes
 
@@ -890,7 +890,7 @@ graph LR
 ```
 Once more, it's envelopes all the way down!
 
-> _For further examples see [Symmetric Encryption](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/07-EXAMPLES.md#example-4-symmetric-encryption) and additional examples in the Envelope Docs and [Symmetric Encryption](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/2-BASIC-EXAMPLES.md#example-4-symmetric-encryption) and additional examples in the Envelope-CLI docs._
+> _For further examples see [Symmetric Encryption](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Examples.md#example-4-symmetric-encryption) and additional examples in the Envelope Docs and [Symmetric Encryption](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/2-BASIC-EXAMPLES.md#example-4-symmetric-encryption) and additional examples in the Envelope-CLI docs._
 
 ## Salting Envelopes
 
@@ -957,13 +957,13 @@ The standard hash of "Alice", `27840350`, is now replaced with a wrapped Envelop
 
 Different use cases might require that selective correlation should either be used or foiled; salt is what makes the latter happen.
 
-> For further examples see [08-Noncorrelation](https://github.com/BlockchainCommons/BCSwiftSecureComponents/blob/master/Docs/08-NONCORRELATION.md) in the Gordian Envelope docs.
+> For further examples see [08-Noncorrelation](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Noncorrelation.md) in the Gordian Envelope docs.
 
 ## Final Notes
 
 This technical introduction is intended to give a broad overview of the major capabilities of Gordian Envelopes with diagrams demonstrating what those Envelopes actually look like.
 
-For further details please see the [Envelope Docs](https://github.com/BlockchainCommons/BCSwiftSecureComponents/tree/master/Docs) and if you are able, follow-along with the [Envelope-CLI Docs](https://github.com/BlockchainCommons/envelope-cli-swift/tree/master/Docs). Those documents provide _much_ more detail on all the examples here. In some cases the examples here were drawn from those docs.
+For further details please see the [Envelope Docs](https://github.com/BlockchainCommons/Gordian/tree/master/Envelope#articles) and if you are able, follow-along with the [Envelope-CLI Docs](https://github.com/BlockchainCommons/envelope-cli-swift/tree/master/Docs). Those documents provide _much_ more detail on all the examples here. In some cases the examples here were drawn from those docs.
 
 
 
