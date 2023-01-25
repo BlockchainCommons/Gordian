@@ -965,5 +965,7 @@ This technical introduction is intended to give a broad overview of the major ca
 
 For further details please see the [Envelope Docs](https://github.com/BlockchainCommons/Gordian/tree/master/Envelope#articles) and if you are able, follow-along with the [Envelope-CLI Docs](https://github.com/BlockchainCommons/envelope-cli-swift/tree/master/Docs). Those documents provide _much_ more detail on all the examples here. In some cases the examples here were drawn from those docs.
 
+Also see the [Envelope Use Cases](https://github.com/BlockchainCommons/Gordian/tree/master/Envelope/Use-Cases#gordian-envelope-use-cases) for many more pragmatic examples of Envelopes in use (with diagrams).
+
 
 
