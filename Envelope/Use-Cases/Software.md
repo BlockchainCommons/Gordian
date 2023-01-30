@@ -1,4 +1,4 @@
-## Gordian Envelope Use Cases: Software Industry
+## Gordian Envelope Use Cases: Software & AI Industry
 
 Gordian Envelopes can be used to manage the secure development and distribution of open-source software, as well as the development of AI systems. There are a number of possible usages.
 
