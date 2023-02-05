@@ -94,7 +94,7 @@ Gordian Reference Apps demonstrate the elements of how the Gordian Architecture 
    * Demonstrates the _Openness_ of a digital-asset ecosystem that supports Microservices.
    * Improves _Privacy_ through the user of a Torgap.
    * Improves _Independence_ by removing centralization of price-lookups.
-  
+
 Please see [The Gordian Reference Apps](/Architecture/Apps.md) for a complete list of past and present reference apps, links to their repos, and an example of how they can be combined into a Macro-Architecture. Links to CLI apps are also included.
 
 ## Gordian Reference Libraries
@@ -110,6 +110,10 @@ The core libraries are:
 
 Please see [The Gordian Reference Libraries](https://github.com/BlockchainCommons/crypto-commons#gordian-reference-libraries) for a complete list of libraries in a variety of languages.
 
+## Module Dependencies
+
+* [This document](SwiftDependencies.md) details the dependencies between many of our reference libraries and apps in the Swift/iOS/macOS ecosystem. Many of the higher-level libraries are written in Swift, while there are a number of important lower-level libraries that are written in C or C++.
+
 ## #SmartCustody Articles
 
 Please see the [SmartCustody repo](https://github.com/BlockchainCommons/SmartCustody) for articles on Multisigs, Timelocks, and other SmartCustody topics.
@@ -120,7 +124,7 @@ The following words & phrased are used in Gordian documents:
 
 * **Airgap.** A _Partition_ between two _Services_, such that they are not _Networked_ on the same network. (Often, at least one _Service_ is not _Networked_ at all). See [Airgap (Wikpedia)](https://en.wikipedia.org/wiki/Air_gap_(networking)).
 * **ByteWords.** An _Encoding Specification_ that represents binary data as English words. Used in the _Gordian System_ primarily to represent _CBOR_ in _URs_. See [ByteWords Spec](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-012-bytewords.md).
-* **CBOR.** A _Data Format_, the canonical data representation for the _Gordian System_. It represents data in a binary format. See [RFC 8949](https://cbor.io/). 
+* **CBOR.** A _Data Format_, the canonical data representation for the _Gordian System_. It represents data in a binary format. See [RFC 8949](https://cbor.io/).
 * **Closely Held Device.** A hardware device such as a phone or a hardware wallet that is privately held by an individual, that has a small attack surface due to careful and consistent sandboxing, and that is not constantly _Networked_ in the way that a full computer tends to be.
 * **Collaborative Key Management (CKM).** A _Service_ for the collaborative generation and usage of keys. See [CKM Overview](CKM/README.md).
 * **Collaborative Seed Recovery (CSR).** A _Service_ to improve _Resilience_ by storing _Shares_ of keys or seeds that are created by _Sharding_. See [CSR Overview](CSR/README.md).
