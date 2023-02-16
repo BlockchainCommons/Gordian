@@ -83,7 +83,6 @@ graph LR
 	eid24  --> eid23
 	eid26  --> eid23
 	eid28  --> eid151
-	eid28  --> eid23
 	eid30  --> eid23
 	eid30  --> eid32
 	eid30  --> eid36
