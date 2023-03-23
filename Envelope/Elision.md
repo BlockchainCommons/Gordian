@@ -10,7 +10,7 @@ One way of providing data minimization is *selective disclosure*. For example, a
 
 ```
 {
-    CID(4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d) [
+    CID(4676635a) [
         "certificateNumber": "123-456-789"
         "continuingEducationUnits": 1.5
         "expirationDate": 2028-01-01
@@ -41,7 +41,7 @@ Using elision, the employer of an employee with this credential could warrant to
 {
     {
         {
-            CID(4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d) [
+            CID(4676635a) [
                 "expirationDate": 2028-01-01
                 "firstName": "James"
                 "lastName": "Maxwell"
@@ -175,7 +175,7 @@ If we print the credential in Envelope Notation, we get:
 
 ```
 {
-    CID(4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d) [
+    CID(4676635a) [
         "certificateNumber": "123-456-789"
         "continuingEducationUnits": 1.5
         "expirationDate": 2028-01-01
@@ -311,7 +311,7 @@ target.insert(content.subject)
 
 ```
 {
-    CID(4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d) [
+    CID(4676635a) [
         ELIDED (13)
     ]
 } [
@@ -335,7 +335,7 @@ target.insert(try content.assertion(withPredicate: "expirationDate").shallowDige
 
 ```
 {
-    CID(4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d) [
+    CID(4676635a) [
         "expirationDate": 2028-01-01
         "firstName": "James"
         "lastName": "Maxwell"
@@ -366,7 +366,7 @@ let warranty = try redactedCredential
 {
     {
         {
-            CID(4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d) [
+            CID(4676635a) [
                 "expirationDate": 2028-01-01
                 "firstName": "James"
                 "lastName": "Maxwell"
@@ -600,7 +600,7 @@ Nonetheless, there may be interesting or useful cases for blind signing that mig
 Consider the case of a photograph encoded as an Envelope and stored in a content addressible storage system using its digest as the key:
 
 ```
-Digest(c5d6edb915682fea7cefeb6ae3822bb7430c3cb743c1ca3dd0895c3e9e367bf9) [
+Digest(c5d6edb9) [
     "width": 640
     "height": 480
     "data": CBOR
@@ -612,7 +612,7 @@ Digest(c5d6edb915682fea7cefeb6ae3822bb7430c3cb743c1ca3dd0895c3e9e367bf9) [
 When returning this object as the result of a query, it is perfectly legal for the storage system to elide any or all of it, for example the metadata. This would still be the "same" object, but in partially-elided form:
 
 ```
-Digest(c5d6edb915682fea7cefeb6ae3822bb7430c3cb743c1ca3dd0895c3e9e367bf9) [
+Digest(c5d6edb9) [
     "width": 640
     "height": 480
     "data": CBOR
@@ -628,7 +628,7 @@ Consider a secret agent issued an identity document by their governent. Elided t
 
 ```
 {
-  CID(2ddf15aab0ff7d710db6bf5be5532fa1a4c171ad2a79c2df5f46199dfd0fbfa0) [
+  CID(2ddf15aa) [
       "firstName": "James"
       "lastName": "Bond"
       "photo": "A photo of James Bond."
@@ -643,7 +643,7 @@ But elided differently, the exact same document, signed with the same signature,
 
 ```
 {
-  CID(2ddf15aab0ff7d710db6bf5be5532fa1a4c171ad2a79c2df5f46199dfd0fbfa0) [
+  CID(2ddf15aa) [
       "firstName": "Jason"
       "lastName": "Bourne"
       "photo": "A photo of the same guy in a different costume."
@@ -658,7 +658,7 @@ So what about those elided fields?
 
 ```
 {
-  CID(2ddf15aab0ff7d710db6bf5be5532fa1a4c171ad2a79c2df5f46199dfd0fbfa0) [
+  CID(2ddf15aa) [
       "firstName": "James"
       "firstName": "Jason"
       "lastName": "Bond"

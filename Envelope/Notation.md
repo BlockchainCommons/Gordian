@@ -1,10 +1,8 @@
 # Envelope Notation
 
-A simplified textual notation for pretty-printing instances of the `Envelope` type.
-
 ## Overview
 
-Envelope notation is a simplified textual notation for pretty-printing instances of the `Envelope` type.
+Envelope notation is a simple textual notation for pretty-printing instances of the `Envelope` type.
 
 * Braces `{ }` are used to delimit the contents of a nested `Envelope`.
 * Top-level braces representing the outermost `Envelope` are omitted.
@@ -53,7 +51,7 @@ The four roles `assertion`, `subject`, `predicate`, and `object` are *themselves
 ]
 ```
 
-Even leaf objects like strings and numbers can be transformed into Envelopes with their own assertions:
+Even leaf objects like strings and numbers are Envelopes that may carry their own assertions:
 
 ```
 {
@@ -158,7 +156,7 @@ ENCRYPTED [
 ]
 ```
 
-### Several Envelopes containing a message split into several SSKR shares.
+### Several envelopes containing a message split into several SSKR shares.
 
 A message has been split into a three shares using SSKR and distributed to three trustees. Two of these shares must be recovered to reconstruct the original message.
 
@@ -176,6 +174,20 @@ ENCRYPTED [
 ]
 ```
 
+### An envelope that has been compressed
+
+```
+COMPRESSED
+```
+
+### An envelope where a large file has been compressed
+
+```
+"Alice" [
+    "photo": COMPRESSED
+]
+```
+
 ### Complex Metadata
 
 A specific digital object is identified and several layers of metadata are attributed to it. In this example some predicates are specified as strings (indicated by quotes) while other predicates use tagged well-known integers (no quotes).
@@ -183,10 +195,10 @@ A specific digital object is identified and several layers of metadata are attri
 This structure uses the `dereferenceVia` predicate to indicate that the full book in EPUB format may be retrieved using ExampleStore, and that its digest will match the digest provided, while more information about the author may be retrieved from the Library of Congress, and this information may change over time.
 
 ```
-Digest(e8aa201db4044168d05b77d7b36648fb7a97db2d3e72f5babba9817911a52809) [
+Digest(26d05af5) [
     "format": "EPUB"
-    "work": CID(7fb90a9d96c07f39f75ea6acf392d79f241fac4ec0be2120f7c82489711e3e80) [
-        "author": CID(9c747ace78a4c826392510dd6285551e7df4e5164729a1b36198e56e017666c8) [
+    "work": CID(7fb90a9d) [
+        "author": CID(9c747ace) [
             dereferenceVia: "LibraryOfCongress"
             hasName: "Ayn Rand"
         ]
@@ -210,16 +222,16 @@ A government wishes to issue a verifiable credential for permanent residency to 
 
 ```
 {
-    CID(174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8) [
+    CID(174842ea) [
         "dateIssued": 2022-04-27
-        holder: CID(78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc) [
+        holder: CID(78bc3000) [
             "birthCountry": "bs" [
                 note: "The Bahamas"
             ]
             "birthDate": 1974-02-18
             "familyName": "SMITH"
             "givenName": "JOHN"
-            "image": Digest(36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999) [
+            "image": "John Smith smiling" [
                 dereferenceVia: "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
                 note: "This is an image of John Smith."
             ]
@@ -231,7 +243,7 @@ A government wishes to issue a verifiable credential for permanent residency to 
             isA: "Person"
         ]
         isA: "credential"
-        issuer: CID(04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8) [
+        issuer: CID(04363d5f) [
             dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
             note: "Issued by the State of Example"
         ]
@@ -254,18 +266,18 @@ See <doc:Elision> for more on this topic.
 
 ```
 {
-    CID(174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8) [
-        holder: CID(78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc) [
+    CID(174842ea) [
+        holder: CID(78bc3000) [
             "familyName": "SMITH"
             "givenName": "JOHN"
-            "image": Digest(36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999) [
+            "image": "John Smith smiling" [
                 dereferenceVia: "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
                 note: "This is an image of John Smith."
             ]
             ELIDED (8)
         ]
         isA: "credential"
-        issuer: CID(04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8) [
+        issuer: CID(04363d5f) [
             dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
             note: "Issued by the State of Example"
         ]

@@ -1,12 +1,10 @@
 # Envelope Expressions
 
-Envelope Expressions are a method for encoding machine-evaluatable expressions using ``Envelope``.
-
 ## Overview
 
-This is an early draft specification.
+Envelope Expressions are a method for encoding machine-evaluatable expressions using ``Envelope``. Gordian Envelope provides a cryptographically strong foundation on which to build requests and responses for distributed function calls.
 
-We provide a method for encoding machine-evaluatable expressions using `Envelope`. Evaluating expressions produces results that can substitute in-place for the original unevaluated expression, although the replacement may have a different digest.
+Evaluating expressions produces results that can substitute in-place for the original unevaluated expression, although the replacement may have a different digest.
 
 Ideally the method of encoding expressions would have the following traits:
 
@@ -45,19 +43,71 @@ Constants like numbers, strings, and even compound data types like `EncryptedMes
 ENCRYPTED
 ```
 
-### Errors
+### Requests and Responses
 
-An expression evaluation that fails for syntactical or semantic reasons results in an error that may include assertions providing diagnostic information:
+A distributed function call (also known as a "remote procedure call") is a call invoked on systems that do not reside in the same process as the caller.
+
+Due to latency and availability, all distributed function calls are by nature asynchronous, and any distributed function call may fail. The caller of a function may expect a particular result of that call, and that result needs to be routed back to the calling process.
+
+To facilitate this, we generate a unique CID and tag it `request`. This becomes the subject of an envelope that must contain an assertion with `body` as the `predicate`, and the `object` must be an envelope expression as described herein. The wrapping `request(CID)` provides a unique identifier used to route the result of the request back to the caller:
 
 ```
-Error [
-    note: "Index out of range."
+request(CID(529b9818)) [
+    body: «add» [
+        ❰lhs❱: 2
+        ❰rhs❱: 3
+    ]
+]
+```
+
+In the above example, the enclosed expression is:
+
+```
+«add» [
+    ❰lhs❱: 2
+    ❰rhs❱: 3
+]
+```
+
+Once the expression has been evaluated, its result is returned in an envelope with `response(CID)` as the subject. The response CID must match the request CID. The returned envelope must contain an assertion with the predicate `result` and the object being the result of the evaluation, which may be an Error as described above.
+
+A successful result might look like this:
+
+```
+response(CID(529b9818)) [
+    result: 5
+]
+```
+
+The returned expression as the object of the `result` assertion is simply the constant `5`, and could be used as a replacement for the object of the `body` assertion in the request. In other words: `2 + 3 -> 5`.
+
+Any party to a request/response may use the CID as a way of discarding duplicates, avoiding replays, or as input to a cryptographic algorithm. See the [CID specification](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2022-002-cid-common-identifier.md) for more information.
+
+Because the functionality of envelope is composable, the outer envelope of a request or a response can be signed as a way of authenticating the request, and if necessary the request and/or response can be encrypted by any of the available methods.
+
+A request may contain further instructions on the channels via which it may be responded to. For example, a request may be scanned with a QR code, and that request may include a URL with a REST endpoint via which to return the result:
+
+```
+request(CID(529b9818)) [
+    body: «add» [
+        ❰lhs❱: 2
+        ❰rhs❱: 3
+    ]
+    respondVia: URI(https://example.com/api/receive-response)
+]
+```
+
+An expression evaluation that fails for syntactical, semantic, or service availability reasons results in an error that may include assertions providing diagnostic information:
+
+```
+response(CID(529b9818)) [
+    error: "Internal Server Error"
 ]
 ```
 
 ### Binary Operator
 
-The subject of an `Envelope` that may be evaluated as an expression is tagged `func`, and each parameter to the function is a predicate tagged `param` with the object that supplies the argument. The Envelope expression language therefore uses a form of named parameters, although it is not limited to this paradigm. The purpose of tagging functions and parameters is to make them easily machine-distinguishable from other metadata.
+The subject of an `Envelope` that may be evaluated as an expression is tagged `function`, and each parameter to the function is a predicate tagged `parameter` with the object that supplies the argument. The Envelope expression language therefore uses a form of named parameters, although it is not limited to this paradigm. The purpose of tagging functions and parameters is to make them easily machine-distinguishable from other metadata.
 
 Assertions that are not tagged as parameters are ignored by the expression evaluator. Assertions that are tagged as parameters but are either not expected by the function, or have duplicate predicates are an error. Functions may have parameters that are required or optional, and not supplying all required parameters is an error.
 
@@ -77,7 +127,16 @@ When evaluated, the result is an Envelope that may be substituted for the origin
 5
 ```
 
-**NOTE:** In the remainder of this document, `func(name)` is denoted as `«name»` and `param(name)` is denoted as `❰name❱`
+**NOTE:** In the remainder of this document, `function(name)` is denoted as `«name»` and `parameter(name)` is denoted as `❰name❱`
+
+Function and parameter identifiers may either be encoded as integers, in which case they are "well known", or as strings, in which case they are quoted. In the example below, the function and parameters are encoded as strings:
+
+```
+«"frobnicate"» [
+    ❰"foo"❱: "baz"
+    ❰"bar"❱: "quux"
+]
+```
 
 ### Unary Operator
 
@@ -154,47 +213,6 @@ Functions may take parameters that are sequences encoded as CBOR arrays, or dict
 
 ```
 FooBarBaz
-```
-
-### Distributed Function Calls
-
-A distributed function call (also known as a "remote procedure call") is a call invoked on systems that do not reside in the same process as the caller.
-
-Due to latency and availability, all distributed function calls are by nature asynchronous, and any distributed function call may fail. The caller of a function may expect a particular result of that call, and that result needs to be routed back to the calling process.
-
-To facilitate this, we generate a unique CID and tag it `request`. This becomes the subject of an envelope that must contain an assertion with `body` as the `predicate`, and the `object` must be an envelope expression as described herein. The wrapping `request(CID)` provides a unique identifier used to route the result of the request back to the caller:
-
-```
-request(CID(a5d19014d54d40a9ed03ca9bc487a2729271c43811a4d5a4247e704f2c61ae3e)) [
-    body: «add» [
-        ❰lhs❱: 2
-        ❰rhs❱: 3
-    ]
-]
-```
-
-Once the expression has been evaluated, its result is returned in an envelope with `response(CID)` as the subject. The response CID must match the request CID. The returned envelope must contain an assertion with the predicate `result` and the object being the result of the evaluation, which may be an Error as described above.
-
-```
-response(CID(a5d19014d54d40a9ed03ca9bc487a2729271c43811a4d5a4247e704f2c61ae3e)) [
-    result: 5
-]
-```
-
-Any party to a request/response may use the CID as a way of discarding duplicates, avoiding replays, or as input to a cryptographic algorithm. See the [CID specification](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2022-002-cid-common-identifier.md) for more information.
-
-Because the functionality of envelope is composable, the outer envelope of a request or a response can be signed as a way of authenticating the request, and if necessary the request and/or response can be encrypted by any of the available methods.
-
-A request may contain further instructions on the channels via which it may be responded to. For example, a request may be scanned with a QR code, and that request may include a URL with a REST endpoint via which to return the result:
-
-```
-request(CID(a5d19014d54d40a9ed03ca9bc487a2729271c43811a4d5a4247e704f2c61ae3e)) [
-    body: «add» [
-        ❰lhs❱: 2
-        ❰rhs❱: 3
-    ]
-    respondVia: URI(https://example.com/api/receive-response)
-]
 ```
 
 ### Variable Substitution and Partially-Applied Expressions
@@ -368,7 +386,6 @@ And finally:
 
 Functions may perform tests yielding different evaluation paths. For example the conditional expression in C-like languages: `20 > 10 ? "Big" : "Small"` may be encoded as:
 
-
 ```
 «if» [
     ❰test❱: «greaterThan» [
@@ -515,7 +532,3 @@ Transaction(Alice) [
 ```
 
 Bob broadcasts that transaction to receive Alice’s payment, completing the coinswap.
-
-## See Also
-
-- <doc:Expressions>

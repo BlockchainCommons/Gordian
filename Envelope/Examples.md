@@ -8,7 +8,7 @@ This article includes a set of high-level examples of API usage in Swift involvi
 
 ## Status
 
-These examples are actual, running unit tests in this package. The document and implementation as a whole are considered a draft.
+These examples are actual, running unit tests in the envelope reference implementation. The document and implementation as a whole are considered a work in progress.
 
 ## Common structures used by the examples
 
@@ -188,18 +188,18 @@ let key = SymmetricKey()
 // Alice signs a plaintext message, then encrypts it.
 let envelope = try Envelope(plaintext)
     .sign(with: alicePrivateKeys)
-    .enclose()
-    .encrypt(with: key)
+    .wrap()
+    .encryptSubject(with: key)
 let ur = envelope.ur
 
 // Alice ➡️ ☁️ ➡️ Bob
 
 // Bob receives the envelope, decrypts it using the shared key, and then verifies Alice's signature.
 let receivedPlaintext = try Envelope(ur: ur)
-    .decrypt(with: key)
-    .extract()
+    .decryptSubject(with: key)
+    .unwrap()
     .verifySignature(from: alicePublicKeys)
-    .extract(String.self)
+    .extractSubject(String.self)
 // Bob reads the message.
 XCTAssertEqual(receivedPlaintext, plaintext)
 ```
@@ -212,9 +212,9 @@ ENCRYPTED
 
 ## Example 6: Encrypt-Then-Sign
 
-It doesn't actually matter whether the `encrypt` or `sign` method comes first, as the `encrypt` method transforms the `subject` into its `.encrypted` form, which carries a `Digest` of the plaintext `subject`, while the `sign` method only adds an `Assertion` with the signature of the hash as the `object` of the `Assertion`.
+It doesn't actually matter whether the `encryptSubject` or `sign` method comes first, as the `encryptSubject` method transforms the `subject` into its `.encrypted` form, which carries a `Digest` of the plaintext `subject`, while the `sign` method only adds an `Assertion` with the signature of the hash as the `object` of the `Assertion`.
 
-Similarly, the `decrypt` method used below can come before or after the `verifySignature` method, as `verifySignature` checks the signature against the `subject`'s hash, which is explicitly present when the subject is in `.encrypted` form and can be calculated when the subject is in `.plaintext` form. The `decrypt` method transforms the subject from its `.encrypted` case to its `.plaintext` case, and also checks that the decrypted plaintext has the same hash as the one associated with the `.encrypted` subject.
+Similarly, the `decryptSubject` method used below can come before or after the `verifySignature` method, as `verifySignature` checks the signature against the `subject`'s hash, which is explicitly present when the subject is in `.encrypted` form and can be calculated when the subject is in `.plaintext` form. The `decrypt` method transforms the subject from its `.encrypted` case to its `.plaintext` case, and also checks that the decrypted plaintext has the same hash as the one associated with the `.encrypted` subject.
 
 The end result is the same: the `subject` is encrypted and the signature can be checked before or after decryption.
 
@@ -334,9 +334,9 @@ XCTAssertThrowsError(try receivedEnvelope.decrypt(to: alicePrivateKeys))
 
 ```
 ENCRYPTED [
+    hasRecipient: SealedMessage
+    hasRecipient: SealedMessage
     verifiedBy: Signature
-    hasRecipient: SealedMessage
-    hasRecipient: SealedMessage
 ]
 ```
 
@@ -461,10 +461,10 @@ let bookMetadata = bookDigestEnvelope
 ### Envelope Notation
 
 ```
-Digest(e8aa201db4044168d05b77d7b36648fb7a97db2d3e72f5babba9817911a52809) [
+Digest(26d05af5) [
     "format": "EPUB"
-    "work": CID(7fb90a9d96c07f39f75ea6acf392d79f241fac4ec0be2120f7c82489711e3e80) [
-        "author": CID(9c747ace78a4c826392510dd6285551e7df4e5164729a1b36198e56e017666c8) [
+    "work": CID(7fb90a9d) [
+        "author": CID(9c747ace) [
             dereferenceVia: "LibraryOfCongress"
             hasName: "Ayn Rand"
         ]
@@ -500,8 +500,8 @@ let aliceSignedDocument = try aliceUnsignedDocument
 
 ```
 {
-    CID(d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f) [
-        controller: CID(d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f)
+    CID(d44c5e0a) [
+        controller: CID(d44c5e0a)
         publicKeys: PublicKeyBase
     ]
 } [
@@ -547,11 +547,11 @@ let aliceRegistration = try Envelope(aliceCID)
 
 ```
 {
-    CID(d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f) [
+    CID(d44c5e0a) [
         dereferenceVia: URI(https://exampleledger.com/cid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f)
         entity: {
-            CID(d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f) [
-                controller: CID(d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f)
+            CID(d44c5e0a) [
+                controller: CID(d44c5e0a)
                 publicKeys: PublicKeyBase
             ]
         } [
@@ -708,16 +708,16 @@ try johnSmithResidentCard.verifySignature(from: statePublicKeys)
 
 ```
 {
-    CID(174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8) [
+    CID(174842ea) [
         "dateIssued": 2022-04-27
-        holder: CID(78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc) [
+        holder: CID(78bc3000) [
             "birthCountry": "bs" [
                 note: "The Bahamas"
             ]
             "birthDate": 1974-02-18
             "familyName": "SMITH"
             "givenName": "JOHN"
-            "image": Digest(36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999) [
+            "image": "John Smith smiling" [
                 dereferenceVia: "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
                 note: "This is an image of John Smith."
             ]
@@ -729,7 +729,7 @@ try johnSmithResidentCard.verifySignature(from: statePublicKeys)
             isA: "Person"
         ]
         isA: "credential"
-        issuer: CID(04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8) [
+        issuer: CID(04363d5f) [
             dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
             note: "Issued by the State of Example"
         ]
@@ -792,18 +792,18 @@ try elidedCredential.verifySignature(from: statePublicKeys)
 
 ```
 {
-    CID(174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8) [
-        holder: CID(78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc) [
+    CID(174842ea) [
+        holder: CID(78bc3000) [
             "familyName": "SMITH"
             "givenName": "JOHN"
-            "image": Digest(36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999) [
+            "image": "John Smith smiling" [
                 dereferenceVia: "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
                 note: "This is an image of John Smith."
             ]
             ELIDED (8)
         ]
         isA: "credential"
-        issuer: CID(04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8) [
+        issuer: CID(04363d5f) [
             dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
             note: "Issued by the State of Example"
         ]

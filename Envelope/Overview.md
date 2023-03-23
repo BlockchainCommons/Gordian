@@ -13,7 +13,7 @@ struct Envelope {
 }
 ```
 
-The basic idea is that an `Envelope` contains some [deterministically-encoded CBOR](https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-encoded-c) data (the `subject`) that may or may not be encrypted or elided, and zero or more assertions about the `subject`.
+The basic idea is that an `Envelope` contains some [deterministically-encoded CBOR](https://datatracker.ietf.org/doc/draft-mcnally-deterministic-cbor/) data (the `subject`) that may or may not be encrypted or elided, and zero or more assertions about the `subject`.
 
 Assertions combine two specific parts, `subject` and `predicate`, both of which themselves are also of type `Envelope`:
 
@@ -58,13 +58,45 @@ In "Envelope notation" the above would be written:
 ]
 ```
 
+## Actual Definition
+
+While useful for initial understanding, the "notional" definition of envelope above is not technically correct. Envelope is actually an enumerated type with eight cases, any of which can exist as a stand-alone envelope:
+
+```swift
+enum Envelope {
+    /// Represents an envelope with one or more assertions.
+    case node(subject: Envelope, assertions: [Envelope], digest: Digest)
+
+    /// Represents an envelope with encoded CBOR data.
+    case leaf(CBOR, Digest)
+
+    /// Represents an envelope that wraps another envelope.
+    case wrapped(Envelope, Digest)
+
+    /// Represents a value from a namespace of unsigned integers.
+    case knownValue(KnownValue, Digest)
+
+    /// Represents an assertion.
+    case assertion(Assertion)
+
+    /// Represents an encrypted envelope.
+    case encrypted(EncryptedMessage)
+
+    /// Represents a compressed envelope.
+    case compressed(Compressed)
+
+    /// Represents an elided envelope.
+    case elided(Digest)
+}
+```
+
 ## Assertions
 
-Assertions are themselves `Envelope`s, and can therefore be encrypted, elided, or carry assersions.
+Assertions are themselves `Envelope`s, and can therefore be encrypted, elided, compressed, or carry assersions.
 
 Within an assertion, the `predicate` and `object` are themselves `Envelope`s, and so they may also be encrypted or elided, or carry assertions.
 
-It is therefore possible to hide any part of an `Envelope` or any of its assertions by encrypting or eliding its parts. Here is a simple example consisting of an `Envelope` whose `subject` is a simple text string, which has been signed.
+It is therefore possible to "obscure" any part of an `Envelope` or any of its assertions by encrypting, eliding, or compressing its parts. Here is a simple example consisting of an `Envelope` whose `subject` is a simple text string, which has been signed.
 
 ```
 "Hello." [
@@ -126,15 +158,16 @@ In fact, any `Envelope` can also be an element of a [cons pair](https://en.wikip
 
 Each `Envelope` produces an associated `Digest`, such that if the `subject` and `assertions` of the `Envelope` are semantically identical, then the same `Digest` must necessarily be produced.
 
-Because hashing a concatenation of items is non-commutative, the order of the elements in the `assertions` array is determined by sorting them lexicographically by the `Digest` of each assertion, and disallowing identical assertions. Combined with the required use of [deterministically-encoded CBOR](https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-encoded-c), this ensures that an identical `subject` with identical `assertions` will yield the same `Envelope` digest, and `Envelope`s containing other `Envelope`s will yield the same digest tree, also called a [Merkle tree](https://en.wikipedia.org/wiki/Merkle_tree).
+Because hashing a concatenation of items is non-commutative, the order of the elements in the `assertions` array is determined by sorting them lexicographically by the `Digest` of each assertion, and disallowing identical assertions. Combined with the required use of [deterministically-encoded CBOR](https://datatracker.ietf.org/doc/draft-mcnally-deterministic-cbor/), this ensures that an identical `subject` with identical `assertions` will yield the same `Envelope` digest, and `Envelope`s containing other `Envelope`s will yield the same digest tree, also called a [Merkle tree](https://en.wikipedia.org/wiki/Merkle_tree).
 
 Envelopes can be be in several forms, for any of these forms, the same digest is present for the same binary object:
 
 * Present locally or referenced by a `Digest`.
 * Unencrypted or encrypted.
 * Unelided or elided.
+* Compressed or uncompressed.
 
-Thus the `Digest` of an `Envelope` identifies the `subject` and its assertions as if they were all present (dereferenced), unelided, and unencrypted. This allows an `Envelope` to be transformed either into or out of the various encrypted/decrypted, local/reference, and elided/unelided forms without changing the cumulative Merkle tree of digests. This also means that any transformations that do not preserve the digest tree invalidate the signatures of any enclosing `Envelope`s.
+Thus the `Digest` of an `Envelope` identifies the `subject` and its assertions as if they were all present (dereferenced), unelided, unencrypted, and uncompressed. This allows an `Envelope` to be transformed either into or out of the various encrypted/decrypted, local/reference, elided/unelided, and compressed/uncompressed forms without changing the cumulative Merkle tree of digests. This also means that any transformations that do not preserve the digest tree invalidate the signatures of any enclosing `Envelope`s.
 
 This architecture supports selective disclosure of contents of nested `Envelope`s by revealing only the minimal objects necessary to traverse to a particular nesting path, and having done so, calculating the hashes back to the root allows verification that the correct and included contents were disclosed. On a structure where only a minimal number of fields have been revealed, a signature can still be verified.
 
