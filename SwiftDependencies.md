@@ -2,132 +2,7 @@
 
 The diagram below details the dependencies between many of our reference libraries and apps in the Swift/iOS/macOS ecosystem. Many of the higher-level libraries are written in Swift, while there are a number of important lower-level libraries that are written in C or C++.
 
-```mermaid
-graph LR
-    subgraph "Blockchain Commons"
-        subgraph "BC Apps"
-            eid104("Gordian\ Coordinator")
-            eid115("Gordian\ Seed\ Tool")
-        end
-        eid32("BCSwiftFoundation")
-        eid118("BCWally")
-        eid56("BCSwiftEsplora")
-        eid42("URUI")
-        eid28("URKit")
-        eid44("BCSwiftNFC")
-        eid61("BCSwiftEnvelope")
-        eid30("BCSwiftApp")
-        eid63("BCSecureComponents")
-        eid36("LifeHash")
-		eid149("bc-lifehash")
-		eid151("BCSwiftDCBOR")
-        subgraph "BCLibsSwift"
-            eid127("bc-sskr")
-            eid129("bc-shamir")
-            eid131("bc-crypto-base")
-            eid133("bc-bip39")
-            eid136("BIP39")
-            eid138("Shamir")
-            eid140("CryptoBase")
-        end
-        subgraph "BC Third-Party"
-			eid86("CryptoSwift")
-			eid75("swift-docc-plugin")
-			eid78("Flexer")
-			eid46("MarkdownUI")
-			eid52("swiftui-flow-layout")
-            subgraph "BC Fork"
-                eid88("secp256k1-zkp.swift")
-                eid84("blake3-swift")
-                eid108("Hyperconnectivity")
-            end
-        end
-    end
-    subgraph "Wolf McNally"
-		eid38("WolfSwiftUI")
-		eid40("WolfLorem")
-		eid102("SwiftUIPrint")
-		eid23("WolfBase")
-		eid24("WolfAPI")
-		eid26("WolfOrdinal")
-		eid65("Graph")
-		eid67("GraphMermaid")
-		eid69("GraphDot")
-		eid73("TreeDistance")
-		eid90("FUID")
-		eid103("WolfActivityRing")
-        subgraph "Wolf Third-Party"
-			eid34("swift-algorithms")
-			eid100("swift-numerics")
-            subgraph "Wolf Fork"
-                eid96("swift-collections")
-                eid92("swift-numberkit")
-                eid48("UIImageColors")
-            end
-        end
-    end
-	eid104 --> eid103
-	eid104 --> eid108
-	eid104 --> eid26
-	eid104 --> eid30
-	eid104 --> eid56
-	eid115 --> eid30
-	eid127 --> eid129
-	eid127 --> eid131
-	eid129 --> eid131
-	eid133 --> eid131
-	eid136 --> eid133
-	eid138 --> eid129
-	eid140 --> eid131
-	eid23  --> eid34
-	eid24  --> eid23
-	eid26  --> eid23
-	eid28  --> eid151
-	eid30  --> eid23
-	eid30  --> eid32
-	eid30  --> eid36
-	eid30  --> eid38
-	eid30  --> eid40
-	eid30  --> eid42
-	eid30  --> eid44
-	eid30  --> eid46
-	eid30  --> eid48
-	eid30  --> eid52
-	eid32  --> eid23
-	eid32  --> eid61
-	eid32  --> eid63
-	eid32  --> eid78
-	eid34  --> eid100
-	eid36  --> eid149
-	eid42  --> eid28
-	eid44  --> eid23
-	eid56  --> eid24
-	eid61  --> eid23
-	eid61  --> eid28
-	eid61  --> eid40
-	eid61  --> eid63
-	eid61  --> eid67
-	eid61  --> eid69
-	eid61  --> eid73
-	eid61  --> eid75
-	eid63  --> eid118
-	eid63  --> eid127
-	eid63  --> eid23
-	eid63  --> eid28
-	eid63  --> eid84
-	eid63  --> eid86
-	eid63  --> eid88
-	eid65  --> eid23
-	eid65  --> eid34
-	eid65  --> eid90
-	eid65  --> eid96
-	eid67  --> eid65
-	eid69  --> eid65
-	eid73  --> eid96
-	eid90  --> eid23
-	eid90  --> eid92
-    eid115 --> eid102
-```
+![](/Images/swift-dependencies.jpg)
 
 ## iOS Apps by Blockchain Commons
 
@@ -141,6 +16,7 @@ graph LR
 * [bc-shamir](https://github.com/BlockchainCommons/bc-shamir): Shamir Secret Sharing reference library in C.
 * [bc-sskr](https://github.com/BlockchainCommons/bc-sskr): Sharded Secret Key Reconstruction (SSKR) reference library in C.
 * [BCSwiftApp](https://github.com/BlockchainCommons/BCSwiftApp): Conveniences in Swift common to Blockchain Commons apps.
+* [BCSwiftCrypto](https://github.com/BlockchainCommons/BCSwiftCrypto): A Swift package that exposes a uniform API for the cryptographic primitives used in higher-level Blockchain Commons projects.
 * [BCSwiftDCBOR](https://github.com/BlockchainCommons/BCSwiftDCBOR): A pure Swift CBOR codec that focuses on writing and parsing "deterministic" CBOR per §4.2 of RFC-8949.
 * [BCSwiftEnvelope](https://github.com/BlockchainCommons/BCSwiftEnvelope): Gordian Envelope - Swift Reference Implementation.
 * [BCSwiftEsplora](https://github.com/BlockchainCommons/BCSwiftEsplora): A pure Swift interface to the Esplora block explorer REST API.
