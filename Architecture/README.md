@@ -38,7 +38,7 @@ With a properly partitioned ecosystem, the transport & communication methodology
  
 ## Data Formats
 
-The interoperability of the Gordian Macro-Architecture is only possible if the servers in th ecosystem speak the same language. That's built on a foundation of CBOR, which is the canonical data representation for the Gordian Architecture.
+The interoperability of the Gordian Macro-Architecture is only possible if the servers in the ecosystem speak the same language. That's built on a foundation of CBOR, which is the canonical data representation for the Gordian Architecture.
 
 * **Concise Binary Object Representation (CBOR).** A data format that Blockchain Commons has adopted as its canonical data representation. It's a stable, concise binary encoding method that allows typing of data. See [CBOR.io](https://cbor.io/) and [RFC 8949](https://www.rfc-editor.org/rfc/rfc8949.html).
 
@@ -59,7 +59,7 @@ This utilizes the following encoding specifications:
 
 * **URs.** A way to wrap and tag data that is encoded with CBOR and then translated into minimal Bytewords. In doing so, it ensures that the data is self-describing and self-certifying. This is what enables the interoperability of the Gordian Architecture. URs also include a method for sequencing larger data. See [BCR-2020-05: UR](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-005-ur.md) and [BCR-2020-06: Registry of UR Types](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-006-urtypes.md). Also see [Introduction: How Are URs Encoded?](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-1-overview.md#how-are-urs-encoded) for the precise process of formatting data as CBOR and then encoding it as Bytewords and ultimately URs. Finally, also see our [UR Docs Overview Page](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-overview.md).
  
-* **QR Codes.** A machine-readable data encoding. URs were designed to ensure that they could be efficienctly stored as QR codes. The sequencing design of URs also allows for the creation of animated QRs for larger amounts of data. Though QRs are not required for the Gordian Architecture, they're crucial if Airgaps are used as a transport in the Macro-Architecture.
+* **QR Codes.** A machine-readable data encoding. URs were designed to ensure that they could be efficienctly stored as QR codes. The sequencing design of URs also allows for the creation of [Animated QRs](https://www.blockchaincommons.com/devs/animated-qrs.html) for larger amounts of data. Though QRs are not required for the Gordian Architecture, they're crucial if Airgaps are used as a transport in the Macro-Architecture.
 
 ### Backup Specifications
 
