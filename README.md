@@ -40,7 +40,7 @@ The Gordian Architecture puts the Gordian Principles into use through an overall
    * The Macro-Architecture is built primarily to support _Privacy_ through these features.
    * It is also built on a concept of _Openness_ where different Services from different developers will interoperate freely.
 * **Data Format.** [CBOR](https://www.blockchaincommons.com/introduction/Why-CBOR/) is used as the canonical data structure for the Gordian Architecture.
-* **Encoding Specifications.** Bytewords, URs, and (optionally) Animated or Static QRs ensure that Gordian services are interoperable.
+* **Encoding Specifications.** Bytewords, URs, and (optionally) [Animated](https://www.blockchaincommons.com/devs/animated-qrs.html) or Static QRs ensure that Gordian services are interoperable.
    * The Encoding Specifications are how the Gordian System ensures _Openness_ in its Macro-Architure.
 * **Backup Specifications.** UR specifications make it easy to backup confidential data.
   * Supporting backups of data improves the _Resilience_ of that data.
