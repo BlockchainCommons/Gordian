@@ -1387,8 +1387,10 @@ It can be relatively easy to validate official credentials from centralized auth
 
 ### 4. Omar Offers an Open Badge [Web of Trust Credentials]
 
-> _Problem Solved:_ Jonathan wants to prove his expertise in blockchain tech writing, but there are no official credentials. 
-
+* **Use Case:** Jonathan wants to prove his expertise in blockchain tech writing, but there are no official credentials. 
+* **Independence Benefits:** Anyone can be an issuer and/or signer of credits in a Web of Trust, reducing the dependence on centralized authorities.
+* **Openness Benefits:** The open system underlying Gordian Envelope is what allows for the ease of issuance.
+ 
 Jonathan has been doing technical writing on blockchains for a few years and wants to extend that into a freelance career. Unfortunately, most of his extant writing has been internal documents, and so he can't point potential employers to them. 
 
 Omar, an expert in blockchain technical writing, has GitHub repos that are filled with examples of his own excellent writing, and that's led him to offer Open Badges for other people whose writing he thinks is up to spec. Omar can create a badge for Jonathan by writing a credential and signing it with his GitHub private key. Validators can then assess the validity of that peer-to-peer credential by looking at the contents of Omar's own GitHub and determining whether he has sufficient expertise to provide that credential.
@@ -1722,6 +1724,7 @@ graph LR
     linkStyle 27 stroke:green,stroke-width:2.0px
     linkStyle 28 stroke:#55f,stroke-width:2.0px
 ```
+It's not just that Jonathan and Omar were able to create this credential where no official one existed: it's also that they were able to do so without the support of a centralized entity. Their credential reveals one person supporting another, which was the central promise of the original web of trust.
 
 ## Part Three: Herd Privacy Credentials
 
@@ -1729,7 +1732,9 @@ Educational credentials are usually presumed to be packaged in discrete Envelope
 
 ### 5. Paul Privately Proves Proficiency [Herd Privacy]
 
-> _Problem Solved:_ Paul wants a credential, but he doesn't trust the organization giving out the credentials with his personal information!
+* **Use Case:** Paul wants a credential, but he doesn't trust the organization giving out the credentials with his personal information!
+* **Independence Benefits:** Paul is in total control. He decides when to apply for a credential. He limits the issuer's knowledge to only his expertise. He decides whether to ever reveal his possession of the credential.
+* **Privacy Benefits** Paul ensures that the issuer never gains any information about him, not even his email address. He in fact never makes a connection to the issuer other than through an IP address that he uses to take a test, which of course can be hidden through a VPN. Later, his credential is hidden as a hash amidst many others. No one can decipher it without a proof from Paul, which means Paul's connection to the credential is only revealed if he desires.
 
 Paul wants to get a credential showing proficiency in Gordian Envelope from Blockchain Commons, but he's a good Cypherpunk: he knows not to trust any organization. Fortunately, Blockchain Commons has privacy-protecting options.
 
@@ -2264,9 +2269,9 @@ graph LR
     linkStyle 24 stroke:green,stroke-width:2.0px
     linkStyle 25 stroke:#55f,stroke-width:2.0px
 ```
-Note that each elided entry of certification still has its prior hash. All that Paul needs to do to prove participation in the class is to show that he can generate one of those hashes with his identifier. That will prove his certification!
+Note that each elided entry of certification still has its previously seen hash. All that Paul needs to do to prove participation in the class is to show that he can generate one of those hashes with his identifier. That will prove his certification!
 
-Blockchain Commons publishes instructions for how to do so. Test takers just need to create an assertion with either the "isBasic" predicate or the "isAdvanced" predicate and their portable `ur:crypto-cid` identifier. When they hash that assertion with BLAKE3, they can then prove that the digest is part of the partially redacted list of credentials.
+Blockchain Commons publishes instructions for how to do so. Test takers just need to create an assertion with either the "isBasic" predicate or the "isAdvanced" predicate and their portable `ur:crypto-cid` identifier. When they hash that assertion with the appropriate hashing method, they can then prove that the digest is part of the partially redacted list of credentials.
 
 Paul creates his assertion based on the instructions:
 ```
@@ -2299,7 +2304,7 @@ Now, Paul can point to Blockchain Common's partially redacted tree of November 2
 
 More notably, Paul can decide never to reveal his CID, in which case it is at least somewhat difficult for anyone else to prove that Paul is a member of the group. 
 
-Mind you, because the tree is partially redacted, and because no particular attempt has been made to prevent correlation, it's possible that identifiers in the Envelope could be guessed (though someone would have to know a precise identifier to look for). There are several ways this could be prevented. They all require Blockchain Commons to provide additional information to Paul, increasing the communication requirements (and thus potentially impacting privacy), but they add strong non-correlation defenses.
+Mind you, because the tree is partially redacted, and because no particular attempt has been made to prevent correlation, it's possible that identifiers in the Envelope could be guessed (though someone would have to know a precise identifier to look for, which shouldn't occur if Paul has practiced proper ID hygeine). There are several ways this could be prevented. They all require Blockchain Commons to provide additional information to Paul, increasing the communication requirements (and thus potentially impacting privacy), but they add strong non-correlation defenses.
 
 1.) Blockchain Commons could choose to fully redact the Envelope, publishing only a top-level hash. They would then supply Paul with a path to his lower-level hash by partially redacting the tree when he supplied them with his CID. Paul could then prove his presence in the Envelope with his digest and that path. If that path were to be more widely released, there would be the same correlation problems, but obviously they'd be lesser because it probably would never be widely published.
 
@@ -2309,7 +2314,9 @@ Mind you, because the tree is partially redacted, and because no particular atte
 
 ### 6. Paul Proves Proficiency with Improved Privacy [Herd Privacy with Non-Correlation]
 
-> _Problem Solved:_ Blockchain Commons wants to improve the herd privacy of its test takers by reducing correlation.
+* **Use Case:** Blockchain Commons wants to improve the herd privacy of its test takers by reducing correlation.
+* **Independence Benefits:** Though Paul will have to engage in additional back-and-forth with Blockchain Commons to receive a proof, once he has it in hand, he has total independence in the control of his credential, just as with simpler use cases.
+* **Privacy Benefits:** Through a better structure for an envelope, fewer low-level hashes are revealed, making it much harder to "guess" the source of any hash. This is a largely administrative process that requires good Envelope design on the part of an issue.
 
 Blockchain Commons is aware of the correlation possibilities in their test-result Envelopes. They choose a middle road to dramatically reduce correlation: they store every 5 CIDs in a separate sub-Envelope. (A real-life example might instead have clumps of 10 or 20 CIDs, but again this one is reduced in size to make it manageable.) Paul will then be able to request a path to his specific envelope, which he can combine with an assertion and the published top-level hashes of the envelope to, once more, show his participation. However the published hashes, which just contain the subenvelope, are more-or-less impossible to correlate.
 
@@ -2876,7 +2883,7 @@ graph LR
     linkStyle 16 stroke:green,stroke-width:2.0px
     linkStyle 17 stroke:#55f,stroke-width:2.0px
 ```
-This time there's effectively zero chance of correlation because the two remaining `ELIDED` elements each contain several (5) identifiers, drawn from the set of all identifiers. There's no practical way to figure out what is in each bundle.
+This time there's effectively zero chance of correlation because the two remaining `ELIDED` elements each contain several (5) identifiers, drawn from the set of all identifiers. There's no practical way to figure out what is in each bundle, greatly improving the privacy of the content in relation to the general public.
 
 In order to prove his participation, Paul creates an assertion, just like before:
 ```
@@ -2981,13 +2988,15 @@ graph LR
 ```
 A proof is the minimum path needed to reveal the hash that a user requires to demonstrate the existence of his assertion. As can be seen, one of the bundles (`f51ac46f`) has now been opened up. That reveals Paul's hash (`58F1CDD3`). 
 
-To prove his inclusion, Paul would now have to reveal his assertion digest, the "proof" from Blockchain Commons, and the original publication from Blockchain Commons.
+To prove his inclusion, Paul would now have to reveal his assertion digest, the "proof" from Blockchain Commons, and the original publication from Blockchain Commons. Though he had to contact Blockchain Commons once to get his proof, Paul never has to again, giving him total independence with regard to his credential once he has all the initial data.
 
-Through this methodology, the possibility of correlation is much reduced. The proof is the only thing that contains a hash that could theoretically be correlated if someone knew what to look for. They're not meant to be published, which greatly reduces their danger, but even if they were, only the other DIDs in the same bundle are subject to potential correlation. (Salted assertions still offer better correlation protection, but as noted previously, only at a cost in space, complexity, and required secrets. The bundled assertions of this example offer an excellent middle ground.)
+Through this methodology, the possibility of correlation is much reduced. The proof is the only thing that contains a low-level hash that could theoretically be correlated if someone knew what to look for. They're not meant to be published, which greatly reduces their danger, but even if they were, only the other DIDs in the same bundle are subject to potential correlation. (Salted assertions still offer better correlation protection, but as noted previously, only at a cost in space, complexity, and required secrets. The bundled assertions of this example offer an excellent middle ground.)
 
 ### 7. Burton Bank Avoids Toxicity (Herd Privacy with Selective Correlation)
 
-> _Problem Solved:_ Burton Bank needs to verify the success of its student loans without acquiring toxic data while doing so!
+* **Use Case:** Burton Bank needs to verify the success of its student loans without acquiring toxic data while doing so!
+* **Privacy Benefit:** No information is exchanged! Burton Bank simply uses hashes to prove the existence of data that they already have. That's the ultimate in data minimization.
+* **Openness Benefit:** Thanks to the open Gordian Envelope specification, multiple parties are able to depend on data being hashed in precisely the same way, which allows for them to create individual proofs of inclusion, each based on the data that they individually know.
 
 Personal data can be toxic! It can be a major liability for companies holding the data, especially in an age where online data breaches are becoming increasingly common and where laws such the GDPR and the CCPA are providing increasing protections to users (while simultaneously punishing companies who do not successfully protect user information).
 
@@ -3522,7 +3531,7 @@ graph LR
 ```
 If the hash for the assertion (`0fbe062c` for `Gray`) appears in the elided Gordian Envelope, then the Bank knows that they can update their records to show that loan holder has graduated.
 
-And, this was all done without exchanging toxic information, but instead _depending_ on selective correlation. Only someone who already held the information could possibly correlate the hash back to its original data!
+And, this was all done without exchanging toxic information, but instead _depending_ on selective correlation. Only someone who already held the information could possibly correlate the hash back to its original data! As a result, data was entirely minimized! 
 
 ### Related Files
 
