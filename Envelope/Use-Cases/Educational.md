@@ -479,7 +479,9 @@ Overall, just this first, simple educational use case offers strong benefits, be
 
 ### #2. Danika Restricts Her Revelations (Elision)
 
-> _Problem Solved:_ Danika wants to avoid prejudice when using her credentials in job applications.
+* **Use Case:** Danika wants to avoid prejudice when using her credentials in job applications.
+* **Independence Benefits:** Danika individually choses how her credentials will be viewed every time she submits them. She doesn't have to ask anyone else for permission or go to any centralized agency to do so.
+* **Privacy Benefits:** Danika elides data from her credential that is irrelevent. This also allows her to exclude information that could be prejudicial, such as her Eastern European name or school. The result contains exactly the minimal data set that she wants. 
 
 Danika is very confident in her prowess as an electrical engineer, but she fears prejudice when she seeks employment. Primarily, she is concerned about prejudice over her Eastern Europe name, but she also fears prejudice over the recent date of her certification. As a result, she wants to elide (omit) that information in her credential, as well as other details that she considers irrelevent to her application.
 
@@ -619,17 +621,22 @@ graph LR
     linkStyle 19 stroke:green,stroke-width:2.0px
     linkStyle 20 str
 ```
+Danika's potential employer gains benefits from this elision too, because there can never be a claim that they were unconsciously prejudiced against a protected employment class: Danika elided that data before they ever saw the credential. As a result, everyone is able to live in a more colorblind meritocracy.
+
 After submitting her credentials, Danika supplements them with excellent scores in a third-party proctored test (producing another credential) and is hired by Thunder & Lightning Inc.
 
 ## 3. Thunder & Lightning Spotlights Danika (Third-Party  Repackaging)
 
-> _Problem Solved:_ Thunder & Lightning Inc. needs to repackage Danika's credentials for their customers.
+* **Use Case:** Thunder & Lightning Inc. needs to repackage Danika's credentials for their customers.
+* **Independence Benefits:** Any holder of credentials can repackage them for appropriate use, not just the subject. That allows credentials to be more widely used and for a variety of parties to be more confident about the credentials of workers.
+* **Privacy Benefits:** Danika and Thunder & Lightning can work together to produce new elided credentials that match only what's required by a third party, rather than having to continually reuse either the original, full credentials or the redacted versions forwarded on as part of Danika's application. This reduces data to the minimum required for any specific task.
+* **Openness Benefits:** Credentials that can be elided, passed on, re-signed, and otherwise updated by a variety of parties reveal that an open infrastructure underlies the use of Gordian Envelopes for credentials.
 
 Thunder & Lightning Inc. is ready to send Danika to a job site! To do so they must both reveal and affirm her credentials to the job-site supervisors. Even though they are neither the issuer nor the subject of Danika's educational credentials, Thunder & Lightning is able to produce their own version of those credentials based on the copy of the Gordian Envelope that they hold.
 
-They want Danika's name in the credentials, so they must ask her for a copy of the credentials containing that information, but then they elide the rest of the information just like she did, using an application such as `envelope-cli`. This is one of the strengths of Gordian Envelope: each party who holds the Envelope (or even an already-elided form of the Envelope) can choose how to further elide it to match their own requirements and their own risk models.
+They want Danika's name in the credentials, so they must ask her for a copy of the credentials containing that information, but then they elide the rest of the information just like she did, using an application such as `envelope-cli`. This is one of the strengths of Gordian Envelope: each party who holds the Envelope (or even an already-elided form of the Envelope) can choose how to further elide it to match their own requirements and their own risk models. It allows for the exchange of credential data while holding to principles of Data Minimization.
 
-But a holder can do more than that: they can also add information. In this case, Thunder & Lightning wants to add details about Danika's work with them. They can do so by wrapping the original, signed information, adding content, and then putting another signature on top of that. The original certification information remains verified by the certification board, and the new employment information is verified by Thunder & Lightning.
+But a holder can do more than that: they can also add information. In this case, Thunder & Lightning wants to add details about Danika's work with them. The open specification for Gordian Envelopes allows them to do so by wrapping the original, signed information, adding content, and then putting another signature on top of that. The original certification information remains verified by the certification board, and the new employment information is verified by Thunder & Lightning.
 
 Thunder & Lightning's elided version of Danika's certification reveals slightly different information than the previous version:
 ```
@@ -1372,6 +1379,7 @@ abdedfa9 NODE
         61fb6a6b pred note
         0dca250c obj "Signed by Thunder & Lightning Inc."
 ```
+Danika and Thunder & Lightning have successfully minimized Danika's credential information while simultaneously sharing it as part of an open credential infrastructure.
 
 ## Part Two: Web of Trust Credentials
 
