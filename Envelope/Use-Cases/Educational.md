@@ -2,15 +2,13 @@
 
 Gordian Envelopes can be used in educational credential-issuing industries to encode and transmit sensitive student  information. This allows authorized parties, such as potential employers or other educational institutions, to access only the information they are authorized to view while still preserving the privacy and security of the rest of the data.
 
-For example, a student's transcript could be encoded and transmitted using a Gordian Envelope, with portions of that data elided, to allow potential employers to verify some of the student's educational qualifications without having access to the student's full transcript or other sensitive information. Similarly, a credential such as a certification or license could be encoded and transmitted using a Gordian Envelope, to allow employers or regulators to verify the credential without having access to irrelevant details.
-
-An Envelope's routing instructions and seals can additionally be used to verify the authenticity and provenance of a student's credentials, ensuring that they have not been tampered with. This adds an extra layer of security and trust to the information transmitted using Gordian Envelopes. 
+For example, a student's transcript could be encoded and transmitted using a Gordian Envelope, with portions of that data elided, to allow potential employers to verify some of the student's educational qualifications without having access to the student's full transcript or other sensitive information. Similarly, a credential such as a certification or license could be encoded and transmitted using a Gordian Envelope, to allow employers or regulators to verify the credential without having access to irrelevant details. Seals and signatures can additionally be used to verify the authenticity and provenance of a student's credentials and to ensure that they have not been tampered with. This adds an extra layer of security and trust to the information transmitted using Gordian Envelopes. 
 
 Overall, Gordian Envelopes offer a flexible and privacy-enhancing solution for the transmission and storage of sensitive educational credential information, creating opportunities to transmit sensitive information in restrictive ways.
 
 ## Educational Use Case Table of Contents
 
-The following set of use cases demonstrates the use of Gordian Envelopes to store educational credentials. Individual categories are presented progressively: each use case builds on the previous one by demonstrating a new capability. The first set refers to Danika Kaschak, an electrical engineer, and her official credentials. A standalone use case then focuses on the more ad-hoc credentials possible through a Web of Trust. A final set of use cases then demonstrates the distribution of educational credentials with a different priority: herd privacy.
+The following set of use cases demonstrates how Gordian Envelopes can store educational credentials. Individual categories are presented progressively: each use case within a section builds on the previous one by demonstrating a new capability. The first set refers to Danika Kaschak, an electrical engineer, and her official credentials. A standalone use case then focuses on the more ad-hoc credentials possible through a Web of Trust. A final set of use cases demonstrates the distribution of educational credentials with a different priority: herd privacy.
 
 Gordian Envelopes are useful for credentials in large part because of their ability to support advanced features such as elision, peer-based attestation, and herd privacy. They go far beyond just presenting validatable credentials to allowing the individual holders to decide what gets shown, how, and in what context. They thus add self-sovereign control to the standard rubric of Verifiable Credentials.
 
@@ -33,7 +31,10 @@ This first set of use cases demonstrates how to create (and sign) simple credent
 
 ### #1. Danika Proves Her Worth (Credentials, Signature)
 
-> _Problem Solved:_ Danika needs to be able to prove her credentials as an electrical engineer without depending on a centralized authority.
+* **Use Case:** Danika needs to be able to prove her credentials as an electrical engineer.
+* **Independence Benefits:** Danika holds her own credentials. No one ever needs to contact the issuer or any other cenralized authority, except possibly to verify a signature, but ideally the associated public key is held in a decentralized PKI.
+* **Privacy Benefits:** Danika choses when to reveal her credentials and to whom, without having to call back home to the issuing agency.
+* **Resilience Benefits:** Danika's credentials aren't lost if the issuing agency disappears.
 
 Danika is a credentialed electrical engineer who maintains her certification through continuing education. In past years she would have listed her credentials and then potential employers would have had to go to the certification board to verify them. This was ideal for no one, because most employers didn't check certifications (leaving them vulnerable), and if they did, the check was beholden to the certification board, who might fail to verify valid credentials for any number of reasons.
 
@@ -473,6 +474,8 @@ graph LR
 
 ```
 To make the validation process easier, additional hints for public-key look up could have been added, though a validator would have then needed to assess whether that information was itself valid or not.
+
+Overall, just this first, simple educational use case offers strong benefits, because Danika has more independence than ever before to hold and use her credential, and there's less opportunity than ever before for the issuer to spy upon Danika's usage of that credential. The result is self-sovereign control: a great first step for privacy.
 
 ### #2. Danika Restricts Her Revelations (Elision)
 
