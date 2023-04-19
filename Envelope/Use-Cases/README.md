@@ -6,7 +6,7 @@ But what does that mean? Why would you use it? To answer these questions we've w
 
 Most of the following use cases are offered progressively: additional use cases build on earlier ones, expanding the fundamental ideas with new functionality in each example. (That functionality is listed as part of each use case's name.)
 
-<!--more-->
+For a broader overview of these use cases and some discussions of what they have in common, see our [blog posting on Gordian Envelopes](https://www.blockchaincommons.com/introduction/Gordian-Envelope-Use-Cases/).
 
 ## [Educational & Credential Industry Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md)
 
