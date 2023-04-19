@@ -1,96 +1,103 @@
 # Gordian Envelope Use Cases
 
-Gordian Envelopes can be used to store and transmit information in a structured, privacy preserving way. By what does that mean? Following are overviews of use cases that demonstrate the capabilities of Gordian Envelopes. Most of these use cases are ordered so that each step shows a progressively more complex (and less naive) situation. Many of these use cases show that progression through a single user story, though alternative user stories are also included, as needed.
+The [Gordian Envelope](https://www.blockchaincommons.com/introduction/Envelope-Intro/) Smart Document is a powerful new method of data storage and transmission that focuses on protecting the privacy of its contents through cryptographic functions such as signatures, elision, and inclusion proofs. 
 
-## Educational & Credential Industry Use Cases
+But what does that mean? Why would you use it? To answer these questions we've published a set of 24 use cases that not only demonstrate many innovative uses for Gordian Envelopes, but also show precisely how those Envelopes would be structured — because these use cases aren't theoretical, but instead real possibilities with the current iteration of the Gordian Envelope specification.
 
-Gordian Envelopes can be used in the education sector to securely and privately transmit and store student records such as transcripts, test scores, and other sensitive information. This can help educational institutions to maintain the privacy and security of student data and to ensure that third parties can only access the information they are authorized to view. The ability of a Gordian Envelope to elide specific information without invalidating the seal on the Envelope is particularly useful in the education industry (as well as other credential-issuing industries) because it allows different parties such as employers or regulators to access only the information they need for their specific purposes, while still preserving the privacy and security of the rest of the data.
+Most of the following use cases are offered progressively: additional use cases build on earlier ones, expanding the fundamental ideas with new functionality in each example. (That functionality is listed as part of each use case's name.)
 
-The following privacy-preserving advantages are demonstrated in educational use cases:
+<!--more-->
 
-* Any holder can elide content within a credential, without changing any signatures.
-* Any holder can repackage a credential by adding additional information or even new credentials.
-* Credential issuing is not limited to centralized authorities: peer-to-peer issuing is also possible, with metadata providing context.
-* Credentials can be bundled to create herd privacy.
-* Bundled credentials can be carefully organized to reduce correlation.
-* Entities can use selective correlation of bundled credential to verify known information without acquiring new, toxic data.
+## [Educational & Credential Industry Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md)
 
-See the [Educational & Credential Industry Use Cases](Educational.md) for illustrated examples of these advantages.
+Educational use cases demonstrate how Gordian Envelope can transmit sensitive student information, including educational credentials.
 
-## Data Distribution Use Cases
+#### [Part One: Official Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md#part-one-official-credentials)
 
-Because of their focus on privacy, Gordian Envelopes can be used to store data that requires security and might be revealed to different people in different ways under different circumstances. The data distribution use cases focus on how a simple user-data program such as `finger` could benefit from this new paradigm.
+The first set of use cases demonstrates how recognized issuers can create and use credentials.
 
-The following data distribution advantages are demonstrated in use cases:
+1. [**Danika Proves Her Worth (Credentials, Signature)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md#1-danika-proves-her-worth-credentials-signature) — Issuing authenticated credentials with Gordian Envelope
+2. [**Danika Restricts Her Revelations (Elision)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md#2-danika-restricts-her-revelations-elision) — Using elision to allow a holder to selectively hide Envelope contents.
+3. [**Thunder & Lightning Spotlights Danika (Third-Party Repackaging)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md#3-thunder--lightning-spotlights-danika-third-party--repackaging) — Adding content to an existing Envelope & republishing it.
 
-* Envelope data can be structured.
-* Envelope data can be made verifiable through signatures.
-* Envelope data can include additional metadata, such as timestamps, which itself can be verified.
-* Elision can allow envelopes to be released in different ways to different viewers.
-* Selective correlation can enable data lookup without widespread release.
-* Selective correlation can automate progressive releases of data.
+#### [Part Two: Web of Trust Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md#part-two-web-of-trust-credentials)
 
-See the [Data Distribution Use Cases](Data.md) for illustrated examples of these advantages.
+Individuals may instead want to create peer-to-peer credentials.
 
-## Software & AI Industry Use Cases
+4. [**Omar Offers an Open Badge (Web of Trust Credentials)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md#4-omar-offers-an-open-badge-web-of-trust-credentials) — Creating a credential based on personal authentication.
 
-Gordian Envelopes can be used in the software and AI industry to securely and privately transmit complex data structures such as software source code, AI training sets, and model data. This helps to ensure the integrity of the code or models is maintained throughout the software development life-cycle. Gordian Envelopes can also improve the security of the software supply chain by securely transmitting software packages and updates between different parties. This can be particularly useful for the signing of software releases, with Gordian Envelopes supporting multiple signatures, dynamically changing signatures, and even anonymous signatures. Finally, Gordian Envelopes can support the reliability and availability of software infrastructure by securely transmitting configuration data and cryptographic keys.
+#### [Part Three: Herd Privacy Credentials](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md#part-three-herd-privacy-credentials)
 
-The following signing & release advantages are demonstrated in software use cases:
+Another possibility for credential release is through large data dumps that allow the user to stay in control over whether they're ever revealed.
 
-* Envelope data can be precisely structured.
-* Envelopes can be signed by multiple parties, and each signature can be individually verified.
-* Envelopes can be further signed by third parties, allowing for a variety of validation.
-* Envelopes can use metadata to chain back to previous envelopes, reducing validation costs.
-* Envelopes can include attestations or other types of verifiable metadata.
-* Envelopes can incorporate signer changes into their data chains, again reducing validation costs.
-* Envelopes can be signed anonymously, depending on a Web of Trust for validation.
-* Anonymous signers can later provably come forward, if thoughtful Envelope design was used from the start.
+5. [**Paul Privately Proves Proficiency (Herd Privacy)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md#5-paul-privately-proves-proficiency-herd-privacy) — Creating highly private credentials.
+6. [**Paul Proves Profiency with Improved Privacy (Herd Privacy with Non Correlation)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md#6-paul-proves-proficiency-with-improved-privacy-herd-privacy-with-non-correlation) — Using design formats to improve herd privacy.
+7. [**Burton Bank Avoids Toxicity (Herd Privacy with Selective Correlation)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md#7-burton-bank-avoids-toxicity-herd-privacy-with-selective-correlation) — Avoiding toxic data by selective correlating unrevealed information.
 
-See the [Software Industry Use Cases](Software.md) for illustrated examples of these advantages.
+## [Software Industry Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md)
 
-## Financial Industry Use Cases
+Software use cases demonstrate how the structure of Gordian Envelope can innovate procedures requiring signing, such as software releases.
 
-Gordian Envelopes can be used to securely and privately transmit and store financial records, such as bank statements and transaction records, as well as digital assets, such as seeds and private keys. This can help financial institutions to maintain the privacy and security of their customers' data and ensure that only authorized parties can access the information they need, and it can help individuals to protect their assets. Gordian Envelopes can also be used to securely transmit financial data between institutions, helping to prevent tampering and to ensure the trustworthiness of the data. The ability to use permits to allow multiple useres to open Envelopes in multiple ways can allow for collaboration of corporate data and resilience for personal data alike. 
+#### [Part One: Chained Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md#part-one-chained-signing)
 
-The following privacy advantages are demonstrated in financial use cases, which are focused on the self-sovereign control of assets:
+Gordian Envelopes can automate releases of data over time by creating and updating a root of trust within the Envelope.
 
-* Envelope data can be partially or fully encrypted for security.
-* Unencrypted metadata can be used to improve resilience with "hints".
-* Metadata can be elided when data needs to be partially revealed.
-* Envelope data can be salted to reduce correlation when that data is elided.
-* Encrypted data can be locked with sharded keys to further improve resilience.
-* Encrypted data can be locked via multiple methods to even` further improve resilience.
+1. [**Casey Codifies Software Releases (Multiple Signatures, Structured Data)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md#1-casey-codifies-software-releases-multiple-signatures-structured-data) — Structuring release data and authenticating it with multiple signatures.
+2. [**Blockchain Everyday Confirms Casey (Repackaging Data, Third-Party Verification)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md#2-blockchain-everyday-confirms-casey-repackaging-data-third-party-verification) — Adding additional levels of data verification by repackaging Envelopes.
+3. [**Casey Chains His Software Releases (Chained Data)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md#3-casey-chains-his-software-releases-chained-data) — Using Envelope structure to automate the release of future data.
+4. [**Casey Checks Compliance (Attestation, Metadata)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md#4-casey-check-compliance-attestation-metadata) — Adding signed metadata to a structured data set.
+5. [**Casey Changes Up His Software Releases (Chained Changes)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md#5-casey-changes-up-his-software-releases-chained-changes) — Using structured data to announce changes in trust over time.
 
-See the [Financial Industry Use Cases](Financial.md) for illustrated examples of these advantages.
+#### [Part Two: Anonymous Signing](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md#part-two-anonymous-signing)
 
-## Other Data Distribution Use Cases
+Authentication can be combined with elision to allow for signing that is pseudonymous yet validated.
 
-A number of additional industries can benefit from the data-distribution possibilities of Gordian Envelopes.
+6. [**Amira Signs Anonymously (Anonymous Signature, Web of Trust)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md#6-amira-signs-anonymously-anonymous-signature-web-of-trust) — Using a Web of Trust to verify a signature made pseudonymous through elision.
+7. [**Amira Reveals Her Identity (Progressive Trust)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md#7-amira-reveals-her-identity-progressive-trust) — Removing elision over time to gain reputation from previously published works.
 
-**Agriculture Industry Use Cases.** Gordian Envelopes could be used to securely transmit data related to agriculture such as crop yields, soil quality data, and weather data, between different parties. This could help to prevent tampering or other security breaches, and ensure that only verified, trustworthy data is transmitted.
+## [Data Distribution Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md)
 
-**Energy Industry Use Cases.** Gordian Envelopes could also be used to securely transmit data related to the energy industry such as electricity usage data and grid configuration data between different parties.
+Data distribution is crucial for a variety of use cases, from the supply chain to the medical industry. The use cases in this section take as an example the distribution of user data based on a [WebFinger](https://www.rfc-editor.org/rfc/rfc7033.html)-like protocol, highlighting the advantages of building a privacy-first data structure.
 
-**Environmental Industry Use Cases.** Gordian Envelopes could also be used to securely transmit data related to the environment such as water quality data, air quality data, and weather data between different parties.
+#### [**Part One: Public CryptFinger**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md#part-one-public-cryptfinger)
 
-**Healthcare Industry Use Cases.** Gordian Envelopes can be used in the healthcare industry to securely and privately transmit and store patient health records, allowing authorized parties to access only the information they are authorized to view. This can help healthcare organizations comply with privacy regulations, such as HIPAA in the United States. The use of Gordian Envelopes in the healthcare industry allows for decentralized access to medical information while still preserving the privacy and security of the data.
+The most fundamental usage of Gordian Envelope is to publish verifiable data that is entirely public.
 
-**Law, Government, and Public Sector Industry Use Cases.** In the legal, government, and public sector, Gordian Envelopes can be used to encode and transmit sensitive legal documents such as contracts and court orders, while preserving their complex data structures and ensuring personal privacy. The ability of Gordian Envelopes to offer selective disclosure of information is useful in this sector where only certain parties may be authorized to view certain information. This can help to protect the human rights of individuals by ensuring that personal data is not misused. Additionally, the use of Gordian Envelopes can support transparency and accountability in government by allowing for the selective disclosure of public data to authorized parties, helping to prevent the misuse of government power.
+1. [**Carmen Makes Basic Information Available (Structured Data)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md#1-carmen-makes-basic-info-available-structured-data) — Using Gordian Envelope to release structured data.
+2. [**Carmen Makes CryptFinger Verifiable (Signatures)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md#2-carmen-makes-cryptfinger-verifiable-signatures) — Adding authentication to allow for data portability.
+3. [**Carmen Adds Chronology to CryptFinger (Timestamp)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md#3-carmen-add-chronology-to-cryptfinger-timestamp) — Easily expanding verifiable data with improtant metadata.
 
-**Supply Chain Use Cases.** Gordian Envelopes can be used to encode and transmit sensitive information, such as production schedules, inventory levels, shipping records, and quality control data, while preserving their complex data structures and ensuring privacy. The ability of Gordian Envelopes to elide or externally reference certain parts of the envelope allows for cooperation among diverse supply chain parties and promotes fair trade by preventing unfair competition. 
+#### [**Part Two: Private CryptFinger**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md#part-two-private-cryptfinger)
 
-**Telecommunications Use Cases.** Gordian Envelopes could also be used to securely transmit data related to telecommunications networks, such as network configuration data and customer data, between different parties in the telecommunications industry.
+Building on the elision capabilities of Gordian Envelope can produce data that is not (initially) viewable by everyone, but which remains provable and ultimately releasable.
 
-**Transportation Use Cases.** Gordian Envelopes could also be used to securely transmit data related to the movement of people and goods, such as flight plans and cargo manifests, between different parties in the transportation industry. 
+4. [**Carmen Protects CryptFinger (Elision)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md#4-carmen-protects-cryptfinger-elision) – Eliding data for some viewers and not others.
+5. [**Carmen Makes CryptFinger Provable (Inclusion Proof)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md#5-carmen-makes-cryptfinger-provable-inclusion-proof) — Using inclusion proofs to purposefully allow selective correlation.
+6. [**Carmen Makes CryptFinger Progressive (Progressive Trust)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md#6-carmen-makes-cryptfinger-progressive-progressive-trust) — Building a progressive trust algorithm using selective correlation.
 
-## The Common Thread of Use Cases
+#### [**Part Three: Herd Private CryptFinger**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md#part-three-herd-private-cryptfinger)
 
-The common thread among the use cases for Gordian Envelopes is the need for secure and privacy-enhancing solutions for transmitting and storing complex, sensitive data. This data may be related to a wide range of industries, have cross-industry contexts, or cross international borders. It often involves diverse parties with different business models, risk models, and trust boundaries.
+A herd-privacy variant of CryptFinger's design can allow users to maintain their privacy as much as they wish, as discussed in this overview.
 
-When you have a diversity of individuals, groups, or organizations with different needs, business requirements, legal requirements, and risk-management requirements, Gordian Envelopes are at their strongest. They offer a flexible, privacy-enhancing solution for transmitting and storing data in different ways for different entities.
+#### [**Part Four: Data Distribution Advancements**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md#part-four-data-distribution-advancements)
 
-Supporting data that is complex and sensitive is another particular strength of Gordian Envelopes. They can help to prevent tampering or other security breaches and ensure that only verified, trustworthy data is transmitted. This can be particularly important in industries such as healthcare, finance, and government, where the verifiability of personal data is of utmost concern.
+There are many other options for cryptographic data distribution, building on signatures, provability, repackaging, and encryption permits, as is discussed in this further overview.
 
-Finally, Envelopes are particularly strong when they are protecting human rights. The core value proposition of the privacy features of Gordian Envelopes cannot be overstated: through its support for selective disclosure and [progressive trust](https://www.blockchaincommons.com/musings/musings-progressive-trust/), Gordian Envelopes allow for disclosure of only specific parts of the data, and only to only authorized parties, enforcing that the privacy rights of individuals are respected.
+## [Financial Industry Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Financial.md)
 
+Although the financial industry can make many uses of Gordian Envelopes to preserve assets, these use cases concentrate on self-sovereign control of assets: how an individual can use Gordian Envelopes to make sure he doesn't lose them. 
+
+#### [Part One: Self-Sovereign Storage of Secrets](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Financial.md#part-one-self-sovereign-storage-of-secrets)
+
+Envelopes can simply and securely store digital assets.
+
+1. [**Sam Stores a Secret (Secure Storage with Metadata)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Financial.md#1-sam-stores-a-secret-secure-storage-with-metadata) — Using metadata in an Envelope to increase the resilience of stored assets.
+2. [**Sam is Salty about Compliance (Non-Correlation)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Financial.md#2-sam-is-salty-about-compliance-non-correlation) — Salting data to eliminate correlation dangers.
+3. [**Sam Gets Paranoid about Privacy (Wrapped Encryption)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Financial.md#3-sam-gets-paranoid-about-privacy-wrapped-encryption) — Improving privacy at the cost of resilience.
+
+#### [Part Two: Raising Resilience of Restricted Results](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Financial.md#part-two-raising-resilience-of-restricted-results)
+
+However, resilience can be further improved with Gordian Envelope permits.
+
+4. [**Sam Gets Rigorous about Resilience (SSKR Permit)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Financial.md#4-sam-gets-rigorous-about-resilience-sskr-permit) — Sharding keys to improve resilience.
+5. [**Sam Promotes a Partner (Multi-Permit)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Financial.md#5-sam-promotes-a-partner-multi-permit) — Improving resilience through multiple permits.
