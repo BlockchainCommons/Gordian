@@ -6,7 +6,7 @@ For example, healthcare records are extremely sensitive and contain a large amou
 
 ## Data Use Case Table of Contents
 
-The following use cases focus on a fundamentally simple idea: the distribution of user-information data on the internet. In doing so, they imagine a next-generation privacy-protection data-distribution app that builds on projects such as [Finger](https://datatracker.ietf.org/doc/html/rfc1288) and [WebFinger](https://www.rfc-editor.org/rfc/rfc7033), protocols which continue to be actively used for their strong benefits in apps like [Mastodon](https://docs.joinmastodon.org/spec/webfinger/) and many others. These use cases are brainstorm for how an existing and successful protocol on the internet could be improved for a next generation: how the extant value could be replicated while improving its privacy.
+The following use cases focus on a fundamentally simple idea: the distribution of user-information data on the internet. In doing so, they imagine a next-generation privacy-protection data-distribution app that builds on projects such as [Finger](https://datatracker.ietf.org/doc/html/rfc1288) and [WebFinger](https://www.rfc-editor.org/rfc/rfc7033), protocols which continue to be actively used in apps like [Mastodon](https://docs.joinmastodon.org/spec/webfinger/) and many others. These use cases are brainstorms for how an existing and successful protocol on the internet could be improved for a next generation: how the extant value could be replicated while improving its privacy.
 
 The use cases are all progressive, building on top of each other. The first set focuses on public data, but demonstrates the advantage of authentication. The second focuses on private data that is partially or entirely elided. Two final sections are briefer: one discusses how herd privacy use cases from other pages could equally be applied here; while another considers future expansion.
 
@@ -21,7 +21,7 @@ The use cases are all progressive, building on top of each other. The first set 
 * [Part Three: Herd Private CryptFinger](Data.md#part-three-herd-private-cryptfinger)
 * [Part Four: Data Distribution Advancements](Data.md#part-four-data-distribution-advancements)
 
-As these progressive use cases advance, they reveal a new perspective on data distribution that's not about automated discovery by search engines, but instead about purposeful, personal distribution of information, in the exact manner that the user desires.
+The progression of these use cases reveals a new perspective on data distribution that's not about automated discovery by search engines, but instead about purposeful, personal distribution of information, in the exact manner that the user desires.
 
 ## Part One: Public CryptFinger
 
@@ -29,11 +29,13 @@ This first set of use cases lays out Gordian Envelope use cases for public data 
 
 ### #1: Carmen Makes Basic Info Available (Structured Data)
 
-> _Problem Solved:_ Carmen wants to make basic user information available in a structured way.
-
+* **Use Case:** Carmen wants to make basic user information available in a structured way.
+* **Independence Benefits:** Carmen can make personal decisions about what data is distributed.
+* **Openness Benefits:** Data is distributed in a well-structured, self-describing manner.
+ 
 Carmen has used the internet long enough that she used to `finger` internet users to find basic information about them. Now she uses [WebFinger](https://www.rfc-editor.org/rfc/rfc7033) for even more details. However, she wants to be able to release her information in a more modular, privacy-preserving way. Thus, she begins to design "CryptFinger".
 
-When a user wants to find out information about `carmen@cryptfinger.com` they contact the `cryptfinger.com` cryptfinger server and request information about her. This foundational design of CryptFinger isn't that different from WebFinger. It will allow a user to reveal their data in a structured way, including aliases, links, keys, and other information. The benefits of using CryptFinger over WebFinger will come as Carmen begins to use privacy-preserving techniques of authentication, elision, and proofs. But in the meantime, here's what a foundational CryptFinger response might look like:
+When a user wants to find out information about `carmen@cryptfinger.com` they contact the `cryptfinger.com` cryptfinger service and request information about her. This foundational design of CryptFinger isn't that different from WebFinger. It will allow a user to reveal their data in a structured way, including aliases, links, keys, and other information. The benefits of using CryptFinger over WebFinger will come as Carmen begins to use privacy-preserving techniques of authentication, elision, and proofs. But in the meantime, here's what a foundational CryptFinger response might look like:
 
 ```
 "carmen@cryptfinger.com" [
@@ -436,14 +438,16 @@ graph LR
     linkStyle 87 stroke-width:2.0px
     linkStyle 88 stroke:green,stroke-width:2.0px
 ```
-The contents of this CryptFinger response are worthy of some further discussions. The most important element may be its inclusion of what are essentially `rel=me` equivalencies. The CryptFinger server at cryptfinger.com claims that `carmen` at that site is equivalent to "admin@cryptfinger.com", "carmen@blockchaincommons.com", and "carmen@mycarmentsite.com"; with additional metadata it can even describe the alias "@carmen@mycarmentsite.com" with its Mastodon equivalence. Besides that, the response also offers the equivalence of powerful identifiers, such as CIDs and public keys, and powerful communication mechanisms, such as phone numbers. Finally, it offers other informational tidbits such as what Carmen does and what she's published. If there's data about a person, CryptFinger can be structured to contain it, even if it's multilevel data, such as Carmen's book _Zen and the Art of Cryptfinger Design_, which has also been translated.
+The contents of this CryptFinger response are worthy of some further discussions. The most important element may be its inclusion of what are essentially `rel=me` equivalencies. The CryptFinger service at cryptfinger.com claims that `carmen` at that site is equivalent to "admin@cryptfinger.com", "carmen@blockchaincommons.com", and "carmen@mycarmentsite.com"; with additional metadata it can even describe the alias "@carmen@mycarmentsite.com" with its Mastodon equivalence. Besides that, the response also offers the equivalence of powerful identifiers, such as CIDs and public keys, and powerful communication mechanisms, such as phone numbers. Finally, it offers other informational tidbits such as what Carmen does and what she's published. If there's data about a person, CryptFinger can be structured to contain it, even if it's multilevel data, such as Carmen's book _Zen and the Art of Cryptfinger Design_, which has also been translated.
 
 But structured data is just the start. More innovations will come as Carmen adds on cryptographic and privacy-preserving features from Gordian Envelope.
 
 ### #2: Carmen Makes CryptFinger Verifiable (Signatures)
 
-> _Problem Solved:_ Carmen wants to make user information verifiable.
-
+* **Problem Solved:** Carmen wants to make user information verifiable.
+* **Independence Benefit:** Carmen can support verification of her data, turning it from just plain finger information into credentials.
+* **Openness Benefit:** Data can be freely circulated beyond the CryptFinger service, without losing any of its verifiability.
+ 
 Carmen's first expansion of her CryptFinger design is to make it verifiable. This will have some limited utility when data is initially accessed. Users can check the signature of the CryptFinger results against a public key, and verify that the signature matches that public key. If the public key is hosted on the same domain as the CryptFinger data, then it suggests only that the CryptFinger daemon hasn't been compromised. If it's hosted on a Public-Key Infrastructure (PKI) server, it may offer assurances about the server as a whole. (For any validation of this sort, the validator is the one responsible for figuring out how strong any assurances are and what the implicit dangers are.)
 
 However, making CryptFinger verifiable offers a more powerful expansion: the Envelopes containing CryptFinger results can now be passed around, and those Envelopes can be validated at any time by any holder. An Envelope could even be verified far in the future if there's some remaining proof of the public key that was used to sign the Envelope! If a third-party ever tries to make changes to a CryptFinger Envelope's content, the Envelope will no longer be verifiable! 
@@ -1367,8 +1371,9 @@ graph LR
 
 ### #3: Carmen Add Chronology to CryptFinger (Timestamp)
 
-> _Problem Solved:_ Carmen wants to make it obvious which Cryptfinger results are the newest.
-
+* **Use Case:** Carmen wants to make it obvious which CryptFinger results are the newest.
+* **Openness Benefit:** Despite the freeform ability to redistribute CryptFinger data, the newest results can still be ascertained. This dating data is also verifiable, like the rest of the package.
+ 
 Because Gordian Envelopes can be saved, stored, and resent, dating them becomes an issue. It's vital to know whether CryptFinger results are relatively new or grossly out of date. Fortunately, adding verifiable dates is very simple as long as authentication is already being used. A date just needs to be included in `verifierInfo`. Since that information is afterward signed, the date can be trusted — or at least it can be trusted to the level that a validator trusts the verifier.
 ```
 {
@@ -1872,7 +1877,10 @@ Authentication can create strong advantages for data lookup, for verifying data,
 
 ### #4: Carmen Protects CryptFinger (Elision)
 
-> _Problem Solved:_ Carmen doesn't want to make all of her data available to everyone.
+* **Problem Solved:** Carmen doesn't want to make all of her data available to everyone.
+* **Independent Benefits:** Carmen chooses which data is released to which places.
+* **Privacy Benefits:** Carmen removes data that shouldn't go out to the general public.
+* **Openness Benefits:** The same data is sent to different places, but it's elided in different ways. This allows for the support of privacy while maintaining openness benefits that come from the authentication and dating used by CryptFinger.
 
 Not all of Carmen's data is appropriate for everyone to see. In particular, she'd like for her phone number to be available to members of her company but not to the general public. This is easy enough to do on the internet: the phone number can be given out to people who access Carmen's CryptFinger from a company network but not to those who access from outside the company network.
 
@@ -2042,14 +2050,16 @@ graph LR
     linkStyle 32 stroke:green,stroke-width:2.0px
     linkStyle 33 stroke:#55f,stroke-width:2.0px
 ```
-Note that the overall hash of the Merkle-tree used by Gordian Envelope remains the same: `3c1cc7e5`. In addition, the signature remains valid, even though information has been elided _and_ the data has _not_ been signed again.
+Note that the overall hash of the Merkle-tree used by Gordian Envelope remains the same: `3c1cc7e5`. In addition, the signature remains valid, even though information has been elided _and_ the data has _not_ been signed again. Carmen was able to choose what went out to the general public without spoiling the verification of her data!
 
 Anyone inside of Carmen's company who can see the complete CryptFinger results will know that it matches this external result because it contains the same hash. As a result, there's no need to determine if one is newer than the other!
 
 ### #5: Carmen Makes CryptFinger Provable (Inclusion Proof)
 
-> _Problem Solved:_ Carmen wants to make her aliases verifiable.
-
+* **Use Case:** Carmen wants to make her aliases verifiable.
+* **Independence Benefits:** Carmen not only chooses what data goes out to the public, but she can also choose to allow users to create correlation of their own by revealing the data structure.
+* **Privacy Benefits:** The core of Carmen's data remains private, even while she's offering proofs that build on that data! Only people who already know the data can prove its existence. There's no actual publication.
+ 
 Carmen does not want to publicly publish her aliases, such as `carmen@blockchaincommons.com`, because doing so would just increase the amount of spam that she receives at those accounts. However, she does want to make those aliases verifiable. If someone wants to know if `carmen@blockchaincommons.com` is also `carmen@cryptfinger.com` she wants to allow them to verify that in an easily automatable way that doesn't require her to do anything. Fortunately, this is trivial given the CryptFinger structure that she has created.
 
 All that Carmen needs to do is reveal how aliases are stored within her WebFinger structure. Once she has, anyone can create an assertion for `alias anyaddress@anysite`, properly lower casing the address per Carmen's specification, and test that against an inclusion proof to show whether it's included in Carmen's `ELIDED` results.
@@ -2079,8 +2089,10 @@ If Carmen instead wanted to block correlation, for example if she _didn't_ want 
 
 ### #6: Carmen Makes CryptFinger Progressive (Progressive Trust)
 
-> _Problem Solved:_ Carmen wants to progressively reveal information over time.
-
+* **Use Case:** Carmen wants to progressively reveal information over time.
+* **Independence Benefits:** Carmen chooses not just which data to reveal, but also when: it's all under her control.
+* **Privacy Benefits:** Carmen chooses to reveal private information only when she's gained sufficient connection to someone, or alternatively when someone reveals they already know something related to the private data.
+ 
 Though Carmen is initially limiting CryptFinger information released outside of her company, she wants to be able to progressively release additional information as she gains trust with external users. This model of [progressive trust](https://www.blockchaincommons.com/musings/musings-progressive-trust/) is how trust works in the real-world, when we meet people, introduce ourselves, and slowly give them more information about ourselves. It makes sense for CryptFinger to follow that same methodology.
 
 This could be done by hand, based on growing connection to another person. Less elided Envelopes would be sent to the person over time. Carmen could introduce her publications quite early, as they're pretty public information. She might next prioritize her aliases and introduce them as someone else introduces themselves. The resume link might only go to people she's affirmed are potential employers. She might save her phone number to only be given to someone who she's created a real connection with, and perhaps even met in person. The other user can meanwhile continue to verify that the information all links to Carmen, as any new Gordian Envelopes will match the signatures and hashes of existing Gordian Envelopes (presuming they're just revelations of a previously elided Envelope).
@@ -2345,6 +2357,9 @@ Revelation that Carmen `isA` author could similarly reveal information on her bo
 
 A variant of CryptFinger might support herd privacy. This would allow individuals to reveal or hide their membership in a group based on their personal preferences.
 
+* **Independence Benefits:** A holder chooses whether to reveal their presence in a herd of data or not, as they see fit.
+* **Privacy Benefits:** Data about the holder is never released unless they do so; even the issuer could have very limited information on the holder.
+
 In this variant, the CryptFinger server might create a list of everyone on the server, active or inactive. It's the most basic use of a `finger` command:
 ```
 "cryptfinger.com" [
@@ -2368,7 +2383,7 @@ It would then entirely elide that list before releasing it:
 ```
 Individual users could then use inclusion proofs to demonstrate that those `ELIDED` entries match their `active` (or `inactive`) accounts on `cryptfinger.com`, but if they didn't they could stay largely anonymous in the herd of accounts listed.
 
-See the [Educational Use Cases](Educational.md#part-three-herd-privacy-credentials) for more precise examples of how herd privacy can be supported with long listings of this sort, and how that can be improved with techniques such as salting and restructing entries.
+See the [Educational Use Cases](Educational.md#part-three-herd-privacy-credentials) for more precise examples of how herd privacy can be supported with long listings of this sort, and how that can be improved with techniques such as salting and restructuring entries.
 
 ## Part Four: Data Distribution Advancements
 
