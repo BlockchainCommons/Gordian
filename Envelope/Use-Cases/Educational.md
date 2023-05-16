@@ -6,6 +6,14 @@ For example, a student's transcript could be encoded and transmitted using a Gor
 
 Overall, Gordian Envelopes offer a flexible and privacy-enhancing solution for the transmission and storage of sensitive educational credential information, creating opportunities to transmit sensitive information in restrictive ways.
 
+## The Dangers of Digital Credentials in Education
+
+A holder-based hashed elision system such as Gordian Envelope is very important for educational credentials because current digital credentials don't protect the privacy of students, as discussed in our article, ["The Dangers of Digital Credentials in Education"](https://www.blockchaincommons.com/articles/Dangerous-Educational-Credentials/). 
+
+Generally, the two major problems with digital credentials as they currently stand are that they open the student up to identity theft and to potential discrimination because of the considerable amounts of information that they contain. On the flipside, digital credentials also  create liability for the issuing institute, especially given data regulations such as the GDPR (in Europe) and the CCPA (in California). 
+
+Holder-based elision lets the students take control of what is revealed, while adding on hashing using a Merkle Tree ensures that signatures remain valid. The ["Dangers of Digital Credentials in Education"](https://www.blockchaincommons.com/articles/Dangerous-Educational-Credentials/) article contains more details on these points. 
+
 ## Educational Use Case Table of Contents
 
 The following set of use cases demonstrates how Gordian Envelopes can store educational credentials. Individual categories are presented progressively: each use case within a section builds on the previous one by demonstrating a new capability. The first set refers to Danika Kaschak, an electrical engineer, and her official credentials. A standalone use case then focuses on the more ad-hoc credentials possible through a Web of Trust. A final set of use cases demonstrates the distribution of educational credentials with a different priority: herd privacy.
