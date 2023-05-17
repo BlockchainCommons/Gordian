@@ -2,7 +2,7 @@
 
 Collaborative Seed Recovery, or CSR, is a new system intended to automate the recovery of seeds and other sensitive digital data in a way that is safe, secure, and simple to use. It is not a methodology to prevent compromise, but simply to add resilience to recovery in the case of failure or loss.
 
-This document outlines the core structures and principles of a first iteration of CSR that we believe could be developed by the end of 2022.
+This document outlines the core structures and principles of a first iteration of CSR that we believe could be developed by the end of 2023.
 
 * **CSR Project:** [https://github.com/BlockchainCommons/Community/issues/149](https://github.com/BlockchainCommons/Community/issues/149)
 * **CSR Use Cases:** [https://hackmd.io/ZbRiwvUfQSy-1RKM15bM8Q](https://hackmd.io/ZbRiwvUfQSy-1RKM15bM8Q#CSR-Focused-Use-Cases)
