@@ -134,7 +134,8 @@ the ToneZone device and on its mobile app, but nowhere else.
 ```
 ENCRYPTED
 ```
-```
+
+```mermaid
 graph LR
     1>"46e63799<br/>ENCRYPTED"]
     style 1 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
