@@ -123,8 +123,24 @@ openness, which will be vital when Nadia goes beyond the protection she builds i
 easily accessible by unauthorized parties.**
 * **Privacy Benefits:** Encryption ensures that the data is closely protected on a few devices.
 
-[This is where she really starts to differentiate her tracker from
-others on the market]
+Of course, just formatting the data in a open manner isn't enough. For
+Nadia's ToneZone to really fulfill its core goal, the data has to be
+protected.
+
+This is simple with Gordian Envelope. All Nadia has to do is to
+encrypt her wrapped envelope. Then, the data can only be encrypted or
+decrypted with her symmetric key, which Nadia plans to store both in
+the ToneZone device and on its mobile app, but nowhere else.
+```
+ENCRYPTED
+```
+```
+graph LR
+    1>"46e63799<br/>ENCRYPTED"]
+    style 1 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+```
+
+Thus the first goal of Nadia's new tracker, ensuring privacy, is fulfilled!
 
 ### 3. Nadia Protects Her Key (SSKR)
 
