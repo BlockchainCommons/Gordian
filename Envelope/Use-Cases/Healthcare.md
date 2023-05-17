@@ -96,6 +96,10 @@ settles on the following:
 ```
 [see the mermaid diagram](Healthcare-mermaid-1a.md)
 
+(Obviously, the actual ToneZone tracker will have _lots_ more data
+both total and for each day. This is just a cut-down example intended
+to show some of the functionality possible.)
+
 Data is divided out among several categories and also for individual
 days. This will make it easy for Nadia in the future to differentiate
 highly personal data (such as `gpsInfoFor`) and more general data
