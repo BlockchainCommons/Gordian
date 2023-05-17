@@ -198,4 +198,36 @@ data selectively, as she choses.]
 
 [Nadia's redacted location is uploaded; a private key can let her update it with a flag if she has COVID; a one-time contact lets her know if someone else does.]
 
+Additional Examples:
+* Health Insurance
+* Temperature (which strongly relates to womens' reproductive health) -- likely subpoened in future
+* Streaming to caretaker, monitor kids, elderly parents
+* Proof of Provenance [competitions, but also clinical trial!, make sure data isn't contaminated, especially when grant money is involved]
+* Aggregated Demographic Data [is what demographic trials use], thus herd privacy — need to demonstrate appropriate demographic spread without compromising information, may need to correlate data points with demographics with compromising individual's privacy
+* Double-Blind Data Collection for Clinical Trials [no leakage of data between data acquiring & adminstering]
 
+Privacy Concerns:
+* Data is SAFE and SOUND and NOT USED TO INCRIMINATING USERS
+* Eliding info
+* or Differentely Encrypting info so that only some of it
+* SO WANT TO PEOPLE ABLE TO COLLECTING SOME ACTIVITY DATA FOR COACHING.
+   * But some is removed or elided or opt-in from user.
+   * So swap out Doctor for this?
+* WANT TO OFFER TRIALS
+   * With simplified admin (just ring/fitbit/tonezone)
+   * With simplified HIPAA requirements
+   * It's an economic approach.
+* ANOTHER USER CASE:
+   * Having collected data be shared to a third-party without App seeing it
+   * Sensitive Clinical Trial
+   * Other Sensitive Partnerships
+   * App Company might still want some of data, might not all, complete data set
+   * Multiple Keys, one generated with third-party on initial signup
+   * But App Maker is still the one that can do easy collection.
+* Differential Data Set
+   * "Blur" Data +/-5 or whatever
+   * With some proofs back to original
+   * DATA BRANCH
+* There may also be linked/non-sensor data
+   * Such as age
+   * That is attested to
