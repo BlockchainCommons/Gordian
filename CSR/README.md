@@ -160,7 +160,7 @@ Please see the [CSR Issue](https://github.com/BlockchainCommons/Community/issues
 
 ## What CSR v1.0 Will Not Do
 
-CSR v1.0 is just the first iteration of the CSR system, let alone the larger, more complex Collective Key Management (CKM) system. It needs to be carefully constrained to ensure the ability to release in 2022.
+CSR v1.0 is just the first iteration of the CSR system, let alone the larger, more complex Collective Key Management (CKM) system. It needs to be carefully constrained to ensure the ability to release in 2023.
 
 It does *not*:
 * Support collaborative key generation.
