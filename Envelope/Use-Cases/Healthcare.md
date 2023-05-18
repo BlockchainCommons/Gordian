@@ -36,62 +36,66 @@ for the individual selection (and elision) of specific data. She
 settles on the following:
 ```
 "ur:cid/hdcxzoqzispesnbbkohddwbyhtbzzsssdldassamdeeofdtndsaazsjpdtnnvwfnatglbgbnehwe" [
-    "gpsInfoFor": "20230516" [
-        "gpsQueue": "1684274400" [
-            "distance": "0"
-            "latitude": "2.122778"
-            "longitude": "41.380833"
-            "status": "0"
+    "device": {
+        "ToneZone 1.0-SN102313A" [
+            "gpsInfoFor": "20230516" [
+                "gpsQueue": "1684274400" [
+                    "distance": "0"
+                    "latitude": "2.122778"
+                    "longitude": "41.380833"
+                    "status": "0"
+                ]
+                "gpsQueue": "1684279978" [
+                    "distance": "5230"
+                    "latitude": "2.456944"
+                    "length": "36000"
+                    "longitude": "41.430278"
+                    "status": "8"
+                ]
+            ]
+            "heartInfoFor": "20230515" [
+                "1684274400": "59"
+                "1684274460": "60"
+                "1684274520": "60"
+                "1684274580": "59"
+                "1684274640": "59"
+            ]
+            "heartInfoFor": "20230516" [
+                "1684274400": "85"
+                "1684274460": "87"
+                "1684274520": "91"
+                "1684274580": "90"
+                "1684274640": "88"
+            ]
+            "statsFor": "20230515" [
+                "floors": "3"
+                "restingHeartRate": "55"
+                "steps": "5703"
+                "zoneMinutes": "0"
+            ]
+            "statsFor": "20230516" [
+                "floors": "17"
+                "restingHeartRate": "56"
+                "steps": "10715"
+                "zoneMinutes": "25"
+            ]
+            "stepInfoFor": "20230515" [
+                "1684188000": "0"
+                "1684188060": "0"
+                "1684188120": "7"
+                "1684188180": "2"
+                "1684188240": "0"
+            ]
+            "stepInfoFor": "20230516" [
+                "1684274400": "95"
+                "1684274460": "99"
+                "1684274520": "103"
+                "1684274580": "103"
+                "1684274640": "101"
+            ]
         ]
-        "gpsQueue": "1684279978" [
-            "distance": "5230"
-            "latitude": "2.456944"
-            "length": "36000"
-            "longitude": "41.430278"
-            "status": "8"
-        ]
-    ]
+    }
     "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
-    "heartInfoFor": "20230515" [
-        "1684274400": "59"
-        "1684274460": "60"
-        "1684274520": "60"
-        "1684274580": "59"
-        "1684274640": "59"
-    ]
-    "heartInfoFor": "20230516" [
-        "1684274400": "85"
-        "1684274460": "87"
-        "1684274520": "91"
-        "1684274580": "90"
-        "1684274640": "88"
-    ]
-    "statsFor": "20230515" [
-        "floors": "3"
-        "restingHeartRate": "55"
-        "steps": "5703"
-        "zoneMinutes": "0"
-    ]
-    "statsFor": "20230516" [
-        "floors": "17"
-        "restingHeartRate": "56"
-        "steps": "10715"
-        "zoneMinutes": "25"
-    ]
-    "stepInfoFor": "20230515" [
-        "1684188000": "0"
-        "1684274460": "0"
-        "1684274520": "7"
-        "1684274580": "2"
-        "1684274640": "0"
-    ]
-    "stepInfoFor": "20230516" [
-        "1684274400": "95"
-        "1684274460": "99"
-        "1684274520": "103"
-        "1684274580": "103"
-        "1684274640": "101"
-    ]
 ]
 ```
 [see the mermaid diagram](Healthcare-mermaid-1a.md)
@@ -132,13 +136,48 @@ encrypt her wrapped envelope. Then, the data can only be encrypted or
 decrypted with her symmetric key, which Nadia plans to store both in
 the ToneZone device and on its mobile app, but nowhere else.
 ```
-ENCRYPTED
+"ur:cid/hdcxzoqzispesnbbkohddwbyhtbzzsssdldassamdeeofdtndsaazsjpdtnnvwfnatglbgbnehwe" [
+    "device": ENCRYPTED
+    "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
+]
+"ur:cid/hdcxzoqzispesnbbkohddwbyhtbzzsssdldassamdeeofdtndsaazsjpdtnnvwfnatglbgbnehwe" [
+    "device": ENCRYPTED
+    "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
+]
 ```
 
 ```mermaid
 graph LR
-    1>"46e63799<br/>ENCRYPTED"]
-    style 1 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    1(("723b40d3<br/>NODE"))
+    2["426f3f8a<br/>#quot;ur:cid/hdcxzoqzispesnbbkohddwbyhtbzzsssd…#quot;"]
+    3(["38cadd4f<br/>ASSERTION"])
+    4["bb751b0e<br/>#quot;hasPubKey#quot;"]
+    5["2ada5820<br/>#quot;ur:crypto-pubkeys/lftaadfwhdcxtkzsswongh…#quot;"]
+    6(["e431b804<br/>ASSERTION"])
+    7["52b252a6<br/>#quot;device#quot;"]
+    8>"fa4cf2cd<br/>ENCRYPTED"]
+    1 -->|subj| 2
+    1 --> 3
+    3 -->|pred| 4
+    3 -->|obj| 5
+    1 --> 6
+    6 -->|pred| 7
+    6 -->|obj| 8
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:#55f,stroke-width:3.0px
+    style 6 stroke:red,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke-width:2.0px
+    linkStyle 2 stroke:green,stroke-width:2.0px
+    linkStyle 3 stroke:#55f,stroke-width:2.0px
+    linkStyle 4 stroke-width:2.0px
+    linkStyle 5 stroke:green,stroke-width:2.0px
+    linkStyle 6 stroke:#55f,stroke-width:2.0px
 ```
 
 Thus the first goal of Nadia's new tracker, ensuring privacy, is fulfilled!
