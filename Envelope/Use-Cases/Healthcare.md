@@ -17,14 +17,14 @@ keeping her data private.
 * **Use Case:** Nadia need a wearable activity tracker that can store her data.
 * **Openness Benefits:** Nadia uses a self-describing format that ensures that her data will be readable in the far future.
 
-Nadia has used a wearable activity tracker for years, but she's slowly
+Nadia has used wearable activity trackers for years, but she's slowly
 become aware that she's playing with fire. She's storing away high
 levels of very personal data about her health and her location, and
 she has no assurance that any of the data is actually safe and
 secure. As a result, Nadia decides to design her own data tracker, the
-ToneZone. Its not priority will be securing data (and its secondary
+ToneZone. Its main priority will be securing data (and its secondary
 priority will be sharing that data as its user sees fit, but that
-issue will be down the road a bit).
+issue is down the road a bit).
 
 The first thing that Nadia has to do is to design her data
 format. This is easy to do using Gordian Envelope, which allows for
@@ -36,6 +36,14 @@ for the individual selection (and elision) of specific data. She
 settles on the following:
 ```
 "ur:cid/hdcxzoqzispesnbbkohddwbyhtbzzsssdldassamdeeofdtndsaazsjpdtnnvwfnatglbgbnehwe" [
+    "account": {
+        "00000001" [
+            "birthdate": "19891109"
+            "fullName": "Nadia Levedeva"
+            "height": "65.1"
+            "weight": "132.7"
+        ]
+    }
     "device": {
         "ToneZone 1.0-SN102313A" [
             "gpsInfoFor": "20230516" [
@@ -93,6 +101,20 @@ settles on the following:
                 "1684274580": "103"
                 "1684274640": "101"
             ]
+            "tempInfoFor": "20230515" [
+                "1684188000": "97"
+                "1684188060": "97.1"
+                "1684188120": "97.3"
+                "1684188180": "97.2"
+                "1684188240": "97.1"
+            ]
+            "tempInfoFor": "20230516" [
+                "1684274400": "98.2"
+                "1684274460": "98.2"
+                "1684274520": "98.3"
+                "1684274580": "98.2"
+                "1684274640": "98.2"
+            ]
         ]
     }
     "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
@@ -137,10 +159,7 @@ decrypted with her symmetric key, which Nadia plans to store both in
 the ToneZone device and on its mobile app, but nowhere else.
 ```
 "ur:cid/hdcxzoqzispesnbbkohddwbyhtbzzsssdldassamdeeofdtndsaazsjpdtnnvwfnatglbgbnehwe" [
-    "device": ENCRYPTED
-    "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
-]
-"ur:cid/hdcxzoqzispesnbbkohddwbyhtbzzsssdldassamdeeofdtndsaazsjpdtnnvwfnatglbgbnehwe" [
+    "account": ENCRYPTED
     "device": ENCRYPTED
     "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
 ]
@@ -148,14 +167,17 @@ the ToneZone device and on its mobile app, but nowhere else.
 
 ```mermaid
 graph LR
-    1(("723b40d3<br/>NODE"))
+    1(("eb0802c5<br/>NODE"))
     2["426f3f8a<br/>#quot;ur:cid/hdcxzoqzispesnbbkohddwbyhtbzzsssd…#quot;"]
     3(["38cadd4f<br/>ASSERTION"])
     4["bb751b0e<br/>#quot;hasPubKey#quot;"]
     5["2ada5820<br/>#quot;ur:crypto-pubkeys/lftaadfwhdcxtkzsswongh…#quot;"]
-    6(["e431b804<br/>ASSERTION"])
-    7["52b252a6<br/>#quot;device#quot;"]
-    8>"fa4cf2cd<br/>ENCRYPTED"]
+    6(["798aff5f<br/>ASSERTION"])
+    7["a05e2863<br/>#quot;account#quot;"]
+    8>"61353a13<br/>ENCRYPTED"]
+    9(["a9360e5e<br/>ASSERTION"])
+    10["52b252a6<br/>#quot;device#quot;"]
+    11>"91119f66<br/>ENCRYPTED"]
     1 -->|subj| 2
     1 --> 3
     3 -->|pred| 4
@@ -163,6 +185,9 @@ graph LR
     1 --> 6
     6 -->|pred| 7
     6 -->|obj| 8
+    1 --> 9
+    9 -->|pred| 10
+    9 -->|obj| 11
     style 1 stroke:red,stroke-width:3.0px
     style 2 stroke:#55f,stroke-width:3.0px
     style 3 stroke:red,stroke-width:3.0px
@@ -171,6 +196,9 @@ graph LR
     style 6 stroke:red,stroke-width:3.0px
     style 7 stroke:#55f,stroke-width:3.0px
     style 8 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 9 stroke:red,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
     linkStyle 0 stroke:red,stroke-width:2.0px
     linkStyle 1 stroke-width:2.0px
     linkStyle 2 stroke:green,stroke-width:2.0px
@@ -178,6 +206,9 @@ graph LR
     linkStyle 4 stroke-width:2.0px
     linkStyle 5 stroke:green,stroke-width:2.0px
     linkStyle 6 stroke:#55f,stroke-width:2.0px
+    linkStyle 7 stroke-width:2.0px
+    linkStyle 8 stroke:green,stroke-width:2.0px
+    linkStyle 9 stroke:#55f,stroke-width:2.0px
 ```
 
 Thus the first goal of Nadia's new tracker, ensuring privacy, is fulfilled!
@@ -191,7 +222,7 @@ that her key can be recovered easily.
 * **Resilience Benefits:** SSKR allows Nadia to remove her SPOF while
 keeping her key secure.
 
-## Part Two: Shared Sensor Data
+## Part Two: Personal Shared Sensor Data
 
 [Nadia has protected her data, but now she also wants to share her
 data selectively, as she choses.]
@@ -205,6 +236,8 @@ data selectively, as she choses.]
 
 [Nada shares just her heartrate info with her doctor]
 
+* Temperature (which strongly relates to womens' reproductive health) -- likely subpoened in future
+
 ### 5. Nadia is a Bit Remote (Multi-Permit)
 
 * **Use Case:** Because of irregularities in her heart rate, Nadia wants to regularly share her data with a third-party health monitoring agency.
@@ -212,6 +245,8 @@ data selectively, as she choses.]
 * **Openness Benefits:** Like the doctor, the health monitoring agency can read the data because of its self-describing format.
 
 [heart condition, keeps someone remote up to date using SSKR]
+
+* Streaming to caretaker, monitor kids, elderly parents
 
 ### 6. Nadia Steps Up (Signature)
 
@@ -221,6 +256,11 @@ data selectively, as she choses.]
 
 [step contest; signed by Nadia and signed by ToneZone.]]
 
+## Part Two: Community Shared Sensor Data
+
+[Nadia has protected her data, but now she also wants to share her
+data selectively, as she choses.]
+
 ### 7. Nadia Gets Clinical (Proof of Inclusion)
 
 * **Use Case:** Nadia wants to submit data to a clinical try, and to later prove that she did.
@@ -229,7 +269,36 @@ data selectively, as she choses.]
 
 [reveal data with hashed public key, and then later reveal public key in a message signed by private key]
 
-### 8. Nadia Goes Viral (Herd Privacy)
+* Proof of Provenance [competitions, but also clinical trial!, make sure data isn't contaminated, especially when grant money is involved]
+
+* WANT TO OFFER TRIALS
+   * With simplified admin (just ring/fitbit/tonezone)
+   * With simplified HIPAA requirements
+   * It's an economic approach.
+
+* ANOTHER USER CASE:
+   * Having collected data be shared to a third-party without App seeing it
+   * Sensitive Clinical Trial
+   * Other Sensitive Partnerships
+   * App Company might still want some of data, might not all, complete data set
+   * Multiple Keys, one generated with third-party on initial signup
+   * But App Maker is still the one that can do easy collection.
+
+### 8. Nadia Becomes a Demographic (Anonymization)
+
+* **Use Case:** Nadia's data is further anonymized so that it can be part of large-scale demographics, but it still needs to retain its proof of provenance.
+* **Privacy Benefits:** Nadia's data becomes even more anonymous.
+
+* Aggregated Demographic Data [is what demographic trials use], thus herd privacy — need to demonstrate appropriate demographic spread without compromising information, may need to correlate data points with demographics with compromising individual's privacy
+* Double-Blind Data Collection for Clinical Trials [no leakage of data between data acquiring & adminstering]
+
+* Differential Data Set
+   * "Blur" Data +/-5 or whatever
+   * With some proofs back to original
+   * DATA BRANCH
+
+
+### 9. Nadia Goes Viral (Herd Privacy)
 
 * **Use Case:** Nadia wants to Support the Public Health of COVID Contact Tracing without Revealing Her Location.
 * **Privacy Benefits:** Nadia's location is never revealed.
@@ -239,11 +308,6 @@ data selectively, as she choses.]
 
 Additional Examples:
 * Health Insurance
-* Temperature (which strongly relates to womens' reproductive health) -- likely subpoened in future
-* Streaming to caretaker, monitor kids, elderly parents
-* Proof of Provenance [competitions, but also clinical trial!, make sure data isn't contaminated, especially when grant money is involved]
-* Aggregated Demographic Data [is what demographic trials use], thus herd privacy — need to demonstrate appropriate demographic spread without compromising information, may need to correlate data points with demographics with compromising individual's privacy
-* Double-Blind Data Collection for Clinical Trials [no leakage of data between data acquiring & adminstering]
 
 Privacy Concerns:
 * Data is SAFE and SOUND and NOT USED TO INCRIMINATING USERS
@@ -256,17 +320,6 @@ Privacy Concerns:
    * With simplified admin (just ring/fitbit/tonezone)
    * With simplified HIPAA requirements
    * It's an economic approach.
-* ANOTHER USER CASE:
-   * Having collected data be shared to a third-party without App seeing it
-   * Sensitive Clinical Trial
-   * Other Sensitive Partnerships
-   * App Company might still want some of data, might not all, complete data set
-   * Multiple Keys, one generated with third-party on initial signup
-   * But App Maker is still the one that can do easy collection.
-* Differential Data Set
-   * "Blur" Data +/-5 or whatever
-   * With some proofs back to original
-   * DATA BRANCH
 * There may also be linked/non-sensor data
    * Such as age
    * That is attested to
