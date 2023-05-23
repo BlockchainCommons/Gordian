@@ -122,19 +122,22 @@ settles on the following:
 ```
 [see the mermaid diagram](Healthcare-mermaid-1a.md)
 
-(Obviously, the actual ToneZone tracker will have _lots_ more data
-both total and for each day. This is just a cut-down example intended
-to show some of the functionality possible.)
+This data structure includes not just device data from the tone zone,
+but also personal account information that Nadia has entered, to help
+provide context for her wearable data. 
 
-Data is divided out among several categories and also for individual
-days. This will make it easy for Nadia in the future to differentiate
-highly personal data (such as `gpsInfoFor`) and more general data
-(such as `statsFor`) and also to do it on a granular, daily basis.
+Device data is divided out among several categories and also for
+individual days. This will make it easy for Nadia in the future to
+differentiate highly personal data (such as `gpsInfoFor` and
+unfortunately `tempInfoFor`) and more general data (such as
+`statsFor`) and also to do it on a granular, daily basis.  Obviously,
+the actual ToneZone tracker will have _lots_ more data both total and
+for each day. This is just a cut-down example intended to show some of
+the functionality possible.
 
-More importantly, the whole data structure is cleanly
-self-describing. The Google Envelope assertions clearly denote each
-type of data, while some data is additional stored as a [Uniform
-Resource
+Notably, the entirely data structure is cleanly self-describing. The
+Google Envelope assertions clearly denote each type of data, while
+some data is additional stored as a [Uniform Resource
 (UR)](https://github.com/BlockchainCommons/crypto-commons/blob/master/Docs/ur-1-overview.md),
 which is also self-describing and built atop
 [dCBOR](https://github.com/BlockchainCommons/crypto-commons/blob/master/dcbor.md),
@@ -150,15 +153,17 @@ easily accessible by unauthorized parties.**
 * **Privacy Benefits:** Encryption ensures that the data is closely protected on a few devices.
 
 Of course, just formatting the data in a open manner isn't enough. For
-Nadia's ToneZone to really fulfill its core goal, the data has to be
+Nadia's ToneZone to fulfill its core goal, the data has to be
 protected.
 
 This is simple with Gordian Envelope. All Nadia has to do is to
-encrypt her wrapped envelope. Then, the data can only be encrypted or
-decrypted with her symmetric key, which Nadia plans to store both in
-the ToneZone device and on its mobile app, but nowhere else.
+encrypt her wrapped envelopes for her device data and her account
+info. Then, the data can only be encrypted or decrypted with her
+symmetric key, which Nadia plans to store both in the ToneZone device
+and on its mobile app, but nowhere else.
+
 ```
-"ur:cid/hdcxzoqzispesnbbkohddwbyhtbzzsssdldassamdeeofdtndsaazsjpdtnnvwfnatglbgbnehwe" [
+ur:cid/hdcxzoqzispesnbbkohddwbyhtbzzsssdldassamdeeofdtndsaazsjpdtnnvwfnatglbgbnehwe" [
     "account": ENCRYPTED
     "device": ENCRYPTED
     "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
@@ -167,17 +172,17 @@ the ToneZone device and on its mobile app, but nowhere else.
 
 ```mermaid
 graph LR
-    1(("eb0802c5<br/>NODE"))
+    1(("6ab5d383<br/>NODE"))
     2["426f3f8a<br/>#quot;ur:cid/hdcxzoqzispesnbbkohddwbyhtbzzsssd…#quot;"]
     3(["38cadd4f<br/>ASSERTION"])
     4["bb751b0e<br/>#quot;hasPubKey#quot;"]
     5["2ada5820<br/>#quot;ur:crypto-pubkeys/lftaadfwhdcxtkzsswongh…#quot;"]
-    6(["798aff5f<br/>ASSERTION"])
-    7["a05e2863<br/>#quot;account#quot;"]
-    8>"61353a13<br/>ENCRYPTED"]
-    9(["a9360e5e<br/>ASSERTION"])
-    10["52b252a6<br/>#quot;device#quot;"]
-    11>"91119f66<br/>ENCRYPTED"]
+    6(["b0499091<br/>ASSERTION"])
+    7["52b252a6<br/>#quot;device#quot;"]
+    8>"3b57abd1<br/>ENCRYPTED"]
+    9(["c75e3bff<br/>ASSERTION"])
+    10["a05e2863<br/>#quot;account#quot;"]
+    11>"f1bfd553<br/>ENCRYPTED"]
     1 -->|subj| 2
     1 --> 3
     3 -->|pred| 4
