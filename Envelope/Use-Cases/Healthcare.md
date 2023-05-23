@@ -216,6 +216,14 @@ graph LR
     linkStyle 9 stroke:#55f,stroke-width:2.0px
 ```
 
+Note by comparing with the [unencrypted mermaid diagram]([see the
+mermaid diagram](Healthcare-mermaid-1a.md) that the checksums for the
+encrypted data remains consistent. The device assertion is still
+`b0499091`, the device assertion is still `c75e3bff` and the master
+checksum is still `6ab5d383`. This is a crucial technique within
+Gordian, because it ensures that data can still be validated even when
+encrypted or elided.
+
 Thus the first goal of Nadia's new tracker, ensuring privacy, is fulfilled!
 
 ### 3. Nadia Protects Her Key (SSKR)
@@ -226,6 +234,161 @@ single point of failure for her data!
 that her key can be recovered easily.
 * **Resilience Benefits:** SSKR allows Nadia to remove her SPOF while
 keeping her key secure.
+
+Though it's great that Nadia can protect her personal data with a key
+that she holds, it can also be a Single Point of Failure (SPOF). If
+she loses her key, she loses her data.
+
+Fortunately, the solution is easy with Gordian Envelope: create an
+envelope with the symmetric key, then lock that envelope with a
+multipermit so that it can either be recovered by Nadia using her
+private key or by putting together any two shares. She's now created a
+robust storage mechanism for her key that could be improved any
+further by a system such as
+[CSR](https://github.com/BlockchainCommons/Gordian/blob/master/CSR/README.md)
+that could be used to automate authentication and reconstruction.
+
+Here's the original envelope:
+```
+"ur:crypto-key/hdcxvaftbypkwlstdsaabefgnbsfmnclctlohdhnplimdphyqdpakibejyemkofmyabtghftntfr"
+```
+```mermaid
+graph LR
+    1["e487b47f<br/>#quot;ur:crypto-key/hdcxvaftbypkwlstdsaabefgnb…#quot;"]
+    style 1 stroke:#55f,stroke-width:3.0px
+```
+Here's what it looks like after it's been encrypted with her public
+key and sharded:
+```
+ENCRYPTED [
+    hasRecipient: SealedMessage
+    sskrShare: SSKRShare
+]
+
+ENCRYPTED [
+    hasRecipient: SealedMessage
+    sskrShare: SSKRShare
+]
+
+ENCRYPTED [
+    hasRecipient: SealedMessage
+    sskrShare: SSKRShare
+]
+
+```
+
+The `hasRecipient:` allows Nadia to recover from any of the three
+shares using her private key. The `sskrShare:` allows anyone to
+combine any two shares to recover the envelope.
+
+```mermaid
+graph LR
+    1(("47f8e4ad<br/>NODE"))
+    2>"a7fad9ce<br/>ENCRYPTED"]
+    3(["04b1890e<br/>ASSERTION"])
+    4[/"e41178b8<br/>5"/]
+    5["95d25550<br/>SealedMessage"]
+    6(["c0ec7dc4<br/>ASSERTION"])
+    7[/"7a4d6af9<br/>6"/]
+    8["627a4525<br/>SSKRShare"]
+    1 -->|subj| 2
+    1 --> 3
+    3 -->|pred| 4
+    3 -->|obj| 5
+    1 --> 6
+    6 -->|pred| 7
+    6 -->|obj| 8
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:#55f,stroke-width:3.0px
+    style 6 stroke:red,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke-width:2.0px
+    linkStyle 2 stroke:green,stroke-width:2.0px
+    linkStyle 3 stroke:#55f,stroke-width:2.0px
+    linkStyle 4 stroke-width:2.0px
+    linkStyle 5 stroke:green,stroke-width:2.0px
+    linkStyle 6 stroke:#55f,stroke-width:2.0px
+```
+
+```mermaid
+graph LR
+    1(("5b0779d9<br/>NODE"))
+    2>"a7fad9ce<br/>ENCRYPTED"]
+    3(["2d4ccd3e<br/>ASSERTION"])
+    4[/"e41178b8<br/>5"/]
+    5["36856be2<br/>SealedMessage"]
+    6(["654b310e<br/>ASSERTION"])
+    7[/"7a4d6af9<br/>6"/]
+    8["16fc89bd<br/>SSKRShare"]
+    1 -->|subj| 2
+    1 --> 3
+    3 -->|pred| 4
+    3 -->|obj| 5
+    1 --> 6
+    6 -->|pred| 7
+    6 -->|obj| 8
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:#55f,stroke-width:3.0px
+    style 6 stroke:red,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke-width:2.0px
+    linkStyle 2 stroke:green,stroke-width:2.0px
+    linkStyle 3 stroke:#55f,stroke-width:2.0px
+    linkStyle 4 stroke-width:2.0px
+    linkStyle 5 stroke:green,stroke-width:2.0px
+    linkStyle 6 stroke:#55f,stroke-width:2.0px
+```
+
+```mermaid
+graph LR
+    1(("a774950b<br/>NODE"))
+    2>"a7fad9ce<br/>ENCRYPTED"]
+    3(["3bdb67e0<br/>ASSERTION"])
+    4[/"e41178b8<br/>5"/]
+    5["90630c91<br/>SealedMessage"]
+    6(["eedc260e<br/>ASSERTION"])
+    7[/"7a4d6af9<br/>6"/]
+    8["72cb98aa<br/>SSKRShare"]
+    1 -->|subj| 2
+    1 --> 3
+    3 -->|pred| 4
+    3 -->|obj| 5
+    1 --> 6
+    6 -->|pred| 7
+    6 -->|obj| 8
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:#55f,stroke-width:3.0px
+    style 6 stroke:red,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke-width:2.0px
+    linkStyle 2 stroke:green,stroke-width:2.0px
+    linkStyle 3 stroke:#55f,stroke-width:2.0px
+    linkStyle 4 stroke-width:2.0px
+    linkStyle 5 stroke:green,stroke-width:2.0px
+    linkStyle 6 stroke:#55f,stroke-width:2.0px
+```
+
+Nadia now has a fully functional store for her ToneZone that is
+_independent_, _private_, _resilient_, and _open_, fulfilling the
+[Gordian
+Principles](https://github.com/BlockchainCommons/Gordian#gordian-principles). She's
+ready to move on to the next step, using this setup to share her data
+in meaningful ways.
 
 ## Part Two: Personal Shared Sensor Data
 
@@ -239,15 +402,106 @@ data selectively, as she choses.]
 * **Privacy Benefits:** Nadia can cut out data that she doesn't want to share.
 * **Openness Benefits:** The self-describing format means that the doctor's app can easily unspool Nadia's data.
 
-[Nada shares just her heartrate info with her doctor]
+Ideally, Nadia would like to share all of her data with her doctor, to
+maximize the efficacy of her care. Unfortunately, some of the data is
+very private. For example, her doctor just doesn't need to know her
+geo data.
 
-* Temperature (which strongly relates to womens' reproductive health) -- likely subpoened in future
+Moreso, in the currently oppressive environment in parts of the United
+States, some of her data could be personally dangerous if released,
+such as her temperature data, which could provide insights into her
+reproductive cycle and thus be weaponized by states that are
+restricting womens' rights. Though she trusts her doctor, she doesn't
+trust the state not to subpoena data of that sort.
+
+Fortunately, Gordian Envelope allows her as the holder to elide her
+data as she sees fit. She starts with her unencrypted envelope and
+cuts it down as appropriate (something that's easy to do with the UI
+that Nadia designed for her ToneZone software).
+
+The elided data Nadia hands her doctor looks like this:
+```
+ELIDED [
+    "account": {
+        "00000001" [
+            "birthdate": "19891109"
+            "fullName": "Nadia Levedeva"
+            "height": "65.1"
+            "weight": "132.7"
+        ]
+    }
+    "device": {
+        "ToneZone 1.0-SN102313A" [
+            "heartInfoFor": "20230515" [
+                "1684274400": "59"
+                "1684274460": "60"
+                "1684274520": "60"
+                "1684274580": "59"
+                "1684274640": "59"
+            ]
+            "heartInfoFor": "20230516" [
+                "1684274400": "85"
+                "1684274460": "87"
+                "1684274520": "91"
+                "1684274580": "90"
+                "1684274640": "88"
+            ]
+            "statsFor": "20230515" [
+                "floors": "3"
+                "restingHeartRate": "55"
+                "steps": "5703"
+                "zoneMinutes": "0"
+            ]
+            "statsFor": "20230516" [
+                "floors": "17"
+                "restingHeartRate": "56"
+                "steps": "10715"
+                "zoneMinutes": "25"
+            ]
+            "stepInfoFor": "20230515" [
+                "1684188000": "0"
+                "1684188060": "0"
+                "1684188120": "7"
+                "1684188180": "2"
+                "1684188240": "0"
+            ]
+            "stepInfoFor": "20230516" [
+                "1684274400": "95"
+                "1684274460": "99"
+                "1684274520": "103"
+                "1684274580": "103"
+                "1684274640": "101"
+            ]
+            ELIDED: ELIDED
+            ELIDED: ELIDED
+            ELIDED: ELIDED
+        ]
+    }
+    "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
+]
+```
+[see the mermaid diagram](Healthcare-mermaid-1b.md)
+
+She can see heart rates and how that relates to exercise, but she
+doesn't have unneccessary or potentially dangerous data. Nadia's goal of being able to share data in an independent, personal way is thus met.
 
 ### 5. Nadia is a Bit Remote (Multi-Permit)
 
 * **Use Case:** Because of irregularities in her heart rate, Nadia wants to regularly share her data with a third-party health monitoring agency.
 * **Privacy Benefits:** By creating multi-permits, Nadia can decide exactly what third-parties have access to her data.
 * **Openness Benefits:** Like the doctor, the health monitoring agency can read the data because of its self-describing format.
+
+Unfortunately, Nadia's ToneZone data helps to alert her doctor to a
+potential heart condition, an arrhythmia, which is verified with
+additional testing.
+
+Nadia has been forming partnerships with health monitoring services
+for situations exactly like this: they'll engage in automted
+monitoring of a client's health data, to watch for dangerous events,
+such as afib or a heart attack. Now Nadia takes advantage of the
+service herself.
+
+
 
 [heart condition, keeps someone remote up to date using SSKR]
 
