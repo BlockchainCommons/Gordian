@@ -1,6 +1,25 @@
-# Gordian Envelope Use Cases: Health Care
+# Gordian Envelope Use Cases: Wellness
 
 [intro]
+
+wellness (incl preventative care, fitness, sleep and activity, etc).
+includes Healthcare
+
+[some things to talk about]
+
+* Data is SAFE and SOUND and NOT USED TO INCRIMINATING USERS
+* Eliding info
+* or Differentely Encrypting info so that only some of it
+* SO WANT TO PEOPLE ABLE TO COLLECTING SOME ACTIVITY DATA FOR COACHING.
+   * But some is removed or elided or opt-in from user.
+   * So swap out Doctor for this?
+* WANT TO OFFER TRIALS
+   * With simplified admin (just ring/fitbit/tonezone)
+   * With simplified HIPAA requirements
+   * It's an economic approach.
+* There may also be linked/non-sensor data
+   * Such as age
+   * That is attested to
 
 ## Health Care Use Case Table of Contents
 
@@ -1585,24 +1604,358 @@ tracing occurred through use the mobile phones and GPS records.
 
 The problem, a recurring one throughout the pandemic, is that there
 was no consideration for privacy. Hashed elision of data provide one
-way to create that privacy ...
+way to create that privacy. If using GPS coordinates, simply the
+user's data might be elided, but if a more sophisticated system were
+able to instead correlate GPS coordinates to physical addresses, those
+addresses could be standardized, elided, and still matched through
+hashes.
 
-[Nadia's redacted location is uploaded; a private key can let her update it with a flag if she has COVID; a one-time contact lets her know if someone else does.]
+Example data might include:
+```
+"ur:crypto-pubkeys/lftaadfwhdcxdwjemhpaiopfzoneayzemutlsblychlkfpytmtcnpfonssuojzdpendprfbdenmytaaddmhdcxreglstcyjpmuiatojksgbncenehttkgawlckmkhylfkkmedpwfftlydaptuokihkmnjnospk" [
+    "addressFor": "1684922400" [
+        "address": "70 Pine Street Ground Floor, New York, NY 10005"
+        "dailySalt": "nNyhg9Hpz6b0g48Y1LJ1"
+    ]
+    "arrivalTime": "1684994608"
+    "departureTime": "1685000074"
+    "hasCOVID": "0"
+]
+```
+```mermaid
+graph LR
+    1(("21e218bb<br/>NODE"))
+    2["c85d1216<br/>#quot;ur:crypto-pubkeys/lftaadfwhdcxdwjemhpaio…#quot;"]
+    3(["1dbe4323<br/>ASSERTION"])
+    4["95ebd3f6<br/>#quot;arrivalTime#quot;"]
+    5["a674df1a<br/>#quot;1684994608#quot;"]
+    6(["589f9525<br/>ASSERTION"])
+    7["7f6d5166<br/>#quot;departureTime#quot;"]
+    8["f7fb221d<br/>#quot;1685000074#quot;"]
+    9(["7cc9e036<br/>ASSERTION"])
+    10["dbe0d353<br/>#quot;addressFor#quot;"]
+    11(("a0ffd70b<br/>NODE"))
+    12["fc53cc56<br/>#quot;1684922400#quot;"]
+    13(["c2bf5d15<br/>ASSERTION"])
+    14["c205d610<br/>#quot;address#quot;"]
+    15["38d80833<br/>#quot;70 Pine Street Ground Floor, New York, N…#quot;"]
+    16(["e37dd06d<br/>ASSERTION"])
+    17["a1cfec80<br/>#quot;dailySalt#quot;"]
+    18["a1eeef3e<br/>#quot;nNyhg9Hpz6b0g48Y1LJ1#quot;"]
+    19(["bbb31cf5<br/>ASSERTION"])
+    20["b897f141<br/>#quot;hasCOVID#quot;"]
+    21["4e1195df<br/>#quot;0#quot;"]
+    1 -->|subj| 2
+    1 --> 3
+    3 -->|pred| 4
+    3 -->|obj| 5
+    1 --> 6
+    6 -->|pred| 7
+    6 -->|obj| 8
+    1 --> 9
+    9 -->|pred| 10
+    9 -->|obj| 11
+    11 -->|subj| 12
+    11 --> 13
+    13 -->|pred| 14
+    13 -->|obj| 15
+    11 --> 16
+    16 -->|pred| 17
+    16 -->|obj| 18
+    1 --> 19
+    19 -->|pred| 20
+    19 -->|obj| 21
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:#55f,stroke-width:3.0px
+    style 6 stroke:red,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:red,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:red,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:red,stroke-width:3.0px
+    style 14 stroke:#55f,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:red,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:red,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke-width:2.0px
+    linkStyle 2 stroke:green,stroke-width:2.0px
+    linkStyle 3 stroke:#55f,stroke-width:2.0px
+    linkStyle 4 stroke-width:2.0px
+    linkStyle 5 stroke:green,stroke-width:2.0px
+    linkStyle 6 stroke:#55f,stroke-width:2.0px
+    linkStyle 7 stroke-width:2.0px
+    linkStyle 8 stroke:green,stroke-width:2.0px
+    linkStyle 9 stroke:#55f,stroke-width:2.0px
+    linkStyle 10 stroke:red,stroke-width:2.0px
+    linkStyle 11 stroke-width:2.0px
+    linkStyle 12 stroke:green,stroke-width:2.0px
+    linkStyle 13 stroke:#55f,stroke-width:2.0px
+    linkStyle 14 stroke-width:2.0px
+    linkStyle 15 stroke:green,stroke-width:2.0px
+    linkStyle 16 stroke:#55f,stroke-width:2.0px
+    linkStyle 17 stroke-width:2.0px
+    linkStyle 18 stroke:green,stroke-width:2.0px
+    linkStyle 19 stroke:#55f,stroke-width:2.0px
+```
+It of course should be signed:
 
-Additional Examples:
-* Health Insurance
+```
+{
+    "ur:crypto-pubkeys/lftaadfwhdcxdwjemhpaiopfzoneayzemutlsblychlkfpytmtcnpfonssuojzdpendprfbdenmytaaddmhdcxreglstcyjpmuiatojksgbncenehttkgawlckmkhylfkkmedpwfftlydaptuokihkmnjnospk" [
+        "addressFor": "1684922400" [
+            "address": "70 Pine Street Ground Floor, New York, NY 10005"
+            "dailySalt": "nNyhg9Hpz6b0g48Y1LJ1"
+        ]
+        "arrivalTime": "1684994608"
+        "departureTime": "1685000074"
+        "hasCOVID": "0"
+    ]
+} [
+    verifiedBy: Signature
+]
+```
+```mermaid
+graph LR
+    1(("c8f3780d<br/>NODE"))
+    2[/"53e030f3<br/>WRAPPED"\]
+    3(("21e218bb<br/>NODE"))
+    4["c85d1216<br/>#quot;ur:crypto-pubkeys/lftaadfwhdcxdwjemhpaio…#quot;"]
+    5(["1dbe4323<br/>ASSERTION"])
+    6["95ebd3f6<br/>#quot;arrivalTime#quot;"]
+    7["a674df1a<br/>#quot;1684994608#quot;"]
+    8(["589f9525<br/>ASSERTION"])
+    9["7f6d5166<br/>#quot;departureTime#quot;"]
+    10["f7fb221d<br/>#quot;1685000074#quot;"]
+    11(["7cc9e036<br/>ASSERTION"])
+    12["dbe0d353<br/>#quot;addressFor#quot;"]
+    13(("a0ffd70b<br/>NODE"))
+    14["fc53cc56<br/>#quot;1684922400#quot;"]
+    15(["c2bf5d15<br/>ASSERTION"])
+    16["c205d610<br/>#quot;address#quot;"]
+    17["38d80833<br/>#quot;70 Pine Street Ground Floor, New York, N…#quot;"]
+    18(["e37dd06d<br/>ASSERTION"])
+    19["a1cfec80<br/>#quot;dailySalt#quot;"]
+    20["a1eeef3e<br/>#quot;nNyhg9Hpz6b0g48Y1LJ1#quot;"]
+    21(["bbb31cf5<br/>ASSERTION"])
+    22["b897f141<br/>#quot;hasCOVID#quot;"]
+    23["4e1195df<br/>#quot;0#quot;"]
+    24(["b271b9dd<br/>ASSERTION"])
+    25[/"9d7ba9eb<br/>3"/]
+    26["6eed6ce0<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    3 --> 5
+    5 -->|pred| 6
+    5 -->|obj| 7
+    3 --> 8
+    8 -->|pred| 9
+    8 -->|obj| 10
+    3 --> 11
+    11 -->|pred| 12
+    11 -->|obj| 13
+    13 -->|subj| 14
+    13 --> 15
+    15 -->|pred| 16
+    15 -->|obj| 17
+    13 --> 18
+    18 -->|pred| 19
+    18 -->|obj| 20
+    3 --> 21
+    21 -->|pred| 22
+    21 -->|obj| 23
+    1 --> 24
+    24 -->|pred| 25
+    24 -->|obj| 26
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:red,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:red,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:red,stroke-width:3.0px
+    style 14 stroke:#55f,stroke-width:3.0px
+    style 15 stroke:red,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    style 18 stroke:red,stroke-width:3.0px
+    style 19 stroke:#55f,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:red,stroke-width:3.0px
+    style 22 stroke:#55f,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px
+    style 24 stroke:red,stroke-width:3.0px
+    style 25 stroke:#55f,stroke-width:3.0px
+    style 26 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke:green,stroke-width:2.0px
+    linkStyle 5 stroke:#55f,stroke-width:2.0px
+    linkStyle 6 stroke-width:2.0px
+    linkStyle 7 stroke:green,stroke-width:2.0px
+    linkStyle 8 stroke:#55f,stroke-width:2.0px
+    linkStyle 9 stroke-width:2.0px
+    linkStyle 10 stroke:green,stroke-width:2.0px
+    linkStyle 11 stroke:#55f,stroke-width:2.0px
+    linkStyle 12 stroke:red,stroke-width:2.0px
+    linkStyle 13 stroke-width:2.0px
+    linkStyle 14 stroke:green,stroke-width:2.0px
+    linkStyle 15 stroke:#55f,stroke-width:2.0px
+    linkStyle 16 stroke-width:2.0px
+    linkStyle 17 stroke:green,stroke-width:2.0px
+    linkStyle 18 stroke:#55f,stroke-width:2.0px
+    linkStyle 19 stroke-width:2.0px
+    linkStyle 20 stroke:green,stroke-width:2.0px
+    linkStyle 21 stroke:#55f,stroke-width:2.0px
+    linkStyle 22 stroke-width:2.0px
+    linkStyle 23 stroke:green,stroke-width:2.0px
+    linkStyle 24 stroke:#55f,stroke-width:2.0px
+```
+This not only provides validation, but allows for automated updating
+of the Envelope (with `hasCOVID` equal to `1` if necessary!) at a
+later point, provided that the `pubkey` and signature continue to
+match.
 
-Privacy Concerns:
-* Data is SAFE and SOUND and NOT USED TO INCRIMINATING USERS
-* Eliding info
-* or Differentely Encrypting info so that only some of it
-* SO WANT TO PEOPLE ABLE TO COLLECTING SOME ACTIVITY DATA FOR COACHING.
-   * But some is removed or elided or opt-in from user.
-   * So swap out Doctor for this?
-* WANT TO OFFER TRIALS
-   * With simplified admin (just ring/fitbit/tonezone)
-   * With simplified HIPAA requirements
-   * It's an economic approach.
-* There may also be linked/non-sensor data
-   * Such as age
-   * That is attested to
+A new Envelope will be generated for each close locale that someone
+stays at for more than a few minutes. The keypairs will be constantly
+changing, generated by HD (Hierarchical Deterministic) Key algorithms,
+providing the user with easy access to the whole set of them while
+maintaining their non-correlatability.
+
+This is probably sufficient to maintain privacy, but as an additional
+protection, location data can also be elided:
+```
+{
+    "ur:crypto-pubkeys/lftaadfwhdcxdwjemhpaiopfzoneayzemutlsblychlkfpytmtcnpfonssuojzdpendprfbdenmytaaddmhdcxreglstcyjpmuiatojksgbncenehttkgawlckmkhylfkkmedpwfftlydaptuokihkmnjnospk" [
+        "addressFor": ELIDED
+        "arrivalTime": "1684994608"
+        "departureTime": "1685000074"
+        "hasCOVID": "0"
+    ]
+} [
+    verifiedBy: Signature
+]
+
+```
+
+```mermaid
+graph LR
+    1(("c8f3780d<br/>NODE"))
+    2[/"53e030f3<br/>WRAPPED"\]
+    3(("21e218bb<br/>NODE"))
+    4["c85d1216<br/>#quot;ur:crypto-pubkeys/lftaadfwhdcxdwjemhpaio…#quot;"]
+    5(["1dbe4323<br/>ASSERTION"])
+    6["95ebd3f6<br/>#quot;arrivalTime#quot;"]
+    7["a674df1a<br/>#quot;1684994608#quot;"]
+    8(["589f9525<br/>ASSERTION"])
+    9["7f6d5166<br/>#quot;departureTime#quot;"]
+    10["f7fb221d<br/>#quot;1685000074#quot;"]
+    11(["7cc9e036<br/>ASSERTION"])
+    12["dbe0d353<br/>#quot;addressFor#quot;"]
+    13{{"a0ffd70b<br/>ELIDED"}}
+    14(["bbb31cf5<br/>ASSERTION"])
+    15["b897f141<br/>#quot;hasCOVID#quot;"]
+    16["4e1195df<br/>#quot;0#quot;"]
+    17(["b271b9dd<br/>ASSERTION"])
+    18[/"9d7ba9eb<br/>3"/]
+    19["6eed6ce0<br/>Signature"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    3 --> 5
+    5 -->|pred| 6
+    5 -->|obj| 7
+    3 --> 8
+    8 -->|pred| 9
+    8 -->|obj| 10
+    3 --> 11
+    11 -->|pred| 12
+    11 -->|obj| 13
+    3 --> 14
+    14 -->|pred| 15
+    14 -->|obj| 16
+    1 --> 17
+    17 -->|pred| 18
+    17 -->|obj| 19
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:red,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:red,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    style 17 stroke:red,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke:green,stroke-width:2.0px
+    linkStyle 5 stroke:#55f,stroke-width:2.0px
+    linkStyle 6 stroke-width:2.0px
+    linkStyle 7 stroke:green,stroke-width:2.0px
+    linkStyle 8 stroke:#55f,stroke-width:2.0px
+    linkStyle 9 stroke-width:2.0px
+    linkStyle 10 stroke:green,stroke-width:2.0px
+    linkStyle 11 stroke:#55f,stroke-width:2.0px
+    linkStyle 12 stroke-width:2.0px
+    linkStyle 13 stroke:green,stroke-width:2.0px
+    linkStyle 14 stroke:#55f,stroke-width:2.0px
+    linkStyle 15 stroke-width:2.0px
+    linkStyle 16 stroke:green,stroke-width:2.0px
+    linkStyle 17 stroke:#55f,stroke-width:2.0px
+```
+Despite the elision of the addresses, the standardization of the
+hashes allows for two addresses to be correlated when it's discovered
+that there was COVID at a location.
+
+Meanwhile, the use of a `dailySalt` ensures that there isn't an easy
+way to create correlation. The hash for each location will change each
+day based on the random Salt. Particularly if this Salt is kept
+internal to the public-health agency, determining what locations
+relate to which hashes becomes nearly impossible. This is what creates
+herd privacy: not only are the individuals protected by their HD keys,
+but the locations are protected too from unwarranted recognition as
+viral hotspots, unless some of the infected individuals identify them.
+
+The biggest question remains the final hurdle for a privacy-focused
+contact tracer of this sort. Having the public agency reach out to the
+individuals is likely the most effective means of transmitting
+information, and could perhaps be managed with some sort of anonymous
+email or messaging. However, asking users to regularly poll the
+contract-tracing server and querying on their various public keys is
+likely to be the best privacy-preserving, though it would itself
+require Tor or something other privacy-preserving query mechanism.
+
+Obviously, the question is a difficult one, but the elision of Gordian 
+Envelope protects a strong foundation for contract tracing with a privacy bent.
+However, before release, the 
+
