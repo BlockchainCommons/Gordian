@@ -748,9 +748,11 @@ ELIDED [
             ELIDED: ELIDED
         ]
     }
-    ELIDED (2)
+    "hasPubKey": ELIDED
+    ELIDED
 ]
 ```
+
 See the [mermaid output](Healthcare-mermaid-1d.md).
 
 The clinical trial will require proof of provenance. This is managed
@@ -805,7 +807,8 @@ contest that Nadia participated in.
                 ELIDED: ELIDED
             ]
         }
-        ELIDED (2)
+        "hasPubKey": ELIDED
+        ELIDED
     ]
 } [
     verifiedBy: Signature [
@@ -813,6 +816,7 @@ contest that Nadia participated in.
     ]
 ]
 ```
+
 See the [mermaid output](Healthcare-mermaid-1e.md).
 
 Finally, Nadia wraps the data and encrypts it with the clinical
@@ -824,11 +828,11 @@ ENCRYPTED [
 ```
 ```mermaid
 graph LR
-    1(("2278c769<br/>NODE"))
-    2>"c3ad87c4<br/>ENCRYPTED"]
-    3(["44645b4d<br/>ASSERTION"])
+    1(("1b5666c8<br/>NODE"))
+    2>"acab46a2<br/>ENCRYPTED"]
+    3(["a0ad65d5<br/>ASSERTION"])
     4[/"e41178b8<br/>5"/]
-    5["4db842bf<br/>SealedMessage"]
+    5["5e6cc846<br/>SealedMessage"]
     1 -->|subj| 2
     1 --> 3
     3 -->|pred| 4
@@ -886,7 +890,114 @@ participated.
 
 This is done with a proof of inclusion.
 
-Nadia's ToneZone extracts her `hasPubKey` info from her data:
+Obviously, the clinic trial needs to make a publication to support
+this, but it's something that they want to do anyway, to offer support
+for the validity of their publication.
+
+One possibility is for them to release further elided versions of the
+unencrypted, signed data packets that they receive. That's one of the
+advantages of Gordian Envelope: each holder can further elide or
+repackage data as they see fit.
+
+The following shows a further elided envelope that only contained the
+validation info for the data: the ToneZone signature and the
+`hasPubKey` statement (though the clinical trial doesn't actually know
+what the public key is!)
+
+```
+{
+    ELIDED [
+        "hasPubKey": ELIDED
+        ELIDED: ELIDED
+        ELIDED
+    ]
+} [
+    verifiedBy: Signature [
+        note: "Signed by ToneZone Inc."
+    ]
+]
+```
+```mermaid
+graph LR
+    1(("0410cc94<br/>NODE"))
+    2[/"80134e1e<br/>WRAPPED"\]
+    3(("4f3ced9e<br/>NODE"))
+    4{{"426f3f8a<br/>ELIDED"}}
+    5(["38cadd4f<br/>ASSERTION"])
+    6["bb751b0e<br/>#quot;hasPubKey#quot;"]
+    7{{"2ada5820<br/>ELIDED"}}
+    8{{"c75e3bff<br/>ELIDED"}}
+    9(["cac8aa12<br/>ASSERTION"])
+    10{{"52b252a6<br/>ELIDED"}}
+    11{{"a6e75627<br/>ELIDED"}}
+    12(["2bcddfb6<br/>ASSERTION"])
+    13[/"9d7ba9eb<br/>3"/]
+    14(("0a7ab794<br/>NODE"))
+    15["1073a477<br/>Signature"]
+    16(["1462e1a7<br/>ASSERTION"])
+    17[/"49a5f41b<br/>4"/]
+    18["5f9a1df7<br/>#quot;Signed by ToneZone Inc.#quot;"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    3 --> 5
+    5 -->|pred| 6
+    5 -->|obj| 7
+    3 --> 8
+    3 --> 9
+    9 -->|pred| 10
+    9 -->|obj| 11
+    1 --> 12
+    12 -->|pred| 13
+    12 -->|obj| 14
+    14 -->|subj| 15
+    14 --> 16
+    16 -->|pred| 17
+    16 -->|obj| 18
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 8 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 9 stroke:red,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 11 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 12 stroke:red,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:red,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke:green,stroke-width:2.0px
+    linkStyle 5 stroke:#55f,stroke-width:2.0px
+    linkStyle 6 stroke-width:2.0px
+    linkStyle 7 stroke-width:2.0px
+    linkStyle 8 stroke:green,stroke-width:2.0px
+    linkStyle 9 stroke:#55f,stroke-width:2.0px
+    linkStyle 10 stroke-width:2.0px
+    linkStyle 11 stroke:green,stroke-width:2.0px
+    linkStyle 12 stroke:#55f,stroke-width:2.0px
+    linkStyle 13 stroke:red,stroke-width:2.0px
+    linkStyle 14 stroke-width:2.0px
+    linkStyle 15 stroke:green,stroke-width:2.0px
+    linkStyle 16 stroke:#55f,stroke-width:2.0px
+```
+The other option would be for the clinical trial to create a totally
+new Gordian Envelope, which contains only the (elided) public key
+data. This would have the benefit of there being just a single publication.
+
+In either case, the clinical trial publishes data that contains
+Nadia's public key in elided form. Nadia can now prove her
+participation.  She does this by having her ToneZone extract her
+`hasPubKey` info from her data:
 ```
 ur:envelope/tpsolftpsptpcsinishsjkgdkpidgrihkktpsptpcskspfkpjpftiajpkkjojyjldpjokpidjeihkkjkdljziyjyhshsieiyktisieiaksjyjeknjkjkktjljtioisjoieihjnjojyiajojzkpiejejejyinhsjzjtjtkkknjnhsiejyjziejzidjkjyhsidktktjnihiakojyiyioisjeiajeiyknjyjzieihjnktjyhshsieiejnisieiaksjpkkjojyjkihihjkiejpimjojkjkidknktjnjlksktjekojzihkkjpjtidiojtjkknjlhsjyhsjyjskniojzjohsihjyieihjziyjtidjokkiojzhsjljyjzjejyiakkiyjzjzkpidknihiskgsnfyao
 ```
@@ -908,20 +1019,37 @@ graph LR
     linkStyle 1 stroke:#55f,stroke-width:2.0px
 ```
 
-[sign it with private key]
+if she reveals that anyone can then compared the hash of the assertion
+(`38cadd4f`) with the `ELIDED` assertion in the published, but elided
+clinical trial assertion. They match up! Since collisions are nearly
+impossible in strong hashes such as the one used with Gordian
+Envelope, that's sufficient proof that Nadia was a participant —
+though it would have been impossible for anyone to figure out without
+Nadia's revelation, as hashes are also one-way funcitons.
 
-[fully elided relase]
-[prove it's the same]
 
+### 9. Nadia Becomes a Demographic (Anonymization, Provenance)
 
-[reveal data with hashed public key, and then later reveal public key in a message signed by private key]
-
-[reveal data with hashed public key, and then later reveal public key in a message signed by private key]
-
-### 9. Nadia Becomes a Demographic (Anonymization)
-
-* **Use Case:** Nadia's data is further anonymized so that it can be part of large-scale demographics, but it still needs to retain its proof of provenance.
+* **Use Case:** Clinical trials sometimes need to further de-identify data but want to maintain its provenance.
 * **Privacy Benefits:** Nadia's data becomes even more anonymous.
+
+There is a submarket for further de-identifying clinical data. Some of
+this must be done by hand, which overall results in higher costs and
+lower efficiences in trials.
+
+Gordian Envelopes allow Nadia's data to be further de-identified while
+still maintaining their provenance. This is done by maintaining the
+original data in deep data silos, but fully eliding used in the trial:
+only the master hash and the signature data are maintained, the first
+to allow for lookup of the original data if its existence ever needs
+to be proven, the second to maintain easy lookup of the data's
+validation, in case any validator is ever proven to be untrustworthy.
+
+The clinical trial then wraps that provenance information and creates
+a new set of data with daily averages from the previous data, making
+it much less identifiable. (Even more extreme data blurring techniques
+could be used, if required, provided that the same technique is used,
+which links the new data with the provenance for its origin.)
 
 * Aggregated Demographic Data [is what demographic trials use], thus herd privacy — need to demonstrate appropriate demographic spread without compromising information, may need to correlate data points with demographics with compromising individual's privacy
 * Double-Blind Data Collection for Clinical Trials [no leakage of data between data acquiring & adminstering]
