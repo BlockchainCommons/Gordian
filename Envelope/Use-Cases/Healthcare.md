@@ -1001,11 +1001,12 @@ participation.  She does this by having her ToneZone extract her
 ```
 ur:envelope/tpsolftpsptpcsinishsjkgdkpidgrihkktpsptpcskspfkpjpftiajpkkjojyjldpjokpidjeihkkjkdljziyjyhshsieiyktisieiaksjyjeknjkjkktjljtioisjoieihjnjojyiajojzkpiejejejyinhsjzjtjtkkknjnhsiejyjziejzidjkjyhsidktktjnihiakojyiyioisjeiajeiyknjyjzieihjnktjyhshsieiejnisieiaksjpkkjojyjkihihjkiejpimjojkjkidknktjnjlksktjekojzihkkjpjtidiojtjkknjlhsjyhsjyjskniojzjohsihjyieihjziyjtidjokkiojzhsjljyjzjejyiakkiyjzjzkpidknihiskgsnfyao
 ```
+
 ```
 "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
 ```
+
 ```mermaid
-envelope --mermaid
 graph LR
     1(["38cadd4f<br/>ASSERTION"])
     2["bb751b0e<br/>#quot;hasPubKey#quot;"]
@@ -1027,8 +1028,7 @@ Envelope, that's sufficient proof that Nadia was a participant —
 though it would have been impossible for anyone to figure out without
 Nadia's revelation, as hashes are also one-way funcitons.
 
-
-### 9. Nadia Becomes a Demographic (Anonymization, Provenance)
+### 9. Nadia Becomes a Number (Anonymization, Provenance)
 
 * **Use Case:** Clinical trials sometimes need to further de-identify data but want to maintain its provenance.
 * **Privacy Benefits:** Nadia's data becomes even more anonymous.
@@ -1046,18 +1046,528 @@ to be proven, the second to maintain easy lookup of the data's
 validation, in case any validator is ever proven to be untrustworthy.
 
 The clinical trial then wraps that provenance information and creates
-a new set of data with daily averages from the previous data, making
-it much less identifiable. (Even more extreme data blurring techniques
-could be used, if required, provided that the same technique is used,
-which links the new data with the provenance for its origin.)
+a new set of data with five-minute averages from the previous data,
+making it less identifiable. (Even more extreme data blurring
+techniques could be used, if required, provided that the same
+technique is used, which links the new data with the provenance for
+its origin.)
 
-* Aggregated Demographic Data [is what demographic trials use], thus herd privacy — need to demonstrate appropriate demographic spread without compromising information, may need to correlate data points with demographics with compromising individual's privacy
-* Double-Blind Data Collection for Clinical Trials [no leakage of data between data acquiring & adminstering]
+```
+{
+    ELIDED [
+        verifiedBy: Signature [
+            note: "Signed by ToneZone Inc."
+        ]
+    ]
+} [
+    "heartInfoBlur": "20230515" [
+        "1684188000": "59.4"
+        "1684188300": "59.6"
+    ]
+    "heartInfoBlur": "20230516" [
+        "1684274400": "88.2"
+        "1684274700": "87.4"
+    ]
+    "stepInfoBlur": "20230515" [
+        "1684188000": "9"
+        "1684188300": "67"
+    ]
+    "stepInfoBlur": "20230516" [
+        "1684188300": "470"
+        "1684274400": "502"
+    ]
+]
+```
+```mermaid
+graph LR
+    1(("4dbe61aa<br/>NODE"))
+    2[/"acab46a2<br/>WRAPPED"\]
+    3(("0410cc94<br/>NODE"))
+    4{{"80134e1e<br/>ELIDED"}}
+    5(["2bcddfb6<br/>ASSERTION"])
+    6[/"9d7ba9eb<br/>3"/]
+    7(("0a7ab794<br/>NODE"))
+    8["1073a477<br/>Signature"]
+    9(["1462e1a7<br/>ASSERTION"])
+    10[/"49a5f41b<br/>4"/]
+    11["5f9a1df7<br/>#quot;Signed by ToneZone Inc.#quot;"]
+    12(["2a2e6d3c<br/>ASSERTION"])
+    13["57e0b082<br/>#quot;heartInfoBlur#quot;"]
+    14(("989eafca<br/>NODE"))
+    15["d1395bd4<br/>#quot;20230516#quot;"]
+    16(["a76528b0<br/>ASSERTION"])
+    17["cf7b4592<br/>#quot;1684274700#quot;"]
+    18["c0f588df<br/>#quot;87.4#quot;"]
+    19(["e39d6d7e<br/>ASSERTION"])
+    20["2f1526b7<br/>#quot;1684274400#quot;"]
+    21["43107349<br/>#quot;88.2#quot;"]
+    22(["6c1c9479<br/>ASSERTION"])
+    23["44b6e7a7<br/>#quot;stepInfoBlur#quot;"]
+    24(("a737c4df<br/>NODE"))
+    25["d1395bd4<br/>#quot;20230516#quot;"]
+    26(["2df0a5cc<br/>ASSERTION"])
+    27["2f1526b7<br/>#quot;1684274400#quot;"]
+    28["7c885771<br/>#quot;502#quot;"]
+    29(["604028fc<br/>ASSERTION"])
+    30["6a85544b<br/>#quot;1684188300#quot;"]
+    31["4ad8ba7a<br/>#quot;470#quot;"]
+    32(["d34d3e9e<br/>ASSERTION"])
+    33["44b6e7a7<br/>#quot;stepInfoBlur#quot;"]
+    34(("f3be2a5c<br/>NODE"))
+    35["33241d8f<br/>#quot;20230515#quot;"]
+    36(["e7984694<br/>ASSERTION"])
+    37["2946850e<br/>#quot;1684188000#quot;"]
+    38["2b12242f<br/>#quot;9#quot;"]
+    39(["f741f132<br/>ASSERTION"])
+    40["6a85544b<br/>#quot;1684188300#quot;"]
+    41["626e242b<br/>#quot;67#quot;"]
+    42(["fc3075d7<br/>ASSERTION"])
+    43["57e0b082<br/>#quot;heartInfoBlur#quot;"]
+    44(("f869cea1<br/>NODE"))
+    45["33241d8f<br/>#quot;20230515#quot;"]
+    46(["5102c67e<br/>ASSERTION"])
+    47["6a85544b<br/>#quot;1684188300#quot;"]
+    48["0b1d9a73<br/>#quot;59.6#quot;"]
+    49(["9de9f69a<br/>ASSERTION"])
+    50["2946850e<br/>#quot;1684188000#quot;"]
+    51["e975becd<br/>#quot;59.4#quot;"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    3 --> 5
+    5 -->|pred| 6
+    5 -->|obj| 7
+    7 -->|subj| 8
+    7 --> 9
+    9 -->|pred| 10
+    9 -->|obj| 11
+    1 --> 12
+    12 -->|pred| 13
+    12 -->|obj| 14
+    14 -->|subj| 15
+    14 --> 16
+    16 -->|pred| 17
+    16 -->|obj| 18
+    14 --> 19
+    19 -->|pred| 20
+    19 -->|obj| 21
+    1 --> 22
+    22 -->|pred| 23
+    22 -->|obj| 24
+    24 -->|subj| 25
+    24 --> 26
+    26 -->|pred| 27
+    26 -->|obj| 28
+    24 --> 29
+    29 -->|pred| 30
+    29 -->|obj| 31
+    1 --> 32
+    32 -->|pred| 33
+    32 -->|obj| 34
+    34 -->|subj| 35
+    34 --> 36
+    36 -->|pred| 37
+    36 -->|obj| 38
+    34 --> 39
+    39 -->|pred| 40
+    39 -->|obj| 41
+    1 --> 42
+    42 -->|pred| 43
+    42 -->|obj| 44
+    44 -->|subj| 45
+    44 --> 46
+    46 -->|pred| 47
+    46 -->|obj| 48
+    44 --> 49
+    49 -->|pred| 50
+    49 -->|obj| 51
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:red,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px
+    style 12 stroke:red,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:red,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:red,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:#55f,stroke-width:3.0px
+    style 22 stroke:red,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px
+    style 24 stroke:red,stroke-width:3.0px
+    style 25 stroke:#55f,stroke-width:3.0px
+    style 26 stroke:red,stroke-width:3.0px
+    style 27 stroke:#55f,stroke-width:3.0px
+    style 28 stroke:#55f,stroke-width:3.0px
+    style 29 stroke:red,stroke-width:3.0px
+    style 30 stroke:#55f,stroke-width:3.0px
+    style 31 stroke:#55f,stroke-width:3.0px
+    style 32 stroke:red,stroke-width:3.0px
+    style 33 stroke:#55f,stroke-width:3.0px
+    style 34 stroke:red,stroke-width:3.0px
+    style 35 stroke:#55f,stroke-width:3.0px
+    style 36 stroke:red,stroke-width:3.0px
+    style 37 stroke:#55f,stroke-width:3.0px
+    style 38 stroke:#55f,stroke-width:3.0px
+    style 39 stroke:red,stroke-width:3.0px
+    style 40 stroke:#55f,stroke-width:3.0px
+    style 41 stroke:#55f,stroke-width:3.0px
+    style 42 stroke:red,stroke-width:3.0px
+    style 43 stroke:#55f,stroke-width:3.0px
+    style 44 stroke:red,stroke-width:3.0px
+    style 45 stroke:#55f,stroke-width:3.0px
+    style 46 stroke:red,stroke-width:3.0px
+    style 47 stroke:#55f,stroke-width:3.0px
+    style 48 stroke:#55f,stroke-width:3.0px
+    style 49 stroke:red,stroke-width:3.0px
+    style 50 stroke:#55f,stroke-width:3.0px
+    style 51 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke:green,stroke-width:2.0px
+    linkStyle 5 stroke:#55f,stroke-width:2.0px
+    linkStyle 6 stroke:red,stroke-width:2.0px
+    linkStyle 7 stroke-width:2.0px
+    linkStyle 8 stroke:green,stroke-width:2.0px
+    linkStyle 9 stroke:#55f,stroke-width:2.0px
+    linkStyle 10 stroke-width:2.0px
+    linkStyle 11 stroke:green,stroke-width:2.0px
+    linkStyle 12 stroke:#55f,stroke-width:2.0px
+    linkStyle 13 stroke:red,stroke-width:2.0px
+    linkStyle 14 stroke-width:2.0px
+    linkStyle 15 stroke:green,stroke-width:2.0px
+    linkStyle 16 stroke:#55f,stroke-width:2.0px
+    linkStyle 17 stroke-width:2.0px
+    linkStyle 18 stroke:green,stroke-width:2.0px
+    linkStyle 19 stroke:#55f,stroke-width:2.0px
+    linkStyle 20 stroke-width:2.0px
+    linkStyle 21 stroke:green,stroke-width:2.0px
+    linkStyle 22 stroke:#55f,stroke-width:2.0px
+    linkStyle 23 stroke:red,stroke-width:2.0px
+    linkStyle 24 stroke-width:2.0px
+    linkStyle 25 stroke:green,stroke-width:2.0px
+    linkStyle 26 stroke:#55f,stroke-width:2.0px
+    linkStyle 27 stroke-width:2.0px
+    linkStyle 28 stroke:green,stroke-width:2.0px
+    linkStyle 29 stroke:#55f,stroke-width:2.0px
+    linkStyle 30 stroke-width:2.0px
+    linkStyle 31 stroke:green,stroke-width:2.0px
+    linkStyle 32 stroke:#55f,stroke-width:2.0px
+    linkStyle 33 stroke:red,stroke-width:2.0px
+    linkStyle 34 stroke-width:2.0px
+    linkStyle 35 stroke:green,stroke-width:2.0px
+    linkStyle 36 stroke:#55f,stroke-width:2.0px
+    linkStyle 37 stroke-width:2.0px
+    linkStyle 38 stroke:green,stroke-width:2.0px
+    linkStyle 39 stroke:#55f,stroke-width:2.0px
+    linkStyle 40 stroke-width:2.0px
+    linkStyle 41 stroke:green,stroke-width:2.0px
+    linkStyle 42 stroke:#55f,stroke-width:2.0px
+    linkStyle 43 stroke:red,stroke-width:2.0px
+    linkStyle 44 stroke-width:2.0px
+    linkStyle 45 stroke:green,stroke-width:2.0px
+    linkStyle 46 stroke:#55f,stroke-width:2.0px
+    linkStyle 47 stroke-width:2.0px
+    linkStyle 48 stroke:green,stroke-width:2.0px
+    linkStyle 49 stroke:#55f,stroke-width:2.0px
+```
+Note that even in the heavily elided root data, the root hash
+(`0410cc94`) continues to be visible. That's what connects this elided
+data to the original if the clinical trial's data ever needs to be
+further validated. 
 
-* Differential Data Set
-   * "Blur" Data +/-5 or whatever
-   * With some proofs back to original
-   * DATA BRANCH
+To further validate everything, the Clinical Trial would of course
+sign this blurred data as well, verifying the standards by which the
+blurring had occurred:
+```
+{
+    {
+        ELIDED [
+            verifiedBy: Signature [
+                note: "Signed by ToneZone Inc."
+            ]
+        ]
+    } [
+        "heartInfoBlur": "20230515" [
+            "1684188000": "59.4"
+            "1684188300": "59.6"
+        ]
+        "heartInfoBlur": "20230516" [
+            "1684274400": "88.2"
+            "1684274700": "87.4"
+        ]
+        "stepInfoBlur": "20230515" [
+            "1684188000": "9"
+            "1684188300": "67"
+        ]
+        "stepInfoBlur": "20230516" [
+            "1684188300": "470"
+            "1684274400": "502"
+        ]
+    ]
+} [
+    verifiedBy: Signature [
+        note: "Signed by Clinical Trial Inc."
+    ]
+]
+```
+```mermaid
+graph LR
+    1(("2d9e18b8<br/>NODE"))
+    2[/"76825215<br/>WRAPPED"\]
+    3(("4dbe61aa<br/>NODE"))
+    4[/"acab46a2<br/>WRAPPED"\]
+    5(("0410cc94<br/>NODE"))
+    6{{"80134e1e<br/>ELIDED"}}
+    7(["2bcddfb6<br/>ASSERTION"])
+    8[/"9d7ba9eb<br/>3"/]
+    9(("0a7ab794<br/>NODE"))
+    10["1073a477<br/>Signature"]
+    11(["1462e1a7<br/>ASSERTION"])
+    12[/"49a5f41b<br/>4"/]
+    13["5f9a1df7<br/>#quot;Signed by ToneZone Inc.#quot;"]
+    14(["2a2e6d3c<br/>ASSERTION"])
+    15["57e0b082<br/>#quot;heartInfoBlur#quot;"]
+    16(("989eafca<br/>NODE"))
+    17["d1395bd4<br/>#quot;20230516#quot;"]
+    18(["a76528b0<br/>ASSERTION"])
+    19["cf7b4592<br/>#quot;1684274700#quot;"]
+    20["c0f588df<br/>#quot;87.4#quot;"]
+    21(["e39d6d7e<br/>ASSERTION"])
+    22["2f1526b7<br/>#quot;1684274400#quot;"]
+    23["43107349<br/>#quot;88.2#quot;"]
+    24(["6c1c9479<br/>ASSERTION"])
+    25["44b6e7a7<br/>#quot;stepInfoBlur#quot;"]
+    26(("a737c4df<br/>NODE"))
+    27["d1395bd4<br/>#quot;20230516#quot;"]
+    28(["2df0a5cc<br/>ASSERTION"])
+    29["2f1526b7<br/>#quot;1684274400#quot;"]
+    30["7c885771<br/>#quot;502#quot;"]
+    31(["604028fc<br/>ASSERTION"])
+    32["6a85544b<br/>#quot;1684188300#quot;"]
+    33["4ad8ba7a<br/>#quot;470#quot;"]
+    34(["d34d3e9e<br/>ASSERTION"])
+    35["44b6e7a7<br/>#quot;stepInfoBlur#quot;"]
+    36(("f3be2a5c<br/>NODE"))
+    37["33241d8f<br/>#quot;20230515#quot;"]
+    38(["e7984694<br/>ASSERTION"])
+    39["2946850e<br/>#quot;1684188000#quot;"]
+    40["2b12242f<br/>#quot;9#quot;"]
+    41(["f741f132<br/>ASSERTION"])
+    42["6a85544b<br/>#quot;1684188300#quot;"]
+    43["626e242b<br/>#quot;67#quot;"]
+    44(["fc3075d7<br/>ASSERTION"])
+    45["57e0b082<br/>#quot;heartInfoBlur#quot;"]
+    46(("f869cea1<br/>NODE"))
+    47["33241d8f<br/>#quot;20230515#quot;"]
+    48(["5102c67e<br/>ASSERTION"])
+    49["6a85544b<br/>#quot;1684188300#quot;"]
+    50["0b1d9a73<br/>#quot;59.6#quot;"]
+    51(["9de9f69a<br/>ASSERTION"])
+    52["2946850e<br/>#quot;1684188000#quot;"]
+    53["e975becd<br/>#quot;59.4#quot;"]
+    54(["f77b895c<br/>ASSERTION"])
+    55[/"9d7ba9eb<br/>3"/]
+    56(("19f337dc<br/>NODE"))
+    57["713b9bb9<br/>Signature"]
+    58(["7d615ea2<br/>ASSERTION"])
+    59[/"49a5f41b<br/>4"/]
+    60["a64543c3<br/>#quot;Signed by Clinical Trial Inc.#quot;"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    4 -->|subj| 5
+    5 -->|subj| 6
+    5 --> 7
+    7 -->|pred| 8
+    7 -->|obj| 9
+    9 -->|subj| 10
+    9 --> 11
+    11 -->|pred| 12
+    11 -->|obj| 13
+    3 --> 14
+    14 -->|pred| 15
+    14 -->|obj| 16
+    16 -->|subj| 17
+    16 --> 18
+    18 -->|pred| 19
+    18 -->|obj| 20
+    16 --> 21
+    21 -->|pred| 22
+    21 -->|obj| 23
+    3 --> 24
+    24 -->|pred| 25
+    24 -->|obj| 26
+    26 -->|subj| 27
+    26 --> 28
+    28 -->|pred| 29
+    28 -->|obj| 30
+    26 --> 31
+    31 -->|pred| 32
+    31 -->|obj| 33
+    3 --> 34
+    34 -->|pred| 35
+    34 -->|obj| 36
+    36 -->|subj| 37
+    36 --> 38
+    38 -->|pred| 39
+    38 -->|obj| 40
+    36 --> 41
+    41 -->|pred| 42
+    41 -->|obj| 43
+    3 --> 44
+    44 -->|pred| 45
+    44 -->|obj| 46
+    46 -->|subj| 47
+    46 --> 48
+    48 -->|pred| 49
+    48 -->|obj| 50
+    46 --> 51
+    51 -->|pred| 52
+    51 -->|obj| 53
+    1 --> 54
+    54 -->|pred| 55
+    54 -->|obj| 56
+    56 -->|subj| 57
+    56 --> 58
+    58 -->|pred| 59
+    58 -->|obj| 60
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:red,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:red,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:red,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:red,stroke-width:3.0px
+    style 17 stroke:#55f,stroke-width:3.0px
+    style 18 stroke:red,stroke-width:3.0px
+    style 19 stroke:#55f,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px
+    style 21 stroke:red,stroke-width:3.0px
+    style 22 stroke:#55f,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px
+    style 24 stroke:red,stroke-width:3.0px
+    style 25 stroke:#55f,stroke-width:3.0px
+    style 26 stroke:red,stroke-width:3.0px
+    style 27 stroke:#55f,stroke-width:3.0px
+    style 28 stroke:red,stroke-width:3.0px
+    style 29 stroke:#55f,stroke-width:3.0px
+    style 30 stroke:#55f,stroke-width:3.0px
+    style 31 stroke:red,stroke-width:3.0px
+    style 32 stroke:#55f,stroke-width:3.0px
+    style 33 stroke:#55f,stroke-width:3.0px
+    style 34 stroke:red,stroke-width:3.0px
+    style 35 stroke:#55f,stroke-width:3.0px
+    style 36 stroke:red,stroke-width:3.0px
+    style 37 stroke:#55f,stroke-width:3.0px
+    style 38 stroke:red,stroke-width:3.0px
+    style 39 stroke:#55f,stroke-width:3.0px
+    style 40 stroke:#55f,stroke-width:3.0px
+    style 41 stroke:red,stroke-width:3.0px
+    style 42 stroke:#55f,stroke-width:3.0px
+    style 43 stroke:#55f,stroke-width:3.0px
+    style 44 stroke:red,stroke-width:3.0px
+    style 45 stroke:#55f,stroke-width:3.0px
+    style 46 stroke:red,stroke-width:3.0px
+    style 47 stroke:#55f,stroke-width:3.0px
+    style 48 stroke:red,stroke-width:3.0px
+    style 49 stroke:#55f,stroke-width:3.0px
+    style 50 stroke:#55f,stroke-width:3.0px
+    style 51 stroke:red,stroke-width:3.0px
+    style 52 stroke:#55f,stroke-width:3.0px
+    style 53 stroke:#55f,stroke-width:3.0px
+    style 54 stroke:red,stroke-width:3.0px
+    style 55 stroke:#55f,stroke-width:3.0px
+    style 56 stroke:red,stroke-width:3.0px
+    style 57 stroke:#55f,stroke-width:3.0px
+    style 58 stroke:red,stroke-width:3.0px
+    style 59 stroke:#55f,stroke-width:3.0px
+    style 60 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke:red,stroke-width:2.0px
+    linkStyle 4 stroke:red,stroke-width:2.0px
+    linkStyle 5 stroke-width:2.0px
+    linkStyle 6 stroke:green,stroke-width:2.0px
+    linkStyle 7 stroke:#55f,stroke-width:2.0px
+    linkStyle 8 stroke:red,stroke-width:2.0px
+    linkStyle 9 stroke-width:2.0px
+    linkStyle 10 stroke:green,stroke-width:2.0px
+    linkStyle 11 stroke:#55f,stroke-width:2.0px
+    linkStyle 12 stroke-width:2.0px
+    linkStyle 13 stroke:green,stroke-width:2.0px
+    linkStyle 14 stroke:#55f,stroke-width:2.0px
+    linkStyle 15 stroke:red,stroke-width:2.0px
+    linkStyle 16 stroke-width:2.0px
+    linkStyle 17 stroke:green,stroke-width:2.0px
+    linkStyle 18 stroke:#55f,stroke-width:2.0px
+    linkStyle 19 stroke-width:2.0px
+    linkStyle 20 stroke:green,stroke-width:2.0px
+    linkStyle 21 stroke:#55f,stroke-width:2.0px
+    linkStyle 22 stroke-width:2.0px
+    linkStyle 23 stroke:green,stroke-width:2.0px
+    linkStyle 24 stroke:#55f,stroke-width:2.0px
+    linkStyle 25 stroke:red,stroke-width:2.0px
+    linkStyle 26 stroke-width:2.0px
+    linkStyle 27 stroke:green,stroke-width:2.0px
+    linkStyle 28 stroke:#55f,stroke-width:2.0px
+    linkStyle 29 stroke-width:2.0px
+    linkStyle 30 stroke:green,stroke-width:2.0px
+    linkStyle 31 stroke:#55f,stroke-width:2.0px
+    linkStyle 32 stroke-width:2.0px
+    linkStyle 33 stroke:green,stroke-width:2.0px
+    linkStyle 34 stroke:#55f,stroke-width:2.0px
+    linkStyle 35 stroke:red,stroke-width:2.0px
+    linkStyle 36 stroke-width:2.0px
+    linkStyle 37 stroke:green,stroke-width:2.0px
+    linkStyle 38 stroke:#55f,stroke-width:2.0px
+    linkStyle 39 stroke-width:2.0px
+    linkStyle 40 stroke:green,stroke-width:2.0px
+    linkStyle 41 stroke:#55f,stroke-width:2.0px
+    linkStyle 42 stroke-width:2.0px
+    linkStyle 43 stroke:green,stroke-width:2.0px
+    linkStyle 44 stroke:#55f,stroke-width:2.0px
+    linkStyle 45 stroke:red,stroke-width:2.0px
+    linkStyle 46 stroke-width:2.0px
+    linkStyle 47 stroke:green,stroke-width:2.0px
+    linkStyle 48 stroke:#55f,stroke-width:2.0px
+    linkStyle 49 stroke-width:2.0px
+    linkStyle 50 stroke:green,stroke-width:2.0px
+    linkStyle 51 stroke:#55f,stroke-width:2.0px
+    linkStyle 52 stroke-width:2.0px
+    linkStyle 53 stroke:green,stroke-width:2.0px
+    linkStyle 54 stroke:#55f,stroke-width:2.0px
+    linkStyle 55 stroke:red,stroke-width:2.0px
+    linkStyle 56 stroke-width:2.0px
+    linkStyle 57 stroke:green,stroke-width:2.0px
+    linkStyle 58 stroke:#55f,stroke-width:2.0px
+```
+
+Additional validation could be done ascertaining that specific
+protocols such as double-blind data collection had been followed,
+signed either by the clinical trial or some third-party verifier.
 
 ## Part Four: The COVID-19 Appenix
 
@@ -1066,6 +1576,16 @@ which links the new data with the provenance for its origin.)
 * **Use Case:** Nadia wants to Support the Public Health of COVID Contact Tracing without Revealing Her Location.
 * **Privacy Benefits:** Nadia's location is never revealed.
 * **Openness Benefits:** A large, discrete public-health system is able to share in data.
+
+Contact tracing became critically important during the height of the
+COVID-19 pandemic. Some of this was analog, such as recordings of
+names and phone numbers at restaurants, so that everyone could be
+contacted if a COVID case was discovered. More automated, digital
+tracing occurred through use the mobile phones and GPS records.
+
+The problem, a recurring one throughout the pandemic, is that there
+was no consideration for privacy. Hashed elision of data provide one
+way to create that privacy ...
 
 [Nadia's redacted location is uploaded; a private key can let her update it with a flag if she has COVID; a one-time contact lets her know if someone else does.]
 
