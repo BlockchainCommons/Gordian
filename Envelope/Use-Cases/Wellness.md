@@ -1,25 +1,29 @@
 # Gordian Envelope Use Cases: Wellness
 
-[intro]
+The Wellness industry includes fitness, sleep and activity,
+preventative care, and ultimately healthcare. Its an industry that
+generates highly private information that can (and has) been used to
+its owner's disadvantage, but it simultaneously generates information
+that should be used to the owner's advantage when shared with wellness
+professionals.
 
-wellness (incl preventative care, fitness, sleep and activity, etc).
-includes Healthcare
+Thus, the need for privacy-protecting data formats such as Gordian
+Envelope. It allows a holder to elide his information and to encrypt
+his information, so that only the minimal necessary data goes out, and
+only to the appropriate people. The ability to create multipermits for
+different people can also be highly useful in the complex welness
+environment.
 
-[some things to talk about]
+Ultimately, Wellness software can use Gordian information to:
 
-* Data is SAFE and SOUND and NOT USED TO INCRIMINATING USERS
-* Eliding info
-* or Differentely Encrypting info so that only some of it
-* SO WANT TO PEOPLE ABLE TO COLLECTING SOME ACTIVITY DATA FOR COACHING.
-   * But some is removed or elided or opt-in from user.
-   * So swap out Doctor for this?
-* WANT TO OFFER TRIALS
-   * With simplified admin (just ring/fitbit/tonezone)
-   * With simplified HIPAA requirements
-   * It's an economic approach.
-* There may also be linked/non-sensor data
-   * Such as age
-   * That is attested to
+* Ensure data is safe.
+* Prevent data from being used to incriminate users.
+* Transfer different subsets of data to different people.
+* Encrypt different data for different people.
+* Anonymize data for clinical trials and other public health.
+* In doing so, also simplify HIPAA requirements.
+
+...
 
 ## Health Care Use Case Table of Contents
 
