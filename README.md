@@ -63,6 +63,7 @@ Use Cases further describe the intent of Blockchain Commons' architecture.
 
 * [**Use Case Overview**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/README.md)
    * [**Educational & Credential Industry Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md) — Using Envelopes to store & transmit credentials.
+   * [**Wellness Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Wellness.md) — Using Envelopes to share very sensitive data.
    * [**Data Distribution Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Data.md) — Using Envelopes for user-related data releases.
    * [**Software & AI Industry Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md) — Using Gordian Envelopes to release software.
    * [**Financial Industry Use Cases**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Financial.md) — Using Envelopes to store assets.
