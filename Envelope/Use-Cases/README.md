@@ -34,6 +34,38 @@ Another possibility for credential release is through large data dumps that allo
 6. [**Paul Proves Profiency with Improved Privacy (Herd Privacy with Non Correlation)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md#6-paul-proves-proficiency-with-improved-privacy-herd-privacy-with-non-correlation) — Using design formats to improve herd privacy.
 7. [**Burton Bank Avoids Toxicity (Herd Privacy with Selective Correlation)**](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Educational.md#7-burton-bank-avoids-toxicity-herd-privacy-with-selective-correlation) — Avoiding toxic data by selective correlating unrevealed information.
 
+## [Wellness Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Wellness.md)
+
+Wellness use cases demonstrate how Gordian Envelopes can protect highly sensitive information while still supporting its sharing in a variety of ways.
+
+#### [Part One: Personal Sensor Data](Wellness.md#part-one-personal-sensor-data)
+
+How to structure and protect sensitive data with Gordian Envelopes.
+
+1. [**Nadia Gets Fit (Metadata)**](Wellness.md#1-nadia-gets-fit-metadata) — Creating a structure for sensitive data.
+2. [**Nadia Protects Her Privacy (Encryption)**](Wellness.md#2-nadia-protects-her-privacy-encryption) — Protecting sensitive data with encryption.
+3. [**Nadia Protects Her Key (SSKR)**](Wellness.md#3-nadia-protects-her-key-sskr) — Ensuring the resilience of closely held data.
+
+#### [Part Two: Personal Shared Sensor Data](Wellness.md#part-two-personal-shared-sensor-data)
+
+The value of Wellness information is that it can help you improve your health. Gordian Envelopes can make sure that doesn't compromise your privacy.
+
+4. [**Nadia Hearts Her Doctor (Elision)**](Wellness.md#4-nadia-hearts-her-doctor-elision) — Eliding data so that you don't pass on person or health information that could be detrimental.
+5. [**Nadia is a Bit Remote (Multi-Permit)**](Wellness.md#5-nadia-is-a-bit-remote-multi-permit) — Using multipermits to give third-party monitors regular access to your data.
+6. [**Nadia Steps Up (Signature)**](Wellness.md#6-nadia-steps-up-signature) — Using signatures to prove the provenance of your data.
+
+#### [Part Three: Clinically Shared Sensor Data](Wellness.md#part-three-clinically-shared-sensor-data)
+
+Your personal health data can also help our society (and its public health), and Gordian Envelopes can ensure that your privacy is _still_ safe.
+
+7. [**Nadia Gets Clinical (Elision, Third-Party Encryption)**](Wellness.md#7-nadia-gets-clinical-elision-third-party-encryption) — Contributing to a clinical trial and protecting _everyone_ with encryption.
+8. [**Nadia Proves Her Worth (Proof of Inclusion)**](Wellness.md#8-nadia-proves-her-worth-proof-of-inclusion) — Proving your contribution with hash-based elision.
+9. [**Nadia Becomes a Number (Anonymization, Provenance)**](Wellness.md#9-nadia-becomes-a-number-anonymization-provenance) — Blurring data while maintaining its provenance.
+
+#### [Part Four: The COVID-19 Appendix](Wellness.md#part-four-the-covid-19-appendix)
+
+10. [**Nadia Goes Viral (Herd Privacy)**](Wellness.md#10-nadia-goes-viral-herd-privacy) — Contact tracing without the privacy problems.
+
 ## [Software Industry Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md)
 
 Software use cases demonstrate how the structure of Gordian Envelope can innovate procedures requiring signing, such as software releases.
