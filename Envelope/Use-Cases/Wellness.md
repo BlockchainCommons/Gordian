@@ -50,12 +50,13 @@ can possess.
    * #4: [Nadia Hearts Her Doctor (Elision)](Wellness.md#4-nadia-hearts-her-doctor-elision)
    * #5: [Nadia is a Bit Remote (Multi-Permit)](Wellness.md#5-nadia-is-a-bit-remote-multi-permit)
    * #6: [Nadia Steps Up (Signature)](Wellness.md#6-nadia-steps-up-signature)
+   * #7: [Nadia Foils Fusion (Salting)](Wellness.md#7-nadia-foils-fusion-salting)
 * [Part Three: Clinically Shared Sensor Data](Wellness.md#part-three-clinically-shared-sensor-data)
-   * #7: [Nadia Gets Clinical (Elision, Third-Party Encryption)](Wellness.md#7-nadia-gets-clinical-elision-third-party-encryption)
-   * #8: [Nadia Proves Her Worth (Proof of Inclusion)](Wellness.md#8-nadia-proves-her-worth-proof-of-inclusion)
-   * #9: [Nadia Becomes a Number (Anonymization, Provenance)](Wellness.md#9-nadia-becomes-a-number-anonymization-provenance)
+   * #8: [Nadia Gets Clinical (Elision, Third-Party Encryption)](Wellness.md#8-nadia-gets-clinical-elision-third-party-encryption)
+   * #9: [Nadia Proves Her Worth (Proof of Inclusion)](Wellness.md#9-nadia-proves-her-worth-proof-of-inclusion)
+   * #10: [Nadia Becomes a Number (Anonymization, Provenance)](Wellness.md#10-nadia-becomes-a-number-anonymization-provenance)
 * [Part Four: The COVID-19 Appendix](Wellness.md#part-four-the-covid-19-appendix)
-   * #10: [Nadia Goes Viral (Herd Privacy)](Wellness.md#10-nadia-goes-viral-herd-privacy)
+   * #11: [Nadia Goes Viral (Herd Privacy)](Wellness.md#11-nadia-goes-viral-herd-privacy)
    
 ## Part One: Personal Sensor Data
 
@@ -688,7 +689,7 @@ ELIDED [
         ]
     }
     "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
-    ELIDED
+n    ELIDED
 ]
 ```
 The document must then be wrapped (so that the signature will apply to
@@ -735,6 +736,835 @@ could also ask Nadia to prove who she is by signing something using
 the private key associated with the public key referenced in the
 Envelope.
 
+### 7. Nadia Foils Fusion (Salting)
+
+* **Use Case:** Nadia needs to submit data to multiple parties and doesn't want it correlated.
+* **Privacy Benefits:** Nadia's data is individually salted to prevent undesirable correlation.
+
+[Sensor Fusion](https://en.wikipedia.org/wiki/Sensor_fusion) is a
+general problem where data from multiple sensors can be combined in
+undesirable ways. Just the accelerometer in Nadia's cell phone and the
+sensors in her activity tracker might be enough to create correlations
+that Nadia doesn't want. Even if data isn't personally identifiable,
+specific correlations might be enough to place someone into a certain
+category: overly high heart rate while at a geolocation revealed as a
+gym, for example, might place a data set into the undesirable category
+for a health insurance company.  To properly protect private data,
+data streams need to be split in some way so that they're not
+correlatable.
+
+The issue can become even more problematic with elided data that
+retains its hashes, because multiple parties could combine data to
+give a more complete picture of the individual, each filling in data
+that was elided in the Envelope received by another person.
+Fortunately, there are a number of potential ways to deal with
+this issue.
+
+Witness Nadia, who has continued to diversify her ToneZone data
+sharing. She wasn't worried when she was mainly sharing data with
+doctors, who would be violating HIPAA if they shared her data
+incorrectly. But now she's just sent information to a stepping contest
+and is about to send some data to her physical trainer. She's becoming
+worried about how much of her overall information would be revealed if
+they and future recipients merged ("fused") their data.
+
+To avoid this problem, Nadia begins salting her data. This means that
+each batch of data that she sends out contains random numbers
+alongside her data. They might be totally random or they might be
+chained from some master salt, but either way they're randomized and
+then applied to either individual assertions or data branches. By
+resalting her data each time it goes to a different part, Nadia
+reduces the opportunity for undesirable correlation because a
+recipient can't look at an elided hash and realize that it matches a
+hash in someone else's data record (whether it's elided or not).
+
+The following example shows Nadia's sensor data with the major
+elements all salted in preparation for sending it to the step contest:
+```
+"ur:cid/hdcxzoqzispesnbbkohddwbyhtbzzsssdldassamdeeofdtndsaazsjpdtnnvwfnatglbgbnehwe" [
+    {
+        "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
+    } [
+        salt: Salt
+    ]
+    "account": {
+        "00000001" [
+            "birthdate": "19891109"
+            "fullName": "Nadia Levedeva"
+            "height": "65.1"
+            "weight": "132.7"
+            salt: Salt
+        ]
+    }
+    "device": {
+        "ToneZone 1.0" [
+            {
+                "serialNumber": "SN102313A"
+            } [
+                salt: Salt
+            ]
+            "gpsInfoFor": "20230516" [
+                "gpsQueue": "1684274400" [
+                    "distance": "0"
+                    "latitude": "2.122778"
+                    "longitude": "41.380833"
+                    "status": "0"
+                ]
+                "gpsQueue": "1684279978" [
+                    "distance": "5230"
+                    "latitude": "2.456944"
+                    "length": "36000"
+                    "longitude": "41.430278"
+                    "status": "8"
+                ]
+                salt: Salt
+            ]
+            "heartInfoFor": "20230515" [
+                "1684274400": "59"
+                "1684274460": "60"
+                "1684274520": "60"
+                "1684274580": "59"
+                "1684274640": "59"
+                salt: Salt
+            ]
+            "heartInfoFor": "20230516" [
+                "1684274400": "85"
+                "1684274460": "87"
+                "1684274520": "91"
+                "1684274580": "90"
+                "1684274640": "88"
+                salt: Salt
+            ]
+            "statsFor": "20230515" [
+                "floors": "3"
+                "restingHeartRate": "55"
+                "steps": "5703"
+                "zoneMinutes": "0"
+                salt: Salt
+            ]
+            "statsFor": "20230516" [
+                "floors": "17"
+                "restingHeartRate": "56"
+                "steps": "10715"
+                "zoneMinutes": "25"
+                salt: Salt
+            ]
+            "stepInfoFor": "20230515" [
+                "1684188000": "0"
+                "1684188060": "0"
+                "1684188120": "7"
+                "1684188180": "2"
+                "1684188240": "0"
+                salt: Salt
+            ]
+            "stepInfoFor": "20230516" [
+                "1684274400": "95"
+                "1684274460": "99"
+                "1684274520": "103"
+                "1684274580": "103"
+                "1684274640": "101"
+                salt: Salt
+            ]
+            "tempInfoFor": "20230515" [
+                "1684188000": "97"
+                "1684188060": "97.1"
+                "1684188120": "97.3"
+                "1684188180": "97.2"
+                "1684188240": "97.1"
+                salt: Salt
+            ]
+            "tempInfoFor": "20230516" [
+                "1684274400": "98.2"
+                "1684274460": "98.2"
+                "1684274520": "98.3"
+                "1684274580": "98.2"
+                "1684274640": "98.2"
+                salt: Salt
+            ]
+            salt: Salt
+        ]
+    }
+    salt: Salt
+]
+```
+As the [mermaid diagram](Wellness-mermaid-1f.md) demonstrates, the
+hashes for those elements are all changed thanks to the inclusion of
+the Salt.
+
+The elided data would then reveal only the info needed by the
+contest. Everything else is elided (as usual) and much of it was
+already salted so that the hashes can't be correlated:
+```
+ELIDED [
+    {
+        "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
+    } [
+        salt: Salt
+    ]
+    "device": {
+        "ToneZone 1.0" [
+            {
+                ELIDED: ELIDED
+            } [
+                ELIDED
+            ]
+            "statsFor": "20230515" [
+                "steps": "5703"
+                ELIDED (4)
+            ]
+            "statsFor": "20230516" [
+                "steps": "10715"
+                ELIDED (4)
+            ]
+            ELIDED: ELIDED
+            ELIDED: ELIDED
+            ELIDED: ELIDED
+            ELIDED: ELIDED
+            ELIDED: ELIDED
+            ELIDED: ELIDED
+            ELIDED: ELIDED
+            salt: ELIDED
+        ]
+    }
+    ELIDED (2)
+]
+```
+
+Every branch containing a salt has a different hash now. More
+importantly, they'll have another different hash when Nadia
+regenerates her data for her physical trainer.
+
+```mermaid
+graph LR
+    1(("3d54fee3<br/>NODE"))
+    2{{"426f3f8a<br/>ELIDED"}}
+    3{{"8eebb7a8<br/>ELIDED"}}
+    4(("d39c9f22<br/>NODE"))
+    5(["38cadd4f<br/>ASSERTION"])
+    6["bb751b0e<br/>#quot;hasPubKey#quot;"]
+    7["2ada5820<br/>#quot;ur:crypto-pubkeys/lftaadfwhdcxtkzsswongh…#quot;"]
+    8(["d52c7edb<br/>ASSERTION"])
+    9[/"aa14a6e0<br/>15"/]
+    10["0fd21960<br/>Salt"]
+    11{{"e228433d<br/>ELIDED"}}
+    12(["ea4a7af3<br/>ASSERTION"])
+    13["52b252a6<br/>#quot;device#quot;"]
+    14[/"d23558a8<br/>WRAPPED"\]
+    15(("9c6f9afc<br/>NODE"))
+    16["73a38bc2<br/>#quot;ToneZone 1.0#quot;"]
+    17(["0da1c06f<br/>ASSERTION"])
+    18{{"11d623e4<br/>ELIDED"}}
+    19{{"e4d15c20<br/>ELIDED"}}
+    20(["31275d4d<br/>ASSERTION"])
+    21{{"f0b86b19<br/>ELIDED"}}
+    22{{"260f912d<br/>ELIDED"}}
+    23(["31396aeb<br/>ASSERTION"])
+    24{{"11d623e4<br/>ELIDED"}}
+    25{{"1fa879b6<br/>ELIDED"}}
+    26(["4ff93b04<br/>ASSERTION"])
+    27{{"e6d5fe1d<br/>ELIDED"}}
+    28{{"a695ea27<br/>ELIDED"}}
+    29(["55971106<br/>ASSERTION"])
+    30{{"b9c6fb7b<br/>ELIDED"}}
+    31{{"abd77e35<br/>ELIDED"}}
+    32(["9e2efdc5<br/>ASSERTION"])
+    33{{"f0b86b19<br/>ELIDED"}}
+    34{{"3aff4dd0<br/>ELIDED"}}
+    35(["b17f12f6<br/>ASSERTION"])
+    36["92f9c9f7<br/>#quot;statsFor#quot;"]
+    37(("f8a7f7b8<br/>NODE"))
+    38["d1395bd4<br/>#quot;20230516#quot;"]
+    39(["098da37b<br/>ASSERTION"])
+    40["f16e83e2<br/>#quot;steps#quot;"]
+    41["1111a5a3<br/>#quot;10715#quot;"]
+    42{{"307680cd<br/>ELIDED"}}
+    43{{"3a57e931<br/>ELIDED"}}
+    44{{"5929a395<br/>ELIDED"}}
+    45{{"9c1f47ee<br/>ELIDED"}}
+    46(("e5ad25dc<br/>NODE"))
+    47(["27bfa14c<br/>ASSERTION"])
+    48{{"4cbee23f<br/>ELIDED"}}
+    49{{"c2198002<br/>ELIDED"}}
+    50{{"cd58b980<br/>ELIDED"}}
+    51(["e723e107<br/>ASSERTION"])
+    52{{"b9c6fb7b<br/>ELIDED"}}
+    53{{"a043b8b2<br/>ELIDED"}}
+    54(["eb9645b5<br/>ASSERTION"])
+    55[/"aa14a6e0<br/>15"/]
+    56{{"6fe0eca9<br/>ELIDED"}}
+    57(["f44d64a6<br/>ASSERTION"])
+    58["92f9c9f7<br/>#quot;statsFor#quot;"]
+    59(("5a7effbf<br/>NODE"))
+    60["33241d8f<br/>#quot;20230515#quot;"]
+    61(["1cc98900<br/>ASSERTION"])
+    62["f16e83e2<br/>#quot;steps#quot;"]
+    63["42f3a37b<br/>#quot;5703#quot;"]
+    64{{"35cd3369<br/>ELIDED"}}
+    65{{"40a7bef0<br/>ELIDED"}}
+    66{{"59826f73<br/>ELIDED"}}
+    67{{"61bfb33e<br/>ELIDED"}}
+    1 -->|subj| 2
+    1 --> 3
+    1 --> 4
+    4 -->|subj| 5
+    5 -->|pred| 6
+    5 -->|obj| 7
+    4 --> 8
+    8 -->|pred| 9
+    8 -->|obj| 10
+    1 --> 11
+    1 --> 12
+    12 -->|pred| 13
+    12 -->|obj| 14
+    14 -->|subj| 15
+    15 -->|subj| 16
+    15 --> 17
+    17 -->|pred| 18
+    17 -->|obj| 19
+    15 --> 20
+    20 -->|pred| 21
+    20 -->|obj| 22
+    15 --> 23
+    23 -->|pred| 24
+    23 -->|obj| 25
+    15 --> 26
+    26 -->|pred| 27
+    26 -->|obj| 28
+    15 --> 29
+    29 -->|pred| 30
+    29 -->|obj| 31
+    15 --> 32
+    32 -->|pred| 33
+    32 -->|obj| 34
+    15 --> 35
+    35 -->|pred| 36
+    35 -->|obj| 37
+    37 -->|subj| 38
+    37 --> 39
+    39 -->|pred| 40
+    39 -->|obj| 41
+    37 --> 42
+    37 --> 43
+    37 --> 44
+    37 --> 45
+    15 --> 46
+    46 -->|subj| 47
+    47 -->|pred| 48
+    47 -->|obj| 49
+    46 --> 50
+    15 --> 51
+    51 -->|pred| 52
+    51 -->|obj| 53
+    15 --> 54
+    54 -->|pred| 55
+    54 -->|obj| 56
+    15 --> 57
+    57 -->|pred| 58
+    57 -->|obj| 59
+    59 -->|subj| 60
+    59 --> 61
+    61 -->|pred| 62
+    61 -->|obj| 63
+    59 --> 64
+    59 --> 65
+    59 --> 66
+    59 --> 67
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 3 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 4 stroke:red,stroke-width:3.0px
+    style 5 stroke:red,stroke-width:3.0px
+    style 6 stroke:#55f,stroke-width:3.0px
+    style 7 stroke:#55f,stroke-width:3.0px
+    style 8 stroke:red,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:#55f,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 12 stroke:red,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:red,stroke-width:3.0px
+    style 16 stroke:#55f,stroke-width:3.0px
+    style 17 stroke:red,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 19 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 20 stroke:red,stroke-width:3.0px
+    style 21 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 22 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 23 stroke:red,stroke-width:3.0px
+    style 24 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 25 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 26 stroke:red,stroke-width:3.0px
+    style 27 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 28 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 29 stroke:red,stroke-width:3.0px
+    style 30 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 31 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 32 stroke:red,stroke-width:3.0px
+    style 33 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 34 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 35 stroke:red,stroke-width:3.0px
+    style 36 stroke:#55f,stroke-width:3.0px
+    style 37 stroke:red,stroke-width:3.0px
+    style 38 stroke:#55f,stroke-width:3.0px
+    style 39 stroke:red,stroke-width:3.0px
+    style 40 stroke:#55f,stroke-width:3.0px
+    style 41 stroke:#55f,stroke-width:3.0px
+    style 42 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 43 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 44 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 45 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 46 stroke:red,stroke-width:3.0px
+    style 47 stroke:red,stroke-width:3.0px
+    style 48 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 49 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 50 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 51 stroke:red,stroke-width:3.0px
+    style 52 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 53 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 54 stroke:red,stroke-width:3.0px
+    style 55 stroke:#55f,stroke-width:3.0px
+    style 56 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 57 stroke:red,stroke-width:3.0px
+    style 58 stroke:#55f,stroke-width:3.0px
+    style 59 stroke:red,stroke-width:3.0px
+    style 60 stroke:#55f,stroke-width:3.0px
+    style 61 stroke:red,stroke-width:3.0px
+    style 62 stroke:#55f,stroke-width:3.0px
+    style 63 stroke:#55f,stroke-width:3.0px
+    style 64 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 65 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 66 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 67 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke-width:2.0px
+    linkStyle 2 stroke-width:2.0px
+    linkStyle 3 stroke:red,stroke-width:2.0px
+    linkStyle 4 stroke:green,stroke-width:2.0px
+    linkStyle 5 stroke:#55f,stroke-width:2.0px
+    linkStyle 6 stroke-width:2.0px
+    linkStyle 7 stroke:green,stroke-width:2.0px
+    linkStyle 8 stroke:#55f,stroke-width:2.0px
+    linkStyle 9 stroke-width:2.0px
+    linkStyle 10 stroke-width:2.0px
+    linkStyle 11 stroke:green,stroke-width:2.0px
+    linkStyle 12 stroke:#55f,stroke-width:2.0px
+    linkStyle 13 stroke:red,stroke-width:2.0px
+    linkStyle 14 stroke:red,stroke-width:2.0px
+    linkStyle 15 stroke-width:2.0px
+    linkStyle 16 stroke:green,stroke-width:2.0px
+    linkStyle 17 stroke:#55f,stroke-width:2.0px
+    linkStyle 18 stroke-width:2.0px
+    linkStyle 19 stroke:green,stroke-width:2.0px
+    linkStyle 20 stroke:#55f,stroke-width:2.0px
+    linkStyle 21 stroke-width:2.0px
+    linkStyle 22 stroke:green,stroke-width:2.0px
+    linkStyle 23 stroke:#55f,stroke-width:2.0px
+    linkStyle 24 stroke-width:2.0px
+    linkStyle 25 stroke:green,stroke-width:2.0px
+    linkStyle 26 stroke:#55f,stroke-width:2.0px
+    linkStyle 27 stroke-width:2.0px
+    linkStyle 28 stroke:green,stroke-width:2.0px
+    linkStyle 29 stroke:#55f,stroke-width:2.0px
+    linkStyle 30 stroke-width:2.0px
+    linkStyle 31 stroke:green,stroke-width:2.0px
+    linkStyle 32 stroke:#55f,stroke-width:2.0px
+    linkStyle 33 stroke-width:2.0px
+    linkStyle 34 stroke:green,stroke-width:2.0px
+    linkStyle 35 stroke:#55f,stroke-width:2.0px
+    linkStyle 36 stroke:red,stroke-width:2.0px
+    linkStyle 37 stroke-width:2.0px
+    linkStyle 38 stroke:green,stroke-width:2.0px
+    linkStyle 39 stroke:#55f,stroke-width:2.0px
+    linkStyle 40 stroke-width:2.0px
+    linkStyle 41 stroke-width:2.0px
+    linkStyle 42 stroke-width:2.0px
+    linkStyle 43 stroke-width:2.0px
+    linkStyle 44 stroke-width:2.0px
+    linkStyle 45 stroke:red,stroke-width:2.0px
+    linkStyle 46 stroke:green,stroke-width:2.0px
+    linkStyle 47 stroke:#55f,stroke-width:2.0px
+    linkStyle 48 stroke-width:2.0px
+    linkStyle 49 stroke-width:2.0px
+    linkStyle 50 stroke:green,stroke-width:2.0px
+    linkStyle 51 stroke:#55f,stroke-width:2.0px
+    linkStyle 52 stroke-width:2.0px
+    linkStyle 53 stroke:green,stroke-width:2.0px
+    linkStyle 54 stroke:#55f,stroke-width:2.0px
+    linkStyle 55 stroke-width:2.0px
+    linkStyle 56 stroke:green,stroke-width:2.0px
+    linkStyle 57 stroke:#55f,stroke-width:2.0px
+    linkStyle 58 stroke:red,stroke-width:2.0px
+    linkStyle 59 stroke-width:2.0px
+    linkStyle 60 stroke:green,stroke-width:2.0px
+    linkStyle 61 stroke:#55f,stroke-width:2.0px
+    linkStyle 62 stroke-width:2.0px
+    linkStyle 63 stroke-width:2.0px
+    linkStyle 64 stroke-width:2.0px
+    linkStyle 65 stroke-width:2.0px
+```
+
+However, this individual incarnation of the Envelope, with its
+individual salt(s), will remain consistent, so that a signature can
+still be applied and it will remain valid.
+
+```
+{
+    ELIDED [
+        {
+            "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
+        } [
+            salt: Salt
+        ]
+        "device": {
+            "ToneZone 1.0" [
+                {
+                    ELIDED: ELIDED
+                } [
+                    ELIDED
+                ]
+                "statsFor": "20230515" [
+                    "steps": "5703"
+                    ELIDED (4)
+                ]
+                "statsFor": "20230516" [
+                    "steps": "10715"
+                    ELIDED (4)
+                ]
+                ELIDED: ELIDED
+                ELIDED: ELIDED
+                ELIDED: ELIDED
+                ELIDED: ELIDED
+                ELIDED: ELIDED
+                ELIDED: ELIDED
+                ELIDED: ELIDED
+                salt: ELIDED
+            ]
+        }
+        ELIDED (2)
+    ]
+} [
+    verifiedBy: Signature [
+        note: "Signed by ToneZone Inc."
+    ]
+]
+```
+```mermaid
+graph LR
+    1(("f246d279<br/>NODE"))
+    2[/"85fb2b25<br/>WRAPPED"\]
+    3(("3d54fee3<br/>NODE"))
+    4{{"426f3f8a<br/>ELIDED"}}
+    5{{"8eebb7a8<br/>ELIDED"}}
+    6(("d39c9f22<br/>NODE"))
+    7(["38cadd4f<br/>ASSERTION"])
+    8["bb751b0e<br/>#quot;hasPubKey#quot;"]
+    9["2ada5820<br/>#quot;ur:crypto-pubkeys/lftaadfwhdcxtkzsswongh…#quot;"]
+    10(["d52c7edb<br/>ASSERTION"])
+    11[/"aa14a6e0<br/>15"/]
+    12["0fd21960<br/>Salt"]
+    13{{"e228433d<br/>ELIDED"}}
+    14(["ea4a7af3<br/>ASSERTION"])
+    15["52b252a6<br/>#quot;device#quot;"]
+    16[/"d23558a8<br/>WRAPPED"\]
+    17(("9c6f9afc<br/>NODE"))
+    18["73a38bc2<br/>#quot;ToneZone 1.0#quot;"]
+    19(["0da1c06f<br/>ASSERTION"])
+    20{{"11d623e4<br/>ELIDED"}}
+    21{{"e4d15c20<br/>ELIDED"}}
+    22(["31275d4d<br/>ASSERTION"])
+    23{{"f0b86b19<br/>ELIDED"}}
+    24{{"260f912d<br/>ELIDED"}}
+    25(["31396aeb<br/>ASSERTION"])
+    26{{"11d623e4<br/>ELIDED"}}
+    27{{"1fa879b6<br/>ELIDED"}}
+    28(["4ff93b04<br/>ASSERTION"])
+    29{{"e6d5fe1d<br/>ELIDED"}}
+    30{{"a695ea27<br/>ELIDED"}}
+    31(["55971106<br/>ASSERTION"])
+    32{{"b9c6fb7b<br/>ELIDED"}}
+    33{{"abd77e35<br/>ELIDED"}}
+    34(["9e2efdc5<br/>ASSERTION"])
+    35{{"f0b86b19<br/>ELIDED"}}
+    36{{"3aff4dd0<br/>ELIDED"}}
+    37(["b17f12f6<br/>ASSERTION"])
+    38["92f9c9f7<br/>#quot;statsFor#quot;"]
+    39(("f8a7f7b8<br/>NODE"))
+    40["d1395bd4<br/>#quot;20230516#quot;"]
+    41(["098da37b<br/>ASSERTION"])
+    42["f16e83e2<br/>#quot;steps#quot;"]
+    43["1111a5a3<br/>#quot;10715#quot;"]
+    44{{"307680cd<br/>ELIDED"}}
+    45{{"3a57e931<br/>ELIDED"}}
+    46{{"5929a395<br/>ELIDED"}}
+    47{{"9c1f47ee<br/>ELIDED"}}
+    48(("e5ad25dc<br/>NODE"))
+    49(["27bfa14c<br/>ASSERTION"])
+    50{{"4cbee23f<br/>ELIDED"}}
+    51{{"c2198002<br/>ELIDED"}}
+    52{{"cd58b980<br/>ELIDED"}}
+    53(["e723e107<br/>ASSERTION"])
+    54{{"b9c6fb7b<br/>ELIDED"}}
+    55{{"a043b8b2<br/>ELIDED"}}
+    56(["eb9645b5<br/>ASSERTION"])
+    57[/"aa14a6e0<br/>15"/]
+    58{{"6fe0eca9<br/>ELIDED"}}
+    59(["f44d64a6<br/>ASSERTION"])
+    60["92f9c9f7<br/>#quot;statsFor#quot;"]
+    61(("5a7effbf<br/>NODE"))
+    62["33241d8f<br/>#quot;20230515#quot;"]
+    63(["1cc98900<br/>ASSERTION"])
+    64["f16e83e2<br/>#quot;steps#quot;"]
+    65["42f3a37b<br/>#quot;5703#quot;"]
+    66{{"35cd3369<br/>ELIDED"}}
+    67{{"40a7bef0<br/>ELIDED"}}
+    68{{"59826f73<br/>ELIDED"}}
+    69{{"61bfb33e<br/>ELIDED"}}
+    70(["4eec285d<br/>ASSERTION"])
+    71[/"9d7ba9eb<br/>3"/]
+    72(("be1da528<br/>NODE"))
+    73["fe775bcb<br/>Signature"]
+    74(["1462e1a7<br/>ASSERTION"])
+    75[/"49a5f41b<br/>4"/]
+    76["5f9a1df7<br/>#quot;Signed by ToneZone Inc.#quot;"]
+    1 -->|subj| 2
+    2 -->|subj| 3
+    3 -->|subj| 4
+    3 --> 5
+    3 --> 6
+    6 -->|subj| 7
+    7 -->|pred| 8
+    7 -->|obj| 9
+    6 --> 10
+    10 -->|pred| 11
+    10 -->|obj| 12
+    3 --> 13
+    3 --> 14
+    14 -->|pred| 15
+    14 -->|obj| 16
+    16 -->|subj| 17
+    17 -->|subj| 18
+    17 --> 19
+    19 -->|pred| 20
+    19 -->|obj| 21
+    17 --> 22
+    22 -->|pred| 23
+    22 -->|obj| 24
+    17 --> 25
+    25 -->|pred| 26
+    25 -->|obj| 27
+    17 --> 28
+    28 -->|pred| 29
+    28 -->|obj| 30
+    17 --> 31
+    31 -->|pred| 32
+    31 -->|obj| 33
+    17 --> 34
+    34 -->|pred| 35
+    34 -->|obj| 36
+    17 --> 37
+    37 -->|pred| 38
+    37 -->|obj| 39
+    39 -->|subj| 40
+    39 --> 41
+    41 -->|pred| 42
+    41 -->|obj| 43
+    39 --> 44
+    39 --> 45
+    39 --> 46
+    39 --> 47
+    17 --> 48
+    48 -->|subj| 49
+    49 -->|pred| 50
+    49 -->|obj| 51
+    48 --> 52
+    17 --> 53
+    53 -->|pred| 54
+    53 -->|obj| 55
+    17 --> 56
+    56 -->|pred| 57
+    56 -->|obj| 58
+    17 --> 59
+    59 -->|pred| 60
+    59 -->|obj| 61
+    61 -->|subj| 62
+    61 --> 63
+    63 -->|pred| 64
+    63 -->|obj| 65
+    61 --> 66
+    61 --> 67
+    61 --> 68
+    61 --> 69
+    1 --> 70
+    70 -->|pred| 71
+    70 -->|obj| 72
+    72 -->|subj| 73
+    72 --> 74
+    74 -->|pred| 75
+    74 -->|obj| 76
+    style 1 stroke:red,stroke-width:3.0px
+    style 2 stroke:red,stroke-width:3.0px
+    style 3 stroke:red,stroke-width:3.0px
+    style 4 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 5 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 6 stroke:red,stroke-width:3.0px
+    style 7 stroke:red,stroke-width:3.0px
+    style 8 stroke:#55f,stroke-width:3.0px
+    style 9 stroke:#55f,stroke-width:3.0px
+    style 10 stroke:red,stroke-width:3.0px
+    style 11 stroke:#55f,stroke-width:3.0px
+    style 12 stroke:#55f,stroke-width:3.0px
+    style 13 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 14 stroke:red,stroke-width:3.0px
+    style 15 stroke:#55f,stroke-width:3.0px
+    style 16 stroke:red,stroke-width:3.0px
+    style 17 stroke:red,stroke-width:3.0px
+    style 18 stroke:#55f,stroke-width:3.0px
+    style 19 stroke:red,stroke-width:3.0px
+    style 20 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 21 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 22 stroke:red,stroke-width:3.0px
+    style 23 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 24 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 25 stroke:red,stroke-width:3.0px
+    style 26 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 27 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 28 stroke:red,stroke-width:3.0px
+    style 29 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 30 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 31 stroke:red,stroke-width:3.0px
+    style 32 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 33 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 34 stroke:red,stroke-width:3.0px
+    style 35 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 36 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 37 stroke:red,stroke-width:3.0px
+    style 38 stroke:#55f,stroke-width:3.0px
+    style 39 stroke:red,stroke-width:3.0px
+    style 40 stroke:#55f,stroke-width:3.0px
+    style 41 stroke:red,stroke-width:3.0px
+    style 42 stroke:#55f,stroke-width:3.0px
+    style 43 stroke:#55f,stroke-width:3.0px
+    style 44 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 45 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 46 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 47 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 48 stroke:red,stroke-width:3.0px
+    style 49 stroke:red,stroke-width:3.0px
+    style 50 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 51 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 52 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 53 stroke:red,stroke-width:3.0px
+    style 54 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 55 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 56 stroke:red,stroke-width:3.0px
+    style 57 stroke:#55f,stroke-width:3.0px
+    style 58 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 59 stroke:red,stroke-width:3.0px
+    style 60 stroke:#55f,stroke-width:3.0px
+    style 61 stroke:red,stroke-width:3.0px
+    style 62 stroke:#55f,stroke-width:3.0px
+    style 63 stroke:red,stroke-width:3.0px
+    style 64 stroke:#55f,stroke-width:3.0px
+    style 65 stroke:#55f,stroke-width:3.0px
+    style 66 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 67 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 68 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 69 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+    style 70 stroke:red,stroke-width:3.0px
+    style 71 stroke:#55f,stroke-width:3.0px
+    style 72 stroke:red,stroke-width:3.0px
+    style 73 stroke:#55f,stroke-width:3.0px
+    style 74 stroke:red,stroke-width:3.0px
+    style 75 stroke:#55f,stroke-width:3.0px
+    style 76 stroke:#55f,stroke-width:3.0px
+    linkStyle 0 stroke:red,stroke-width:2.0px
+    linkStyle 1 stroke:red,stroke-width:2.0px
+    linkStyle 2 stroke:red,stroke-width:2.0px
+    linkStyle 3 stroke-width:2.0px
+    linkStyle 4 stroke-width:2.0px
+    linkStyle 5 stroke:red,stroke-width:2.0px
+    linkStyle 6 stroke:green,stroke-width:2.0px
+    linkStyle 7 stroke:#55f,stroke-width:2.0px
+    linkStyle 8 stroke-width:2.0px
+    linkStyle 9 stroke:green,stroke-width:2.0px
+    linkStyle 10 stroke:#55f,stroke-width:2.0px
+    linkStyle 11 stroke-width:2.0px
+    linkStyle 12 stroke-width:2.0px
+    linkStyle 13 stroke:green,stroke-width:2.0px
+    linkStyle 14 stroke:#55f,stroke-width:2.0px
+    linkStyle 15 stroke:red,stroke-width:2.0px
+    linkStyle 16 stroke:red,stroke-width:2.0px
+    linkStyle 17 stroke-width:2.0px
+    linkStyle 18 stroke:green,stroke-width:2.0px
+    linkStyle 19 stroke:#55f,stroke-width:2.0px
+    linkStyle 20 stroke-width:2.0px
+    linkStyle 21 stroke:green,stroke-width:2.0px
+    linkStyle 22 stroke:#55f,stroke-width:2.0px
+    linkStyle 23 stroke-width:2.0px
+    linkStyle 24 stroke:green,stroke-width:2.0px
+    linkStyle 25 stroke:#55f,stroke-width:2.0px
+    linkStyle 26 stroke-width:2.0px
+    linkStyle 27 stroke:green,stroke-width:2.0px
+    linkStyle 28 stroke:#55f,stroke-width:2.0px
+    linkStyle 29 stroke-width:2.0px
+    linkStyle 30 stroke:green,stroke-width:2.0px
+    linkStyle 31 stroke:#55f,stroke-width:2.0px
+    linkStyle 32 stroke-width:2.0px
+    linkStyle 33 stroke:green,stroke-width:2.0px
+    linkStyle 34 stroke:#55f,stroke-width:2.0px
+    linkStyle 35 stroke-width:2.0px
+    linkStyle 36 stroke:green,stroke-width:2.0px
+    linkStyle 37 stroke:#55f,stroke-width:2.0px
+    linkStyle 38 stroke:red,stroke-width:2.0px
+    linkStyle 39 stroke-width:2.0px
+    linkStyle 40 stroke:green,stroke-width:2.0px
+    linkStyle 41 stroke:#55f,stroke-width:2.0px
+    linkStyle 42 stroke-width:2.0px
+    linkStyle 43 stroke-width:2.0px
+    linkStyle 44 stroke-width:2.0px
+    linkStyle 45 stroke-width:2.0px
+    linkStyle 46 stroke-width:2.0px
+    linkStyle 47 stroke:red,stroke-width:2.0px
+    linkStyle 48 stroke:green,stroke-width:2.0px
+    linkStyle 49 stroke:#55f,stroke-width:2.0px
+    linkStyle 50 stroke-width:2.0px
+    linkStyle 51 stroke-width:2.0px
+    linkStyle 52 stroke:green,stroke-width:2.0px
+    linkStyle 53 stroke:#55f,stroke-width:2.0px
+    linkStyle 54 stroke-width:2.0px
+    linkStyle 55 stroke:green,stroke-width:2.0px
+    linkStyle 56 stroke:#55f,stroke-width:2.0px
+    linkStyle 57 stroke-width:2.0px
+    linkStyle 58 stroke:green,stroke-width:2.0px
+    linkStyle 59 stroke:#55f,stroke-width:2.0px
+    linkStyle 60 stroke:red,stroke-width:2.0px
+    linkStyle 61 stroke-width:2.0px
+    linkStyle 62 stroke:green,stroke-width:2.0px
+    linkStyle 63 stroke:#55f,stroke-width:2.0px
+    linkStyle 64 stroke-width:2.0px
+    linkStyle 65 stroke-width:2.0px
+    linkStyle 66 stroke-width:2.0px
+    linkStyle 67 stroke-width:2.0px
+    linkStyle 68 stroke-width:2.0px
+    linkStyle 69 stroke:green,stroke-width:2.0px
+    linkStyle 70 stroke:#55f,stroke-width:2.0px
+    linkStyle 71 stroke:red,stroke-width:2.0px
+    linkStyle 72 stroke-width:2.0px
+    linkStyle 73 stroke:green,stroke-width:2.0px
+    linkStyle 74 stroke:#55f,stroke-width:2.0px
+```
+
+There are other methods to help blur the types of behavioral
+fingerprint. Improving methodologies to avoid sensor fusion is likely
+to be a big topic for the future. But, it needs to be balanced with
+the fact that _some_ correlation is desirable: one of the purposes of
+hashed elision is to allow continued authentication, but another is to
+allow proof that hidden data was part of a data package (as Nadia will
+do after she submits data to a clinical trial). Ultimately, that means
+that designers and users both must decide when to try and foil
+correlation and when to embrace it.
+
 ## Part Three: Clinically Shared Sensor Data
 
 This third set of use cases describes how Nadia can also support
@@ -743,7 +1573,7 @@ these situations, even more care might be taken to ensure data
 privacy, but that has to be done simultaneously with provenance that
 maintains the validity of the trials.
 
-### 7. Nadia Gets Clinical (Elision, Third-Party Encryption)
+### 8. Nadia Gets Clinical (Elision, Third-Party Encryption)
 
 * **Use Case:** Nadia wants to submit data to a clinical trial.
 * **Privacy Benefits:** Nadia's data is protected so that she can't be identified. ToneZone is protected from accidentally acquiring any "toxic" data as well.
@@ -937,7 +1767,7 @@ and some of which is passed on to the clinical trial. In this case,
 multipermits are again used, designating which data goes to which
 people via different encryption keys.
 
-### 8. Nadia Proves her Worth (Proof of Inclusion)
+### 9. Nadia Proves her Worth (Proof of Inclusion)
 
 * **Use Case:** Nadia wants to prove that she participated in a clinical study.
 * **Privacy Benefits:** Nadia only reveals that her data is part of the clinical trial when she chooses to do so.
@@ -1092,7 +1922,7 @@ a participant — though it would have been impossible for anyone to
 figure out without Nadia's revelation, as hashes are also one-way
 functions.
 
-### 9. Nadia Becomes a Number (Anonymization, Provenance)
+### 10. Nadia Becomes a Number (Anonymization, Provenance)
 
 * **Use Case:** Clinical trials sometimes need to further de-identify data but want to maintain its provenance.
 * **Privacy Benefits:** Nadia's data becomes even more anonymous.
@@ -1638,7 +2468,7 @@ signed either by the clinical trial or some third-party verifier.
 This final use case looks at some of the problems with public-health
 data that were highlighted during the height of the COVID crisis.
 
-### 10. Nadia Goes Viral (Herd Privacy)
+### 11. Nadia Goes Viral (Herd Privacy)
 
 * **Use Case:** Nadia wants to support the public health of COVID Contact Tracing without revealing her location.
 * **Privacy Benefits:** Nadia's location is never revealed.
