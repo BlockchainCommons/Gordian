@@ -171,7 +171,7 @@ specific data:
     "hasPubKey": "ur:crypto-pubkeys/lftaadfwhdcxtkzsswonghpdemptcpludkktialnnyzmadtldlbstabwwmecvtfghkckfztldemwtaaddmhdcxryptseesdrjpssbzwmoxwkvleyrnbgnszoatatqzglpaetdelfnbpyglaotlktcyfllubzeh"
 ]
 ```
-See the [mermaid output](Welnness-mermaid-1a.md).
+See the [mermaid output](Wellness-mermaid-1a.md).
 
 This data structure includes not just device data from the ToneZone,
 but also personal account information that Nadia entered when she set
