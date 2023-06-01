@@ -53,18 +53,19 @@ The value of Wellness information is that it can help you improve your health. G
 4. [**Nadia Hearts Her Doctor (Elision)**](Wellness.md#4-nadia-hearts-her-doctor-elision) — Eliding data so that you don't pass on person or health information that could be detrimental.
 5. [**Nadia is a Bit Remote (Multi-Permit)**](Wellness.md#5-nadia-is-a-bit-remote-multi-permit) — Using multipermits to give third-party monitors regular access to your data.
 6. [**Nadia Steps Up (Signature)**](Wellness.md#6-nadia-steps-up-signature) — Using signatures to prove the provenance of your data.
-
+7. [**Nadia Foils Fusion (Salting)**](Wellness.md#7-nadia-foils-fusion-salting) — Using salt to prevent sensor fusion.
+8. 
 #### [Part Three: Clinically Shared Sensor Data](Wellness.md#part-three-clinically-shared-sensor-data)
 
 Your personal health data can also help our society (and its public health), and Gordian Envelopes can ensure that your privacy is _still_ safe.
 
-7. [**Nadia Gets Clinical (Elision, Third-Party Encryption)**](Wellness.md#7-nadia-gets-clinical-elision-third-party-encryption) — Contributing to a clinical trial and protecting _everyone_ with encryption.
-8. [**Nadia Proves Her Worth (Proof of Inclusion)**](Wellness.md#8-nadia-proves-her-worth-proof-of-inclusion) — Proving your contribution with hash-based elision.
-9. [**Nadia Becomes a Number (Anonymization, Provenance)**](Wellness.md#9-nadia-becomes-a-number-anonymization-provenance) — Blurring data while maintaining its provenance.
+8. [**Nadia Gets Clinical (Elision, Third-Party Encryption)**](Wellness.md#8-nadia-gets-clinical-elision-third-party-encryption) — Contributing to a clinical trial and protecting _everyone_ with encryption.
+9. [**Nadia Proves Her Worth (Proof of Inclusion)**](Wellness.md#9-nadia-proves-her-worth-proof-of-inclusion) — Proving your contribution with hash-based elision.
+10. [**Nadia Becomes a Number (Anonymization, Provenance)**](Wellness.md#10-nadia-becomes-a-number-anonymization-provenance) — Blurring data while maintaining its provenance.
 
 #### [Part Four: The COVID-19 Appendix](Wellness.md#part-four-the-covid-19-appendix)
 
-10. [**Nadia Goes Viral (Herd Privacy)**](Wellness.md#10-nadia-goes-viral-herd-privacy) — Contact tracing without the privacy problems.
+11. [**Nadia Goes Viral (Herd Privacy)**](Wellness.md#11-nadia-goes-viral-herd-privacy) — Contact tracing without the privacy problems.
 
 ## [Software Industry Use Cases](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Use-Cases/Software.md)
 
