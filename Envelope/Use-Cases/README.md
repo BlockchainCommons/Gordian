@@ -54,7 +54,7 @@ The value of Wellness information is that it can help you improve your health. G
 5. [**Nadia is a Bit Remote (Multi-Permit)**](Wellness.md#5-nadia-is-a-bit-remote-multi-permit) — Using multipermits to give third-party monitors regular access to your data.
 6. [**Nadia Steps Up (Signature)**](Wellness.md#6-nadia-steps-up-signature) — Using signatures to prove the provenance of your data.
 7. [**Nadia Foils Fusion (Salting)**](Wellness.md#7-nadia-foils-fusion-salting) — Using salt to prevent sensor fusion.
-8. 
+
 #### [Part Three: Clinically Shared Sensor Data](Wellness.md#part-three-clinically-shared-sensor-data)
 
 Your personal health data can also help our society (and its public health), and Gordian Envelopes can ensure that your privacy is _still_ safe.
