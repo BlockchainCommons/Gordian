@@ -24,6 +24,7 @@ The key principles of CSR are:
 1. To place rational limits on what can be stored.
 1. To allow recovery from a variety of sources.
 1. To support a variety of methods for recovery.
+   * This by default includes recovery from online services.
    * This could include self-sovereign recovery (online or offline).
    * This could include social key recovery (friends/family/colleagues or trusted services).
    * This could include variations in-between.
@@ -112,10 +113,11 @@ The overall technical process looks like this:
 4. The symmetric key is sharded using SSKR.
 5. Three crypto-envelopes are constructed, each containing the encrypted payload plus one share of the symemtric key.
 6. A second payload is added to the first crypto-envelope, containing hints about where the other two envelopes will be stored. This is not encrypted, but will be protected by the authentication implicit in the first envelope's storage.
-7. A second unique, random symmetric key is created and sharded into five 3-of-5 shares. The original payload data is reencrypted with the second key. Both a unique 3-of-5 share and the second encrypted copy of the payload are also placed in the three envelopes.
-8. First envelope is placed in Platform Cloud.
-9. Second and third envelope are placed at locales specified by the first envelope.
-10. Two more envelopes are created using the fourth and fifth copies of the 3-of-5 share and the second copy of the payload. They will be distributed if the user decides to upgrade from 2-of-3 to 3-of-5 sharding.
+7. Optionally, other metadata is added to that second, unencrypted payload of the first envelope, or even to other envelopes.
+8. A second unique, random symmetric key is created and sharded into five 3-of-5 shares. The original payload data is reencrypted with the second key. Both a unique 3-of-5 share and the second encrypted copy of the payload are also placed in the three envelopes.
+9. First envelope is placed in Platform Cloud.
+10. Second and third envelope are placed at locales specified by the first envelope.
+11. Two more envelopes are created using the fourth and fifth copies of the 3-of-5 share and the second copy of the payload. They will be distributed if the user decides to upgrade from 2-of-3 to 3-of-5 sharding.
 
 Afterward, the envelopes look as follows:
 
