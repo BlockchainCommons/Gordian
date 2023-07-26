@@ -4,7 +4,7 @@ This set of exemplar sequence diagrams for a CSR Share Servers assumes the sampl
 
 **Associated Video:**
 
-{% include video id="mpCEGUiCwFg" provider="youtube" %}
+[![Gordian Envelope CLI - 1 - Commands Overview](https://img.youtube.com/vi/mpCEGUiCwFg/mqdefault.jpg)](https://youtu.be/mpCEGUiCwFg)
 
 ## I. Data Flow: Storing & Retrieving a Share
 
