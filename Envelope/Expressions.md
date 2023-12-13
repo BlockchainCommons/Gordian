@@ -2,4 +2,4 @@
 
 ## Moved
 
-This document has moved to [BCR-2023-011](https://github.com/BlockchainCommons/research/papers/bcr-2023-011-envelope-expression.md).
+This document has moved to [BCR-2023-012](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2023-012-envelope-expression.md).
