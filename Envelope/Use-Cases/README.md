@@ -1,4 +1,4 @@
-# Gordian Envelope Use Cases
+# Gordian Envelope Use Cases - Introduction
 
 The [Gordian Envelope](https://www.blockchaincommons.com/introduction/Envelope-Intro/) Smart Document is a powerful new method of data storage and transmission that focuses on protecting the privacy of its contents through cryptographic functions such as signatures, elision, and inclusion proofs. 
 
