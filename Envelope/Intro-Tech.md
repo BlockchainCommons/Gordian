@@ -98,7 +98,7 @@ graph LR
 ```
 However the abstract examples in this techinical overview will largely constrain themselves to a simple single-assertion envelope.
 
-> _See the [Envelope Docs](https://github.com/BlockchainCommons/Gordian/tree/master/Envelope#articles) for more information on basic envelope structure, especially [Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Overview.md), [Examples](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Examples.md), and [Envelope Notation](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Notation.md). Also see the [Envelope-CLI Docs](https://github.com/BlockchainCommons/envelope-cli-swift/tree/master/Docs#readme), especially [01-Overview](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/1-OVERVIEW.md)._
+> _See the [Envelope Docs](https://github.com/BlockchainCommons/Gordian/tree/master/Envelope#articles) for more information on basic envelope structure, especially [Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Overview.md), [Examples](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Examples.md), and [Envelope Notation](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Notation.md). Also see the [Envelope-CLI Docs](https://github.com/BlockchainCommons/envelope-cli-swift/tree/master/Docs#readme), especially [Overview](https://github.com/BlockchainCommons/envelope-cli-swift/blob/master/Docs/Overview.md)._
 
 ## Sub Envelopes
 
